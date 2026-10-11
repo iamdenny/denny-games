@@ -156,6 +156,9 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
                 <span>{text[category]}</span>
               </a>
             ))}
+            <a href={`/${locale}/collections/`}>
+              ◉ <span>{locale === "ko" ? "게임 모음" : "Collections"}</span>
+            </a>
             <a href={`/${locale}/search/`}>
               ⌕ <span>{text.searchAction}</span>
             </a>

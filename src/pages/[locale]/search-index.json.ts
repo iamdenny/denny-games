@@ -17,6 +17,7 @@ export const GET: APIRoute = ({ params }) => {
         url: `/${locale}/games/${game.id}/`,
         inputs: game.inputs,
         category: game.category,
+        controlStyle: game.controlStyle,
         categoryName: {
           en: {
             puzzle: "Puzzle",

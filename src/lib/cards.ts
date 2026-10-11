@@ -6,6 +6,7 @@ export interface CatalogueItem {
   description: string;
   tags: string[];
   category: string;
+  controlStyle: string;
   categoryName: string;
   subtitle: string;
   artwork: string;

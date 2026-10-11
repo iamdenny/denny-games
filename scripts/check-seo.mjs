@@ -25,7 +25,11 @@ const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
 );
 assert.equal(new Set(urls).size, urls.length, "Duplicate sitemap entries");
 assert(sitemap.includes('xmlns:xhtml="http://www.w3.org/1999/xhtml"'));
-assert(!/\/play\/|\/search\/|\/library\/|\/gamepad-test\//.test(sitemap));
+assert(
+  !/\/play\/|\/search\/|\/library\/|\/gamepad-test\/|\/device-check\//.test(
+    sitemap,
+  ),
+);
 const titles = new Map(),
   descriptions = new Map();
 let cursor = 0,
@@ -97,7 +101,7 @@ async function inspect(url) {
       description,
     );
   }
-  if (route.includes("/category/")) {
+  if (route.includes("/category/") || /\/collections\/[^/]+\/$/.test(route)) {
     collectionCount++;
     const list = nodes.find((node) => node["@type"] === "ItemList");
     const cards = [...html.matchAll(/data-game-card="([^"]+)"/g)].map(
@@ -122,6 +126,7 @@ for (const path of [
   "/en/search/",
   "/ko/library/",
   "/en/gamepad-test/",
+  "/ko/device-check/",
   "/ko/play/crisp-pakupaku/",
 ])
   assert((await read(path)).includes("noindex, follow"));

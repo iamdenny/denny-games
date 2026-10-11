@@ -3,6 +3,14 @@ import Base from "../../layouts/Base.astro";
 import GameCard from "../../components/GameCard.astro";
 import AdSlot from "../../components/AdSlot.astro";
 import AffiliateCard from "../../components/AffiliateCard.astro";
+import CollectionLinks from "../../components/CollectionLinks.astro";
+import DeviceCheck from "../../components/DeviceCheck.astro";
+import {
+  collections,
+  collectionGames,
+  controlLabels,
+  controlStyles,
+} from "../../data/collections";
 import Player from "../../components/Player.astro";
 import { games, categories, categoryGames, gameById } from "../../data/games";
 import { articles, guidePaths } from "../../data/pages";
@@ -32,6 +40,11 @@ const game = ["games", "play"].includes(kind ?? "")
   : undefined;
 const category = parts[1];
 const page = Number(parts[3] ?? "1");
+const gameCollection =
+  kind === "collections"
+    ? collections.find((item) => item.id === parts[1])
+    : undefined;
+const collectionCopy = gameCollection?.text[locale];
 const article = articles[path]?.[locale];
 const collection =
   kind === "category" ? paginate(categoryGames(category!), page) : games;
@@ -41,9 +54,16 @@ const title = isHome
     : "Free games. Right in your browser."
   : game
     ? `${game.text[locale].title} · ${locale === "ko" ? "무료 웹게임" : "Play Free Online"}`
-    : (article?.title ??
+    : (collectionCopy?.title ??
+      article?.title ??
       {
         category: `${text[category as Category]} ${locale === "ko" ? "무료 웹게임" : "Free Browser Games"}${page > 1 ? (locale === "ko" ? ` · ${page}페이지` : ` · Page ${page}`) : ""}`,
+        collections:
+          locale === "ko"
+            ? "플레이 방식별 무료 웹게임 모음"
+            : "Free browser game collections by play style",
+        "device-check":
+          locale === "ko" ? "내 기기에서 점검하기" : "Check your device",
         daily: text.daily,
         search: text.searchAction,
         library: text.library,
@@ -56,6 +76,12 @@ const title = isHome
 const categoryIntro =
   kind === "category" ? categoryCopy[category as Category][locale] : undefined;
 const description =
+  collectionCopy?.intro ??
+  (path === "collections"
+    ? locale === "ko"
+      ? "한 버튼, 위치 조작, 숫자 퍼즐과 일일 도전으로 무료 웹게임을 골라보세요. 실제 조작 기준과 저장·기기 검증 제한을 함께 안내합니다."
+      : "Choose free browser games by one-button controls, pointer play, number puzzles or daily challenges. Read selection criteria, save limits and device-testing boundaries."
+    : undefined) ??
   game?.text[locale].description ??
   article?.intro ??
   (categoryIntro
@@ -72,7 +98,12 @@ const schema = indexable(path)
       title,
       description,
       game: isPlay ? undefined : game,
-      items: kind === "category" ? collection : undefined,
+      items:
+        kind === "category"
+          ? collection
+          : gameCollection
+            ? collectionGames(gameCollection.id)
+            : undefined,
     })
   : undefined;
 const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
@@ -117,6 +148,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           {label("Sources and device support", "출처와 기기 지원 안내")} ↗
         </a>
       </p>
+      <CollectionLinks locale={locale} />
       <section class="feature">
         <div class="feature-copy">
           <span class="eyebrow">{text.featured}</span>
@@ -301,6 +333,28 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           <h2>{text.support}</h2>
           <p>{text.deviceNotice}</p>
           <p>
+            {label("Play style", "플레이 방식")}:{" "}
+            {controlLabels[game.controlStyle][locale]}.{" "}
+            {game.imported
+              ? label(
+                  "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
+                  "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                )
+              : label(
+                  "Local progress restoration is available for this game.",
+                  "이 게임은 로컬 진행 상태 복원을 지원합니다.",
+                )}
+          </p>
+          <p>
+            <a href={`/${locale}/device-check/?game=${game.id}`}>
+              {label(
+                "Check this game on your device",
+                "내 기기에서 이 게임 점검하기",
+              )}{" "}
+              ↗
+            </a>
+          </p>
+          <p>
             <a href={`/${locale}/compatibility/`}>{text.compatibility}</a> ·{" "}
             <a href={`/${locale}/gamepad-test/`}>{text.gamepad}</a>
           </p>
@@ -321,6 +375,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         <AdSlot id="detail-body" locale={locale} />
         <AffiliateCard locale={locale} />
       </div>
+      <CollectionLinks locale={locale} gameId={game.id} />
       <section>
         <div class="section-heading">
           <h2>{label("Next little escape", "다음 작은 즐거움")}</h2>
@@ -395,6 +450,70 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       <AdSlot id="category-mid" locale={locale} />
     </>
   )}
+  {kind === "device-check" && <DeviceCheck locale={locale} />}
+  {kind === "collections" && !gameCollection && (
+    <>
+      <div class="page-heading">
+        <span class="eyebrow">DENNY GAMES / COLLECTIONS</span>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </div>
+      <CollectionLinks locale={locale} />
+      <p class="notice">{text.deviceNotice}</p>
+    </>
+  )}
+  {gameCollection && collectionCopy && (
+    <>
+      <nav class="breadcrumb" aria-label={label("Breadcrumb", "현재 위치")}>
+        <a href={`/${locale}/`}>{text.home}</a>
+        <span>/</span>
+        <a href={`/${locale}/collections/`}>
+          {label("Collections", "게임 모음")}
+        </a>
+        <span>/ {collectionCopy.title}</span>
+      </nav>
+      <div class="page-heading">
+        <span class="eyebrow">
+          {collectionGames(gameCollection.id).length} {text.available}
+        </span>
+        <h1>{title}</h1>
+        <p>{collectionCopy.intro}</p>
+      </div>
+      <div class="game-grid">
+        {collectionGames(gameCollection.id).map((game) => (
+          <GameCard game={game} locale={locale} />
+        ))}
+      </div>
+      <div class="prose">
+        <h2>{label("How these games were selected", "이렇게 골랐습니다")}</h2>
+        <p>{collectionCopy.criteria}</p>
+        <h2>{collectionCopy.question}</h2>
+        <p>{collectionCopy.answer}</p>
+        <p class="notice">{text.deviceNotice}</p>
+        <p>
+          <a href={`/${locale}/device-check/`}>
+            {label("Check your device", "내 기기에서 점검하기")} ↗
+          </a>{" "}
+          ·{" "}
+          <a href={`/${locale}/guides/open-browser-games/`}>
+            {label("Sources and save limits", "출처와 저장 제한")}
+          </a>
+        </p>
+        {gameCollection.id === "daily-challenges" && (
+          <p>
+            <a class="button primary" href={`/${locale}/daily/`}>
+              {text.daily} ↗
+            </a>
+          </p>
+        )}
+      </div>
+      <p>
+        <a href={`/${locale}/search/`}>
+          {label("Search with more filters", "더 많은 조건으로 검색")} ↗
+        </a>
+      </p>
+    </>
+  )}
   {kind === "daily" && (
     <>
       <div class="page-heading">
@@ -431,7 +550,14 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       <div class="page-heading">
         <h1>{text.search}</h1>
       </div>
-      <form class="search-form" id="search-form" role="search">
+      <form
+        class="search-form search-filters"
+        id="search-form"
+        role="search"
+        action={`/${locale}/search/`}
+        method="get"
+      >
+        <label for="search-query">{text.search}</label>
         <input
           id="search-query"
           name="q"
@@ -440,13 +566,71 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           placeholder={text.search}
           maxlength="120"
         />
-        <button type="submit">{text.searchAction}</button>
+        <fieldset>
+          <legend>{label("Narrow your search", "조건으로 찾기")}</legend>
+          <label>
+            {label("Category", "장르")}
+            <select name="category">
+              <option value="">{label("All categories", "전체 장르")}</option>
+              {categories.map((category) => (
+                <option value={category}>{text[category]}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            {label("Play style", "플레이 방식")}
+            <select name="control">
+              <option value="">
+                {label("All play styles", "모든 플레이 방식")}
+              </option>
+              {controlStyles.map((style) => (
+                <option value={style}>{controlLabels[style][locale]}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            {label("Estimated round", "예상 한 판 길이")}
+            <select name="length">
+              <option value="">{label("Any length", "모든 길이")}</option>
+              <option value="short">
+                {label("Up to 3 minutes", "3분 이내")}
+              </option>
+              <option value="long">
+                {label("Over 3 minutes", "3분 초과")}
+              </option>
+            </select>
+          </label>
+        </fieldset>
+        <p class="notice">
+          {label(
+            "Round lengths are estimates. Play style describes controls, not verified device support.",
+            "한 판 길이는 예상치입니다. 플레이 방식은 조작 구분이며 기기 호환성 인증이 아닙니다.",
+          )}
+        </p>
+        <div class="detail-actions">
+          <button type="submit">{text.searchAction}</button>
+          <button type="reset">{label("Clear filters", "조건 초기화")}</button>
+        </div>
       </form>
       <p id="result-count" role="status"></p>
       <ul id="search-results" class="results-list"></ul>
+      <nav
+        id="search-pages"
+        class="pagination"
+        aria-label={label("Search pages", "검색 결과 페이지")}
+      ></nav>
+      <noscript>
+        <p>
+          {label(
+            "Search filters need JavaScript. Browse the static collections below instead.",
+            "검색 필터에는 JavaScript가 필요합니다. 아래 정적 게임 모음에서 탐색하세요.",
+          )}
+        </p>
+      </noscript>
       <p id="search-empty" hidden>
         {text.searchEmpty}
       </p>
+      <CollectionLinks locale={locale} />
     </>
   )}
   {kind === "library" && (
@@ -525,12 +709,22 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </tr>
         </tbody>
       </table>
+      <p>
+        <a class="button primary" href={`/${locale}/device-check/`}>
+          {label("Check your device", "내 기기에서 점검하기")} ↗
+        </a>
+      </p>
       <h2>{label("What we record", "이렇게 기록합니다")}</h2>
       <p>
         {label(
           "Date, release SHA, OS/browser or vehicle firmware, input model and connection, then separate open/touch/controller/audio/save/resume outcomes. We never promote a synthetic result to physical verification.",
           "날짜·릴리스 SHA·OS와 브라우저 또는 차량 펌웨어·입력 장치와 연결 방식을 남깁니다. 열림·터치·패드·소리·저장·복귀는 각각 확인하며 가상 입력을 실기기 검증으로 표시하지 않습니다.",
         )}
+      </p>
+      <p>
+        <a href={`/${locale}/guides/test-your-device/`}>
+          {label("How to run a device check", "기기 점검 방법 읽기")} ↗
+        </a>
       </p>
       <p>
         <a href="https://github.com/iamdenny/denny-games/tree/main/docs/releases">

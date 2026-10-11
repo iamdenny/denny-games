@@ -68,6 +68,11 @@ export function discoverySchema({
       name: text[game.category],
       item: pageUrl(locale, `category/${game.category}`),
     });
+  if (path.startsWith("collections/"))
+    crumbs.push({
+      name: locale === "ko" ? "게임 모음" : "Collections",
+      item: pageUrl(locale, "collections"),
+    });
   if (path) crumbs.push({ name: title, item: url });
   const breadcrumb = path
     ? {

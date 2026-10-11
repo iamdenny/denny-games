@@ -1,0 +1,103 @@
+---
+import type { Locale } from "../lib/types";
+import { deviceChecks } from "../lib/device-check";
+const { locale } = Astro.props as { locale: Locale };
+const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
+---
+
+<div class="prose">
+  <div class="page-heading">
+    <h1>{label("Check your device", "내 기기에서 점검하기")}</h1>
+    <p>
+      {label(
+        "Try the games on your actual device, then record what you observed. All items start as Not tested. A downloaded report is your own observation and does not certify compatibility.",
+        "실제 기기에서 게임을 조작한 뒤 관찰한 결과를 기록하세요. 모든 항목은 미실행으로 시작합니다. 내려받은 결과는 개인 관찰 기록이며 호환성 인증이 아닙니다.",
+      )}
+    </p>
+  </div>
+  <p class="notice">
+    {label(
+      "Nothing here is uploaded or saved automatically. Avoid entering personal identifiers. Reloading clears the form; download your results before leaving. Test a vehicle only while parked.",
+      "입력 내용은 업로드하거나 자동 저장하지 않습니다. 개인 식별 정보는 입력하지 마세요. 새로고침하면 입력이 사라지므로 떠나기 전에 결과를 내려받으세요. 차량에서는 주차 상태에서만 시험하세요.",
+    )}
+  </p>
+  <form id="device-check-form" class="device-check-form">
+    <label for="device-environment">
+      {label(
+        "Device / OS / browser / controller (optional)",
+        "기기 / OS / 브라우저 / 패드 (선택)",
+      )}
+    </label>
+    <input
+      id="device-environment"
+      name="environment"
+      maxlength="200"
+      placeholder={label(
+        "e.g. Android / Chrome / touch",
+        "예: 안드로이드 / Chrome / 터치",
+      )}
+    />
+    <label for="device-game">{label("Game tested", "점검한 게임")}</label>
+    <select id="device-game" name="game">
+      <option value="">{label("Choose a game", "게임을 선택하세요")}</option>
+    </select>
+    <p>
+      <a href={`/${locale}/collections/`}>
+        {label("Choose a game to try", "시험할 게임 고르기")} ↗
+      </a>{" "}
+      ·{" "}
+      <a href={`/${locale}/gamepad-test/`}>
+        {label("Input diagnostic", "입력 진단")} ↗
+      </a>
+    </p>
+    <fieldset>
+      <legend>
+        {label(
+          "Run each check before choosing its result",
+          "각 항목을 실행한 뒤 결과를 선택하세요",
+        )}
+      </legend>
+      {deviceChecks.map((check) => (
+        <div class="device-check-row">
+          <label for={`check-${check.id}`}>
+            <strong>{check.title[locale]}</strong>
+            <span>{check.steps[locale]}</span>
+          </label>
+          <select id={`check-${check.id}`} name={check.id}>
+            <option value="not-tested">{label("Not tested", "미실행")}</option>
+            <option value="pass">{label("Passed", "성공")}</option>
+            <option value="fail">{label("Failed", "실패")}</option>
+            <option value="not-applicable">
+              {label("Not applicable", "해당 없음")}
+            </option>
+          </select>
+        </div>
+      ))}
+    </fieldset>
+    <label for="device-notes">
+      {label("Observed problem (optional)", "관찰한 문제 (선택)")}
+    </label>
+    <textarea
+      id="device-notes"
+      name="notes"
+      maxlength="1000"
+      rows="4"
+    ></textarea>
+    <p id="device-release" role="status"></p>
+    <button type="submit" class="button primary" id="device-download" disabled>
+      {label("Download my check results", "내 점검 결과 다운로드")}
+    </button>
+    <p id="device-result" role="status"></p>
+    <noscript>
+      <p>
+        {label(
+          "JavaScript is needed to create a local report. You can still read and follow the checklist above.",
+          "로컬 결과 파일 생성에는 JavaScript가 필요합니다. 위 체크리스트는 그대로 읽고 따라 할 수 있습니다.",
+        )}
+      </p>
+    </noscript>
+  </form>
+</div>
+<script>
+  import "../scripts/device-check";
+</script>

@@ -517,6 +517,8 @@ main {
   max-width: 760px;
 }
 .page-heading h1 {
+  word-break: keep-all;
+  overflow-wrap: break-word;
   margin-bottom: 18px;
 }
 .page-heading p {
@@ -1108,4 +1110,85 @@ main {
 }
 .catalogue-section {
   margin-block: 48px;
+}
+
+/* Catalogue discovery reuses Arcade Press cards, borders and typography. */
+.collection-links {
+  margin-block: 2rem;
+}
+.search-filters {
+  display: block;
+  max-width: 55rem;
+}
+.search-filters > input {
+  width: 100%;
+}
+.search-filters fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block: 1rem;
+  padding: 1rem;
+  min-width: 0;
+}
+.search-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+.search-filters fieldset label {
+  flex: 1 1 11rem;
+  min-width: 0;
+}
+.search-filters select {
+  width: 100%;
+}
+.device-check-form {
+  display: grid;
+  gap: 0.8rem;
+}
+.device-check-form input,
+.device-check-form textarea,
+.device-check-form select {
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
+}
+.device-check-form fieldset {
+  min-width: 0;
+  padding: 1rem;
+}
+.device-check-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 10rem;
+  gap: 1rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.device-check-row label {
+  display: grid;
+  gap: 0.35rem;
+}
+.device-check-row label span {
+  font-size: 0.9rem;
+}
+@media (max-width: 600px) {
+  .device-check-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.search-filters select,
+.device-check-form input,
+.device-check-form select,
+.device-check-form textarea {
+  min-height: 48px;
+  padding: 0.65rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  border-radius: 3px;
 }
