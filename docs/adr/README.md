@@ -8,3 +8,4 @@
 - [0006-input-and-state — Input and state](0006-input-and-state.md)
 - [0007-advertising — Advertising and consent gates](0007-advertising.md)
 - [0008-evidence-and-release — Evidence and release](0008-evidence-and-release.md)
+- [0009-imported-games — Restricted imported runtime](0009-imported-games.md)

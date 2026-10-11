@@ -1,6 +1,15 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", "graphify-out", ".scale-fixture"],
-  "compilerOptions": { "noUncheckedIndexedAccess": true }
+  "exclude": [
+    "dist",
+    "node_modules",
+    "graphify-out",
+    ".scale-fixture",
+    "vendor",
+    "public/vendor"
+  ],
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": true
+  }
 }

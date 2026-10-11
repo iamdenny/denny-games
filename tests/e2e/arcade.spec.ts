@@ -5,7 +5,7 @@ test("catalogue, saved games, Korean search and daily routes", async ({
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/ko/");
-  await expect(page.locator("[data-game-card]")).toHaveCount(3);
+  await expect(page.locator("[data-game-card]")).toHaveCount(21);
   await page.locator('[data-favorite="circuit-loop"]').click();
   await page.goto("/ko/library/");
   await expect(

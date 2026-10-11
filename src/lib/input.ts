@@ -53,6 +53,7 @@ export function connectGamepad(
   onAction: (action: Action) => void,
   onPause: () => void,
   onDisconnect: () => void,
+  onState?: (state: { x: number; y: number; pressed: boolean }) => void,
 ): () => void {
   let frame = 0,
     lastDirection = "",
@@ -66,8 +67,11 @@ export function connectGamepad(
       /* browser policy: retain touch/keyboard */
     }
     let direction = "";
+    let continuous = { x: 0, y: 0, pressed: false };
+    let connected = false;
     for (const pad of pads) {
       if (!pad || pad.mapping !== "standard") continue;
+      connected = true;
       const before = previous.get(pad.index) ?? new Set<number>();
       const pressed = new Set<number>();
       pad.buttons.forEach((button, index) => {
@@ -87,8 +91,26 @@ export function connectGamepad(
               : pressed.has(13) || y > 0.3
                 ? "down"
                 : "";
+      continuous = {
+        x: pressed.has(14)
+          ? -1
+          : pressed.has(15)
+            ? 1
+            : Math.abs(x) > 0.3
+              ? x
+              : 0,
+        y: pressed.has(12)
+          ? -1
+          : pressed.has(13)
+            ? 1
+            : Math.abs(y) > 0.3
+              ? y
+              : 0,
+        pressed: pressed.has(0),
+      };
       previous.set(pad.index, pressed);
     }
+    if (connected) onState?.(continuous);
     if (
       direction &&
       (direction !== lastDirection ||

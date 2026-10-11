@@ -1,6 +1,6 @@
 {
   "name": "denny-games",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "astro build && node scripts/audit-output.mjs",
+    "build": "node scripts/build-crisp.mjs && astro build && node scripts/audit-output.mjs",
     "preview": "astro preview --host 127.0.0.1 --port 4321",
     "check": "astro check",
     "test": "vitest run",
@@ -18,7 +18,8 @@
     "test:scale": "node scripts/check-scale.mjs",
     "format": "prettier --write src scripts tests *.json *.mjs .github/workflows",
     "verify": "npm run check && npm test && npm run docs:check && npm run docs:lint && npm run test:scale && npm run build",
-    "format:check": "prettier --check src scripts tests *.json *.mjs .github/workflows"
+    "format:check": "prettier --check src scripts tests *.json *.mjs .github/workflows",
+    "test:imports": "node scripts/check-imports.mjs"
   },
   "dependencies": {
     "astro": "7.3.8"

@@ -1,4 +1,14 @@
 import type { Locale } from "../lib/types";
+import crisp from "./crisp.json";
+export const categories = [
+  "puzzle",
+  "arcade",
+  "action",
+  "shooting",
+  "racing",
+  "sports",
+] as const;
+export type Category = (typeof categories)[number];
 export interface GameCopy {
   title: string;
   subtitle: string;
@@ -9,7 +19,11 @@ export interface GameCopy {
 }
 export interface Game {
   id: string;
-  category: "puzzle" | "arcade";
+  category: Category;
+  screenshot?: string;
+  imported?: boolean;
+  internalScore?: boolean;
+  notice?: string;
   duration: string;
   color: string;
   version: number;
@@ -38,6 +52,7 @@ export const games: Game[] = [
     source:
       "https://github.com/iamdenny/denny-games/tree/main/src/games/circuit",
     added: "2026-10-11",
+    screenshot: "/art/screenshots/circuit-loop.png",
     artwork: "/art/circuit-loop.svg",
     text: {
       en: {
@@ -97,6 +112,7 @@ export const games: Game[] = [
     author: "Denny Games",
     source: "https://github.com/iamdenny/denny-games/tree/main/src/games/orbit",
     added: "2026-10-11",
+    screenshot: "/art/screenshots/orbit-break.png",
     artwork: "/art/orbit-break.svg",
     text: {
       en: {
@@ -156,6 +172,7 @@ export const games: Game[] = [
     author: "Gabriele Cirulli / Denny Games adaptation",
     source: "https://github.com/gabrielecirulli/2048",
     added: "2026-10-11",
+    screenshot: "/art/screenshots/2048.png",
     artwork: "/art/2048.svg",
     text: {
       en: {
@@ -203,6 +220,85 @@ export const games: Game[] = [
     },
   },
 ];
+games.push(
+  ...crisp.map((item): Game => ({
+    id: item.id,
+    category: item.category as Category,
+    duration: "1–3",
+    color: (
+      {
+        puzzle: "yellow",
+        arcade: "mint",
+        action: "rust",
+        shooting: "mint",
+        racing: "yellow",
+        sports: "rust",
+      } as const
+    )[item.category as Category],
+    version: 1,
+    stages: 1,
+    tags: [
+      item.title,
+      item.slug,
+      item.category,
+      "ABA Games",
+      "Crisp",
+      "오픈소스",
+      ...item.controlsKo,
+    ],
+    inputs: ["touch", "keyboard", "gamepad"],
+    license: "MIT",
+    author: "ABA Games",
+    source: item.source,
+    added: "2026-10-11",
+    imported: true,
+    internalScore: item.slug === "skygolf",
+    notice: "/licenses/crisp/",
+    artwork: `/art/crisp/${item.slug}.png`,
+    text: {
+      en: {
+        title: item.title,
+        subtitle: item.controls.join(" · "),
+        description: item.summary,
+        rules: item.controls,
+        controls: [
+          "Touch or mouse: " + item.controls.join("; "),
+          item.digits
+            ? "Keyboard: number keys 1–9, or use the number buttons below the game."
+            : "Keyboard: hold Space to press, release to let go. Pointer games use the mouse.",
+          "Standard gamepad: left stick/D-pad moves the pointer, hold A to press; Start pauses. Physical hardware unverified.",
+        ],
+        tips: [
+          "Pause at any time with P/Escape or the Pause button.",
+          item.slug === "skygolf"
+            ? "This game counts strokes inside the game. Leaving the page restarts your course."
+            : "This original restarts after leaving the page; only your best score is saved.",
+          "Original source and MIT notices are linked below.",
+        ],
+      },
+      ko: {
+        title: item.title,
+        subtitle: item.controlsKo.join(" · "),
+        description: item.summaryKo,
+        rules: item.controlsKo,
+        controls: [
+          "터치·마우스: " + item.controlsKo.join(" · "),
+          item.digits
+            ? "키보드: 숫자 1–9 또는 게임 아래 숫자 버튼을 누르세요."
+            : "키보드: Space를 길게 눌러 조작하고 손을 떼세요. 위치 조작 게임은 마우스를 사용하세요.",
+          "표준 게임패드: 왼쪽 스틱·방향패드로 포인터 이동, A 길게 누르기, Start 정지. 실제 패드는 미검증입니다.",
+        ],
+        tips: [
+          "P/Escape 또는 정지 버튼으로 언제든 멈출 수 있어요.",
+          item.slug === "skygolf"
+            ? "타수는 게임 화면에서 확인하세요. 페이지를 떠나면 코스가 처음부터 시작합니다."
+            : "페이지를 떠나면 라운드는 처음부터 시작합니다. 최고 점수만 저장해요.",
+          "아래에서 원본 소스와 MIT 고지를 확인할 수 있어요.",
+        ],
+      },
+    },
+  })),
+);
 // Scale fixtures are local/CI-only and never part of a normal production build.
 if (import.meta.env.SCALE_TEST === "1") {
   const originals = [...games];
@@ -216,7 +312,7 @@ if (import.meta.env.SCALE_TEST === "1") {
     });
   }
 }
-export const categories = ["puzzle", "arcade"] as const;
+
 export function gameById(id: string) {
   return games.find((game) => game.id === id);
 }

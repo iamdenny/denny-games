@@ -1,0 +1,2951 @@
+{
+  "reviewedAt": "2026-10-11",
+  "scope": "All 294 entries in the existing commercial-redistribution research; not every open game worldwide.",
+  "counts": {
+    "integrated": 192,
+    "rights-or-integration-review": 28,
+    "port-required": 74
+  },
+  "entries": [
+    {
+      "id": "2048",
+      "title": "2048",
+      "category": "숫자 퍼즐",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/gabrielecirulli/2048"
+    },
+    {
+      "id": "snake",
+      "title": "JavaScript Snake",
+      "category": "아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "Parcel 빌드 확인. 터치 버튼과 반응형 보드 추가 검토. 별도 전체 자산 목록 미확인",
+      "source": "https://github.com/patorjk/JavaScript-Snake"
+    },
+    {
+      "id": "sokoban",
+      "title": "Sokoban.js",
+      "category": "논리 퍼즐",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "키보드 입력과 고정 캔버스 확인. 작은 구현으로 레벨 관리 개발 필요. 도형 중심 / 추가 레벨팩은 별도",
+      "source": "https://github.com/taniarascia/sokoban"
+    },
+    {
+      "id": "breakout",
+      "title": "JavaScript Breakout",
+      "category": "아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "음원은 상업 이용 금지가 아니라 변경 금지·표시 조건. 원작자별 고지 복원 또는 자체 음원으로 교체. 음원 CC BY-ND 2.0",
+      "source": "https://github.com/jakesgordon/javascript-breakout"
+    },
+    {
+      "id": "hextris",
+      "title": "Hextris",
+      "category": "퍼즐 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "GPL 고지·배포 게임의 해당 소스 제공. MIT로 오기하지 않기. 별도 예외 감사 전",
+      "source": "https://github.com/Hextris/hextris"
+    },
+    {
+      "id": "gridland",
+      "title": "Gridland",
+      "category": "매치 퍼즐 / 생존",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "MPL 대상 파일과 수정분 소스 제공. Ant 빌드 검증 필요. 별도 예외 감사 전",
+      "source": "https://github.com/doublespeakgames/gridland"
+    },
+    {
+      "id": "adarkroom",
+      "title": "A Dark Room",
+      "category": "텍스트 어드벤처",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "한국어 번역 링크 존재. 네이티브 상용 앱의 자산까지 허용으로 확장하지 않기. 웹 저장소 범위 / 유료 앱 자산 제외",
+      "source": "https://github.com/doublespeakgames/adarkroom"
+    },
+    {
+      "id": "radiusraid",
+      "title": "Radius Raid",
+      "category": "슈팅",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "키보드+마우스 게임. 모바일 듀얼스틱 추가 후보. 원본·오디오 라이브러리 고지 확인",
+      "source": "https://github.com/jackrugile/radius-raid"
+    },
+    {
+      "id": "cubecomposer",
+      "title": "cube composer",
+      "category": "논리 퍼즐",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "PureScript/Bower/Gulp 구형 빌드 복구 필요. 별도 예외 감사 전",
+      "source": "https://github.com/sharkdp/cube-composer"
+    },
+    {
+      "id": "underrun",
+      "title": "UNDERRUN",
+      "category": "3D 액션",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "작은 WebGL 액션. 터치 조작·실차 GPU 검증 필요. Sonant-X는 zlib 별도",
+      "source": "https://github.com/phoboslab/underrun"
+    },
+    {
+      "id": "hexgl",
+      "title": "HexGL",
+      "category": "레이싱",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "중단된 개발과 큰 텍스처 고려. 현재 성능과 파일별 권리를 확인해야 한다. README에 리소스 기본 MIT, 개별 예외 확인 필요",
+      "source": "https://github.com/BKcore/HexGL"
+    },
+    {
+      "id": "spacehuggers",
+      "title": "Space Huggers",
+      "category": "플랫폼 액션 / 협동",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "README에 4인 패드 협동, 엔진의 터치 입력 명시. 실제 게임 터치 UI와 기기 테스트는 별도. 저장소 라이선스 / 의존성 고지 확인",
+      "source": "https://github.com/KilledByAPixel/SpaceHuggers"
+    },
+    {
+      "id": "bounceback",
+      "title": "Bounce Back",
+      "category": "액션 어드벤처",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "MIT가 아니라 GPLv2 라이선스 파일. 부메랑 로그라이트. 절차 생성 음악 / 저장소 예외 확인",
+      "source": "https://github.com/KilledByAPixel/BounceBack"
+    },
+    {
+      "id": "packabunchas",
+      "title": "PACKABUNCHAS",
+      "category": "배치 퍼즐",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "원작 README는 대소문자 Readme.md. 퍼즐 모드 5개를 게임 5종으로 세지 않았다. 생성형 효과음·음악 라이브러리 고지 확인",
+      "source": "https://github.com/MattiaFortunati/packabunchas"
+    },
+    {
+      "id": "evolve",
+      "title": "Evolve",
+      "category": "방치 / 문명 경영",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "콘텐츠 양이 크고 작은 화면·한국어 대응 부담. 단일 플레이어 정적 배포 검증. 별도 자산·의존성 목록 확인",
+      "source": "https://github.com/pmotschmann/Evolve"
+    },
+    {
+      "id": "ancientbeast",
+      "title": "Ancient Beast",
+      "category": "턴제 전술",
+      "researchTier": "A",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "코드와 자산 범위를 별도로 명시. AGPL 대응 필요. 온라인 대전까지 무료 정적 호스팅으로 된다고 가정하지 않기. 그림·음악 CC BY-SA 4.0 명시",
+      "source": "https://github.com/FreezingMoon/AncientBeast"
+    },
+    {
+      "id": "wbwwb",
+      "title": "We Become What We Behold",
+      "category": "인터랙티브 스토리",
+      "researchTier": "A",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "각 음원 attribution 유지. 폭력적 장면이 있어 가족용 기본 목록과 광고 적합성 별도 검토. 원작 그림 CC0, 제3자 음원 CC BY·CC0 목록",
+      "source": "https://github.com/ncase/wbwwb"
+    },
+    {
+      "id": "comingout",
+      "title": "Coming Out Simulator 2014",
+      "category": "대화형 스토리",
+      "researchTier": "A",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "README에 돈을 버는 목적의 공유·리믹스까지 명시. 긴 대화·가족 갈등 콘텐츠. 그림 CC0, 소리 모두 CC0로 명시",
+      "source": "https://github.com/ncase/coming-out-simulator-2014"
+    },
+    {
+      "id": "tobutobugirl",
+      "title": "Tobu Tobu Girl / Deluxe",
+      "category": "플랫폼 아케이드",
+      "researchTier": "A",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "원작과 Deluxe 모두 같은 허용 구조. 목록은 한 게임 계열로 집계. 게임보이·게임보이 컬러 에뮬레이터 필요. 이미지·텍스트·음악·효과음 전체 CC BY 4.0",
+      "source": "https://github.com/SimonLarsen/tobutobugirl-dx"
+    },
+    {
+      "id": "ucity",
+      "title": "µCity",
+      "category": "도시 건설",
+      "researchTier": "A",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "원작자 현재 개발 주소는 Codeberg/SkyLyrac/ucity. 저장 RAM 호환 ROM 선택 필요. 그래픽·음악 CC BY-SA 4.0",
+      "source": "https://github.com/AntonioND/ucity"
+    },
+    {
+      "id": "supertiltbro",
+      "title": "Super Tilt Bro.",
+      "category": "대전 격투",
+      "researchTier": "A",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "일반 에뮬레이터에는 네트워크 없는 UNROM 빌드 검토. RAINBOW mapper 네트워크판을 곧바로 지원한다고 가정하지 않기. 프로젝트 라이선스와 원작자 재배포 허용 답변",
+      "source": "https://github.com/sgadrat/super-tilt-bro"
+    },
+    {
+      "id": "honkeypong",
+      "title": "HonkeyPong",
+      "category": "탁구 아케이드",
+      "researchTier": "B",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "원작자 그래픽 크레딧 존재. 전체 ROM 산출물·포함 라이브러리 확인. Boxy Bold 폰트·FamiTone public domain 명시",
+      "source": "https://github.com/HonkeyKong/HonkeyPong"
+    },
+    {
+      "id": "thwaite",
+      "title": "Thwaite",
+      "category": "미사일 방어",
+      "researchTier": "A",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "원작 배포 ZIP의 README.html Legal 확인. ROM과 대응 소스 함께 제공. 게임 프로그램 전체 GPL 고지",
+      "source": "https://pineight.com/nes/#thwaite"
+    },
+    {
+      "id": "rhde",
+      "title": "RHDE: Furniture Fight",
+      "category": "2인 전략",
+      "researchTier": "A",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "출처·허가문 보존. 2인 가구 배치·집 공격 전략 게임. 설명서와 동봉 프로그램에 동일 허가 명시",
+      "source": "https://pineight.com/nes/#rhde"
+    },
+    {
+      "id": "concentration",
+      "title": "Concentration Room",
+      "category": "카드 기억 퍼즐",
+      "researchTier": "B",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "원본 ROM에는 소스 동봉 예외가 있으나 수정판에는 적용을 가정하지 않기. 폰트 출처 기재 확인. 폰트 출처 등 별도 확인",
+      "source": "https://pineight.com/croom/"
+    },
+    {
+      "id": "gbwordyl",
+      "title": "GB-Wordyl",
+      "category": "단어 퍼즐",
+      "researchTier": "B",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "영어 중심. 한글 단어판은 별도 개발. 패키지 상자 이미지는 게임 ROM과 구분. 단어 목록·사운드·패키지 그림별 확인 필요",
+      "source": "https://github.com/bbbbbr/gb-wordyl"
+    },
+    {
+      "id": "bustfree",
+      "title": "Bustfree!",
+      "category": "벽돌 깨기",
+      "researchTier": "B",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "Game Boy 홈브루. 원작 ROM과 해당 소스·내장 라이브러리 범위 확인. README는 코드 허용을 명시 / 자산 범위 확인",
+      "source": "https://github.com/adamsmasher/bustfree"
+    },
+    {
+      "id": "miniplanets",
+      "title": "Miniplanets REMIX",
+      "category": "3D 행성 플랫폼",
+      "researchTier": "B",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "Sona 드라이버도 공식 사이트에서 zlib 확인. 상업 허용 에뮬레이터 코어를 별도로 선택. 저장소 기본 라이선스 / 자산 예외 확인",
+      "source": "https://github.com/sikthehedgehog/miniplanets"
+    },
+    {
+      "id": "adjustris",
+      "title": "Adjustris",
+      "category": "블록 퍼즐",
+      "researchTier": "A",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "직접 편집하는 블록 세트가 특징. 원작 명칭·게임으로 소개하고 타사 공식 게임처럼 표시하지 않기. 게임 소프트웨어 전체 CC0 선언",
+      "source": "https://github.com/tbsp/Adjustris"
+    },
+    {
+      "id": "libbet",
+      "title": "Libbet and the Magic Floor",
+      "category": "논리 퍼즐",
+      "researchTier": "A",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "Game Boy / Super Game Boy. 롤링·점프로 바닥 경로를 채우는 퍼즐. 게임 프로그램 허가 명시",
+      "source": "https://github.com/pinobatch/libbet"
+    },
+    {
+      "id": "minesweepgb",
+      "title": "minesweepGB",
+      "category": "지뢰찾기",
+      "researchTier": "B",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "게임보이 지뢰찾기. 작은 화면 커서·클릭 대체 조작 검증. 저장소 기본 라이선스 / 예제 유래 코드 확인",
+      "source": "https://github.com/lancekindle/minesweepGB"
+    },
+    {
+      "id": "squishy",
+      "title": "Squishy the Turtle",
+      "category": "퍼즐 어드벤처",
+      "researchTier": "B",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "크기를 바꿔 알을 모으는 Game Boy 게임. GBDK 빌드와 자산 고지 확인. 별도 전체 자산 목록 미확인",
+      "source": "https://github.com/cppchriscpp/SquishyTheTurtle"
+    },
+    {
+      "id": "zork1",
+      "title": "Zork I",
+      "category": "텍스트 어드벤처",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "Microsoft·Xbox·Activision의 2025-11-20 공식 MIT 공개 확인. 해당 소스에서 빌드하고 웹 Z-machine 실행기 라이선스 별도 확인. 다른 Infocom 작품은 포함하지 않는다. 공개 ZIL 소스의 게임 텍스트·데이터 범위",
+      "source": "https://github.com/historicalsource/zork1"
+    },
+    {
+      "id": "zork2",
+      "title": "Zork II",
+      "category": "텍스트 어드벤처",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "Microsoft·Xbox·Activision의 2025-11-20 공식 MIT 공개 확인. 해당 소스에서 빌드하고 웹 Z-machine 실행기 라이선스 별도 확인. 다른 Infocom 작품은 포함하지 않는다. 공개 ZIL 소스의 게임 텍스트·데이터 범위",
+      "source": "https://github.com/historicalsource/zork2"
+    },
+    {
+      "id": "zork3",
+      "title": "Zork III",
+      "category": "텍스트 어드벤처",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "Microsoft·Xbox·Activision의 2025-11-20 공식 MIT 공개 확인. 해당 소스에서 빌드하고 웹 Z-machine 실행기 라이선스 별도 확인. 다른 Infocom 작품은 포함하지 않는다. 공개 ZIL 소스의 게임 텍스트·데이터 범위",
+      "source": "https://github.com/historicalsource/zork3"
+    },
+    {
+      "id": "freedoom",
+      "title": "Freedoom (Phase 1 / Phase 2 / FreeDM)",
+      "category": "FPS",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 README가 레벨·그림·소리·음악으로 구성된 자유 게임 데이터라고 명시. 상용 Doom WAD를 포함하지 않는다. 캠페인·대전 모음을 한 계열로 집계. 게임 데이터 BSD-3-Clause",
+      "source": "https://github.com/freedoom/freedoom"
+    },
+    {
+      "id": "mrrescue",
+      "title": "Mr. Rescue",
+      "category": "플랫폼 액션",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "LÖVE 게임. 웹 런타임 또는 포팅 검토가 필요하며 현재 웹 실행을 확인한 것은 아니다. 그림·음악·텍스트 CC BY-SA 3.0",
+      "source": "https://github.com/SimonLarsen/mrrescue"
+    },
+    {
+      "id": "openttd",
+      "title": "OpenTTD + OpenGFX/OpenSFX/OpenMSX",
+      "category": "교통 경영",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "반드시 자유 베이스셋 사용. Transport Tycoon Deluxe 원본 데이터는 제외. 저장·용량·웹 포팅 부담이 크다. OpenGFX GPL, OpenSFX CC BY-SA 3.0, OpenMSX GPLv2",
+      "source": "https://github.com/OpenTTD/OpenTTD"
+    },
+    {
+      "id": "supertux",
+      "title": "SuperTux",
+      "category": "플랫폼 액션",
+      "researchTier": "B",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "upstream에 WASM workflow 존재. 전체 자산 예외·배포 크기·브라우저 입력 검증 필요. 데이터 대부분 CC BY-SA / 개별 고지 확인",
+      "source": "https://github.com/SuperTux/supertux"
+    },
+    {
+      "id": "neverball",
+      "title": "Neverball / Neverputt",
+      "category": "공 굴리기 / 골프",
+      "researchTier": "B",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "Octocat 디자인 특별 허가 범위를 확인하거나 해당 스킨 제외. 두 게임 포함 모음을 한 행으로 집계. 글꼴 별도 / Octocat 특별 허가",
+      "source": "https://github.com/neverball/neverball"
+    },
+    {
+      "id": "teeworlds",
+      "title": "Teeworlds",
+      "category": "멀티플레이 액션",
+      "researchTier": "A",
+      "runtime": "S",
+      "status": "port-required",
+      "reason": "게임 서버가 필요한 후보. 무료 정적 호스팅만으로 완성되는 초기 서비스에는 후순위. data·datasrc CC BY-SA 3.0, 글꼴 예외",
+      "source": "https://github.com/teeworlds/teeworlds"
+    },
+    {
+      "id": "basicsolitaire",
+      "title": "Basic Solitaire",
+      "category": "카드",
+      "researchTier": "B",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "브라우저 JS 게임이 아니라 DOS/QBasic 계열. DOS 에뮬레이터 필요; 초기 카드 게임으로는 편의성 낮음. 저장소 기본 라이선스 / 별도 자산 확인",
+      "source": "https://github.com/csirmaz/basicsolitaire"
+    },
+    {
+      "id": "mah",
+      "title": "Mah (Mahjong Solitaire)",
+      "category": "마작 솔리테어",
+      "researchTier": "C",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "소리·글꼴·배경 문서까지 확인. 출처/허가가 명확한 타일 세트만 남기고 불명확한 세트 제거하는 조건으로 검토. CC BY·CC BY-SA·GPL·Unsplash 및 조건 미기재 타일 혼재",
+      "source": "https://github.com/ffalt/mah"
+    },
+    {
+      "id": "trust",
+      "title": "The Evolution of Trust",
+      "category": "교육 / 게임이론",
+      "researchTier": "C",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "원작 코드가 CC0여도 그대로 수익화 판정 불가. 제한 음원 교체·폰트 권리 확인 후 재검토. 일부 음원 CC BY-NC / CC Sampling+",
+      "source": "https://github.com/ncase/trust"
+    },
+    {
+      "id": "anxiety",
+      "title": "Adventures With Anxiety!",
+      "category": "인터랙티브 스토리",
+      "researchTier": "C",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "저자가 fair use를 기대한다고 적은 타사 클립 존재. 해당 클립 교체 후 검토. 원작 음악 CC0 / Pokémon·Hadouken 음성 등 별도",
+      "source": "https://github.com/ncase/anxiety"
+    },
+    {
+      "id": "shutbox",
+      "title": "Shut the Box",
+      "category": "주사위 보드",
+      "researchTier": "C",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "게임 코드와 사이트의 인물 사진을 구분. 비상업 사진을 배포물에서 제외하고 다른 자산 확인. README에 저자 사진 CC BY-NC-ND",
+      "source": "https://github.com/omerkel/Shut-the-Box"
+    },
+    {
+      "id": "duckmarines",
+      "title": "Duck Marines",
+      "category": "퍼즐 / 대전",
+      "researchTier": "C",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "배경음악 교체 또는 별도 허가 후 상업 도입 검토. 일반 자산 CC BY-SA 4.0 / BGM CC BY-NC-ND 4.0",
+      "source": "https://github.com/SimonLarsen/duckmarines"
+    },
+    {
+      "id": "butanofighter",
+      "title": "Butano Fighter",
+      "category": "슈팅",
+      "researchTier": "C",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "NC 음악이 여러 곡. 배경음악을 상업 허용 곡으로 교체해야 현재 제한 해소 가능. 그래픽 대부분 CC0 / 여러 음악 NC",
+      "source": "https://github.com/GValiente/butano"
+    },
+    {
+      "id": "varooom",
+      "title": "Varooom 3D",
+      "category": "레이싱",
+      "researchTier": "C",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "코드 라이선스만 보고 도입하면 안 되는 대표 사례. 주요 자산 광범위 교체 또는 허가 필요. 주요 모델·음악·효과음·음성 CC BY-NC-SA",
+      "source": "https://github.com/GValiente/butano"
+    },
+    {
+      "id": "nova1",
+      "title": "Nova the Squirrel",
+      "category": "플랫폼 액션",
+      "researchTier": "C",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "무료 배포되는 홈브루지만 그대로 광고 수익형 카탈로그에 채택하지 않는다. 그래픽·레벨 CC BY-NC-SA 4.0 / 캐릭터 제한",
+      "source": "https://github.com/NovaSquirrel/NovaTheSquirrel"
+    },
+    {
+      "id": "nova2",
+      "title": "Nova the Squirrel 2",
+      "category": "플랫폼 액션",
+      "researchTier": "C",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "소스 공개와 전체 게임 재배포 허가는 다르다. 자유 자산의 별도 예제 프로젝트와 혼동 금지. 캐릭터·PNG·레벨·스토리 all rights reserved",
+      "source": "https://github.com/NovaSquirrel/NovaTheSquirrel2"
+    },
+    {
+      "id": "drive13k",
+      "title": "Dr1v3n Wild",
+      "category": "레이싱",
+      "researchTier": "C",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "터치·패드 지원은 매력적이나 README가 재배포 제한 의사를 명시. 허가 없이 채택하지 않는다. 재배포 허용 확인 불가",
+      "source": "https://github.com/KilledByAPixel/Drive13K"
+    },
+    {
+      "id": "bitburner",
+      "title": "Bitburner",
+      "category": "프로그래밍 / 방치",
+      "researchTier": "C",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "순수 Apache로 분류하면 안 된다. 판매/대가의 정의가 넓어 광고 서비스의 적용 범위를 별도 확인해야 한다. 추가 상업 제한 존재",
+      "source": "https://github.com/bitburner-official/bitburner-src"
+    },
+    {
+      "id": "vvvvvv",
+      "title": "VVVVVV",
+      "category": "플랫폼 액션",
+      "researchTier": "C",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "개인 컴파일 허용을 상업적 웹 재배포 허가로 해석하지 않는다. 아이콘·그림·음악 proprietary",
+      "source": "https://github.com/TerryCavanagh/VVVVVV"
+    },
+    {
+      "id": "celeste64",
+      "title": "Celeste 64",
+      "category": "3D 플랫폼",
+      "researchTier": "C",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 README는 비상업 모드·팬게임에 대한 허용을 명시. 전체 게임 상업 재배포 후보에서 제외. Content와 IP는 권리 유보",
+      "source": "https://github.com/EXOK/Celeste64"
+    },
+    {
+      "id": "gca",
+      "title": "Game Boy Coding Adventure 동봉 게임",
+      "category": "교육 / 홈브루",
+      "researchTier": "C",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "CC0 코드여도 책 예제의 유료 자산을 무료로 재배포할 수 있다고 가정하지 않는다. Nostalgia Base Pack 자산은 별도 구매 요구",
+      "source": "https://github.com/mdagois/gca"
+    },
+    {
+      "id": "racer",
+      "title": "JavaScript Racer",
+      "category": "레이싱",
+      "researchTier": "C",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "원작 음악·그래픽 교체와 완성 게임화 필요. 음악 제한·OutRun 예시 스프라이트",
+      "source": "https://github.com/jakesgordon/javascript-racer"
+    },
+    {
+      "id": "pacman",
+      "title": "Pacman Canvas",
+      "category": "미로 아케이드",
+      "researchTier": "C",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "개발자의 코드 허가가 타사의 Pac-Man IP 허가까지 의미하지 않는다. 원본 명칭·표현을 그대로 도입하는 목록에서 제외. 원작 IP·유사 그래픽 별도 판단",
+      "source": "https://github.com/platzhersh/pacman-canvas"
+    },
+    {
+      "id": "dangan",
+      "title": "Dangan GB",
+      "category": "탄막 슈팅",
+      "researchTier": "D",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "무료 다운로드 안내만 확인. 정식 허가나 라이선스가 추가로 필요. 저작자 크레딧만으로 재배포 권한 판단 불가",
+      "source": "https://snorpung.itch.io/dangan-gb"
+    },
+    {
+      "id": "quartet",
+      "title": "Quartet GB",
+      "category": "퍼즐",
+      "researchTier": "D",
+      "runtime": "E",
+      "status": "port-required",
+      "reason": "웹 실행·ROM 무료 다운로드가 상업적 재배포 허가를 뜻하지 않는다. 원작 Photon Storm 관계 포함 확인 필요",
+      "source": "https://makrill.itch.io/quartet"
+    },
+    {
+      "id": "sgt-net",
+      "title": "Net",
+      "category": "논리 퍼즐 / 네트워크 연결",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-cube",
+      "title": "Cube",
+      "category": "논리 퍼즐 / 큐브 이동",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-fifteen",
+      "title": "Fifteen",
+      "category": "논리 퍼즐 / 15 슬라이딩",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-sixteen",
+      "title": "Sixteen",
+      "category": "논리 퍼즐 / 행·열 슬라이딩",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-twiddle",
+      "title": "Twiddle",
+      "category": "논리 퍼즐 / 타일 회전",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-rect",
+      "title": "Rectangles",
+      "category": "논리 퍼즐 / 사각형 분할",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-netslide",
+      "title": "Netslide",
+      "category": "논리 퍼즐 / 연결·슬라이딩",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-pattern",
+      "title": "Pattern",
+      "category": "논리 퍼즐 / 노노그램",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-solo",
+      "title": "Solo",
+      "category": "논리 퍼즐 / 스도쿠",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-mines",
+      "title": "Mines",
+      "category": "논리 퍼즐 / 지뢰찾기",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-samegame",
+      "title": "Same Game",
+      "category": "논리 퍼즐 / 같은 색 지우기",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-flip",
+      "title": "Flip",
+      "category": "논리 퍼즐 / 타일 뒤집기",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-guess",
+      "title": "Guess",
+      "category": "논리 퍼즐 / 색 조합 추리",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-pegs",
+      "title": "Pegs",
+      "category": "논리 퍼즐 / 페그 솔리테어",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-dominosa",
+      "title": "Dominosa",
+      "category": "논리 퍼즐 / 도미노 배치",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-untangle",
+      "title": "Untangle",
+      "category": "논리 퍼즐 / 선 교차 풀기",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-blackbox",
+      "title": "Black Box",
+      "category": "논리 퍼즐 / 숨은 공 추리",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-slant",
+      "title": "Slant",
+      "category": "논리 퍼즐 / 대각선 논리",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-lightup",
+      "title": "Light Up",
+      "category": "논리 퍼즐 / 조명 배치",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-map",
+      "title": "Map",
+      "category": "논리 퍼즐 / 지도 색칠",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-loopy",
+      "title": "Loopy",
+      "category": "논리 퍼즐 / 고리 연결",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-inertia",
+      "title": "Inertia",
+      "category": "논리 퍼즐 / 관성 이동",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-tents",
+      "title": "Tents",
+      "category": "논리 퍼즐 / 텐트 배치",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-bridges",
+      "title": "Bridges",
+      "category": "논리 퍼즐 / 다리 연결",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-unequal",
+      "title": "Unequal",
+      "category": "논리 퍼즐 / 부등호 숫자",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-galaxies",
+      "title": "Galaxies",
+      "category": "논리 퍼즐 / 대칭 영역",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-filling",
+      "title": "Filling",
+      "category": "논리 퍼즐 / 숫자 영역",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-keen",
+      "title": "Keen",
+      "category": "논리 퍼즐 / 사칙연산 격자",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-towers",
+      "title": "Towers",
+      "category": "논리 퍼즐 / 높이 추리",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-singles",
+      "title": "Singles",
+      "category": "논리 퍼즐 / 중복 숫자 제거",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-magnets",
+      "title": "Magnets",
+      "category": "논리 퍼즐 / 자석 배치",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-signpost",
+      "title": "Signpost",
+      "category": "논리 퍼즐 / 숫자 경로",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-range",
+      "title": "Range",
+      "category": "논리 퍼즐 / 가시 범위",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-pearl",
+      "title": "Pearl",
+      "category": "논리 퍼즐 / 진주 고리",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-undead",
+      "title": "Undead",
+      "category": "논리 퍼즐 / 몬스터 논리",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-unruly",
+      "title": "Unruly",
+      "category": "논리 퍼즐 / 두 색 격자",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-flood",
+      "title": "Flood",
+      "category": "논리 퍼즐 / 영역 색 채우기",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-tracks",
+      "title": "Tracks",
+      "category": "논리 퍼즐 / 철도 경로",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-palisade",
+      "title": "Palisade",
+      "category": "논리 퍼즐 / 영역 경계",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "sgt-mosaic",
+      "title": "Mosaic",
+      "category": "논리 퍼즐 / 모자이크",
+      "researchTier": "A",
+      "runtime": "P",
+      "status": "port-required",
+      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
+    },
+    {
+      "id": "crisp-accelb",
+      "title": "ACCEL B",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/accelb/main.js"
+    },
+    {
+      "id": "crisp-aerialbar",
+      "title": "AERIAL BAR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/aerialbar/main.js"
+    },
+    {
+      "id": "crisp-antlion",
+      "title": "ANT LION",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/antlion/main.js"
+    },
+    {
+      "id": "crisp-arcfire",
+      "title": "ARCFIRE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/arcfire/main.js"
+    },
+    {
+      "id": "crisp-attackchain",
+      "title": "ATTACK CHAIN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/attackchain/main.js"
+    },
+    {
+      "id": "crisp-balance",
+      "title": "BALANCE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/balance/main.js"
+    },
+    {
+      "id": "crisp-balloon",
+      "title": "BALLOON",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/balloon/main.js"
+    },
+    {
+      "id": "crisp-ballsbombs",
+      "title": "BALLS BOMBS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/ballsbombs/main.js"
+    },
+    {
+      "id": "crisp-balltour",
+      "title": "BALL TOUR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/balltour/main.js"
+    },
+    {
+      "id": "crisp-bamboo",
+      "title": "BAMBOO",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/bamboo/main.js"
+    },
+    {
+      "id": "crisp-baroll",
+      "title": "BAROLL",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/baroll/main.js"
+    },
+    {
+      "id": "crisp-bblast",
+      "title": "B BLAST",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/bblast/main.js"
+    },
+    {
+      "id": "crisp-bcannon",
+      "title": "B CANNON",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/bcannon/main.js"
+    },
+    {
+      "id": "crisp-bmath",
+      "title": "B MATH",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/bmath/main.js"
+    },
+    {
+      "id": "crisp-boarding",
+      "title": "BOARDING",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/boarding/main.js"
+    },
+    {
+      "id": "crisp-bombup",
+      "title": "BOMB UP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/bombup/main.js"
+    },
+    {
+      "id": "crisp-bottop",
+      "title": "BOTTOP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/bottop/main.js"
+    },
+    {
+      "id": "crisp-boxsnake",
+      "title": "BOX SNAKE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/boxsnake/main.js"
+    },
+    {
+      "id": "crisp-breedc",
+      "title": "BREED C",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/breedc/main.js"
+    },
+    {
+      "id": "crisp-bsfish",
+      "title": "BS FISH",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/bsfish/main.js"
+    },
+    {
+      "id": "crisp-bwalls",
+      "title": "B WALLS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/bwalls/main.js"
+    },
+    {
+      "id": "crisp-cardq",
+      "title": "CARD Q",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/cardq/main.js"
+    },
+    {
+      "id": "crisp-castn",
+      "title": "CAST N",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/castn/main.js"
+    },
+    {
+      "id": "crisp-catapult",
+      "title": "CATAPULT",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/catapult/main.js"
+    },
+    {
+      "id": "crisp-catep",
+      "title": "CATE P",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/catep/main.js"
+    },
+    {
+      "id": "crisp-chain-drift",
+      "title": "CHAIN DRIFT",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "Own arcade cycle / extra audio or image dependencies; not admitted through the generic adapter. 개별 main.js·MIT 원문 확보. 조작 설명: 개별 입력 코드 확인 필요",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/chain-drift/main.js"
+    },
+    {
+      "id": "crisp-chargebeam",
+      "title": "CHARGE BEAM",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/chargebeam/main.js"
+    },
+    {
+      "id": "crisp-circlew",
+      "title": "CIRCLE W",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/circlew/main.js"
+    },
+    {
+      "id": "crisp-cleanrobo",
+      "title": "CLEAN ROBO",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/cleanrobo/main.js"
+    },
+    {
+      "id": "crisp-clockturret",
+      "title": "CLOCK TURRET",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/clockturret/main.js"
+    },
+    {
+      "id": "crisp-cnodes",
+      "title": "C NODES",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/cnodes/main.js"
+    },
+    {
+      "id": "crisp-colorroll",
+      "title": "COLOR ROLL",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/colorroll/main.js"
+    },
+    {
+      "id": "crisp-comet-slash",
+      "title": "COMET SLASH",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "Own arcade cycle / extra audio or image dependencies; not admitted through the generic adapter. 개별 main.js·MIT 원문 확보. 조작 설명: 개별 입력 코드 확인 필요",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/comet-slash/main.js"
+    },
+    {
+      "id": "crisp-count",
+      "title": "COUNT",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/count/main.js"
+    },
+    {
+      "id": "crisp-counterb",
+      "title": "COUNTER B",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/counterb/main.js"
+    },
+    {
+      "id": "crisp-crossline",
+      "title": "CROSS LINE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/crossline/main.js"
+    },
+    {
+      "id": "crisp-ctower",
+      "title": "C TOWER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/ctower/main.js"
+    },
+    {
+      "id": "crisp-cywall",
+      "title": "CYWALL",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/cywall/main.js"
+    },
+    {
+      "id": "crisp-dango",
+      "title": "DANGO",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/dango/main.js"
+    },
+    {
+      "id": "crisp-darkcave",
+      "title": "DARK CAVE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/darkcave/main.js"
+    },
+    {
+      "id": "crisp-descents",
+      "title": "DESCENT S",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/descents/main.js"
+    },
+    {
+      "id": "crisp-dfight",
+      "title": "D FIGHT",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/dfight/main.js"
+    },
+    {
+      "id": "crisp-digi10",
+      "title": "DIGI10",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/digi10/main.js"
+    },
+    {
+      "id": "crisp-dinos",
+      "title": "DINO'S DESERT DASH",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/dinos/main.js"
+    },
+    {
+      "id": "crisp-divarr",
+      "title": "DIVARR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/divarr/main.js"
+    },
+    {
+      "id": "crisp-dlaser",
+      "title": "D LASER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/dlaser/main.js"
+    },
+    {
+      "id": "crisp-dmissile",
+      "title": "D MISSILE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/dmissile/main.js"
+    },
+    {
+      "id": "crisp-doshin",
+      "title": "DOSHIN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/doshin/main.js"
+    },
+    {
+      "id": "crisp-dpistols",
+      "title": "D PISTOLS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/dpistols/main.js"
+    },
+    {
+      "id": "crisp-earock",
+      "title": "EAROCK",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/earock/main.js"
+    },
+    {
+      "id": "crisp-electronstream",
+      "title": "ELECTRON STREAM",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/electronstream/main.js"
+    },
+    {
+      "id": "crisp-embattled",
+      "title": "EMBATTLED",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/embattled/main.js"
+    },
+    {
+      "id": "crisp-findastar",
+      "title": "FIND A STAR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/findastar/main.js"
+    },
+    {
+      "id": "crisp-flipbomb",
+      "title": "FLIPBOMB",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/flipbomb/main.js"
+    },
+    {
+      "id": "crisp-flipo",
+      "title": "FLIP O",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/flipo/main.js"
+    },
+    {
+      "id": "crisp-floater",
+      "title": "FLOATER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/floater/main.js"
+    },
+    {
+      "id": "crisp-floors5",
+      "title": "FLOORS 5",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/floors5/main.js"
+    },
+    {
+      "id": "crisp-foosan",
+      "title": "FOOSAN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/foosan/main.js"
+    },
+    {
+      "id": "crisp-footlaser",
+      "title": "FOOT LASER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/footlaser/main.js"
+    },
+    {
+      "id": "crisp-forfour",
+      "title": "FORFOUR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/forfour/main.js"
+    },
+    {
+      "id": "crisp-fromtwosides",
+      "title": "FROM TWO SIDES",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/fromtwosides/main.js"
+    },
+    {
+      "id": "crisp-froooog",
+      "title": "FROOOOG",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/froooog/main.js"
+    },
+    {
+      "id": "crisp-futurewake",
+      "title": "FUTURE WAKE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/futurewake/main.js"
+    },
+    {
+      "id": "crisp-geocent",
+      "title": "GEOCENT",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/geocent/main.js"
+    },
+    {
+      "id": "crisp-gloop",
+      "title": "GLOOP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/gloop/main.js"
+    },
+    {
+      "id": "crisp-golfme",
+      "title": "GOLFME",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/golfme/main.js"
+    },
+    {
+      "id": "crisp-gpress",
+      "title": "G PRESS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/gpress/main.js"
+    },
+    {
+      "id": "crisp-graveler",
+      "title": "GRAVELER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/graveler/main.js"
+    },
+    {
+      "id": "crisp-grenadier",
+      "title": "GRENADIER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/grenadier/main.js"
+    },
+    {
+      "id": "crisp-growth",
+      "title": "GROWTH",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/growth/main.js"
+    },
+    {
+      "id": "crisp-gtail",
+      "title": "G TAIL",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/gtail/main.js"
+    },
+    {
+      "id": "crisp-hexmin",
+      "title": "HEXMIN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/hexmin/main.js"
+    },
+    {
+      "id": "crisp-hitblowup",
+      "title": "HIT BLOW UP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/hitblowup/main.js"
+    },
+    {
+      "id": "crisp-holes",
+      "title": "HOLES",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/holes/main.js"
+    },
+    {
+      "id": "crisp-hoppingp",
+      "title": "HOPPING P",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/hoppingp/main.js"
+    },
+    {
+      "id": "crisp-hyperlaser",
+      "title": "HYPER LASER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/hyperlaser/main.js"
+    },
+    {
+      "id": "crisp-infrange",
+      "title": "INF RANGE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/infrange/main.js"
+    },
+    {
+      "id": "crisp-interspace",
+      "title": "INTERSPACE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/interspace/main.js"
+    },
+    {
+      "id": "crisp-intow",
+      "title": "IN TOW",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/intow/main.js"
+    },
+    {
+      "id": "crisp-invincibleman",
+      "title": "INVINCIBLE MAN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/invincibleman/main.js"
+    },
+    {
+      "id": "crisp-islash",
+      "title": "I SLASH",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/islash/main.js"
+    },
+    {
+      "id": "crisp-jugglingchain",
+      "title": "JUGGLING CHAIN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/jugglingchain/main.js"
+    },
+    {
+      "id": "crisp-jujump",
+      "title": "JUJUMP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/jujump/main.js"
+    },
+    {
+      "id": "crisp-jumpinbox",
+      "title": "JUMPINBOX",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/jumpinbox/main.js"
+    },
+    {
+      "id": "crisp-jumpon",
+      "title": "JUMP ON",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/jumpon/main.js"
+    },
+    {
+      "id": "crisp-kite",
+      "title": "KITE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/kite/main.js"
+    },
+    {
+      "id": "crisp-ladderdrop",
+      "title": "LADDER DROP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/ladderdrop/main.js"
+    },
+    {
+      "id": "crisp-laserfortress",
+      "title": "LASER FORTRESS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/laserfortress/main.js"
+    },
+    {
+      "id": "crisp-liedown",
+      "title": "LIE DOWN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/liedown/main.js"
+    },
+    {
+      "id": "crisp-liftup",
+      "title": "LIFT UP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/liftup/main.js"
+    },
+    {
+      "id": "crisp-lightdark",
+      "title": "LIGHT DARK",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/lightdark/main.js"
+    },
+    {
+      "id": "crisp-lineb",
+      "title": "LINE B",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/lineb/main.js"
+    },
+    {
+      "id": "crisp-lland",
+      "title": "LLAND",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/lland/main.js"
+    },
+    {
+      "id": "crisp-lrain",
+      "title": "L RAIN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/lrain/main.js"
+    },
+    {
+      "id": "crisp-magnetblocks",
+      "title": "MAGNET BLOCKS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/magnetblocks/main.js"
+    },
+    {
+      "id": "crisp-makemaze",
+      "title": "MAKE MAZE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/makemaze/main.js"
+    },
+    {
+      "id": "crisp-marusansi",
+      "title": "MARUSANSI",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/marusansi/main.js"
+    },
+    {
+      "id": "crisp-meteoplanet",
+      "title": "METEO PLANET",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/meteoplanet/main.js"
+    },
+    {
+      "id": "crisp-mfield",
+      "title": "M FIELD",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/mfield/main.js"
+    },
+    {
+      "id": "crisp-mirrorfloor",
+      "title": "MIRROR FLOOR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/mirrorfloor/main.js"
+    },
+    {
+      "id": "crisp-mjamming",
+      "title": "M JAMMING",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/mjamming/main.js"
+    },
+    {
+      "id": "crisp-molen",
+      "title": "MOLE N",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/molen/main.js"
+    },
+    {
+      "id": "crisp-monjum",
+      "title": "MONJUM",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/monjum/main.js"
+    },
+    {
+      "id": "crisp-mortar",
+      "title": "MORTAR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/mortar/main.js"
+    },
+    {
+      "id": "crisp-mrider",
+      "title": "M RIDER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/mrider/main.js"
+    },
+    {
+      "id": "crisp-notturn",
+      "title": "NOT TURN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/notturn/main.js"
+    },
+    {
+      "id": "crisp-nsclimb",
+      "title": "NS CLIMB",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/nsclimb/main.js"
+    },
+    {
+      "id": "crisp-numberball",
+      "title": "NUMBER BALL",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/numberball/main.js"
+    },
+    {
+      "id": "crisp-numberline",
+      "title": "NUMBER LINE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/numberline/main.js"
+    },
+    {
+      "id": "crisp-orbitman",
+      "title": "ORBIT MAN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/orbitman/main.js"
+    },
+    {
+      "id": "crisp-paintball",
+      "title": "PAINT BALL",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/paintball/main.js"
+    },
+    {
+      "id": "crisp-pairsdrop",
+      "title": "PAIRS DROP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/pairsdrop/main.js"
+    },
+    {
+      "id": "crisp-pakupaku",
+      "title": "PAKU PAKU",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/pakupaku/main.js"
+    },
+    {
+      "id": "crisp-parking",
+      "title": "PARKING",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/parking/main.js"
+    },
+    {
+      "id": "crisp-pfit",
+      "title": "P FIT",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/pfit/main.js"
+    },
+    {
+      "id": "crisp-photonline",
+      "title": "PHOTON LINE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/photonline/main.js"
+    },
+    {
+      "id": "crisp-pileup",
+      "title": "PILEUP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/pileup/main.js"
+    },
+    {
+      "id": "crisp-pillars3d",
+      "title": "PILLARS 3D",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/pillars3d/main.js"
+    },
+    {
+      "id": "crisp-pinclimb",
+      "title": "PIN CLIMB",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/pinclimb/main.js"
+    },
+    {
+      "id": "crisp-pizzaarrow",
+      "title": "PIZZA ARROW",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/pizzaarrow/main.js"
+    },
+    {
+      "id": "crisp-portalj",
+      "title": "PORTAL J",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/portalj/main.js"
+    },
+    {
+      "id": "crisp-pressm",
+      "title": "PRESS M",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/pressm/main.js"
+    },
+    {
+      "id": "crisp-pumppress",
+      "title": "PUMP PRESS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/pumppress/main.js"
+    },
+    {
+      "id": "crisp-raid",
+      "title": "RAID",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/raid/main.js"
+    },
+    {
+      "id": "crisp-rbdrive",
+      "title": "RB DRIVE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/rbdrive/main.js"
+    },
+    {
+      "id": "crisp-rebirth",
+      "title": "REBIRTH",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/rebirth/main.js"
+    },
+    {
+      "id": "crisp-refbals",
+      "title": "REFBALS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/refbals/main.js"
+    },
+    {
+      "id": "crisp-reflector",
+      "title": "REFLECTOR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/reflector/main.js"
+    },
+    {
+      "id": "crisp-regene",
+      "title": "REGENE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/regene/main.js"
+    },
+    {
+      "id": "crisp-revolvea",
+      "title": "REVOLVE A",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/revolvea/main.js"
+    },
+    {
+      "id": "crisp-ringblast",
+      "title": "RING BLAST",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/ringblast/main.js"
+    },
+    {
+      "id": "crisp-rolfrg",
+      "title": "ROLFRG",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/rolfrg/main.js"
+    },
+    {
+      "id": "crisp-rollhold",
+      "title": "ROLL HOLD",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/rollhold/main.js"
+    },
+    {
+      "id": "crisp-rollnrope",
+      "title": "ROLLNROPE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/rollnrope/main.js"
+    },
+    {
+      "id": "crisp-rolls",
+      "title": "ROLL S",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/rolls/main.js"
+    },
+    {
+      "id": "crisp-rps",
+      "title": "RPS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/rps/main.js"
+    },
+    {
+      "id": "crisp-rring",
+      "title": "R RING",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/rring/main.js"
+    },
+    {
+      "id": "crisp-rwheel",
+      "title": "R WHEEL",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/rwheel/main.js"
+    },
+    {
+      "id": "crisp-scaffold",
+      "title": "SCAFFOLD",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/scaffold/main.js"
+    },
+    {
+      "id": "crisp-scrambird",
+      "title": "SCRAMBIRD",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/scrambird/main.js"
+    },
+    {
+      "id": "crisp-screen",
+      "title": "SCREEN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/screen/main.js"
+    },
+    {
+      "id": "crisp-shiny",
+      "title": "SHINY",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/shiny/main.js"
+    },
+    {
+      "id": "crisp-sighton",
+      "title": "SIGHT ON",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/sighton/main.js"
+    },
+    {
+      "id": "crisp-skyfloor",
+      "title": "SKY FLOOR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/skyfloor/main.js"
+    },
+    {
+      "id": "crisp-skygolf",
+      "title": "SKY GOLF",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/skygolf/main.js"
+    },
+    {
+      "id": "crisp-slalom",
+      "title": "SLALOM",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/slalom/main.js"
+    },
+    {
+      "id": "crisp-slanes",
+      "title": "S LANES",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/slanes/main.js"
+    },
+    {
+      "id": "crisp-slashes",
+      "title": "SLASHES",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/slashes/main.js"
+    },
+    {
+      "id": "crisp-smilyangry",
+      "title": "SMILY ANGRY",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/smilyangry/main.js"
+    },
+    {
+      "id": "crisp-smokeg",
+      "title": "SMOKE G",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/smokeg/main.js"
+    },
+    {
+      "id": "crisp-snake1",
+      "title": "SNAKE 1",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/snake1/main.js"
+    },
+    {
+      "id": "crisp-snaky",
+      "title": "SNAKY",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/snaky/main.js"
+    },
+    {
+      "id": "crisp-spearain",
+      "title": "SPEARAIN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/spearain/main.js"
+    },
+    {
+      "id": "crisp-squarebar",
+      "title": "SQUARE BAR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/squarebar/main.js"
+    },
+    {
+      "id": "crisp-sshake",
+      "title": "S SHAKE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/sshake/main.js"
+    },
+    {
+      "id": "crisp-subjump",
+      "title": "SUB JUMP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/subjump/main.js"
+    },
+    {
+      "id": "crisp-sumten",
+      "title": "SUM TEN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/sumten/main.js"
+    },
+    {
+      "id": "crisp-survivor",
+      "title": "SURVIVOR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-11-games/blob/6fea4eefe2deaa42706051d96a04ec9e36104696/docs/survivor/main.js"
+    },
+    {
+      "id": "crisp-swingby",
+      "title": "SWINGBY",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/swingby/main.js"
+    },
+    {
+      "id": "crisp-tapej",
+      "title": "TAPE J",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/tapej/main.js"
+    },
+    {
+      "id": "crisp-tappump",
+      "title": "TAPPUMP",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/tappump/main.js"
+    },
+    {
+      "id": "crisp-tarutobi",
+      "title": "TARUTOBI",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/tarutobi/main.js"
+    },
+    {
+      "id": "crisp-teeter",
+      "title": "TEETER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/teeter/main.js"
+    },
+    {
+      "id": "crisp-thanoi",
+      "title": "T HANOI",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/thanoi/main.js"
+    },
+    {
+      "id": "crisp-throwm",
+      "title": "THROW M",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/throwm/main.js"
+    },
+    {
+      "id": "crisp-thrustlr",
+      "title": "THRUST LR",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/thrustlr/main.js"
+    },
+    {
+      "id": "crisp-thruststrafe",
+      "title": "THRUST STRAFE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/thruststrafe/main.js"
+    },
+    {
+      "id": "crisp-thunder",
+      "title": "THUNDER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/thunder/main.js"
+    },
+    {
+      "id": "crisp-tilted",
+      "title": "TILTED",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/tilted/main.js"
+    },
+    {
+      "id": "crisp-timbertest",
+      "title": "TIMBER TEST",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/timbertest/main.js"
+    },
+    {
+      "id": "crisp-tlanes",
+      "title": "T LANES",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/tlanes/main.js"
+    },
+    {
+      "id": "crisp-tlaser",
+      "title": "T LASER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/tlaser/main.js"
+    },
+    {
+      "id": "crisp-totoge",
+      "title": "TOTOGE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/totoge/main.js"
+    },
+    {
+      "id": "crisp-tpunch",
+      "title": "T PUNCH",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/tpunch/main.js"
+    },
+    {
+      "id": "crisp-trbeam",
+      "title": "TR BEAM",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/trbeam/main.js"
+    },
+    {
+      "id": "crisp-ttfence",
+      "title": "TT FENCE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/ttfence/main.js"
+    },
+    {
+      "id": "crisp-turbulent",
+      "title": "TURBULENT",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/turbulent/main.js"
+    },
+    {
+      "id": "crisp-twhols",
+      "title": "TWHOLS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/twhols/main.js"
+    },
+    {
+      "id": "crisp-twinp",
+      "title": "TWIN P",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/twinp/main.js"
+    },
+    {
+      "id": "crisp-twofaced",
+      "title": "TWO FACED",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/twofaced/main.js"
+    },
+    {
+      "id": "crisp-twolane",
+      "title": "TWO LANE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/twolane/main.js"
+    },
+    {
+      "id": "crisp-udcave",
+      "title": "UD CAVE",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/udcave/main.js"
+    },
+    {
+      "id": "crisp-unctrl",
+      "title": "UNCTRL",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/unctrl/main.js"
+    },
+    {
+      "id": "crisp-up1way",
+      "title": "UP 1 WAY",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/up1way/main.js"
+    },
+    {
+      "id": "crisp-updownpress",
+      "title": "UP DOWN PRESS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/updownpress/main.js"
+    },
+    {
+      "id": "crisp-upshot",
+      "title": "UP SHOT",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/upshot/main.js"
+    },
+    {
+      "id": "crisp-vbomb",
+      "title": "V BOMB",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/vbomb/main.js"
+    },
+    {
+      "id": "crisp-vhwalls",
+      "title": "VH WALLS",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/vhwalls/main.js"
+    },
+    {
+      "id": "crisp-volt-keeper",
+      "title": "VOLT KEEPER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "rights-or-integration-review",
+      "reason": "Own arcade cycle / extra audio or image dependencies; not admitted through the generic adapter. 개별 main.js·MIT 원문 확보. 조작 설명: 개별 입력 코드 확인 필요",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/volt-keeper/main.js"
+    },
+    {
+      "id": "crisp-wiper",
+      "title": "WIPER",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/wiper/main.js"
+    },
+    {
+      "id": "crisp-zartan",
+      "title": "ZARTAN",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/zartan/main.js"
+    },
+    {
+      "id": "crisp-zigzagpressure",
+      "title": "Zig-Zag Pressure",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/zigzagpressure/main.js"
+    },
+    {
+      "id": "crisp-zoneb",
+      "title": "ZONE B",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/zoneb/main.js"
+    },
+    {
+      "id": "crisp-zoomio",
+      "title": "ZOOM IO",
+      "category": "미니 아케이드",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "Pinned source and notices, shared playable adapter; Chromium automation is separate from physical device verification.",
+      "source": "https://github.com/abagames/crisp-game-lib-games/blob/cfb39d2f988feb5918eb83697145b5a35adabf58/docs/zoomio/main.js"
+    }
+  ]
+}

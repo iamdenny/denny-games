@@ -19,6 +19,8 @@ This repository carries the original research requirements below. The following 
 - Mobile responsive and browser automation are tested; actual iOS/Android/pads/Tesla, 20-minute device soak, field p75 metrics, search registration/indexing and legal/provider review are separately pending until evidence exists.
 - No fake games, fake compatibility or 90-day experiment plan.
 
+> Catalogue expansion (2026-10-11): 191 pinned Crisp games join the initial three titles in six categories. See [inventory](../guide/open-game-inventory.md) and [ADR 0009](../adr/0009-imported-games.md). Imported rounds restart on leaving; daily challenges remain limited to the original three. Candidate status does not imply playable release or device certification.
+
 ## Acceptance traceability
 
 | Requirement | Owning module / evidence |

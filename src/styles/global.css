@@ -1099,3 +1099,13 @@ main {
   font-size: 12px;
   margin-top: 12px;
 }
+
+.imported-art img {
+  object-fit: contain;
+  padding: 16px;
+  background: #e0e0e0;
+  image-rendering: pixelated;
+}
+.catalogue-section {
+  margin-block: 48px;
+}

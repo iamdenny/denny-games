@@ -12,3 +12,6 @@ Read [current PRD](product/PRD.md), [architecture](architecture.md), and [accept
 - [Initial release evidence](releases/2026-10-11-initial-platform.md)
 
 The original research is retained locally outside this public repository. Product-facing compatibility pages contain only factual evidence. Repository documentation is not part of the deployed site.
+
+- [Open game inventory](guide/open-game-inventory.md)
+- [Open catalogue release](releases/2026-10-11-open-catalogue.md)

@@ -132,11 +132,27 @@ function mount(saved: boolean) {
     },
     onEnd: end,
     sound: soundTick,
+    onReady: () => {
+      if (state === "ready") {
+        show(text.ready, root.dataset.instructions);
+        start.disabled = false;
+      }
+    },
+    onPause: () => pause(),
+    onError: (message) => {
+      state = "paused";
+      game?.pause();
+      show(message);
+      start.disabled = true;
+    },
   });
   el("best").textContent = String(best());
-  show(text.ready);
+  show(
+    id.startsWith("crisp-") ? text.loading : text.ready,
+    root.dataset.instructions,
+  );
   start.textContent = text.start;
-  start.disabled = false;
+  start.disabled = id.startsWith("crisp-");
   restart.disabled = false;
   pauseButton.disabled = true;
   const url = new URL(location.href);
@@ -303,6 +319,9 @@ const disconnect = connectGamepad(
   },
   () =>
     pause(locale === "ko" ? "패드가 분리됐어요." : "Controller disconnected."),
+  (value) => {
+    if (state === "running") game?.inputState?.(value);
+  },
 );
 const keyboard = (event: KeyboardEvent) => {
   if ((event.target as HTMLElement).closest("input,select,textarea")) return;
@@ -331,6 +350,7 @@ const keyboard = (event: KeyboardEvent) => {
 };
 window.addEventListener("keydown", keyboard);
 window.addEventListener("blur", () => {
+  if (document.activeElement?.matches("iframe.crisp-frame")) return;
   pause();
   void audio?.suspend();
 });
@@ -373,7 +393,9 @@ try {
     "orbit-break": () => import("../games/orbit"),
     "2048": () => import("../games/merge"),
   };
-  const module = await loaders[id]!();
+  const module = await (id.startsWith("crisp-")
+    ? import("../games/crisp")
+    : loaders[id]!());
   if (token === generation) {
     factory = module.mount;
     track("load", id);

@@ -17,6 +17,7 @@ Astro generates real index.html routes for English and Korean. Catalogue metadat
 - `src/lib`: storage, deterministic randomness, input, ads and lifecycle contracts.
 - `src/games`: independently loaded game rules and rendering.
 - `public`: original artwork, CNAME, third-party license notices.
+- `vendor`: pinned third-party provenance, unchanged runtime source and all-candidate dispositions.
 - `scripts`: documentation, artifact, scale and public-readback checks.
 
 ## Lifecycle
@@ -30,3 +31,7 @@ Versioned `denny-games:v1:*` localStorage keys isolate game progress, settings, 
 ## Scalability
 
 Pages show 24 games per category. Every numbered page is real HTML with its own canonical. Search downloads a localized JSON index only on the search route. Nonexistent and untranslated content is never generated. A nonpublic 1,000-entry fixture validates pagination and search without publishing fake games.
+
+## Imported games
+
+See [ADR 0009](adr/0009-imported-games.md). The catalogue never imports the engine bundle. An opaque-origin iframe loads one self-hosted Crisp source after the player mounts. Checked runtime hooks stop simulation while paused and relay validated score/results. Imported games retain only best scores, not mid-round progress. Home previews are bounded; category sorting/filtering uses the full JSON index and libraries instantiate only saved/recent cards.

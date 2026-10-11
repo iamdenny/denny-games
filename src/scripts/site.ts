@@ -1,6 +1,7 @@
 import { read, write, list, toggleFavorite } from "../lib/storage";
 import { connectGamepad, focusNext } from "../lib/input";
 import { initDisplayAds } from "../lib/ads";
+import { loadCatalogue, makeCard } from "../lib/cards";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
 const locale = document.documentElement.lang as Locale,
@@ -21,28 +22,36 @@ document
   .forEach((link) => {
     link.search = location.search;
   });
-function refreshLibrary() {
-  document.querySelectorAll<HTMLElement>("[data-library]").forEach((grid) => {
-    const key = grid.dataset.library!,
-      ids = list(key);
-    let visible = 0;
-    [...grid.querySelectorAll<HTMLElement>("[data-game-card]")]
-      .sort(
-        (a, b) =>
-          ids.indexOf(a.dataset.gameCard!) - ids.indexOf(b.dataset.gameCard!),
-      )
-      .forEach((card) => {
-        card.hidden = !ids.includes(card.dataset.gameCard!);
-        if (!card.hidden) visible++;
-        grid.append(card);
-      });
-    const empty = document.querySelector<HTMLElement>(
-      `[data-library-empty="${key}"]`,
-    );
-    if (empty) empty.hidden = visible > 0;
-  });
+let refreshing = 0;
+async function refreshLibrary() {
+  const grids = [...document.querySelectorAll<HTMLElement>("[data-library]")];
+  if (!grids.length) return;
+  const token = ++refreshing;
+  try {
+    const items = await loadCatalogue(locale);
+    if (token !== refreshing) return;
+    for (const grid of grids) {
+      const ids = list(grid.dataset.library!);
+      const selected = ids
+        .map((id) => items.find((g) => g.id === id))
+        .filter((g) => g !== undefined);
+      grid.replaceChildren(...selected.map((g) => makeCard(g, locale)));
+      const empty = document.querySelector<HTMLElement>(
+        `[data-library-empty="${grid.dataset.library}"]`,
+      );
+      if (empty) empty.hidden = selected.length > 0;
+    }
+    refreshFavorites(false);
+  } catch {
+    grids.forEach((grid) => {
+      grid.textContent =
+        locale === "ko"
+          ? "목록을 불러오지 못했어요. 새로고침해주세요."
+          : "Could not load your library. Please refresh.";
+    });
+  }
 }
-function refreshFavorites() {
+function refreshFavorites(library = true) {
   document
     .querySelectorAll<HTMLButtonElement>("[data-favorite]")
     .forEach((button) => {
@@ -53,42 +62,103 @@ function refreshFavorites() {
       else
         button.textContent = `${enabled ? "♥" : "♡"} ${enabled ? text.saved : text.favorite}`;
     });
-  refreshLibrary();
+  if (library) void refreshLibrary();
 }
-document
-  .querySelectorAll<HTMLButtonElement>("[data-favorite]")
-  .forEach((button) =>
-    button.addEventListener("click", () => {
-      toggleFavorite(button.dataset.favorite!);
-      refreshFavorites();
-    }),
+document.addEventListener("click", (event) => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>(
+    "[data-favorite]",
   );
+  if (!button) return;
+  toggleFavorite(button.dataset.favorite!);
+  refreshFavorites();
+});
 refreshFavorites();
 const grid = document.querySelector<HTMLElement>("[data-sort-grid]");
-const original = grid ? ([...grid.children] as HTMLElement[]) : [];
-document
-  .querySelector<HTMLSelectElement>("[data-sort]")
-  ?.addEventListener("change", (e) => {
-    const value = (e.target as HTMLSelectElement).value;
-    [...original]
-      .sort((a, b) =>
-        value === "name"
-          ? a.dataset.title!.localeCompare(b.dataset.title!, locale)
-          : value === "newest"
-            ? b.dataset.added!.localeCompare(a.dataset.added!)
-            : original.indexOf(a) - original.indexOf(b),
-      )
-      .forEach((card) => grid?.append(card));
-  });
-document
-  .querySelector<HTMLSelectElement>("[data-input-filter]")
-  ?.addEventListener("change", (e) => {
-    const value = (e.target as HTMLSelectElement).value;
-    original.forEach((card) => {
-      card.hidden =
-        value !== "any" && !card.dataset.inputs?.split(",").includes(value);
-    });
-  });
+if (grid) {
+  const sort = document.querySelector<HTMLSelectElement>("[data-sort]")!;
+  const input = document.querySelector<HTMLSelectElement>(
+    "[data-input-filter]",
+  )!;
+  let generation = 0;
+  const render = async (page = 1) => {
+    const token = ++generation;
+    try {
+      const items = (await loadCatalogue(locale)).filter(
+        (item) =>
+          item.category === grid.dataset.category &&
+          (input.value === "any" || item.inputs.includes(input.value)),
+      );
+      if (token !== generation) return;
+      if (sort.value === "name")
+        items.sort((a, b) => a.title.localeCompare(b.title, locale));
+      if (sort.value === "newest")
+        items.sort((a, b) => b.added.localeCompare(a.added));
+      grid.replaceChildren(
+        ...items
+          .slice((page - 1) * 24, page * 24)
+          .map((item) => makeCard(item, locale)),
+      );
+      refreshFavorites(false);
+      let nav = document.querySelector<HTMLElement>("[data-pagination]");
+      if (!nav) {
+        nav = document.createElement("nav");
+        nav.className = "pagination";
+        nav.dataset.pagination = "";
+        grid.after(nav);
+      }
+      nav.replaceChildren();
+      for (let i = 1; i <= Math.ceil(items.length / 24); i++) {
+        const link = document.createElement("a");
+        const url = new URL(location.href);
+        url.pathname = `/${locale}/category/${grid.dataset.category}/`;
+        url.searchParams.set("sort", sort.value);
+        url.searchParams.set("input", input.value);
+        url.searchParams.set("page", String(i));
+        link.href = url.href;
+        link.textContent = String(i);
+        if (i === page) link.setAttribute("aria-current", "page");
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          history.pushState(null, "", url);
+          void render(i);
+          grid.scrollIntoView({ block: "start" });
+        });
+        nav.append(link);
+      }
+      const url = new URL(location.href);
+      url.searchParams.set("sort", sort.value);
+      url.searchParams.set("input", input.value);
+      url.searchParams.set("page", String(page));
+      history.replaceState(null, "", url);
+      const count = document.querySelector<HTMLElement>(".toolbar .count");
+      if (count) count.textContent = `${items.length} ${text.available}`;
+    } catch {
+      const p = document.createElement("p");
+      p.textContent =
+        locale === "ko"
+          ? "목록을 불러오지 못했어요. 새로고침해주세요."
+          : "Could not load games. Please refresh.";
+      grid.replaceChildren(p);
+    }
+  };
+  const restore = () => {
+    const q = new URL(location.href).searchParams;
+    sort.value = ["name", "newest"].includes(q.get("sort") || "")
+      ? q.get("sort")!
+      : "recommended";
+    input.value = ["touch", "keyboard", "gamepad"].includes(
+      q.get("input") || "",
+    )
+      ? q.get("input")!
+      : "any";
+    if (q.has("sort") || q.has("input") || q.has("page"))
+      void render(Math.max(1, Number(q.get("page")) || 1));
+  };
+  sort.addEventListener("change", () => void render());
+  input.addEventListener("change", () => void render());
+  window.addEventListener("popstate", restore);
+  restore();
+}
 document
   .querySelectorAll<HTMLElement>("[data-utc-date]")
   .forEach((el) => (el.textContent = new Date().toISOString().slice(0, 10)));
