@@ -63,3 +63,26 @@ fs.writeFileSync(
   "public/vendor/crisp/images.js",
   "window.dennyImages=" + JSON.stringify(images) + ";\n",
 );
+
+// DANGO builds only integer addition/multiplication expressions. Keep its
+// upstream bytes for provenance, but execute an audited CSP-safe derivative.
+const dango = pinned.games.find((game) => game.slug === "dango");
+const dangoSource = fs.readFileSync("public/vendor/crisp/games/dango/main.js");
+assert.equal(
+  createHash("sha256").update(dangoSource).digest("hex"),
+  dango.vendored_sha256,
+);
+const fromExpression = "Function(`return ${expStr};`)()";
+assert.equal(dangoSource.toString().split(fromExpression).length, 2);
+const arithmetic = `function dennyDangoValue(expression) {
+  if (!/^\\d+(?:[+*]\\d+)*$/.test(expression)) throw Error("Invalid DANGO expression");
+  return expression.split("+").reduce((sum, term) =>
+    sum + term.split("*").reduce((product, value) => product * Number(value), 1), 0);
+}
+`;
+fs.writeFileSync(
+  "public/vendor/crisp/games/dango/main.csp.js",
+  "// ABA Games MIT. CSP arithmetic adaptation: scripts/build-crisp.mjs\n" +
+    arithmetic +
+    dangoSource.toString().replace(fromExpression, "dennyDangoValue(expStr)"),
+);

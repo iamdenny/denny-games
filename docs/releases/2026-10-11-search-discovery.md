@@ -14,7 +14,7 @@ Localized game search titles, unique category pagination titles/descriptions, co
 ## Local validation
 
 - `npm run verify`: passed, including 18 unit tests, documentation checks, 1,000-game scale check, static artifact audit and 441 indexable-page SEO audit (388 bilingual game detail pages and 22 category pages).
-- All 207 Chromium regressions passed, including the new no-JavaScript 390px discovery scenario. The new scenario initially used an incorrect test heading label, corrected before the final full run.
+- All 208 Chromium regressions passed, including the new no-JavaScript 390px discovery scenario. The new scenario initially used an incorrect test heading label, corrected before the final full run.
 - Schema property review used official schema.org definitions; source references use CreativeWork `isBasedOn`, and play mode uses the schema enumeration URL.
 
 ## External evidence
@@ -22,3 +22,7 @@ Localized game search titles, unique category pagination titles/descriptions, co
 Google Search Console URL-prefix ownership was automatically verified on 2026-10-11 through the existing domain-name provider verification. No DNS changes were needed. Bing and Naver public HTML verification tags are included on the root selector page. Site verification, sitemap receipts, indexing, rankings and AI citations remain separate states; do not treat tags or deployment as submitted/verified.
 
 PR checks, merge, deployment, public readback and submission receipts are recorded after completion. Physical-device certification, observed indexing/rankings and AI citation outcomes are not established by this release.
+
+## CI-discovered DANGO defect
+
+Initial PR CI exposed an existing upstream `Function` expression evaluator blocked by the frame CSP. The failing script and CSP were unchanged from main. The build now generates a derivative DANGO script using restricted integer arithmetic while retaining exact upstream bytes/hashes and MIT notices. A deterministic scoring-branch regression covers precedence, leading operators and empty expressions through the actual engine callback under CSP. Replacing the derivative with unchanged upstream bytes reproduces the CSP error. No CSP or sandbox permissions were relaxed. The PR description records the final rerun outcome.

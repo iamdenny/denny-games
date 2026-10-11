@@ -1,4 +1,8 @@
 import { test, expect } from "@playwright/test";
+// Lexical globals exposed by the pinned DANGO script inside its frame.
+declare let stickTicks: number;
+declare let expStr: string;
+declare const expAdd: number;
 
 test("categories and guide remain discoverable without JavaScript", async ({
   browser,
@@ -32,4 +36,42 @@ test("categories and guide remain discoverable without JavaScript", async ({
     ),
   ).toBe(true);
   await context.close();
+});
+
+test("DANGO calculates collected expressions under the restricted CSP", async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  await page.goto("/ko/play/crisp-dango/");
+  await page.locator("#start-button").click();
+  const frame = page
+    .frames()
+    .find((item) => item.url().includes("/vendor/crisp/index.html"))!;
+  await frame.waitForFunction(() => Number(document.body.dataset.ticks) > 5);
+  await page.locator("#pause-button").click();
+  for (const [expression, expected] of [
+    ["2+3*4", 14],
+    ["+2*3+4", 10],
+    ["*9+2", 2],
+    ["", 0],
+  ] as const) {
+    await frame.evaluate((expression) => {
+      stickTicks = 19;
+      expStr = expression;
+    }, expression);
+    await page.locator("#pause-button").click();
+    // Let the existing engine callback execute under CSP; DevTools evaluation
+    // itself can bypass unsafe-eval and must not execute update() for this test.
+    await frame.waitForFunction(
+      (expected) => expAdd === expected && stickTicks === 0,
+      expected,
+    );
+    await page.locator("#pause-button").click();
+    expect(await frame.evaluate(() => expAdd)).toBe(expected);
+  }
+  expect(errors).toEqual([]);
 });
