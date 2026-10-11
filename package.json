@@ -17,7 +17,8 @@
     "docs:lint": "node scripts/lint-docs.mjs",
     "test:scale": "node scripts/check-scale.mjs",
     "format": "prettier --write src scripts tests *.json *.mjs .github/workflows",
-    "verify": "npm run check && npm test && npm run docs:check && npm run docs:lint && npm run test:scale && npm run build"
+    "verify": "npm run check && npm test && npm run docs:check && npm run docs:lint && npm run test:scale && npm run build",
+    "format:check": "prettier --check src scripts tests *.json *.mjs .github/workflows"
   },
   "dependencies": {
     "astro": "7.3.8"
@@ -28,6 +29,7 @@
     "@types/node": "22.19.15",
     "markdownlint": "0.41.1",
     "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
     "typescript": "5.9.3",
     "vitest": "5.0.3"
   },

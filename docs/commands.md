@@ -15,6 +15,8 @@ Use Node 22.22.3 (`.nvmrc`) and npm. Run from repository root.
 | `npm run dev` | Astro on localhost:4321 |
 | `npm run build` | Static dist plus artifact audit |
 | `npm run preview` | Preview production output on localhost:4321 |
+| `npm run format` | Format Astro, TypeScript, styles and validation scripts |
+| `npm run format:check` | Verify formatting |
 | `npm run check` | Astro/TypeScript diagnostics |
 | `npm test` | Game rules and shared services |
 | `npm run test:e2e` | Chromium user journeys and mobile layouts |

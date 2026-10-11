@@ -1,6 +1,28 @@
 ---
-import Base from '../layouts/Base.astro';
+import Base from "../layouts/Base.astro";
 ---
-<Base locale="en" title="Page not found" description="Choose a game from Denny Games." noindex>
-  <section class="root-choice"><p class="eyebrow">404</p><h1>A wrong turn.</h1><p>This page isn't here. Your next game is.<br /><span lang="ko">페이지를 찾지 못했어요. 게임 목록으로 이동하세요.</span></p><div class="detail-actions"><a class="button primary" href="/en/">English ↗</a><a class="button" href="/ko/" lang="ko">한국어 ↗</a></div></section>
+
+<Base
+  locale="en"
+  title="Page not found"
+  description="Choose a game from Denny Games."
+  noindex
+>
+  <section class="root-choice">
+    <p class="eyebrow">404</p>
+    <h1>A wrong turn.</h1>
+    <p>
+      This page isn't here. Your next game is.
+      <br />
+      <span lang="ko">페이지를 찾지 못했어요. 게임 목록으로 이동하세요.</span>
+    </p>
+    <div class="detail-actions">
+      <a class="button primary" href="/en/">
+        English ↗
+      </a>
+      <a class="button" href="/ko/" lang="ko">
+        한국어 ↗
+      </a>
+    </div>
+  </section>
 </Base>
