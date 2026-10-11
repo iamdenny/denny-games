@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 const args = process.argv.slice(2);
 const option = (name) => args[args.indexOf(name) + 1];
 const base = args.includes("--base")
@@ -14,6 +15,11 @@ async function get(path) {
   return response.text();
 }
 const release = JSON.parse(await get("/release.json"));
+assert.equal(
+  release.version,
+  JSON.parse(readFileSync("package.json", "utf8")).version,
+  "Public package version differs",
+);
 if (expected)
   assert.equal(
     release.sha,

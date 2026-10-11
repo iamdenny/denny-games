@@ -1,8 +1,9 @@
+import { version } from "../../package.json";
 export function GET() {
   return new Response(
     JSON.stringify({
       sha: process.env.GITHUB_SHA ?? "local",
-      version: "0.1.0",
+      version,
       builtAt: new Date().toISOString(),
       locales: ["en", "ko"],
       ads: "off",

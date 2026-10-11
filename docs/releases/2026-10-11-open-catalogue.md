@@ -22,3 +22,5 @@ Local checks, GitHub CI, merge, deployment and public readback are separate. The
 ## Local validation
 
 18 unit tests, 206 Chromium browser scenarios and the separate 191/191 import audit passed. The 1,000-entry fixture, documentation checks, artifact link audit and dependency audit passed. Artifact size is approximately 7 MiB.
+
+The public release endpoint reads the package version directly; readback checks both the merged SHA and package version to catch stale metadata.
