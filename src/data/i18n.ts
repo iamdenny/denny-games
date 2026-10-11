@@ -78,7 +78,8 @@ export const copy = {
     licenses: "Credits",
     footer: "Small games. Well-earned breaks.",
     viewAll: "See all",
-    noAds: "Free to play. Advertising is currently inactive.",
+    noAds:
+      "Free to play. Pages may contain disclosed affiliate links; Google ads are inactive.",
     deviceNotice:
       "Touch and keyboard controls are implemented. Physical phones, controllers and Tesla browsers await device testing.",
     back: "Back to games",
@@ -181,7 +182,8 @@ export const copy = {
     licenses: "제작자와 출처",
     footer: "작은 게임, 기분 좋은 휴식.",
     viewAll: "전체 보기",
-    noAds: "무료로 플레이하세요. 현재 광고는 비활성 상태입니다.",
+    noAds:
+      "무료 플레이 · 제휴 링크가 포함될 수 있으며 Google 광고는 비활성 상태입니다.",
     deviceNotice:
       "터치·키보드 조작을 구현했습니다. 실제 휴대폰·패드·테슬라 브라우저는 기기 검증을 기다리고 있습니다.",
     back: "게임 목록으로",

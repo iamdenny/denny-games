@@ -29,6 +29,7 @@ for (const file of files) {
   if (file.includes("/play/")) {
     assert(html.includes("noindex, follow"));
     assert(!html.includes("data-ad-slot"));
+    assert(!html.includes("data-affiliate"));
   }
   for (const match of html.matchAll(/(?:href|src)="(\/[^"?#]*)/g)) {
     const url = match[1];
