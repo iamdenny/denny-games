@@ -23,3 +23,11 @@ H5 requests are offered only between rounds, after two completed rounds and at l
 - [Google H5 game page code](https://support.google.com/adsense/answer/9955214?hl=en)
 
 The API callback contract is implemented and tested locally; these links do not imply account approval. Never enable Auto ads or overlay formats on gameplay. Load the H5 SDK only after its gates pass; an unavailable SDK skips the placement. A script-loading timeout cannot dismiss an already playing advertisement.
+
+## Provider setup — 2026-10-11
+
+AdSense uses public publisher `ca-pub-3539037484563455`. The existing `iamdenny.com` site is under review; ads.txt authorization is already approved in the provider dashboard. Ordinary subdomains cannot be added independently. `games.iamdenny.com` now publishes verification metadata and its own exact seller record; the parent domain's two sellers and existing tools subdomain line are untouched. Verification is not live ad delivery.
+
+The user completed Coupang MFA and authorized the compliance declaration. The games domain was saved to the existing channel list, preserving tools and modutt entries. `src/data/affiliate.ts` contains the provider-issued gamepad-search link and enabled gates. `AffiliateCard.astro` publishes one static card on home and game detail, absent elsewhere. The limited hosting assessment is documented in ADR 0011 and is not a host endorsement. Do not put API keys in source. Capture the deployed visible placement for provider review. Maintain advertisement and commission notices in both languages; the footer distinguishes affiliate links from inactive Google ads.
+
+See [ADR 0011](../adr/0011-provider-verification-and-affiliate.md). Provider approval, real requests, impressions and revenue must be recorded separately. This release does not claim any of them.

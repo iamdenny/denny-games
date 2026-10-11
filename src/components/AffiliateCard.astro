@@ -1,0 +1,80 @@
+---
+import type { Locale } from "../lib/types";
+import { coupang, affiliateReady } from "../data/affiliate";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+{affiliateReady() && (
+  <aside
+    class="affiliate-card"
+    data-affiliate="coupang"
+    aria-label={
+      locale === "ko" ? "쿠팡 파트너스 광고" : "Coupang affiliate advertisement"
+    }
+  >
+    <small>
+      {locale === "ko"
+        ? "광고 · 쿠팡 파트너스"
+        : "Advertisement · Coupang Partners"}
+    </small>
+    <h2>
+      {locale === "ko"
+        ? "게임을 더 편하게 즐길 준비"
+        : "Get comfortable for your next game"}
+    </h2>
+    <p>
+      {locale === "ko"
+        ? "게임패드 검색 결과를 쿠팡에서 확인할 수 있습니다. 기기 호환 여부는 상품 설명을 확인하세요."
+        : "Browse gamepad search results on Coupang, a Korean shopping service. Check each product’s device compatibility before buying."}
+    </p>
+    <p class="affiliate-disclosure">
+      {locale === "ko"
+        ? "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+        : "As a Coupang Partners affiliate, we receive a commission on qualifying purchases made through this link."}
+    </p>
+    <a
+      class="button"
+      href={coupang.url}
+      target="_blank"
+      rel="sponsored nofollow noopener noreferrer"
+    >
+      {locale === "ko"
+        ? "쿠팡 게임패드 검색 · 새 창"
+        : "Gamepads on Coupang · new tab"}
+    </a>
+  </aside>
+)}
+<style>
+  .affiliate-card {
+    border: 1px solid var(--ink, #202720);
+    border-radius: 12px;
+    padding: clamp(18px, 3vw, 30px);
+    margin-block: 28px;
+    background: var(--paper, #f5f2e9);
+    overflow-wrap: anywhere;
+  }
+  .affiliate-card small {
+    display: block;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .affiliate-card h2 {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    margin-block: 12px;
+  }
+  .affiliate-card p {
+    max-width: 65ch;
+  }
+  .affiliate-disclosure {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .affiliate-card a {
+    max-width: 100%;
+    white-space: normal;
+    margin-top: 10px;
+  }
+</style>

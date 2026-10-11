@@ -152,7 +152,8 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "Advertising",
           paragraphs: [
-            "Advertising is currently inactive. Enabling a provider will require updated disclosures and, where applicable, a certified consent platform. No advertising request is made by the inactive configuration.",
+            "Coupang affiliate cards, when enabled, are labeled as advertisements with a commission disclosure. They use ordinary external links without a Coupang script, image or iframe request on page load. Clicking opens Coupang, where its privacy and purchase terms apply. Purchases are optional and do not unlock game rewards.",
+            "Google display and in-game ads are inactive while approval and consent requirements are pending. An AdSense account verification meta tag and public seller record identify the publisher; these do not load an advertising script.",
           ],
         },
       ],
@@ -179,7 +180,8 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "광고",
           paragraphs: [
-            "현재 광고는 비활성 상태입니다. 공급자를 활성화할 때 안내를 갱신하고 필요한 지역에는 인증된 동의 관리 도구를 적용합니다. 비활성 설정에서는 광고를 요청하지 않습니다.",
+            "쿠팡 제휴 카드가 활성화되면 광고 표시와 수수료 안내를 함께 제공합니다. 페이지를 열 때 쿠팡 스크립트·이미지·iframe을 요청하지 않는 일반 외부 링크입니다. 클릭하면 쿠팡으로 이동하며 쿠팡의 개인정보·구매 정책이 적용됩니다. 구매는 선택 사항이며 게임 보상과 연결되지 않습니다.",
+            "Google 배너·게임 내 광고는 승인과 동의 요건을 갖출 때까지 비활성 상태입니다. AdSense 계정 확인 메타 태그와 공개 판매자 정보만 게시하며, 이 정보는 광고 스크립트를 불러오지 않습니다.",
           ],
         },
       ],

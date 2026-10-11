@@ -10,3 +10,4 @@
 - [0008-evidence-and-release — Evidence and release](0008-evidence-and-release.md)
 - [0009-imported-games — Restricted imported runtime](0009-imported-games.md)
 - [0010-search-discovery — Search and AI discovery](0010-search-discovery.md)
+- [0011-provider-verification-and-affiliate — Provider verification and affiliate links](0011-provider-verification-and-affiliate.md)

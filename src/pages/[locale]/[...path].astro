@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import GameCard from "../../components/GameCard.astro";
 import AdSlot from "../../components/AdSlot.astro";
+import AffiliateCard from "../../components/AffiliateCard.astro";
 import Player from "../../components/Player.astro";
 import { games, categories, categoryGames, gameById } from "../../data/games";
 import { articles, guidePaths } from "../../data/pages";
@@ -185,6 +186,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </a>
       </section>
       <AdSlot id="home-mid" locale={locale} />
+      <AffiliateCard locale={locale} />
       <section class="notes-grid">
         <article class="note-card">
           <span class="eyebrow">01 / {text.guides}</span>
@@ -317,6 +319,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </p>
         </section>
         <AdSlot id="detail-body" locale={locale} />
+        <AffiliateCard locale={locale} />
       </div>
       <section>
         <div class="section-heading">
