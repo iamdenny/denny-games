@@ -178,3 +178,32 @@ test("Circuit can finish, score hint and share fallback without clipboard", asyn
     /Hint used[\s\S]*seed=solvable/,
   );
 });
+
+test("late puzzle stages retain touch targets and arcade drag aligns with the visible board", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto("/en/play/circuit-loop/?stage=30");
+  await page.locator("#start-button").click();
+  const cell = await page.locator(".circuit-cell").first().boundingBox();
+  expect(cell!.width).toBeGreaterThanOrEqual(48);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/en/play/orbit-break/");
+  await page.locator("#start-button").click();
+  const canvas = await page.locator("canvas").boundingBox();
+  expect(canvas!.width / canvas!.height).toBeCloseTo(640 / 680, 2);
+  await page.mouse.move(
+    canvas!.x + canvas!.width * 0.8,
+    canvas!.y + canvas!.height * 0.95,
+  );
+  await page.mouse.down();
+  await page.mouse.up();
+  await page.keyboard.press("Escape");
+  const paddle = await page.evaluate(() => {
+    const entry = Object.entries(localStorage).find(([key]) =>
+      key.includes("progress:orbit-break"),
+    );
+    return JSON.parse(entry![1]).paddle;
+  });
+  expect(paddle).toBeCloseTo(512, 0);
+});

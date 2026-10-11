@@ -16,3 +16,10 @@ Live requests require configured publisher/slot IDs, site approval, verified Goo
 H5 requests are offered only between rounds, after two completed rounds and at least three minutes since the previous opportunity. Pause the game and mute before the request; recover to an explicit-resume state for completed, rejected, failed or no-fill callbacks. Do not use a timeout to remove a playing advertisement. Never programmatically click ads. Vehicle large-screen mode disables H5 until a recorded device test permits it.
 
 `ads.txt` is empty until an explicit authorized seller configuration supplies its contents. No placeholder publisher IDs are published. Existing iamdenny.com root sellers must be preserved; root-domain approval and ads.txt delegation are separate operations. Account/site approval, H5 approval, CMP certification, actual serving and revenue remain separate evidence. Pages commercial hosting suitability must be resolved before enabling live monetization; the same static output can move to a suitable free host.
+
+## References
+
+- [Google Ad Placement API callback sequence](https://developers.google.com/ad-placement/apis)
+- [Google H5 game page code](https://support.google.com/adsense/answer/9955214?hl=en)
+
+The API callback contract is implemented and tested locally; these links do not imply account approval. Never enable Auto ads or overlay formats on gameplay. Load the H5 SDK only after its gates pass; an unavailable SDK skips the placement. A script-loading timeout cannot dismiss an already playing advertisement.

@@ -19,7 +19,7 @@ Advertising is implemented as gated content slots and an H5 between-round adapte
 
 - TypeScript/Astro: zero errors, warnings and hints.
 - Unit tests: 15 passed, including 90 generated puzzle solutions, 12 arcade layouts, 30/60fps simulation, 2048 merge rules, UTC seeds, denied storage and ad callback recovery.
-- Browser tests: 12 Chromium scenarios passed, including widths 320/360/390/430/1440, all games, locale/state restore, search/library/daily, pointer swipe, synthetic standard pad/disconnect, hints and clipboard fallback.
+- Browser tests: 13 Chromium scenarios passed, including widths 320/360/390/430/1440, all games, locale/state restore, search/library/daily, pointer swipe, synthetic standard pad/disconnect, hints, clipboard fallback, late-stage 48px touch targets and canvas drag alignment.
 - Docs: 23 Markdown files checked, 22 linted (historical PRD excluded from style lint); internal links passed.
 - Scale fixture: 1,000 games, both locales, real category pagination and static detail/play pages passed. Fixtures are removed and excluded from production.
 - Artifact: 85 files, approximately 0.38 MiB before this release record; output link audit passed, source/docs/research/maps excluded.

@@ -276,9 +276,10 @@
 }
 .orbit-canvas {
   display: block;
-  width: 100%;
+  width: min(100%, calc(62vh * 0.941176));
   height: auto;
-  max-height: 62vh;
+  max-height: none;
+  margin: 0 auto;
   aspect-ratio: 640/680;
   object-fit: contain;
   touch-action: none;
@@ -380,7 +381,8 @@
     min-width: 52px;
   }
   .orbit-canvas {
-    max-height: 58vh;
+    width: min(100%, calc(58vh * 0.941176));
+    max-height: none;
   }
   .low-effects {
     margin-left: 0;
