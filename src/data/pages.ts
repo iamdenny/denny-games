@@ -271,7 +271,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
   tesla: {
     en: {
-      title: "A parked-car break, honestly described.",
+      title: "Tesla browser games: parked use and compatibility",
       intro:
         "Tesla browser compatibility is not yet physically verified. Ordinary browser support and native Tesla Arcade controller support are separate facts.",
       sections: [
@@ -292,7 +292,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
       ],
     },
     ko: {
-      title: "주차 중의 휴식, 확인한 만큼만.",
+      title: "테슬라 브라우저 웹게임: 주차 중 이용과 호환성",
       intro:
         "테슬라 브라우저는 아직 실차 검증 전입니다. 일반 브라우저 동작과 Tesla 내장 Arcade의 패드 지원은 서로 다른 정보입니다.",
       sections: [
@@ -315,7 +315,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
   "controller-games": {
     en: {
-      title: "From the menu to the next round.",
+      title: "Gamepad browser games: controls and connection checks",
       intro:
         "Standard gamepad mappings are implemented for navigation, the original games and the Crisp pointer/button bridge. Physical controller/browser combinations await validation.",
       sections: [
@@ -329,7 +329,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
       ],
     },
     ko: {
-      title: "메뉴부터 다음 한 판까지.",
+      title: "게임패드 웹게임: 조작법과 연결 확인",
       intro:
         "사이트 탐색과 기본 게임과 Crisp 게임에 표준 게임패드 매핑을 구현했습니다. 실제 패드·브라우저 조합은 별도 검증 전입니다.",
       sections: [
