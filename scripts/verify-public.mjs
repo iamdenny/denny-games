@@ -23,16 +23,18 @@ if (expected)
 for (const locale of ["en", "ko"]) {
   const html = await get(`/${locale}/`);
   assert(html.includes(`lang="${locale}"`));
-  assert.equal([...html.matchAll(/data-game-card=/g)].length, 3);
+  assert([...html.matchAll(/data-game-card=/g)].length <= 21);
   const ids = JSON.parse(await get(`/${locale}/search-index.json`)).map(
     (item) => item.id,
   );
-  for (const id of ids) {
-    await get(`/${locale}/games/${id}/`);
-    const player = await get(`/${locale}/play/${id}/`);
-    assert(player.includes("noindex, follow"));
-    assert(!player.includes("data-ad-slot"));
-  }
+  await Promise.all(
+    ids.map(async (id) => {
+      await get(`/${locale}/games/${id}/`);
+      const player = await get(`/${locale}/play/${id}/`);
+      assert(player.includes("noindex, follow"));
+      assert(!player.includes("data-ad-slot"));
+    }),
+  );
   for (const match of html.matchAll(/(?:src|href)="(\/_astro\/[^"?]+)"/g))
     await get(match[1]);
 }

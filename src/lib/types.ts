@@ -13,6 +13,9 @@ export interface GameContext {
   onChange: (score: number) => void;
   onEnd: (result: GameResult) => void;
   sound: () => void;
+  onReady?: () => void;
+  onPause?: () => void;
+  onError?: (message: string) => void;
 }
 export interface GameInstance {
   start(): void;
@@ -20,6 +23,7 @@ export interface GameInstance {
   resume(): void;
   restart(): void;
   action(action: Action): void;
+  inputState?(state: { x: number; y: number; pressed: boolean }): void;
   serialize(): unknown;
   destroy(): void;
 }

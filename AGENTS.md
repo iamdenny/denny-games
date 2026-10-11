@@ -35,6 +35,7 @@ Static English/Korean browser arcade at games.iamdenny.com. Read the PRD and rel
 | [Commands](docs/commands.md) | Environment and checks |
 | [Testing](docs/testing.md) | Automated and physical-device evidence |
 | [Game onboarding](docs/guide/game-onboarding.md) | Rights, modules and metadata |
+| [Open game inventory](docs/guide/open-game-inventory.md) | Published games and candidate dispositions |
 | [Ads](docs/guide/advertising.md) | Approval, consent and adapter contract |
 | [Deployment](docs/guide/deployment.md) | PR, Pages, DNS and rollback |
 | [Documentation rules](docs/guide/documentation.md) | Frontmatter, ownership and ADR format |

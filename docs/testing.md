@@ -18,3 +18,7 @@ Record date, release SHA, OS/browser or Tesla model/computer/firmware, input dev
 ## Release criteria
 
 CI must pass on the PR head. Review the diff and public artifact. After merge, require successful deployment for the merge SHA and inspect root, both locales, detail/play routes, scripts, robots, sitemap, notices and HTTPS. Field Core Web Vitals, 20-minute device soak and ad revenue are not inferred from a passing build.
+
+## Imported catalogue
+
+Every admitted Crisp game has a Chromium load/input/pause journey at a 390px viewport, with no foreign requests and no horizontal overflow. Source and sprite hashes are checked by unit tests. Category tests cover cross-page alphabetical order and imported favorites/search. Held standard-controller input and frame isolation have synthetic regressions. These short automated journeys do not verify complete campaigns or physical phones/controllers/Tesla.

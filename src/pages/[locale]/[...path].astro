@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import GameCard from "../../components/GameCard.astro";
 import AdSlot from "../../components/AdSlot.astro";
 import Player from "../../components/Player.astro";
-import { games, categoryGames, gameById } from "../../data/games";
+import { games, categories, categoryGames, gameById } from "../../data/games";
 import { articles, guidePaths } from "../../data/pages";
 import { locales, t } from "../../data/i18n";
 import { pagePaths, indexable } from "../../lib/routes";
@@ -39,7 +39,7 @@ const title = isHome
     ? game.text[locale].title
     : (article?.title ??
       {
-        category: category === "puzzle" ? text.puzzle : text.arcade,
+        category: text[category as (typeof categories)[number]],
         daily: text.daily,
         search: text.searchAction,
         library: text.library,
@@ -137,11 +137,32 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </span>
         </div>
         <div class="game-grid">
-          {games.map((game) => (
+          {games.slice(0, 3).map((game) => (
             <GameCard game={game} locale={locale} />
           ))}
         </div>
       </section>
+      {categories.map((category) => (
+        <section class="catalogue-section">
+          <div class="section-heading">
+            <h2>
+              {text[category]}{" "}
+              <span class="count">{categoryGames(category).length}</span>
+            </h2>
+            <a class="button" href={`/${locale}/category/${category}/`}>
+              {label("View all", "전체 보기")} ↗
+            </a>
+          </div>
+          <div class="game-grid">
+            {categoryGames(category)
+              .filter((g) => g.imported)
+              .slice(0, 3)
+              .map((g) => (
+                <GameCard game={g} locale={locale} />
+              ))}
+          </div>
+        </section>
+      ))}
       <section class="daily-banner">
         <div>
           <span class="eyebrow">{text.dailyLabel}</span>
@@ -218,25 +239,27 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           src={game.artwork}
           width="640"
           height="400"
-          alt={`${game.text[locale].title} — ${label("original illustration", "게임 일러스트")}`}
+          alt={`${game.text[locale].title} — ${game.imported ? label("actual game preview", "실제 게임 화면") : label("original illustration", "게임 일러스트")}`}
         />
       </section>
       <div class="prose">
-        <figure class="game-screenshot">
-          <img
-            src={`/art/screenshots/${game.id}.png`}
-            width="640"
-            height="640"
-            loading="lazy"
-            alt={`${game.text[locale].title} — ${label("actual game board", "실제 게임 화면")}`}
-          />
-          <figcaption>
-            {label(
-              "Actual game board · Chromium · 2026-10-11",
-              "실제 게임 화면 · Chromium · 2026-10-11",
-            )}
-          </figcaption>
-        </figure>
+        {game.screenshot && (
+          <figure class="game-screenshot">
+            <img
+              src={game.screenshot}
+              width="640"
+              height="640"
+              loading="lazy"
+              alt={`${game.text[locale].title} — ${label("actual game board", "실제 게임 화면")}`}
+            />
+            <figcaption>
+              {label(
+                "Actual game board · Chromium · 2026-10-11",
+                "실제 게임 화면 · Chromium · 2026-10-11",
+              )}
+            </figcaption>
+          </figure>
+        )}
         <section>
           <h2>{text.rules}</h2>
           <ol>
@@ -273,6 +296,9 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           <h2>{text.credit}</h2>
           <p>
             {game.author} · {game.license}.{" "}
+            {game.imported && (
+              <a href="/licenses/crisp/">MIT notices / 출처 고지 · </a>
+            )}
             <a href={game.source}>{text.source}</a>
           </p>
           <p>
@@ -338,13 +364,17 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           {categoryGames(category!).length} {text.available}
         </span>
       </div>
-      <div class="game-grid" data-sort-grid>
+      <div class="game-grid" data-sort-grid data-category={category}>
         {collection.map((g) => (
           <GameCard game={g} locale={locale} />
         ))}
       </div>
       {categoryGames(category!).length > PAGE_SIZE && (
-        <nav class="pagination" aria-label={label("Pages", "페이지")}>
+        <nav
+          class="pagination"
+          data-pagination
+          aria-label={label("Pages", "페이지")}
+        >
           {Array.from(
             { length: Math.ceil(categoryGames(category!).length / PAGE_SIZE) },
             (_, i) => (
@@ -374,18 +404,20 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </p>
       </div>
       <div class="game-grid">
-        {games.map((g) => (
-          <article class="daily-card">
-            <GameCard game={g} locale={locale} />
-            <a
-              class="button primary daily-play"
-              data-daily={g.id}
-              href={`/${locale}/play/${g.id}/?daily=1`}
-            >
-              {text.daily} ↗
-            </a>
-          </article>
-        ))}
+        {games
+          .filter((g) => g.tags.includes("daily"))
+          .map((g) => (
+            <article class="daily-card">
+              <GameCard game={g} locale={locale} />
+              <a
+                class="button primary daily-play"
+                data-daily={g.id}
+                href={`/${locale}/play/${g.id}/?daily=1`}
+              >
+                {text.daily} ↗
+              </a>
+            </article>
+          ))}
       </div>
       <p class="notice">{text.dailyNote}</p>
     </>
@@ -424,20 +456,12 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       <p data-library-empty="favorites" class="empty-state">
         {text.empty}
       </p>
-      <div class="game-grid" data-library="favorites">
-        {games.map((g) => (
-          <GameCard game={g} locale={locale} />
-        ))}
-      </div>
+      <div class="game-grid" data-library="favorites"></div>
       <h2 class="library-title">{text.recent}</h2>
       <p data-library-empty="recent" class="empty-state">
         {text.empty}
       </p>
-      <div class="game-grid" data-library="recent">
-        {games.map((g) => (
-          <GameCard game={g} locale={locale} />
-        ))}
-      </div>
+      <div class="game-grid" data-library="recent"></div>
     </>
   )}
   {kind === "compatibility" && (
@@ -617,6 +641,12 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </p>
           <p>
             <a href={g.source}>{text.source}</a>
+            {g.imported && (
+              <>
+                <span> · </span>
+                <a href="/licenses/crisp/">MIT notices / pinned sources</a>
+              </>
+            )}
             {g.id === "2048" && (
               <>
                 {" "}

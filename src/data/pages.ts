@@ -235,7 +235,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     en: {
       title: "From the menu to the next round.",
       intro:
-        "Standard gamepad mappings are implemented for navigation and all three games. Physical controller/browser combinations await validation.",
+        "Standard gamepad mappings are implemented for navigation, the original games and the Crisp pointer/button bridge. Physical controller/browser combinations await validation.",
       sections: [
         {
           heading: "One familiar mapping",
@@ -249,7 +249,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     ko: {
       title: "메뉴부터 다음 한 판까지.",
       intro:
-        "사이트 탐색과 세 게임에 표준 게임패드 매핑을 구현했습니다. 실제 패드·브라우저 조합은 별도 검증 전입니다.",
+        "사이트 탐색과 기본 게임과 Crisp 게임에 표준 게임패드 매핑을 구현했습니다. 실제 패드·브라우저 조합은 별도 검증 전입니다.",
       sections: [
         {
           heading: "일관된 기본 매핑",

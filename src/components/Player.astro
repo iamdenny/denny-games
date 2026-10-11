@@ -16,13 +16,14 @@ const text = t(locale);
   data-locale={locale}
   data-version={game.version}
   data-stages={game.stages}
+  data-instructions={game.text[locale].controls[0]}
 >
   <div class="player-top">
     <a class="exit-link" href={`/${locale}/games/${game.id}/`}>
       ← {text.exit}
     </a>
     <h1>{game.text[locale].title}</h1>
-    <div class="scoreboard">
+    <div class="scoreboard" hidden={game.internalScore}>
       <span>
         {text.score} <strong id="score">0</strong>
       </span>
@@ -73,7 +74,7 @@ const text = t(locale);
     <button id="fullscreen-button" type="button">
       ⛶ {text.fullscreen}
     </button>
-    <label>
+    <label hidden={game.imported}>
       {text.stage}
       <select id="stage-select" aria-label={text.selectStage}>
         {Array.from({ length: game.stages }, (_, i) => (
@@ -81,13 +82,20 @@ const text = t(locale);
         ))}
       </select>
     </label>
-    <label class="low-effects">
+    <label class="low-effects" hidden={game.imported}>
       <input id="low-effects" type="checkbox" />
       {text.low}
     </label>
   </div>
   <p class="player-instructions">
-    {game.text[locale].controls[1]} <span>{text.continue}</span>
+    {game.text[locale].controls[1]}{" "}
+    <span>
+      {game.imported
+        ? locale === "ko"
+          ? "페이지를 떠나면 라운드는 처음부터 시작합니다."
+          : "Leaving this page restarts the round."
+        : text.continue}
+    </span>
   </p>
 </section>
 <script>
