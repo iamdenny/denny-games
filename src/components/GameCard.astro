@@ -1,0 +1,52 @@
+---
+import type { Game } from "../data/games";
+import { t } from "../data/i18n";
+import type { Locale } from "../lib/types";
+interface Props {
+  game: Game;
+  locale: Locale;
+}
+const { game, locale } = Astro.props;
+const text = t(locale);
+const detail = game.text[locale];
+---
+
+<article
+  class="game-card"
+  data-game-card={game.id}
+  data-category={game.category}
+  data-title={detail.title}
+  data-added={game.added}
+  data-inputs={game.inputs.join(",")}
+>
+  <a href={`/${locale}/games/${game.id}/`} class="game-card-link">
+    <div class={`card-art ${game.color}`}>
+      <img src={game.artwork} width="640" height="400" alt="" loading="lazy" />
+      <span class="card-category">{text[game.category]}</span>
+    </div>
+    <div class="card-copy">
+      <h3>
+        {detail.title}
+        <span aria-hidden="true">↗</span>
+      </h3>
+      <p>{detail.subtitle}</p>
+      <div class="card-meta">
+        <span>
+          ◷ {game.duration} {text.minutes}
+        </span>
+        <span>
+          {text.touch} · {text.keyboard}
+        </span>
+      </div>
+    </div>
+  </a>
+  <button
+    class="favorite-button"
+    data-favorite={game.id}
+    type="button"
+    aria-label={`${text.favorite}: ${detail.title}`}
+    aria-pressed="false"
+  >
+    ♡
+  </button>
+</article>

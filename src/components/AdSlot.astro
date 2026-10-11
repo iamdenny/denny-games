@@ -1,0 +1,13 @@
+---
+import { t } from "../data/i18n";
+import type { Locale } from "../lib/types";
+interface Props {
+  id: string;
+  locale: Locale;
+}
+const { id, locale } = Astro.props;
+---
+
+<aside class="ad-slot" data-ad-slot={id} aria-label={t(locale).ad} hidden>
+  <small>{t(locale).ad}</small>
+</aside>

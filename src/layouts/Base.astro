@@ -1,0 +1,185 @@
+---
+import "../styles/global.css";
+import { categories } from "../data/games";
+import { t } from "../data/i18n";
+import { ads } from "../data/ads";
+import type { Locale } from "../lib/types";
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  path?: string;
+  noindex?: boolean;
+  play?: boolean;
+  root?: boolean;
+  schema?: Record<string, unknown>;
+}
+const {
+  locale,
+  title,
+  description,
+  path = "",
+  noindex = false,
+  play = false,
+  root = false,
+  schema,
+} = Astro.props;
+const text = t(locale),
+  base = "https://games.iamdenny.com";
+const route = root ? "/" : `/${locale}/${path ? path + "/" : ""}`;
+const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · Denny Games</title>
+    <meta name="description" content={description} />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, follow" : "index, follow"}
+    />
+    <meta name="theme-color" content="#f5f2e9" />
+    <link rel="canonical" href={`${base}${route}`} />
+    <link rel="alternate" hreflang="en" href={alternate("en")} />
+    <link rel="alternate" hreflang="ko" href={alternate("ko")} />
+    <link rel="alternate" hreflang="x-default" href={`${base}/`} />
+    <meta property="og:title" content={`${title} · Denny Games`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={`${base}${route}`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={`${base}/art/social.svg`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {schema && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(schema).replace(/</g, "\\u003c")}
+      />
+    )}
+    {ads.mode !== "off" && /^ca-pub-\d+$/.test(ads.publisher) && (
+      <meta name="google-adsense-account" content={ads.publisher} />
+    )}
+  </head>
+  <body data-locale={locale} class:list={{ "play-page": play }}>
+    <a class="skip-link" href="#main">
+      {locale === "ko" ? "본문으로 건너뛰기" : "Skip to content"}
+    </a>
+    <header class="site-header">
+      <a class="brand" href={`/${locale}/`}>
+        <span class="brand-mark" aria-hidden="true">
+          d<span>g</span>
+        </span>
+        <span>
+          DENNY
+          <br />
+          GAMES<span class="brand-dot">.</span>
+        </span>
+      </a>
+      <nav
+        class="primary-nav"
+        aria-label={locale === "ko" ? "주 메뉴" : "Main navigation"}
+      >
+        <a href={`/${locale}/`}>{text.home}</a>
+        <a href={`/${locale}/daily/`}>{text.daily}</a>
+        <a href={`/${locale}/library/`}>{text.library}</a>
+      </nav>
+      <div class="header-actions">
+        <button
+          data-large
+          type="button"
+          aria-pressed="false"
+          title={text.large}
+        >
+          ▣ <span>{text.large}</span>
+        </button>
+        <nav
+          class="locale-nav"
+          aria-label={locale === "ko" ? "언어" : "Language"}
+        >
+          <a
+            data-locale-link
+            href={`/en/${path ? path + "/" : ""}`}
+            lang="en"
+            aria-current={locale === "en" ? "page" : undefined}
+          >
+            EN
+          </a>
+          <a
+            data-locale-link
+            href={`/ko/${path ? path + "/" : ""}`}
+            lang="ko"
+            aria-current={locale === "ko" ? "page" : undefined}
+          >
+            KO
+          </a>
+        </nav>
+      </div>
+    </header>
+    <div class:list={["site-layout", { "play-layout": play }]}>
+      {!play && (
+        <aside class="sidebar">
+          <p class="rail-label">
+            {locale === "ko" ? "나만의 작은 오락실" : "YOUR LITTLE ARCADE"}
+          </p>
+          <nav aria-label={locale === "ko" ? "게임 탐색" : "Browse games"}>
+            <a href={`/${locale}/`}>
+              ▦ <span>{text.all}</span>
+            </a>
+            {categories.map((category) => (
+              <a href={`/${locale}/category/${category}/`}>
+                {category === "puzzle" ? "◈" : "✳"}{" "}
+                <span>{text[category]}</span>
+              </a>
+            ))}
+            <a href={`/${locale}/search/`}>
+              ⌕ <span>{text.searchAction}</span>
+            </a>
+          </nav>
+          <div class="rail-divider"></div>
+          <nav aria-label={text.guides}>
+            <a href={`/${locale}/compatibility/`}>
+              ↗ <span>{text.compatibility}</span>
+            </a>
+            <a href={`/${locale}/gamepad-test/`}>
+              ⊕ <span>{text.gamepad}</span>
+            </a>
+            <a href={`/${locale}/guides/`}>
+              ≡ <span>{text.guides}</span>
+            </a>
+          </nav>
+          <p class="rail-note">
+            {locale === "ko"
+              ? "언제든 가볍게.\n설치 없이 바로."
+              : "Always a small escape.\nNever an installation."}
+          </p>
+        </aside>
+      )}
+      <main id="main">
+        <slot />
+      </main>
+    </div>
+    {!play && (
+      <footer class="site-footer">
+        <a class="footer-brand" href={`/${locale}/`}>
+          DENNY GAMES.
+        </a>
+        <p>{text.footer}</p>
+        <nav aria-label={locale === "ko" ? "운영 정보" : "Site information"}>
+          {(["about", "privacy", "terms", "contact", "licenses"] as const).map(
+            (key) => (
+              <a href={`/${locale}/${key}/`}>{text[key]}</a>
+            ),
+          )}
+        </nav>
+        <small>
+          © {new Date().getUTCFullYear()} Denny Games · {text.noAds}
+        </small>
+      </footer>
+    )}
+    <script>
+      import "../scripts/site";
+    </script>
+  </body>
+</html>

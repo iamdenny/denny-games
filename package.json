@@ -1,0 +1,39 @@
+{
+  "name": "denny-games",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build && node scripts/audit-output.mjs",
+    "preview": "astro preview --host 127.0.0.1 --port 4321",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "docs:check": "node scripts/check-docs.mjs",
+    "docs:lint": "node scripts/lint-docs.mjs",
+    "test:scale": "node scripts/check-scale.mjs",
+    "format": "prettier --write src scripts tests *.json *.mjs .github/workflows",
+    "verify": "npm run check && npm test && npm run docs:check && npm run docs:lint && npm run test:scale && npm run build",
+    "format:check": "prettier --check src scripts tests *.json *.mjs .github/workflows"
+  },
+  "dependencies": {
+    "astro": "7.3.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@playwright/test": "1.64.0",
+    "@types/node": "22.19.15",
+    "markdownlint": "0.41.1",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
+    "typescript": "5.9.3",
+    "vitest": "5.0.3"
+  },
+  "overrides": {
+    "katex": "0.19.0"
+  }
+}

@@ -1,0 +1,1 @@
+{"buildPlatform":{"name":"astro","version":"7.3.8","license":"MIT","notice":"/licenses/astro.txt"},"gameRules":{"name":"2048","author":"Gabriele Cirulli","license":"MIT","notice":"/licenses/2048.txt"},"notes":"No third-party fonts, music, ROMs or game artwork are bundled. Full build-tool versions are locked in package-lock.json in the source repository."}
