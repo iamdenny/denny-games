@@ -59,7 +59,7 @@
     await script('/vendor/crisp/clone-deep.js');
     window.cloneDeep = window.module.exports;
     await script('/vendor/crisp/runtime.js');
-    await script(`/vendor/crisp/games/${slug}/main.js`);
+    await script(`/vendor/crisp/games/${slug}/${slug === "dango" ? "main.csp.js" : "main.js"}`);
     if (Array.isArray(window.characters) && window.characters.some(v=>v.trim().startsWith('./'))) {
       await script('/vendor/crisp/images.js');
       window.characters = window.characters.map(value=>window.dennyImages[value] || value);

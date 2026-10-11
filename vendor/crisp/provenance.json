@@ -6603,5 +6603,14 @@
     }
   ],
   "runtime_upstream_sha256": "dcd691df35c1b1ad7fdef449aa8f9b6bd8fc189ba39db782138df034d4ebcb63",
-  "clone_deep_sha256": "43e8e3a411bc763300082c0cefe036ef344cd5fb840b6649d878338a3ec2bc02"
+  "clone_deep_sha256": "43e8e3a411bc763300082c0cefe036ef344cd5fb840b6649d878338a3ec2bc02",
+  "host_adaptations": [
+    {
+      "game": "crisp-dango",
+      "original": "public/vendor/crisp/games/dango/main.js",
+      "generated": "public/vendor/crisp/games/dango/main.csp.js",
+      "generator": "scripts/build-crisp.mjs",
+      "reason": "Replace Function-based integer addition/multiplication evaluation with a restricted arithmetic parser; preserve precedence and sandbox CSP. Upstream source and hash remain unchanged."
+    }
+  ]
 }

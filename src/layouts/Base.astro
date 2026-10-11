@@ -13,6 +13,7 @@ interface Props {
   play?: boolean;
   root?: boolean;
   schema?: Record<string, unknown>;
+  image?: string;
 }
 const {
   locale,
@@ -23,6 +24,7 @@ const {
   play = false,
   root = false,
   schema,
+  image = "/art/social.png",
 } = Astro.props;
 const text = t(locale),
   base = "https://games.iamdenny.com";
@@ -39,18 +41,39 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
     <meta name="description" content={description} />
     <meta
       name="robots"
-      content={noindex ? "noindex, follow" : "index, follow"}
+      content={
+        noindex ? "noindex, follow" : "index, follow, max-image-preview:large"
+      }
     />
+    {root && (
+      <meta name="msvalidate.01" content="017DFA330D27725009E6C34302CDFE7C" />
+    )}
+    {root && (
+      <meta
+        name="naver-site-verification"
+        content="eea7cb463804b8f018a26e0ce7eb8b4c661a3ae5"
+      />
+    )}
     <meta name="theme-color" content="#f5f2e9" />
     <link rel="canonical" href={`${base}${route}`} />
     <link rel="alternate" hreflang="en" href={alternate("en")} />
     <link rel="alternate" hreflang="ko" href={alternate("ko")} />
-    <link rel="alternate" hreflang="x-default" href={`${base}/`} />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={root || !path ? `${base}/` : alternate("en")}
+    />
     <meta property="og:title" content={`${title} · Denny Games`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={`${base}${route}`} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={`${base}/art/social.svg`} />
+    <meta property="og:image" content={`${base}${image}`} />
+    <meta property="og:site_name" content="Denny Games" />
+    <meta property="og:locale" content={locale === "ko" ? "ko_KR" : "en_US"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} · Denny Games`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${base}${image}`} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {schema && (
       <script

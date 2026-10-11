@@ -27,3 +27,7 @@ Imports restart on page reload or language change; the shell saves personal best
 See [runtime decision](../adr/0009-imported-games.md), [onboarding](game-onboarding.md) and [testing](../testing.md).
 
 Sky Golf keeps its course/stroke counter inside the game and does not use the shell score panel. Imported games have no artificial numbered stages; their stage selector is hidden.
+
+## DANGO CSP arithmetic adaptation
+
+The original DANGO uses `Function` to calculate collected integer expressions. CI exposed a CSP failure when a scoring branch was reached. Its unchanged upstream `main.js` and source hash are retained. The build emits `main.csp.js` with a restricted addition/multiplication parser preserving normal precedence; only DANGO loads that derivative. No eval permission or sandbox privilege is added. A deterministic browser regression executes the scoring branch for ordinary, leading-operator and empty expressions. See `host_adaptations` in the provenance record.

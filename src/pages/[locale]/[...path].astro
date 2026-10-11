@@ -8,6 +8,9 @@ import { articles, guidePaths } from "../../data/pages";
 import { locales, t } from "../../data/i18n";
 import { pagePaths, indexable } from "../../lib/routes";
 import { paginate, PAGE_SIZE } from "../../lib/catalogue";
+import { categoryCopy } from "../../data/discovery";
+import { discoverySchema } from "../../lib/seo";
+import type { Category } from "../../data/games";
 import type { Locale } from "../../lib/types";
 export function getStaticPaths() {
   return locales.flatMap((locale) =>
@@ -36,10 +39,10 @@ const title = isHome
     ? "설치 없이 즐기는 무료 웹게임"
     : "Free games. Right in your browser."
   : game
-    ? game.text[locale].title
+    ? `${game.text[locale].title} · ${locale === "ko" ? "무료 웹게임" : "Play Free Online"}`
     : (article?.title ??
       {
-        category: text[category as (typeof categories)[number]],
+        category: `${text[category as Category]} ${locale === "ko" ? "무료 웹게임" : "Free Browser Games"}${page > 1 ? (locale === "ko" ? ` · ${page}페이지` : ` · Page ${page}`) : ""}`,
         daily: text.daily,
         search: text.searchAction,
         library: text.library,
@@ -49,27 +52,28 @@ const title = isHome
         licenses: text.licenseTitle,
       }[kind!] ??
       text.all);
+const categoryIntro =
+  kind === "category" ? categoryCopy[category as Category][locale] : undefined;
 const description =
   game?.text[locale].description ??
   article?.intro ??
-  (isHome ? text.intro : `${title}. ${text.tagline}`);
-const schema =
-  game && !isPlay
-    ? {
-        "@context": "https://schema.org",
-        "@type": "VideoGame",
-        name: game.text[locale].title,
-        description,
-        url: `https://games.iamdenny.com/${locale}/games/${game.id}/`,
-        image: `https://games.iamdenny.com${game.artwork}`,
-        inLanguage: locale,
-        gamePlatform: "Web browser",
-        playMode: "SinglePlayer",
-        isAccessibleForFree: true,
-        author: { "@type": "Person", name: game.author },
-        license: "https://opensource.org/license/mit",
-      }
-    : undefined;
+  (categoryIntro
+    ? `${categoryIntro} ${locale === "ko" ? `${page}페이지 · 총 ${categoryGames(category!).length}개 게임.` : `Page ${page} · ${categoryGames(category!).length} games in this collection.`}`
+    : isHome
+      ? locale === "ko"
+        ? `가입·설치 없이 즐기는 ${games.length}개 무료 웹게임. 퍼즐, 아케이드, 액션, 슈팅, 레이싱과 스포츠를 게임별 규칙·조작 안내와 함께 만나세요.`
+        : `Play ${games.length} free browser games without an account or installation. Explore puzzles, arcade, action, shooting, racing and sports with rules and controls.`
+      : `${title}. ${text.tagline}`);
+const schema = indexable(path)
+  ? discoverySchema({
+      locale,
+      path,
+      title,
+      description,
+      game: isPlay ? undefined : game,
+      items: kind === "category" ? collection : undefined,
+    })
+  : undefined;
 const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
 ---
 
@@ -81,6 +85,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
   noindex={!indexable(path)}
   play={isPlay}
   schema={schema}
+  image={game ? (game.screenshot ?? game.artwork) : undefined}
 >
   {isHome && (
     <>
@@ -105,6 +110,12 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </button>
         </form>
       </section>
+      <p class="notice">
+        {description}{" "}
+        <a href={`/${locale}/guides/open-browser-games/`}>
+          {label("Sources and device support", "출처와 기기 지원 안내")} ↗
+        </a>
+      </p>
       <section class="feature">
         <div class="feature-copy">
           <span class="eyebrow">{text.featured}</span>
@@ -206,7 +217,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
   )}
   {game && kind === "games" && (
     <>
-      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <nav class="breadcrumb" aria-label={label("Breadcrumb", "현재 위치")}>
         <a href={`/${locale}/`}>{text.home}</a>
         <span>/</span>
         <a href={`/${locale}/category/${game.category}/`}>
@@ -313,7 +324,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </div>
         <div class="game-grid">
           {games
-            .filter((g) => g.id !== game.id)
+            .filter((g) => g.id !== game.id && g.category === game.category)
             .slice(0, 3)
             .map((g) => (
               <GameCard game={g} locale={locale} />
@@ -330,17 +341,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           {text.all} / {page}
         </span>
         <h1>{title}</h1>
-        <p>
-          {category === "puzzle"
-            ? label(
-                "A clear board, a fresh thought. Take all the time you need.",
-                "선명한 보드, 새로운 생각. 천천히 풀어도 좋아요.",
-              )
-            : label(
-                "A little motion. A good rhythm. Pick up and play.",
-                "가벼운 움직임, 기분 좋은 리듬. 바로 시작하세요.",
-              )}
-        </p>
+        <p>{categoryIntro}</p>
       </div>
       <div class="toolbar">
         <label>
@@ -594,6 +595,10 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         <h1>{article.title}</h1>
         <p>{article.intro}</p>
       </div>
+      <nav class="breadcrumb" aria-label={label("Breadcrumb", "현재 위치")}>
+        <a href={`/${locale}/`}>{text.home}</a>
+        <span>/ {article.title}</span>
+      </nav>
       {article.sections.map((section) => (
         <section>
           <h2>{section.heading}</h2>
@@ -602,6 +607,18 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           ))}
         </section>
       ))}
+      {article.links && (
+        <section>
+          <h2>{label("Sources and next steps", "출처와 다음 단계")}</h2>
+          <ul>
+            {article.links.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {path === "contact" && (
         <p>
           <a
