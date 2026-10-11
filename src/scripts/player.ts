@@ -230,8 +230,19 @@ start.addEventListener("click", async () => {
   if (state === "running") focusGame();
   save();
 });
-pauseButton.addEventListener("click", () => {
-  if (state === "paused") start.click();
+// Focusing a parent control blurs the imported frame and may pause before
+// click is dispatched. Preserve the pointer's intent rather than toggling twice.
+let pointerPauseIntent: "pause" | "resume" | undefined;
+pauseButton.addEventListener("pointerdown", () => {
+  pointerPauseIntent = state === "paused" ? "resume" : "pause";
+});
+pauseButton.addEventListener("pointercancel", () => {
+  pointerPauseIntent = undefined;
+});
+pauseButton.addEventListener("click", (event) => {
+  const intent = event.detail > 0 ? pointerPauseIntent : undefined;
+  pointerPauseIntent = undefined;
+  if (intent === "resume" || (!intent && state === "paused")) start.click();
   else pause();
 });
 restart.addEventListener("click", () => {
