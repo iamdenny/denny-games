@@ -1,10 +1,92 @@
+import { games } from "./games";
 import type { Locale } from "../lib/types";
 export interface Article {
   title: string;
   intro: string;
   sections: { heading: string; paragraphs: string[] }[];
+  links?: { label: string; href: string }[];
 }
 export const articles: Record<string, Record<Locale, Article>> = {
+  "guides/open-browser-games": {
+    en: {
+      title: "Free browser games: sources, rules and device support",
+      intro: `Denny Games offers ${games.length} playable browser games in English and Korean, without an account or installation. The catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, an adapted 2048 and two original games.`,
+      sections: [
+        {
+          heading: "What can I play?",
+          paragraphs: [
+            "Browse puzzle, arcade, action, shooting, racing and sports collections. Each game has a detail page with its rules, controls, author and source. Racing includes steering challenges as well as driving games; these are short mini-games rather than full console releases.",
+          ],
+        },
+        {
+          heading: "Are free games also open source?",
+          paragraphs: [
+            "Free-to-play and permission to redistribute are separate questions. These imports have reviewed source and asset provenance and retained MIT notices. The catalogue does not include commercial console ROM collections. Original authors retain their credits, and listing a game does not imply their endorsement.",
+          ],
+        },
+        {
+          heading: "Do mobile, gamepad and Tesla browsers work?",
+          paragraphs: [
+            "Touch, keyboard and standard gamepad mappings are implemented. Automated Chromium checks cover narrow layouts and imported game loading, input and pausing. Physical phones, controllers and Tesla browsers still require separate verification. Use vehicle browsers only while parked; test controller access with the local input diagnostic.",
+          ],
+        },
+        {
+          heading: "Can I save my game?",
+          paragraphs: [
+            "Personal best scores, favorites and recent games stay in this browser. The three original-platform games can also restore round progress. Crisp games start a fresh round after reloading. Clearing browser storage removes local records.",
+          ],
+        },
+      ],
+      links: [
+        { label: "Browse all categories", href: "/en/" },
+        { label: "Authors and source links", href: "/en/licenses/" },
+        {
+          label: "Crisp MIT notices and pinned sources",
+          href: "/licenses/crisp/",
+        },
+        { label: "Device support boundaries", href: "/en/compatibility/" },
+        { label: "Gamepad input test", href: "/en/gamepad-test/" },
+      ],
+    },
+    ko: {
+      title: "무료 웹게임 안내: 출처·조작법·기기 지원",
+      intro: `데니 게임즈는 가입·설치 없이 한국어와 영어로 즐기는 웹게임 ${games.length}개를 제공합니다. MIT 라이선스 ABA Games Crisp 미니게임 191개, 2048을 수정한 게임과 자체 제작 게임 2개가 있습니다.`,
+      sections: [
+        {
+          heading: "어떤 게임을 할 수 있나요?",
+          paragraphs: [
+            "퍼즐·아케이드·액션·슈팅·레이싱·스포츠에서 골라보세요. 모든 게임의 소개 페이지에 규칙·조작법·제작자·원본 소스를 제공합니다. 레이싱에는 운전뿐 아니라 방향 조작 도전도 포함하며, 대형 콘솔 게임보다 짧게 즐기는 미니게임 중심입니다.",
+          ],
+        },
+        {
+          heading: "무료 게임이면 소스도 가져올 수 있나요?",
+          paragraphs: [
+            "무료 플레이와 재배포 허용은 별개입니다. 등록한 공개 게임은 소스와 자산의 출처·권리를 검토하고 MIT 고지를 유지합니다. 상용 콘솔 ROM 모음은 제공하지 않습니다. 원작자 이름을 보존하며 게임 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
+          ],
+        },
+        {
+          heading: "모바일·게임패드·테슬라에서 되나요?",
+          paragraphs: [
+            "터치·키보드·표준 게임패드 매핑을 구현했습니다. Chromium 자동 검사로 좁은 화면과 가져온 게임의 로딩·입력·일시정지를 확인했습니다. 실제 휴대폰·패드·테슬라 브라우저는 별도 검증 전입니다. 차량에서는 주차 중에만 사용하고 패드 접근은 입력 진단에서 확인하세요.",
+          ],
+        },
+        {
+          heading: "게임 기록은 저장되나요?",
+          paragraphs: [
+            "최고 기록·즐겨찾기·최근 게임은 이 브라우저에 저장합니다. 초기 플랫폼 게임 3개는 진행 중인 판도 복원할 수 있습니다. Crisp 게임은 새로고침하면 새 판을 시작합니다. 브라우저 저장 공간을 지우면 기기 내 기록도 사라집니다.",
+          ],
+        },
+      ],
+      links: [
+        { label: "전체 카테고리 보기", href: "/ko/" },
+        { label: "제작자와 원본 소스", href: "/ko/licenses/" },
+        { label: "Crisp MIT 라이선스와 고정 소스", href: "/licenses/crisp/" },
+        { label: "기기 지원 범위", href: "/ko/compatibility/" },
+        { label: "게임패드 입력 진단", href: "/ko/gamepad-test/" },
+      ],
+    },
+  },
+
   about: {
     en: {
       title: "Small games. A better break.",
@@ -14,7 +96,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "A curated beginning",
           paragraphs: [
-            "Start with Circuit Loop, Orbit Break and an MIT-based 2048 adaptation. Every game has a clear rule, original interface artwork and a common pause/restart flow.",
+            "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation and 191 ABA Games Crisp mini-games. Every game has rules, controls and a common pause/restart flow.",
             "We are building a larger catalogue through individually reviewed open games and original titles. Research candidates are not listed as playable games until integrated.",
           ],
         },
@@ -34,7 +116,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "작지만 분명한 시작",
           paragraphs: [
-            "서킷 루프, 오빗 브레이크, MIT 기반 2048로 시작합니다. 이해하기 쉬운 규칙과 직접 구성한 화면, 일관된 일시정지·재시작 흐름을 제공합니다.",
+            "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games의 Crisp 미니게임 191개를 제공합니다. 게임별 규칙·조작법과 일관된 일시정지·재시작 흐름을 안내합니다.",
             "개별 권리를 검토한 공개 게임과 자체 게임으로 목록을 늘립니다. 조사 후보를 구현된 게임처럼 목록에 넣지 않습니다.",
           ],
         },
@@ -325,7 +407,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     en: {
       title: "Pick up where you left off.",
       intro:
-        "Progress is saved in this browser, with a separate record for each game, stage and seed. English/Korean switching preserves the same board.",
+        "Circuit Loop, Orbit Break and 2048 save round progress in this browser. Crisp mini-games save personal best scores, but do not restore a round after reloading. Records are not synced between devices.",
       sections: [
         {
           heading: "What can erase a save",
@@ -339,7 +421,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     ko: {
       title: "하던 곳에서 이어가세요.",
       intro:
-        "게임·스테이지·시드마다 별도 기록을 이 브라우저에 저장합니다. 영어·한국어를 바꿔도 같은 보드를 이어갑니다.",
+        "서킷 루프·오빗 브레이크·2048은 진행 상황을 이 브라우저에 저장합니다. Crisp 미니게임은 최고 기록을 저장하지만 새로고침 뒤 진행 중인 판을 복원하지 않습니다. 다른 기기와는 동기화되지 않습니다.",
       sections: [
         {
           heading: "기록이 사라지는 경우",
@@ -353,6 +435,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/open-browser-games",
   "guides/controller-not-detected",
   "guides/sound-and-pause",
   "guides/local-saves",

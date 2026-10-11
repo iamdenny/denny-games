@@ -15,3 +15,4 @@ The original research is retained locally outside this public repository. Produc
 
 - [Open game inventory](guide/open-game-inventory.md)
 - [Open catalogue release](releases/2026-10-11-open-catalogue.md)
+- [Search discovery and operations](guide/search-discovery.md)
