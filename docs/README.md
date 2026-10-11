@@ -17,3 +17,6 @@ The original research is retained locally outside this public repository. Produc
 - [Open catalogue release](releases/2026-10-11-open-catalogue.md)
 - [Search discovery and operations](guide/search-discovery.md)
 - [Advertising provider setup release](releases/2026-10-11-advertising-setup.md)
+
+- [다음 릴리스 PRD](product/NEXT-RELEASE.md)
+- [Play-style release evidence](releases/2026-10-11-playstyle-discovery.md)

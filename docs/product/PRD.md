@@ -21,6 +21,10 @@ This repository carries the original research requirements below. The following 
 
 > Catalogue expansion (2026-10-11): 191 pinned Crisp games join the initial three titles in six categories. See [inventory](../guide/open-game-inventory.md) and [ADR 0009](../adr/0009-imported-games.md). Imported rounds restart on leaving; daily challenges remain limited to the original three. Candidate status does not imply playable release or device certification.
 
+## Next development release
+
+See [다음 릴리스 PRD](NEXT-RELEASE.md) for play-style collections, combined search filters, local device checks, SEO/GEO acceptance and the explicit remaining game-supply targets.
+
 ## Acceptance traceability
 
 | Requirement | Owning module / evidence |

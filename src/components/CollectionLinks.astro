@@ -1,0 +1,41 @@
+---
+import {
+  collections,
+  collectionGames,
+  gameCollections,
+} from "../data/collections";
+import type { Locale } from "../lib/types";
+const { locale, gameId } = Astro.props as { locale: Locale; gameId?: string };
+const items = gameId ? gameCollections(gameId) : collections;
+---
+
+{items.length > 0 && (
+  <section class="collection-links">
+    <div class="section-heading">
+      <h2>
+        {locale === "ko" ? "플레이 방식별 게임 모음" : "Find your way to play"}
+      </h2>
+      {!gameId && (
+        <a href={`/${locale}/collections/`}>
+          {locale === "ko" ? "모음 전체 보기" : "All collections"} ↗
+        </a>
+      )}
+    </div>
+    <div class="notes-grid">
+      {items.map((item) => (
+        <article class="note-card">
+          <span class="eyebrow">
+            {collectionGames(item.id).length}{" "}
+            {locale === "ko" ? "개 게임" : "GAMES"}
+          </span>
+          <h3>
+            <a href={`/${locale}/collections/${item.id}/`}>
+              {item.text[locale].title} ↗
+            </a>
+          </h3>
+          <p>{item.text[locale].intro}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+)}

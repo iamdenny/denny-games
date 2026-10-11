@@ -1,4 +1,5 @@
 import { games, categories, categoryGames } from "../data/games";
+import { collections } from "../data/collections";
 import { articles } from "../data/pages";
 import { locales } from "../data/i18n";
 import { PAGE_SIZE } from "./catalogue";
@@ -6,6 +7,9 @@ export function pagePaths(): string[] {
   return [
     "",
     "daily",
+    "collections",
+    "device-check",
+    ...collections.map((item) => `collections/${item.id}`),
     "search",
     "library",
     "compatibility",
@@ -25,7 +29,7 @@ export function pagePaths(): string[] {
 export function indexable(path: string): boolean {
   return (
     !path.startsWith("play/") &&
-    !["search", "library", "gamepad-test"].includes(path)
+    !["search", "library", "gamepad-test", "device-check"].includes(path)
   );
 }
 export function allIndexableUrls() {

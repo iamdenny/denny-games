@@ -42,3 +42,7 @@ No analytics provider was added. Existing privacy disclosures remain accurate. I
 - [Bing AI Performance](https://www.bing.com/webmasters/help/ai-performance-9f8e7d6c): use dashboard citation evidence when available.
 
 Reviewed 2026-10-11. Deployment and actual submission receipts belong in release evidence, not predictions in this guide.
+
+## Play-style discovery release
+
+`/en/collections/` and `/ko/collections/` link to one-button, point-and-play, number-puzzles and daily-challenges pages. Each has original bilingual selection criteria and a practical question/answer, source/save boundaries, explicit hardware limits, and CollectionPage/ItemList/BreadcrumbList data matching visible games. Home and matching game details link back to these collections. `/guides/test-your-device/` provides the indexable physical test method; `/device-check/` is a noindex local observation form. Filter URLs on `/search/` also stay noindex and canonicalize to the base search route. No FAQ rich-result eligibility or AI citation is claimed.

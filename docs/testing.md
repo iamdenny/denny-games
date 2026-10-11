@@ -22,3 +22,7 @@ CI must pass on the PR head. Review the diff and public artifact. After merge, r
 ## Imported catalogue
 
 Every admitted Crisp game has a Chromium load/input/pause journey at a 390px viewport, with no foreign requests and no horizontal overflow. Source and sprite hashes are checked by unit tests. Category tests cover cross-page alphabetical order and imported favorites/search. Held standard-controller input and frame isolation have synthetic regressions. These short automated journeys do not verify complete campaigns or physical phones/controllers/Tesla.
+
+## Discovery and device-check release
+
+Collection membership must resolve to real games, and one-button/pointer/daily selection rules must agree with the registry. Search regressions cover combined filters, URL normalization, result pagination, language links, refresh, reset and browser history. Device-report tests assert that observed pass/fail stays distinct, missing checks remain not-tested, the report is not certified and no mutation request uploads it. Layout and JavaScript-disabled checks cover the static discovery fallback. These tests exercise the checklist software, not physical hardware or 20-minute stability.

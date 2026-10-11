@@ -1,5 +1,6 @@
 import type { Locale } from "../lib/types";
 import crisp from "./crisp.json";
+import type { ControlStyle } from "./collections";
 export const categories = [
   "puzzle",
   "arcade",
@@ -25,6 +26,7 @@ export interface Game {
   internalScore?: boolean;
   notice?: string;
   duration: string;
+  controlStyle: ControlStyle;
   color: string;
   version: number;
   stages: number;
@@ -40,6 +42,7 @@ export interface Game {
 export const games: Game[] = [
   {
     id: "circuit-loop",
+    controlStyle: "pointer",
     category: "puzzle",
     duration: "3–5",
     color: "mint",
@@ -101,6 +104,7 @@ export const games: Game[] = [
   },
   {
     id: "orbit-break",
+    controlStyle: "pointer",
     category: "arcade",
     duration: "2–3",
     color: "rust",
@@ -161,6 +165,7 @@ export const games: Game[] = [
   },
   {
     id: "2048",
+    controlStyle: "directional",
     category: "puzzle",
     duration: "3–5",
     color: "yellow",
@@ -223,6 +228,11 @@ export const games: Game[] = [
 games.push(
   ...crisp.map((item): Game => ({
     id: item.id,
+    controlStyle: item.digits
+      ? "numbers"
+      : item.pointer
+        ? "pointer"
+        : "buttons",
     category: item.category as Category,
     duration: "1–3",
     color: (

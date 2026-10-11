@@ -7,6 +7,82 @@ export interface Article {
   links?: { label: string; href: string }[];
 }
 export const articles: Record<string, Record<Locale, Article>> = {
+  "guides/test-your-device": {
+    en: {
+      title: "How to test browser games on your phone, controller or Tesla",
+      intro:
+        "Start with one game and your actual input device. Check loading, play, pause, sound and local saves separately; a responsive screenshot or a synthetic controller event does not prove hardware compatibility.",
+      sections: [
+        {
+          heading: "What should I test first?",
+          paragraphs: [
+            "Open a game detail and read its controls. Start a round, change the game state, pause, resume and restart. On a phone, try portrait and landscape. For a controller, use the input diagnostic before testing play, then disconnect the controller and confirm the game pauses.",
+          ],
+        },
+        {
+          heading: "How do I check saving and stability?",
+          paragraphs: [
+            "Save a favorite and reload. Circuit Loop, Orbit Break and 2048 support local progress; imported Crisp games restart rounds and save personal bests only. Actually play for 20 minutes before marking the long-session check passed. Record crashes, stuck controls or persistent slowdowns rather than inferring success from a short load test.",
+          ],
+        },
+        {
+          heading: "What about Tesla browsers?",
+          paragraphs: [
+            "Only use the browser while parked. Record the vehicle computer, firmware, browser behavior and input connection without a VIN or other identifier. Test touch before a controller; native Tesla Arcade controller support does not demonstrate controller availability in its browser. An unavailable browser capability remains a limit of that environment.",
+          ],
+        },
+        {
+          heading: "Does downloading a report certify my device?",
+          paragraphs: [
+            "No. The local checklist creates your observation file, leaves untested items as Not tested and never uploads the result. Official compatibility remains unverified until the environment and results have been reviewed. Do not enter personal identifiers into the report.",
+          ],
+        },
+      ],
+      links: [
+        { label: "Local device checklist", href: "/en/device-check/" },
+        { label: "Current compatibility evidence", href: "/en/compatibility/" },
+        { label: "Input diagnostic", href: "/en/gamepad-test/" },
+        { label: "Choose a game collection", href: "/en/collections/" },
+      ],
+    },
+    ko: {
+      title: "휴대폰·게임패드·테슬라에서 웹게임 점검하는 방법",
+      intro:
+        "실제 기기와 입력 장치로 게임 하나부터 시험하세요. 로딩·조작·정지·소리·로컬 저장을 각각 확인해야 하며, 반응형 화면이나 가상 패드 입력만으로 실물 호환성을 판단하지 않습니다.",
+      sections: [
+        {
+          heading: "무엇부터 점검하나요?",
+          paragraphs: [
+            "게임 상세에서 조작법을 읽고 라운드를 시작하세요. 실제로 게임 상태를 바꾸고 정지·재개·재시작을 시험합니다. 휴대폰은 세로·가로 화면을 확인하세요. 패드는 입력 진단을 먼저 확인한 뒤 플레이하고, 연결을 끊으면 자동 정지하는지 확인하세요.",
+          ],
+        },
+        {
+          heading: "저장과 안정성은 어떻게 확인하나요?",
+          paragraphs: [
+            "즐겨찾기를 저장하고 새로고침하세요. 서킷 루프·오빗 브레이크·2048은 로컬 진행 상태를 복원하고, 가져온 Crisp 게임은 라운드를 재시작하며 최고 점수만 저장합니다. 장시간 점검은 실제로 20분 플레이한 뒤 성공으로 표시하세요. 짧게 로딩해본 것으로 성공을 추정하지 말고 충돌·입력 고착·지속적인 느려짐을 적으세요.",
+          ],
+        },
+        {
+          heading: "테슬라 브라우저는 어떻게 시험하나요?",
+          paragraphs: [
+            "주차 상태에서만 브라우저를 사용하세요. VIN 등 식별 정보 없이 차량 컴퓨터·펌웨어·브라우저 동작·입력 연결 방식을 적으세요. 터치를 먼저 시험한 뒤 패드를 연결합니다. 테슬라 기본 Arcade의 패드 지원이 웹브라우저의 패드 접근을 증명하지 않습니다. 사용할 수 없는 브라우저 기능은 해당 환경의 제한으로 남겨야 합니다.",
+          ],
+        },
+        {
+          heading: "결과를 내려받으면 기기 지원 인증이 되나요?",
+          paragraphs: [
+            "아닙니다. 로컬 체크리스트는 개인 관찰 파일을 만들고 미실행 항목을 그대로 남기며 결과를 업로드하지 않습니다. 환경과 결과를 검토하기 전에는 공식 호환성이 미검증으로 유지됩니다. 결과에 개인 식별 정보를 적지 마세요.",
+          ],
+        },
+      ],
+      links: [
+        { label: "내 기기 점검 체크리스트", href: "/ko/device-check/" },
+        { label: "현재 호환성 근거", href: "/ko/compatibility/" },
+        { label: "입력 진단", href: "/ko/gamepad-test/" },
+        { label: "플레이 방식별 게임 모음", href: "/ko/collections/" },
+      ],
+    },
+  },
   "guides/open-browser-games": {
     en: {
       title: "Free browser games: sources, rules and device support",
@@ -147,6 +223,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           paragraphs: [
             "GitHub Pages serves this site and may process visitor IP addresses for its operation and security. Input diagnosis displays device data locally; it is not uploaded by our code.",
             "Gameplay events are kept in a short in-memory list and emitted as browser CustomEvents. No remote analytics service is configured.",
+            "The device checklist keeps entered observations in the current form only and generates a local JSON download. It does not upload or automatically store the report; reloading clears the fields. Do not include personal identifiers.",
           ],
         },
         {
@@ -175,6 +252,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           paragraphs: [
             "GitHub Pages가 사이트를 제공하며 운영·보안을 위해 방문 IP 등을 처리할 수 있습니다. 입력 진단의 기기 정보는 이 화면에만 표시되고 사이트 코드가 업로드하지 않습니다.",
             "게임 이벤트는 짧은 메모리 목록과 브라우저 CustomEvent로만 기록합니다. 원격 분석 서비스는 연결하지 않았습니다.",
+            "기기 체크리스트 입력은 현재 폼에만 유지하고 로컬 JSON 파일로 내려받습니다. 결과를 업로드하거나 자동 저장하지 않으며 새로고침하면 입력이 사라집니다. 개인 식별 정보는 포함하지 마세요.",
           ],
         },
         {
@@ -437,6 +515,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/test-your-device",
   "guides/open-browser-games",
   "guides/controller-not-detected",
   "guides/sound-and-pause",
