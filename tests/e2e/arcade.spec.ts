@@ -1,0 +1,180 @@
+import { test, expect } from "@playwright/test";
+test("catalogue, saved games, Korean search and daily routes", async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/ko/");
+  await expect(page.locator("[data-game-card]")).toHaveCount(3);
+  await page.locator('[data-favorite="circuit-loop"]').click();
+  await page.goto("/ko/library/");
+  await expect(
+    page.locator('[data-library="favorites"] [data-game-card]:visible'),
+  ).toHaveCount(1);
+  await page.goto("/ko/search/?q=회로");
+  await expect(page.locator("#search-results li")).toHaveCount(1);
+  await expect(page.locator("#search-results")).toContainText("서킷 루프");
+  await page.locator("#search-query").fill("<script>");
+  await expect(page.locator("#search-empty")).toBeVisible();
+  await page.goto("/en/daily/");
+  await expect(page.locator("[data-daily]")).toHaveCount(3);
+  await expect(page.locator("[data-utc-date]")).toHaveText(
+    new Date().toISOString().slice(0, 10),
+  );
+  expect(errors).toEqual([]);
+});
+for (const id of ["circuit-loop", "orbit-break", "2048"])
+  test(`${id}: play, pause, reload, locale, restart`, async ({ page }) => {
+    const errors: string[] = [],
+      ads: string[] = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    page.on("request", (r) => {
+      if (/googlesyndication|doubleclick/.test(r.url())) ads.push(r.url());
+    });
+    await page.goto(`/en/play/${id}/?seed=test-seed&stage=1`);
+    await expect(page.locator("#start-button")).toBeEnabled();
+    await page.locator("#start-button").click();
+    await expect(page.locator("#game-overlay")).toBeHidden();
+    if (id === "circuit-loop")
+      await page.locator(".circuit-cell").first().click();
+    else if (id === "2048") await page.keyboard.press("ArrowLeft");
+    else {
+      await page.locator(".launch-button").click();
+      await page.keyboard.press("ArrowRight");
+    }
+    await page.keyboard.press("Escape");
+    await expect(page.locator("#game-overlay")).toBeVisible();
+    const before = await page.evaluate(() =>
+      Object.entries(localStorage).find(([key]) => key.includes("progress:")),
+    );
+    await page.locator('[data-locale-link][lang="ko"]').click();
+    await expect(page.locator("#start-button")).toHaveText(/게임 시작/);
+    await expect(page).toHaveURL(/seed=test-seed/);
+    const after = await page.evaluate(() =>
+      Object.entries(localStorage).find(([key]) => key.includes("progress:")),
+    );
+    expect(after).toEqual(before);
+    await page.locator("#start-button").click();
+    await page.locator("#restart-button").click();
+    await expect(page.locator("#game-overlay")).toBeVisible();
+    await expect(page.locator("#score")).toHaveText(
+      id === "circuit-loop" ? "1000" : "0",
+    );
+    await page.reload();
+    await expect(page.locator("#start-button")).toBeEnabled();
+    await expect(page.locator("[data-ad-slot]")).toHaveCount(0);
+    expect(ads).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+for (const width of [320, 360, 390, 430, 1440])
+  test(`responsive ${width}px: catalogue and games`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    for (const route of [
+      "/ko/",
+      "/ko/games/circuit-loop/",
+      "/ko/play/circuit-loop/",
+      "/ko/play/orbit-break/",
+      "/ko/play/2048/",
+    ]) {
+      await page.goto(route);
+      if (route.includes("/play/")) {
+        await expect(page.locator("#start-button")).toBeEnabled();
+        await page.locator("#start-button").click();
+      }
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        route,
+      ).toBe(true);
+    }
+  });
+test("2048 pointer swipe and denied storage remain playable", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Storage.prototype.setItem = function () {
+      throw new DOMException("denied");
+    };
+  });
+  await page.goto("/en/play/2048/");
+  await page.locator("#start-button").click();
+  const board = page.locator(".merge-board");
+  const box = await board.boundingBox();
+  await page.mouse.move(box!.x + box!.width - 10, box!.y + 100);
+  await page.mouse.down();
+  await page.mouse.move(box!.x + 10, box!.y + 100);
+  await page.mouse.up();
+  await expect(page.locator("#game-message")).toContainText(
+    "Saving is unavailable",
+  );
+  await expect(page.locator("#game-overlay")).toBeHidden();
+});
+test("synthetic standard pad and disconnect pause; diagnostics are local", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const buttons = Array.from({ length: 17 }, () => ({
+      pressed: false,
+      touched: false,
+      value: 0,
+    }));
+    const pad = {
+      index: 0,
+      id: "Synthetic test only",
+      mapping: "standard",
+      connected: true,
+      axes: [0, 0],
+      buttons,
+      timestamp: 0,
+    };
+    Object.defineProperty(navigator, "getGamepads", { value: () => [pad] });
+    (window as unknown as { testPad: typeof pad }).testPad = pad;
+  });
+  await page.goto("/en/gamepad-test/");
+  await expect(page.locator("#diagnostic")).toContainText(
+    "Synthetic test only",
+  );
+  await page.locator("#touch-test").click();
+  await expect(page.locator("#touch-result")).toContainText("1 inputs");
+  await page.goto("/en/play/2048/");
+  await page.locator("#start-button").click();
+  await page.evaluate(() => {
+    const pad = (
+      window as unknown as { testPad: { buttons: { pressed: boolean }[] } }
+    ).testPad;
+    pad.buttons[14]!.pressed = true;
+  });
+  await page.waitForTimeout(220);
+  await page.evaluate(() => window.dispatchEvent(new Event("blur")));
+  await expect(page.locator("#game-overlay")).toBeVisible();
+  await page.locator("#start-button").click();
+  await page.evaluate(() => {
+    const event = new Event("gamepaddisconnected");
+    Object.defineProperty(event, "gamepad", { value: { index: 0 } });
+    window.dispatchEvent(event);
+  });
+  await expect(page.locator("#overlay-note")).toHaveText(
+    "Controller disconnected.",
+  );
+});
+test("Circuit can finish, score hint and share fallback without clipboard", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "share", { value: undefined });
+    Object.defineProperty(navigator, "clipboard", { value: undefined });
+  });
+  await page.goto("/en/play/circuit-loop/?seed=solvable");
+  await page.locator("#start-button").click();
+  for (let i = 0; i < 36; i++) {
+    if (await page.locator("#game-overlay").isVisible()) break;
+    await page.locator(".game-hint").click();
+  }
+  await expect(page.locator("#overlay-title")).toHaveText("Nicely done!");
+  await page.locator("#share-button").click();
+  await expect(page.locator("#share-fallback")).toBeVisible();
+  await expect(page.locator("#share-fallback")).toHaveValue(
+    /Hint used[\s\S]*seed=solvable/,
+  );
+});

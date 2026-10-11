@@ -1,0 +1,15 @@
+---
+import type { Game } from '../data/games';
+import { t } from '../data/i18n';
+import type { Locale } from '../lib/types';
+interface Props { game: Game; locale: Locale; }
+const { game, locale } = Astro.props; const text = t(locale);
+---
+<section id="player" data-id={game.id} data-locale={locale} data-version={game.version} data-stages={game.stages}>
+  <div class="player-top"><a class="exit-link" href={`/${locale}/games/${game.id}/`}>← {text.exit}</a><h1>{game.text[locale].title}</h1><div class="scoreboard"><span>{text.score} <strong id="score">0</strong></span><span>{text.best} <strong id="best">0</strong></span></div></div>
+  <div class="play-area"><div id="game-host" aria-label={game.text[locale].title}></div><div id="game-overlay" class="game-overlay"><div class="overlay-content"><span class="eyebrow">DENNY GAMES</span><h2 id="overlay-title">{text.ready}</h2><p id="overlay-note">{game.text[locale].controls[0]}</p><button id="start-button" type="button" class="button primary">{text.start} ↗</button><button id="share-button" type="button" class="button" hidden>{text.share}</button><textarea id="share-fallback" aria-label={text.copyResult} hidden readonly></textarea><p id="share-note" role="status"></p></div></div></div>
+  <p id="game-message" class="game-message" role="status" aria-live="polite"></p>
+  <div class="player-controls"><button id="pause-button" type="button" disabled>Ⅱ {text.pause}</button><button id="restart-button" type="button" disabled>↻ {text.restart}</button><button id="sound-button" type="button" aria-pressed="false">♪ {text.sound}: {text.off}</button><button id="fullscreen-button" type="button">⛶ {text.fullscreen}</button><label>{text.stage}<select id="stage-select" aria-label={text.selectStage}>{Array.from({ length: game.stages }, (_, i) => <option value={i+1}>{i+1}</option>)}</select></label><label class="low-effects"><input id="low-effects" type="checkbox" />{text.low}</label></div>
+  <p class="player-instructions">{game.text[locale].controls[1]} <span>{text.continue}</span></p>
+</section>
+<script>import '../scripts/player';</script>
