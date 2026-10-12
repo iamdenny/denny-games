@@ -44,6 +44,10 @@ export const mount: GameFactory = (ctx) => {
     frame = 0,
     previous = 0,
     lastScore = state.score;
+  const trail: { x: number; y: number }[] = [];
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const effects = () =>
+    !reducedMotion.matches && !ctx.host.closest("#player.low-effects");
   const canvas = document.createElement("canvas");
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
@@ -58,6 +62,24 @@ export const mount: GameFactory = (ctx) => {
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Canvas2D unavailable");
   const g = context;
+  const background = g.createLinearGradient(0, 0, 0, HEIGHT);
+  background.addColorStop(0, "#172d3c");
+  background.addColorStop(1, "#101c2b");
+  function rounded(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    radius: number,
+  ) {
+    g.beginPath();
+    g.moveTo(x + radius, y);
+    g.arcTo(x + width, y, x + width, y + height, radius);
+    g.arcTo(x + width, y + height, x, y + height, radius);
+    g.arcTo(x, y + height, x, y, radius);
+    g.arcTo(x, y, x + width, y, radius);
+    g.closePath();
+  }
   const launch = document.createElement("button");
   launch.type = "button";
   launch.className = "launch-button";
@@ -94,30 +116,57 @@ export const mount: GameFactory = (ctx) => {
   canvas.addEventListener("pointerdown", down);
   canvas.addEventListener("pointermove", pointer);
   function render() {
-    g.fillStyle = "#17211d";
+    g.fillStyle = background;
     g.fillRect(0, 0, WIDTH, HEIGHT);
-    g.strokeStyle = "#2e3b33";
-    g.lineWidth = 1;
-    for (let x = 0; x < WIDTH; x += 40) {
-      g.beginPath();
-      g.moveTo(x, 0);
-      g.lineTo(x, HEIGHT);
-      g.stroke();
+    // Quiet, stationary guide dots keep the playfield readable.
+    g.fillStyle = "#ffffff12";
+    for (let x = 24; x < WIDTH; x += 32) {
+      for (let y = 26; y < 620; y += 32) g.fillRect(x, y, 2, 2);
     }
     for (const brick of state.bricks) {
       if (!brick.alive) continue;
-      g.fillStyle = ["#a7f0e6", "#ef896b", "#d9ed68", "#f5f2e9"][brick.color]!;
-      g.fillRect(brick.x, brick.y, 64, 24);
+      g.fillStyle = "#080f1c80";
+      rounded(brick.x, brick.y + 4, 64, 24, 7);
+      g.fill();
+      g.fillStyle = ["#a7f0e6", "#ffad94", "#e1ed8b", "#d2dfff"][brick.color]!;
+      rounded(brick.x, brick.y, 64, 24, 7);
+      g.fill();
+      g.fillStyle = "#ffffff70";
+      rounded(brick.x + 6, brick.y + 3, 52, 3, 1.5);
+      g.fill();
     }
+    if (effects())
+      trail.forEach((point, i) => {
+        g.fillStyle = `rgba(167,240,230,${((i + 1) / trail.length) * 0.25})`;
+        g.beginPath();
+        g.arc(
+          point.x,
+          point.y,
+          (BALL * (i + 1)) / trail.length,
+          0,
+          Math.PI * 2,
+        );
+        g.fill();
+      });
     g.fillStyle = "#a7f0e6";
-    g.fillRect(state.paddle - PADDLE_W / 2, PADDLE_Y, PADDLE_W, 12);
+    rounded(state.paddle - PADDLE_W / 2, PADDLE_Y, PADDLE_W, 12, 6);
+    g.fill();
+    g.fillStyle = "#ffffffa0";
+    rounded(
+      state.paddle - PADDLE_W / 2 + 12,
+      PADDLE_Y + 2,
+      PADDLE_W - 24,
+      3,
+      1.5,
+    );
+    g.fill();
     g.fillStyle = "#f5f2e9";
     g.beginPath();
     g.arc(state.x, state.y, BALL, 0, Math.PI * 2);
     g.fill();
-    g.fillStyle = "#27372f";
+    g.fillStyle = "#ffffff08";
     g.fillRect(0, 630, WIDTH, 50);
-    g.fillStyle = "#c5d2c7";
+    g.fillStyle = "#bdccd9";
     g.font = "16px system-ui";
     g.textAlign = "center";
     g.fillText(
@@ -148,6 +197,10 @@ export const mount: GameFactory = (ctx) => {
       return;
     }
     advance(state, previous ? (now - previous) / 1000 : 0);
+    if (effects() && state.launched) {
+      trail.push({ x: state.x, y: state.y });
+      if (trail.length > 8) trail.shift();
+    } else trail.length = 0;
     previous = now;
     if (state.score !== lastScore) {
       lastScore = state.score;
@@ -170,6 +223,7 @@ export const mount: GameFactory = (ctx) => {
     active = false;
     previous = 0;
     cancelAnimationFrame(frame);
+    trail.length = 0;
     render();
   }
   render();
@@ -183,6 +237,7 @@ export const mount: GameFactory = (ctx) => {
       state = createOrbit(ctx.seed, ctx.stage);
       ended = false;
       lastScore = 0;
+      trail.length = 0;
       ctx.onChange(0);
       run();
     },

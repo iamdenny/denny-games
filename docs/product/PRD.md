@@ -33,6 +33,12 @@ Each numbered page has its own title, description, canonical, language pair, sit
 
 ## Acceptance traceability
 
+### Casual visual polish and editorial order — 2026-10-12
+
+The user selected a clean, clear casual style. Refresh the playable boards of Orbit Break, 2048 and Circuit Loop: rounded pastel bricks/paddle with a bounded ball trail, tactile number tiles with brief changed-tile feedback, and higher-contrast circuit paths with connected tile surfaces. Preserve rules, collision dimensions, seeds, save versions and input handling. Reduced motion and low-effects disable optional trails/tile animation. Capture new actual-board screenshots.
+
+Use 12 explicit editor picks with bilingual reasons based on screen/rule review. Promote the same stable order in home, complete catalogue, categories and default search; preserve all 194 titles and unpicked order. Home features Orbit Break and six picks. Clearly distinguish this selection from measured popularity or user-tested fun. Retain original imported game pixels/source/provenance; improve their catalogue framing without presenting it as an in-game remake. See [ADR 0014](../adr/0014-editorial-and-visual-polish.md).
+
 | Requirement | Owning module / evidence |
 | --- | --- |
 | F01–F08 input, pause, persistence | player shell, input/storage services, browser tests |

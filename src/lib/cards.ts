@@ -14,6 +14,7 @@ export interface CatalogueItem {
   duration: string;
   added: string;
   inputs: string[];
+  editorReason?: string;
 }
 let cache: Promise<CatalogueItem[]> | undefined;
 export function loadCatalogue(locale: Locale) {
@@ -47,7 +48,7 @@ export function makeCard(item: CatalogueItem, locale: Locale): HTMLElement {
   const h = document.createElement("h3");
   h.textContent = item.title + " ↗";
   const p = document.createElement("p");
-  p.textContent = item.subtitle;
+  p.textContent = item.editorReason ?? item.subtitle;
   const meta = document.createElement("div");
   meta.className = "card-meta";
   const duration = document.createElement("span");
@@ -59,6 +60,12 @@ export function makeCard(item: CatalogueItem, locale: Locale): HTMLElement {
     )
     .join(" · ");
   meta.append(duration, inputs);
+  if (item.editorReason) {
+    const pick = document.createElement("span");
+    pick.className = "editor-pick";
+    pick.textContent = locale === "ko" ? "에디터 픽" : "EDITOR PICK";
+    copy.append(pick);
+  }
   copy.append(h, p, meta);
   link.append(art, copy);
   const favorite = document.createElement("button");

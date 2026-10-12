@@ -1,5 +1,6 @@
 import type { Locale } from "../lib/types";
 import crisp from "./crisp.json";
+import { editorialOrder } from "./editorial";
 import type { ControlStyle } from "./collections";
 export const categories = [
   "puzzle",
@@ -327,5 +328,5 @@ export function gameById(id: string) {
   return games.find((game) => game.id === id);
 }
 export function categoryGames(category: string) {
-  return games.filter((game) => game.category === category);
+  return editorialOrder(games.filter((game) => game.category === category));
 }

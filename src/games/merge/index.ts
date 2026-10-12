@@ -62,12 +62,15 @@ export const mount: GameFactory = (ctx) => {
     const rng = random(`${ctx.seed}:${counter++}`);
     board[empty[Math.floor(rng() * empty.length)]!] = rng() < 0.9 ? 2 : 4;
   }
-  function render() {
+  function render(previous?: number[]) {
     grid.replaceChildren(
-      ...board.map((value) => {
+      ...board.map((value, index) => {
         const cell = document.createElement("span");
         cell.className = "merge-cell";
         cell.dataset.power = String(value ? Math.min(11, Math.log2(value)) : 0);
+        cell.dataset.changed = String(
+          Boolean(previous && value && previous[index] !== value),
+        );
         cell.textContent = value ? String(value) : "";
         return cell;
       }),
@@ -85,11 +88,12 @@ export const mount: GameFactory = (ctx) => {
     if (!active) return;
     const next = move(board, direction);
     if (!next.changed) return;
+    const previous = board;
     board = next.board;
     score += next.score;
     add();
     ctx.sound();
-    render();
+    render(previous);
     check();
   }
   let startX = 0,

@@ -18,6 +18,8 @@ Game cards use a 16:10 original SVG thumbnail, title, short description, input l
 
 ## Motion and accessibility
 
+Clean casual board refresh (2026-10-12): blue ink player surfaces, rounded pastel bricks and paddle, tactile number tiles, and clear rounded circuit paths. Keep optional tile feedback at 140ms and the ball trail to eight samples; disable both with reduced-motion or low-effects. Editorial badges use mint pills with a concise reason and never imply a popularity measurement. Imported cards frame actual pixel screenshots on soft colour fields; imported game pixels are preserved.
+
 Keep motion restrained and honor reduced motion. Preserve native text zoom, document scrolling and visible keyboard focus. Only the game input surface captures touch gestures. A backgrounded game pauses and waits for an explicit resume action.
 
 ## Advertising
