@@ -40,3 +40,7 @@ Classic board sound browser journeys observe real AudioContext creation/state an
 A fractional CYWALL result reproduces the prior mobile overflow deterministically through the authenticated iframe bridge. Display scores round to localized integers while saved scores retain precision. Audio readiness must not block a resumed game, including immediate mute after resume.
 
 Player viewport regressions cover desktop, mobile portrait and short landscape across eight original engines and a representative import. Assertions cover viewport bounds, essential controls, no Fullscreen API, DOM preservation on view toggles, settings, and direct board confirmation. Imported loading/input regression covers all 191 games; this is not manual review or physical-device proof.
+
+Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430px phones, 667×375 and 844×390 landscape. Check actual surface bounds, initial scroll position, footer row alignment, settings/remount cleanup, touch confirmation, orientation preservation and cancelled swipes, rather than only document overflow. See ADR 0017.
+
+`npm run test:mobile` runs focused viewport and mobile input journeys on Playwright WebKit as a separate local/manual check. Existing CI/Pages run Chromium; the current OAuth deployment credential cannot edit workflows to add WebKit. This is a second browser engine, not an actual iPhone Safari/device certification. The CDP touch-swipe injection case runs in Chromium only.

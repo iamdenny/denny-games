@@ -20,7 +20,8 @@
     "verify": "npm run check && npm test && npm run docs:check && npm run docs:lint && npm run test:scale && npm run build",
     "format:check": "prettier --check src scripts tests *.json *.mjs .github/workflows",
     "test:imports": "node scripts/check-imports.mjs",
-    "seo:check": "node scripts/check-seo.mjs"
+    "seo:check": "node scripts/check-seo.mjs",
+    "test:mobile": "playwright test --config playwright.mobile.config.ts"
   },
   "dependencies": {
     "astro": "7.3.8"

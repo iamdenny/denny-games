@@ -18,3 +18,5 @@
 - [0015-classic-board-games — Shared classic board engine](0015-classic-board-games.md)
 
 - [0016 — Browser viewport player](0016-viewport-player.md) — Accepted.
+
+- [0017 — Mobile game controls](0017-mobile-game-controls.md) — Accepted.

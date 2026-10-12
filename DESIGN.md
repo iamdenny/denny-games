@@ -35,3 +35,5 @@ Classic boards use ivory/wood grids against blue ink, mint/coral pieces with ins
 Gomoku pointer interaction: first click/tap previews a legal intersection; clicking/tapping that same intersection again commits the stone. Selecting another intersection only moves the preview. The explicit confirm button and keyboard/gamepad confirmation remain available.
 
 Play pages default to a browser-viewport stage with persistent exit, locale, view, pause, restart and sound controls. Secondary settings use a disclosure; portrait boards fit both dimensions and short landscape boards place controls beside the board. No operating-system fullscreen is requested.
+
+On compact phones, prioritize the full board: match selectors/help live in settings, coordinates and confirmation share a row, and pause/restart/sound/settings form a single 48px bottom row. Language targets are at least 44px wide. Use 16px settings select text and safe-area padding without disabling zoom.

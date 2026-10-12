@@ -566,9 +566,12 @@
 #player[data-immersive="true"] .game-overlay {
   overflow: auto;
 }
-#player[data-immersive="true"] .circuit-board,
+#player[data-immersive="true"] .circuit-board {
+  width: min(100%, max(200px, calc(100cqh - 120px)));
+  touch-action: manipulation;
+}
 #player[data-immersive="true"] .merge-board {
-  width: min(100%, max(200px, calc(100cqh - 160px)));
+  width: min(100%, max(200px, calc(100cqh - 80px)));
 }
 #player[data-immersive="true"] .orbit-canvas {
   width: min(100%, max(200px, calc((100cqh - 120px) * 0.941176)));
@@ -610,5 +613,64 @@
     display: flex;
     align-items: baseline;
     gap: 6px;
+  }
+}
+
+/* Keep phone controls on one row and leave pinch zoom available. */
+#player[data-immersive="true"] .play-area {
+  overscroll-behavior: contain;
+}
+#game-settings:empty {
+  display: none;
+}
+.player-settings summary:focus-visible {
+  outline: 3px solid #a7f0e6;
+  outline-offset: 2px;
+}
+@media (max-width: 560px) {
+  #player[data-immersive="true"] .player-controls {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+  #player[data-immersive="true"] .player-controls > button,
+  #player[data-immersive="true"] .player-settings summary {
+    min-width: 0;
+    width: 100%;
+    min-height: 48px;
+    padding: 8px 2px;
+    font-size: 11px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  #player[data-immersive="true"] .player-top .locale-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 48px;
+    padding: 8px 4px;
+  }
+  #player[data-immersive="true"] .player-top {
+    gap: 6px;
+  }
+  #player[data-immersive="true"] .player-top h1 {
+    font-size: 16px;
+  }
+  #player[data-immersive="true"] .player-top > button {
+    padding-inline: 8px;
+  }
+  .player-controls select {
+    font-size: 16px;
+  }
+  .game-overlay {
+    padding: 16px;
+  }
+  .overlay-content h2 {
+    font-size: 26px;
+    margin: 8px 0;
+  }
+  .overlay-content p {
+    line-height: 1.6;
   }
 }

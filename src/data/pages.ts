@@ -24,7 +24,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "How do AI and two-player modes work?",
           paragraphs: [
-            "Select Against AI or Local two-player inside the game. Mint moves first; the AI plays Coral. Both players share one device in local mode. There is no online matchmaking or account. Changing mode or AI level starts a fresh game.",
+            "Open Settings inside the game and select Against AI or Local two-player. Mint moves first; the AI plays Coral. Both players share one device in local mode. There is no online matchmaking or account. Changing mode or AI level starts a fresh game.",
             "Easy, Normal and Hard use bounded local search. They describe search effort, not an Elo rating or guaranteed playing strength. AI calculations use a browser worker when available; the fallback uses a simpler one-step search.",
           ],
         },
@@ -38,7 +38,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "How do sound and volume work?",
           paragraphs: [
-            "Turn on Sound in the player and adjust Effects volume. Stone placement, disc flips, captures and completed boxes have distinct synthesized effects, with separate win, loss and draw cues. Sound is initially off; your mute and volume choices are saved.",
+            "Turn on Sound in the player and adjust Effects volume in Settings. Stone placement, disc flips, captures and completed boxes have distinct synthesized effects, with separate win, loss and draw cues. Sound is initially off; your mute and volume choices are saved.",
             "Audio starts only after a button press. Pausing or leaving the tab stops scheduled effects. Every turn and result also appears visually, so sound is optional.",
           ],
         },
@@ -73,7 +73,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "AI 대전과 2인 대전은 어떻게 하나요?",
           paragraphs: [
-            "게임 안에서 AI 대전 또는 같은 기기 2인을 선택하세요. 민트가 선공이고 AI는 코랄을 맡습니다. 2인 모드는 한 기기를 공유하며 온라인 매칭·계정은 없습니다. 방식·AI 난이도를 바꾸면 새 대국이 시작됩니다.",
+            "게임 안의 설정을 열어 AI 대전 또는 같은 기기 2인을 선택하세요. 민트가 선공이고 AI는 코랄을 맡습니다. 2인 모드는 한 기기를 공유하며 온라인 매칭·계정은 없습니다. 방식·AI 난이도를 바꾸면 새 대국이 시작됩니다.",
             "쉬움·보통·어려움은 로컬 탐색량이 다른 난이도입니다. Elo 등급이나 실력을 보장하는 표시는 아닙니다. AI 계산은 가능한 환경에서 브라우저 워커를 사용하며 대체 경로는 간단한 한 수 탐색을 사용합니다.",
           ],
         },
@@ -87,7 +87,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "소리와 음량은 어떻게 조절하나요?",
           paragraphs: [
-            "플레이어에서 소리를 켜고 효과음 음량을 조절하세요. 돌 놓기·뒤집기·말 잡기·상자 완성에 서로 다른 합성 효과음을 사용하고 승리·패배·무승부 소리도 구분합니다. 기본은 꺼짐이며 음소거·음량 선택을 저장합니다.",
+            "플레이어에서 소리를 켜고 설정에서 효과음 음량을 조절하세요. 돌 놓기·뒤집기·말 잡기·상자 완성에 서로 다른 합성 효과음을 사용하고 승리·패배·무승부 소리도 구분합니다. 기본은 꺼짐이며 음소거·음량 선택을 저장합니다.",
             "버튼을 누른 뒤에만 오디오를 시작합니다. 일시정지하거나 탭을 떠나면 예약된 효과음도 멈춥니다. 차례와 결과는 화면에도 표시하므로 소리 없이도 플레이할 수 있습니다.",
           ],
         },

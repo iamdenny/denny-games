@@ -1,3 +1,4 @@
+import { setBoardMode } from "./helpers/board-settings";
 import { test, expect } from "@playwright/test";
 import { classicIds } from "../../src/data/board-games";
 import { initial } from "../../src/games/board/rules";
@@ -30,7 +31,7 @@ for (const id of classicIds) {
     }
     await expect(game).toHaveAttribute("data-moves", "2");
     expect(workers.length).toBeGreaterThan(0);
-    await page.locator("[data-board-mode]").selectOption("local");
+    await setBoardMode(page, "local");
     await expect(game).toHaveAttribute("data-moves", "0");
     if (id === "checkers") await page.locator('[data-cell="40"]').click();
     await page
@@ -216,7 +217,7 @@ for (const id of classicIds)
       await page.evaluate(() => (window as any).audioEvidence.state()),
     ).toBe("running");
     await page.locator("#start-button").click();
-    await page.locator("[data-board-mode]").selectOption("local");
+    await setBoardMode(page, "local");
     const before = await page.evaluate(
       () => (window as any).audioEvidence.frequencies.length,
     );
@@ -340,7 +341,7 @@ for (const locale of ["en", "ko"])
   }) => {
     await page.goto(`/${locale}/play/gomoku/?seed=click-confirm`);
     await page.locator("#start-button").click();
-    await page.locator("[data-board-mode]").selectOption("local");
+    await setBoardMode(page, "local");
     const game = page.locator(".classic-game");
     await page.locator('[data-cell="112"]').click();
     await expect(game).toHaveAttribute("data-moves", "0");

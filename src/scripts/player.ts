@@ -74,7 +74,7 @@ function focusGame() {
   (
     host.querySelector<HTMLElement>('[tabindex="0"],button:not([disabled])') ??
     host
-  ).focus();
+  ).focus({ preventScroll: true });
 }
 function pause(note = "") {
   if (state !== "running") return;
@@ -128,6 +128,7 @@ function mount(saved: boolean) {
   el("share-note").textContent = "";
   game = factory!({
     host,
+    settingsHost: el("game-settings"),
     locale,
     seed,
     stage,

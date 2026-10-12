@@ -51,3 +51,5 @@ Shared player audio uses original synthesized event cues in `src/lib/audio.ts`. 
 Gameplay transitions run independently of asynchronous audio resume. Mute can cancel audio immediately without leaving a paused overlay behind. Score presentation uses localized whole numbers and wrapping; stored scores keep their original precision.
 
 The player defaults to a fixed dynamic-viewport stage and toggles standard layout without remounting the engine. Locale controls live inside the player; secondary settings use a native disclosure. See ADR 0016.
+
+GameContext may provide a settingsHost owned by the player disclosure. Classic boards mount match options/help there, while the stage retains turn, board, coordinates, confirm and directions. Engine destroy removes both the stage and any settings nodes. Focus changes use preventScroll so starting a compact game does not reposition the stage.
