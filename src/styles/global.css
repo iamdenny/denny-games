@@ -798,6 +798,14 @@ main {
   }
 }
 @media (max-width: 800px) {
+  .catalogue-categories {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .catalogue-categories a {
+    flex-shrink: 0;
+  }
   .primary-nav {
     display: none;
   }

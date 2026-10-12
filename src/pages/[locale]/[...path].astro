@@ -484,7 +484,10 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         <span class="eyebrow">
           {label("THE COMPLETE CATALOGUE", "빠짐없이, 전체 목록")}
         </span>
-        <h1>{title}</h1>
+        <h1>
+          {text.all}
+          {pageSuffix}
+        </h1>
         <p>
           {label(
             `Every published game is here, ${PAGE_SIZE} per page. Collections are curated selections; this catalogue includes all ${games.length} games.`,
