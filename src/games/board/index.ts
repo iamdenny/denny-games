@@ -159,11 +159,18 @@ export const createMount =
     );
     const options = document.createElement("div");
     options.className = "board-options";
-    options.append(toolbar, note);
+    options.append(toolbar, note, controls);
     const actions = document.createElement("div");
     actions.className = "board-actions";
     actions.append(selection, confirm);
-    shell.append(status, board, actions, controls);
+    const tools = document.createElement("div");
+    tools.className = "board-tools";
+    tools.append(status, actions);
+    if (ctx.controlsHost) {
+      ctx.controlsHost.append(tools);
+      shell.dataset.externalControls = "true";
+      shell.append(board);
+    } else shell.append(status, board, actions);
     if (ctx.settingsHost) ctx.settingsHost.append(options);
     else shell.prepend(options);
     ctx.host.append(shell);
@@ -548,6 +555,7 @@ export const createMount =
         active = false;
         stop();
         options.remove();
+        tools.remove();
         shell.remove();
       },
     };

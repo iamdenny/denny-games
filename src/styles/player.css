@@ -474,6 +474,12 @@
 }
 
 /* The game fills the webview, while browser chrome stays under user control. */
+.player-tools {
+  display: contents;
+}
+#game-controls:empty {
+  display: none;
+}
 .player-immersive {
   overflow: hidden;
 }
@@ -565,6 +571,67 @@
 }
 #player[data-immersive="true"] .game-overlay {
   overflow: auto;
+}
+#player[data-immersive="true"][data-board-game="true"] #game-host {
+  max-width: none;
+  padding: 6px;
+}
+#player[data-immersive="true"][data-board-game="true"] .player-tools {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 8px;
+}
+@media (min-width: 600px) {
+  #player[data-immersive="true"][data-board-game="true"] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 176px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+  }
+  #player[data-immersive="true"][data-board-game="true"] .player-top {
+    grid-column: 1 / -1;
+  }
+  #player[data-immersive="true"][data-board-game="true"] .play-area {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  #player[data-immersive="true"][data-board-game="true"] .player-tools {
+    grid-column: 2;
+    grid-row: 2;
+    min-height: 0;
+    overflow: auto;
+    padding: 6px;
+    gap: 16px;
+  }
+  #player[data-immersive="true"][data-board-game="true"] .player-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+  #player[data-immersive="true"][data-board-game="true"]
+    .player-controls
+    > button,
+  #player[data-immersive="true"][data-board-game="true"]
+    .player-settings
+    summary {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 8px 4px;
+    font-size: 12px;
+    text-align: center;
+  }
+  #player[data-immersive="true"][data-board-game="true"] .game-message {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+  #player[data-immersive="true"][data-board-game="true"] .settings-panel {
+    position: fixed;
+    top: 64px;
+    bottom: auto;
+    right: calc(200px + env(safe-area-inset-right));
+    max-height: calc(100dvh - 80px);
+  }
 }
 #player[data-immersive="true"] .circuit-board {
   width: min(100%, max(200px, calc(100cqh - 120px)));

@@ -55,6 +55,7 @@ button {
 button:hover:not(:disabled) {
   background: var(--mint);
 }
+summary:focus-visible,
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -105,8 +106,9 @@ h3 {
   top: 10px;
 }
 .site-header {
+  position: relative;
   margin: 0 3%;
-  min-height: 102px;
+  min-height: 80px;
   display: flex;
   align-items: center;
   gap: 36px;
@@ -133,6 +135,52 @@ h3 {
 }
 .brand-mark span {
   color: #33796a;
+}
+.compact-menu {
+  display: none;
+}
+.compact-menu summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  min-height: 48px;
+  min-width: 64px;
+  font-size: 14px;
+  font-weight: 700;
+  list-style: none;
+}
+.compact-menu summary::-webkit-details-marker {
+  display: none;
+}
+.compact-menu summary::after {
+  content: "+";
+  margin-left: 8px;
+}
+.compact-menu[open] summary::after {
+  content: "−";
+}
+.compact-menu-panel {
+  position: absolute;
+  inset: 100% 0 auto;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  max-height: 70vh;
+  overflow: auto;
+  padding: 12px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px #17211d25;
+}
+.compact-menu-panel a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 .primary-nav {
   display: flex;
@@ -729,6 +777,8 @@ main {
 .large-screen {
   font-size: 20px;
 }
+.large-screen .compact-menu summary,
+.large-screen .compact-menu-panel a,
 .large-screen button,
 .large-screen .button,
 .large-screen .home-catalogue-link,
@@ -774,15 +824,33 @@ main {
 }
 @media (max-width: 1100px) {
   .site-layout {
-    grid-template-columns: 155px minmax(0, 1fr);
-    gap: 28px;
+    display: block;
+    padding-top: 16px;
+  }
+  .sidebar,
+  .primary-nav {
+    display: none;
+  }
+  .compact-menu {
+    display: block;
+  }
+  .brand {
+    font-size: 18px;
+    gap: 8px;
+  }
+  .brand-mark {
+    font-size: 32px;
+  }
+  .header-actions button span {
+    display: none;
   }
   .primary-nav {
     gap: 18px;
     margin-left: 0;
   }
   .site-header {
-    gap: 24px;
+    min-height: 64px;
+    gap: 16px;
   }
   .header-actions {
     gap: 8px;
@@ -812,41 +880,9 @@ main {
   .primary-nav {
     display: none;
   }
-  .site-header {
-    min-height: 84px;
-  }
   .site-layout {
     display: block;
     padding-top: 20px;
-  }
-  .sidebar {
-    display: flex;
-    overflow-x: auto;
-    gap: 16px;
-    margin-bottom: 26px;
-    align-items: center;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 12px;
-  }
-  .sidebar nav {
-    display: flex;
-    gap: 3px;
-    flex-shrink: 0;
-  }
-  .sidebar nav a {
-    white-space: nowrap;
-    padding: 8px 12px;
-    font-size: 12px;
-    gap: 6px;
-  }
-  .rail-label,
-  .rail-divider,
-  .rail-note,
-  .sidebar nav + nav {
-    display: none;
-  }
-  .sidebar nav:nth-of-type(2) {
-    display: none;
   }
   .home-intro {
     flex-wrap: wrap;
@@ -894,14 +930,17 @@ main {
   .site-header {
     margin: 0 5%;
     gap: 10px;
-    min-height: 80px;
+    min-height: 64px;
   }
   .brand {
-    font-size: 20px;
-    gap: 10px;
+    font-size: 16px;
+    gap: 6px;
   }
   .brand-mark {
-    font-size: 34px;
+    font-size: 28px;
+  }
+  .compact-menu-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .header-actions button span {
     display: none;
@@ -1089,30 +1128,6 @@ main {
     scroll-behavior: auto !important;
     transition: none !important;
     animation: none !important;
-  }
-}
-
-@media (max-width: 800px) {
-  .site-header {
-    flex-wrap: wrap;
-    padding-bottom: 10px;
-  }
-  .primary-nav {
-    display: flex;
-    order: 3;
-    width: 100%;
-    justify-content: space-around;
-    margin: 0;
-    gap: 10px;
-  }
-  .primary-nav a {
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-  }
-  .header-actions {
-    margin-left: auto;
   }
 }
 

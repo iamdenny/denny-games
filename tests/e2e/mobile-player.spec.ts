@@ -33,10 +33,15 @@ for (const locale of ["en", "ko"])
             width: el.getBoundingClientRect().width,
           })),
         );
-      expect(
-        Math.max(...controls.map((c) => c.y)) -
-          Math.min(...controls.map((c) => c.y)),
-      ).toBeLessThan(2);
+      if (viewport.width < 600) {
+        expect(
+          Math.max(...controls.map((c) => c.y)) -
+            Math.min(...controls.map((c) => c.y)),
+        ).toBeLessThan(2);
+      } else {
+        const tools = await page.locator(".player-tools").boundingBox();
+        expect(tools!.x).toBeGreaterThanOrEqual(board!.x + board!.width);
+      }
       expect(controls.every((c) => c.height >= 48 && c.width >= 44)).toBe(true);
       await setBoardMode(page, "local");
       await page.locator('[data-cell="112"]').click();
@@ -69,6 +74,10 @@ test("game remount removes previous settings and retains saved progress", async 
   await page.locator("#player-settings summary").click();
   await page.locator("#stage-select").selectOption("1");
   await expect(page.locator("#game-settings .board-options")).toHaveCount(1);
+  await expect(page.locator("#game-controls .board-tools")).toHaveCount(1);
+  await expect(
+    page.locator("#game-settings .board-directions button"),
+  ).toHaveCount(4);
   await expect(page.locator("[data-board-mode]")).toHaveCount(1);
   await page.locator("#player-settings summary").click();
   await page.locator("#start-button").click();

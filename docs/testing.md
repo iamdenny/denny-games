@@ -48,3 +48,7 @@ Player viewport regressions cover desktop, mobile portrait and short landscape a
 Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430px phones, 667×375 and 844×390 landscape. Check actual surface bounds, initial scroll position, footer row alignment, settings/remount cleanup, touch confirmation, orientation preservation and cancelled swipes, rather than only document overflow. See ADR 0017.
 
 `npm run test:mobile` runs focused viewport and mobile input journeys on Playwright WebKit as a separate local/manual check. Existing CI/Pages run Chromium; the current OAuth deployment credential cannot edit workflows to add WebKit. This is a second browser engine, not an actual iPhone Safari/device certification. The CDP touch-swipe injection case runs in Chromium only.
+
+## Compact navigation and board space
+
+`compact-layout.spec.ts` checks a bounded catalogue header, earlier thumbnails, native menu reachability without JavaScript, Escape focus restoration, and full-stage board sizing with a side rail at 800×600 and 960×640. Optional direction buttons remain in settings. Classic remount checks require one external tools group and one settings group; existing confirmation, pause, view/orientation and mobile journeys remain release gates. The user's attached Tesla screenshots establish the pre-change layout issue; post-change physical Tesla readback remains separate from browser automation.

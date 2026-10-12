@@ -107,6 +107,30 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
           GAMES<span class="brand-dot">.</span>
         </span>
       </a>
+      {!play && (
+        <details class="compact-menu">
+          <summary>{locale === "ko" ? "메뉴" : "Menu"}</summary>
+          <nav
+            class="compact-menu-panel"
+            aria-label={locale === "ko" ? "전체 메뉴" : "Site menu"}
+          >
+            <a href={`/${locale}/`}>{text.home}</a>
+            <a href={`/${locale}/all/`}>{text.all}</a>
+            <a href={`/${locale}/daily/`}>{text.daily}</a>
+            <a href={`/${locale}/library/`}>{text.library}</a>
+            {categories.map((category) => (
+              <a href={`/${locale}/category/${category}/`}>{text[category]}</a>
+            ))}
+            <a href={`/${locale}/collections/`}>
+              {locale === "ko" ? "게임 모음" : "Collections"}
+            </a>
+            <a href={`/${locale}/search/`}>{text.searchAction}</a>
+            <a href={`/${locale}/compatibility/`}>{text.compatibility}</a>
+            <a href={`/${locale}/gamepad-test/`}>{text.gamepad}</a>
+            <a href={`/${locale}/guides/`}>{text.guides}</a>
+          </nav>
+        </details>
+      )}
       <nav
         class="primary-nav"
         aria-label={locale === "ko" ? "주 메뉴" : "Main navigation"}

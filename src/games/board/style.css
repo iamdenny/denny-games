@@ -1,6 +1,9 @@
 .classic-game {
   max-width: 540px;
   margin: auto;
+}
+.classic-game,
+.board-tools {
   --ivory: #f4f1e7;
   --mint: #9fe6d3;
   --coral: #f5a78e;
@@ -410,5 +413,55 @@
   #player[data-immersive="true"] .board-directions {
     grid-column: 2;
     margin: 0;
+  }
+}
+
+/* Board controls belong to the shell rail, so the board uses the full stage. */
+#player[data-immersive="true"] .classic-game[data-external-controls="true"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+#player[data-immersive="true"]
+  .classic-game[data-external-controls="true"]
+  .classic-board {
+  grid-column: auto;
+  grid-row: auto;
+  width: min(100%, 100cqh);
+}
+#player[data-immersive="true"]
+  .classic-game.four-in-a-row[data-external-controls="true"]
+  .classic-board {
+  width: min(100%, calc(100cqh * 7 / 6));
+}
+.board-tools .board-status {
+  margin: 0 0 4px;
+}
+.board-tools .board-actions {
+  margin: 0;
+}
+.board-options .board-directions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+}
+.board-options .board-directions button {
+  min-width: 0;
+}
+@media (min-width: 600px) {
+  #player[data-immersive="true"] .board-tools .board-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  #player[data-immersive="true"] .board-tools .board-selection {
+    text-align: center;
   }
 }
