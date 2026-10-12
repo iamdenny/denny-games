@@ -142,47 +142,29 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
   {isHome && (
     <>
       <section class="home-intro">
-        <div>
-          <p class="eyebrow">{text.tagline}</p>
-          <h1>{text.title}</h1>
+        <h1>{text.title}</h1>
+        <div class="home-actions">
+          <a class="home-catalogue-link" href={`/${locale}/all/`}>
+            {label(`All ${games.length} games`, `전체 ${games.length}개 게임`)}{" "}
+            ↗
+          </a>
+          <form
+            action={`/${locale}/search/`}
+            class="search-form home-search"
+            role="search"
+          >
+            <input
+              type="search"
+              name="q"
+              aria-label={text.search}
+              placeholder={text.search}
+            />
+            <button type="submit" aria-label={text.searchAction}>
+              ⌕
+            </button>
+          </form>
         </div>
-        <form
-          action={`/${locale}/search/`}
-          class="search-form home-search"
-          role="search"
-        >
-          <input
-            type="search"
-            name="q"
-            aria-label={text.search}
-            placeholder={text.search}
-          />
-          <button type="submit" aria-label={text.searchAction}>
-            ⌕
-          </button>
-        </form>
       </section>
-      <p class="notice">
-        {description}{" "}
-        <a href={`/${locale}/guides/open-browser-games/`}>
-          {label("Sources and device support", "출처와 기기 지원 안내")} ↗
-        </a>
-      </p>
-      <div class="catalogue-entry">
-        <a class="button primary" href={`/${locale}/all/`}>
-          {label(
-            `Browse all ${games.length} games`,
-            `전체 ${games.length}개 게임 보기`,
-          )}{" "}
-          ↗
-        </a>
-        <p>
-          {label(
-            "A selection appears below. Open the full catalogue to browse every game, 24 per page.",
-            "아래는 추천과 장르별 미리보기입니다. 전체 목록에서는 모든 게임을 24개씩 볼 수 있어요.",
-          )}
-        </p>
-      </div>
       <CollectionLinks locale={locale} />
       <section class="feature">
         <div class="feature-copy">
