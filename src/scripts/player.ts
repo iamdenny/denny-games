@@ -50,6 +50,8 @@ let sound = read<boolean>("sound-enabled", false) === true,
   result: GameResult | undefined;
 document.body.dataset.game = id;
 select.value = String(stage);
+const formatScore = (value: number) =>
+  new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(value);
 const savedKey = () =>
   `progress:${id}:v${root.dataset.version}:${seed}:${stage}`;
 function save() {
@@ -96,10 +98,10 @@ function end(value: GameResult) {
   result = value;
   rounds++;
   score = value.score;
-  el("score").textContent = String(score);
+  el("score").textContent = formatScore(score);
   const record = Math.max(best(), score);
   write(`best:${id}:${seed}:${stage}`, record);
-  el("best").textContent = String(record);
+  el("best").textContent = formatScore(record);
   show(
     value.draw
       ? locale === "ko"
@@ -108,7 +110,7 @@ function end(value: GameResult) {
       : value.won
         ? text.won
         : text.lost,
-    value.message ?? `${text.score}: ${score}`,
+    value.message ?? `${text.score}: ${formatScore(score)}`,
   );
   start.textContent = text.restart;
   share.hidden = false;
@@ -132,7 +134,7 @@ function mount(saved: boolean) {
     saved: saved ? read(savedKey(), undefined) : undefined,
     onChange: (value) => {
       score = value;
-      el("score").textContent = String(value);
+      el("score").textContent = formatScore(value);
     },
     onEnd: end,
     sound: soundTick,
@@ -150,7 +152,7 @@ function mount(saved: boolean) {
       start.disabled = true;
     },
   });
-  el("best").textContent = String(best());
+  el("best").textContent = formatScore(best());
   show(
     id.startsWith("crisp-") ? text.loading : text.ready,
     root.dataset.instructions,
@@ -214,13 +216,12 @@ start.addEventListener("click", async () => {
     await restartRound();
     return;
   }
-  if (sound) {
-    try {
-      await audio?.resume();
-    } catch {
+  // Audio readiness must never block or later revive a gameplay transition.
+  // A rapid mute can suspend the context before its resume promise resolves.
+  if (sound)
+    void audio.resume().catch(() => {
       /* silent play */
-    }
-  }
+    });
   const wasPaused = state === "paused";
   state = "running";
   overlay.hidden = true;
@@ -320,7 +321,7 @@ share.addEventListener("click", async () => {
   url.searchParams.delete("daily");
   const hint =
     (game?.serialize() as { hint?: boolean } | undefined)?.hint === true;
-  const value = `Denny Games · ${id} · ${text.stage} ${stage} · ${text.score} ${result.score}${hint ? " · " + text.hintUsed : ""}\n${url.href}`;
+  const value = `Denny Games · ${id} · ${text.stage} ${stage} · ${text.score} ${formatScore(result.score)}${hint ? " · " + text.hintUsed : ""}\n${url.href}`;
   try {
     if (navigator.share) {
       await navigator.share({ title: "Denny Games", text: value });
