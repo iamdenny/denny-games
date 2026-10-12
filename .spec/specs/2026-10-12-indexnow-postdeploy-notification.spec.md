@@ -14,7 +14,7 @@ test_approach: "tdd"
 
 ## Overview
 
-After a successful Pages deployment, notify IndexNow once when an allowlisted, indexable-page input changed. Confirm the public release SHA matches the deployed workflow SHA, read and validate the canonical sitemap, then submit only unique URLs mapped to the affected route family. Shared page shell, routing and SEO changes may affect the complete sitemap. Host the public verification key at `/indexnow-key.txt`. A 200 or 202 response is a submission receipt, not evidence of crawling, indexing, ranking, visits, or AI citations.
+After a successful Pages deployment, notify IndexNow once when an allowlisted, indexable-page input changed. Confirm the public release SHA matches the deployed workflow SHA, read and validate the canonical sitemap, then submit only unique URLs mapped to the affected route family. Shared page shell, routing and SEO changes may affect the complete sitemap. Host the public verification key at `/{key}.txt`. A 200 or 202 response is a submission receipt, not evidence of crawling, indexing, ranking, visits, or AI citations.
 
 The live public verifier also had a stale 21-home-card ceiling; replace it with counts derived from the rendered curated and category sections and check them against the full localized search index.
 

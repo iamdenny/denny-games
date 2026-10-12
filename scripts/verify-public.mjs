@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { KEY_PATH } from "./indexnow.mjs";
 import { inspectHomePreview } from "./public-preview.mjs";
 const args = process.argv.slice(2);
 const option = (name) => args[args.indexOf(name) + 1];
@@ -16,6 +17,12 @@ async function get(path) {
   return response.text();
 }
 const release = JSON.parse(await get("/release.json"));
+const expectedKey = readFileSync(`public${KEY_PATH}`, "utf8").trim();
+assert.equal(
+  (await get(KEY_PATH)).trim(),
+  expectedKey,
+  "Public IndexNow key differs",
+);
 assert.equal(
   release.version,
   JSON.parse(readFileSync("package.json", "utf8")).version,

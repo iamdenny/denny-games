@@ -1,7 +1,7 @@
 export const CANONICAL_ORIGIN = "https://games.iamdenny.com";
 export const INDEXNOW_ENDPOINT = "https://api.indexnow.org/indexnow";
 export const MAX_URLS_PER_REQUEST = 10_000;
-export const KEY_PATH = "/indexnow-key.txt";
+export const KEY_PATH = "/7c9e1a4d2f6b8035e4a9c1d7b0f2638a.txt";
 export const RELEASE_PATH = "/release.json";
 export const RELEASE_CHECK_ATTEMPTS = 6;
 export const RELEASE_CHECK_DELAY_MS = 5_000;
