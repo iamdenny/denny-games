@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import {
+  KEY_PATH,
   decodeXmlEntities,
   isEligibleChangedPath,
   parseSitemapLocations,
@@ -43,7 +44,7 @@ describe("IndexNow change gate", () => {
     expect(isEligibleChangedPath("src/pages/llms.txt.ts")).toBe(false);
     expect(isEligibleChangedPath("docs/guide/search-discovery.md")).toBe(false);
     expect(isEligibleChangedPath(".github/workflows/deploy.yml")).toBe(false);
-    expect(isEligibleChangedPath("public/indexnow-key.txt")).toBe(false);
+    expect(isEligibleChangedPath(`public${KEY_PATH}`)).toBe(false);
     expect(isEligibleChangedPath("src/games/board/rules.ts")).toBe(false);
     expect(isEligibleChangedPath("src/lib/input.ts")).toBe(false);
     expect(
@@ -200,14 +201,14 @@ describe("IndexNow notification", () => {
           });
         if (url === `${host}/sitemap.xml`)
           return new Response(sitemap, { status: 200 });
-        if (url === `${host}/indexnow-key.txt`)
+        if (url === `${host}${KEY_PATH}`)
           return new Response(key, { status: 200 });
         expect(url).toBe("https://api.indexnow.org/indexnow");
         expect(init.method).toBe("POST");
         expect(JSON.parse(init.body)).toEqual({
           host: "games.iamdenny.com",
           key,
-          keyLocation: `${host}/indexnow-key.txt`,
+          keyLocation: `${host}${KEY_PATH}`,
           urlList: [`${host}/en/`],
         });
         return new Response("", { status });
@@ -257,7 +258,7 @@ describe("IndexNow notification", () => {
           });
         if (url === `${host}/sitemap.xml`)
           return new Response(sitemap, { status: 200 });
-        if (url === `${host}/indexnow-key.txt`)
+        if (url === `${host}${KEY_PATH}`)
           return new Response(key, { status: 200 });
         return new Response("rejected", { status });
       });
@@ -276,7 +277,7 @@ describe("IndexNow notification", () => {
         });
       if (url === `${host}/sitemap.xml`)
         return new Response(sitemap, { status: 200 });
-      if (url === `${host}/indexnow-key.txt`)
+      if (url === `${host}${KEY_PATH}`)
         return new Response(key, { status: 200 });
       throw new Error(`network error with ${key}`);
     });

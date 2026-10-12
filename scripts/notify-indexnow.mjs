@@ -1,6 +1,6 @@
 import { appendFileSync, readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
-import { runIndexNow } from "./indexnow.mjs";
+import { KEY_PATH, runIndexNow } from "./indexnow.mjs";
 
 const env = process.env;
 const eventName = env.GITHUB_EVENT_NAME ?? "";
@@ -47,7 +47,7 @@ if (
 if (process.exitCode !== 1) {
   let key = "";
   try {
-    key = readFileSync("public/indexnow-key.txt", "utf8").trim();
+    key = readFileSync(`public${KEY_PATH}`, "utf8").trim();
   } catch {
     fail("The checked-out IndexNow public key file is missing.");
   }
