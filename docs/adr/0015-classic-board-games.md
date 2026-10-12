@@ -22,3 +22,5 @@ See [release PRD](../product/CLASSIC-BOARD-GAMES.md). Janggi, Go and additional 
 Original Web Audio synthesis distinguishes stone placement, gravity drops, disc flips, checker steps/captures, edges and completed boxes, plus win/loss/draw cues. No third-party recordings or continuous background music. Sound is initially off; remember the user's mute and effects-volume settings, but create/resume audio only from an explicit gesture. Stop active and scheduled notes on mute/pause/background, so stale cues do not replay on resume. Sound is supplementary: turn, legal moves and results remain visible without it.
 
 Gomoku pointer interaction: first click/tap previews a legal intersection; clicking/tapping that same intersection again commits the stone. Selecting another intersection only moves the preview. The explicit confirm button and keyboard/gamepad confirmation remain available.
+
+Pointer interactions and viewport presentation are further specified by [the player UX PRD](../product/PLAYER-UX.md) and [ADR 0016](../adr/0016-viewport-player.md).

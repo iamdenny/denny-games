@@ -44,8 +44,10 @@ export const mount: GameFactory = (context) => {
         Number.isFinite(d.height) &&
         d.width > 0 &&
         d.height > 0
-      )
+      ) {
         frame.style.aspectRatio = `${d.width} / ${d.height}`;
+        frame.style.setProperty("--frame-ratio", String(d.width / d.height));
+      }
       send("run", { running });
     }
     if (d.type === "pause") context.onPause?.();

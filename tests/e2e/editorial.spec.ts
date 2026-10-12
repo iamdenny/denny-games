@@ -20,6 +20,7 @@ test("2048 remains playable with reduced motion and low effects", async ({
       ),
   ).toBe(true);
   await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.locator("#player-settings summary").click();
   await page.locator("#low-effects").check();
   await page.keyboard.press("ArrowLeft");
   expect(

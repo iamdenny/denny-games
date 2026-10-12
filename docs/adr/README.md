@@ -16,3 +16,5 @@
 - [0014-editorial-and-visual-polish — Editorial order and casual visual polish](0014-editorial-and-visual-polish.md)
 
 - [0015-classic-board-games — Shared classic board engine](0015-classic-board-games.md)
+
+- [0016 — Browser viewport player](0016-viewport-player.md) — Accepted.

@@ -23,9 +23,11 @@ for (const id of classicIds) {
       )
       .first()
       .click();
-    await expect(game).toHaveAttribute("data-moves", "0");
-    await expect(page.locator("[data-board-confirm]")).toBeEnabled();
-    await page.locator("[data-board-confirm]").click();
+    if (id !== "checkers") {
+      await expect(game).toHaveAttribute("data-moves", "0");
+      await expect(page.locator("[data-board-confirm]")).toBeEnabled();
+      await page.locator("[data-board-confirm]").click();
+    }
     await expect(game).toHaveAttribute("data-moves", "2");
     expect(workers.length).toBeGreaterThan(0);
     await page.locator("[data-board-mode]").selectOption("local");
@@ -41,7 +43,7 @@ for (const id of classicIds) {
       )
       .first()
       .click();
-    await page.locator("[data-board-confirm]").click();
+    if (id !== "checkers") await page.locator("[data-board-confirm]").click();
     await expect(game).toHaveAttribute("data-moves", "1");
     await expect(game).toHaveAttribute("data-turn", "2");
     await page.locator("#pause-button").click();
@@ -229,7 +231,7 @@ for (const id of classicIds)
       )
       .first()
       .click();
-    await page.locator("[data-board-confirm]").click();
+    if (id !== "checkers") await page.locator("[data-board-confirm]").click();
     const notes = await page.evaluate(
       (before) => (window as any).audioEvidence.frequencies.slice(before),
       before,
@@ -255,7 +257,7 @@ for (const id of classicIds)
     if (id === "checkers")
       await page.locator(".board-cell.movable").first().click();
     await page.locator(".board-cell.legal").first().click();
-    await page.locator("[data-board-confirm]").click();
+    if (id !== "checkers") await page.locator("[data-board-confirm]").click();
     expect(
       await page.evaluate(
         () => (window as any).audioEvidence.frequencies.length,
@@ -275,6 +277,7 @@ test("sound preferences persist, but restoring enabled sound never autoplays", a
   page,
 }) => {
   await page.goto("/ko/play/gomoku/");
+  await page.locator("#player-settings summary").click();
   await page.locator("#sound-volume").fill("25");
   await page.locator("#sound-button").click();
   await page.reload();

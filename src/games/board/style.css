@@ -344,3 +344,46 @@
   outline: 2px solid #225b50;
   outline-offset: 2px;
 }
+
+#player[data-immersive="true"] .classic-board {
+  width: min(100%, max(220px, calc(100cqh - 290px)));
+  margin-inline: auto;
+}
+#player[data-immersive="true"] .board-status {
+  margin: 8px 0;
+  font-size: 15px;
+}
+#player[data-immersive="true"] .board-selection,
+#player[data-immersive="true"] .board-help {
+  margin: 8px 0;
+  font-size: 11px;
+}
+#player[data-immersive="true"] .direction-controls {
+  margin-top: 8px;
+}
+
+@media (max-height: 500px) and (min-width: 600px) {
+  #player[data-immersive="true"] .classic-game {
+    max-width: 720px;
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) minmax(240px, 1fr);
+    align-items: center;
+    gap: 4px 20px;
+  }
+  #player[data-immersive="true"] .classic-board {
+    grid-column: 1;
+    grid-row: 1 / 6;
+    width: min(100%, max(200px, calc(100cqh - 24px)));
+  }
+  #player[data-immersive="true"] .board-toolbar,
+  #player[data-immersive="true"] .board-status,
+  #player[data-immersive="true"] .board-selection,
+  #player[data-immersive="true"] [data-board-confirm],
+  #player[data-immersive="true"] .direction-controls {
+    grid-column: 2;
+    margin: 0;
+  }
+  #player[data-immersive="true"] .board-help {
+    display: none;
+  }
+}

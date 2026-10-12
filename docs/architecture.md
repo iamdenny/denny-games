@@ -22,7 +22,7 @@ Astro generates real index.html routes for English and Korean. Catalogue metadat
 
 ## Lifecycle
 
-A game module mounts into a host and receives seed, saved state, translations and result callbacks. It supports start/pause/resume/restart/serialize/destroy and normalized actions. The shell owns focus, page visibility, storage, sound preference, gamepad input, fullscreen fallback and the H5 ad boundary. Only an explicit user action resumes gameplay. Games never load advertisements themselves.
+A game module mounts into a host and receives seed, saved state, translations and result callbacks. It supports start/pause/resume/restart/serialize/destroy and normalized actions. The shell owns focus, page visibility, storage, sound preference, gamepad input, viewport presentation and the H5 ad boundary. Only an explicit user action resumes gameplay. Games never load advertisements themselves.
 
 ## Persistence
 
@@ -49,3 +49,5 @@ Five original traditional rule implementations share `src/games/board/rules.ts`,
 Shared player audio uses original synthesized event cues in `src/lib/audio.ts`. Audio starts after a user gesture, with persisted mute/volume preferences and cancellation on pause/background. Board engines report semantic cues through the existing lifecycle sound callback; imported game sound events retain the default cue.
 
 Gameplay transitions run independently of asynchronous audio resume. Mute can cancel audio immediately without leaving a paused overlay behind. Score presentation uses localized whole numbers and wrapping; stored scores keep their original precision.
+
+The player defaults to a fixed dynamic-viewport stage and toggles standard layout without remounting the engine. Locale controls live inside the player; secondary settings use a native disclosure. See ADR 0016.

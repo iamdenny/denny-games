@@ -555,3 +555,5 @@ Google은 AI Overviews·AI Mode에도 기존 SEO 원칙이 적용되고 별도�
 이번 조사에서 **직접 측정하지 않은 것**은 키워드 검색량·경쟁사 매출·서비스 전환율·실차 브라우저 동작·현재 AdSense 계정 상태·도메인 DNS·실제 광고 단가다. 현재 제품 지표나 확정 수익으로 해석할 숫자는 제시하지 않았다.
 
 기존 Everyday Tools 기록에서는 비공개 소스/공개 산출물 분리와 검색 제출·색인·노출의 구분만 참고했다. 기존 사이트의 현재 배포·승인·광고 운영 상태는 이 프로젝트의 확인된 사실로 사용하지 않았다.
+
+See [Player interaction and viewport](PLAYER-UX.md) for default in-page game presentation and direct board actions.
