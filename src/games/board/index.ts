@@ -150,8 +150,12 @@ export const createMount =
     const note = document.createElement("p");
     note.className = "board-help";
     note.textContent = tr(
-      "Select a space, then confirm. Changing mode or level starts a new game.",
-      "칸을 고른 뒤 수를 확정하세요. 방식·난이도를 바꾸면 새 대국을 시작합니다.",
+      kind === "checkers"
+        ? "Select a piece, then click a marked destination to move. Changing mode or level starts a new game."
+        : "Select a space, column or edge to preview; select it again to play. Changing mode or level starts a new game.",
+      kind === "checkers"
+        ? "말을 고른 뒤 표시된 목적지를 누르면 이동합니다. 방식·난이도를 바꾸면 새 대국을 시작합니다."
+        : "칸·열·선을 눌러 미리 보고 같은 곳을 다시 누르면 둡니다. 방식·난이도를 바꾸면 새 대국을 시작합니다.",
     );
     shell.append(toolbar, status, board, selection, confirm, controls, note);
     ctx.host.append(shell);
@@ -261,7 +265,20 @@ export const createMount =
           "aria-pressed",
           String(preview?.to === index || source === index),
         );
-        button.addEventListener("click", () => select(index));
+        button.addEventListener("click", () => {
+          if (!human()) return;
+          if (kind === "checkers") {
+            select(index);
+            if (preview) commit();
+          } else if (
+            preview &&
+            (kind === "four-in-a-row"
+              ? preview.to % 7 === index % 7
+              : preview.to === index)
+          )
+            commit();
+          else select(index);
+        });
         return button;
       }
       if (kind === "dots-and-boxes") {
@@ -324,12 +341,12 @@ export const createMount =
           : preview
             ? kind === "dots-and-boxes"
               ? tr(
-                  `Edge ${preview.to + 1} selected. Confirm to draw.`,
-                  `선 ${preview.to + 1} 선택. 확정하면 그립니다.`,
+                  `Edge ${preview.to + 1} selected. Click again or confirm to draw.`,
+                  `선 ${preview.to + 1} 선택. 같은 선을 다시 누르거나 확정하면 그립니다.`,
                 )
               : tr(
-                  `Row ${Math.floor(preview.to / w!) + 1}, column ${(preview.to % w!) + 1}. Confirm to play.`,
-                  `${Math.floor(preview.to / w!) + 1}행 ${(preview.to % w!) + 1}열. 확정하면 둡니다.`,
+                  `Row ${Math.floor(preview.to / w!) + 1}, column ${(preview.to % w!) + 1}. ${kind === "gomoku" ? "Click this space again or confirm to place your stone." : "Select the same space or column again, or confirm to play."}`,
+                  `${Math.floor(preview.to / w!) + 1}행 ${(preview.to % w!) + 1}열. ${kind === "gomoku" ? "같은 자리를 한 번 더 누르거나 확정하면 돌을 놓습니다." : "같은 칸·열을 다시 누르거나 확정하면 둡니다."}`,
                 )
             : kind === "checkers"
               ? tr(

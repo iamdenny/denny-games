@@ -12,6 +12,7 @@ const text = t(locale);
 
 <section
   id="player"
+  data-immersive="true"
   data-id={game.id}
   data-locale={locale}
   data-version={game.version}
@@ -31,6 +32,21 @@ const text = t(locale);
         {text.best} <strong id="best">0</strong>
       </span>
     </div>
+    <nav class="locale-nav" aria-label={locale === "ko" ? "언어" : "Language"}>
+      {(["en", "ko"] as const).map((lang) => (
+        <a
+          data-locale-link
+          href={`/${lang}/play/${game.id}/`}
+          lang={lang}
+          aria-current={locale === lang ? "page" : undefined}
+        >
+          {lang.toUpperCase()}
+        </a>
+      ))}
+    </nav>
+    <button id="fullscreen-button" type="button" aria-pressed="true">
+      {locale === "ko" ? "기본 보기" : "Standard view"}
+    </button>
   </div>
   <div class="play-area">
     <div id="game-host" aria-label={game.text[locale].title}></div>
@@ -71,43 +87,45 @@ const text = t(locale);
     <button id="sound-button" type="button" aria-pressed="false">
       ♪ {text.sound}: {text.off}
     </button>
-    <label class="sound-volume">
-      {locale === "ko" ? "효과음 음량" : "Effects volume"}
-      <input
-        id="sound-volume"
-        type="range"
-        min="0"
-        max="100"
-        step="5"
-        value="50"
-      />
-    </label>
-    <button id="fullscreen-button" type="button">
-      ⛶ {text.fullscreen}
-    </button>
-    <label hidden={game.imported}>
-      {text.stage}
-      <select id="stage-select" aria-label={text.selectStage}>
-        {Array.from({ length: game.stages }, (_, i) => (
-          <option value={i + 1}>{i + 1}</option>
-        ))}
-      </select>
-    </label>
-    <label class="low-effects" hidden={game.imported}>
-      <input id="low-effects" type="checkbox" />
-      {text.low}
-    </label>
+    <details class="player-settings" id="player-settings">
+      <summary>{locale === "ko" ? "설정" : "Settings"}</summary>
+      <div class="settings-panel">
+        <label class="sound-volume">
+          {locale === "ko" ? "효과음 음량" : "Effects volume"}
+          <input
+            id="sound-volume"
+            type="range"
+            min="0"
+            max="100"
+            step="5"
+            value="50"
+          />
+        </label>
+        <label hidden={game.imported}>
+          {text.stage}
+          <select id="stage-select" aria-label={text.selectStage}>
+            {Array.from({ length: game.stages }, (_, i) => (
+              <option value={i + 1}>{i + 1}</option>
+            ))}
+          </select>
+        </label>
+        <label class="low-effects" hidden={game.imported}>
+          <input id="low-effects" type="checkbox" />
+          {text.low}
+        </label>
+        <p class="player-instructions">
+          {game.text[locale].controls[1]}{" "}
+          <span>
+            {game.imported
+              ? locale === "ko"
+                ? "페이지를 떠나면 라운드는 처음부터 시작합니다."
+                : "Leaving this page restarts the round."
+              : text.continue}
+          </span>
+        </p>
+      </div>
+    </details>
   </div>
-  <p class="player-instructions">
-    {game.text[locale].controls[1]}{" "}
-    <span>
-      {game.imported
-        ? locale === "ko"
-          ? "페이지를 떠나면 라운드는 처음부터 시작합니다."
-          : "Leaving this page restarts the round."
-        : text.continue}
-    </span>
-  </p>
 </section>
 <script>
   import "../scripts/player";

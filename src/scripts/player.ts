@@ -304,14 +304,20 @@ low.addEventListener("change", () => {
   root.classList.toggle("low-effects", low.checked);
   write("low-effects", low.checked);
 });
-el("fullscreen-button").addEventListener("click", async () => {
-  try {
-    if (document.fullscreenElement) await document.exitFullscreen();
-    else if (root.requestFullscreen) await root.requestFullscreen();
-    else root.classList.toggle("expanded");
-  } catch {
-    root.classList.toggle("expanded");
-  }
+el("fullscreen-button").addEventListener("click", () => {
+  const immersive = root.dataset.immersive !== "true";
+  root.dataset.immersive = String(immersive);
+  document.body.classList.toggle("player-immersive", immersive);
+  const button = el("fullscreen-button");
+  button.setAttribute("aria-pressed", String(immersive));
+  button.textContent =
+    locale === "ko"
+      ? immersive
+        ? "기본 보기"
+        : "게임 화면"
+      : immersive
+        ? "Standard view"
+        : "Game view";
 });
 share.addEventListener("click", async () => {
   if (!result) return;
@@ -356,7 +362,8 @@ const disconnect = connectGamepad(
   },
 );
 const keyboard = (event: KeyboardEvent) => {
-  if ((event.target as HTMLElement).closest("input,select,textarea")) return;
+  if ((event.target as HTMLElement).closest("input,select,textarea,summary"))
+    return;
   if (event.key === "Escape" || event.code === "KeyP") {
     if (state === "running") {
       event.preventDefault();

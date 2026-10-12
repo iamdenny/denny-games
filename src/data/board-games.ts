@@ -8,12 +8,12 @@ export const classicIds = [
 ] as const;
 const controls: Record<"en" | "ko", string[]> = {
   en: [
-    "Touch or mouse: select a space, then press Confirm move. Checkers selects a piece before its destination.",
+    "Touch or mouse: select a space, column or edge to preview, then select it again to play. Confirm move also works. Checkers: select a piece, then click a marked destination to move.",
     "Keyboard: arrows move the cursor; Enter/Space previews, then confirms. The on-screen arrows provide the same selection controls.",
     "Standard gamepad: D-pad selects, primary button previews/confirms, Start pauses. Physical controllers and Tesla browsers await testing.",
   ],
   ko: [
-    "터치·마우스: 칸을 선택하고 수 두기 버튼으로 확정하세요. 체커는 말부터 고르고 목적지를 선택합니다.",
+    "터치·마우스: 칸·열·선을 눌러 미리 보고 같은 곳을 다시 누르면 둡니다. 수 두기 버튼으로도 확정할 수 있어요. 체커는 말을 고른 뒤 표시된 목적지를 누르면 이동합니다.",
     "키보드: 방향키로 커서를 이동하고 Enter/Space로 미리보기·확정합니다. 화면의 방향 버튼으로도 선택할 수 있어요.",
     "표준 게임패드: 방향패드 선택, 기본 버튼 미리보기·확정, Start 정지. 실제 패드·테슬라 브라우저는 검증 전입니다.",
   ],
@@ -242,8 +242,26 @@ export const boardGames: Game[] = descriptions.map(
     artwork: `/art/${id}.svg`,
     screenshot: `/art/screenshots/${id}.png`,
     text: {
-      en: { ...en, controls: controls.en },
-      ko: { ...ko, controls: controls.ko },
+      en: {
+        ...en,
+        controls:
+          id === "gomoku"
+            ? [
+                "Touch or mouse: click a space to preview, then click the same space again to place your stone. Click another space to move the preview. Confirm move also works.",
+                ...controls.en.slice(1),
+              ]
+            : controls.en,
+      },
+      ko: {
+        ...ko,
+        controls:
+          id === "gomoku"
+            ? [
+                "터치·마우스: 칸을 눌러 미리 보고 같은 자리를 한 번 더 누르면 돌을 놓습니다. 다른 칸을 누르면 미리보기가 이동합니다. 수 두기 버튼으로도 확정할 수 있어요.",
+                ...controls.ko.slice(1),
+              ]
+            : controls.ko,
+      },
     },
   }),
 );

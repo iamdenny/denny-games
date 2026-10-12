@@ -85,7 +85,10 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
       <meta name="google-adsense-account" content={ads.publisher} />
     )}
   </head>
-  <body data-locale={locale} class:list={{ "play-page": play }}>
+  <body
+    data-locale={locale}
+    class:list={{ "play-page": play, "player-immersive": play }}
+  >
     <a class="skip-link" href="#main">
       {locale === "ko" ? "본문으로 건너뛰기" : "Skip to content"}
     </a>
@@ -118,27 +121,29 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
         >
           ▣ <span>{text.large}</span>
         </button>
-        <nav
-          class="locale-nav"
-          aria-label={locale === "ko" ? "언어" : "Language"}
-        >
-          <a
-            data-locale-link
-            href={`/en/${path ? path + "/" : ""}`}
-            lang="en"
-            aria-current={locale === "en" ? "page" : undefined}
+        {!play && (
+          <nav
+            class="locale-nav"
+            aria-label={locale === "ko" ? "언어" : "Language"}
           >
-            EN
-          </a>
-          <a
-            data-locale-link
-            href={`/ko/${path ? path + "/" : ""}`}
-            lang="ko"
-            aria-current={locale === "ko" ? "page" : undefined}
-          >
-            KO
-          </a>
-        </nav>
+            <a
+              data-locale-link
+              href={`/en/${path ? path + "/" : ""}`}
+              lang="en"
+              aria-current={locale === "en" ? "page" : undefined}
+            >
+              EN
+            </a>
+            <a
+              data-locale-link
+              href={`/ko/${path ? path + "/" : ""}`}
+              lang="ko"
+              aria-current={locale === "ko" ? "page" : undefined}
+            >
+              KO
+            </a>
+          </nav>
+        )}
       </div>
     </header>
     <div class:list={["site-layout", { "play-layout": play }]}>

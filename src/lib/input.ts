@@ -7,7 +7,7 @@ export function focusNext(action: Action): void {
   }
   const elements = [
     ...document.querySelectorAll<HTMLElement>(
-      'a[href],button:not([disabled]),input,select,[tabindex="0"]',
+      'a[href],button:not([disabled]),summary,input,select,[tabindex="0"]',
     ),
   ].filter(
     (e) =>

@@ -18,7 +18,7 @@ Add Gomoku, Reversi, Four in a Row, English checkers and Dots and Boxes in a new
 - Four in a Row: seven columns, six rows, gravity, four aligned wins, full-board draw.
 - English checkers: 8×8, mandatory captures and continued jumps by the same piece, forward-only men, kings move/jump both ways, promotion ends the turn, no-move loss and 80 non-capture king plies draw.
 - Dots and Boxes: 4×4 boxes, claim one edge, completed boxes score and grant another move, double-box captures supported.
-- Tap/click previews a destination; a separate 48px confirm button commits it. Checkers first selects a piece. Arrow keys navigate, confirm selects/commits. Visible on-screen directions support touch; shared gamepad mapping uses the same actions.
+- Tap/click previews a space, column or edge; repeating that target commits it. Checkers selects a piece, then a marked destination click commits immediately. A separate 48px confirm button remains an alternative. Arrow keys navigate, confirm selects/commits. Visible on-screen directions support touch; shared gamepad mapping uses the same actions.
 - No optional decorative motion is necessary for rules. Preserve pause across visibility changes, cancel pending AI on pause/destroy, resume safely, restore board/mode/difficulty and outcome. AI is a bounded local search, not a professional-strength claim.
 
 ## Discovery and monetization
@@ -32,3 +32,7 @@ Rules fixtures cover captures, passes, gravity, wins/draws, jump continuation, c
 ## Sound
 
 Original Web Audio synthesis distinguishes stone placement, gravity drops, disc flips, checker steps/captures, edges and completed boxes, plus win/loss/draw cues. No third-party recordings or continuous background music. Sound is initially off; remember the user's mute and effects-volume settings, but create/resume audio only from an explicit gesture. Stop active and scheduled notes on mute/pause/background, so stale cues do not replay on resume. Sound is supplementary: turn, legal moves and results remain visible without it.
+
+Gomoku pointer interaction: first click/tap previews a legal intersection; clicking/tapping that same intersection again commits the stone. Selecting another intersection only moves the preview. The explicit confirm button and keyboard/gamepad confirmation remain available.
+
+Pointer interactions and viewport presentation are further specified by [the player UX PRD](../product/PLAYER-UX.md) and [ADR 0016](../adr/0016-viewport-player.md).
