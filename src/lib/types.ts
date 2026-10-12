@@ -18,7 +18,7 @@ export interface GameContext {
   onChange: (score: number) => void;
   onEnd: (result: GameResult) => void;
   sound: (cue?: SoundCue) => void;
-  onReady?: () => void;
+  onReady?: (size?: { width: number; height: number }) => void;
   onPause?: () => void;
   onError?: (message: string) => void;
 }

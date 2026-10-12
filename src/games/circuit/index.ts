@@ -76,7 +76,11 @@ export const mount: GameFactory = (ctx) => {
     render();
   };
   hint.addEventListener("click", hintClick);
-  ctx.host.append(grid, hint, note);
+  const actions = document.createElement("div");
+  actions.className = "game-actions";
+  actions.append(hint, note);
+  ctx.host.append(grid);
+  (ctx.controlsHost ?? ctx.host).append(actions);
   function render() {
     const live = connected(tiles, board.size);
     cells.forEach((button, index) => {
@@ -162,6 +166,7 @@ export const mount: GameFactory = (ctx) => {
     serialize: () => ({ tiles, moves, hint: usedHint }),
     destroy() {
       hint.removeEventListener("click", hintClick);
+      actions.remove();
       ctx.host.replaceChildren();
     },
   };

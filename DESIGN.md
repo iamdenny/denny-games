@@ -2,6 +2,8 @@
 
 ## Character
 
+All-game stages follow ADR 0021: preserve logical aspect ratios, remove immersive width caps, and center surfaces against the full host dimensions. Scores, primary hint/launch/number actions and shell controls share the tools area. From 600px, choose side or bottom placement according to the larger game scale; smaller phones retain bottom tools. Optional 2048 direction buttons live in settings. Imported canvases fill their ratio-correct frame without an extra inset.
+
 A warm editorial arcade: confident typography, newspaper rules, generous breathing room and vivid game artwork. The catalogue should feel curated even with three games. Support hundreds without inventing content or repeating variants as separate games.
 
 ## Palette
@@ -40,4 +42,4 @@ Play pages default to a browser-viewport stage with persistent exit, locale, vie
 
 On compact phones, prioritize the full board: match selectors/help live in settings, coordinates and confirmation share a row, and pause/restart/sound/settings form a single 48px bottom row. Language targets are at least 44px wide. Use 16px settings select text and safe-area padding without disabling zoom.
 
-Immersive classic boards use the full stage height and width while preserving their aspect ratio. From 600px, place turn/selection/confirmation and pause/restart/sound/settings in a 176px side rail. On narrow phones, keep a compact toolbar below the board. Optional on-screen direction buttons live in Settings; keyboard and gamepad arrows continue to work without opening it. Standard view and pause/restart must preserve the current round.
+Immersive classic boards use the full stage height and width while preserving their aspect ratio. From 600px, compare a 176px side rail with bottom tools and use the placement that leaves the larger board. On narrow phones, keep a compact toolbar below the board. Optional on-screen direction buttons live in Settings; keyboard and gamepad arrows continue to work without opening it. Standard view and pause/restart must preserve the current round.

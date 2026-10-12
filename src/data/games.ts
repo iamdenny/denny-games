@@ -195,7 +195,7 @@ export const games: Game[] = [
           "Reach 2048 to win. The round ends if the board fills with no legal merge.",
         ],
         controls: [
-          "Touch: swipe on the board or use the four direction buttons.",
+          "Touch: swipe on the board. Direction buttons are available in Settings.",
           "Keyboard: use the arrow keys.",
           "Standard gamepad: D-pad or left stick slides the board. Start pauses.",
         ],
@@ -216,7 +216,7 @@ export const games: Game[] = [
           "2048을 만들면 성공입니다. 빈칸도 합칠 수 있는 숫자도 없으면 라운드가 끝납니다.",
         ],
         controls: [
-          "터치: 보드에서 스와이프하거나 네 방향 버튼을 누르세요.",
+          "터치: 보드에서 스와이프하세요. 방향 버튼은 설정에서 사용할 수 있습니다.",
           "키보드: 방향키로 이동합니다.",
           "표준 게임패드: 방향패드·왼쪽 스틱으로 이동, Start로 정지합니다.",
         ],

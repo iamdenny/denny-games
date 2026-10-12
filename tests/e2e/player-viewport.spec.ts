@@ -4,6 +4,7 @@ for (const viewport of [
   { width: 1440, height: 900 },
   { width: 800, height: 600 },
   { width: 960, height: 640 },
+  { width: 600, height: 900 },
   { width: 320, height: 568 },
   { width: 360, height: 640 },
   { width: 390, height: 844 },
@@ -21,6 +22,10 @@ for (const viewport of [
     "orbit-break",
     "2048",
     "crisp-cywall",
+    "crisp-ringblast",
+    "crisp-twofaced",
+    "crisp-liedown",
+    "crisp-digi10",
   ]) {
     test(`${id} fills ${viewport.width}x${viewport.height} webview and preserves state on view change`, async ({
       page,
@@ -44,10 +49,17 @@ for (const viewport of [
         "#sound-button",
         "#fullscreen-button",
         "#player-settings summary",
+        ".game-hint",
+        ".launch-button",
+        ".crisp-digits button",
       ]) {
-        const box = await page.locator(selector).boundingBox();
-        expect(box!.y).toBeGreaterThanOrEqual(0);
-        expect(box!.y + box!.height).toBeLessThanOrEqual(viewport.height);
+        for (const control of await page.locator(selector).all()) {
+          const box = await control.boundingBox();
+          expect(box!.x).toBeGreaterThanOrEqual(0);
+          expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width);
+          expect(box!.y).toBeGreaterThanOrEqual(0);
+          expect(box!.y + box!.height).toBeLessThanOrEqual(viewport.height);
+        }
       }
       const surface = page.locator(
         ".classic-board,.circuit-board,.merge-board,.orbit-canvas,.crisp-frame",
@@ -60,21 +72,43 @@ for (const viewport of [
       ) {
         expect(Math.abs(bounds!.width - bounds!.height)).toBeLessThan(2);
       }
-      if (id === "gomoku") {
-        const area = await page.locator(".play-area").boundingBox();
-        expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(
-          area!.y + area!.height,
-        );
-      }
+      const area = await page.locator(".play-area").boundingBox();
+      expect(bounds!.y).toBeGreaterThanOrEqual(area!.y);
+      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(
+        area!.y + area!.height,
+      );
+      const available = await page.locator("#game-host").evaluate((el) => {
+        const style = getComputedStyle(el);
+        return {
+          width:
+            el.clientWidth -
+            parseFloat(style.paddingLeft) -
+            parseFloat(style.paddingRight),
+          height:
+            el.clientHeight -
+            parseFloat(style.paddingTop) -
+            parseFloat(style.paddingBottom),
+        };
+      });
+      expect(bounds!.width).toBeGreaterThanOrEqual(
+        Math.min(
+          available.width,
+          (available.height * bounds!.width) / bounds!.height,
+        ) - 2,
+      );
+      if (
+        viewport.width === 800 &&
+        ["2048", "orbit-break", "crisp-twofaced"].includes(id)
+      )
+        await page.screenshot({
+          path: test.info().outputPath(`${id}-maximized.png`),
+        });
       if (viewport.width <= 560 && viewport.height >= 568) {
-        const area = await page.locator(".play-area").boundingBox();
         for (const control of await page
-          .locator(".game-hint,.direction-controls,.launch-button")
+          .locator(".game-hint,.launch-button")
           .all()) {
           const box = await control.boundingBox();
-          expect(box!.y + box!.height).toBeLessThanOrEqual(
-            area!.y + area!.height,
-          );
+          expect(box!.y + box!.height).toBeLessThanOrEqual(viewport.height);
         }
       }
       const host = page.locator("#game-host");

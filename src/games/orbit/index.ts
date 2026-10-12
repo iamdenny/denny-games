@@ -86,7 +86,11 @@ export const mount: GameFactory = (ctx) => {
   launch.textContent = ctx.locale === "ko" ? "공 발사" : "Launch ball";
   const note = document.createElement("p");
   note.className = "board-note";
-  ctx.host.append(canvas, launch, note);
+  const actions = document.createElement("div");
+  actions.className = "game-actions";
+  actions.append(launch, note);
+  ctx.host.append(canvas);
+  (ctx.controlsHost ?? ctx.host).append(actions);
   const serve = () => {
     if (active && !state.launched) {
       state.launched = true;
@@ -259,6 +263,7 @@ export const mount: GameFactory = (ctx) => {
       launch.removeEventListener("click", serve);
       canvas.removeEventListener("pointerdown", down);
       canvas.removeEventListener("pointermove", pointer);
+      actions.remove();
       ctx.host.replaceChildren();
     },
   };

@@ -7,6 +7,8 @@ read_when:
 
 # Architecture
 
+The shared player fits every immersive game surface by logical aspect ratio (ADR 0021), selecting side or bottom tools from measured space. Imported onReady may report validated width/height; native ratios are known at the page boundary. Primary game actions use controlsHost and are inert while overlays block gameplay; secondary 2048 directions use settingsHost. Adapters remove their externally mounted controls on destroy, and viewport/view changes never remount the engine.
+
 Astro generates real index.html routes for English and Korean. Catalogue metadata drives home, category pagination, detail pages, search indexes and sitemap. No API server or database is required.
 
 The root page supplies an inline script through the Base layout's head slot to open the first supported browser language before rendering the selector. Explicit locale routes do not redirect. Root HTML retains bilingual fallback links and SEO/verification metadata. See [ADR 0019](adr/0019-browser-language-entry.md).
@@ -54,4 +56,4 @@ Gameplay transitions run independently of asynchronous audio resume. Mute can ca
 
 The player defaults to a fixed dynamic-viewport stage and toggles standard layout without remounting the engine. Locale controls live inside the player; secondary settings use a native disclosure. See ADR 0016.
 
-GameContext may provide a settingsHost owned by the player disclosure and a controlsHost owned by the player tools rail. Classic boards mount match options/help and optional on-screen arrows in settings, and turn/coordinates/confirm in the controls host. Without either host they retain inline controls. Engine destroy removes stage, tools and settings nodes. Immersive board games use a side rail from 600px and a compact toolbar on narrower phones, leaving the stage for the board. Focus changes use preventScroll so starting a compact game does not reposition the stage.
+GameContext may provide a settingsHost owned by the player disclosure and a controlsHost owned by the player tools area. Classic boards mount match options/help and optional on-screen arrows in settings, and turn/coordinates/confirm in the controls host. Without either host they retain inline controls. Engine destroy removes stage, tools and settings nodes. All immersive games compare side and bottom tools from 600px (ADR 0021) and use compact bottom tools on narrower phones, leaving the stage for the surface. Focus changes use preventScroll so starting a compact game does not reposition the stage.

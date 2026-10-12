@@ -55,7 +55,8 @@ export const mount: GameFactory = (ctx) => {
     button.addEventListener("click", () => slide(dir));
     buttons.append(button);
   }
-  ctx.host.append(grid, buttons);
+  ctx.host.append(grid);
+  (ctx.settingsHost ?? ctx.host).append(buttons);
   function add() {
     const empty = board.map((v, i) => (v === 0 ? i : -1)).filter((i) => i >= 0);
     if (!empty.length) return;
@@ -163,6 +164,7 @@ export const mount: GameFactory = (ctx) => {
       grid.removeEventListener("pointercancel", cancel);
       grid.removeEventListener("pointerdown", down);
       grid.removeEventListener("pointerup", up);
+      buttons.remove();
       ctx.host.replaceChildren();
     },
   };

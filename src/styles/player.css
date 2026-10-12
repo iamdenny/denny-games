@@ -553,8 +553,10 @@
 #player[data-immersive="true"] #game-host {
   height: 100%;
   min-height: 0;
-  max-width: 760px;
-  padding: 12px;
+  max-width: none;
+  padding: 6px;
+  display: grid;
+  place-items: center;
   container-type: size;
 }
 #player[data-immersive="true"] .player-controls {
@@ -572,30 +574,26 @@
 #player[data-immersive="true"] .game-overlay {
   overflow: auto;
 }
-#player[data-immersive="true"][data-board-game="true"] #game-host {
-  max-width: none;
-  padding: 6px;
-}
-#player[data-immersive="true"][data-board-game="true"] .player-tools {
+#player[data-immersive="true"] .player-tools {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   gap: 8px;
 }
 @media (min-width: 600px) {
-  #player[data-immersive="true"][data-board-game="true"] {
+  #player[data-immersive="true"][data-controls-layout="side"] {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 176px;
     grid-template-rows: auto minmax(0, 1fr) auto;
   }
-  #player[data-immersive="true"][data-board-game="true"] .player-top {
+  #player[data-immersive="true"][data-controls-layout="side"] .player-top {
     grid-column: 1 / -1;
   }
-  #player[data-immersive="true"][data-board-game="true"] .play-area {
+  #player[data-immersive="true"][data-controls-layout="side"] .play-area {
     grid-column: 1;
     grid-row: 2;
   }
-  #player[data-immersive="true"][data-board-game="true"] .player-tools {
+  #player[data-immersive="true"][data-controls-layout="side"] .player-tools {
     grid-column: 2;
     grid-row: 2;
     min-height: 0;
@@ -603,15 +601,15 @@
     padding: 6px;
     gap: 16px;
   }
-  #player[data-immersive="true"][data-board-game="true"] .player-controls {
+  #player[data-immersive="true"][data-controls-layout="side"] .player-controls {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
   }
-  #player[data-immersive="true"][data-board-game="true"]
+  #player[data-immersive="true"][data-controls-layout="side"]
     .player-controls
     > button,
-  #player[data-immersive="true"][data-board-game="true"]
+  #player[data-immersive="true"][data-controls-layout="side"]
     .player-settings
     summary {
     width: 100%;
@@ -621,11 +619,11 @@
     font-size: 12px;
     text-align: center;
   }
-  #player[data-immersive="true"][data-board-game="true"] .game-message {
+  #player[data-immersive="true"][data-controls-layout="side"] .game-message {
     grid-column: 1 / -1;
     grid-row: 3;
   }
-  #player[data-immersive="true"][data-board-game="true"] .settings-panel {
+  #player[data-immersive="true"][data-controls-layout="side"] .settings-panel {
     position: fixed;
     top: 64px;
     bottom: auto;
@@ -633,18 +631,20 @@
     max-height: calc(100dvh - 80px);
   }
 }
+#player[data-immersive="true"] .circuit-board,
+#player[data-immersive="true"] .merge-board {
+  width: min(100%, 100cqh);
+  max-width: none;
+}
 #player[data-immersive="true"] .circuit-board {
-  width: min(100%, max(200px, calc(100cqh - 120px)));
   touch-action: manipulation;
 }
-#player[data-immersive="true"] .merge-board {
-  width: min(100%, max(200px, calc(100cqh - 80px)));
-}
 #player[data-immersive="true"] .orbit-canvas {
-  width: min(100%, max(200px, calc((100cqh - 120px) * 0.941176)));
+  width: min(100%, calc(100cqh * 640 / 680));
 }
 #player[data-immersive="true"] .crisp-frame {
-  width: min(100%, max(120px, calc((100cqh - 80px) * var(--frame-ratio, 1))));
+  width: min(100%, calc(100cqh * var(--frame-ratio, 1)));
+  min-height: 0;
   max-height: none;
 }
 @media (max-width: 560px) {
@@ -739,5 +739,111 @@
   }
   .overlay-content p {
     line-height: 1.6;
+  }
+}
+
+/* Primary game actions share the toolbar; secondary arrows live in settings. */
+#player[data-immersive="true"] .player-tools .scoreboard {
+  order: 0;
+  flex-basis: auto;
+  margin: 0;
+  justify-content: center;
+  gap: 16px;
+  font-size: 11px;
+}
+#player[data-immersive="true"] .player-tools .scoreboard span {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+#player[data-immersive="true"] .player-tools .scoreboard strong {
+  font-size: 20px;
+}
+.game-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.player-tools .game-hint,
+.player-tools .launch-button,
+.player-tools .board-note {
+  margin: 0;
+  min-width: 0;
+}
+.player-tools .game-hint,
+.player-tools .launch-button {
+  min-height: 48px;
+}
+.player-tools .crisp-digits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 0;
+}
+.player-tools .crisp-digits button {
+  min-width: 44px;
+  padding: 4px;
+}
+.settings-panel .direction-controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  gap: 6px;
+}
+.settings-panel .direction-controls button {
+  min-width: 0;
+  min-height: 48px;
+  padding: 4px;
+}
+@media (min-width: 600px) {
+  #player[data-immersive="true"][data-controls-layout="bottom"] .player-tools {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  #player[data-immersive="true"][data-controls-layout="bottom"]
+    #game-controls:not(:empty) {
+    flex: 1 1 160px;
+  }
+  #player[data-immersive="true"][data-controls-layout="bottom"]
+    .player-controls {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 344px;
+    max-width: 100%;
+  }
+  #player[data-immersive="true"][data-controls-layout="bottom"]
+    .player-controls
+    > button,
+  #player[data-immersive="true"][data-controls-layout="bottom"]
+    .player-settings
+    summary {
+    padding: 8px 4px;
+    min-width: 0;
+    font-size: 12px;
+    text-align: center;
+  }
+  #player[data-immersive="true"][data-controls-layout="bottom"]
+    .settings-panel {
+    position: fixed;
+    right: max(12px, env(safe-area-inset-right));
+    bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+  #player[data-immersive="true"][data-controls-layout="bottom"] .crisp-digits {
+    grid-template-columns: repeat(9, minmax(44px, 1fr));
+    min-width: 428px;
+  }
+  #player[data-immersive="true"][data-id="crisp-digi10"][data-controls-layout="bottom"]
+    #game-controls {
+    flex-basis: 428px;
+  }
+  #player[data-immersive="true"][data-controls-layout="side"] .game-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #player[data-immersive="true"][data-controls-layout="side"] .scoreboard {
+    flex-wrap: wrap;
   }
 }
