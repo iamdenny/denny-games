@@ -45,6 +45,8 @@ const category = parts[1];
 const page = Number((isAll ? parts[2] : parts[3]) ?? "1");
 const totalPages = Math.ceil(games.length / PAGE_SIZE);
 const recommended = editorialOrder(games);
+const homeCuratedPreviewCount = 6;
+const homeCategoryPreviewCount = 3;
 const featured = recommended[0]!;
 const pageSuffix =
   page > 1 ? (locale === "ko" ? ` · ${page}페이지` : ` · Page ${page}`) : "";
@@ -206,7 +208,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           />
         </a>
       </section>
-      <section>
+      <section data-curated-preview-count={homeCuratedPreviewCount}>
         <div class="section-heading">
           <h2>{text.curated}</h2>
           <span class="count">{label("6 editor picks", "추천 게임 6개")}</span>
@@ -218,13 +220,17 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           )}
         </p>
         <div class="game-grid">
-          {recommended.slice(0, 6).map((game) => (
+          {recommended.slice(0, homeCuratedPreviewCount).map((game) => (
             <GameCard game={game} locale={locale} />
           ))}
         </div>
       </section>
       {categories.map((category) => (
-        <section class="catalogue-section">
+        <section
+          class="catalogue-section"
+          data-game-count={categoryGames(category).length}
+          data-preview-limit={homeCategoryPreviewCount}
+        >
           <div class="section-heading">
             <h2>
               {text[category]}{" "}
@@ -236,7 +242,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </div>
           <div class="game-grid">
             {categoryGames(category)
-              .slice(0, 3)
+              .slice(0, homeCategoryPreviewCount)
               .map((g) => (
                 <GameCard game={g} locale={locale} />
               ))}

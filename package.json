@@ -21,6 +21,7 @@
     "format:check": "prettier --check src scripts tests *.json *.mjs .github/workflows",
     "test:imports": "node scripts/check-imports.mjs",
     "seo:check": "node scripts/check-seo.mjs",
+    "indexnow:notify": "node scripts/notify-indexnow.mjs",
     "test:mobile": "playwright test --config playwright.mobile.config.ts"
   },
   "dependencies": {
