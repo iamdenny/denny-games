@@ -2,6 +2,8 @@ import { setBoardMode } from "./helpers/board-settings";
 import { test, expect } from "@playwright/test";
 for (const viewport of [
   { width: 1440, height: 900 },
+  { width: 800, height: 600 },
+  { width: 960, height: 640 },
   { width: 320, height: 568 },
   { width: 360, height: 640 },
   { width: 390, height: 844 },
@@ -58,8 +60,12 @@ for (const viewport of [
       ) {
         expect(Math.abs(bounds!.width - bounds!.height)).toBeLessThan(2);
       }
-      if (id === "gomoku")
-        expect(bounds!.y + bounds!.height).toBeLessThan(viewport.height - 48);
+      if (id === "gomoku") {
+        const area = await page.locator(".play-area").boundingBox();
+        expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(
+          area!.y + area!.height,
+        );
+      }
       if (viewport.width <= 560 && viewport.height >= 568) {
         const area = await page.locator(".play-area").boundingBox();
         for (const control of await page

@@ -172,3 +172,11 @@ if (!document.querySelector("#player")) {
 }
 initDisplayAds();
 window.addEventListener("denny-consent-changed", initDisplayAds);
+
+const menu = document.querySelector<HTMLDetailsElement>(".compact-menu");
+menu?.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    menu.open = false;
+    menu.querySelector("summary")?.focus();
+  }
+});

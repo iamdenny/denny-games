@@ -23,7 +23,8 @@ for (const locale of ["en", "ko"] as const) {
     });
     const page = await context.newPage();
     await page.goto(`/${locale}/`);
-    await page.locator('.sidebar a[href$="/all/"]').click();
+    await page.locator(".compact-menu summary").click();
+    await page.locator('.compact-menu a[href$="/all/"]').click();
     const seen: string[] = [];
     const total = Math.ceil(gameIds.length / PAGE_SIZE);
     for (let n = 1; n <= total; n++) {

@@ -129,6 +129,7 @@ function mount(saved: boolean) {
   game = factory!({
     host,
     settingsHost: el("game-settings"),
+    controlsHost: el("game-controls"),
     locale,
     seed,
     stage,

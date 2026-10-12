@@ -16,3 +16,7 @@ Audit the eight original games and shared imported-player wrapper by interaction
 ## Compact mobile acceptance
 
 At 320×568 and larger phone sizes, opening/starting a game must not scroll the stage away from its top. Keep the full classic board and its confirmation reachable; use one row for shell pause/restart/sound/settings. Match mode, AI difficulty and detailed help live in settings, which must not duplicate on remount. Keep large direction buttons for precise Gomoku selection and show selected coordinates next to confirmation. Touch gestures must cancel cleanly on interrupted input; orientation changes preserve the round. Include safe-area insets and preserve browser pinch zoom. See [ADR 0017](../adr/0017-mobile-game-controls.md).
+
+## Catalogue and classic-board space — 2026-10-12
+
+See [ADR 0020](../adr/0020-compact-navigation-and-board-stage.md). Compact browser windows use a single-row catalogue header and a native menu disclosure instead of expanded primary/category rows. Classic boards use the full stage; turn/coordinates/confirmation and shell controls move to a side rail at widths of 600px or more. On-screen arrows remain available in settings, while keyboard/gamepad input and repeated-target touch confirmation stay unchanged. On narrower phones, the controls remain in a compact bottom toolbar. Validate 800×600 and 960×640 in both languages alongside phone, short-landscape and desktop scenarios; these are CSS viewport examples, not an assertion of the attached vehicle's exact viewport or firmware support.

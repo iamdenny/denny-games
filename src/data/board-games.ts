@@ -9,12 +9,12 @@ export const classicIds = [
 const controls: Record<"en" | "ko", string[]> = {
   en: [
     "Touch or mouse: select a space, column or edge to preview, then select it again to play. Confirm move also works. Checkers: select a piece, then click a marked destination to move.",
-    "Keyboard: arrows move the cursor; Enter/Space previews, then confirms. The on-screen arrows provide the same selection controls.",
+    "Keyboard: arrows move the cursor; Enter/Space previews, then confirms. The on-screen arrows in Settings provide the same selection controls.",
     "Standard gamepad: D-pad selects, primary button previews/confirms, Start pauses. Physical controllers and Tesla browsers await testing.",
   ],
   ko: [
     "터치·마우스: 칸·열·선을 눌러 미리 보고 같은 곳을 다시 누르면 둡니다. 수 두기 버튼으로도 확정할 수 있어요. 체커는 말을 고른 뒤 표시된 목적지를 누르면 이동합니다.",
-    "키보드: 방향키로 커서를 이동하고 Enter/Space로 미리보기·확정합니다. 화면의 방향 버튼으로도 선택할 수 있어요.",
+    "키보드: 방향키로 커서를 이동하고 Enter/Space로 미리보기·확정합니다. 설정 안의 방향 버튼으로도 선택할 수 있어요.",
     "표준 게임패드: 방향패드 선택, 기본 버튼 미리보기·확정, Start 정지. 실제 패드·테슬라 브라우저는 검증 전입니다.",
   ],
 };
