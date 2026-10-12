@@ -9,6 +9,7 @@ read_when:
 
 ## Implemented surfaces
 
+- Complete catalogue: `/en/all/` and `/ko/all/`, with static 24-game numbered pages, exact registry coverage, explicit totals/ranges, native previous/next links, independent canonicals and visible-card CollectionPage/ItemList. Home previews and global All games links lead here.
 - Game detail pages: localized titles/descriptions, rules, controls, screenshots, original author/source/license and VideoGame/WebPage/BreadcrumbList data.
 - Categories: editorial genre descriptions, distinct pagination metadata, crawlable page links and an ItemList matching only the server-rendered cards on that page. Client sorting/filtering remains a convenience rather than the only discovery path.
 - Site: WebSite/Organization entities, canonical URLs, reciprocal English/Korean hreflang and contextual x-default in HTML and XML sitemap, PNG sharing previews.

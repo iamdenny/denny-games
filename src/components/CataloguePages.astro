@@ -1,0 +1,48 @@
+---
+import type { Locale } from "../lib/types";
+interface Props {
+  locale: Locale;
+  page: number;
+  total: number;
+  placement: "top" | "bottom";
+}
+const { locale, page, total, placement } = Astro.props;
+const ko = locale === "ko";
+const href = (n: number) => `/${locale}/all/${n > 1 ? `page/${n}/` : ""}`;
+const pages = Array.from({ length: total }, (_, i) => i + 1).filter(
+  (n) => total <= 9 || n === 1 || n === total || Math.abs(n - page) <= 2,
+);
+---
+
+<nav
+  class="pagination catalogue-pages"
+  data-catalogue-pages={placement}
+  aria-label={
+    ko
+      ? `전체 게임 페이지 (${placement === "top" ? "위" : "아래"})`
+      : `All games pages (${placement})`
+  }
+>
+  {page > 1 && (
+    <a href={href(page - 1)} rel="prev">
+      ← {ko ? "이전" : "Previous"}
+    </a>
+  )}
+  {pages.map((n, i) => (
+    <>
+      {i > 0 && n - pages[i - 1]! > 1 && <span aria-hidden="true">…</span>}
+      <a
+        href={href(n)}
+        aria-label={ko ? `${n}페이지` : `Page ${n}`}
+        aria-current={n === page ? "page" : undefined}
+      >
+        {n}
+      </a>
+    </>
+  ))}
+  {page < total && (
+    <a href={href(page + 1)} rel="next">
+      {ko ? "다음" : "Next"} →
+    </a>
+  )}
+</nav>

@@ -30,7 +30,7 @@ Versioned `denny-games:v1:*` localStorage keys isolate game progress, settings, 
 
 ## Scalability
 
-Pages show 24 games per category. Every numbered page is real HTML with its own canonical. Search downloads a localized JSON index only on the search route. Nonexistent and untranslated content is never generated. A nonpublic 1,000-entry fixture validates pagination and search without publishing fake games.
+The complete `/en/all/` and `/ko/all/` catalogues and category pages show 24 games per page. Every numbered page is real HTML with its own canonical. The full catalogue includes every registry entry exactly once and shows its total, range, category links and top/bottom pagination. Home is explicitly a preview and links to the complete catalogue. Search downloads a localized JSON index only on the search route. Nonexistent and untranslated content is never generated. A nonpublic 1,000-entry fixture validates pagination and search without publishing fake games.
 
 ## Imported games
 

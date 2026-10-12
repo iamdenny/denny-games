@@ -4,7 +4,7 @@
 | --- | --- |
 | `src/data/` | Registry, interaction metadata, curated collections, translations and editorial pages |
 | `src/layouts/` | SEO shell, locale navigation and common chrome |
-| `src/components/` | Cards, original SVG artwork and content ad slots and disclosed static affiliate cards |
+| `src/components/` | Cards, complete-catalogue pagination, original SVG artwork, content ad slots and disclosed static affiliate cards |
 | `src/pages/` | Static bilingual route generation and discovery files |
 | `src/scripts/` | Catalogue/search state, player shell, diagnostics and local device report downloads |
 | `src/lib/` | Storage, seed, input, filtered pagination, device report validation, advertisement contracts and registry-derived discovery schema |

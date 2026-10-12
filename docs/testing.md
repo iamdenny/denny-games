@@ -21,6 +21,8 @@ CI must pass on the PR head. Review the diff and public artifact. After merge, r
 
 ## Imported catalogue
 
+Complete-catalogue tests follow all native next links in both languages with JavaScript disabled, compare every rendered card ID with the registry, open the final game's detail page and check 320/360/390/430/1440px layouts and same-page language navigation. SEO audits enforce exact catalogue coverage in both local and public HTML; the scale fixture repeats coverage for 1,000 entries across 42 pages.
+
 Every admitted Crisp game has a Chromium load/input/pause journey at a 390px viewport, with no foreign requests and no horizontal overflow. Source and sprite hashes are checked by unit tests. Category tests cover cross-page alphabetical order and imported favorites/search. Held standard-controller input and frame isolation have synthetic regressions. These short automated journeys do not verify complete campaigns or physical phones/controllers/Tesla.
 
 ## Discovery and device-check release
