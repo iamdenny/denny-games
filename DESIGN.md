@@ -10,7 +10,7 @@ Paper cream #F5F2E9 is the page background. Ink black #17211D is the primary tex
 
 ## Typography and layout
 
-Use system sans-serif fonts with a robust Korean fallback; no external font download. Oversized, tightly spaced headings establish the editorial hierarchy. Uppercase English labels are small accents, never the entire interface. Desktop has a narrow category rail and a broad content column. Mobile uses a compact header, horizontal category links and two game-card columns. Touch targets are at least 48px, or 56px in large-screen mode.
+Use system sans-serif fonts with a robust Korean fallback; no external font download. Confident, tightly spaced headings establish the editorial hierarchy. The home introduction uses a compact 1.5–2rem fluid title (24–32px at the default browser font size), natural wrapping rather than a forced two-line slogan, and reduced spacing before search, the introduction notice and catalogue entry so game previews appear sooner. Detail/editorial feature headings retain their own hierarchy. Uppercase English labels are small accents, never the entire interface. Desktop has a narrow category rail and a broad content column. Mobile uses a compact header, horizontal category links and two game-card columns. Touch targets are at least 48px, or 56px in large-screen mode.
 
 ## Components
 
