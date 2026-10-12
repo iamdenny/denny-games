@@ -305,6 +305,12 @@ test("fractional imported scores stay readable on mobile", async ({ page }) => {
   const frame = page
     .frames()
     .find((f) => f.url().includes("/vendor/crisp/index.html"))!;
+  await page.locator("#pause-button").click();
+  await frame.waitForFunction(
+    () =>
+      !(window as unknown as { dennyBridge: { running: boolean } }).dennyBridge
+        .running,
+  );
   await frame.evaluate(() =>
     parent.postMessage(
       {
