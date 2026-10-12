@@ -55,7 +55,15 @@ describe("play-style discovery", () => {
       control: "",
       length: "long",
     });
-    expect(long.map((game) => game.id)).toEqual(["circuit-loop", "2048"]);
+    expect(long.map((game) => game.id)).toEqual([
+      "circuit-loop",
+      "2048",
+      "gomoku",
+      "reversi",
+      "four-in-a-row",
+      "checkers",
+      "dots-and-boxes",
+    ]);
     expect(
       search(
         filtered.map((game) => ({

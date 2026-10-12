@@ -15,3 +15,5 @@ read_when:
 6. Generate static routes/search/sitemap and run all release checks.
 
 Initial titles are Circuit Loop and Orbit Break (original rules/rendering) plus a clean-asset adaptation of MIT 2048. 2048 attribution and pinned upstream provenance are retained. No font, screenshot, music or packaging from the original is bundled. 191 Crisp sources are now individually recorded and loaded through the restricted shared adapter; three other Crisp titles and remaining native/homebrew candidates retain pending dispositions. See [inventory](open-game-inventory.md) and [ADR 0009](../adr/0009-imported-games.md).
+
+Five traditional board games now have independently written MIT rules, bounded AI, renderer and original SVG artwork. No code/assets from the researched candidate repositories are bundled. See [board PRD](../product/CLASSIC-BOARD-GAMES.md) and [ADR 0015](../adr/0015-classic-board-games.md). Their original artwork and browser screenshots are maintained separately from pinned third-party source hashes.

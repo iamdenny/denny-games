@@ -39,7 +39,7 @@ test("editor picks stay consistent across home, full catalogue, categories and d
   await page.goto("/ko/");
   await expect(page.locator(".feature a.button")).toHaveAttribute(
     "href",
-    "/ko/games/orbit-break/",
+    `/ko/games/${editorPicks[0]!.id}/`,
   );
   expect(
     await page
@@ -52,8 +52,12 @@ test("editor picks stay consistent across home, full catalogue, categories and d
   expect(
     await page
       .locator("[data-game-card]")
-      .evaluateAll((cards) =>
-        cards.slice(0, 12).map((card) => card.getAttribute("data-game-card")),
+      .evaluateAll(
+        (cards, count) =>
+          cards
+            .slice(0, count)
+            .map((card) => card.getAttribute("data-game-card")),
+        editorPicks.length,
       ),
   ).toEqual(editorPicks.map((pick) => pick.id));
   await expect(page.locator(".editorial-note")).toContainText(
@@ -73,6 +77,6 @@ test("editor picks stay consistent across home, full catalogue, categories and d
   await page.goto("/en/search/");
   await expect(page.locator("#search-results a").first()).toHaveAttribute(
     "href",
-    "/en/games/orbit-break/",
+    `/en/games/${editorPicks[0]!.id}/`,
   );
 });

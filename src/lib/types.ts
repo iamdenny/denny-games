@@ -1,8 +1,11 @@
+import type { SoundCue } from "./audio";
 export type Locale = "en" | "ko";
 export type Action = "up" | "down" | "left" | "right" | "confirm";
 export interface GameResult {
   score: number;
   won: boolean;
+  message?: string;
+  draw?: boolean;
 }
 export interface GameContext {
   host: HTMLElement;
@@ -12,7 +15,7 @@ export interface GameContext {
   saved?: unknown;
   onChange: (score: number) => void;
   onEnd: (result: GameResult) => void;
-  sound: () => void;
+  sound: (cue?: SoundCue) => void;
   onReady?: () => void;
   onPause?: () => void;
   onError?: (message: string) => void;

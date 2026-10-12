@@ -1,0 +1,291 @@
+import { test, expect } from "@playwright/test";
+import { classicIds } from "../../src/data/board-games";
+import { initial } from "../../src/games/board/rules";
+for (const id of classicIds) {
+  test(`${id}: preview, AI, local mode, pause, restoration and locale`, async ({
+    page,
+  }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    const workers: string[] = [];
+    page.on("worker", (worker) => workers.push(worker.url()));
+    await page.goto(`/en/play/${id}/?seed=board-tests`);
+    await page.locator("#start-button").click();
+    const game = page.locator(".classic-game");
+    if (id === "checkers") await page.locator('[data-cell="40"]').click();
+    await page
+      .locator(
+        id === "gomoku"
+          ? '[data-cell="112"]'
+          : id === "four-in-a-row"
+            ? '[data-cell="0"]'
+            : ".board-cell.legal",
+      )
+      .first()
+      .click();
+    await expect(game).toHaveAttribute("data-moves", "0");
+    await expect(page.locator("[data-board-confirm]")).toBeEnabled();
+    await page.locator("[data-board-confirm]").click();
+    await expect(game).toHaveAttribute("data-moves", "2");
+    expect(workers.length).toBeGreaterThan(0);
+    await page.locator("[data-board-mode]").selectOption("local");
+    await expect(game).toHaveAttribute("data-moves", "0");
+    if (id === "checkers") await page.locator('[data-cell="40"]').click();
+    await page
+      .locator(
+        id === "gomoku"
+          ? '[data-cell="112"]'
+          : id === "four-in-a-row"
+            ? '[data-cell="0"]'
+            : ".board-cell.legal",
+      )
+      .first()
+      .click();
+    await page.locator("[data-board-confirm]").click();
+    await expect(game).toHaveAttribute("data-moves", "1");
+    await expect(game).toHaveAttribute("data-turn", "2");
+    await page.locator("#pause-button").click();
+    await expect(page.locator("#game-overlay")).toBeVisible();
+    await page.reload();
+    await page.locator("#start-button").click();
+    await expect(game).toHaveAttribute("data-moves", "1");
+    await expect(page.locator("[data-board-mode]")).toHaveValue("local");
+    await page.locator('[data-locale-link][lang="ko"]').click();
+    await page.locator("#start-button").click();
+    await expect(game).toHaveAttribute("data-moves", "1");
+    await expect(page.locator("[data-board-confirm]")).toHaveText(
+      "선택한 수 두기",
+    );
+    await expect(page.locator("[data-ad-slot]")).toHaveCount(0);
+    expect(errors).toEqual([]);
+  });
+  for (const width of [320, 390, 430])
+    test(`${id}: ${width}px board and controls fit`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`/ko/play/${id}/`);
+      await page.locator("#start-button").click();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+      const button = await page.locator("[data-board-confirm]").boundingBox();
+      expect(button!.height).toBeGreaterThanOrEqual(48);
+      await expect(page.locator(".classic-board")).toBeVisible();
+    });
+}
+test("paused AI cannot make a late move and resumes exactly once", async ({
+  page,
+}) => {
+  await page.goto("/en/play/gomoku/");
+  await page.locator("#start-button").click();
+  await page.locator('[data-cell="112"]').click();
+  await page.locator("[data-board-confirm]").click();
+  await page.locator("#pause-button").click();
+  await page.waitForTimeout(550);
+  await expect(page.locator(".classic-game")).toHaveAttribute(
+    "data-moves",
+    "1",
+  );
+  await page.locator("#start-button").click();
+  await expect(page.locator(".classic-game")).toHaveAttribute(
+    "data-moves",
+    "2",
+  );
+});
+test("Four in a Row supports keyboard preview then confirmation from the top row", async ({
+  page,
+}) => {
+  await page.goto("/en/play/four-in-a-row/");
+  await page.locator("#start-button").click();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("[data-board-confirm]")).toBeEnabled();
+  await page.keyboard.press("Enter");
+  await expect(page.locator(".classic-game")).toHaveAttribute(
+    "data-moves",
+    "2",
+  );
+});
+test("a local winning move reports its side and restored results remain completed", async ({
+  page,
+}) => {
+  const position = initial("gomoku");
+  for (const i of [105, 106, 107, 108]) position.cells[i] = 1;
+  position.moves = 8;
+  await page.addInitScript((position) => {
+    const key = "denny-games:v1:progress:gomoku:v1:winning-board:1";
+    if (!localStorage.getItem(key))
+      localStorage.setItem(
+        key,
+        JSON.stringify({ position, mode: "local", level: 2 }),
+      );
+  }, position);
+  await page.goto("/en/play/gomoku/?seed=winning-board");
+  await page.locator("#start-button").click();
+  await page.locator('[data-cell="109"]').click();
+  await page.locator("[data-board-confirm]").click();
+  await expect(page.locator("#game-overlay")).toBeVisible();
+  await expect(page.locator("#overlay-note")).toHaveText("Mint wins.");
+  await page.reload();
+  await page.locator("#start-button").click();
+  await expect(page.locator("#overlay-note")).toHaveText("Mint wins.");
+});
+test("board category, collection, guide, schema and llms links are bilingual and crawlable", async ({
+  page,
+  request,
+}) => {
+  for (const locale of ["en", "ko"]) {
+    await page.goto(`/${locale}/category/board/`);
+    await expect(page.locator("[data-game-card]")).toHaveCount(5);
+    await page.goto(`/${locale}/collections/classic-board/`);
+    await expect(page.locator("[data-game-card]")).toHaveCount(5);
+    await page.goto(`/${locale}/games/gomoku/`);
+    const schema = JSON.parse(
+      (await page
+        .locator('script[type="application/ld+json"]')
+        .textContent()) ?? "{}",
+    );
+    expect(
+      schema["@graph"].find(
+        (n: { "@type": string }) => n["@type"] === "VideoGame",
+      ).playMode,
+    ).toEqual([
+      "https://schema.org/SinglePlayer",
+      "https://schema.org/MultiPlayer",
+    ]);
+    await page
+      .locator(`a[href="/${locale}/guides/classic-board-games/"]`)
+      .click();
+    await expect(page.locator("h1")).toBeVisible();
+  }
+  const response = await request.get("/llms.txt");
+  expect(response.ok()).toBe(true);
+  const text = await response.text();
+  for (const id of classicIds) expect(text).toContain(`/ko/games/${id}/`);
+  expect(text).toContain("199 published titles");
+});
+
+for (const id of classicIds)
+  test(`${id}: sound starts only after a gesture and each move emits its own cue`, async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      const NativeAudio = window.AudioContext;
+      const evidence = {
+        contexts: 0,
+        frequencies: [] as number[],
+        stopped: 0,
+        state: () => "none",
+      };
+      (window as unknown as { audioEvidence: typeof evidence }).audioEvidence =
+        evidence;
+      window.AudioContext = class extends NativeAudio {
+        constructor() {
+          super();
+          evidence.contexts++;
+          evidence.state = () => this.state;
+        }
+        createOscillator() {
+          const node = super.createOscillator();
+          const start = node.start.bind(node),
+            stop = node.stop.bind(node);
+          node.start = (when) => {
+            evidence.frequencies.push(node.frequency.value);
+            start(when);
+          };
+          node.stop = (when) => {
+            evidence.stopped++;
+            stop(when);
+          };
+          return node;
+        }
+      };
+    });
+    await page.goto(`/en/play/${id}/?seed=sound`);
+    expect(
+      await page.evaluate(() => (window as any).audioEvidence.contexts),
+    ).toBe(0);
+    await page.locator("#sound-button").click();
+    await expect(page.locator("#sound-button")).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(
+      await page.evaluate(() => (window as any).audioEvidence.state()),
+    ).toBe("running");
+    await page.locator("#start-button").click();
+    await page.locator("[data-board-mode]").selectOption("local");
+    const before = await page.evaluate(
+      () => (window as any).audioEvidence.frequencies.length,
+    );
+    if (id === "checkers") await page.locator('[data-cell="40"]').click();
+    await page
+      .locator(
+        id === "gomoku"
+          ? '[data-cell="112"]'
+          : id === "four-in-a-row"
+            ? '[data-cell="0"]'
+            : ".board-cell.legal",
+      )
+      .first()
+      .click();
+    await page.locator("[data-board-confirm]").click();
+    const notes = await page.evaluate(
+      (before) => (window as any).audioEvidence.frequencies.slice(before),
+      before,
+    );
+    expect(notes.length).toBe(
+      id === "gomoku" || id === "four-in-a-row" || id === "reversi" ? 2 : 1,
+    );
+    await page.locator("#pause-button").click();
+    expect(
+      await page.evaluate(() => (window as any).audioEvidence.state()),
+    ).toBe("suspended");
+    await page.locator("#start-button").click();
+    expect(
+      await page.evaluate(
+        () => (window as any).audioEvidence.frequencies.length,
+      ),
+    ).toBe(before + notes.length);
+    await page.locator("#sound-button").click();
+    expect(
+      await page.evaluate(() => (window as any).audioEvidence.state()),
+    ).toBe("suspended");
+    if (id === "checkers")
+      await page.locator(".board-cell.movable").first().click();
+    await page.locator(".board-cell.legal").first().click();
+    await page.locator("[data-board-confirm]").click();
+    expect(
+      await page.evaluate(
+        () => (window as any).audioEvidence.frequencies.length,
+      ),
+    ).toBe(before + notes.length);
+    await page.reload();
+    await expect(page.locator("#sound-button")).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    expect(
+      await page.evaluate(() => (window as any).audioEvidence.contexts),
+    ).toBe(0);
+  });
+
+test("sound preferences persist, but restoring enabled sound never autoplays", async ({
+  page,
+}) => {
+  await page.goto("/ko/play/gomoku/");
+  await page.locator("#sound-volume").fill("25");
+  await page.locator("#sound-button").click();
+  await page.reload();
+  await expect(page.locator("#sound-button")).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await expect(page.locator("#sound-volume")).toHaveValue("25");
+  await page.locator("#start-button").click();
+  await page.locator("#sound-button").click();
+  await expect(page.locator("#sound-button")).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+});

@@ -48,7 +48,12 @@ export function discoverySchema({
         image: `${SITE}${game.screenshot ?? game.artwork}`,
         inLanguage: locale,
         gamePlatform: "Web browser",
-        playMode: "https://schema.org/SinglePlayer",
+        playMode: game.classic
+          ? [
+              "https://schema.org/SinglePlayer",
+              "https://schema.org/MultiPlayer",
+            ]
+          : "https://schema.org/SinglePlayer",
         genre: text[game.category],
         isAccessibleForFree: true,
         author: {

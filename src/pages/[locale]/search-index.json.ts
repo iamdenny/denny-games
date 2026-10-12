@@ -21,6 +21,7 @@ export const GET: APIRoute = ({ params }) => {
         controlStyle: game.controlStyle,
         categoryName: {
           en: {
+            board: "Board",
             puzzle: "Puzzle",
             arcade: "Arcade",
             action: "Action",
@@ -29,6 +30,7 @@ export const GET: APIRoute = ({ params }) => {
             sports: "Sports",
           },
           ko: {
+            board: "보드게임",
             puzzle: "퍼즐",
             arcade: "아케이드",
             action: "액션",

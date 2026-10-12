@@ -28,6 +28,32 @@ interface GameCollection {
 }
 export const collections: GameCollection[] = [
   {
+    id: "classic-board",
+    ids: ["gomoku", "reversi", "four-in-a-row", "checkers", "dots-and-boxes"],
+    text: {
+      en: {
+        title: "Free classic board games with AI and local two-player",
+        intro:
+          "Play Gomoku, Reversi, Four in a Row, English checkers and Dots and Boxes. Choose a browser AI or take turns with a friend on the same device, without an account or installation.",
+        criteria:
+          "Five original implementations with explicit rules, local progress and selection-before-confirmation controls. AI has three bounded search levels; this is not online matchmaking or a professional-strength engine.",
+        question: "Can two people play without a server?",
+        answer:
+          "Yes. Choose Local two-player and take turns on one device. AI also runs locally. Changing mode or difficulty starts a new game. Progress stays in this browser; there are no online rooms or account sync.",
+      },
+      ko: {
+        title: "AI·같은 기기 2인으로 즐기는 무료 클래식 보드게임",
+        intro:
+          "오목·리버시·사목·영국식 체커·점 잇기를 즐기세요. 가입·설치 없이 브라우저 AI와 대전하거나 한 기기에서 친구와 번갈아 둘 수 있습니다.",
+        criteria:
+          "규칙을 명확히 안내하는 자체 구현 5종입니다. 로컬 저장과 선택 후 확정 조작을 지원합니다. AI는 탐색량이 제한된 세 난이도이며 온라인 매칭·전문 기사 수준의 엔진이 아닙니다.",
+        question: "서버 없이 두 사람이 대전할 수 있나요?",
+        answer:
+          "네. 같은 기기 2인 모드를 고르고 한 화면에서 번갈아 두세요. AI도 로컬로 실행됩니다. 방식·난이도를 바꾸면 새 대국이 시작됩니다. 진행 상태는 이 브라우저에 남고 온라인 방·계정 동기화는 없습니다.",
+      },
+    },
+  },
+  {
     id: "one-button",
     ids: [
       "crisp-accelb",

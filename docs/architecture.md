@@ -41,3 +41,9 @@ See [ADR 0009](adr/0009-imported-games.md). The catalogue never imports the engi
 ## Play-style discovery and local reports
 
 The registry carries interaction metadata separately from input/device evidence. `src/data/collections.ts` owns curated IDs and bilingual editorial copy; routes and JSON-LD derive from those entries. Search indexes include control style and estimated duration, and `src/lib/catalogue.ts` filters and bounds pagination. Device checks use a shared list/report validator and a local form/download script; they do not change the public compatibility table or send reports to a backend.
+
+## Classic board games
+
+Five original traditional rule implementations share `src/games/board/rules.ts`, a bounded alpha-beta AI, worker and DOM renderer. Catalogue metadata lives in `src/data/board-games.ts` and imports no engine runtime. Worker requests are invalidated and terminated on pause, mode reset and destroy. Three AI settings and same-device two-player mode are restored with validated board arrays. Selection and confirmation are separate actions. Board scores in the shared shell are hidden; the board displays turns, material/box counts and result instead. See [ADR 0015](adr/0015-classic-board-games.md).
+
+Shared player audio uses original synthesized event cues in `src/lib/audio.ts`. Audio starts after a user gesture, with persisted mute/volume preferences and cancellation on pause/background. Board engines report semantic cues through the existing lifecycle sound callback; imported game sound events retain the default cue.
