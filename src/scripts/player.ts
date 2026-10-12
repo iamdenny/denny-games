@@ -54,6 +54,34 @@ const formatScore = (value: number) =>
   new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(value);
 const savedKey = () =>
   `progress:${id}:v${root.dataset.version}:${seed}:${stage}`;
+let stageRatio = Number(root.dataset.stageRatio) || 1;
+function fitStage() {
+  if (root.dataset.immersive !== "true") return;
+  // Measure the real bottom toolbar, including game-specific actions, before
+  // choosing the placement that leaves the larger aspect-correct surface.
+  root.dataset.controlsLayout = "bottom";
+  if (root.clientWidth < 600) return;
+  const style = getComputedStyle(host);
+  const width =
+    host.clientWidth -
+    parseFloat(style.paddingLeft) -
+    parseFloat(style.paddingRight);
+  const height =
+    host.clientHeight -
+    parseFloat(style.paddingTop) -
+    parseFloat(style.paddingBottom);
+  const tools = root.querySelector<HTMLElement>(".player-tools")!;
+  const gap = parseFloat(getComputedStyle(root).gap);
+  const bottomScale = Math.min(width / stageRatio, height);
+  const sideScale = Math.min(
+    (width - 176 - gap) / stageRatio,
+    height + tools.offsetHeight + gap,
+  );
+  if (sideScale > bottomScale + 1) root.dataset.controlsLayout = "side";
+}
+const stageObserver = new ResizeObserver(fitStage);
+stageObserver.observe(root);
+stageObserver.observe(root.querySelector(".player-top")!);
 function save() {
   if (!game) return;
   const ok = write(savedKey(), game.serialize());
@@ -67,6 +95,7 @@ function best() {
 function show(title: string, note = "") {
   overlay.hidden = false;
   host.inert = true;
+  el("game-controls").inert = true;
   el("overlay-title").textContent = title;
   el("overlay-note").textContent = note;
 }
@@ -140,7 +169,9 @@ function mount(saved: boolean) {
     },
     onEnd: end,
     sound: soundTick,
-    onReady: () => {
+    onReady: (size) => {
+      if (size) stageRatio = size.width / size.height;
+      fitStage();
       if (state === "ready") {
         show(text.ready, root.dataset.instructions);
         start.disabled = false;
@@ -163,6 +194,7 @@ function mount(saved: boolean) {
   start.disabled = id.startsWith("crisp-");
   restart.disabled = false;
   pauseButton.disabled = true;
+  fitStage();
   const url = new URL(location.href);
   url.searchParams.set("stage", String(stage));
   history.replaceState(null, "", url);
@@ -228,6 +260,7 @@ start.addEventListener("click", async () => {
   state = "running";
   overlay.hidden = true;
   host.inert = false;
+  el("game-controls").inert = false;
   pauseButton.disabled = false;
   pauseButton.textContent = `Ⅱ ${text.pause}`;
   track(wasPaused ? "resume" : "start", id);
@@ -320,6 +353,7 @@ el("fullscreen-button").addEventListener("click", () => {
       : immersive
         ? "Standard view"
         : "Game view";
+  fitStage();
 });
 share.addEventListener("click", async () => {
   if (!result) return;

@@ -1,6 +1,5 @@
 ---
 import type { Game } from "../data/games";
-import { classicIds } from "../data/board-games";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
 interface Props {
@@ -14,7 +13,14 @@ const text = t(locale);
 <section
   id="player"
   data-immersive="true"
-  data-board-game={classicIds.some((id) => id === game.id) ? "true" : undefined}
+  data-controls-layout="bottom"
+  data-stage-ratio={
+    game.id === "orbit-break"
+      ? 640 / 680
+      : game.id === "four-in-a-row"
+        ? 7 / 6
+        : 1
+  }
   data-id={game.id}
   data-locale={locale}
   data-version={game.version}
@@ -26,14 +32,6 @@ const text = t(locale);
       ← {text.exit}
     </a>
     <h1>{game.text[locale].title}</h1>
-    <div class="scoreboard" hidden={game.internalScore}>
-      <span>
-        {text.score} <strong id="score">0</strong>
-      </span>
-      <span>
-        {text.best} <strong id="best">0</strong>
-      </span>
-    </div>
     <nav class="locale-nav" aria-label={locale === "ko" ? "언어" : "Language"}>
       {(["en", "ko"] as const).map((lang) => (
         <a
@@ -80,6 +78,14 @@ const text = t(locale);
     aria-live="polite"
   ></p>
   <div class="player-tools">
+    <div class="scoreboard" hidden={game.internalScore}>
+      <span>
+        {text.score} <strong id="score">0</strong>
+      </span>
+      <span>
+        {text.best} <strong id="best">0</strong>
+      </span>
+    </div>
     <div id="game-controls"></div>
     <div class="player-controls">
       <button id="pause-button" type="button" disabled>

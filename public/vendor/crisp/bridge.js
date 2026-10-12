@@ -69,7 +69,7 @@
     window.title = ''; window.description = '';
     window.play = () => send('sound');
     onLoad();
-    const style = document.createElement('style');style.textContent='html,body{width:100%;height:100%;margin:0;overflow:hidden;touch-action:none}canvas{image-rendering:pixelated}';document.head.append(style);
+    const style = document.createElement('style');style.textContent='html,body{width:100%;height:100%;margin:0;overflow:hidden;touch-action:none}canvas{image-rendering:pixelated;width:100%!important;height:100%!important;object-fit:contain}';document.head.append(style);
     send('ready', { width:options.viewSize.x, height:options.viewSize.y });
   })().catch(error => bridge.fail(String(error)));
 })();

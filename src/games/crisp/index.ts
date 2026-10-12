@@ -38,7 +38,6 @@ export const mount: GameFactory = (context) => {
     if (d.type === "ready") {
       clearTimeout(timer);
       loaded = true;
-      context.onReady?.();
       if (
         Number.isFinite(d.width) &&
         Number.isFinite(d.height) &&
@@ -47,6 +46,7 @@ export const mount: GameFactory = (context) => {
       ) {
         frame.style.aspectRatio = `${d.width} / ${d.height}`;
         frame.style.setProperty("--frame-ratio", String(d.width / d.height));
+        context.onReady?.({ width: d.width, height: d.height });
       }
       send("run", { running });
     }
@@ -67,9 +67,10 @@ export const mount: GameFactory = (context) => {
   frame.src = `/vendor/crisp/index.html?game=${encodeURIComponent(slug)}&channel=${channel}`;
   context.host.append(frame);
   let selectedDigit = 1;
+  let keys: HTMLDivElement | undefined;
   const digitButtons: HTMLButtonElement[] = [];
   if (slug === "digi10") {
-    const keys = document.createElement("div");
+    keys = document.createElement("div");
     keys.className = "crisp-digits";
     for (let i = 1; i <= 9; i++) {
       const button = document.createElement("button");
@@ -79,7 +80,7 @@ export const mount: GameFactory = (context) => {
       keys.append(button);
       digitButtons.push(button);
     }
-    context.host.append(keys);
+    (context.controlsHost ?? context.host).append(keys);
   }
   const run = (value: boolean) => {
     running = value;
@@ -122,6 +123,7 @@ export const mount: GameFactory = (context) => {
       clearTimeout(timer);
       window.removeEventListener("message", receive);
       frame.remove();
+      keys?.remove();
     },
   };
   return instance;

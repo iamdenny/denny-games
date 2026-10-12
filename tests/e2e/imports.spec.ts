@@ -47,8 +47,57 @@ for (const item of crisp)
           .dennyBridge.running,
     );
     const ticks = await frame.locator("body").getAttribute("data-ticks");
+    await expect(page.locator("#game-controls")).toHaveAttribute("inert", "");
     await page.waitForTimeout(80);
     expect(await frame.locator("body").getAttribute("data-ticks")).toBe(ticks);
+    for (const viewport of [
+      { width: 390, height: 844 },
+      { width: 800, height: 600 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await expect
+        .poll(
+          async () => {
+            const available = await page
+              .locator("#game-host")
+              .evaluate((el) => {
+                const style = getComputedStyle(el);
+                return {
+                  width:
+                    el.clientWidth -
+                    parseFloat(style.paddingLeft) -
+                    parseFloat(style.paddingRight),
+                  height:
+                    el.clientHeight -
+                    parseFloat(style.paddingTop) -
+                    parseFloat(style.paddingBottom),
+                };
+              });
+            const surface = (await page.locator("iframe").boundingBox())!;
+            const canvas = await frame.locator("canvas").evaluate((el) => ({
+                width: (el as HTMLCanvasElement).width,
+                height: (el as HTMLCanvasElement).height,
+              rect: el.getBoundingClientRect().toJSON(),
+            }));
+            const expected = Math.min(
+              available.width,
+              (available.height * canvas.width) / canvas.height,
+            );
+            return (
+              Math.abs(surface.width - expected) < 2 &&
+              Math.abs(canvas.rect.width - surface.width) < 2 &&
+              Math.abs(canvas.rect.height - surface.height) < 2
+            );
+          },
+          {
+            message: `${item.id} fills its ${viewport.width}px stage and frame with the original ratio`,
+          },
+        )
+        .toBe(true);
+      expect(await frame.locator("body").getAttribute("data-ticks")).toBe(
+        ticks,
+      );
+    }
     expect(errors).toEqual([]);
     expect(external).toEqual([]);
   });

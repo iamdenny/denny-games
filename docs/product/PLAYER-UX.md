@@ -7,6 +7,8 @@ read_when:
 
 # Player interaction and viewport
 
+All-game sizing follows [ADR 0021](../adr/0021-maximized-all-game-stages.md). Every immersive surface fills the available host while preserving its logical ratio. Scores and primary game actions share the tools area; optional 2048 arrows live in settings. At widths of 600px or more, choose side or bottom tools by which leaves a larger game surface, including wide imported games and portrait tablet windows. Smaller phones keep compact bottom controls. Resizing and switching views preserve running/paused state without remounting.
+
 Default every game to a stage that fills the available browser viewport, keeping browser chrome intact. This is an in-page layout, never an automatic Fullscreen API request. Keep exit, title, locale, pause, restart, sound and the return-to-standard-view control reachable. Place secondary volume/stage/effect/help controls in an accessible settings disclosure. Use dynamic viewport and safe-area sizing; preserve board/canvas aspect ratios and allow internal scrolling on unusually short screens instead of clipping essential controls. Changing view must preserve the round.
 
 For Gomoku and Reversi, select a legal space to preview, then click/tap that space again to place a stone. For Four in a Row, preview a column and select that column again to drop a disc. For Dots and Boxes, preview an edge and select it again to draw. Selecting elsewhere relocates the preview. Checkers uses piece selection followed by a legal destination click/tap to move; continued mandatory jumps stay with the same piece. Keyboard/gamepad preview/confirm and the explicit confirmation button remain available.
