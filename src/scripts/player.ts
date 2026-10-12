@@ -1,4 +1,5 @@
 import "../styles/player.css";
+import { GameAudio, type SoundCue } from "../lib/audio";
 import { t } from "../data/i18n";
 import { read, write, addRecent } from "../lib/storage";
 import { dailySeed, validSeed } from "../lib/random";
@@ -44,8 +45,8 @@ let game: GameInstance | undefined,
   rounds = 0,
   lastAd = performance.now(),
   generation = 0;
-let audio: AudioContext | undefined,
-  sound = false,
+const audio = new GameAudio();
+let sound = read<boolean>("sound-enabled", false) === true,
   result: GameResult | undefined;
 document.body.dataset.game = id;
 select.value = String(stage);
@@ -78,23 +79,17 @@ function pause(note = "") {
   state = "paused";
   track("pause", id);
   game?.pause();
+  void audio.suspend();
   save();
   show(text.paused, note);
   start.textContent = text.resume;
   pauseButton.textContent = `▶ ${text.resume}`;
   start.focus();
 }
-function soundTick() {
-  if (!sound || !audio || audio.state !== "running") return;
-  const osc = audio.createOscillator(),
-    gain = audio.createGain();
-  osc.frequency.value = 350 + Math.min(score, 1000) / 4;
-  gain.gain.setValueAtTime(0.025, audio.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.07);
-  osc.connect(gain).connect(audio.destination);
-  osc.start();
-  osc.stop(audio.currentTime + 0.08);
+function soundTick(cue: SoundCue = "tick") {
+  if (sound) audio.play(cue);
 }
+
 function end(value: GameResult) {
   state = "ended";
   track("end", id);
@@ -105,7 +100,16 @@ function end(value: GameResult) {
   const record = Math.max(best(), score);
   write(`best:${id}:${seed}:${stage}`, record);
   el("best").textContent = String(record);
-  show(value.won ? text.won : text.lost, `${text.score}: ${score}`);
+  show(
+    value.draw
+      ? locale === "ko"
+        ? "무승부예요."
+        : "A draw."
+      : value.won
+        ? text.won
+        : text.lost,
+    value.message ?? `${text.score}: ${score}`,
+  );
   start.textContent = text.restart;
   share.hidden = false;
   pauseButton.disabled = true;
@@ -255,12 +259,28 @@ select.addEventListener("change", () => {
   mount(true);
   write(`stage:${id}`, stage);
 });
-el<HTMLButtonElement>("sound-button").addEventListener("click", async () => {
+function syncSound() {
   const button = el<HTMLButtonElement>("sound-button");
+  button.setAttribute("aria-pressed", String(sound));
+  button.textContent = `♪ ${text.sound}: ${sound ? text.on : text.off}`;
+}
+syncSound();
+const volume = el<HTMLInputElement>("sound-volume");
+const savedVolume = read<unknown>("sound-volume", 50);
+volume.value = String(
+  typeof savedVolume === "number" && Number.isFinite(savedVolume)
+    ? Math.max(0, Math.min(100, savedVolume))
+    : 50,
+);
+audio.setVolume(Number(volume.value) / 100);
+volume.addEventListener("input", () => {
+  audio.setVolume(Number(volume.value) / 100);
+  write("sound-volume", Number(volume.value));
+});
+el<HTMLButtonElement>("sound-button").addEventListener("click", async () => {
   sound = !sound;
   if (sound) {
     try {
-      audio ??= new AudioContext();
       await audio.resume();
       soundTick();
     } catch {
@@ -273,8 +293,8 @@ el<HTMLButtonElement>("sound-button").addEventListener("click", async () => {
   } else {
     void audio?.suspend();
   }
-  button.setAttribute("aria-pressed", String(sound));
-  button.textContent = `♪ ${text.sound}: ${sound ? text.on : text.off}`;
+  write("sound-enabled", sound);
+  syncSound();
 });
 const low = el<HTMLInputElement>("low-effects");
 low.checked = read<boolean>("low-effects", false) === true;
@@ -403,6 +423,26 @@ try {
     "circuit-loop": () => import("../games/circuit"),
     "orbit-break": () => import("../games/orbit"),
     "2048": () => import("../games/merge"),
+    gomoku: () =>
+      import("../games/board").then((m) => ({
+        mount: m.createMount("gomoku"),
+      })),
+    reversi: () =>
+      import("../games/board").then((m) => ({
+        mount: m.createMount("reversi"),
+      })),
+    "four-in-a-row": () =>
+      import("../games/board").then((m) => ({
+        mount: m.createMount("four-in-a-row"),
+      })),
+    checkers: () =>
+      import("../games/board").then((m) => ({
+        mount: m.createMount("checkers"),
+      })),
+    "dots-and-boxes": () =>
+      import("../games/board").then((m) => ({
+        mount: m.createMount("dots-and-boxes"),
+      })),
   };
   const module = await (id.startsWith("crisp-")
     ? import("../games/crisp")

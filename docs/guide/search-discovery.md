@@ -47,3 +47,7 @@ Reviewed 2026-10-11. Deployment and actual submission receipts belong in release
 ## Play-style discovery release
 
 `/en/collections/` and `/ko/collections/` link to one-button, point-and-play, number-puzzles and daily-challenges pages. Each has original bilingual selection criteria and a practical question/answer, source/save boundaries, explicit hardware limits, and CollectionPage/ItemList/BreadcrumbList data matching visible games. Home and matching game details link back to these collections. `/guides/test-your-device/` provides the indexable physical test method; `/device-check/` is a noindex local observation form. Filter URLs on `/search/` also stay noindex and canonicalize to the base search route. No FAQ rich-result eligibility or AI citation is claimed.
+
+## Classic board discovery
+
+Five game-detail pages per locale document the exact implemented variants, AI/local modes, selection controls and strategy tips. The Board category, classic-board collection and linked comparison guide provide distinct visible content and canonical/hreflang/sitemap coverage. VideoGame schema lists single-player and multiplayer for same-device two-player games without implying online rooms. `llms.txt` links to these authoritative HTML pages; publishing it does not establish crawler adoption, indexing, ranking or AI citations.

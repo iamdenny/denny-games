@@ -1,8 +1,10 @@
 import type { Locale } from "../lib/types";
 import crisp from "./crisp.json";
+import { boardGames } from "./board-games";
 import { editorialOrder } from "./editorial";
 import type { ControlStyle } from "./collections";
 export const categories = [
+  "board",
   "puzzle",
   "arcade",
   "action",
@@ -25,6 +27,7 @@ export interface Game {
   screenshot?: string;
   imported?: boolean;
   internalScore?: boolean;
+  classic?: boolean;
   notice?: string;
   duration: string;
   controlStyle: ControlStyle;
@@ -238,6 +241,7 @@ games.push(
     duration: "1–3",
     color: (
       {
+        board: "mint",
         puzzle: "yellow",
         arcade: "mint",
         action: "rust",
@@ -310,6 +314,7 @@ games.push(
     },
   })),
 );
+games.push(...boardGames);
 // Scale fixtures are local/CI-only and never part of a normal production build.
 if (import.meta.env.SCALE_TEST === "1") {
   const originals = [...games];

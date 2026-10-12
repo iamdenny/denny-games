@@ -20,3 +20,8 @@ The original research is retained locally outside this public repository. Produc
 
 - [다음 릴리스 PRD](product/NEXT-RELEASE.md)
 - [Play-style release evidence](releases/2026-10-11-playstyle-discovery.md)
+
+## Classic board release
+
+- [Five-game PRD](product/CLASSIC-BOARD-GAMES.md)
+- [Shared board engine decision](adr/0015-classic-board-games.md)

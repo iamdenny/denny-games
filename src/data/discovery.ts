@@ -3,6 +3,10 @@ import type { Locale } from "../lib/types";
 
 // Editorial category descriptions must describe the actual catalogue.
 export const categoryCopy: Record<Category, Record<Locale, string>> = {
+  board: {
+    en: "Free classic board games: Gomoku, Reversi, Four in a Row, English checkers and Dots and Boxes. Play local AI or two players on the same device; rules and progress stay accessible without an account.",
+    ko: "무료 오목·리버시·사목·영국식 체커·점 잇기 보드게임입니다. 가입 없이 로컬 AI 또는 같은 기기 2인으로 대전하고, 규칙을 확인하며 저장한 대국을 이어가세요.",
+  },
   puzzle: {
     en: "Free browser puzzles with circuits, numbers, matching and mazes. Read each game's rules and controls before playing without an account or installation.",
     ko: "회로 연결, 숫자 계산, 짝 맞추기와 미로를 즐기는 무료 퍼즐 웹게임입니다. 게임별 규칙과 조작법을 확인하고 가입·설치 없이 시작하세요.",

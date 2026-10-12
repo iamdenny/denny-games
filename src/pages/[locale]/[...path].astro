@@ -92,7 +92,7 @@ const description =
   (isAll
     ? locale === "ko"
       ? `무료 웹게임 전체 ${games.length}개 중 ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)}번째 게임입니다. ${page}/${totalPages}페이지에서 게임을 고르거나 퍼즐·아케이드·액션·슈팅·레이싱·스포츠 목록으로 이동하세요.`
-      : `Browse games ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)} of all ${games.length} free browser games. Page ${page} of ${totalPages}, with puzzle, arcade, action, shooting, racing and sports categories.`
+      : `Browse games ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)} of all ${games.length} free browser games. Page ${page} of ${totalPages}, with board, puzzle, arcade, action, shooting, racing and sports categories.`
     : undefined) ??
   collectionCopy?.intro ??
   (path === "collections"
@@ -335,8 +335,8 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
             />
             <figcaption>
               {label(
-                "Actual game board · Chromium · 2026-10-11",
-                "실제 게임 화면 · Chromium · 2026-10-11",
+                "Actual game board · Chromium",
+                "실제 게임 화면 · Chromium",
               )}
             </figcaption>
           </figure>
@@ -349,6 +349,24 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
             ))}
           </ol>
         </section>
+        {game.classic && (
+          <section>
+            <h2>{label("AI or a friend?", "AI 또는 친구와 한 판")}</h2>
+            <p>
+              {label(
+                "Choose local AI with three search levels, or two players sharing one device. Changing mode or level starts a fresh game. Select a space, then confirm your move. There are no online rooms.",
+                "세 난이도의 로컬 AI 또는 같은 기기 2인 모드를 고르세요. 방식·난이도 변경은 새 대국을 시작합니다. 칸을 선택한 뒤 수를 확정하세요. 온라인 대전 방은 없습니다.",
+              )}
+            </p>
+            <a href={`/${locale}/guides/classic-board-games/`}>
+              {label(
+                "Compare rules, controls and local saves",
+                "규칙·조작·저장 방식 비교하기",
+              )}{" "}
+              ↗
+            </a>
+          </section>
+        )}
         <section>
           <h2>{text.controls}</h2>
           <ul>

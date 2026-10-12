@@ -14,3 +14,5 @@
 - [0012-playstyle-and-device-observations — Play style and local device checks](0012-playstyle-and-device-observations.md)
 - [0013-complete-catalogue — Complete static catalogue](0013-complete-catalogue.md)
 - [0014-editorial-and-visual-polish — Editorial order and casual visual polish](0014-editorial-and-visual-polish.md)
+
+- [0015-classic-board-games — Shared classic board engine](0015-classic-board-games.md)

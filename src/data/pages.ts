@@ -7,6 +7,107 @@ export interface Article {
   links?: { label: string; href: string }[];
 }
 export const articles: Record<string, Record<Locale, Article>> = {
+  "guides/classic-board-games": {
+    en: {
+      title:
+        "Which free board game should I play? AI and local two-player guide",
+      intro:
+        "Start with Four in a Row for simple column selection, Gomoku for line building, Reversi for flipping strategy, checkers for capture chains or Dots and Boxes for scoring squares. All five run locally in your browser.",
+      sections: [
+        {
+          heading: "What rules do these games use?",
+          paragraphs: [
+            "Gomoku uses a 15×15 freestyle board: five or more stones wins, with no forbidden moves. Reversi uses an 8×8 board and automatic passes when no legal move exists. Four in a Row uses seven columns, six rows and gravity.",
+            "Checkers uses English rules: forward-only men, mandatory captures, continued jumps and crowning that ends the turn. Kings move in either diagonal direction. Eighty non-capture king plies draw; repetition draws are not implemented. Dots and Boxes uses sixteen boxes; completing a box grants another turn.",
+          ],
+        },
+        {
+          heading: "How do AI and two-player modes work?",
+          paragraphs: [
+            "Select Against AI or Local two-player inside the game. Mint moves first; the AI plays Coral. Both players share one device in local mode. There is no online matchmaking or account. Changing mode or AI level starts a fresh game.",
+            "Easy, Normal and Hard use bounded local search. They describe search effort, not an Elo rating or guaranteed playing strength. AI calculations use a browser worker when available; the fallback uses a simpler one-step search.",
+          ],
+        },
+        {
+          heading: "How do I avoid accidental moves on a phone?",
+          paragraphs: [
+            "Tap a space to preview it, read the selected coordinates, then press Confirm move. Checkers first selects a piece and then a legal destination. Dots and Boxes previews an edge; Four in a Row previews the lowest empty space in a selected column.",
+            "Arrow keys or the on-screen arrows move the cursor; Enter or Space previews and confirms. Standard gamepad actions share this selection mapping, but physical controller and Tesla testing remains pending.",
+          ],
+        },
+        {
+          heading: "How do sound and volume work?",
+          paragraphs: [
+            "Turn on Sound in the player and adjust Effects volume. Stone placement, disc flips, captures and completed boxes have distinct synthesized effects, with separate win, loss and draw cues. Sound is initially off; your mute and volume choices are saved.",
+            "Audio starts only after a button press. Pausing or leaving the tab stops scheduled effects. Every turn and result also appears visually, so sound is optional.",
+          ],
+        },
+        {
+          heading: "Are games saved, and where are the ads?",
+          paragraphs: [
+            "Board, mode, difficulty and completed results are stored in this browser. Pause before leaving, and use the same browser profile to continue. Clearing site data removes progress. Games pause when the page loses visibility.",
+            "Catalogue and detail pages may contain clearly disclosed ad or affiliate positions. The board player has no display-ad slots. Advertising approval and serving are separate from a game being available.",
+          ],
+        },
+      ],
+      links: [
+        {
+          label: "Play the classic board collection",
+          href: "/en/collections/classic-board/",
+        },
+        { label: "Browse all board games", href: "/en/category/board/" },
+      ],
+    },
+    ko: {
+      title: "무료 보드게임 고르기: AI 대전·같은 기기 2인 플레이 안내",
+      intro:
+        "간단한 열 선택은 사목, 줄 만들기는 오목, 뒤집기 전략은 리버시, 연속 잡기는 체커, 사각형 획득은 점 잇기로 시작하세요. 다섯 게임 모두 브라우저에서 로컬로 실행됩니다.",
+      sections: [
+        {
+          heading: "어떤 규칙을 사용하나요?",
+          paragraphs: [
+            "오목은 15×15 자유룰로 다섯 개 이상 연결하면 승리하고 금수는 없습니다. 리버시는 8×8 판과 둘 곳이 없을 때 자동 패스를 사용합니다. 사목은 7열·6행에서 돌이 아래로 떨어집니다.",
+            "체커는 일반 말의 전진 이동·전진 잡기, 강제 잡기, 연속 점프와 승급 시 차례 종료를 적용하는 영국식입니다. 킹은 대각선 앞뒤로 이동합니다. 잡기 없는 킹 이동 80수는 무승부이고 반복 국면 판정은 적용하지 않습니다. 점 잇기는 16개 사각형을 차지하며 완성하면 한 번 더 둡니다.",
+          ],
+        },
+        {
+          heading: "AI 대전과 2인 대전은 어떻게 하나요?",
+          paragraphs: [
+            "게임 안에서 AI 대전 또는 같은 기기 2인을 선택하세요. 민트가 선공이고 AI는 코랄을 맡습니다. 2인 모드는 한 기기를 공유하며 온라인 매칭·계정은 없습니다. 방식·AI 난이도를 바꾸면 새 대국이 시작됩니다.",
+            "쉬움·보통·어려움은 로컬 탐색량이 다른 난이도입니다. Elo 등급이나 실력을 보장하는 표시는 아닙니다. AI 계산은 가능한 환경에서 브라우저 워커를 사용하며 대체 경로는 간단한 한 수 탐색을 사용합니다.",
+          ],
+        },
+        {
+          heading: "휴대폰에서 잘못 두는 것을 줄이려면?",
+          paragraphs: [
+            "칸을 눌러 미리 보고 표시된 좌표를 확인한 뒤 수 두기 버튼으로 확정하세요. 체커는 말부터 고르고 가능한 목적지를 선택합니다. 점 잇기는 선을, 사목은 선택한 열의 가장 아래 빈칸을 미리 보여줍니다.",
+            "키보드·화면 방향 버튼으로 커서를 옮기고 Enter·Space로 미리보기·확정할 수 있습니다. 표준 패드도 같은 선택 방식에 매핑했지만 실제 패드·테슬라 검증은 아직입니다.",
+          ],
+        },
+        {
+          heading: "소리와 음량은 어떻게 조절하나요?",
+          paragraphs: [
+            "플레이어에서 소리를 켜고 효과음 음량을 조절하세요. 돌 놓기·뒤집기·말 잡기·상자 완성에 서로 다른 합성 효과음을 사용하고 승리·패배·무승부 소리도 구분합니다. 기본은 꺼짐이며 음소거·음량 선택을 저장합니다.",
+            "버튼을 누른 뒤에만 오디오를 시작합니다. 일시정지하거나 탭을 떠나면 예약된 효과음도 멈춥니다. 차례와 결과는 화면에도 표시하므로 소리 없이도 플레이할 수 있습니다.",
+          ],
+        },
+        {
+          heading: "저장은 어디에 되고 광고는 어디에 있나요?",
+          paragraphs: [
+            "게임판·방식·난이도·종료 결과를 이 브라우저에 저장합니다. 나가기 전에 정지하고 같은 브라우저 프로필로 돌아오세요. 사이트 데이터를 지우면 진행 상태도 삭제됩니다. 페이지가 숨겨지면 게임은 정지합니다.",
+            "목록·소개 페이지에는 표시된 광고·제휴 위치가 있을 수 있습니다. 보드게임 플레이어 안에는 디스플레이 광고 슬롯이 없습니다. 게임 공개와 광고 승인·노출은 별개입니다.",
+          ],
+        },
+      ],
+      links: [
+        {
+          label: "클래식 보드게임 모음",
+          href: "/ko/collections/classic-board/",
+        },
+        { label: "보드게임 전체 보기", href: "/ko/category/board/" },
+      ],
+    },
+  },
   "guides/test-your-device": {
     en: {
       title: "How to test browser games on your phone, controller or Tesla",
@@ -22,7 +123,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "How do I check saving and stability?",
           paragraphs: [
-            "Save a favorite and reload. Circuit Loop, Orbit Break and 2048 support local progress; imported Crisp games restart rounds and save personal bests only. Actually play for 20 minutes before marking the long-session check passed. Record crashes, stuck controls or persistent slowdowns rather than inferring success from a short load test.",
+            "Save a favorite and reload. Circuit Loop, Orbit Break, 2048 and classic board games support local progress; imported Crisp games restart rounds and save personal bests only. Actually play for 20 minutes before marking the long-session check passed. Record crashes, stuck controls or persistent slowdowns rather than inferring success from a short load test.",
           ],
         },
         {
@@ -59,7 +160,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "저장과 안정성은 어떻게 확인하나요?",
           paragraphs: [
-            "즐겨찾기를 저장하고 새로고침하세요. 서킷 루프·오빗 브레이크·2048은 로컬 진행 상태를 복원하고, 가져온 Crisp 게임은 라운드를 재시작하며 최고 점수만 저장합니다. 장시간 점검은 실제로 20분 플레이한 뒤 성공으로 표시하세요. 짧게 로딩해본 것으로 성공을 추정하지 말고 충돌·입력 고착·지속적인 느려짐을 적으세요.",
+            "즐겨찾기를 저장하고 새로고침하세요. 서킷 루프·오빗 브레이크·2048과 클래식 보드게임은 로컬 진행 상태를 복원하고, 가져온 Crisp 게임은 라운드를 재시작하며 최고 점수만 저장합니다. 장시간 점검은 실제로 20분 플레이한 뒤 성공으로 표시하세요. 짧게 로딩해본 것으로 성공을 추정하지 말고 충돌·입력 고착·지속적인 느려짐을 적으세요.",
           ],
         },
         {
@@ -487,7 +588,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     en: {
       title: "Pick up where you left off.",
       intro:
-        "Circuit Loop, Orbit Break and 2048 save round progress in this browser. Crisp mini-games save personal best scores, but do not restore a round after reloading. Records are not synced between devices.",
+        "Circuit Loop, Orbit Break, 2048 and classic board games save round progress in this browser. Crisp mini-games save personal best scores, but do not restore a round after reloading. Records are not synced between devices.",
       sections: [
         {
           heading: "What can erase a save",
@@ -501,7 +602,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     ko: {
       title: "하던 곳에서 이어가세요.",
       intro:
-        "서킷 루프·오빗 브레이크·2048은 진행 상황을 이 브라우저에 저장합니다. Crisp 미니게임은 최고 기록을 저장하지만 새로고침 뒤 진행 중인 판을 복원하지 않습니다. 다른 기기와는 동기화되지 않습니다.",
+        "서킷 루프·오빗 브레이크·2048과 클래식 보드게임은 진행 상황을 이 브라우저에 저장합니다. Crisp 미니게임은 최고 기록을 저장하지만 새로고침 뒤 진행 중인 판을 복원하지 않습니다. 다른 기기와는 동기화되지 않습니다.",
       sections: [
         {
           heading: "기록이 사라지는 경우",
@@ -515,6 +616,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/classic-board-games",
   "guides/test-your-device",
   "guides/open-browser-games",
   "guides/controller-not-detected",

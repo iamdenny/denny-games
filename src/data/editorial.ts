@@ -3,6 +3,41 @@ import type { Locale } from "../lib/types";
 // Editorial judgement from screen/rule review, not measured popularity.
 export const editorPicks = [
   {
+    id: "gomoku",
+    reason: {
+      en: "A clear 15×15 board, move preview and freestyle five-in-a-row.",
+      ko: "15×15 선명한 판과 수 미리보기로 즐기는 자유룰 오목",
+    },
+  },
+  {
+    id: "reversi",
+    reason: {
+      en: "Legal-move hints, clear disc counts and sweeping reversals.",
+      ko: "가능한 수와 돌 개수가 보이는 차분한 뒤집기 전략",
+    },
+  },
+  {
+    id: "four-in-a-row",
+    reason: {
+      en: "Seven columns, simple drops and readable connection threats.",
+      ko: "7개 열에 돌을 떨어뜨리는 쉽고 선명한 연결 전략",
+    },
+  },
+  {
+    id: "checkers",
+    reason: {
+      en: "Highlighted destinations, capture chains and crowned kings.",
+      ko: "목적지 표시와 연속 잡기, 킹 승급의 전략",
+    },
+  },
+  {
+    id: "dots-and-boxes",
+    reason: {
+      en: "A compact four-by-four board and satisfying box chains.",
+      ko: "작은 4×4 판에서 사각형을 연달아 차지하는 재미",
+    },
+  },
+  {
     id: "orbit-break",
     reason: {
       en: "Readable rebounds and twelve colourful brick layouts.",

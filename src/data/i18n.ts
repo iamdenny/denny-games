@@ -3,6 +3,7 @@ export const locales: Locale[] = ["en", "ko"];
 export const copy = {
   en: {
     home: "Discover",
+    board: "Board",
     puzzle: "Puzzle",
     arcade: "Arcade",
     action: "Action",
@@ -106,6 +107,7 @@ export const copy = {
   },
   ko: {
     home: "둘러보기",
+    board: "보드게임",
     puzzle: "퍼즐",
     arcade: "아케이드",
     action: "액션",
