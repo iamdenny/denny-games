@@ -20,3 +20,5 @@
 - [0016 — Browser viewport player](0016-viewport-player.md) — Accepted.
 
 - [0017 — Mobile game controls](0017-mobile-game-controls.md) — Accepted.
+
+- [0018 — Browser language entry](0018-browser-language-entry.md) — Accepted.

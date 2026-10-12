@@ -16,6 +16,8 @@ Use system sans-serif fonts with a robust Korean fallback; no external font down
 
 Game cards use a 16:10 original SVG thumbnail, title, short description, input labels and duration. Detail pages separate the start button from explanatory text and advertisements. Play pages use a dark frame, persistent pause/restart/mute/exit controls and an explicit start overlay. Focus uses cyan with a dark outline; status never relies on color alone.
 
+Play-style collection cards show a three-game artwork collage from the collection's actual registry members, followed by the real game count, localized title and introduction. Use a larger leading thumbnail and two smaller previews, preserving full artwork and pixel styling. The entire card links to the collection. Display two columns on desktop and one below 600px; keep images static, sized and lazy-loaded.
+
 ## Motion and accessibility
 
 Clean casual board refresh (2026-10-12): blue ink player surfaces, rounded pastel bricks and paddle, tactile number tiles, and clear rounded circuit paths. Keep optional tile feedback at 140ms and the ball trail to eight samples; disable both with reduced-motion or low-effects. Editorial badges use mint pills with a concise reason and never imply a popularity measurement. Imported cards frame actual pixel screenshots on soft colour fields; imported game pixels are preserved.

@@ -1184,6 +1184,49 @@ main {
 .collection-links {
   margin-block: 2rem;
 }
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.collection-preview {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  aspect-ratio: 2 / 1;
+  gap: 6px;
+  padding: 8px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.collection-preview .card-art {
+  aspect-ratio: auto;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 3px;
+}
+.collection-preview .card-art:first-child {
+  grid-row: span 2;
+}
+.collection-preview img {
+  object-fit: contain;
+}
+.collection-card .card-copy h3 {
+  display: block;
+  font-size: 20px;
+  line-height: 1.35;
+  margin-top: 12px;
+}
+.collection-card .card-copy p {
+  font-size: 14px;
+  min-height: 0;
+  margin-bottom: 0;
+}
+@media (max-width: 600px) {
+  .collection-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .search-filters {
   display: block;
   max-width: 55rem;

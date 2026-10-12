@@ -9,6 +9,8 @@ read_when:
 
 Astro generates real index.html routes for English and Korean. Catalogue metadata drives home, category pagination, detail pages, search indexes and sitemap. No API server or database is required.
 
+The root page supplies an inline script through the Base layout's head slot to open the first supported browser language before rendering the selector. Explicit locale routes do not redirect. Root HTML retains bilingual fallback links and SEO/verification metadata. See [ADR 0018](adr/0018-browser-language-entry.md).
+
 ## Boundaries
 
 - `src/data`: typed game metadata, localized editorial copy and categories.
