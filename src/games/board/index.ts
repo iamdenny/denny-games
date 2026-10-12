@@ -157,7 +157,15 @@ export const createMount =
         ? "말을 고른 뒤 표시된 목적지를 누르면 이동합니다. 방식·난이도를 바꾸면 새 대국을 시작합니다."
         : "칸·열·선을 눌러 미리 보고 같은 곳을 다시 누르면 둡니다. 방식·난이도를 바꾸면 새 대국을 시작합니다.",
     );
-    shell.append(toolbar, status, board, selection, confirm, controls, note);
+    const options = document.createElement("div");
+    options.className = "board-options";
+    options.append(toolbar, note);
+    const actions = document.createElement("div");
+    actions.className = "board-actions";
+    actions.append(selection, confirm);
+    shell.append(status, board, actions, controls);
+    if (ctx.settingsHost) ctx.settingsHost.append(options);
+    else shell.prepend(options);
     ctx.host.append(shell);
     const human = () =>
       active && !position.winner && (mode === "local" || position.turn === 1);
@@ -341,12 +349,12 @@ export const createMount =
           : preview
             ? kind === "dots-and-boxes"
               ? tr(
-                  `Edge ${preview.to + 1} selected. Click again or confirm to draw.`,
-                  `선 ${preview.to + 1} 선택. 같은 선을 다시 누르거나 확정하면 그립니다.`,
+                  `Edge ${preview.to + 1}. Select again to draw.`,
+                  `선 ${preview.to + 1} 선택. 다시 누르면 그립니다.`,
                 )
               : tr(
-                  `Row ${Math.floor(preview.to / w!) + 1}, column ${(preview.to % w!) + 1}. ${kind === "gomoku" ? "Click this space again or confirm to place your stone." : "Select the same space or column again, or confirm to play."}`,
-                  `${Math.floor(preview.to / w!) + 1}행 ${(preview.to % w!) + 1}열. ${kind === "gomoku" ? "같은 자리를 한 번 더 누르거나 확정하면 돌을 놓습니다." : "같은 칸·열을 다시 누르거나 확정하면 둡니다."}`,
+                  `Row ${Math.floor(preview.to / w!) + 1}, column ${(preview.to % w!) + 1}. Select again to play.`,
+                  `${Math.floor(preview.to / w!) + 1}행 · ${(preview.to % w!) + 1}열 선택. 다시 누르면 둡니다.`,
                 )
             : kind === "checkers"
               ? tr(
@@ -539,6 +547,7 @@ export const createMount =
         destroyed = true;
         active = false;
         stop();
+        options.remove();
         shell.remove();
       },
     };

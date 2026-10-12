@@ -1,7 +1,12 @@
+import { setBoardMode } from "./helpers/board-settings";
 import { test, expect } from "@playwright/test";
 for (const viewport of [
   { width: 1440, height: 900 },
+  { width: 320, height: 568 },
+  { width: 360, height: 640 },
   { width: 390, height: 844 },
+  { width: 430, height: 932 },
+  { width: 667, height: 375 },
   { width: 844, height: 390 },
 ]) {
   for (const id of [
@@ -55,6 +60,17 @@ for (const viewport of [
       }
       if (id === "gomoku")
         expect(bounds!.y + bounds!.height).toBeLessThan(viewport.height - 48);
+      if (viewport.width <= 560 && viewport.height >= 568) {
+        const area = await page.locator(".play-area").boundingBox();
+        for (const control of await page
+          .locator(".game-hint,.direction-controls,.launch-button")
+          .all()) {
+          const box = await control.boundingBox();
+          expect(box!.y + box!.height).toBeLessThanOrEqual(
+            area!.y + area!.height,
+          );
+        }
+      }
       const host = page.locator("#game-host");
       // Track the actual DOM node, so switching views cannot silently remount the engine.
       await host.evaluate((el) => {
@@ -82,7 +98,7 @@ for (const id of ["reversi", "four-in-a-row", "dots-and-boxes"]) {
   test(`${id} repeats the selected target to commit`, async ({ page }) => {
     await page.goto(`/en/play/${id}/`);
     await page.locator("#start-button").click();
-    await page.locator("[data-board-mode]").selectOption("local");
+    await setBoardMode(page, "local");
     const target = page
       .locator(id === "four-in-a-row" ? '[data-cell="0"]' : ".board-cell.legal")
       .first();
@@ -110,13 +126,18 @@ test("touch previews then commits a stone, and view changes preserve it", async 
   const page = await context.newPage();
   await page.goto("/ko/play/gomoku/");
   await page.locator("#start-button").tap();
-  await page.locator("[data-board-mode]").selectOption("local");
+  await setBoardMode(page, "local");
   await page.locator('[data-cell="112"]').tap();
   await expect(page.locator(".classic-game")).toHaveAttribute(
     "data-moves",
     "0",
   );
   await page.locator('[data-cell="112"]').tap();
+  await expect(page.locator(".classic-game")).toHaveAttribute(
+    "data-moves",
+    "1",
+  );
+  await page.setViewportSize({ width: 844, height: 390 });
   await expect(page.locator(".classic-game")).toHaveAttribute(
     "data-moves",
     "1",
@@ -180,7 +201,7 @@ test("checkers keeps keyboard preview and confirmation as an alternative", async
 }) => {
   await page.goto("/en/play/checkers/");
   await page.locator("#start-button").click();
-  await page.locator("[data-board-mode]").selectOption("local");
+  await setBoardMode(page, "local");
   await page.locator('[data-cell="40"]').click();
   await page.keyboard.press("ArrowUp");
   await page.keyboard.press("ArrowRight");

@@ -34,3 +34,5 @@ Use `npx playwright install chromium` once for local browser tests. No environme
 
 - `npm run seo:check`: audit the built `dist` sitemap and every indexable page. Runs during build.
 - `npm run seo:check -- --base https://games.iamdenny.com`: audit the deployed sitemap and public metadata. This does not prove search-engine indexing.
+
+Mobile WebKit regression: `npx playwright install webkit` then `npm run test:mobile`. Existing CI/Pages run the full Chromium suite. WebKit is a separate local/manual command; enabling it in CI additionally requires workflow write permission. Chromium-only CDP swipe injection is skipped on WebKit; tap, layout, settings and orientation tests run on both engines.

@@ -98,12 +98,17 @@ export const mount: GameFactory = (ctx) => {
   }
   let startX = 0,
     startY = 0;
+  let swipePointer: number | undefined;
   const down = (e: PointerEvent) => {
+    if (!active || swipePointer !== undefined) return;
+    swipePointer = e.pointerId;
     startX = e.clientX;
     startY = e.clientY;
     grid.setPointerCapture(e.pointerId);
   };
   const up = (e: PointerEvent) => {
+    if (e.pointerId !== swipePointer) return;
+    swipePointer = undefined;
     const dx = e.clientX - startX,
       dy = e.clientY - startY;
     if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
@@ -117,6 +122,10 @@ export const mount: GameFactory = (ctx) => {
           : "up",
     );
   };
+  const cancel = (e: PointerEvent) => {
+    if (e.pointerId === swipePointer) swipePointer = undefined;
+  };
+  grid.addEventListener("pointercancel", cancel);
   grid.addEventListener("pointerdown", down);
   grid.addEventListener("pointerup", up);
   if (board.every((v) => v === 0)) {
@@ -130,6 +139,7 @@ export const mount: GameFactory = (ctx) => {
       check();
     },
     pause() {
+      swipePointer = undefined;
       active = false;
     },
     resume() {
@@ -150,6 +160,7 @@ export const mount: GameFactory = (ctx) => {
     },
     serialize: () => ({ board, score, counter }),
     destroy() {
+      grid.removeEventListener("pointercancel", cancel);
       grid.removeEventListener("pointerdown", down);
       grid.removeEventListener("pointerup", up);
       ctx.host.replaceChildren();

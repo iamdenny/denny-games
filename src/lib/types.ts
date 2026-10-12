@@ -9,6 +9,7 @@ export interface GameResult {
 }
 export interface GameContext {
   host: HTMLElement;
+  settingsHost?: HTMLElement;
   locale: Locale;
   seed: string;
   stage: number;
