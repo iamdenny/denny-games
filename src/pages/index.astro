@@ -8,6 +8,16 @@ import Base from "../layouts/Base.astro";
   title="A quick break. A good game."
   description="Free browser games in English and Korean. No installation or account required."
 >
+  <script is:inline slot="head">
+    const languages = navigator.languages?.length
+      ? navigator.languages
+      : [navigator.language];
+    const locale =
+      languages
+        .map((language) => language.toLowerCase().split("-")[0])
+        .find((language) => language === "ko" || language === "en") || "en";
+    location.replace(`/${locale}/${location.search}${location.hash}`);
+  </script>
   <section class="root-choice">
     <p class="eyebrow">A QUICK BREAK. A GOOD GAME.</p>
     <h1>

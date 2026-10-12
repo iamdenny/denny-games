@@ -22,3 +22,5 @@
 - [0017 — Mobile game controls](0017-mobile-game-controls.md) — Accepted.
 
 - [0018 — IndexNow notifications](0018-indexnow-notifications.md) — Accepted.
+
+- [0019 — Browser language entry](0019-browser-language-entry.md) — Accepted.

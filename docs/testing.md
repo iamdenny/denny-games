@@ -17,6 +17,8 @@ Record date, release SHA, OS/browser or Tesla model/computer/firmware, input dev
 
 ## Release criteria
 
+Root-entry browser checks cover Korean/English and unsupported browser locales, ordered preferences, query/fragment preservation, explicit locale URLs, manual switching, back navigation and JavaScript-disabled fallback links/metadata. See `tests/e2e/locale-entry.spec.ts` and ADR 0019.
+
 CI must pass on the PR head. Review the diff and public artifact. After merge, require successful deployment for the merge SHA and inspect root, both locales, detail/play routes, scripts, robots, sitemap, notices and HTTPS. Field Core Web Vitals, 20-minute device soak and ad revenue are not inferred from a passing build.
 
 ## Imported catalogue
@@ -26,6 +28,8 @@ Complete-catalogue tests follow all native next links in both languages with Jav
 Every admitted Crisp game has a Chromium load/input/pause journey at a 390px viewport, with no foreign requests and no horizontal overflow. Source and sprite hashes are checked by unit tests. Category tests cover cross-page alphabetical order and imported favorites/search. Held standard-controller input and frame isolation have synthetic regressions. These short automated journeys do not verify complete campaigns or physical phones/controllers/Tesla.
 
 ## Discovery and device-check release
+
+Collection-preview regressions verify that thumbnails come from actual members, have localized alternatives, load without JavaScript, link to their collection and fit 320/360/390/430/1440px layouts on home, collection indexes and related details. Counts represent full collection membership, not preview-image counts.
 
 Editorial checks require unique real picks with bilingual reasons, stable ties, complete registry coverage and consistent ordering across home/full/category/default search. Visual changes to the original three games reuse gameplay/pause/persistence/responsive regressions; inspect rendered boards and update actual screenshots. Optional 2048 tile motion and Orbit trail must stop under reduced motion or low-effects. Editorial placement is not a player popularity or fun measurement.
 

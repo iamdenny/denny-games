@@ -36,6 +36,7 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
 <html lang={locale}>
   <head>
     <meta charset="utf-8" />
+    <slot name="head" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"

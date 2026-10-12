@@ -22,7 +22,7 @@ read_when:
 
 `npm run verify` includes `scripts/check-seo.mjs`. `npm run seo:check -- --base https://games.iamdenny.com` checks all sitemap pages from the deployed host with bounded concurrency. Checks cover unique metadata, canonical, H1, language pairs, valid JSON-LD, author/source/license, list-to-card agreement and exclusion boundaries. They are internal checks, not an external rich-result certificate or indexing report.
 
-Public ownership verification tags for Bing and Naver are on the root language selector only. They are public challenge identifiers, not account credentials. Google verified automatically through existing domain-provider ownership; no DNS records were changed.
+Public ownership verification tags for Bing and Naver remain in the root static HTML. JavaScript-enabled root visits open the preferred supported browser language; static readers and JavaScript-disabled visitors retain the bilingual selector (ADR 0019). The tags are public challenge identifiers, not account credentials. Google verified automatically through existing domain-provider ownership; no DNS records were changed.
 
 ## Submission and measurement
 

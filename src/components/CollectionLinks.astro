@@ -21,21 +21,48 @@ const items = gameId ? gameCollections(gameId) : collections;
         </a>
       )}
     </div>
-    <div class="notes-grid">
-      {items.map((item) => (
-        <article class="note-card">
-          <span class="eyebrow">
-            {collectionGames(item.id).length}{" "}
-            {locale === "ko" ? "개 게임" : "GAMES"}
-          </span>
-          <h3>
-            <a href={`/${locale}/collections/${item.id}/`}>
-              {item.text[locale].title} ↗
+    <div class="collection-grid">
+      {items.map((item) => {
+        const games = collectionGames(item.id);
+        return (
+          <article
+            class="game-card collection-card"
+            data-collection-card={item.id}
+          >
+            <a
+              class="game-card-link"
+              href={`/${locale}/collections/${item.id}/`}
+              aria-labelledby={`collection-title-${item.id}`}
+            >
+              <div class="collection-preview">
+                {games.slice(0, 3).map((game) => (
+                  <div
+                    class={`card-art ${game.color} ${game.imported ? "imported-art" : ""}`}
+                    data-preview-game={game.id}
+                  >
+                    <img
+                      src={game.artwork}
+                      width="640"
+                      height="400"
+                      alt={game.text[locale].title}
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+              <div class="card-copy">
+                <span class="eyebrow">
+                  {games.length} {locale === "ko" ? "개 게임" : "GAMES"}
+                </span>
+                <h3 id={`collection-title-${item.id}`}>
+                  {item.text[locale].title} <span aria-hidden="true">↗</span>
+                </h3>
+                <p>{item.text[locale].intro}</p>
+              </div>
             </a>
-          </h3>
-          <p>{item.text[locale].intro}</p>
-        </article>
-      ))}
+          </article>
+        );
+      })}
     </div>
   </section>
 )}
