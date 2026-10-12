@@ -2,7 +2,7 @@
 
 | Directory | Responsibility |
 | --- | --- |
-| `src/data/` | Registry, interaction metadata, curated collections, translations and editorial pages |
+| `src/data/` | Registry, shared editorial picks/order, interaction metadata, curated collections, translations and editorial pages |
 | `src/layouts/` | SEO shell, locale navigation and common chrome |
 | `src/components/` | Cards, complete-catalogue pagination, original SVG artwork, content ad slots and disclosed static affiliate cards |
 | `src/pages/` | Static bilingual route generation and discovery files |

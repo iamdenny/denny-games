@@ -27,4 +27,6 @@ Every admitted Crisp game has a Chromium load/input/pause journey at a 390px vie
 
 ## Discovery and device-check release
 
+Editorial checks require unique real picks with bilingual reasons, stable ties, complete registry coverage and consistent ordering across home/full/category/default search. Visual changes to the original three games reuse gameplay/pause/persistence/responsive regressions; inspect rendered boards and update actual screenshots. Optional 2048 tile motion and Orbit trail must stop under reduced motion or low-effects. Editorial placement is not a player popularity or fun measurement.
+
 Collection membership must resolve to real games, and one-button/pointer/daily selection rules must agree with the registry. Search regressions cover combined filters, URL normalization, result pagination, language links, refresh, reset and browser history. Device-report tests assert that observed pass/fail stays distinct, missing checks remain not-tested, the report is not certified and no mutation request uploads it. Layout and JavaScript-disabled checks cover the static discovery fallback. These tests exercise the checklist software, not physical hardware or 20-minute stability.

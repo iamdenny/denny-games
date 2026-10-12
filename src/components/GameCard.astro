@@ -1,6 +1,7 @@
 ---
 import type { Game } from "../data/games";
 import { t } from "../data/i18n";
+import { editorialPick } from "../data/editorial";
 import type { Locale } from "../lib/types";
 interface Props {
   game: Game;
@@ -9,6 +10,7 @@ interface Props {
 const { game, locale } = Astro.props;
 const text = t(locale);
 const detail = game.text[locale];
+const pick = editorialPick(game.id);
 ---
 
 <article
@@ -27,11 +29,16 @@ const detail = game.text[locale];
       <span class="card-category">{text[game.category]}</span>
     </div>
     <div class="card-copy">
+      {pick && (
+        <span class="editor-pick">
+          {locale === "ko" ? "에디터 픽" : "EDITOR PICK"}
+        </span>
+      )}
       <h3>
         {detail.title}
         <span aria-hidden="true">↗</span>
       </h3>
-      <p>{detail.subtitle}</p>
+      <p>{pick?.reason[locale] ?? detail.subtitle}</p>
       <div class="card-meta">
         <span>
           ◷ {game.duration} {text.minutes}

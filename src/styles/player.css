@@ -1,5 +1,5 @@
 .play-page {
-  background: #142019;
+  background: #14212b;
   color: #f5f2e9;
 }
 .play-page .site-header {
@@ -21,7 +21,7 @@
 .play-page select {
   color: #f5f2e9;
   border-color: #718175;
-  background: #22372b;
+  background: #26404d;
 }
 .play-page button:hover:not(:disabled) {
   color: #17211d;
@@ -56,9 +56,9 @@
 }
 .play-area {
   position: relative;
-  border: 1px solid #587160;
-  border-radius: 6px;
-  background: #17211d;
+  border: 1px solid #3e5867;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at top, #263d4a, #14212b 75%);
   min-height: 400px;
   overflow: hidden;
 }
@@ -74,7 +74,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #142019ef;
+  background: #14212bef;
   z-index: 2;
   padding: 28px;
   text-align: center;
@@ -155,30 +155,44 @@
   gap: 7px;
   max-width: 530px;
   margin: 0 auto;
+  padding: 12px;
+  border-radius: 18px;
+  background: #0d1b25;
+  box-shadow:
+    0 12px 28px #07111950,
+    inset 0 1px #ffffff14;
 }
 .circuit-cell {
   padding: 0 !important;
   aspect-ratio: 1;
   min-height: 0 !important;
-  border: 1px solid #55715f !important;
-  background: #253b2d !important;
+  border: 1px solid #4b6572 !important;
+  background: linear-gradient(145deg, #2a4655, #213a48) !important;
   position: relative;
-  border-radius: 5px !important;
+  border-radius: 12px !important;
+  box-shadow:
+    inset 0 1px #ffffff16,
+    0 3px 0 #0b1d28;
   opacity: 1 !important;
 }
 .circuit-cell svg {
   width: 100%;
   height: 100%;
   display: block;
-  fill: #6f8e79;
+  fill: #91acb8;
 }
 .circuit-cell path {
-  stroke: #6f8e79;
-  stroke-width: 12;
+  stroke: #91acb8;
+  stroke-width: 10;
+  stroke-linecap: round;
   fill: none;
 }
 .circuit-cell.connected path {
   stroke: #a7f0e6;
+}
+.circuit-cell.connected {
+  background: linear-gradient(145deg, #305a60, #23434e) !important;
+  border-color: #72cbbd !important;
 }
 .circuit-cell.connected circle {
   fill: #a7f0e6;
@@ -200,7 +214,7 @@
   display: block;
   margin: 18px auto 0;
   min-height: 48px;
-  background: #22372b !important;
+  background: #294956 !important;
   font-size: 13px;
 }
 .board-note {
@@ -213,9 +227,13 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
-  padding: 10px;
-  background: #3b4c3e;
-  border-radius: 5px;
+  padding: 14px;
+  background: #223947;
+  border: 1px solid #516875;
+  border-radius: 20px;
+  box-shadow:
+    0 14px 30px #08121c50,
+    inset 0 1px #ffffff20;
   max-width: 450px;
   margin: 0 auto;
   touch-action: none;
@@ -226,12 +244,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #283e30;
-  border-radius: 3px;
+  background: #162c39;
+  border-radius: 12px;
   font-size: clamp(25px, 5vw, 48px);
   font-weight: 800;
   color: #17211d;
   font-variant-numeric: tabular-nums;
+  box-shadow:
+    inset 0 1px 0 #ffffff55,
+    0 3px 0 #0a172440;
+  position: relative;
+  overflow: hidden;
+}
+.merge-cell:not([data-power="0"])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #ffffff26, transparent 65%);
+  pointer-events: none;
+}
+.merge-cell[data-power="0"] {
+  box-shadow: inset 0 2px 4px #08162250;
+}
+.merge-cell[data-changed="true"] {
+  animation: tile-arrive 140ms ease-out;
+}
+@keyframes tile-arrive {
+  from {
+    transform: scale(0.94);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+#player.low-effects .merge-cell {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .merge-cell {
+    animation: none !important;
+  }
 }
 .merge-cell[data-power="1"] {
   background: #e8eedc;
@@ -272,7 +324,7 @@
 .direction-controls button {
   min-width: 56px;
   font-size: 23px;
-  background: #294431 !important;
+  background: #294956 !important;
 }
 .orbit-canvas {
   display: block;
@@ -283,8 +335,8 @@
   aspect-ratio: 640/680;
   object-fit: contain;
   touch-action: none;
-  border: 1px solid #344c3b;
-  border-radius: 4px;
+  border: 1px solid #415c6b;
+  border-radius: 16px;
 }
 .launch-button {
   display: block;
@@ -346,6 +398,7 @@
   }
   .circuit-board {
     gap: 6px;
+    padding: 0;
   }
   .game-overlay {
     padding: 20px;

@@ -34,6 +34,8 @@ The complete `/en/all/` and `/ko/all/` catalogues and category pages show 24 gam
 
 ## Imported games
 
+`src/data/editorial.ts` supplies explicit editorial priorities and bilingual reasons without importing engines. Home, complete pages, categories and search indexes share its stable ordering; unpicked entries preserve their original order. Name/newest overrides remain separate. Registry IDs, source and rules are not changed by editorial promotion. See [ADR 0014](adr/0014-editorial-and-visual-polish.md).
+
 See [ADR 0009](adr/0009-imported-games.md). The catalogue never imports the engine bundle. An opaque-origin iframe loads one self-hosted Crisp source after the player mounts. Checked runtime hooks stop simulation while paused and relay validated score/results. Imported games retain only best scores, not mid-round progress. Home previews are bounded; category sorting/filtering uses the full JSON index and libraries instantiate only saved/recent cards.
 
 ## Play-style discovery and local reports

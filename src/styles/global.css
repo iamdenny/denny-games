@@ -1140,9 +1140,41 @@ main {
 
 .imported-art img {
   object-fit: contain;
-  padding: 16px;
-  background: #e0e0e0;
+  padding: 0;
+  width: 72%;
+  height: 82%;
+  margin: auto;
+  border: 5px solid #ffffffa0;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px #17211d25;
+  background: transparent;
   image-rendering: pixelated;
+}
+.imported-art {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #e6efd9, #b5ded2);
+}
+.imported-art.rust {
+  background: linear-gradient(135deg, #f8d5bc, #edb4aa);
+}
+.imported-art.yellow {
+  background: linear-gradient(135deg, #f4efb5, #d5e49d);
+}
+.editor-pick {
+  display: inline-block;
+  color: #20584b;
+  background: #e0f0e7;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.editorial-note {
+  color: var(--muted);
+  font-size: 13px;
 }
 .catalogue-section {
   margin-block: 48px;

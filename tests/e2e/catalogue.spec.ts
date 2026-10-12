@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
 import crisp from "../../src/data/crisp.json" with { type: "json" };
-const gameIds = [
-  "circuit-loop",
-  "orbit-break",
-  "2048",
-  ...crisp.map((game) => game.id),
-];
+import { editorialOrder } from "../../src/data/editorial";
+const gameIds = editorialOrder(
+  ["circuit-loop", "orbit-break", "2048", ...crisp.map((game) => game.id)].map(
+    (id) => ({ id }),
+  ),
+).map((game) => game.id);
 import { PAGE_SIZE } from "../../src/lib/catalogue";
 
 for (const locale of ["en", "ko"] as const) {

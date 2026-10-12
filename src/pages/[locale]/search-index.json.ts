@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { games } from "../../data/games";
+import { editorialOrder, editorialPick } from "../../data/editorial";
 import { locales } from "../../data/i18n";
 import type { Locale } from "../../lib/types";
 export function getStaticPaths() {
@@ -9,7 +10,7 @@ export const GET: APIRoute = ({ params }) => {
   const locale = params.locale as Locale;
   return new Response(
     JSON.stringify(
-      games.map((game) => ({
+      editorialOrder(games).map((game) => ({
         id: game.id,
         title: game.text[locale].title,
         description: game.text[locale].description,
@@ -41,6 +42,7 @@ export const GET: APIRoute = ({ params }) => {
         color: game.color,
         duration: game.duration,
         added: game.added,
+        editorReason: editorialPick(game.id)?.reason[locale],
       })),
     ),
     { headers: { "Content-Type": "application/json" } },
