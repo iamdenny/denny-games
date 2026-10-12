@@ -242,8 +242,26 @@ export const boardGames: Game[] = descriptions.map(
     artwork: `/art/${id}.svg`,
     screenshot: `/art/screenshots/${id}.png`,
     text: {
-      en: { ...en, controls: controls.en },
-      ko: { ...ko, controls: controls.ko },
+      en: {
+        ...en,
+        controls:
+          id === "gomoku"
+            ? [
+                "Touch or mouse: click a space to preview, then click the same space again to place your stone. Click another space to move the preview. Confirm move also works.",
+                ...controls.en.slice(1),
+              ]
+            : controls.en,
+      },
+      ko: {
+        ...ko,
+        controls:
+          id === "gomoku"
+            ? [
+                "터치·마우스: 칸을 눌러 미리 보고 같은 자리를 한 번 더 누르면 돌을 놓습니다. 다른 칸을 누르면 미리보기가 이동합니다. 수 두기 버튼으로도 확정할 수 있어요.",
+                ...controls.ko.slice(1),
+              ]
+            : controls.ko,
+      },
     },
   }),
 );

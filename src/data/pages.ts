@@ -31,7 +31,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "How do I avoid accidental moves on a phone?",
           paragraphs: [
-            "Tap a space to preview it, read the selected coordinates, then press Confirm move. Checkers first selects a piece and then a legal destination. Dots and Boxes previews an edge; Four in a Row previews the lowest empty space in a selected column.",
+            "Tap a space to preview it and read the selected coordinates. In Gomoku, tap that same space again to place your stone; tapping another space moves the preview. Confirm move also works. Checkers first selects a piece and then a legal destination. Dots and Boxes previews an edge; Four in a Row previews the lowest empty space in a selected column.",
             "Arrow keys or the on-screen arrows move the cursor; Enter or Space previews and confirms. Standard gamepad actions share this selection mapping, but physical controller and Tesla testing remains pending.",
           ],
         },
@@ -80,7 +80,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "휴대폰에서 잘못 두는 것을 줄이려면?",
           paragraphs: [
-            "칸을 눌러 미리 보고 표시된 좌표를 확인한 뒤 수 두기 버튼으로 확정하세요. 체커는 말부터 고르고 가능한 목적지를 선택합니다. 점 잇기는 선을, 사목은 선택한 열의 가장 아래 빈칸을 미리 보여줍니다.",
+            "칸을 눌러 미리 보고 표시된 좌표를 확인하세요. 오목은 같은 자리를 한 번 더 누르면 돌을 놓고, 다른 칸을 누르면 미리보기가 이동합니다. 수 두기 버튼으로도 확정할 수 있습니다. 체커는 말부터 고르고 가능한 목적지를 선택합니다. 점 잇기는 선을, 사목은 선택한 열의 가장 아래 빈칸을 미리 보여줍니다.",
             "키보드·화면 방향 버튼으로 커서를 옮기고 Enter·Space로 미리보기·확정할 수 있습니다. 표준 패드도 같은 선택 방식에 매핑했지만 실제 패드·테슬라 검증은 아직입니다.",
           ],
         },

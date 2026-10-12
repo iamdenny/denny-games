@@ -330,3 +330,38 @@ test("fractional imported scores stay readable on mobile", async ({ page }) => {
     ),
   ).toBe(true);
 });
+
+for (const locale of ["en", "ko"])
+  test(`Gomoku ${locale}: click to preview, click the same intersection to confirm`, async ({
+    page,
+  }) => {
+    await page.goto(`/${locale}/play/gomoku/?seed=click-confirm`);
+    await page.locator("#start-button").click();
+    await page.locator("[data-board-mode]").selectOption("local");
+    const game = page.locator(".classic-game");
+    await page.locator('[data-cell="112"]').click();
+    await expect(game).toHaveAttribute("data-moves", "0");
+    await expect(page.locator('[data-cell="112"]')).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await page.locator('[data-cell="113"]').click();
+    await expect(game).toHaveAttribute("data-moves", "0");
+    await expect(page.locator('[data-cell="112"]')).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    await page.locator('[data-cell="113"]').click();
+    await expect(game).toHaveAttribute("data-moves", "1");
+    await expect(
+      page.locator('[data-cell="113"] .board-piece.side-1'),
+    ).toHaveCount(1);
+    await page.locator('[data-cell="113"]').click();
+    await expect(game).toHaveAttribute("data-moves", "1");
+    await page.locator('[data-cell="114"]').click();
+    await page.locator('[data-cell="114"]').click();
+    await expect(game).toHaveAttribute("data-moves", "2");
+    await expect(
+      page.locator('[data-cell="114"] .board-piece.side-2'),
+    ).toHaveCount(1);
+  });

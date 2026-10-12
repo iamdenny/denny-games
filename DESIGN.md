@@ -31,3 +31,5 @@ Label reserved content slots clearly. Never disguise an advertisement as a game 
 Reference: Arcade Press v2 approved direction, 2026-10-10. Rendered desktop/mobile evidence and limitations are recorded in docs/releases. This document specifies design, not physical Tesla or controller certification.
 
 Classic boards use ivory/wood grids against blue ink, mint/coral pieces with inset highlights, clear turn/status text, legal-move dots and separate 48px confirmation. Checkers marks movable pieces and capture-required turns. Gomoku retains a 15×15 grid; coordinates and preview mitigate dense mobile targets. Original SVG cards illustrate each rule set; actual playable screenshots support detail/social previews. No decorative motion is required.
+
+Gomoku pointer interaction: first click/tap previews a legal intersection; clicking/tapping that same intersection again commits the stone. Selecting another intersection only moves the preview. The explicit confirm button and keyboard/gamepad confirmation remain available.

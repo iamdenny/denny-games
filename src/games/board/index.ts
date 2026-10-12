@@ -150,8 +150,12 @@ export const createMount =
     const note = document.createElement("p");
     note.className = "board-help";
     note.textContent = tr(
-      "Select a space, then confirm. Changing mode or level starts a new game.",
-      "칸을 고른 뒤 수를 확정하세요. 방식·난이도를 바꾸면 새 대국을 시작합니다.",
+      kind === "gomoku"
+        ? "Click or tap a space to preview; click the same space again to place your stone. Changing mode or level starts a new game."
+        : "Select a space, then confirm. Changing mode or level starts a new game.",
+      kind === "gomoku"
+        ? "칸을 눌러 미리 보고 같은 자리를 한 번 더 누르면 돌을 놓습니다. 방식·난이도를 바꾸면 새 대국을 시작합니다."
+        : "칸을 고른 뒤 수를 확정하세요. 방식·난이도를 바꾸면 새 대국을 시작합니다.",
     );
     shell.append(toolbar, status, board, selection, confirm, controls, note);
     ctx.host.append(shell);
@@ -261,7 +265,10 @@ export const createMount =
           "aria-pressed",
           String(preview?.to === index || source === index),
         );
-        button.addEventListener("click", () => select(index));
+        button.addEventListener("click", () => {
+          if (kind === "gomoku" && preview?.to === index) commit();
+          else select(index);
+        });
         return button;
       }
       if (kind === "dots-and-boxes") {
@@ -328,8 +335,8 @@ export const createMount =
                   `선 ${preview.to + 1} 선택. 확정하면 그립니다.`,
                 )
               : tr(
-                  `Row ${Math.floor(preview.to / w!) + 1}, column ${(preview.to % w!) + 1}. Confirm to play.`,
-                  `${Math.floor(preview.to / w!) + 1}행 ${(preview.to % w!) + 1}열. 확정하면 둡니다.`,
+                  `Row ${Math.floor(preview.to / w!) + 1}, column ${(preview.to % w!) + 1}. ${kind === "gomoku" ? "Click this space again or confirm to place your stone." : "Confirm to play."}`,
+                  `${Math.floor(preview.to / w!) + 1}행 ${(preview.to % w!) + 1}열. ${kind === "gomoku" ? "같은 자리를 한 번 더 누르거나 확정하면 돌을 놓습니다." : "확정하면 둡니다."}`,
                 )
             : kind === "checkers"
               ? tr(
