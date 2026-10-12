@@ -44,6 +44,8 @@
   align-items: center;
 }
 .scoreboard {
+  min-width: 0;
+  max-width: 100%;
   margin-left: auto;
   display: flex;
   gap: 24px;
@@ -51,6 +53,7 @@
 }
 .scoreboard strong {
   display: block;
+  overflow-wrap: anywhere;
   font-size: 25px;
   font-variant-numeric: tabular-nums;
 }

@@ -248,6 +248,7 @@ for (const id of classicIds)
       ),
     ).toBe(before + notes.length);
     await page.locator("#sound-button").click();
+    await expect(page.locator("#game-overlay")).toBeHidden();
     expect(
       await page.evaluate(() => (window as any).audioEvidence.state()),
     ).toBe("suspended");
@@ -288,4 +289,44 @@ test("sound preferences persist, but restoring enabled sound never autoplays", a
     "aria-pressed",
     "false",
   );
+});
+
+test("fractional imported scores stay readable on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      "denny-games:v1:best:crisp-cywall:score-regression:1",
+      "26.27129749556306",
+    );
+  });
+  await page.goto("/ko/play/crisp-cywall/?seed=score-regression");
+  await expect(page.locator("#best")).toHaveText("26");
+  await page.locator("#start-button").click();
+  const frame = page
+    .frames()
+    .find((f) => f.url().includes("/vendor/crisp/index.html"))!;
+  await page.locator("#pause-button").click();
+  await frame.waitForFunction(
+    () =>
+      !(window as unknown as { dennyBridge: { running: boolean } }).dennyBridge
+        .running,
+  );
+  await frame.evaluate(() =>
+    parent.postMessage(
+      {
+        channel: new URL(location.href).searchParams.get("channel"),
+        type: "end",
+        score: 26.27129749556306,
+        won: false,
+      },
+      "*",
+    ),
+  );
+  await expect(page.locator("#score")).toHaveText("26");
+  await expect(page.locator("#overlay-note")).toHaveText("점수: 26");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
 });

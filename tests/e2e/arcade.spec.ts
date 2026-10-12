@@ -58,7 +58,7 @@ for (const id of ["circuit-loop", "orbit-break", "2048"])
     await page.locator("#restart-button").click();
     await expect(page.locator("#game-overlay")).toBeVisible();
     await expect(page.locator("#score")).toHaveText(
-      id === "circuit-loop" ? "1000" : "0",
+      id === "circuit-loop" ? "1,000" : "0",
     );
     await page.reload();
     await expect(page.locator("#start-button")).toBeEnabled();
