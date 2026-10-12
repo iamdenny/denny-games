@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { inspectHomePreview } from "./public-preview.mjs";
 const args = process.argv.slice(2);
 const option = (name) => args[args.indexOf(name) + 1];
 const base = args.includes("--base")
@@ -29,9 +30,13 @@ if (expected)
 for (const locale of ["en", "ko"]) {
   const html = await get(`/${locale}/`);
   assert(html.includes(`lang="${locale}"`));
-  assert([...html.matchAll(/data-game-card=/g)].length <= 21);
   const ids = JSON.parse(await get(`/${locale}/search-index.json`)).map(
     (item) => item.id,
+  );
+  const preview = inspectHomePreview(html, ids.length);
+  assert(
+    preview.valid,
+    `${locale} home preview is invalid: ${JSON.stringify(preview)}`,
   );
   await Promise.all(
     ids.map(async (id) => {

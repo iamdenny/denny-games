@@ -11,7 +11,7 @@ This repository carries the original research requirements below. The following 
 
 - Brand Denny Games / 데니 게임즈; games.iamdenny.com; iamdenny/denny-games.
 - English and Korean only. No Japanese routes in this delivery.
-- Root visits open the first supported browser language automatically (`ko` or `en`, English fallback). Explicit locale URLs and manual language switching remain authoritative. See [ADR 0018](../adr/0018-browser-language-entry.md).
+- Root visits open the first supported browser language automatically (`ko` or `en`, English fallback). Explicit locale URLs and manual language switching remain authoritative. See [ADR 0019](../adr/0019-browser-language-entry.md).
 - Play-style collection cards show three real member-game thumbnails alongside localized titles, descriptions and exact counts on home, collections, related game details and guides. Artwork and card titles link to the same collection; mobile uses one column. See [DESIGN](../../DESIGN.md).
 - Public source repository already created with user authorization; only dist is deployed. See ADR-0002.
 - Astro + strict TypeScript + lightweight Canvas/DOM modules; Phaser is deferred until justified.

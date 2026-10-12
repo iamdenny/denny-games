@@ -17,7 +17,7 @@ Record date, release SHA, OS/browser or Tesla model/computer/firmware, input dev
 
 ## Release criteria
 
-Root-entry browser checks cover Korean/English and unsupported browser locales, ordered preferences, query/fragment preservation, explicit locale URLs, manual switching, back navigation and JavaScript-disabled fallback links/metadata. See `tests/e2e/locale-entry.spec.ts` and ADR 0018.
+Root-entry browser checks cover Korean/English and unsupported browser locales, ordered preferences, query/fragment preservation, explicit locale URLs, manual switching, back navigation and JavaScript-disabled fallback links/metadata. See `tests/e2e/locale-entry.spec.ts` and ADR 0019.
 
 CI must pass on the PR head. Review the diff and public artifact. After merge, require successful deployment for the merge SHA and inspect root, both locales, detail/play routes, scripts, robots, sitemap, notices and HTTPS. Field Core Web Vitals, 20-minute device soak and ad revenue are not inferred from a passing build.
 
