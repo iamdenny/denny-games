@@ -101,7 +101,11 @@ async function inspect(url) {
       description,
     );
   }
-  if (route.includes("/category/") || /\/collections\/[^/]+\/$/.test(route)) {
+  if (
+    route.includes("/category/") ||
+    route.includes("/all/") ||
+    /\/collections\/[^/]+\/$/.test(route)
+  ) {
     collectionCount++;
     const list = nodes.find((node) => node["@type"] === "ItemList");
     const cards = [...html.matchAll(/data-game-card="([^"]+)"/g)].map(
@@ -122,6 +126,36 @@ await Promise.all(
     while (cursor < urls.length) await inspect(urls[cursor++]);
   }),
 );
+// The complete static catalogue must expose every indexed game once per locale.
+for (const locale of ["en", "ko"]) {
+  const index = JSON.parse(await read(`/${locale}/search-index.json`));
+  const catalogueUrls = urls.filter((url) =>
+    new URL(url).pathname.startsWith(`/${locale}/all/`),
+  );
+  assert.equal(catalogueUrls.length, Math.ceil(index.length / 24));
+  const ids = [];
+  for (const url of catalogueUrls) {
+    const html = await read(url);
+    const cards = [...html.matchAll(/data-game-card="([^"]+)"/g)].map(
+      (m) => m[1],
+    );
+    assert(
+      cards.length > 0 && cards.length <= 24,
+      `Catalogue page size: ${url}`,
+    );
+    ids.push(...cards);
+    assert(
+      html.includes('data-catalogue-pages="top"') &&
+        html.includes('data-catalogue-pages="bottom"'),
+    );
+  }
+  assert.deepEqual(
+    ids,
+    index.map((game) => game.id),
+    `Complete catalogue: ${locale}`,
+  );
+  assert.equal(new Set(ids).size, index.length);
+}
 for (const path of [
   "/en/search/",
   "/ko/library/",

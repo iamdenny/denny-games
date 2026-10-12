@@ -6,6 +6,10 @@ import { PAGE_SIZE } from "./catalogue";
 export function pagePaths(): string[] {
   return [
     "",
+    ...Array.from(
+      { length: Math.ceil(games.length / PAGE_SIZE) },
+      (_, i) => `all${i ? "/page/" + (i + 1) : ""}`,
+    ),
     "daily",
     "collections",
     "device-check",

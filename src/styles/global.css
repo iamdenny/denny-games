@@ -655,6 +655,34 @@ main {
   background: var(--ink);
   color: var(--paper);
 }
+.catalogue-entry {
+  margin: 24px 0 40px;
+}
+.catalogue-entry p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+.catalogue-categories,
+.catalogue-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.catalogue-summary {
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.catalogue-categories a[aria-current] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.catalogue-pages {
+  align-items: center;
+}
+.catalogue-pages a {
+  padding: 0 12px;
+}
 .empty-state {
   padding: 40px 0;
   color: var(--muted);

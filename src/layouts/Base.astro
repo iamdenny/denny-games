@@ -105,6 +105,7 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
         aria-label={locale === "ko" ? "주 메뉴" : "Main navigation"}
       >
         <a href={`/${locale}/`}>{text.home}</a>
+        <a href={`/${locale}/all/`}>{text.all}</a>
         <a href={`/${locale}/daily/`}>{text.daily}</a>
         <a href={`/${locale}/library/`}>{text.library}</a>
       </nav>
@@ -147,7 +148,12 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
             {locale === "ko" ? "나만의 작은 오락실" : "YOUR LITTLE ARCADE"}
           </p>
           <nav aria-label={locale === "ko" ? "게임 탐색" : "Browse games"}>
-            <a href={`/${locale}/`}>
+            <a
+              href={`/${locale}/all/`}
+              aria-current={
+                path === "all" || path.startsWith("all/") ? "page" : undefined
+              }
+            >
               ▦ <span>{text.all}</span>
             </a>
             {categories.map((category) => (

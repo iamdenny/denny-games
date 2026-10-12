@@ -34,6 +34,21 @@ try {
       "utf8",
     );
     assert.equal([...first.matchAll(/data-game-card=/g)].length, 24);
+    const allIds = [];
+    for (let page = 1; page <= Math.ceil(index.length / 24); page++) {
+      const html = fs.readFileSync(
+        `.scale-fixture/${locale}/all/${page > 1 ? `page/${page}/` : ""}index.html`,
+        "utf8",
+      );
+      allIds.push(
+        ...[...html.matchAll(/data-game-card="([^"]+)"/g)].map((m) => m[1]),
+      );
+    }
+    assert.deepEqual(
+      allIds,
+      index.map((game) => game.id),
+    );
+    assert.equal(new Set(allIds).size, 1000);
   }
   console.log(
     "Scale: 1,000 fixture games, both languages, 24-per-page categories and static detail/play routes passed",

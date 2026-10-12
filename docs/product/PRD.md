@@ -25,6 +25,12 @@ This repository carries the original research requirements below. The following 
 
 See [다음 릴리스 PRD](NEXT-RELEASE.md) for play-style collections, combined search filters, local device checks, SEO/GEO acceptance and the explicit remaining game-supply targets.
 
+## Complete catalogue visibility — 2026-10-12
+
+The home page showed 21 preview cards while its “All games” navigation returned to that same preview. Provide `/en/all/` and `/ko/all/` as complete, static catalogues: 24 real games per page, every published registry entry exactly once across the sequence, total count and visible range, category counts, search/filter link, and previous/next/number links above and below the grid. Navigation must lead to these catalogues. Home must label its previews and link explicitly to the complete catalogue. No game is added or removed by this change.
+
+Each numbered page has its own title, description, canonical, language pair, sitemap entry and visible-card ItemList. JavaScript-disabled mobile navigation must reach the final game. Validate exact registry coverage in both languages and with the private 1,000-game fixture; verify 320–430px and desktop layouts, then PR, merge and read back the deployed release. See [ADR 0013](../adr/0013-complete-catalogue.md).
+
 ## Acceptance traceability
 
 | Requirement | Owning module / evidence |
