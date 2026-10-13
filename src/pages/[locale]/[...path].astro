@@ -268,7 +268,13 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
               "터치부터, 주차 중에만. 실차 결과는 아직 검증 전입니다.",
             )}
           </p>
-          <a href={`/${locale}/tesla/`}>{text.compatibility} ↗</a>
+          <a href={`/${locale}/tesla/`}>
+            {label(
+              "Tesla browser games and compatibility",
+              "테슬라 브라우저 웹게임과 호환성 안내",
+            )}{" "}
+            ↗
+          </a>
         </article>
       </section>
     </>

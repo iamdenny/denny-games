@@ -13,6 +13,8 @@ export function GET() {
     `- [Classic board guide](${base}/en/guides/classic-board-games/)`,
     `- [보드게임 규칙과 대전 안내](${base}/ko/guides/classic-board-games/)`,
     `- [Compatibility evidence](${base}/en/compatibility/)`,
+    `- [Tesla browser games and compatibility](${base}/en/tesla/)`,
+    `- [테슬라 브라우저 웹게임과 호환성 안내](${base}/ko/tesla/)`,
     `- [Credits and sources](${base}/en/licenses/)`,
     "",
     "## Classic board games",

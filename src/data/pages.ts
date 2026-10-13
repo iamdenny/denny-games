@@ -142,6 +142,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
       links: [
         { label: "Local device checklist", href: "/en/device-check/" },
         { label: "Current compatibility evidence", href: "/en/compatibility/" },
+        { label: "Tesla browser games and compatibility", href: "/en/tesla/" },
         { label: "Input diagnostic", href: "/en/gamepad-test/" },
         { label: "Choose a game collection", href: "/en/collections/" },
       ],
@@ -179,6 +180,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
       links: [
         { label: "내 기기 점검 체크리스트", href: "/ko/device-check/" },
         { label: "현재 호환성 근거", href: "/ko/compatibility/" },
+        { label: "테슬라 브라우저 웹게임과 호환성 안내", href: "/ko/tesla/" },
         { label: "입력 진단", href: "/ko/gamepad-test/" },
         { label: "플레이 방식별 게임 모음", href: "/ko/collections/" },
       ],
@@ -222,6 +224,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           href: "/licenses/crisp/",
         },
         { label: "Device support boundaries", href: "/en/compatibility/" },
+        { label: "Tesla browser games and compatibility", href: "/en/tesla/" },
         { label: "Gamepad input test", href: "/en/gamepad-test/" },
       ],
     },
@@ -259,6 +262,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         { label: "제작자와 원본 소스", href: "/ko/licenses/" },
         { label: "Crisp MIT 라이선스와 고정 소스", href: "/licenses/crisp/" },
         { label: "기기 지원 범위", href: "/ko/compatibility/" },
+        { label: "테슬라 브라우저 웹게임과 호환성 안내", href: "/ko/tesla/" },
         { label: "게임패드 입력 진단", href: "/ko/gamepad-test/" },
       ],
     },
@@ -452,44 +456,124 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
   tesla: {
     en: {
-      title: "Tesla browser games: parked use and compatibility",
+      title: "Tesla games: browser game guide and compatibility checks",
       intro:
-        "Tesla browser compatibility is not yet physically verified. Ordinary browser support and native Tesla Arcade controller support are separate facts.",
+        "Looking for free Tesla browser games? Denny Games is a free browser game catalog, but Tesla vehicle compatibility is unverified. Use it only while parked.",
       sections: [
         {
-          heading: "Start with touch",
+          heading: "Can I play browser games on a Tesla?",
           paragraphs: [
-            "While parked, open a game, choose Large screen and try touch controls. Circuit Loop requires no fast reaction or precise drag. Use the input check before relying on a controller.",
-            "Browser fullscreen may not be available. Expand falls back to a larger in-page layout. You can always pause and exit without fullscreen.",
+            "Denny Games offers free browser games without an account or installation. That describes the catalog in supported browsers; it does not confirm that a Tesla browser can open or run these games. We have not tested this site in a physical Tesla, so loading, touch input, performance, audio and saving remain unverified.",
           ],
         },
         {
-          heading: "What a verified result needs",
+          heading: "Tesla Arcade and browser games are different",
           paragraphs: [
-            "We record the vehicle model, computer type, firmware, viewport, controller and connection method. Open, touch, controller, audio, saving and return from an approved ad are separate test items.",
-            "There are currently no physical vehicle results. A working desktop preview is not a Tesla support badge.",
+            "Tesla's Model 3 manual describes its built-in Arcade and notes that entertainment options can vary by vehicle configuration and region. Native Arcade controls do not show that a third-party web page or its controller input works in the vehicle browser. Read Tesla's current instructions before trying either environment.",
           ],
+        },
+        {
+          heading: "How to try a Tesla browser game",
+          paragraphs: [
+            "Only if your vehicle provides a browser, try it while parked. Start with touch and a game with simple controls: Circuit Loop rotates a tile when tapped, and 2048 also offers on-screen direction buttons in Settings. Check that the page opens, a move registers, pause and resume work, and local progress returns after a reload. Each result describes only the vehicle and software version you tested.",
+            "Fullscreen may not be available. Expand falls back to a larger in-page layout, and you can pause or exit without fullscreen.",
+          ],
+        },
+        {
+          heading: "Does a Tesla game controller work in the browser?",
+          paragraphs: [
+            "Standard gamepad mappings are implemented for supported browsers, but no physical Tesla-browser controller result is recorded. A controller that works with Tesla Arcade may still behave differently in the browser. The input check page reports what the current browser exposes; it is not a Tesla compatibility test.",
+          ],
+        },
+        {
+          heading: "Which Tesla models have been tested?",
+          paragraphs: [
+            "None. We have no physical results for Model 3, Model Y, Model S, Model X or Cybertruck, and do not infer compatibility across vehicle computers, firmware or regions. A desktop preview or another owner's vehicle report is not a Denny Games certification.",
+          ],
+        },
+        {
+          heading: "Can I play while charging?",
+          paragraphs: [
+            "Only use games when the vehicle is parked. Follow the instructions for your specific vehicle and never interact with games while driving. Tesla's manual says entertainment options can vary with the vehicle and region; its built-in Arcade guidance is separate from third-party browser games.",
+          ],
+        },
+      ],
+      links: [
+        {
+          label: "Try Circuit Loop (touch controls)",
+          href: "/en/games/circuit-loop/",
+        },
+        {
+          label: "Try 2048 (touch and direction buttons)",
+          href: "/en/games/2048/",
+        },
+        { label: "Check browser gamepad input", href: "/en/gamepad-test/" },
+        {
+          label: "Read the device test guide",
+          href: "/en/guides/test-your-device/",
+        },
+        { label: "Current compatibility evidence", href: "/en/compatibility/" },
+        {
+          label: "Tesla Model 3 owner's manual: Theater, Arcade and Toybox",
+          href: "https://www.tesla.com/ownersmanual/model3/en_kr/GUID-79A49D40-A028-435B-A7F6-8E48846AB9E9.html",
         },
       ],
     },
     ko: {
-      title: "테슬라 브라우저 웹게임: 주차 중 이용과 호환성",
+      title: "테슬라 게임: 브라우저 웹게임·호환성 점검",
       intro:
-        "테슬라 브라우저는 아직 실차 검증 전입니다. 일반 브라우저 동작과 Tesla 내장 Arcade의 패드 지원은 서로 다른 정보입니다.",
+        "테슬라 게임을 찾나요? 데니 게임즈는 무료 브라우저 웹게임 모음입니다. 실차 브라우저·터치·게임패드 호환성은 아직 검증되지 않았으니 주차 중에만 시험하세요.",
       sections: [
         {
-          heading: "터치부터 시작하세요",
+          heading: "테슬라에서 브라우저 게임을 할 수 있나요?",
           paragraphs: [
-            "주차 중에 게임을 열고 큰 화면 모드에서 터치를 시도하세요. 서킷 루프는 빠른 반응이나 정밀한 드래그가 필요하지 않습니다. 패드는 입력 진단에서 먼저 확인하세요.",
-            "브라우저 전체화면이 허용되지 않으면 화면 확대는 페이지 안에서 확장됩니다. 전체화면 없이도 일시정지하고 나갈 수 있습니다.",
+            "데니 게임즈는 가입이나 설치 없이 즐기는 무료 브라우저 게임 모음입니다. 이는 지원되는 일반 브라우저에서의 제공 방식이며, 테슬라 브라우저에서 열리거나 실행된다는 뜻은 아닙니다. 실차에서 이 사이트를 시험하지 않아 로딩·터치·속도·소리·저장 상태는 모두 미검증입니다.",
           ],
         },
         {
-          heading: "검증 결과에 필요한 정보",
+          heading: "테슬라 내장 아케이드와 브라우저 웹게임은 다른 환경입니다",
           paragraphs: [
-            "모델·컴퓨터 종류·펌웨어·사용 가능 화면·패드·연결 방식을 기록합니다. 사이트 열림·터치·패드·소리·저장·승인된 광고 후 복귀는 따로 확인합니다.",
-            "현재 공개할 실차 결과는 없습니다. 데스크톱 화면이 열린 사실만으로 테슬라 지원 배지를 붙이지 않습니다.",
+            "테슬라 사용자 설명서는 차량 내장 아케이드(Arcade)를 안내하면서 차량 구성과 지역에 따라 엔터테인먼트 기능이 다를 수 있다고 설명합니다. 내장 아케이드에서 조작기가 작동해도 차량 브라우저의 외부 웹페이지나 게임패드 입력이 작동한다는 뜻은 아닙니다. 각 환경을 시험하기 전에 해당 차량의 최신 안내를 확인하세요.",
           ],
+        },
+        {
+          heading: "테슬라 브라우저 게임을 점검하는 순서",
+          paragraphs: [
+            "차량에 브라우저가 제공되는 경우에만 주차 중 시험하세요. 먼저 터치로 조작이 간단한 게임부터 확인하세요. 서킷 루프는 타일을 눌러 돌리고, 2048은 설정에서 화면 방향 버튼도 사용할 수 있습니다. 페이지 열림, 한 번의 게임 입력, 일시정지·재개, 새로고침 후 로컬 진행 상태 복원을 각각 확인하세요. 결과는 시험한 차량과 소프트웨어 버전에만 해당합니다.",
+            "브라우저에서 전체화면을 사용할 수 없을 수 있습니다. 화면 확대는 페이지 안에서 크게 표시하며 전체화면 없이도 일시정지하거나 나갈 수 있습니다.",
+          ],
+        },
+        {
+          heading: "테슬라 게임패드는 브라우저에서 작동하나요?",
+          paragraphs: [
+            "지원 브라우저에 표준 게임패드 매핑을 구현했지만, 테슬라 브라우저와 실물 패드를 연결한 결과는 없습니다. 내장 Arcade에서 작동하는 패드도 브라우저에서는 다르게 동작할 수 있습니다. 입력 진단은 현재 브라우저가 보여주는 입력을 확인할 뿐, 테슬라 호환성을 인증하지 않습니다.",
+          ],
+        },
+        {
+          heading: "어떤 테슬라 모델을 시험했나요?",
+          paragraphs: [
+            "아직 없습니다. 모델 3·모델 Y·모델 S·모델 X·Cybertruck에서 얻은 실차 결과가 없으며, 차량 컴퓨터·펌웨어·지역이 다른 환경으로 호환성을 확대해 추정하지 않습니다. 데스크톱 미리보기나 다른 차주의 시험 결과도 데니 게임즈의 인증이 아닙니다.",
+          ],
+        },
+        {
+          heading: "충전 중에 게임해도 되나요?",
+          paragraphs: [
+            "차량이 주차된 상태에서만 게임을 이용하세요. 해당 차량의 안내를 따르고 운전 중에는 게임을 조작하지 마세요. 테슬라 설명서도 엔터테인먼트 기능이 차량과 지역에 따라 다를 수 있다고 안내합니다. 내장 Arcade 정보는 외부 브라우저 게임의 지원 근거가 아닙니다.",
+          ],
+        },
+      ],
+      links: [
+        {
+          label: "서킷 루프 해보기 (터치 조작)",
+          href: "/ko/games/circuit-loop/",
+        },
+        { label: "2048 해보기 (터치·방향 버튼)", href: "/ko/games/2048/" },
+        { label: "브라우저 게임패드 입력 확인", href: "/ko/gamepad-test/" },
+        { label: "기기 점검 방법 읽기", href: "/ko/guides/test-your-device/" },
+        { label: "현재 호환성 검증 정보", href: "/ko/compatibility/" },
+        {
+          label: "테슬라 모델 3 사용자 설명서: 영화관·아케이드·토이박스",
+          href: "https://www.tesla.com/ownersmanual/model3/ko_kr/GUID-79A49D40-A028-435B-A7F6-8E48846AB9E9.html",
         },
       ],
     },
