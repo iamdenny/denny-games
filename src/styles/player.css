@@ -107,6 +107,54 @@
   color: #17211d;
   font-size: 13px;
 }
+.board-mode-choice {
+  border: 0;
+  padding: 0;
+  margin: 16px 0;
+  display: grid;
+  gap: 8px;
+  text-align: left;
+}
+.board-mode-choice legend {
+  margin: 0 auto 8px 0;
+  color: #c3d4d7;
+  font-size: 14px;
+  font-weight: 700;
+}
+.board-mode-choice label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 8px 12px;
+  border: 1px solid #607784;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+}
+.board-mode-choice label:focus-within {
+  outline: 2px solid #9fe6d3;
+  outline-offset: 2px;
+}
+.board-mode-choice input {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: #9fe6d3;
+}
+.board-mode-copy {
+  display: grid;
+  gap: 2px;
+}
+.board-mode-copy strong {
+  font-size: 14px;
+}
+.board-mode-copy small {
+  color: #c3d4d7;
+  font-size: 12px;
+  line-height: 1.35;
+}
 .player-controls {
   display: flex;
   flex-wrap: wrap;

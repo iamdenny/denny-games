@@ -46,6 +46,13 @@ export const createMount =
     shell.dataset.boardKind = kind;
     const toolbar = document.createElement("div");
     toolbar.className = "board-toolbar";
+    const modeChoice = document.createElement("fieldset");
+    modeChoice.className = "board-mode-choice";
+    modeChoice.dataset.boardModeChoice = "";
+    const modeLegend = document.createElement("legend");
+    modeLegend.textContent = tr("Choose who to play with", "누구와 둘까요?");
+    modeChoice.append(modeLegend);
+    const modeRadios: HTMLInputElement[] = [];
     function choice(
       label: string,
       values: [string, string][],
@@ -67,18 +74,58 @@ export const createMount =
       toolbar.append(wrap);
       return select;
     }
-    const modeSelect = choice(
+    let modeSelect: HTMLSelectElement | undefined;
+    const changeMode = (value: string) => {
+      if (value !== "ai" && value !== "local") return;
+      mode = value;
+      write(`board-mode:${kind}`, mode);
+      if (modeSelect) modeSelect.value = mode;
+      for (const radio of modeRadios) radio.checked = radio.value === mode;
+      reset();
+    };
+    const modeChoices: [string, string, string][] = [
+      [
+        "ai",
+        tr("Play against AI", "AI와 대국"),
+        tr("Play solo", "혼자 플레이"),
+      ],
+      [
+        "local",
+        tr("Two players", "같은 기기 2인"),
+        tr("Take turns on this device", "기기 하나에서 번갈아 두기"),
+      ],
+    ];
+    for (const [value, title, detail] of modeChoices) {
+      const label = document.createElement("label");
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = `${kind}-mode-choice`;
+      radio.value = value;
+      radio.checked = mode === value;
+      radio.dataset.boardModeSetup = value;
+      radio.addEventListener("change", () => {
+        if (radio.checked) changeMode(radio.value);
+      });
+      const copy = document.createElement("span");
+      copy.className = "board-mode-copy";
+      const heading = document.createElement("strong");
+      heading.textContent = title;
+      const description = document.createElement("small");
+      description.textContent = detail;
+      copy.append(heading, description);
+      label.append(radio, copy);
+      modeChoice.append(label);
+      modeRadios.push(radio);
+    }
+    ctx.setupHost?.append(modeChoice);
+    modeSelect = choice(
       tr("New game mode", "새 대국 방식"),
       [
         ["ai", tr("Against AI", "AI 대전")],
         ["local", tr("Local two-player", "같은 기기 2인")],
       ],
       mode,
-      (v) => {
-        mode = v;
-        write(`board-mode:${kind}`, mode);
-        reset();
-      },
+      changeMode,
     );
     modeSelect.dataset.boardMode = "";
     const levelSelect = choice(
@@ -555,6 +602,7 @@ export const createMount =
         active = false;
         stop();
         options.remove();
+        modeChoice.remove();
         tools.remove();
         shell.remove();
       },

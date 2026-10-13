@@ -11,6 +11,7 @@ export interface GameContext {
   host: HTMLElement;
   settingsHost?: HTMLElement;
   controlsHost?: HTMLElement;
+  setupHost?: HTMLElement;
   locale: Locale;
   seed: string;
   stage: number;

@@ -12,6 +12,17 @@ for (const locale of ["en", "ko"])
     }) => {
       await page.setViewportSize(viewport);
       await page.goto(`/${locale}/play/gomoku/`);
+      const modeChoice = page.locator("#game-mode-choice");
+      await expect(modeChoice).toBeVisible();
+      await expect(modeChoice.locator("label")).toHaveCount(2);
+      for (const option of await modeChoice.locator("label").all()) {
+        const box = await option.boundingBox();
+        expect(box!.x).toBeGreaterThanOrEqual(0);
+        expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width);
+        expect(box!.y).toBeGreaterThanOrEqual(0);
+        expect(box!.y + box!.height).toBeLessThanOrEqual(viewport.height);
+        expect(box!.height).toBeGreaterThanOrEqual(48);
+      }
       await page.locator("#start-button").click();
       const area = await page.locator(".play-area").boundingBox();
       const board = await page.locator(".classic-board").boundingBox();
@@ -79,6 +90,9 @@ test("game remount removes previous settings and retains saved progress", async 
     page.locator("#game-settings .board-directions button"),
   ).toHaveCount(4);
   await expect(page.locator("[data-board-mode]")).toHaveCount(1);
+  await expect(
+    page.locator("#game-mode-choice [data-board-mode-choice]"),
+  ).toHaveCount(1);
   await page.locator("#player-settings summary").click();
   await page.locator("#start-button").click();
   await expect(page.locator(".classic-game")).toHaveAttribute(

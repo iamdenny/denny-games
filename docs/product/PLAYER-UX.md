@@ -17,7 +17,7 @@ Audit the eight original games and shared imported-player wrapper by interaction
 
 ## Compact mobile acceptance
 
-At 320×568 and larger phone sizes, opening/starting a game must not scroll the stage away from its top. Keep the full classic board and its confirmation reachable; use one row for shell pause/restart/sound/settings. Match mode, AI difficulty and detailed help live in settings, which must not duplicate on remount. Keep large direction buttons for precise Gomoku selection and show selected coordinates next to confirmation. Touch gestures must cancel cleanly on interrupted input; orientation changes preserve the round. Include safe-area insets and preserve browser pinch zoom. See [ADR 0017](../adr/0017-mobile-game-controls.md).
+At 320×568 and larger phone sizes, opening/starting a game must not scroll the stage away from its top. Keep the full classic board and its confirmation reachable; use one row for shell pause/restart/sound/settings. Show AI versus same-device two-player choices on the ready screen before play; retain match mode and AI difficulty in settings, and remove setup controls on remount. Keep large direction buttons for precise Gomoku selection and show selected coordinates next to confirmation. Touch gestures must cancel cleanly on interrupted input; orientation changes preserve the round. Include safe-area insets and preserve browser pinch zoom. See [ADR 0017](../adr/0017-mobile-game-controls.md) and [ADR 0022](../adr/0022-visible-local-play-choice.md).
 
 ## Catalogue and classic-board space — 2026-10-12
 

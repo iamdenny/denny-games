@@ -37,7 +37,7 @@ const descriptions: {
       rules: [
         "Mint moves first on the 15×15 intersections. Players alternate placing one stone in an empty space.",
         "Five or more stones in a horizontal, vertical or diagonal line wins. Overlines are allowed; there are no double-three or Renju forbidden-move rules.",
-        "A full board without a winning line is a draw. Choose AI or local two-player mode; changing mode or level starts a new game.",
+        "Before you start, choose browser AI or two players taking turns on this device. Changing the mode or level starts a new game.",
       ],
       tips: [
         "Build lines with space at both ends and watch for immediate opposing fours.",
@@ -53,7 +53,7 @@ const descriptions: {
       rules: [
         "15×15 교차점에 민트가 먼저 둡니다. 빈칸에 돌 하나씩 번갈아 놓으세요.",
         "가로·세로·대각선으로 다섯 개 이상 연결하면 승리합니다. 장목을 허용하며 삼삼·사사 등 렌주 금수는 적용하지 않습니다.",
-        "판이 가득 차도 승자가 없으면 무승부입니다. AI·같은 기기 2인 모드를 고를 수 있고 방식·난이도 변경은 새 대국을 시작합니다.",
+        "시작 전에 브라우저 AI 또는 같은 기기에서 번갈아 두는 2인 모드를 고르세요. 방식·난이도 변경은 새 대국을 시작합니다.",
       ],
       tips: [
         "양끝이 열린 줄을 만들고 상대의 네 돌 연결부터 막으세요.",

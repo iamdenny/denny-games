@@ -28,3 +28,5 @@
 - [0020 — Compact navigation and board stage](0020-compact-navigation-and-board-stage.md) — Accepted.
 
 - [0021 — Maximize every game stage](0021-maximized-all-game-stages.md) — Accepted.
+
+- [0022 — Visible local-play choice](0022-visible-local-play-choice.md) — Accepted.
