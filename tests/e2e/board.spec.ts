@@ -57,6 +57,52 @@ for (const locale of ["en", "ko"] as const)
     );
   });
 
+for (const id of classicIds)
+  test(`${id}: both local players can make a move`, async ({ page }) => {
+    await page.goto(`/ko/play/${id}/`);
+    await page.locator('[data-board-mode-setup="local"]').check();
+    await page.locator("#start-button").click();
+    const game = page.locator(".classic-game");
+    const confirm = page.locator("[data-board-confirm]");
+
+    async function move(player: 1 | 2) {
+      if (id === "gomoku" || id === "four-in-a-row") {
+        const cell = id === "gomoku" ? (player === 1 ? 112 : 113) : player - 1;
+        await page.locator(`[data-cell="${cell}"]`).click();
+        await expect(confirm).toBeEnabled();
+        await confirm.click();
+      } else if (id === "checkers") {
+        const source = await page
+          .locator(".board-cell.movable")
+          .first()
+          .getAttribute("data-cell");
+        expect(source).not.toBeNull();
+        await page.locator(`[data-cell="${source}"]`).click();
+        await page.locator(".board-cell.legal").first().click();
+      } else {
+        const cell = await page
+          .locator(".board-cell.legal")
+          .first()
+          .getAttribute("data-cell");
+        expect(cell).not.toBeNull();
+        await page.locator(`[data-cell="${cell}"]`).click();
+        await page.locator(`[data-cell="${cell}"]`).click();
+      }
+
+      await expect(game).toHaveAttribute("data-moves", String(player));
+      await expect(game).toHaveAttribute(
+        "data-turn",
+        String(player === 1 ? 2 : 1),
+      );
+      await expect(game).toHaveAttribute("data-ai-turn", "false");
+    }
+
+    await move(1);
+    await page.waitForTimeout(600);
+    await expect(game).toHaveAttribute("data-moves", "1");
+    await move(2);
+  });
+
 for (const id of classicIds) {
   test(`${id}: preview, AI, local mode, pause, restoration and locale`, async ({
     page,
