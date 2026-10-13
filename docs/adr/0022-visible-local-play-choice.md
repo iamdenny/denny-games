@@ -19,4 +19,4 @@ Show native radio choices for browser AI and same-device two-player play in the 
 
 ## Verification
 
-Check choice visibility and mode synchronization for all five games in English and Korean before starting. Verify Gomoku's first local move advances to player two without scheduling an AI move. Retain the existing board, lifecycle, responsive and WebKit browser checks; physical-device evidence remains separate.
+Check choice visibility and mode synchronization for all five games in English and Korean before starting. Verify both players can make alternating moves in every game and that local mode never schedules an AI reply. Retain the existing board, lifecycle, responsive and WebKit browser checks; physical-device evidence remains separate.

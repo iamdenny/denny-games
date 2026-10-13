@@ -41,7 +41,7 @@ Collection membership must resolve to real games, and one-button/pointer/daily s
 
 Rules fixtures cover Gomoku overlines and row boundaries, gravity and line wins, Reversi multidirectional flips/pass/early finish, mandatory checkers captures/continued jumps/crowning/no-move loss/quiet-king draws, and double-box extra turns/ties. AI fixtures check legal moves, source nonmutation, immediate wins and forced defence. Browser scenarios exercise five AI/local journeys, worker replies, pause cancellation, reload/locale preservation, completed-result restoration, keyboard confirmation and 320/390/430px layouts. Bilingual category/collection/guide, play-mode schema and llms.txt are checked. These do not establish Elo strength, accessibility certification or physical-device compatibility.
 
-Ready-screen two-player choices are visible in both locales across all five board games; Gomoku additionally confirms the first local turn does not trigger an AI reply. Mode controls are removed during pause/results and cleaned up on stage remount.
+Ready-screen two-player choices are visible in both locales across all five board games. Each game confirms that both players can complete alternating local moves without an AI reply. Mode controls are removed during pause/results and cleaned up on stage remount.
 
 Classic board sound browser journeys observe real AudioContext creation/state and oscillator scheduling for all five move cues, pause, resume, mute and persisted preferences. These checks prove browser audio scheduling, not subjective loudspeaker quality or physical-device output.
 
