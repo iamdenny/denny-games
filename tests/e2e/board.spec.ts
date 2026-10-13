@@ -2,6 +2,61 @@ import { setBoardMode } from "./helpers/board-settings";
 import { test, expect } from "@playwright/test";
 import { classicIds } from "../../src/data/board-games";
 import { initial } from "../../src/games/board/rules";
+for (const locale of ["en", "ko"] as const)
+  for (const id of classicIds)
+    test(`${locale} ${id}: choose local play before starting`, async ({
+      page,
+    }) => {
+      if (locale === "ko" && id === "gomoku")
+        await page.setViewportSize({ width: 800, height: 600 });
+      await page.goto(`/${locale}/play/${id}/`);
+      const choice = page.locator("#game-mode-choice");
+      await expect(choice).toBeVisible();
+      await expect(choice).toContainText(
+        locale === "ko"
+          ? "기기 하나에서 번갈아 두기"
+          : "Take turns on this device",
+      );
+      await page.locator('[data-board-mode-setup="local"]').check();
+      await expect(page.locator("[data-board-mode]")).toHaveValue("local");
+      await expect(
+        page.locator('[data-board-mode-setup="local"]'),
+      ).toBeChecked();
+      if (locale === "ko" && id === "gomoku")
+        await page.screenshot({
+          path: test.info().outputPath("gomoku-ready-mode.png"),
+        });
+      await page.locator("#start-button").click();
+      await expect(page.locator(".classic-game")).toHaveAttribute(
+        "data-board-kind",
+        id,
+      );
+    });
+
+for (const locale of ["en", "ko"] as const)
+  test(`${locale} Gomoku: ready screen starts a real local two-player match`, async ({
+    page,
+  }) => {
+    await page.goto(`/${locale}/play/gomoku/`);
+    await page.locator('[data-board-mode-setup="local"]').check();
+    await page.locator("#start-button").click();
+    await page.locator('[data-cell="112"]').click();
+    await page.locator("[data-board-confirm]").click();
+    await expect(page.locator(".classic-game")).toHaveAttribute(
+      "data-moves",
+      "1",
+    );
+    await expect(page.locator(".classic-game")).toHaveAttribute(
+      "data-turn",
+      "2",
+    );
+    await page.waitForTimeout(600);
+    await expect(page.locator(".classic-game")).toHaveAttribute(
+      "data-moves",
+      "1",
+    );
+  });
+
 for (const id of classicIds) {
   test(`${id}: preview, AI, local mode, pause, restoration and locale`, async ({
     page,
@@ -32,6 +87,7 @@ for (const id of classicIds) {
     await expect(game).toHaveAttribute("data-moves", "2");
     expect(workers.length).toBeGreaterThan(0);
     await setBoardMode(page, "local");
+    await expect(page.locator('[data-board-mode-setup="local"]')).toBeChecked();
     await expect(game).toHaveAttribute("data-moves", "0");
     if (id === "checkers") await page.locator('[data-cell="40"]').click();
     await page
@@ -49,7 +105,9 @@ for (const id of classicIds) {
     await expect(game).toHaveAttribute("data-turn", "2");
     await page.locator("#pause-button").click();
     await expect(page.locator("#game-overlay")).toBeVisible();
+    await expect(page.locator("#game-mode-choice")).toBeHidden();
     await page.reload();
+    await expect(page.locator('[data-board-mode-setup="local"]')).toBeChecked();
     await page.locator("#start-button").click();
     await expect(game).toHaveAttribute("data-moves", "1");
     await expect(page.locator("[data-board-mode]")).toHaveValue("local");

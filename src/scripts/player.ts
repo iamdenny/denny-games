@@ -92,10 +92,12 @@ function best() {
   const value = read<unknown>(`best:${id}:${seed}:${stage}`, 0);
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }
-function show(title: string, note = "") {
+function show(title: string, note = "", showSetup = false) {
   overlay.hidden = false;
   host.inert = true;
   el("game-controls").inert = true;
+  const setup = el("game-mode-choice");
+  setup.hidden = !showSetup || setup.childElementCount === 0;
   el("overlay-title").textContent = title;
   el("overlay-note").textContent = note;
 }
@@ -159,6 +161,7 @@ function mount(saved: boolean) {
     host,
     settingsHost: el("game-settings"),
     controlsHost: el("game-controls"),
+    setupHost: el("game-mode-choice"),
     locale,
     seed,
     stage,
@@ -189,6 +192,7 @@ function mount(saved: boolean) {
   show(
     id.startsWith("crisp-") ? text.loading : text.ready,
     root.dataset.instructions,
+    true,
   );
   start.textContent = text.start;
   start.disabled = id.startsWith("crisp-");

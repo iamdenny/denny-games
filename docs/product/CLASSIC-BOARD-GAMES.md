@@ -11,6 +11,8 @@ read_when:
 
 Add Gomoku, Reversi, Four in a Row, English checkers and Dots and Boxes in a new Board category. Use a consistent midnight-blue player, ivory board, mint/coral pieces, clear turn and result labels, legal-move previews and explicit move confirmation. Ship browser AI and same-device two-player modes, three bounded AI levels, restart and local restoration. No account, network opponent or server required. Janggi and Go remain future work; do not represent them as delivered.
 
+Before a new match, show the AI and same-device two-player choices on the ready screen. Describe local play as taking turns on the same device; keep the mode selector in settings as well.
+
 ## Rules and interaction
 
 - Gomoku: 15×15 freestyle, five or more wins, no forbidden moves.
