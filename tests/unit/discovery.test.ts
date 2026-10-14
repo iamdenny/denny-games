@@ -58,6 +58,7 @@ describe("play-style discovery", () => {
     expect(long.map((game) => game.id)).toEqual([
       "circuit-loop",
       "2048",
+      "hextris",
       "bounce-back",
       "underrun",
       "gomoku",
@@ -78,8 +79,8 @@ describe("play-style discovery", () => {
     ).toEqual(["crisp-parking"]);
     expect(paginate(games, 1).length).toBe(24);
     for (const value of ["0", "-1", "1.5", "NaN", "Infinity"])
-      expect(searchPage(value, 194)).toBe(1);
-    expect(searchPage("999", 194)).toBe(9);
+      expect(searchPage(value, games.length)).toBe(1);
+    expect(searchPage("999", games.length)).toBe(9);
     expect(searchPage("2", 0)).toBe(1);
   });
 });

@@ -496,6 +496,35 @@
   margin: auto;
   background: #e0e0e0;
 }
+.hextris-frame {
+  width: min(100%, 600px, calc(60dvh));
+  max-height: min(60dvh, 600px);
+  min-height: 0;
+  background: #14212b;
+}
+.hextris-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.hextris-controls button {
+  min-width: 132px;
+  min-height: 52px;
+  padding: 10px 16px;
+  border: 1px solid #89b1bc;
+  border-radius: 14px;
+  color: #f1f7f5;
+  background: #203744;
+  font:
+    600 14px/1.2 system-ui,
+    sans-serif;
+  touch-action: manipulation;
+}
+.hextris-controls button:focus-visible {
+  outline: 3px solid #a7f0e6;
+  outline-offset: 3px;
+}
 .crisp-digits {
   display: flex;
   flex-wrap: wrap;

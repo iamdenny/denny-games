@@ -7,7 +7,7 @@ read_when:
 
 # Open game inventory
 
-The playable registry includes Circuit Loop, Orbit Break, the credited 2048 adaptation, five original board games, 191 ABA Games Crisp titles, Bounce Back and UNDERRUN, for 201 games total. Each import has English/Korean controls, a primary category, a fixed source commit, original notices and self-hosted files. Names remain the authors' original English names. In-canvas bitmap text remains upstream English; navigation and instructions are bilingual.
+The playable registry includes Circuit Loop, Orbit Break, the credited 2048 adaptation, five original board games, 191 ABA Games Crisp titles, Bounce Back, UNDERRUN and Hextris, for 202 games total. Each import has English/Korean controls, a primary category, a fixed source commit, original notices and self-hosted files. Names remain the authors' original English names. In-canvas bitmap text remains upstream English; navigation and instructions are bilingual.
 
 The seven primary categories are board, puzzle, arcade, action, shooting, racing and sports. They describe the main interaction, not an assertion that a miniature steering game is a full vehicle simulator. Counts are computed from the registry. No empty categories or placeholder games are published.
 
@@ -17,6 +17,7 @@ The seven primary categories are board, puzzle, arcade, action, shooting, racing
 - `public/licenses/crisp/`: original three game-bundle notices, runtime MIT and Lodash MIT.
 - `vendor/bounceback/provenance.json`: pinned GPL-2.0-or-later source and hashes for Bounce Back, its tile sprite and title-screen image. `public/licenses/bounceback/` provides the full license and corresponding-source links.
 - `vendor/underrun/provenance.json`: pinned MIT source and hashes for UNDERRUN's game, level maps and texture; the modified Sonant-X module keeps its separate zlib notice. `public/licenses/underrun/` provides both notices and source links.
+- `vendor/hextris/provenance.json`: pinned GPL-3.0-or-later source and hashes for the full Hextris repository snapshot. `public/licenses/hextris/` includes the complete GPL license, MIT dependency notices and the Keypress Apache-2.0 license. The hosted adapter removes upstream ads, analytics, social popups and score reporting.
 - `vendor/catalogue-review.json`: a disposition for all 294 research entries. Integrated, port-required and rights-or-integration-review are distinct.
 - `scripts/build-crisp.mjs`: reproducible, checked runtime hooks. Original game source files are not rewritten.
 
@@ -26,9 +27,13 @@ Bounce Back adds a boomerang roguelite with generated rooms, enemy variants, pic
 
 UNDERRUN adds a three-level WebGL twin-stick shooter. Its MIT source and level/texture images are pinned; modified Sonant-X code has a separate zlib notice, and the composer credit is preserved. The host adds touch movement/aim, standard gamepad movement/fire/aim, sound and pause/resume in a no-network opaque-origin frame. Chromium coverage does not establish physical phone, controller, or Tesla support.
 
+Hextris adds a quick hexagonal block-matching puzzle. The source page includes the corresponding runtime source and dependency licenses. Large labeled rotation buttons supplement the original touch gestures; keyboard and standard gamepad left/right actions share the same mapping. The board and high scores are checkpointed every 500 ms and after rotation or pause. In-site language switching waits for a fresh host-side save; a hard reload restores the latest completed checkpoint. A pinned GitHub star count is only a source-repository signal, never a player count or popularity ranking.
+
 ## Player differences
 
-Imports restart on page reload or language change; the shell saves personal best scores, favorites and recent plays. They do not participate in daily seeded challenges. Optional upstream music/WebGL effects are disabled; the shared sound switch controls simple shell-generated effects. A connected standard controller can move a virtual pointer and hold A; Start and disconnect pause. Mouse/touch remains available after controller use. DIGI10 uses number keys or the on-screen number buttons.
+Most imports restart on page reload or language change; the shell saves personal best scores, favorites and recent plays. Hextris is an exception: its latest completed board checkpoint and high scores are restored locally. Imported games do not participate in daily seeded challenges. Optional upstream music/WebGL effects are disabled; the shared sound switch controls simple shell-generated effects where supported. A connected standard controller can move a virtual pointer and hold A; Start and disconnect pause. Mouse/touch remains available after controller use. DIGI10 uses number keys or the on-screen number buttons.
+
+At research time the Hextris repository showed about 2.4k GitHub stars. This is a changing developer-interest signal, not evidence of player counts, demand, search rankings or earnings. Candidate games that fail license, load-size or mobile-UX review remain unpublished; A Dark Room is held until its fixed-width, keyboard-dependent mobile experience is redesigned.
 
 See [runtime decision](../adr/0009-imported-games.md), [onboarding](game-onboarding.md) and [testing](../testing.md).
 

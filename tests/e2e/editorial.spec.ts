@@ -67,13 +67,13 @@ test("editor picks stay consistent across home, full catalogue, categories and d
   await page.goto("/en/category/arcade/");
   await expect(page.locator("[data-game-card]").first()).toHaveAttribute(
     "data-game-card",
-    "orbit-break",
+    "hextris",
   );
   await page.locator("[data-sort]").selectOption("name");
   await page.locator("[data-sort]").selectOption("recommended");
   await expect(page.locator("[data-game-card]").first()).toHaveAttribute(
     "data-game-card",
-    "orbit-break",
+    "hextris",
   );
   await page.goto("/en/search/");
   await expect(page.locator("#search-results a").first()).toHaveAttribute(

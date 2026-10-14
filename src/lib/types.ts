@@ -21,6 +21,7 @@ export interface GameContext {
   sound: (cue?: SoundCue) => void;
   onReady?: (size?: { width: number; height: number }) => void;
   onPause?: () => void;
+  onSave?: () => boolean;
   onError?: (message: string) => void;
 }
 export interface GameInstance {
@@ -33,6 +34,7 @@ export interface GameInstance {
   setSoundEnabled?(enabled: boolean): void;
   setVolume?(volume: number): void;
   serialize(): unknown;
+  flush?(): Promise<boolean>;
   destroy(): void;
 }
 export type GameFactory = (context: GameContext) => GameInstance;

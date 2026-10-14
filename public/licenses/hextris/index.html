@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Hextris source and licenses · Denny Games</title>
+    <meta
+      name="description"
+      content="Hextris GPL-3.0-or-later source, third-party dependency notices and Denny Games host adaptations."
+    />
+    <link rel="canonical" href="https://games.iamdenny.com/licenses/hextris/" />
+  </head>
+  <body>
+    <main>
+      <h1>Hextris source and licenses</h1>
+      <p>
+        Hextris was created by Logan Engstrom, Garrett Finucane, Noah Moroze and
+        Michael Yang. This version is based on pinned revision
+        <code>3f4847dc8fd7dab3d1c87e6324b9159d92fbd396</code> and is distributed
+        under GPL-3.0-or-later.
+      </p>
+      <p>
+        <a href="LICENSE.txt">Read the complete GPL-3.0-or-later license</a>.
+      </p>
+      <p>
+        <a
+          href="https://github.com/Hextris/hextris/tree/3f4847dc8fd7dab3d1c87e6324b9159d92fbd396"
+          >Pinned upstream source</a
+        >
+        ·
+        <a href="/vendor/hextris/source/README.txt"
+          >Corresponding runtime source and host adaptation notes</a
+        >
+        ·
+        <a href="/vendor/hextris/source/THIRD-PARTY-NOTICES.txt"
+          >Runtime dependency notices</a
+        >
+      </p>
+      <p>
+        The host removes the upstream ad, analytics, social popup, and score
+        reporting requests. It adds a restricted local save bridge, pause and
+        resume, large touch controls, and bilingual in-game labels. The game
+        runs in an opaque-origin sandbox with external connections blocked.
+      </p>
+      <p>
+        Runtime dependencies: jQuery 1.9.1 and JavaScript Cookie 2.0.0-pre
+        (MIT), and Keypress 1.0.8 (Apache-2.0). The upstream JSONfn is not
+        bundled; the host uses a JSON-only serializer and restores game
+        instances through their constructors. See
+        <a href="MIT-DEPENDENCIES.txt">MIT dependency notices</a> and
+        <a href="APACHE-2.0.txt">Apache License 2.0</a>.
+      </p>
+      <p>
+        한국어 안내: Hextris는 Logan Engstrom, Garrett Finucane, Noah Moroze,
+        Michael Yang이 만든 게임이며 GPL-3.0-or-later로 배포합니다. 고정한 원본
+        소스, 의존성 고지와 데니 게임즈의 저장·터치 조작·일시정지 어댑터를 위
+        링크에서 확인할 수 있습니다. 광고·분석·외부 점수 전송 코드는 실행하지
+        않으며 게임은 외부 연결이 차단된 격리 프레임에서 동작합니다.
+      </p>
+    </main>
+  </body>
+</html>

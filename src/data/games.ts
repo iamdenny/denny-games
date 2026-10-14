@@ -231,6 +231,82 @@ export const games: Game[] = [
   },
 ];
 games.push({
+  id: "hextris",
+  category: "arcade",
+  controlStyle: "directional",
+  duration: "2–5",
+  color: "mint",
+  version: 1,
+  stages: 1,
+  tags: [
+    "hextris",
+    "hexagonal puzzle",
+    "falling blocks",
+    "육각형 퍼즐",
+    "블록 퍼즐",
+    "오픈소스",
+  ],
+  inputs: ["touch", "keyboard", "gamepad"],
+  license: "GPL-3.0-or-later",
+  author: "Logan Engstrom, Garrett Finucane, Noah Moroze and Michael Yang",
+  source:
+    "https://github.com/Hextris/hextris/tree/3f4847dc8fd7dab3d1c87e6324b9159d92fbd396",
+  added: "2026-10-14",
+  imported: true,
+  internalScore: true,
+  notice: "/licenses/hextris/",
+  artworkAlt: {
+    en: "Colorful falling blocks arranged around a central hexagon",
+    ko: "중앙 육각형을 둘러싼 알록달록한 블록",
+  },
+  artwork: "/art/hextris.svg",
+  screenshot: "/art/screenshots/hextris.png",
+  text: {
+    en: {
+      title: "Hextris",
+      subtitle: "Match blocks. Turn the whole board.",
+      description:
+        "A quick arcade puzzle where falling blocks wrap around a six-sided center. Match three or more colors, rotate the hexagon and keep the outer ring clear. The original touch controls work alongside large, labeled Denny Games buttons.",
+      rules: [
+        "Blocks fall toward the central hexagon. Rotate the board to choose where each block lands.",
+        "Make three or more blocks of the same color touch to clear them and earn points.",
+        "Keep every side of the outer ring below its limit. The round ends when blocks spill beyond it.",
+      ],
+      controls: [
+        "Touch: tap either side of the board or use the large Rotate buttons below it.",
+        "Keyboard: Left/Right rotates the hexagon; Down speeds up the falling block. P pauses.",
+        "Standard gamepad: D-pad or left stick rotates; Start pauses. Physical devices are unverified.",
+      ],
+      tips: [
+        "Rotate before the block reaches the center to line up a color match.",
+        "Clear a group of three or more to open space and build a combo.",
+        "Watch all six sides. The busiest side is the first one likely to overflow.",
+      ],
+    },
+    ko: {
+      title: "Hextris",
+      subtitle: "블록을 맞추고 육각형 판을 돌려요.",
+      description:
+        "중앙 육각형을 향해 떨어지는 블록을 돌려 맞추는 빠른 아케이드 퍼즐입니다. 같은 색 세 개 이상을 맞춰 지우고, 바깥쪽 선을 넘지 않도록 판을 돌려보세요. 원작 터치 조작과 함께 크고 누르기 쉬운 회전 버튼도 제공합니다.",
+      rules: [
+        "블록은 중앙 육각형을 향해 떨어집니다. 판을 돌려 블록이 놓일 방향을 고르세요.",
+        "같은 색 블록 세 개 이상을 맞닿게 하면 사라지고 점수를 얻습니다.",
+        "여섯 바깥 면의 블록을 한계 안에 두세요. 바깥 선을 넘으면 라운드가 끝납니다.",
+      ],
+      controls: [
+        "터치: 게임판 양쪽을 누르거나 아래의 큰 회전 버튼을 사용하세요.",
+        "키보드: 좌우 방향키로 회전하고 아래 방향키로 블록을 빠르게 내립니다. P로 멈춥니다.",
+        "표준 게임패드: 방향패드·왼쪽 스틱으로 회전하고 Start로 멈춥니다. 실제 기기는 미검증입니다.",
+      ],
+      tips: [
+        "블록이 중앙에 닿기 전에 돌려 같은 색을 맞춰보세요.",
+        "세 개 이상을 지워 공간을 만들고 연속 조합을 노려보세요.",
+        "여섯 면을 모두 살펴보세요. 가장 많이 쌓인 쪽부터 넘치기 쉽습니다.",
+      ],
+    },
+  },
+});
+games.push({
   id: "bounce-back",
   category: "action",
   controlStyle: "pointer",

@@ -19,6 +19,7 @@ The original research is retained locally outside this public repository. Produc
 - [Advertising provider setup release](releases/2026-10-11-advertising-setup.md)
 - [Partnership inquiry release](releases/2026-10-14-partnership-inquiry.md)
 - [Bounce Back open-source game release](releases/2026-10-14-bounce-back.md)
+- [Hextris open-source game release](releases/2026-10-14-hextris.md)
 
 - [다음 릴리스 PRD](product/NEXT-RELEASE.md)
 - [Play-style release evidence](releases/2026-10-11-playstyle-discovery.md)

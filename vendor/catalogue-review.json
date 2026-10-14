@@ -53,8 +53,8 @@
       "category": "퍼즐 아케이드",
       "researchTier": "B",
       "runtime": "W",
-      "status": "rights-or-integration-review",
-      "reason": "GPL 고지·배포 게임의 해당 소스 제공. MIT로 오기하지 않기. 별도 예외 감사 전",
+      "status": "integrated",
+      "reason": "GPL-3.0-or-later 전문과 대응 소스 제공. 원격 광고·분석·점수 전송 제거, 격리 프레임·로컬 저장·반응형 터치 버튼 적용",
       "source": "https://github.com/Hextris/hextris"
     },
     {

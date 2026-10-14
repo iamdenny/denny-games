@@ -82,11 +82,12 @@ function fitStage() {
 const stageObserver = new ResizeObserver(fitStage);
 stageObserver.observe(root);
 stageObserver.observe(root.querySelector(".player-top")!);
-function save() {
-  if (!game) return;
+function save(): boolean {
+  if (!game) return false;
   const ok = write(savedKey(), game.serialize());
-  write(`stage:${id}`, stage);
-  if (!ok) el("game-message").textContent = text.storageError;
+  const stageSaved = write(`stage:${id}`, stage);
+  if (!ok || !stageSaved) el("game-message").textContent = text.storageError;
+  return ok && stageSaved;
 }
 function best() {
   const value = read<unknown>(`best:${id}:${seed}:${stage}`, 0);
@@ -181,6 +182,7 @@ function mount(saved: boolean) {
       }
     },
     onPause: () => pause(),
+    onSave: save,
     onError: (message) => {
       state = "paused";
       game?.pause();
@@ -212,6 +214,7 @@ function mount(saved: boolean) {
 }
 async function restartRound() {
   if (!game || state === "ad") return;
+  if (id === "hextris") game.restart();
   pause();
   save();
   const consent =
@@ -246,7 +249,7 @@ async function restartRound() {
     select.disabled = false; // Never resume gameplay in an SDK callback.
   }
   track("restart", id);
-  mount(id === "bounce-back");
+  mount(id === "bounce-back" || id === "hextris");
   save();
   start.focus();
 }
@@ -444,12 +447,37 @@ document.addEventListener("visibilitychange", () => {
     void audio?.suspend();
   }
 });
-document.querySelectorAll("[data-locale-link]").forEach((link) =>
-  link.addEventListener("click", () => {
-    pause();
-    save();
-  }),
-);
+document
+  .querySelectorAll<HTMLAnchorElement>("[data-locale-link]")
+  .forEach((link) =>
+    link.addEventListener("click", (event) => {
+      if (
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      event.preventDefault();
+      pause();
+      save();
+      const destination = link.href;
+      const flush = game?.flush?.();
+      if (!flush) {
+        location.assign(destination);
+        return;
+      }
+      void flush.then((saved) => {
+        if (saved) location.assign(destination);
+        else
+          el("game-message").textContent =
+            locale === "ko"
+              ? "게임을 저장하지 못했어요. 브라우저 저장 공간을 확인하고 다시 시도해주세요."
+              : "The game could not be saved. Check browser storage and retry here.";
+      });
+    }),
+  );
 void initH5Ads();
 window.addEventListener("denny-consent-changed", () => {
   void initH5Ads();
@@ -476,6 +504,7 @@ try {
     "circuit-loop": () => import("../games/circuit"),
     "orbit-break": () => import("../games/orbit"),
     "2048": () => import("../games/merge"),
+    hextris: () => import("../games/hextris"),
     "bounce-back": () => import("../games/bounceback"),
     underrun: () => import("../games/underrun"),
     gomoku: () =>

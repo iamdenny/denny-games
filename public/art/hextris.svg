@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Hextris</title>
+  <desc id="desc">Colorful blocks orbit a deep blue hexagon.</desc>
+  <defs><radialGradient id="bg"><stop stop-color="#294454"/><stop offset="1" stop-color="#111d26"/></radialGradient></defs>
+  <rect width="640" height="420" rx="30" fill="url(#bg)"/>
+  <path d="m320 74 145 84v168l-145 84-145-84V158z" fill="#263d4a" stroke="#91b9bf" stroke-width="8"/>
+  <g stroke="#111d26" stroke-width="7"><path fill="#ed514a" d="m320 83 52 30v61h-52z"/><path fill="#f6c945" d="m377 183h69v60h-69z"/><path fill="#37b7c5" d="m320 254h67v60h-67z"/><path fill="#f08045" d="m235 183h67v60h-67z"/><path fill="#8b72d6" d="m263 120 49 28v60h-67v-60z"/><path fill="#67bd7d" d="m320 324 56-32 52 30-56 33z"/></g>
+  <circle cx="320" cy="219" r="36" fill="#14212b" stroke="#aac6c9" stroke-width="5"/>
+  <text x="320" y="400" fill="#eff6f5" font-family="system-ui,sans-serif" font-size="25" font-weight="700" text-anchor="middle">HEXTRIS</text>
+</svg>

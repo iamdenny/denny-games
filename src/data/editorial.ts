@@ -3,6 +3,13 @@ import type { Locale } from "../lib/types";
 // Editorial judgement from screen/rule review, not measured popularity.
 export const editorPicks = [
   {
+    id: "hextris",
+    reason: {
+      en: "A legible hexagonal board, quick color matches and touch rotation.",
+      ko: "한눈에 보이는 육각형 판, 빠른 색 맞추기와 터치 회전",
+    },
+  },
+  {
     id: "gomoku",
     reason: {
       en: "A clear 15×15 board, move preview and freestyle five-in-a-row.",
