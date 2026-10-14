@@ -15,6 +15,11 @@ read_when:
 - Add an opaque-origin `allow-scripts` frame with a no-network CSP, data-URL textures, parent message validation, pause/resume, and host sound controls.
 - Add bilingual instructions for keyboard/mouse, split-screen touch and the site's standard gamepad mapping. Physical phone/controller and Tesla behavior remain unverified.
 
+## Screenshots
+
+- Live WebGL game: ![UNDERRUN running in the Denny Games player](assets/underrun-gameplay.png)
+- Korean game detail page: ![Korean UNDERRUN detail page](assets/underrun-korean-detail.png)
+
 ## Verification
 
 - `npm run verify` passed: 64 unit tests, documentation checks, the 1,000-game scale fixture, the 902-page static build, artifact audit and SEO audit.
