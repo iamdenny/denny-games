@@ -308,6 +308,83 @@ games.push({
     },
   },
 });
+games.push({
+  id: "underrun",
+  category: "shooting",
+  controlStyle: "pointer",
+  duration: "5–10",
+  color: "mint",
+  version: 1,
+  stages: 1,
+  tags: [
+    "UNDERRUN",
+    "WebGL",
+    "3D shooter",
+    "twin-stick shooter",
+    "사이버펑크 슈팅",
+    "3D 슈팅",
+    "WebGL 게임",
+    "오픈소스",
+  ],
+  inputs: ["touch", "keyboard", "gamepad"],
+  license: "MIT + Sonant-X zlib",
+  author: "Dominic Szablewski",
+  source:
+    "https://github.com/phoboslab/underrun/tree/f933e29152d7fc1ca61d4b3eaa8b29551d7d7a62",
+  added: "2026-10-14",
+  imported: true,
+  internalScore: true,
+  notice: "/licenses/underrun/",
+  artworkAlt: {
+    en: "Neon green 3D facility corridor with a target reticle",
+    ko: "조준점이 있는 네온 초록빛 3D 시설 복도",
+  },
+  artwork: "/art/underrun.png",
+  text: {
+    en: {
+      title: "UNDERRUN",
+      subtitle: "Find the systems. Bring the facility back online.",
+      description:
+        "Explore a pixel-lit 3D facility in this compact WebGL twin-stick shooter. Find the offline systems, fight through three levels and bring them back online.",
+      rules: [
+        "Search each facility level for the blue offline systems and reboot them.",
+        "Keep moving, aim at nearby threats and fire before they reach you.",
+        "Restore all three systems to finish the run. Leaving the game restarts the current run.",
+      ],
+      controls: [
+        "Keyboard and mouse: WASD or arrow keys move; mouse aims; hold the left mouse button or Space to fire. P or Escape pauses.",
+        "Touch: hold and drag on the left half to move; hold and drag on the right half to aim and fire.",
+        "Standard gamepad: left stick moves, A fires, D-pad aims and Start pauses. Physical devices and Tesla are unverified.",
+      ],
+      tips: [
+        "Clear the blue systems to reveal the next route.",
+        "Keep distance from spiders and sentries while you aim.",
+        "Later levels spawn more spiders; pause whenever you need.",
+      ],
+    },
+    ko: {
+      title: "UNDERRUN",
+      subtitle: "시스템을 찾고 시설을 다시 가동하세요.",
+      description:
+        "픽셀 조명이 비추는 3D 시설을 탐험하는 WebGL 트윈스틱 슈팅 게임입니다. 오프라인 시스템을 찾고 세 구역의 적을 상대해 시설을 복구하세요.",
+      rules: [
+        "각 시설 구역에서 파란색 오프라인 시스템을 찾아 다시 가동하세요.",
+        "계속 움직이며 가까운 위협을 조준하고 적이 다가오기 전에 발사하세요.",
+        "세 시스템을 모두 복구하면 한 판이 끝납니다. 게임을 나가면 현재 진행은 다시 시작합니다.",
+      ],
+      controls: [
+        "키보드·마우스: WASD 또는 방향키로 이동, 마우스로 조준, 왼쪽 버튼 또는 Space를 누르고 발사. P 또는 Escape로 정지합니다.",
+        "터치: 화면 왼쪽을 누르고 끌어 이동하고, 오른쪽을 누르고 끌어 조준·발사합니다.",
+        "표준 게임패드: 왼쪽 스틱 이동, A 발사, 방향패드 조준, Start 정지. 실제 기기와 Tesla는 미검증입니다.",
+      ],
+      tips: [
+        "파란 시스템을 모두 복구하면 다음 경로가 열립니다.",
+        "조준하는 동안 거미와 센트리에게 거리를 두세요.",
+        "후반 구역에는 거미가 더 많이 나타납니다. 필요할 때 멈추세요.",
+      ],
+    },
+  },
+});
 games.push(
   ...crisp.map((item): Game => ({
     id: item.id,

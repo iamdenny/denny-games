@@ -59,6 +59,7 @@ describe("play-style discovery", () => {
       "circuit-loop",
       "2048",
       "bounce-back",
+      "underrun",
       "gomoku",
       "reversi",
       "four-in-a-row",

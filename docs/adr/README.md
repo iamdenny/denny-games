@@ -32,3 +32,4 @@
 - [0022 — Visible local-play choice](0022-visible-local-play-choice.md) — Accepted.
 - [0023 — Public partnership inquiries](0023-public-partnership-inquiries.md) — Accepted.
 - [0024 — Bounce Back GPL import and isolated runtime](0024-bounce-back-gpl-adapter.md) — Accepted.
+- [0025 — UNDERRUN WebGL import and isolated runtime](0025-underrun-webgl-adapter.md) — Accepted.
