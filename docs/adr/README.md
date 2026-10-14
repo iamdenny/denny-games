@@ -30,3 +30,4 @@
 - [0021 — Maximize every game stage](0021-maximized-all-game-stages.md) — Accepted.
 
 - [0022 — Visible local-play choice](0022-visible-local-play-choice.md) — Accepted.
+- [0023 — Public partnership inquiries](0023-public-partnership-inquiries.md) — Accepted.

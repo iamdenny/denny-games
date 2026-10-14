@@ -300,6 +300,8 @@ Auto ads는 게임 실행 경로에 적용하지 않는다. 일반 콘텐츠에�
 
 Coupang affiliate cards remain clearly labeled static links on home and game detail pages. To match purchase intent, the Korean gamepad diagnostic and controller-games / controller-troubleshooting guides may also show the same disclosed gamepad search link; English controller routes do not because the provider link targets a Korean shopping service. No affiliate card appears during play, in search or library results, or as a claimed compatibility recommendation.
 
+The bilingual contact page may accept sponsorship and affiliate proposals through a public GitHub issue form. The page and form must say that submissions and replies are public, must not request confidential details, and must not claim audience size, reach or placement guarantees. A public business contact is optional and only shared at the submitter's discretion.
+
 ### 7.3 H5 광고 흐름
 
 기본안은 **첫 플레이 전 강제 광고 없음 → 최소 두 판을 마친 뒤 다음 라운드 진입 시 광고 기회 → 앱 측 최소 3분 간격**이다. 이는 자체 빈도 상한안이며, 실제 표시 여부·추가 제한은 광고 공급자의 API와 정책을 따른다. 사용자가 단순히 일시정지할 때마다 광고를 호출하지 않는다.
