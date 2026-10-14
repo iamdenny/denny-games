@@ -404,6 +404,7 @@ const disconnect = connectGamepad(
   (value) => {
     if (state === "running") game?.inputState?.(value);
   },
+  id === "underrun" ? "dpad-aim-stick-move" : "standard",
 );
 const keyboard = (event: KeyboardEvent) => {
   if ((event.target as HTMLElement).closest("input,select,textarea,summary"))
@@ -476,6 +477,7 @@ try {
     "orbit-break": () => import("../games/orbit"),
     "2048": () => import("../games/merge"),
     "bounce-back": () => import("../games/bounceback"),
+    underrun: () => import("../games/underrun"),
     gomoku: () =>
       import("../games/board").then((m) => ({
         mount: m.createMount("gomoku"),

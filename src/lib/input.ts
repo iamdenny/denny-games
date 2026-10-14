@@ -54,6 +54,7 @@ export function connectGamepad(
   onPause: () => void,
   onDisconnect: () => void,
   onState?: (state: { x: number; y: number; pressed: boolean }) => void,
+  mapping: "standard" | "dpad-aim-stick-move" = "standard",
 ): () => void {
   let frame = 0,
     lastDirection = "",
@@ -81,31 +82,47 @@ export function connectGamepad(
       if (pressed.has(0) && !before.has(0)) onAction("confirm");
       const x = pad.axes[0] ?? 0,
         y = pad.axes[1] ?? 0;
+      const dpadX = pressed.has(14) ? -1 : pressed.has(15) ? 1 : 0;
+      const dpadY = pressed.has(12) ? -1 : pressed.has(13) ? 1 : 0;
+      const stickX = Math.abs(x) > 0.3 ? x : 0;
+      const stickY = Math.abs(y) > 0.3 ? y : 0;
       direction =
-        pressed.has(14) || x < -0.3
-          ? "left"
-          : pressed.has(15) || x > 0.3
-            ? "right"
-            : pressed.has(12) || y < -0.3
-              ? "up"
-              : pressed.has(13) || y > 0.3
-                ? "down"
-                : "";
+        mapping === "standard"
+          ? pressed.has(14) || x < -0.3
+            ? "left"
+            : pressed.has(15) || x > 0.3
+              ? "right"
+              : pressed.has(12) || y < -0.3
+                ? "up"
+                : pressed.has(13) || y > 0.3
+                  ? "down"
+                  : ""
+          : dpadX < 0
+            ? "left"
+            : dpadX > 0
+              ? "right"
+              : dpadY < 0
+                ? "up"
+                : dpadY > 0
+                  ? "down"
+                  : "";
       continuous = {
-        x: pressed.has(14)
-          ? -1
-          : pressed.has(15)
-            ? 1
-            : Math.abs(x) > 0.3
-              ? x
-              : 0,
-        y: pressed.has(12)
-          ? -1
-          : pressed.has(13)
-            ? 1
-            : Math.abs(y) > 0.3
-              ? y
-              : 0,
+        x:
+          mapping === "dpad-aim-stick-move"
+            ? stickX
+            : pressed.has(14)
+              ? -1
+              : pressed.has(15)
+                ? 1
+                : stickX,
+        y:
+          mapping === "dpad-aim-stick-move"
+            ? stickY
+            : pressed.has(12)
+              ? -1
+              : pressed.has(13)
+                ? 1
+                : stickY,
         pressed: pressed.has(0),
       };
       previous.set(pad.index, pressed);

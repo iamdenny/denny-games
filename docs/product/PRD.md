@@ -34,6 +34,10 @@ See [Classic board games PRD](CLASSIC-BOARD-GAMES.md) for five original games, t
 
 Add Bounce Back as the 200th playable title and a highlighted action game. Keep the GPL-2.0-or-later source, tile art, screenshot and complete license; keep the upstream debug console out of the served runtime. Run the game in a separate opaque-origin sandbox with a no-network CSP, a pinned message channel, lifecycle pause/resume, bilingual controls, touch movement/aiming, standard gamepad mapping and validated local progress. Automated browser evidence does not establish physical phone, controller or Tesla support. See [ADR 0024](../adr/0024-bounce-back-gpl-adapter.md) and [release record](../releases/2026-10-14-bounce-back.md).
 
+## Open-source WebGL shooter import — 2026-10-14
+
+Add UNDERRUN as the 201st playable title in shooting. Pin and hash the complete upstream repository snapshot; retain its MIT license, the separate modified Sonant-X zlib notice, and music attribution. Serve the WebGL game in an allow-scripts-only opaque-origin iframe with no network, a validated parent channel, pause/resume and mute/volume control. Map touch movement/aim/fire and standard gamepad left-stick movement, A fire, D-pad aim, and Start pause. The three in-game levels remain a single shell stage; leaving the frame restarts the run. Chromium automation is not physical phone, controller, Tesla, full-campaign, or revenue evidence. See [ADR 0025](../adr/0025-underrun-webgl-adapter.md) and [release record](../releases/2026-10-14-underrun-webgl.md).
+
 ## Next development release
 
 See [다음 릴리스 PRD](NEXT-RELEASE.md) for play-style collections, combined search filters, local device checks, SEO/GEO acceptance and the explicit remaining game-supply targets.

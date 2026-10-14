@@ -2,8 +2,8 @@
   "reviewedAt": "2026-10-11",
   "scope": "All 294 entries in the existing commercial-redistribution research; not every open game worldwide.",
   "counts": {
-    "integrated": 192,
-    "rights-or-integration-review": 28,
+    "integrated": 194,
+    "rights-or-integration-review": 26,
     "port-required": 74
   },
   "entries": [
@@ -103,8 +103,8 @@
       "category": "3D 액션",
       "researchTier": "B",
       "runtime": "W",
-      "status": "rights-or-integration-review",
-      "reason": "작은 WebGL 액션. 터치 조작·실차 GPU 검증 필요. Sonant-X는 zlib 별도",
+      "status": "integrated",
+      "reason": "WebGL 프레임·터치·표준 패드 어댑터 통합. Sonant-X zlib 고지 보존. 실기기와 Tesla는 미검증",
       "source": "https://github.com/phoboslab/underrun"
     },
     {
