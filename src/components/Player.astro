@@ -13,7 +13,13 @@ const text = t(locale);
 <section
   id="player"
   data-immersive="true"
-  data-controls-layout="bottom"
+  data-controls-layout={
+    game.id === "crisp-chain-drift" ||
+    game.id === "crisp-comet-slash" ||
+    game.id === "crisp-volt-keeper"
+      ? "side"
+      : "bottom"
+  }
   data-stage-ratio={
     game.id === "orbit-break"
       ? 640 / 680

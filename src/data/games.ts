@@ -1,5 +1,6 @@
 import type { Locale } from "../lib/types";
-import crisp from "./crisp.json";
+import crisp from "./crisp.json" with { type: "json" };
+import { crispCycleGames } from "./crisp-cycles";
 import { boardGames } from "./board-games";
 import { editorialOrder } from "./editorial";
 import type { ControlStyle } from "./collections";
@@ -547,8 +548,9 @@ games.push(
   })),
 );
 games.push(...boardGames);
+games.push(...crispCycleGames);
 // Scale fixtures are local/CI-only and never part of a normal production build.
-if (import.meta.env.SCALE_TEST === "1") {
+if (import.meta.env?.SCALE_TEST === "1") {
   const originals = [...games];
   games.length = 0;
   for (let i = 0; i < 1000; i++) {

@@ -12,8 +12,9 @@ test("catalogue, saved games, Korean search and daily routes", async ({
     page.locator('[data-library="favorites"] [data-game-card]:visible'),
   ).toHaveCount(1);
   await page.goto("/ko/search/?q=회로");
-  await expect(page.locator("#search-results li")).toHaveCount(1);
+  await expect(page.locator("#search-results li")).toHaveCount(2);
   await expect(page.locator("#search-results")).toContainText("서킷 루프");
+  await expect(page.locator("#search-results")).toContainText("볼트 키퍼");
   await page.locator("#search-query").fill("<script>");
   await expect(page.locator("#search-empty")).toBeVisible();
   await page.goto("/en/daily/");

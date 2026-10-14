@@ -21,7 +21,7 @@ Admit 191 of the 194 deduplicated Crisp sources after source/asset inventory. Ke
 
 Load only the selected game inside `sandbox="allow-scripts"`, without same-origin privileges. Its CSP denies connections, forms and foreign scripts. The bridge accepts only its parent window, exact parent origin and random channel; the host pins the frame window, opaque origin and channel. A frame-local memory store supports original high-score calls without access to site storage. Normal best scores stay in the shell. No seed/daily or mid-round restore claim is made for imported games.
 
-Chain Drift, Comet Slash and Volt Keeper use independent arcade cycles and extra image/audio dependencies. They remain outside this adapter. Every research candidate has a disposition in `vendor/catalogue-review.json`; pending entries are not fake playable cards. Non-web games require a separate lawful port, runtime and asset review.
+Chain Drift, Comet Slash and Volt Keeper use independent arcade cycles and extra image/audio dependencies, so they remain outside this shared adapter. They were admitted in separate restricted frames with localized touch controls by [ADR 0027](0027-crisp-cycle-owned-games.md). Every research candidate has a disposition in `vendor/catalogue-review.json`; pending entries are not fake playable cards. Non-web games require a separate lawful port, runtime and asset review.
 
 ## Consequences
 

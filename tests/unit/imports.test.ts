@@ -4,11 +4,12 @@ import { createHash } from "node:crypto";
 import { games, categories } from "../../src/data/games";
 import crisp from "../../src/data/crisp.json";
 import provenance from "../../vendor/crisp/provenance.json";
+import cycleProvenance from "../../vendor/crisp-cycles/provenance.json";
 import hextrisProvenance from "../../vendor/hextris/provenance.json";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(202);
+    expect(games).toHaveLength(205);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)
@@ -48,6 +49,47 @@ describe("import admission and catalogue", () => {
       "/licenses/hextris/",
     );
   });
+  it("pins and locally builds the three independent Crisp arcade cycles", () => {
+    expect(cycleProvenance.source_commit).toBe(
+      "8c71950c93008235a7e63401aba66cbb67d82421",
+    );
+    expect(cycleProvenance.runtime_version).toBe("1.5.0");
+    expect(cycleProvenance.games).toHaveLength(3);
+    for (const game of cycleProvenance.games) {
+      expect(games.find((entry) => entry.id === game.id)?.internalScore).toBe(
+        true,
+      );
+      expect(game.source_url).toContain(cycleProvenance.source_commit);
+      expect(
+        existsSync(`public/vendor/crisp-cycles/${game.slug}/index.html`),
+      ).toBe(true);
+      expect(
+        existsSync(`public/vendor/crisp-cycles/${game.slug}/assets.js`),
+      ).toBe(true);
+      for (const file of [...game.runtime_files, ...game.assets]) {
+        expect(
+          createHash("sha256").update(readFileSync(file.source)).digest("hex"),
+        ).toBe(file.sha256);
+        expect(
+          existsSync(
+            `public/vendor/crisp-cycles/${game.slug}/${file.source.split(`/upstream/${game.slug}/`)[1]}`,
+          ),
+        ).toBe(true);
+      }
+      const frame = readFileSync(
+        `public/vendor/crisp-cycles/${game.slug}/index.html`,
+        "utf8",
+      );
+      expect(frame).toContain("default-src 'none'");
+      expect(frame).toContain("connect-src 'none'");
+      expect(frame).toContain(
+        `https://games.iamdenny.com/en/games/${game.id}/`,
+      );
+    }
+    expect(
+      readFileSync("public/licenses/crisp/crisp-game-lib-12-games.txt", "utf8"),
+    ).toMatch(/Permission is hereby granted/);
+  });
   it("retains original MIT notices and marks all research dispositions", () => {
     for (const file of [
       "runtime",
@@ -67,6 +109,6 @@ describe("import admission and catalogue", () => {
       review.entries.filter(
         (g: { status: string }) => g.status === "integrated",
       ),
-    ).toHaveLength(195);
+    ).toHaveLength(198);
   });
 });

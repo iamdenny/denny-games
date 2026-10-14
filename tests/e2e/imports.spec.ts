@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import crisp from "../../src/data/crisp.json" with { type: "json" };
+import { games } from "../../src/data/games";
 for (const item of crisp)
   test(`${item.id}: isolated mobile load, input and pause`, async ({
     page,
@@ -112,10 +113,10 @@ test("category sort spans pages, imported search and lazy library", async ({
   await expect(page.locator("[data-game-card]")).toHaveCount(24);
   await page.locator("[data-sort]").selectOption("name");
   await expect(page).toHaveURL(/sort=name/);
-  const sorted = [
-    ...crisp.filter((game) => game.category === "action"),
-    { id: "bounce-back", title: "Bounce Back" },
-  ].sort((a, b) => a.title.localeCompare(b.title, "en"));
+  const sorted = games
+    .filter((game) => game.category === "action")
+    .map((game) => ({ id: game.id, title: game.text.en.title }))
+    .sort((a, b) => a.title.localeCompare(b.title, "en"));
   await expect(page.locator("[data-game-card]").first()).toHaveAttribute(
     "data-game-card",
     sorted[0]!.id,

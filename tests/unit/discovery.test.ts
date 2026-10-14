@@ -66,6 +66,9 @@ describe("play-style discovery", () => {
       "four-in-a-row",
       "checkers",
       "dots-and-boxes",
+      "crisp-chain-drift",
+      "crisp-comet-slash",
+      "crisp-volt-keeper",
     ]);
     expect(
       search(

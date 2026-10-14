@@ -1,0 +1,122 @@
+{
+  "source_repo": "https://github.com/abagames/crisp-game-lib-12-games",
+  "source_commit": "8c71950c93008235a7e63401aba66cbb67d82421",
+  "license": "MIT",
+  "license_path": "public/licenses/crisp/crisp-game-lib-12-games.txt",
+  "runtime_repo": "https://github.com/abagames/crisp-game-lib",
+  "runtime_version": "1.5.0",
+  "runtime_commit": "4df7621bdacd97e6f66ce481902d2188d02b9930",
+  "games": [
+    {
+      "id": "crisp-chain-drift",
+      "slug": "chain-drift",
+      "title": "CHAIN DRIFT",
+      "source_url": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/chain-drift/main.js",
+      "play_url": "https://abagames.github.io/crisp-game-lib-12-games/?chain-drift",
+      "runtime_files": [
+        {
+          "source": "vendor/crisp-cycles/upstream/chain-drift/main.js",
+          "sha256": "1460a569b9cc4e831192d248df546518f538d2111380fc0bc5b53d5e240b8d1a"
+        }
+      ],
+      "assets": [
+        {
+          "source": "vendor/crisp-cycles/upstream/chain-drift/assets/sprites/chain-drift-logo.png",
+          "sha256": "0d8880a9ef14dc02d9641ff22b9e30c11ff59ed5c6d85ad811d4d8d8fe1154d3"
+        }
+      ],
+      "rights_review": "Pinned ABA Games MIT source and logo. Runtime uses the pinned local crisp-game-lib bundle and local synthesized Web Audio; no remote code, image, audio, font, or level requests."
+    },
+    {
+      "id": "crisp-comet-slash",
+      "slug": "comet-slash",
+      "title": "COMET SLASH",
+      "source_url": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/comet-slash/main.js",
+      "play_url": "https://abagames.github.io/crisp-game-lib-12-games/?comet-slash",
+      "runtime_files": [
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/main.js",
+          "sha256": "82fc0610f3a05e03775a5af6401c5c80f6e836bba03e3dfbcfc816271e6c4e5e"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/audio.js",
+          "sha256": "6f0b5dafcd0858d8c37dc64d95e5e52f433edac77a30c95e9c63a694d3d8039b"
+        }
+      ],
+      "assets": [
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/comet-normal.png",
+          "sha256": "bd051d8fd57d386979b326b6c44e27d780be481beba40710ca59bda49843ef14"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/comet-tracker.png",
+          "sha256": "cee63fed3a1a3db3dd2e62302de2be13467ae81f2bb635be5287980905ffff30"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/extra-life.png",
+          "sha256": "c379d4bd180a711ebedf61845e6bd3faf9eed2b3be8dba548578d22de7842f3b"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/player-down.png",
+          "sha256": "54308c7a03ac9799b85d5d17bb56384b08addb6e388961388ffe08e0482c50c2"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/player-left.png",
+          "sha256": "9514804bbb0f9950712cd28a301e2fa2a0e7556c8b27b7b826600bf7af1d09cf"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/player-right.png",
+          "sha256": "7bb81314d4008044dfe4b28c026289bc425fd15fe9cf68df70eb693a646b19f2"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/player-up.png",
+          "sha256": "be86390311c96bc8fdf70d6de2ed36dda796eb1f77609a75aad9c4fbb24d6003"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/rank-medal.png",
+          "sha256": "65104b72432a5afac73a931d486659f24476647c96fb221a513193133cbfecd1"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/sprite-sheet.png",
+          "sha256": "3533664537575f484e80d1e5d2590c5fc15e53a233d7b87a0113692cd7bf3c91"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/title-emblem.png",
+          "sha256": "6863825ca97832ff3f4c8882580b097e12bb0ad4e79b430693553fc9f74d56c3"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/comet-slash/assets/sprites/wave-clear.png",
+          "sha256": "73e09c61b597eba621f43af9c89770932850b848d38ddbaa6fd6ad6fc01bebf7"
+        }
+      ],
+      "rights_review": "Pinned ABA Games MIT source and its generated pixel-art sources. The game embeds the reviewed pixel sprites as code and synthesizes audio locally; runtime requests no remote assets."
+    },
+    {
+      "id": "crisp-volt-keeper",
+      "slug": "volt-keeper",
+      "title": "VOLT KEEPER",
+      "source_url": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/volt-keeper/main.js",
+      "play_url": "https://abagames.github.io/crisp-game-lib-12-games/?volt-keeper",
+      "runtime_files": [
+        {
+          "source": "vendor/crisp-cycles/upstream/volt-keeper/main.js",
+          "sha256": "15c36d8850dd33a4036658cf76bb4b7f7426b55abf3c3d0fabe54453ebe31214"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/volt-keeper/audio/vk-dsp.js",
+          "sha256": "0b9d47a93e875e38533c6595faee78f72a1af2e3c3a7d0deea26bd32fb86907c"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/volt-keeper/audio/vk-kit.js",
+          "sha256": "09d50effddf47f4845fb990ba0972d3ebf6c1b8007cf75b486248d2a02a62028"
+        },
+        {
+          "source": "vendor/crisp-cycles/upstream/volt-keeper/audio/vk-bus.js",
+          "sha256": "de799d3b06277d5dd9a9d02d5429c6c3e1686a4d4905f53b01ad398961b299dc"
+        }
+      ],
+      "assets": [],
+      "rights_review": "Pinned ABA Games MIT source and audio modules. The game draws its graphics procedurally, uses locally synthesized Web Audio, and requests no remote assets."
+    }
+  ]
+}
