@@ -27,6 +27,14 @@ test("verification and static affiliate cards make no provider requests before a
   expect(await sellers.text()).toBe(
     "google.com, pub-3539037484563455, DIRECT, f08c47fec0942fa0\n",
   );
+  for (const path of [
+    "/ko/gamepad-test/",
+    "/ko/controller-games/",
+    "/ko/guides/controller-not-detected/",
+  ]) {
+    await page.goto(path);
+    await expect(page.locator('[data-affiliate="coupang"]')).toHaveCount(1);
+  }
   expect(requests).toEqual([]);
 });
 
@@ -35,7 +43,14 @@ test("affiliate cards fit narrow screens and stay outside gameplay", async ({
 }) => {
   for (const width of [320, 390, 430]) {
     await page.setViewportSize({ width, height: 844 });
-    for (const path of ["/ko/", "/en/", "/ko/games/2048/"]) {
+    for (const path of [
+      "/ko/",
+      "/en/",
+      "/ko/games/2048/",
+      "/ko/gamepad-test/",
+      "/ko/controller-games/",
+      "/ko/guides/controller-not-detected/",
+    ]) {
       await page.goto(path);
       const card = page.locator('[data-affiliate="coupang"]');
       await card.scrollIntoViewIfNeeded();
@@ -51,7 +66,34 @@ test("affiliate cards fit narrow screens and stay outside gameplay", async ({
     "/ko/play/2048/",
     "/ko/search/",
     "/ko/library/",
+    "/en/gamepad-test/",
+    "/en/controller-games/",
+    "/en/guides/controller-not-detected/",
+  ]) {
+    await page.goto(path);
+    await expect(page.locator('[data-affiliate="coupang"]')).toHaveCount(0);
+  }
+});
+
+test("affiliate links support Korean controller-intent pages only", async ({
+  page,
+}) => {
+  for (const path of [
     "/ko/gamepad-test/",
+    "/ko/controller-games/",
+    "/ko/guides/controller-not-detected/",
+  ]) {
+    await page.goto(path);
+    const card = page.locator('[data-affiliate="coupang"]');
+    await expect(card).toHaveCount(1);
+    await expect(card.locator("small")).toContainText("쿠팡 파트너스");
+    await expect(card.locator(".affiliate-disclosure")).toBeVisible();
+    await expect(card.locator("a")).toHaveAttribute("rel", /sponsored/);
+  }
+  for (const path of [
+    "/en/gamepad-test/",
+    "/en/controller-games/",
+    "/en/guides/controller-not-detected/",
   ]) {
     await page.goto(path);
     await expect(page.locator('[data-affiliate="coupang"]')).toHaveCount(0);

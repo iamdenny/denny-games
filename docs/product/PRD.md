@@ -298,6 +298,8 @@ H5 Games Ads는 신청형 상품이며 승인된 AdSense 계정이 필요하다.
 
 Auto ads는 게임 실행 경로에 적용하지 않는다. 일반 콘텐츠에서도 초기에는 자동 전면·앵커 광고 대신 수동 슬롯으로 시작한다. 페이지 제외는 URL 경로 기준으로 설정하며 쿼리나 해시만으로 실행 모드를 구분하지 않는다. [Auto ads 페이지 제외](https://support.google.com/adsense/answer/9262311?hl=en)
 
+Coupang affiliate cards remain clearly labeled static links on home and game detail pages. To match purchase intent, the Korean gamepad diagnostic and controller-games / controller-troubleshooting guides may also show the same disclosed gamepad search link; English controller routes do not because the provider link targets a Korean shopping service. No affiliate card appears during play, in search or library results, or as a claimed compatibility recommendation.
+
 ### 7.3 H5 광고 흐름
 
 기본안은 **첫 플레이 전 강제 광고 없음 → 최소 두 판을 마친 뒤 다음 라운드 진입 시 광고 기회 → 앱 측 최소 3분 간격**이다. 이는 자체 빈도 상한안이며, 실제 표시 여부·추가 제한은 광고 공급자의 API와 정책을 따른다. 사용자가 단순히 일시정지할 때마다 광고를 호출하지 않는다.

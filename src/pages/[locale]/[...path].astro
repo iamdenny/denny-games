@@ -873,6 +873,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       <button id="diagnostic-sound" type="button">
         {label("Test sound", "소리 시험")}
       </button>
+      {locale === "ko" && <AffiliateCard locale={locale} />}
     </div>
   )}
   {kind === "guides" && path === "guides" && (
@@ -948,6 +949,10 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </p>
       )}
       {path.startsWith("guides/") && <AdSlot id="guide-body" locale={locale} />}
+      {locale === "ko" &&
+        ["controller-games", "guides/controller-not-detected"].includes(
+          path,
+        ) && <AffiliateCard locale={locale} />}
     </article>
   )}
   {kind === "licenses" && (
