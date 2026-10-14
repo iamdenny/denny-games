@@ -481,6 +481,12 @@ export const articles: Record<string, Record<Locale, Article>> = {
           ],
         },
         {
+          heading: "Can two people play on one screen?",
+          paragraphs: [
+            "Five classic board games—Gomoku, Reversi, Four in a Row, Checkers and Dots and Boxes—support local two-player mode, with friends taking turns on one device. They do not have online matchmaking or phone-as-controller play. The mode is tested in supported browsers, but not in a Tesla browser, so vehicle compatibility remains unverified. Only try it while parked.",
+          ],
+        },
+        {
           heading: "Does a Tesla game controller work in the browser?",
           paragraphs: [
             "Standard gamepad mappings are implemented for supported browsers, but no physical Tesla-browser controller result is recorded. A controller that works with Tesla Arcade may still behave differently in the browser. The input check page reports what the current browser exposes; it is not a Tesla compatibility test.",
@@ -512,6 +518,11 @@ export const articles: Record<string, Record<Locale, Article>> = {
           label:
             "Browse the full browser-game catalog (Tesla support unverified)",
           href: "/en/all/",
+        },
+        {
+          label:
+            "Explore five same-device two-player board games (Tesla unverified)",
+          href: "/en/collections/classic-board/",
         },
         { label: "Check browser gamepad input", href: "/en/gamepad-test/" },
         {
@@ -551,6 +562,12 @@ export const articles: Record<string, Record<Locale, Article>> = {
           ],
         },
         {
+          heading: "두 명이 한 화면에서 함께 할 수 있나요?",
+          paragraphs: [
+            "오목·리버시·사목·체커·점 잇기 다섯 클래식 보드게임은 한 기기에서 친구와 번갈아 두는 로컬 2인 모드를 지원합니다. 온라인 매칭이나 휴대폰을 컨트롤러로 쓰는 기능은 없습니다. 지원 브라우저에서 모드를 시험했지만 Tesla 차량 브라우저 시험 결과는 없어 차량 호환성은 미검증입니다. 시도한다면 주차 상태에서만 하세요.",
+          ],
+        },
+        {
           heading: "테슬라 게임패드는 브라우저에서 작동하나요?",
           paragraphs: [
             "지원 브라우저에 표준 게임패드 매핑을 구현했지만, 테슬라 브라우저와 실물 패드를 연결한 결과는 없습니다. 내장 Arcade에서 작동하는 패드도 브라우저에서는 다르게 동작할 수 있습니다. 입력 진단은 현재 브라우저가 보여주는 입력을 확인할 뿐, 테슬라 호환성을 인증하지 않습니다.",
@@ -578,6 +595,10 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           label: "전체 브라우저 게임 보기 (테슬라 지원 미검증)",
           href: "/ko/all/",
+        },
+        {
+          label: "같은 기기 2인 보드게임 다섯 개 보기 (테슬라 미검증)",
+          href: "/ko/collections/classic-board/",
         },
         { label: "브라우저 게임패드 입력 확인", href: "/ko/gamepad-test/" },
         { label: "기기 점검 방법 읽기", href: "/ko/guides/test-your-device/" },
