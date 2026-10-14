@@ -133,8 +133,8 @@
       "category": "액션 어드벤처",
       "researchTier": "B",
       "runtime": "W",
-      "status": "rights-or-integration-review",
-      "reason": "MIT가 아니라 GPLv2 라이선스 파일. 부메랑 로그라이트. 절차 생성 음악 / 저장소 예외 확인",
+      "status": "integrated",
+      "reason": "GPL-2.0-or-later와 원본 코드·타일·스크린샷을 고정·보존하고, eval 디버그 콘솔을 제외한 격리 런타임과 터치·패드 입력을 자동 검사. 실물 기기는 별도 미검증",
       "source": "https://github.com/KilledByAPixel/BounceBack"
     },
     {

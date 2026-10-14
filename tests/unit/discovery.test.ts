@@ -58,6 +58,7 @@ describe("play-style discovery", () => {
     expect(long.map((game) => game.id)).toEqual([
       "circuit-loop",
       "2048",
+      "bounce-back",
       "gomoku",
       "reversi",
       "four-in-a-row",

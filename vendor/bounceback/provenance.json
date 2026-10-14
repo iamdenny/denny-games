@@ -1,0 +1,26 @@
+{
+  "title": "Bounce Back",
+  "author": "Frank Force",
+  "license": "GPL-2.0-or-later",
+  "source_repository": "https://github.com/KilledByAPixel/BounceBack",
+  "source_commit": "395fd046338e6c5d5840d10e7fbd74132f90b8f6",
+  "license_scope": "The upstream repository LICENSE covers the source, tile sprite and screenshot retained here.",
+  "upstream_files": {
+    "LICENSE": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+    "README.md": "056f0a1e132461678169f544077ec12392bc55643a81bb03dfa1b5df6bc00847",
+    "game.js": "e526cf4f271de784219f9b0330e25480a25f87c4c1fda8001b14663c3c82de30",
+    "gameEngine.js": "16f88db6b8b336e321b680cf1546b47d9226171bed10f558c13d51e4fc6fda23",
+    "gameEngineDebug.js": "db98ac691b63d594027448b24290a121163770fc1c8ee29b8252b94ad8c96bf5",
+    "index.html": "843869acfe32eefa81d8b1ca83c0607dce3c8d64edbc6b67249df825ff3855dd",
+    "screenshot.png": "4bfeb0f94073ae5b2881b6aad55093f77b152ef198147605799d0e8331ca1b1a",
+    "tiles.png": "38c2da38620b70bc313e9019bb26321a2a57f3fb6e453a62359050c96cbb8620"
+  },
+  "host_adaptations": [
+    "Runs in a sandboxed opaque-origin iframe with a restrictive CSP; same-origin, network, form, and parent-page access are unavailable.",
+    "Excludes gameEngineDebug.js from execution because it contains an eval-based debug console.",
+    "Adds an explicit animation-loop pause/resume hook and a validated parent message channel.",
+    "Adds touch movement and aiming, standard gamepad movement/aiming, sound controls, and a bounded namespaced save bridge.",
+    "Preserves the pinned upstream files byte-for-byte under upstream/; scripts/build-bounceback.mjs verifies hashes before producing runtime derivatives."
+  ],
+  "device_evidence": "Chromium automation is recorded separately; physical phones, controllers and Tesla browsers remain unverified."
+}

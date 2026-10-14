@@ -38,6 +38,13 @@ export const editorPicks = [
     },
   },
   {
+    id: "bounce-back",
+    reason: {
+      en: "Aim a boomerang, dodge enemies and shop between generated rooms.",
+      ko: "절차 생성 방에서 부메랑 조준·회피·상점 강화를 즐기는 액션 로그라이트",
+    },
+  },
+  {
     id: "orbit-break",
     reason: {
       en: "Readable rebounds and twelve colourful brick layouts.",

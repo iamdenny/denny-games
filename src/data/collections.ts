@@ -107,6 +107,7 @@ export const collections: GameCollection[] = [
       "crisp-pfit",
       "crisp-ringblast",
       "crisp-vhwalls",
+      "bounce-back",
     ],
     text: {
       en: {
@@ -117,7 +118,7 @@ export const collections: GameCollection[] = [
           "Selected for position-based interaction: tile selection, pointer aiming or dragging. Circuit Loop and Orbit Break have dedicated controls; imported games use their original pointer rules.",
         question: "Do I need a mouse?",
         answer:
-          "Mouse or touch can specify a position. The standard gamepad mapping moves a virtual pointer in imported games, which can feel different from direct touch. Phone, controller and Tesla compatibility still needs physical-device checks.",
+          "Mouse or touch can specify a position. Bounce Back uses the left half to move and the right half to aim and throw. Its standard gamepad mapping uses one stick for movement and aiming. Phone, controller and Tesla compatibility still needs physical-device checks.",
       },
       ko: {
         title: "터치·마우스로 위치를 조작하는 웹게임",
@@ -127,7 +128,7 @@ export const collections: GameCollection[] = [
           "타일 선택·포인터 조준·드래그 등 위치 조작을 기준으로 골랐습니다. 서킷 루프와 오빗 브레이크는 전용 조작을, 가져온 게임은 원본의 포인터 규칙을 사용합니다.",
         question: "마우스가 꼭 필요한가요?",
         answer:
-          "마우스나 터치로 위치를 지정할 수 있습니다. 가져온 게임의 표준 패드 매핑은 가상 포인터를 움직여 직접 터치와 느낌이 다를 수 있습니다. 휴대폰·패드·테슬라의 실제 호환성은 기기 검증이 필요합니다.",
+          "마우스나 터치로 위치를 지정할 수 있습니다. Bounce Back은 왼쪽 화면을 끌어 이동하고 오른쪽을 끌어 조준·던집니다. 표준 패드에서는 한 스틱으로 이동과 조준을 함께 합니다. 휴대폰·패드·테슬라의 실제 호환성은 기기 검증이 필요합니다.",
       },
     },
   },
@@ -151,7 +152,7 @@ export const collections: GameCollection[] = [
           "Selected for a visible number, counting or arithmetic mechanic. Only 2048 is a directional tile-merging game; DIGI10 uses digits 1–9, while other titles use a button or pointer.",
         question: "Will my number puzzle continue after I leave?",
         answer:
-          "2048 supports local progress restoration. Imported Crisp games start a new round after leaving or changing language and save personal bests only. Clearing browser storage removes locally saved data.",
+          "2048 restores its current round. Bounce Back keeps gems and unlocked progress in this browser, but starts a new run after leaving. Imported Crisp games save personal bests only. Clearing browser storage removes locally saved data.",
       },
       ko: {
         title: "무료 숫자 퍼즐·계산 웹게임",
@@ -161,7 +162,7 @@ export const collections: GameCollection[] = [
           "숫자·세기·계산 규칙을 기준으로 골랐습니다. 2048은 방향 조작으로 타일을 합치고, DIGI10은 숫자 1–9를 사용합니다. 나머지는 버튼이나 위치 조작을 사용합니다.",
         question: "나갔다 돌아와도 숫자 퍼즐을 이어 할 수 있나요?",
         answer:
-          "2048은 이 브라우저의 진행 상태를 복원합니다. 가져온 Crisp 게임은 페이지 이탈·언어 변경 후 새 라운드를 시작하고 최고 점수만 저장합니다. 브라우저 저장 공간을 지우면 로컬 기록도 사라집니다.",
+          "2048은 현재 판을 복원합니다. Bounce Back은 보석과 해제 상태를 이 브라우저에 저장하지만 페이지를 나가면 새 도전을 시작합니다. 가져온 Crisp 게임은 최고 점수만 저장합니다. 브라우저 저장 공간을 지우면 로컬 기록도 사라집니다.",
       },
     },
   },

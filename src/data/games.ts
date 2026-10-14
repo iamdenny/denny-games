@@ -25,6 +25,7 @@ export interface Game {
   id: string;
   category: Category;
   screenshot?: string;
+  artworkAlt?: Record<Locale, string>;
   imported?: boolean;
   internalScore?: boolean;
   classic?: boolean;
@@ -229,6 +230,84 @@ export const games: Game[] = [
     },
   },
 ];
+games.push({
+  id: "bounce-back",
+  category: "action",
+  controlStyle: "pointer",
+  duration: "5–10",
+  color: "rust",
+  version: 1,
+  stages: 1,
+  tags: [
+    "Bounce Back",
+    "boomerang",
+    "roguelite",
+    "procedural dungeon",
+    "부메랑",
+    "로그라이트",
+    "로그라이크",
+    "절차 생성",
+    "오픈소스",
+  ],
+  inputs: ["touch", "keyboard", "gamepad"],
+  license: "GPL-2.0-or-later",
+  author: "Frank Force",
+  source:
+    "https://github.com/KilledByAPixel/BounceBack/tree/395fd046338e6c5d5840d10e7fbd74132f90b8f6",
+  added: "2026-10-14",
+  imported: true,
+  internalScore: true,
+  notice: "/licenses/bounceback/",
+  artworkAlt: {
+    en: "Bounce Back original title screen",
+    ko: "Bounce Back 원본 타이틀 화면",
+  },
+  artwork: "/art/bounce-back-title.png",
+  text: {
+    en: {
+      title: "Bounce Back",
+      subtitle: "Aim. Throw. Dodge. Dive deeper.",
+      description:
+        "Throw a returning boomerang through procedurally generated rooms, dodge enemies, collect gems and buy upgrades in a compact action roguelite.",
+      rules: [
+        "Explore each room, defeat enemies and find the exit to descend.",
+        "Collect gems and buy upgrades between stages. Your saved gems stay with you after a run ends.",
+        "Clear the final boss to unlock speed-run mode.",
+      ],
+      controls: [
+        "Touch: drag on the left half to move; hold and drag on the right half to aim and throw.",
+        "Keyboard and mouse: WASD moves, mouse aims, click throws and Space dashes.",
+        "Standard gamepad: left stick or D-pad moves; the stick aims, A throws and Start pauses. Physical devices are unverified.",
+      ],
+      tips: [
+        "A dash protects you from damage for a moment.",
+        "The returning boomerang can hit enemies on its way out and back.",
+        "Try the shop between rooms; gems are kept after a run ends.",
+      ],
+    },
+    ko: {
+      title: "Bounce Back",
+      subtitle: "조준하고, 던지고, 피하며 더 깊이.",
+      description:
+        "부메랑을 던져 절차 생성 방을 탐험하세요. 적을 피하고 보석을 모아 강화하는 짧은 액션 로그라이트입니다.",
+      rules: [
+        "방을 탐험하고 적을 물리친 뒤 출구를 찾아 다음 단계로 내려가세요.",
+        "보석을 모아 단계 사이 상점에서 강화하세요. 한 번의 도전이 끝나도 모은 보석은 남습니다.",
+        "마지막 보스를 물리치면 스피드런 모드가 열립니다.",
+      ],
+      controls: [
+        "터치: 왼쪽 화면을 끌어 이동하고, 오른쪽을 누른 채 끌어 조준·던지세요.",
+        "키보드·마우스: WASD 이동, 마우스 조준, 클릭 던지기, Space 대시.",
+        "표준 게임패드: 왼쪽 스틱·방향패드 이동, 스틱 조준, A 던지기, Start 정지. 실제 기기는 미검증입니다.",
+      ],
+      tips: [
+        "대시는 잠시 피해를 막아줍니다.",
+        "부메랑은 나갈 때와 돌아올 때 모두 적을 공격할 수 있어요.",
+        "방 사이 상점을 이용하세요. 한 번의 도전이 끝나도 보석은 남습니다.",
+      ],
+    },
+  },
+});
 games.push(
   ...crisp.map((item): Game => ({
     id: item.id,

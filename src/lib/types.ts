@@ -30,6 +30,8 @@ export interface GameInstance {
   restart(): void;
   action(action: Action): void;
   inputState?(state: { x: number; y: number; pressed: boolean }): void;
+  setSoundEnabled?(enabled: boolean): void;
+  setVolume?(volume: number): void;
   serialize(): unknown;
   destroy(): void;
 }
