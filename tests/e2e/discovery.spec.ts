@@ -38,6 +38,36 @@ test("categories and guide remain discoverable without JavaScript", async ({
   await context.close();
 });
 
+test("Tesla pages distinguish built-in installation from browser games in both locales", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  for (const content of [
+    {
+      path: "/en/tesla/",
+      heading: "Can I install Denny Games or add it to Tesla Arcade?",
+      link: "Browse the full browser-game catalog (Tesla support unverified)",
+      href: "/en/all/",
+    },
+    {
+      path: "/ko/tesla/",
+      heading: "데니 게임즈를 테슬라 Arcade에 설치하거나 추가할 수 있나요?",
+      link: "전체 브라우저 게임 보기 (테슬라 지원 미검증)",
+      href: "/ko/all/",
+    },
+  ]) {
+    await page.goto(content.path);
+    await expect(
+      page.getByRole("heading", { name: content.heading }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: content.link }),
+    ).toHaveAttribute("href", content.href);
+  }
+  await context.close();
+});
+
 test("DANGO calculates collected expressions under the restricted CSP", async ({
   page,
 }) => {
