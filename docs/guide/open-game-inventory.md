@@ -7,7 +7,7 @@ read_when:
 
 # Open game inventory
 
-The playable registry includes Circuit Loop, Orbit Break, the credited 2048 adaptation, five original board games, 191 ABA Games Crisp titles, Bounce Back, UNDERRUN and Hextris, for 202 games total. Each import has English/Korean controls, a primary category, a fixed source commit, original notices and self-hosted files. Names remain the authors' original English names. In-canvas bitmap text remains upstream English; navigation and instructions are bilingual.
+The playable registry includes Circuit Loop, Orbit Break, the credited 2048 adaptation, five original board games, 191 standard-adapter ABA Games Crisp titles, three cycle-owned ABA Games titles, Hextris, Bounce Back and UNDERRUN, for 205 games total. Each import has English/Korean controls, a primary category, a fixed source commit, original notices and self-hosted files. Names remain the authors' original English names. In-canvas bitmap text remains upstream English; navigation and instructions are bilingual.
 
 The seven primary categories are board, puzzle, arcade, action, shooting, racing and sports. They describe the main interaction, not an assertion that a miniature steering game is a full vehicle simulator. Counts are computed from the registry. No empty categories or placeholder games are published.
 
@@ -21,7 +21,7 @@ The seven primary categories are board, puzzle, arcade, action, shooting, racing
 - `vendor/catalogue-review.json`: a disposition for all 294 research entries. Integrated, port-required and rights-or-integration-review are distinct.
 - `scripts/build-crisp.mjs`: reproducible, checked runtime hooks. Original game source files are not rewritten.
 
-Three recently added Crisp titles (Chain Drift, Comet Slash, Volt Keeper) need their independent lifecycle and extra assets audited. Other candidates include native/homebrew ports and separately licensed assets. They are recorded for follow-up rather than offered as broken games or external embeds.
+Chain Drift, Comet Slash and Volt Keeper use their own arcade phases and score tables, so they run in a dedicated restricted cycle frame instead of the shared Crisp mini-game adapter. Their source, sprite and audio hashes are recorded in `vendor/crisp-cycles/provenance.json`; the build rejects changed files, symbolic links and paths outside each game's source directory. A localized on-screen direction pad and action button drive the original key controls. The three score tables live only for the open play page. Browser input is automated; physical phones, controllers and Tesla remain unverified. Other candidates include native/homebrew ports and separately licensed assets. They remain recorded for follow-up rather than offered as broken games or external embeds.
 
 Bounce Back adds a boomerang roguelite with generated rooms, enemy variants, pickups, a shop and a final boss. The original source and sprite are retained under GPL-2.0-or-later; the debug console containing eval is preserved as source but excluded from the hosted runtime. Its touch/gamepad bridge and local progress are automated in Chromium, while physical devices remain unverified.
 

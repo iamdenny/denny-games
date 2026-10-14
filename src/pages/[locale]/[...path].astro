@@ -388,15 +388,20 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
                   "The game and high scores are saved in this browser. Reloading or changing language keeps your progress.",
                   "게임 진행 상태와 최고 기록은 이 브라우저에 저장됩니다. 새로고침하거나 언어를 바꿔도 이어집니다.",
                 )
-              : game.imported
+              : game.internalScore
                 ? label(
-                    "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
-                    "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                    "This game keeps its own score table only while this play page stays open. Leaving or reloading starts fresh.",
+                    "게임 안 기록은 플레이 페이지가 열려 있는 동안만 유지돼요. 나가거나 새로고침하면 새로 시작합니다.",
                   )
-                : label(
-                    "Local progress restoration is available for this game.",
-                    "이 게임은 로컬 진행 상태 복원을 지원합니다.",
-                  )}
+                : game.imported
+                  ? label(
+                      "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
+                      "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                    )
+                  : label(
+                      "Local progress restoration is available for this game.",
+                      "이 게임은 로컬 진행 상태 복원을 지원합니다.",
+                    )}
           </p>
           <p>
             <a href={`/${locale}/device-check/?game=${game.id}`}>

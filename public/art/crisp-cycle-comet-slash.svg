@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="space" x1="75" y1="20" x2="580" y2="397" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10192B"/>
+      <stop offset="1" stop-color="#050A16"/>
+    </linearGradient>
+    <linearGradient id="tail" x1="174" y1="209" x2="399" y2="165" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#45C6D2" stop-opacity="0"/>
+      <stop offset=".7" stop-color="#58D8E8"/>
+      <stop offset="1" stop-color="#E2FFFF"/>
+    </linearGradient>
+    <radialGradient id="head" cx="0" cy="0" r="1" gradientTransform="matrix(39 31 -30 38 443 171)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5D3FF"/>
+      <stop offset=".43" stop-color="#B876F0"/>
+      <stop offset="1" stop-color="#5F3AA2"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="url(#space)"/>
+  <g fill="#D9ECFF">
+    <circle cx="102" cy="115" r="2"/><circle cx="159" cy="61" r="1.5"/><circle cx="256" cy="105" r="2"/>
+    <circle cx="535" cy="85" r="1.5"/><circle cx="570" cy="240" r="2"/><circle cx="116" cy="279" r="1.5"/>
+    <circle cx="270" cy="322" r="1.5"/><circle cx="490" cy="315" r="2"/>
+  </g>
+  <path d="M147 230c101-54 199-76 290-67" stroke="url(#tail)" stroke-width="18" stroke-linecap="round"/>
+  <path d="M191 254c90-49 170-64 241-60" stroke="#4874C5" stroke-opacity=".75" stroke-width="6" stroke-linecap="round"/>
+  <path d="M422 141c-4-14 7-28 21-28 11 0 18 9 22 17 11 1 22 10 22 23 0 17-15 29-33 27-9 10-27 8-33-4-8-10-8-25 1-35Z" fill="url(#head)" stroke="#E7C7FF" stroke-width="3"/>
+  <path d="m279 206 28-12 28 12-19 8-9 32-10-32-18-8Z" fill="#A7F0E6" stroke="#E6FFF8" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M288 202c-28-37-58-43-82-26 10 26 36 38 77 35m-77-35 22 31" stroke="#F6D65E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M354 105c-29 20-44 47-44 77 25-14 46-37 59-66" stroke="#F6D65E" stroke-width="3" stroke-linecap="round"/>
+  <text x="48" y="56" fill="#A7F0E6" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">DENNY GAMES · ACTION</text>
+  <text x="48" y="354" fill="#F5F2E9" font-family="system-ui,sans-serif" font-size="35" font-weight="800" letter-spacing="1">COMET SLASH</text>
+  <text x="50" y="378" fill="#A9BEC6" font-family="system-ui,sans-serif" font-size="12" letter-spacing="2">DODGE · PASS · SLASH</text>
+</svg>

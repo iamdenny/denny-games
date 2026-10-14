@@ -1263,8 +1263,8 @@
       "category": "미니 아케이드",
       "researchTier": "B",
       "runtime": "W",
-      "status": "rights-or-integration-review",
-      "reason": "Own arcade cycle / extra audio or image dependencies; not admitted through the generic adapter. 개별 main.js·MIT 원문 확보. 조작 설명: 개별 입력 코드 확인 필요",
+      "status": "integrated",
+      "reason": "Pinned ABA Games MIT source and title image; a dedicated cycle frame adds localized touch controls while preserving the original arcade cycle. Physical-device support remains unverified.",
       "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/chain-drift/main.js"
     },
     {
@@ -1333,8 +1333,8 @@
       "category": "미니 아케이드",
       "researchTier": "B",
       "runtime": "W",
-      "status": "rights-or-integration-review",
-      "reason": "Own arcade cycle / extra audio or image dependencies; not admitted through the generic adapter. 개별 main.js·MIT 원문 확보. 조작 설명: 개별 입력 코드 확인 필요",
+      "status": "integrated",
+      "reason": "Pinned ABA Games MIT source, generated pixel-art sources and local audio; a dedicated cycle frame adds localized touch controls. Physical-device support remains unverified.",
       "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/comet-slash/main.js"
     },
     {
@@ -2893,8 +2893,8 @@
       "category": "미니 아케이드",
       "researchTier": "B",
       "runtime": "W",
-      "status": "rights-or-integration-review",
-      "reason": "Own arcade cycle / extra audio or image dependencies; not admitted through the generic adapter. 개별 main.js·MIT 원문 확보. 조작 설명: 개별 입력 코드 확인 필요",
+      "status": "integrated",
+      "reason": "Pinned ABA Games MIT source and local audio modules; a dedicated cycle frame adds localized touch controls while preserving the 17-wave campaign. Physical-device support remains unverified.",
       "source": "https://github.com/abagames/crisp-game-lib-12-games/blob/8c71950c93008235a7e63401aba66cbb67d82421/docs/volt-keeper/main.js"
     },
     {

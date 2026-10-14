@@ -1,19 +1,9 @@
 import { test, expect } from "@playwright/test";
-import crisp from "../../src/data/crisp.json" with { type: "json" };
-import { classicIds } from "../../src/data/board-games";
+import { games } from "../../src/data/games";
 import { editorialOrder } from "../../src/data/editorial";
-const gameIds = editorialOrder(
-  [
-    "circuit-loop",
-    "orbit-break",
-    "2048",
-    "hextris",
-    "bounce-back",
-    "underrun",
-    ...crisp.map((game) => game.id),
-    ...classicIds,
-  ].map((id) => ({ id })),
-).map((game) => game.id);
+const gameIds = editorialOrder(games.map((game) => ({ id: game.id }))).map(
+  (game) => game.id,
+);
 import { PAGE_SIZE } from "../../src/lib/catalogue";
 
 for (const locale of ["en", "ko"] as const) {

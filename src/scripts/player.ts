@@ -507,6 +507,9 @@ try {
     hextris: () => import("../games/hextris"),
     "bounce-back": () => import("../games/bounceback"),
     underrun: () => import("../games/underrun"),
+    "crisp-chain-drift": () => import("../games/crisp-cycles"),
+    "crisp-comet-slash": () => import("../games/crisp-cycles"),
+    "crisp-volt-keeper": () => import("../games/crisp-cycles"),
     gomoku: () =>
       import("../games/board").then((m) => ({
         mount: m.createMount("gomoku"),
@@ -528,7 +531,12 @@ try {
         mount: m.createMount("dots-and-boxes"),
       })),
   };
-  const module = await (id.startsWith("crisp-")
+  const crispCycleIds = new Set([
+    "crisp-chain-drift",
+    "crisp-comet-slash",
+    "crisp-volt-keeper",
+  ]);
+  const module = await (id.startsWith("crisp-") && !crispCycleIds.has(id)
     ? import("../games/crisp")
     : loaders[id]!());
   if (token === generation) {

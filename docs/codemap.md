@@ -1,19 +1,20 @@
 # Codemap
 
-| Directory | Responsibility |
-| --- | --- |
-| `src/data/` | Registry, shared editorial picks/order, interaction metadata, curated collections, translations and editorial pages |
-| `src/layouts/` | SEO shell, locale navigation and common chrome |
-| `src/components/` | Cards, responsive viewport player/settings host, complete-catalogue pagination, original SVG artwork, content ad slots and disclosed static affiliate cards |
-| `src/pages/` | Static bilingual route generation and discovery files |
-| `src/scripts/` | Catalogue/search state, player shell, diagnostics and local device report downloads |
-| `src/lib/` | Storage, seed, input, filtered pagination, device report validation, advertisement contracts and registry-derived discovery schema |
-| `src/games/` | Circuit, arcade, adapted 2048, classic board rules/AI/worker/renderer, restricted Crisp adapter and isolated Bounce Back bridge |
-| `vendor/` | Pinned imports, unchanged runtime, candidate and asset provenance |
-| `public/vendor/crisp/` | Selected game files, generated host runtime, sandbox bridge and reviewed sprites |
-| `vendor/bounceback/` | Pinned GPL source, hash provenance and isolated host adapter for Bounce Back |
-| `scripts/` | Docs/rights/output/scale and local/public SEO validation |
-| `tests/` | Unit and browser regression evidence |
-| `.github/workflows/` | PR checks and main-only Pages deployment |
+| Directory              | Responsibility                                                                                                                                              |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/data/`            | Registry, shared editorial picks/order, interaction metadata, curated collections, translations and editorial pages                                         |
+| `src/layouts/`         | SEO shell, locale navigation and common chrome                                                                                                              |
+| `src/components/`      | Cards, responsive viewport player/settings host, complete-catalogue pagination, original SVG artwork, content ad slots and disclosed static affiliate cards |
+| `src/pages/`           | Static bilingual route generation and discovery files                                                                                                       |
+| `src/scripts/`         | Catalogue/search state, player shell, diagnostics and local device report downloads                                                                         |
+| `src/lib/`             | Storage, seed, input, filtered pagination, device report validation, advertisement contracts and registry-derived discovery schema                          |
+| `src/games/`           | Circuit, arcade, adapted 2048, classic board rules/AI/worker/renderer, restricted Crisp mini-game and cycle adapters, and isolated GPL/WebGL game bridges   |
+| `vendor/`              | Pinned imports, unchanged runtime, candidate and asset provenance                                                                                           |
+| `public/vendor/crisp/` | Selected mini-game files, generated host runtime, sandbox bridge and reviewed sprites                                                                       |
+| `vendor/crisp-cycles/` | Pinned source, image/audio hashes and provenance for games with their own Crisp arcade cycles                                                               |
+| `vendor/bounceback/`   | Pinned GPL source, hash provenance and isolated host adapter for Bounce Back                                                                                |
+| `scripts/`             | Docs/rights/output/scale and local/public SEO validation                                                                                                    |
+| `tests/`               | Unit and browser regression evidence                                                                                                                        |
+| `.github/workflows/`   | PR checks and main-only Pages deployment                                                                                                                    |
 
 - `src/lib/audio.ts`: original synthesized effects, volume and note cancellation.
