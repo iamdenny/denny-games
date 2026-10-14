@@ -28,7 +28,7 @@ Use Node 22.22.3 (`.nvmrc`) and npm. Run from repository root.
 
 Use `npx playwright install chromium` once for local browser tests. No environment variables are required for development. Advertisement mode defaults to off. Do not copy another project's credentials.
 
-`npm run test:imports` audits all 191 imported games against `http://127.0.0.1:4322` (override `IMPORT_BASE`). Start a preview on that port first. `node scripts/build-crisp.mjs` regenerates the checked runtime and data-URL sprite map without network access.
+`npm run test:imports` audits all 191 Crisp imports against `http://127.0.0.1:4322` (override `IMPORT_BASE`). Start a preview on that port first. `node scripts/build-crisp.mjs` regenerates the checked runtime and data-URL sprite map without network access.
 
 ## Search discovery
 

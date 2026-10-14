@@ -7,7 +7,7 @@ read_when:
 
 # Testing
 
-All-game stage fitting (ADR 0021) asserts maximal aspect-correct bounds across native and imported families. Every imported game's frame and actual inner canvas are checked at 390×844 and 800×600 while paused ticks stay unchanged. Player viewport tests include portrait, square, wide, very wide and numeric-input surfaces; WebKit runs the same layout families. Native actions/settings must clean up on remount. Public screenshots and release SHA readback are required after deployment; physical Tesla repeat checks remain separate.
+All-game stage fitting (ADR 0021) asserts maximal aspect-correct bounds across native and imported families. Every imported game's frame and actual inner canvas are checked at 390×844 and 800×600 while paused ticks stay unchanged. Bounce Back has a dedicated journey for isolated loading, keyboard/touch/gamepad input, save restoration, sound, pause and restart. Player viewport tests include portrait, square, wide, very wide and numeric-input surfaces; WebKit runs the same layout families. Native actions/settings must clean up on remount. Public screenshots and release SHA readback are required after deployment; physical Tesla repeat checks remain separate.
 
 Tests cover puzzle solvability, deterministic UTC seeds, 2048 merges, arcade timestep behavior, storage failure, ad rejection/no-fill and game cleanup. Browser checks exercise home/detail/play/pause/restart, locale state persistence, favourites, search, daily challenges and no display ads in play.
 
@@ -31,6 +31,8 @@ Complete-catalogue tests follow all native next links in both languages with Jav
 
 Every admitted Crisp game has a Chromium load/input/pause journey at a 390px viewport, with no foreign requests and no horizontal overflow. Source and sprite hashes are checked by unit tests. Category tests cover cross-page alphabetical order and imported favorites/search. Held standard-controller input and frame isolation have synthetic regressions. These short automated journeys do not verify complete campaigns or physical phones/controllers/Tesla.
 
+Bounce Back's dedicated Chromium journey checks its pinned GPL source hashes during build, iframe isolation, movement/aiming input, pause, restart and local save round-trip. These checks do not verify a full game campaign or physical-device behavior.
+
 ## Discovery and device-check release
 
 Collection-preview regressions verify that thumbnails come from actual members, have localized alternatives, load without JavaScript, link to their collection and fit 320/360/390/430/1440px layouts on home, collection indexes and related details. Counts represent full collection membership, not preview-image counts.
@@ -49,7 +51,7 @@ Classic board sound browser journeys observe real AudioContext creation/state an
 
 A fractional CYWALL result reproduces the prior mobile overflow deterministically through the authenticated iframe bridge. Display scores round to localized integers while saved scores retain precision. Audio readiness must not block a resumed game, including immediate mute after resume.
 
-Player viewport regressions cover desktop, mobile portrait and short landscape across eight original engines and a representative import. Assertions cover viewport bounds, essential controls, no Fullscreen API, DOM preservation on view toggles, settings, and direct board confirmation. Imported loading/input regression covers all 191 games; this is not manual review or physical-device proof.
+Player viewport regressions cover desktop, mobile portrait and short landscape across eight original engines and a representative import. Assertions cover viewport bounds, essential controls, no Fullscreen API, DOM preservation on view toggles, settings, and direct board confirmation. Crisp loading/input regression covers all 191 games; Bounce Back has a separate journey above. This is not manual review or physical-device proof.
 
 Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430px phones, 667×375 and 844×390 landscape. Check actual surface bounds, initial scroll position, footer row alignment, settings/remount cleanup, touch confirmation, orientation preservation and cancelled swipes, rather than only document overflow. See ADR 0017.
 

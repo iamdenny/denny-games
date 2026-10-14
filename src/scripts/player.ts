@@ -188,6 +188,8 @@ function mount(saved: boolean) {
       start.disabled = true;
     },
   });
+  game.setSoundEnabled?.(sound);
+  game.setVolume?.(Number(volume.value) / 100);
   el("best").textContent = formatScore(best());
   show(
     id.startsWith("crisp-") ? text.loading : text.ready,
@@ -244,7 +246,7 @@ async function restartRound() {
     select.disabled = false; // Never resume gameplay in an SDK callback.
   }
   track("restart", id);
-  mount(false);
+  mount(id === "bounce-back");
   save();
   start.focus();
 }
@@ -315,6 +317,7 @@ volume.value = String(
 audio.setVolume(Number(volume.value) / 100);
 volume.addEventListener("input", () => {
   audio.setVolume(Number(volume.value) / 100);
+  game?.setVolume?.(Number(volume.value) / 100);
   write("sound-volume", Number(volume.value));
 });
 el<HTMLButtonElement>("sound-button").addEventListener("click", async () => {
@@ -333,6 +336,7 @@ el<HTMLButtonElement>("sound-button").addEventListener("click", async () => {
   } else {
     void audio?.suspend();
   }
+  game?.setSoundEnabled?.(sound);
   write("sound-enabled", sound);
   syncSound();
 });
@@ -471,6 +475,7 @@ try {
     "circuit-loop": () => import("../games/circuit"),
     "orbit-break": () => import("../games/orbit"),
     "2048": () => import("../games/merge"),
+    "bounce-back": () => import("../games/bounceback"),
     gomoku: () =>
       import("../games/board").then((m) => ({
         mount: m.createMount("gomoku"),

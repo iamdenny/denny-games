@@ -112,9 +112,10 @@ test("category sort spans pages, imported search and lazy library", async ({
   await expect(page.locator("[data-game-card]")).toHaveCount(24);
   await page.locator("[data-sort]").selectOption("name");
   await expect(page).toHaveURL(/sort=name/);
-  const sorted = crisp
-    .filter((g) => g.category === "action")
-    .sort((a, b) => a.title.localeCompare(b.title, "en"));
+  const sorted = [
+    ...crisp.filter((game) => game.category === "action"),
+    { id: "bounce-back", title: "Bounce Back" },
+  ].sort((a, b) => a.title.localeCompare(b.title, "en"));
   await expect(page.locator("[data-game-card]").first()).toHaveAttribute(
     "data-game-card",
     sorted[0]!.id,

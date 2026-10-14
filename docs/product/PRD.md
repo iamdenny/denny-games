@@ -30,6 +30,10 @@ This repository carries the original research requirements below. The following 
 
 See [Classic board games PRD](CLASSIC-BOARD-GAMES.md) for five original games, the Board category, local AI/two-player modes, mobile confirmation controls and bilingual SEO/GEO acceptance. The catalogue grows from 194 to 199 games; daily challenges remain the original three.
 
+## Open-source roguelite import — 2026-10-14
+
+Add Bounce Back as the 200th playable title and a highlighted action game. Keep the GPL-2.0-or-later source, tile art, screenshot and complete license; keep the upstream debug console out of the served runtime. Run the game in a separate opaque-origin sandbox with a no-network CSP, a pinned message channel, lifecycle pause/resume, bilingual controls, touch movement/aiming, standard gamepad mapping and validated local progress. Automated browser evidence does not establish physical phone, controller or Tesla support. See [ADR 0024](../adr/0024-bounce-back-gpl-adapter.md) and [release record](../releases/2026-10-14-bounce-back.md).
+
 ## Next development release
 
 See [다음 릴리스 PRD](NEXT-RELEASE.md) for play-style collections, combined search filters, local device checks, SEO/GEO acceptance and the explicit remaining game-supply targets.

@@ -7,6 +7,7 @@ const gameIds = editorialOrder(
     "circuit-loop",
     "orbit-break",
     "2048",
+    "bounce-back",
     ...crisp.map((game) => game.id),
     ...classicIds,
   ].map((id) => ({ id })),

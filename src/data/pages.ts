@@ -123,7 +123,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "How do I check saving and stability?",
           paragraphs: [
-            "Save a favorite and reload. Circuit Loop, Orbit Break, 2048 and classic board games support local progress; imported Crisp games restart rounds and save personal bests only. Actually play for 20 minutes before marking the long-session check passed. Record crashes, stuck controls or persistent slowdowns rather than inferring success from a short load test.",
+            "Save a favorite and reload. Circuit Loop, Orbit Break, 2048 and classic board games support local progress; Bounce Back keeps gems and unlocked progress but restarts the active run after leaving; imported Crisp games save personal bests only. Actually play for 20 minutes before marking the long-session check passed. Record crashes, stuck controls or persistent slowdowns rather than inferring success from a short load test.",
           ],
         },
         {
@@ -161,7 +161,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "저장과 안정성은 어떻게 확인하나요?",
           paragraphs: [
-            "즐겨찾기를 저장하고 새로고침하세요. 서킷 루프·오빗 브레이크·2048과 클래식 보드게임은 로컬 진행 상태를 복원하고, 가져온 Crisp 게임은 라운드를 재시작하며 최고 점수만 저장합니다. 장시간 점검은 실제로 20분 플레이한 뒤 성공으로 표시하세요. 짧게 로딩해본 것으로 성공을 추정하지 말고 충돌·입력 고착·지속적인 느려짐을 적으세요.",
+            "즐겨찾기를 저장하고 새로고침하세요. 서킷 루프·오빗 브레이크·2048과 클래식 보드게임은 로컬 진행 상태를 복원합니다. Bounce Back은 보석·해제 상태를 저장하지만 진행 중인 도전은 새로 시작하고, Crisp 게임은 최고 점수만 저장합니다. 장시간 점검은 실제로 20분 플레이한 뒤 성공으로 표시하세요. 짧게 로딩해본 것으로 성공을 추정하지 말고 충돌·입력 고착·지속적인 느려짐을 적으세요.",
           ],
         },
         {
@@ -189,18 +189,21 @@ export const articles: Record<string, Record<Locale, Article>> = {
   "guides/open-browser-games": {
     en: {
       title: "Free browser games: sources, rules and device support",
-      intro: `Denny Games offers ${games.length} playable browser games in English and Korean, without an account or installation. The catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, an adapted 2048 and two original games.`,
+      intro:
+        "Denny Games offers " +
+        games.length +
+        " playable browser games in English and Korean, without an account or installation. The catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Bounce Back under GPL-2.0-or-later, an adapted 2048, two original games and five classic board games.",
       sections: [
         {
           heading: "What can I play?",
           paragraphs: [
-            "Browse puzzle, arcade, action, shooting, racing and sports collections. Each game has a detail page with its rules, controls, author and source. Racing includes steering challenges as well as driving games; these are short mini-games rather than full console releases.",
+            "Browse board, puzzle, arcade, action, shooting, racing and sports collections. Each game has a detail page with its rules, controls, author and source. Racing includes steering challenges as well as driving games; these are short mini-games rather than full console releases.",
           ],
         },
         {
           heading: "Are free games also open source?",
           paragraphs: [
-            "Free-to-play and permission to redistribute are separate questions. These imports have reviewed source and asset provenance and retained MIT notices. The catalogue does not include commercial console ROM collections. Original authors retain their credits, and listing a game does not imply their endorsement.",
+            "Free-to-play and permission to redistribute are separate questions. The 191 ABA Games imports retain their MIT notices; Bounce Back keeps its GPL-2.0-or-later license and corresponding source. Other candidates stay unpublished until their code, assets and dependencies are reviewed. The catalogue does not include commercial console ROM collections. Authors retain their credits, and listing a game does not imply endorsement.",
           ],
         },
         {
@@ -212,7 +215,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "Can I save my game?",
           paragraphs: [
-            "Personal best scores, favorites and recent games stay in this browser. The three original-platform games can also restore round progress. Crisp games start a fresh round after reloading. Clearing browser storage removes local records.",
+            "Personal best scores, favorites and recent games stay in this browser. Circuit Loop, Orbit Break and 2048 can restore round progress. Bounce Back keeps its gems and unlocks, but starts a fresh run after reloading. Crisp games save personal bests only. Clearing browser storage removes local records.",
           ],
         },
       ],
@@ -223,6 +226,10 @@ export const articles: Record<string, Record<Locale, Article>> = {
           label: "Crisp MIT notices and pinned sources",
           href: "/licenses/crisp/",
         },
+        {
+          label: "Bounce Back GPL license and corresponding source",
+          href: "/licenses/bounceback/",
+        },
         { label: "Device support boundaries", href: "/en/compatibility/" },
         { label: "Tesla browser games and compatibility", href: "/en/tesla/" },
         { label: "Gamepad input test", href: "/en/gamepad-test/" },
@@ -230,18 +237,21 @@ export const articles: Record<string, Record<Locale, Article>> = {
     },
     ko: {
       title: "무료 웹게임 안내: 출처·조작법·기기 지원",
-      intro: `데니 게임즈는 가입·설치 없이 한국어와 영어로 즐기는 웹게임 ${games.length}개를 제공합니다. MIT 라이선스 ABA Games Crisp 미니게임 191개, 2048을 수정한 게임과 자체 제작 게임 2개가 있습니다.`,
+      intro:
+        "데니 게임즈는 가입·설치 없이 한국어와 영어로 즐기는 웹게임 " +
+        games.length +
+        "개를 제공합니다. MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-2.0-or-later 라이선스 Bounce Back, 2048 수정판, 자체 게임 2개와 클래식 보드게임 5개가 있습니다.",
       sections: [
         {
           heading: "어떤 게임을 할 수 있나요?",
           paragraphs: [
-            "퍼즐·아케이드·액션·슈팅·레이싱·스포츠에서 골라보세요. 모든 게임의 소개 페이지에 규칙·조작법·제작자·원본 소스를 제공합니다. 레이싱에는 운전뿐 아니라 방향 조작 도전도 포함하며, 대형 콘솔 게임보다 짧게 즐기는 미니게임 중심입니다.",
+            "보드·퍼즐·아케이드·액션·슈팅·레이싱·스포츠에서 골라보세요. 모든 게임의 소개 페이지에 규칙·조작법·제작자·원본 소스를 제공합니다. 레이싱에는 운전뿐 아니라 방향 조작 도전도 포함하며, 대형 콘솔 게임보다 짧게 즐기는 미니게임 중심입니다.",
           ],
         },
         {
           heading: "무료 게임이면 소스도 가져올 수 있나요?",
           paragraphs: [
-            "무료 플레이와 재배포 허용은 별개입니다. 등록한 공개 게임은 소스와 자산의 출처·권리를 검토하고 MIT 고지를 유지합니다. 상용 콘솔 ROM 모음은 제공하지 않습니다. 원작자 이름을 보존하며 게임 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
+            "무료 플레이와 재배포 허용은 별개입니다. ABA Games 191개는 MIT 고지를, Bounce Back은 GPL-2.0-or-later 라이선스와 대응 소스를 제공합니다. 다른 후보는 코드·자산·의존성을 확인하기 전까지 공개하지 않습니다. 상용 콘솔 ROM 모음은 제공하지 않으며, 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
           ],
         },
         {
@@ -253,7 +263,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "게임 기록은 저장되나요?",
           paragraphs: [
-            "최고 기록·즐겨찾기·최근 게임은 이 브라우저에 저장합니다. 초기 플랫폼 게임 3개는 진행 중인 판도 복원할 수 있습니다. Crisp 게임은 새로고침하면 새 판을 시작합니다. 브라우저 저장 공간을 지우면 기기 내 기록도 사라집니다.",
+            "최고 기록·즐겨찾기·최근 게임은 이 브라우저에 저장합니다. 서킷 루프·오빗 브레이크·2048은 진행 중인 판을 복원합니다. Bounce Back은 보석·해제 상태를 남기지만 새로고침하면 새 도전을 시작하고, Crisp는 최고 점수만 저장합니다. 브라우저 저장 공간을 지우면 기기 내 기록도 사라집니다.",
           ],
         },
       ],
@@ -261,6 +271,10 @@ export const articles: Record<string, Record<Locale, Article>> = {
         { label: "전체 카테고리 보기", href: "/ko/" },
         { label: "제작자와 원본 소스", href: "/ko/licenses/" },
         { label: "Crisp MIT 라이선스와 고정 소스", href: "/licenses/crisp/" },
+        {
+          label: "Bounce Back GPL 라이선스와 대응 소스",
+          href: "/licenses/bounceback/",
+        },
         { label: "기기 지원 범위", href: "/ko/compatibility/" },
         { label: "테슬라 브라우저 웹게임과 호환성 안내", href: "/ko/tesla/" },
         { label: "게임패드 입력 진단", href: "/ko/gamepad-test/" },
@@ -277,7 +291,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "A curated beginning",
           paragraphs: [
-            "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation and 191 ABA Games Crisp mini-games. Every game has rules, controls and a common pause/restart flow.",
+            "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation, 191 ABA Games Crisp mini-games, five classic board games and Bounce Back, a GPL-2.0-or-later action roguelite. Every game has rules, controls and a common pause/restart flow.",
             "We are building a larger catalogue through individually reviewed open games and original titles. Research candidates are not listed as playable games until integrated.",
           ],
         },
@@ -297,7 +311,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "작지만 분명한 시작",
           paragraphs: [
-            "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games의 Crisp 미니게임 191개를 제공합니다. 게임별 규칙·조작법과 일관된 일시정지·재시작 흐름을 안내합니다.",
+            "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games Crisp 미니게임 191개, 클래식 보드게임 5종과 GPL-2.0-or-later 액션 로그라이트 Bounce Back을 제공합니다. 게임별 규칙·조작법과 일관된 일시정지·재시작 흐름을 안내합니다.",
             "개별 권리를 검토한 공개 게임과 자체 게임으로 목록을 늘립니다. 조사 후보를 구현된 게임처럼 목록에 넣지 않습니다.",
           ],
         },
@@ -630,7 +644,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     ko: {
       title: "게임패드 웹게임: 조작법과 연결 확인",
       intro:
-        "사이트 탐색과 기본 게임과 Crisp 게임에 표준 게임패드 매핑을 구현했습니다. 실제 패드·브라우저 조합은 별도 검증 전입니다.",
+        "사이트 탐색과 기본 게임, Crisp 게임, Bounce Back에 표준 게임패드 매핑을 구현했습니다. 실제 패드·브라우저 조합은 별도 검증 전입니다.",
       sections: [
         {
           heading: "일관된 기본 매핑",
@@ -706,7 +720,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     en: {
       title: "Pick up where you left off.",
       intro:
-        "Circuit Loop, Orbit Break, 2048 and classic board games save round progress in this browser. Crisp mini-games save personal best scores, but do not restore a round after reloading. Records are not synced between devices.",
+        "Circuit Loop, Orbit Break, 2048 and classic board games save round progress in this browser. Bounce Back keeps gems and unlocks, but restarts the active run after reloading. Crisp mini-games save personal bests only. Records are not synced between devices.",
       sections: [
         {
           heading: "What can erase a save",
@@ -720,7 +734,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     ko: {
       title: "하던 곳에서 이어가세요.",
       intro:
-        "서킷 루프·오빗 브레이크·2048과 클래식 보드게임은 진행 상황을 이 브라우저에 저장합니다. Crisp 미니게임은 최고 기록을 저장하지만 새로고침 뒤 진행 중인 판을 복원하지 않습니다. 다른 기기와는 동기화되지 않습니다.",
+        "서킷 루프·오빗 브레이크·2048과 클래식 보드게임은 진행 상황을 이 브라우저에 저장합니다. Bounce Back은 보석·해제 상태를 남기지만 새로고침하면 진행 중인 도전을 새로 시작합니다. Crisp 미니게임은 최고 기록만 저장합니다. 다른 기기와는 동기화되지 않습니다.",
       sections: [
         {
           heading: "기록이 사라지는 경우",
