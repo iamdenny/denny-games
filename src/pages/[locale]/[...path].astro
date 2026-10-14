@@ -932,14 +932,42 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </section>
       )}
       {path === "contact" && (
-        <p>
-          <a
-            class="button primary"
-            href="https://github.com/iamdenny/denny-games/issues/new"
-          >
-            GitHub ↗
-          </a>
-        </p>
+        <>
+          <p>
+            <a
+              class="button secondary"
+              href="https://github.com/iamdenny/denny-games/issues/new"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {label("Bug or rights question on GitHub", "오류·권리 문의하기")}{" "}
+              ↗
+            </a>
+          </p>
+          <section class="note-card">
+            <h2>{label("Advertising and partnerships", "광고·제휴 문의")}</h2>
+            <p>
+              {label(
+                "For game sponsorship, advertising placement or affiliate proposals, send a public GitHub inquiry. Proposals are reviewed individually; placement, audience reach and results are not guaranteed.",
+                "게임 후원·광고 게재·제휴 제안은 공개 GitHub 문의로 보내주세요. 제안은 개별 검토하며 게재, 도달 범위와 성과를 보장하지 않습니다.",
+              )}
+            </p>
+            <p>
+              {label(
+                "The inquiry and replies are public. Do not include confidential terms, credentials or private contact details. You may share a business contact only if you agree to publish it.",
+                "문의와 답변은 공개됩니다. 비공개 계약 조건·계정 정보·개인 연락처를 적지 마세요. 공개 게시에 동의한 사업용 연락 채널만 공유할 수 있습니다.",
+              )}
+            </p>
+            <a
+              class="button primary"
+              href="https://github.com/iamdenny/denny-games/issues/new?template=partnership-inquiry.yml"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {label("Send a partnership inquiry", "광고·제휴 제안하기")} ↗
+            </a>
+          </section>
+        </>
       )}
       {["tesla", "controller-games"].includes(path) && (
         <p>

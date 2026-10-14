@@ -1,0 +1,65 @@
+name: Partnership inquiry / 광고·제휴 문의
+description: Propose game sponsorship, advertising placement or an affiliate campaign. / 게임 후원, 광고 게재 또는 제휴 캠페인을 제안하세요.
+title: "[Partnership / 제휴] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue and all replies are public. Do not include passwords, account details, private contact information or confidential business terms. Share a contact channel only if you agree to publish it.
+
+        이슈와 모든 답변은 공개됩니다. 비밀번호·계정 정보·개인 연락처·비공개 계약 조건을 적지 마세요. 공개 게시에 동의한 연락 채널만 공유하세요.
+
+  - type: input
+    id: organization
+    attributes:
+      label: Organization or project / 회사 또는 프로젝트
+      description: Use the public name you want us to review. / 검토를 원하는 공개 회사명 또는 프로젝트명을 적어주세요.
+    validations:
+      required: true
+
+  - type: input
+    id: public-website
+    attributes:
+      label: Public website / 공개 웹사이트
+      description: A public product or campaign page, if available. / 있다면 공개 제품 또는 캠페인 페이지를 적어주세요.
+      placeholder: https://example.com (public page / 공개 페이지)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: proposal-type
+    attributes:
+      label: Proposal type / 제안 유형
+      multiple: false
+      options:
+        - Game sponsorship / 게임 후원
+        - Advertising placement / 광고 게재
+        - Affiliate campaign / 제휴 캠페인
+        - Other / 기타
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal / 제안 내용
+      description: Describe the public offer and intended fit. Do not include confidential terms. / 공개 가능한 제안 내용과 적합한 이유를 적어주세요. 비공개 조건은 포함하지 마세요.
+      placeholder: What would you like to propose? / 어떤 제안을 하고 싶으신가요?
+    validations:
+      required: true
+
+  - type: input
+    id: public-contact
+    attributes:
+      label: Public business contact (optional) / 공개 사업 연락 채널 (선택)
+      description: Only enter an email address or public profile that you agree to publish here. / 여기에 공개하는 데 동의한 이메일 주소 또는 공개 프로필만 입력하세요.
+      placeholder: Business email or public profile URL / 사업용 이메일 또는 공개 프로필 URL
+    validations:
+      required: false
+
+  - type: checkboxes
+    attributes:
+      label: Before submitting / 제출 전 확인
+      options:
+        - label: I understand this issue and replies are public, and I have not included confidential information. / 이슈와 답변이 공개됨을 확인했고 비공개 정보를 적지 않았습니다.
+          required: true

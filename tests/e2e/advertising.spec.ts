@@ -99,3 +99,31 @@ test("affiliate links support Korean controller-intent pages only", async ({
     await expect(page.locator('[data-affiliate="coupang"]')).toHaveCount(0);
   }
 });
+
+test("contact pages expose a public partnership inquiry in both locales", async ({
+  page,
+}) => {
+  for (const locale of ["ko", "en"] as const) {
+    await page.goto(`/${locale}/contact/`);
+    const section = page.locator(".note-card");
+    await expect(section).toHaveCount(1);
+    await expect(section.getByRole("heading")).toBeVisible();
+    await expect(section).toContainText(
+      locale === "ko" ? "공개됩니다" : "are public",
+    );
+    await expect(section).toContainText(
+      locale === "ko" ? "보장하지 않습니다" : "not guaranteed",
+    );
+    await expect(
+      section.getByRole("link", {
+        name:
+          locale === "ko" ? /광고·제휴 제안하기/ : /Send a partnership inquiry/,
+      }),
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/iamdenny/denny-games/issues/new?template=partnership-inquiry.yml",
+    );
+    await expect(section.getByRole("link")).toHaveAttribute("target", "_blank");
+    await expect(section.getByRole("link")).toHaveAttribute("rel", /noopener/);
+  }
+});
