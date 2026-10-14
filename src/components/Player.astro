@@ -129,9 +129,13 @@ const text = t(locale);
             {game.text[locale].controls[1]}{" "}
             <span>
               {game.imported
-                ? locale === "ko"
-                  ? "페이지를 떠나면 라운드는 처음부터 시작합니다."
-                  : "Leaving this page restarts the round."
+                ? game.id === "hextris"
+                  ? locale === "ko"
+                    ? "진행 상태와 최고 기록은 이 브라우저에 저장되며 새로고침 후에도 이어집니다."
+                    : "Your current game and high score stay in this browser and survive a reload."
+                  : locale === "ko"
+                    ? "페이지를 떠나면 라운드는 처음부터 시작합니다."
+                    : "Leaving this page restarts the round."
                 : text.continue}
             </span>
           </p>

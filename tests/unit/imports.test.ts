@@ -4,10 +4,11 @@ import { createHash } from "node:crypto";
 import { games, categories } from "../../src/data/games";
 import crisp from "../../src/data/crisp.json";
 import provenance from "../../vendor/crisp/provenance.json";
+import hextrisProvenance from "../../vendor/hextris/provenance.json";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(201);
+    expect(games).toHaveLength(202);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)
@@ -34,6 +35,18 @@ describe("import admission and catalogue", () => {
       expect(
         createHash("sha256").update(readFileSync(a.path)).digest("hex"),
       ).toBe(a.sha256);
+    for (const [file, expected] of Object.entries(
+      hextrisProvenance.upstream_files,
+    ))
+      expect(
+        createHash("sha256")
+          .update(readFileSync(`vendor/hextris/upstream/${file}`))
+          .digest("hex"),
+      ).toBe(expected);
+    expect(hextrisProvenance.license).toBe("GPL-3.0-or-later");
+    expect(games.find((game) => game.id === "hextris")?.notice).toBe(
+      "/licenses/hextris/",
+    );
   });
   it("retains original MIT notices and marks all research dispositions", () => {
     for (const file of [
@@ -54,6 +67,6 @@ describe("import admission and catalogue", () => {
       review.entries.filter(
         (g: { status: string }) => g.status === "integrated",
       ),
-    ).toHaveLength(194);
+    ).toHaveLength(195);
   });
 });

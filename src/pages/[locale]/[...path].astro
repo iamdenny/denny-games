@@ -383,15 +383,20 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           <p>
             {label("Play style", "플레이 방식")}:{" "}
             {controlLabels[game.controlStyle][locale]}.{" "}
-            {game.imported
+            {game.id === "hextris"
               ? label(
-                  "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
-                  "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                  "The game and high scores are saved in this browser. Reloading or changing language keeps your progress.",
+                  "게임 진행 상태와 최고 기록은 이 브라우저에 저장됩니다. 새로고침하거나 언어를 바꿔도 이어집니다.",
                 )
-              : label(
-                  "Local progress restoration is available for this game.",
-                  "이 게임은 로컬 진행 상태 복원을 지원합니다.",
-                )}
+              : game.imported
+                ? label(
+                    "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
+                    "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                  )
+                : label(
+                    "Local progress restoration is available for this game.",
+                    "이 게임은 로컬 진행 상태 복원을 지원합니다.",
+                  )}
           </p>
           <p>
             <a href={`/${locale}/device-check/?game=${game.id}`}>
@@ -418,7 +423,12 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
                       "GPL-2.0-or-later source",
                       "GPL-2.0-or-later 대응 소스",
                     )
-                  : label("MIT notices and source", "MIT 고지와 출처")}
+                  : game.id === "hextris"
+                    ? label(
+                        "GPL-3.0-or-later source and dependency notices",
+                        "GPL-3.0-or-later 소스와 의존성 고지",
+                      )
+                    : label("MIT notices and source", "MIT 고지와 출처")}
                 {" · "}
               </a>
             )}

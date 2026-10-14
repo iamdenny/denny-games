@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <meta name="robots" content="noindex,follow" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'"
+    />
+    <title>Hextris · Denny Games</title>
+    <link rel="canonical" href="https://games.iamdenny.com/en/games/hextris/" />
+    <link rel="stylesheet" href="./game.css" />
+    <script src="./vendor/jquery.js"></script>
+    <script src="./vendor/hammer.min.js"></script>
+    <script src="./host-jsonfn.js"></script>
+    <script src="./vendor/keypress.min.js"></script>
+    <script src="./vendor/js.cookie.js"></script>
+    <script src="./js/save-state.js"></script>
+    <script src="./js/view.js"></script>
+    <script src="./js/wavegen.js"></script>
+    <script src="./js/math.js"></script>
+    <script src="./js/Block.js"></script>
+    <script src="./js/Hex.js"></script>
+    <script src="./js/Text.js"></script>
+    <script src="./js/comboTimer.js"></script>
+    <script src="./js/checking.js"></script>
+    <script src="./js/update.js"></script>
+    <script src="./js/render.js"></script>
+    <script src="./js/input.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/initialization.js"></script>
+    <script src="./bridge.js"></script>
+  </head>
+  <body>
+    <canvas id="canvas" aria-label="Hextris game board"></canvas>
+    <div id="overlay" class="faded overlay"></div>
+    <div id="startBtn" aria-hidden="true"></div>
+    <div id="helpScreen"><div id="inst_main_body"></div></div>
+    <img id="openSideBar" class="helpText" src="./images/btn_help.svg" alt="" />
+    <img id="pauseBtn" src="./images/btn_pause.svg" alt="" />
+    <img id="restartBtn" src="./images/btn_restart.svg" alt="" />
+    <div id="HIGHSCORE">HIGH SCORE</div>
+    <div id="highScoreInGameText">
+      <div id="highScoreInGameTextHeader">HIGH SCORE</div>
+      <div id="currentHighScore">0</div>
+    </div>
+    <div id="gameoverscreen">
+      <div id="container">
+        <div id="gameOverBox" class="GOTitle">GAME OVER</div>
+        <div id="cScore">0</div>
+        <div id="highScoresTitle" class="GOTitle">HIGH SCORES</div>
+        <div class="score">
+          <span class="scoreNum">1.</span>
+          <div id="1place" style="display: inline">0</div>
+        </div>
+        <div class="score">
+          <span class="scoreNum">2.</span>
+          <div id="2place" style="display: inline">0</div>
+        </div>
+        <div class="score">
+          <span class="scoreNum">3.</span>
+          <div id="3place" style="display: inline">0</div>
+        </div>
+      </div>
+      <div id="bottomContainer">
+        <img id="restart" src="./images/btn_restart.svg" alt="" />
+        <div id="buttonCont"></div>
+      </div>
+    </div>
+  </body>
+</html>
