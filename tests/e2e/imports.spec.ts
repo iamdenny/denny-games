@@ -3,18 +3,22 @@ import crisp from "../../src/data/crisp.json" with { type: "json" };
 for (const item of crisp)
   test(`${item.id}: isolated mobile load, input and pause`, async ({
     page,
-  }) => {
+  }, testInfo) => {
     await page.setViewportSize({ width: 390, height: 844 });
     const errors: string[] = [],
       external: string[] = [];
+    const baseURL = testInfo.project.use.baseURL;
+    if (typeof baseURL !== "string")
+      throw new Error("Playwright baseURL is required for request isolation");
+    const baseOrigin = new URL(baseURL).origin;
     page.on("pageerror", (e) => errors.push(e.message));
     page.on("console", (m) => {
       if (m.type() === "error") errors.push(m.text());
     });
     page.on("request", (r) => {
       if (
-        !r.url().startsWith("http://127.0.0.1:4321") &&
-        !r.url().startsWith("data:")
+        !r.url().startsWith("data:") &&
+        new URL(r.url()).origin !== baseOrigin
       )
         external.push(r.url());
     });
@@ -75,8 +79,8 @@ for (const item of crisp)
               });
             const surface = (await page.locator("iframe").boundingBox())!;
             const canvas = await frame.locator("canvas").evaluate((el) => ({
-                width: (el as HTMLCanvasElement).width,
-                height: (el as HTMLCanvasElement).height,
+              width: (el as HTMLCanvasElement).width,
+              height: (el as HTMLCanvasElement).height,
               rect: el.getBoundingClientRect().toJSON(),
             }));
             const expected = Math.min(

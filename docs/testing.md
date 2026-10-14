@@ -11,6 +11,8 @@ All-game stage fitting (ADR 0021) asserts maximal aspect-correct bounds across n
 
 Tests cover puzzle solvability, deterministic UTC seeds, 2048 merges, arcade timestep behavior, storage failure, ad rejection/no-fill and game cleanup. Browser checks exercise home/detail/play/pause/restart, locale state persistence, favourites, search, daily challenges and no display ads in play.
 
+Playwright starts its own static preview and does not reuse an arbitrary server already listening on the test port. The default port is 4321; set `PLAYWRIGHT_PORT` to another unused port when needed, for example `PLAYWRIGHT_PORT=56421 npm run test:e2e`.
+
 Responsive checks use 320, 360, 390, 430 and 1440 CSS pixels and assert no horizontal overflow. Chromium automation and synthetic standard gamepad events are automated evidence only. Actual iOS Safari, Android Chrome, physical Xbox/DualSense controllers and Tesla firmware combinations remain unverified until a human device run is recorded.
 
 ## Manual evidence record

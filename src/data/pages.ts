@@ -467,9 +467,10 @@ export const articles: Record<string, Record<Locale, Article>> = {
           ],
         },
         {
-          heading: "Tesla Arcade and browser games are different",
+          heading: "Can I install Denny Games or add it to Tesla Arcade?",
           paragraphs: [
-            "Tesla's Model 3 manual describes its built-in Arcade and notes that entertainment options can vary by vehicle configuration and region. Native Arcade controls do not show that a third-party web page or its controller input works in the vehicle browser. Read Tesla's current instructions before trying either environment.",
+            "No. Denny Games is an independent browser-game catalog, not an official Tesla Arcade title or vehicle app, and it does not include Xbox Game Pass or a cloud-gaming subscription. There is nothing to install from Denny Games; if your vehicle provides a browser, you can try to open the site there while parked. We have not tested this site in a physical Tesla, so access and gameplay remain unverified.",
+            "Built-in Tesla Arcade titles and their availability are managed by Tesla and vary by vehicle and region. Check the current owner's manual for your car. A game or controller that works in Arcade does not prove an independent site works in the vehicle browser.",
           ],
         },
         {
@@ -507,6 +508,11 @@ export const articles: Record<string, Record<Locale, Article>> = {
           label: "Try 2048 (touch and direction buttons)",
           href: "/en/games/2048/",
         },
+        {
+          label:
+            "Browse the full browser-game catalog (Tesla support unverified)",
+          href: "/en/all/",
+        },
         { label: "Check browser gamepad input", href: "/en/gamepad-test/" },
         {
           label: "Read the device test guide",
@@ -531,9 +537,10 @@ export const articles: Record<string, Record<Locale, Article>> = {
           ],
         },
         {
-          heading: "테슬라 내장 아케이드와 브라우저 웹게임은 다른 환경입니다",
+          heading: "데니 게임즈를 테슬라 Arcade에 설치하거나 추가할 수 있나요?",
           paragraphs: [
-            "테슬라 사용자 설명서는 차량 내장 아케이드(Arcade)를 안내하면서 차량 구성과 지역에 따라 엔터테인먼트 기능이 다를 수 있다고 설명합니다. 내장 아케이드에서 조작기가 작동해도 차량 브라우저의 외부 웹페이지나 게임패드 입력이 작동한다는 뜻은 아닙니다. 각 환경을 시험하기 전에 해당 차량의 최신 안내를 확인하세요.",
+            "아니요. 데니 게임즈는 독립 브라우저 게임 모음이며 Tesla Arcade에 포함된 공식 게임이나 차량 앱이 아닙니다. Xbox Game Pass나 클라우드 게임 구독도 제공하지 않습니다. 데니 게임즈를 차량에 설치하는 대신, 차량에 브라우저가 있을 때 주차한 상태에서 사이트 접속을 시도할 수 있습니다. 실차 시험은 하지 않아 접속과 플레이 가능 여부는 검증되지 않았습니다.",
+            "차량 내장 Tesla Arcade 게임과 이용 가능 여부는 Tesla가 관리하며 차량과 지역에 따라 다를 수 있습니다. 해당 차량의 최신 사용자 설명서를 확인하세요. 내장 Arcade에서 게임이나 조작기가 작동해도 외부 사이트가 차량 브라우저에서 작동한다는 뜻은 아닙니다.",
           ],
         },
         {
@@ -568,6 +575,10 @@ export const articles: Record<string, Record<Locale, Article>> = {
           href: "/ko/games/circuit-loop/",
         },
         { label: "2048 해보기 (터치·방향 버튼)", href: "/ko/games/2048/" },
+        {
+          label: "전체 브라우저 게임 보기 (테슬라 지원 미검증)",
+          href: "/ko/all/",
+        },
         { label: "브라우저 게임패드 입력 확인", href: "/ko/gamepad-test/" },
         { label: "기기 점검 방법 읽기", href: "/ko/guides/test-your-device/" },
         { label: "현재 호환성 검증 정보", href: "/ko/compatibility/" },
