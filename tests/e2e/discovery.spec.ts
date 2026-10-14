@@ -49,12 +49,19 @@ test("Tesla pages distinguish built-in installation from browser games in both l
       heading: "Can I install Denny Games or add it to Tesla Arcade?",
       link: "Browse the full browser-game catalog (Tesla support unverified)",
       href: "/en/all/",
+      multiplayerHeading: "Can two people play on one screen?",
+      multiplayerLink:
+        "Explore five same-device two-player board games (Tesla unverified)",
+      multiplayerHref: "/en/collections/classic-board/",
     },
     {
       path: "/ko/tesla/",
       heading: "데니 게임즈를 테슬라 Arcade에 설치하거나 추가할 수 있나요?",
       link: "전체 브라우저 게임 보기 (테슬라 지원 미검증)",
       href: "/ko/all/",
+      multiplayerHeading: "두 명이 한 화면에서 함께 할 수 있나요?",
+      multiplayerLink: "같은 기기 2인 보드게임 다섯 개 보기 (테슬라 미검증)",
+      multiplayerHref: "/ko/collections/classic-board/",
     },
   ]) {
     await page.goto(content.path);
@@ -64,6 +71,12 @@ test("Tesla pages distinguish built-in installation from browser games in both l
     await expect(
       page.getByRole("link", { name: content.link }),
     ).toHaveAttribute("href", content.href);
+    await expect(
+      page.getByRole("heading", { name: content.multiplayerHeading }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: content.multiplayerLink }),
+    ).toHaveAttribute("href", content.multiplayerHref);
   }
   await context.close();
 });
