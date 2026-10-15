@@ -51,6 +51,16 @@ test("Bounce Back: isolated play, touch and pad input, save, sound, pause and re
   const frameElement = page.locator("#game-host iframe");
   await expect(frameElement).toHaveAttribute("sandbox", "allow-scripts");
   await page.locator("#start-button").click();
+  // The shell is ready before the newly mounted iframe commits navigation.
+  const waitForGameFrame = () =>
+    expect
+      .poll(() =>
+        page
+          .frames()
+          .some((item) => item.url().includes("/vendor/bounceback/index.html")),
+      )
+      .toBe(true);
+  await waitForGameFrame();
   let frame = page
     .frames()
     .find((item) => item.url().includes("/vendor/bounceback/index.html"));
@@ -179,6 +189,7 @@ test("Bounce Back: isolated play, touch and pad input, save, sound, pause and re
 
   await page.locator("#restart-button").click();
   await expect(page.locator("#start-button")).toBeEnabled();
+  await waitForGameFrame();
   frame = page
     .frames()
     .find((item) => item.url().includes("/vendor/bounceback/index.html"));

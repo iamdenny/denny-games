@@ -18,3 +18,5 @@
 | `.github/workflows/`   | PR checks and main-only Pages deployment                                                                                                                    |
 
 - `src/lib/audio.ts`: original synthesized effects, volume and note cancellation.
+
+- `src/data/quick-play.ts`, `src/components/QuickPlay.astro` and `src/scripts/quick-play.ts`: static-first mood picker, direct play and validated local recent links.

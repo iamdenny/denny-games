@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import GameCard from "../../components/GameCard.astro";
+import QuickPlay from "../../components/QuickPlay.astro";
 import { editorialOrder } from "../../data/editorial";
 import CataloguePages from "../../components/CataloguePages.astro";
 import AdSlot from "../../components/AdSlot.astro";
@@ -49,7 +50,6 @@ const localGameCount = games.length - externalGameCount;
 const recommended = editorialOrder(games);
 const homeCuratedPreviewCount = 6;
 const homeCategoryPreviewCount = 3;
-const featured = recommended[0]!;
 const pageSuffix =
   page > 1 ? (locale === "ko" ? ` · ${page}페이지` : ` · Page ${page}`) : "";
 const gameCollection =
@@ -173,31 +173,8 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </form>
         </div>
       </section>
+      <QuickPlay locale={locale} />
       <CollectionLinks locale={locale} />
-      <section class="feature">
-        <div class="feature-copy">
-          <span class="eyebrow">{text.featured}</span>
-          <h2>{featured.text[locale].title}</h2>
-          <p>{featured.text[locale].description}</p>
-          <a href={`/${locale}/games/${featured.id}/`} class="button primary">
-            {text.details}
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-        <a
-          class="feature-image"
-          href={`/${locale}/games/${featured.id}/`}
-          aria-label={featured.text[locale].title}
-        >
-          <img
-            src={featured.artwork}
-            width="640"
-            height="400"
-            alt=""
-            fetchpriority="high"
-          />
-        </a>
-      </section>
       <section data-curated-preview-count={homeCuratedPreviewCount}>
         <div class="section-heading">
           <h2>{text.curated}</h2>

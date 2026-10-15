@@ -13,7 +13,7 @@ This repository carries the original research requirements below. The following 
 - English and Korean only. No Japanese routes in this delivery.
 - Root visits open the first supported browser language automatically (`ko` or `en`, English fallback). Explicit locale URLs and manual language switching remain authoritative. See [ADR 0019](../adr/0019-browser-language-entry.md).
 - Play-style collection cards show three real member-game thumbnails alongside localized titles, descriptions and exact counts on home, collections, related game details and guides. Artwork and card titles link to the same collection; mobile uses one column. See [DESIGN](../../DESIGN.md).
-- Home's introductory slogan uses a compact 1.5–2rem title with natural wrapping and less vertical spacing before game discovery. Place the exact-count catalogue link beside search, remove the duplicate tagline, long introductory notice and pagination explanation, and show collections immediately below. Apply this to both languages and all viewport widths; preserve search and catalogue actions. See [DESIGN](../../DESIGN.md).
+- Home's introductory slogan uses a compact 1.5–2rem title with natural wrapping and less vertical spacing before game discovery. Place the exact-count catalogue link beside search, remove the duplicate tagline, long introductory notice and pagination explanation, and show the quick-play picker immediately below and collections after it (ADR 0029). Apply this to both languages and all viewport widths; preserve search and catalogue actions. See [DESIGN](../../DESIGN.md).
 - Compact navigation and board-stage priority follow [ADR 0020](../adr/0020-compact-navigation-and-board-stage.md): a single-row menu header through 1100px, no separate category row, and classic-board controls beside the stage from 600px. Optional arrows live in settings; preserve touch, keyboard and gamepad confirmation and round state.
 - Apply full-stage sizing to every game through [ADR 0021](../adr/0021-maximized-all-game-stages.md). Remove width caps and inline-control reservations, keep logical aspect ratios, and choose side or bottom tools by the larger available game scale. Keep primary hint/launch/number actions reachable; 2048 arrows live in settings. Verify every imported canvas at phone and landscape browser sizes.
 - Public source repository already created with user authorization; only dist is deployed. See ADR-0002.
@@ -70,6 +70,10 @@ Use 12 explicit editor picks with bilingual reasons based on screen/rule review.
 | F19 scale | typed registry, real pagination, 1,000-entry build fixture |
 | F20 mobile | responsive browser tests; physical-device signoff pending |
 | F21 slots | shared component, no display slots in play |
+
+## Quick discovery and replay — 2026-10-15
+
+Home offers quick-reflex, thinking and same-screen two-player picks with direct play and rules links, actual game imagery and browser-local recent games. Real shell results offer a score record comparison where appropriate and a next-game action. Keep all controls usable on phones and iPad layouts; provide static fallback, reduced motion and honest local-save wording. This improves discovery and replay opportunities; increased fun or retention needs actual player evidence. See [ADR 0029](../adr/0029-quick-play-and-replay.md).
 
 ## Original research draft (historical recommendations)
 

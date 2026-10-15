@@ -30,3 +30,5 @@ The original research is retained locally outside this public repository. Produc
 - [Shared board engine decision](adr/0015-classic-board-games.md)
 
 - [Player UX](product/PLAYER-UX.md): direct controls and browser viewport mode.
+
+- [Quick discovery and replay](releases/2026-10-15-discovery-replay.md)

@@ -1042,3 +1042,27 @@
     flex-wrap: wrap;
   }
 }
+
+/* Keep the result choices reachable even on short landscape screens. */
+.game-overlay:has(#next-game:not([hidden])) {
+  align-items: safe center;
+}
+.overlay-content .round-record {
+  padding: 10px 14px;
+  border: 1px solid #5b7776;
+  border-radius: 12px;
+  color: #d9ed68;
+}
+.overlay-content .round-record[data-improved="true"] {
+  background: #d9ed68;
+  color: #17211d;
+  font-weight: 700;
+}
+.next-game {
+  display: block;
+  padding: 12px;
+  min-height: 48px;
+  color: #a7f0e6;
+  font-size: 14px;
+  text-underline-offset: 4px;
+}

@@ -6,6 +6,7 @@ export default defineConfig({
     "mobile-player.spec.ts",
     "player-viewport.spec.ts",
     "game-tools.spec.ts",
+    "quick-play.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },

@@ -95,6 +95,8 @@ function best() {
 }
 function show(title: string, note = "", showSetup = false) {
   overlay.hidden = false;
+  el("round-record").hidden = true;
+  el("next-game").hidden = true;
   host.inert = true;
   el("game-controls").inert = true;
   const setup = el("game-mode-choice");
@@ -131,7 +133,8 @@ function end(value: GameResult) {
   rounds++;
   score = value.score;
   el("score").textContent = formatScore(score);
-  const record = Math.max(best(), score);
+  const previousBest = best();
+  const record = Math.max(previousBest, score);
   write(`best:${id}:${seed}:${stage}`, record);
   el("best").textContent = formatScore(record);
   show(
@@ -144,6 +147,20 @@ function end(value: GameResult) {
         : text.lost,
     value.message ?? `${text.score}: ${formatScore(score)}`,
   );
+  if (root.dataset.scoreRecord === "true" && score > 0) {
+    const recordNote = el("round-record");
+    const improved = score > previousBest;
+    recordNote.dataset.improved = String(improved);
+    recordNote.textContent = improved
+      ? locale === "ko"
+        ? `${previousBest > 0 ? "새 최고 기록!" : "첫 기록!"} ${formatScore(score)}점 · 이 브라우저, 같은 판·스테이지 기준`
+        : `${previousBest > 0 ? "New personal best!" : "First score!"} ${formatScore(score)} · This browser, same board and stage`
+      : locale === "ko"
+        ? `내 최고 기록 ${formatScore(record)}점 · 한 번 더 도전해 볼까요?`
+        : `Your best: ${formatScore(record)} · Ready for another round?`;
+    recordNote.hidden = false;
+  }
+  el("next-game").hidden = false;
   start.textContent = text.restart;
   share.hidden = false;
   pauseButton.disabled = true;

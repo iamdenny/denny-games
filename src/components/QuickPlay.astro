@@ -1,0 +1,371 @@
+---
+import { gameById, type Game } from "../data/games";
+import { quickPlayGroups } from "../data/quick-play";
+import type { Locale } from "../lib/types";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const ko = locale === "ko";
+const groups = quickPlayGroups
+  .map((group) => ({
+    id: group.id,
+    label: group.label[locale],
+    games: group.ids
+      .map(gameById)
+      .filter(
+        (game): game is Game =>
+          game !== undefined &&
+          !game.externalPlay &&
+          game.inputs.includes("touch"),
+      )
+      .map((game) => {
+        return {
+          id: game.id,
+          title: game.text[locale].title,
+          hook: game.text[locale].subtitle,
+          image: game.artwork,
+          note:
+            group.id === "together"
+              ? ko
+                ? "시작 화면에서 ‘2인 플레이’를 선택하세요. 같은 화면에서 번갈아 둬요."
+                : "Choose two-player mode on the start screen. Take turns on the same screen."
+              : game.text[locale].controls[0],
+          duration:
+            game.duration === "varies"
+              ? ko
+                ? "내 페이스로"
+                : "At your pace"
+              : `${game.duration}${ko ? "분" : " min"}`,
+        };
+      }),
+  }))
+  .filter((group) => group.games.length > 0);
+const first = groups[0]?.games[0];
+---
+
+{first && (
+  <section
+    class="quick-play"
+    data-quick-play
+    data-choices={JSON.stringify(groups)}
+    aria-labelledby="quick-heading"
+  >
+    <div class="quick-heading">
+      <div>
+        <span class="eyebrow">{ko ? "취향대로 골라요" : "PICK YOUR PLAY"}</span>
+        <h2 id="quick-heading">
+          {ko ? "오늘은 어떤 한 판?" : "What feels like fun?"}
+        </h2>
+      </div>
+      <div
+        class="quick-moods"
+        data-quick-controls
+        hidden
+        role="group"
+        aria-label={ko ? "플레이 방식" : "Play style"}
+      >
+        {groups.map((group, i) => (
+          <button
+            type="button"
+            data-quick-mood={group.id}
+            aria-pressed={i === 0 ? "true" : "false"}
+          >
+            {group.label}
+          </button>
+        ))}
+      </div>
+    </div>
+    <div class="quick-feature">
+      <div class="quick-copy">
+        <span class="quick-meta">
+          {ko ? "여기서 바로 플레이" : "Play right here"}{" "}
+          <span aria-hidden="true"> · </span>
+          <span data-quick-duration>{first.duration}</span>
+        </span>
+        <h3 data-quick-title>{first.title}</h3>
+        <p class="quick-hook" data-quick-hook>
+          {first.hook}
+        </p>
+        <p class="quick-note" data-quick-note>
+          {first.note}
+        </p>
+        <div class="quick-actions">
+          <a
+            class="button primary"
+            data-quick-launch
+            href={`/${locale}/play/${first.id}/`}
+          >
+            {ko ? "한 판 시작" : "Let's play"} <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="quick-details"
+            data-quick-details
+            href={`/${locale}/games/${first.id}/`}
+          >
+            {ko ? "게임 알아보기" : "How to play"}
+          </a>
+        </div>
+        <button class="quick-shuffle" type="button" data-quick-next hidden>
+          ↻ {ko ? "다른 게임 골라줘" : "Pick another game"}
+        </button>
+        <span
+          class="quick-status"
+          data-quick-status
+          role="status"
+          aria-atomic="true"
+        ></span>
+      </div>
+      <a
+        class="quick-art"
+        data-quick-art-link
+        href={`/${locale}/play/${first.id}/`}
+        aria-label={first.title}
+      >
+        <img
+          data-quick-image
+          src={first.image}
+          alt={first.title}
+          width="640"
+          height="400"
+          fetchpriority="high"
+        />
+        <span class="quick-art-play" aria-hidden="true">
+          ▶
+        </span>
+      </a>
+    </div>
+    <div class="quick-recent" data-quick-recent hidden>
+      <h3>{ko ? "다시 만나도 재밌는 한 판" : "Back for another round"}</h3>
+      <p>
+        {ko
+          ? "이 브라우저에서 최근 플레이한 게임"
+          : "Recently played in this browser"}
+      </p>
+      <div class="quick-recent-list" data-quick-recent-list></div>
+    </div>
+  </section>
+)}
+<script>
+  import "../scripts/quick-play";
+</script>
+<style>
+  .quick-play {
+    margin: 24px 0 36px;
+  }
+  .quick-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .quick-heading h2 {
+    margin: 6px 0 0;
+    font-size: clamp(24px, 3vw, 34px);
+    letter-spacing: -0.04em;
+  }
+  .eyebrow {
+    color: #606b61;
+    font-size: 11px;
+    letter-spacing: 0.13em;
+  }
+  .quick-moods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .quick-moods button {
+    border: 1px solid #17211d;
+    border-radius: 99px;
+    background: transparent;
+    padding: 10px 16px;
+    min-height: 48px;
+    font: inherit;
+    cursor: pointer;
+  }
+  .quick-moods button[aria-pressed="true"] {
+    background: #17211d;
+    color: #f5f2e9;
+  }
+  .quick-feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #172d30;
+    color: #f5f2e9;
+    border: 1px solid #17211d;
+  }
+  .quick-copy {
+    padding: clamp(22px, 3vw, 40px);
+    min-width: 0;
+    align-self: center;
+  }
+  .quick-meta {
+    font-size: 12px;
+    color: #a7f0e6;
+  }
+  .quick-copy h3 {
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+    margin: 18px 0 12px;
+    overflow-wrap: anywhere;
+  }
+  .quick-hook {
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 0 0 12px;
+  }
+  .quick-note {
+    color: #c4d5cf;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 3.2em;
+  }
+  .quick-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .quick-actions .primary {
+    background: #d9ed68;
+    color: #17211d;
+    border-color: #d9ed68;
+    border-radius: 10px;
+    min-height: 48px;
+  }
+  .quick-details {
+    color: #f5f2e9;
+    text-underline-offset: 4px;
+    padding: 12px 0;
+  }
+  .quick-shuffle {
+    color: #a7f0e6;
+    background: none;
+    border: 0;
+    padding: 12px 0;
+    min-height: 48px;
+    margin-top: 8px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .quick-art {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    overflow: hidden;
+    place-items: center;
+    position: relative;
+    min-width: 0;
+    padding: 26px;
+    background: radial-gradient(circle at 60% 30%, #406568, #233e41);
+    color: #17211d;
+  }
+  .quick-art img {
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 340px;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: transform 180ms ease;
+  }
+  .quick-art:hover img {
+    transform: scale(1.025);
+  }
+  .quick-art-play {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #d9ed68;
+    box-shadow: 0 4px 16px #0003;
+  }
+  .quick-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .quick-recent {
+    margin-top: 20px;
+  }
+  .quick-recent h3 {
+    font-size: 18px;
+    margin: 0 0 4px;
+  }
+  .quick-recent p {
+    margin: 0 0 12px;
+    color: #606b61;
+    font-size: 12px;
+  }
+  .quick-recent-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .quick-recent-list :global(a) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border: 1px solid #c6cbbd;
+    border-radius: 12px;
+    min-height: 64px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .quick-recent-list :global(img) {
+    width: 52px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 6px;
+    flex-shrink: 0;
+    background: #e7e8da;
+  }
+  @media (max-width: 700px) {
+    .quick-feature {
+      grid-template-columns: 1fr;
+    }
+    .quick-art {
+      grid-row: 1;
+      height: 180px;
+      padding: 16px;
+    }
+    .quick-copy {
+      padding: 20px;
+    }
+    .quick-copy h3 {
+      margin-top: 10px;
+    }
+    .quick-recent-list {
+      grid-template-columns: 1fr;
+    }
+    .quick-moods button {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .quick-art img {
+      transition: none;
+    }
+    .quick-art:hover img {
+      transform: none;
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
-import type { Game } from "../data/games";
+import { games, type Game } from "../data/games";
+import { quickPlayGroups } from "../data/quick-play";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
 interface Props {
@@ -8,6 +9,25 @@ interface Props {
 }
 const { game, locale } = Astro.props;
 const text = t(locale);
+const localPicks = quickPlayGroups
+  .flatMap((group) => group.ids)
+  .map((id) => games.find((item) => item.id === id))
+  .filter(
+    (item): item is Game =>
+      item !== undefined &&
+      item.id !== game.id &&
+      !item.externalPlay &&
+      item.inputs.includes("touch"),
+  );
+const nextGame =
+  localPicks.find((item) => item.category === game.category) ??
+  localPicks[0] ??
+  games.find(
+    (item) =>
+      item.id !== game.id &&
+      !item.externalPlay &&
+      item.inputs.includes("touch"),
+  );
 ---
 
 <section
@@ -30,6 +50,7 @@ const text = t(locale);
   data-id={game.id}
   data-locale={locale}
   data-version={game.version}
+  data-score-record={!game.classic && !game.internalScore ? "true" : "false"}
   data-stages={game.stages}
   data-instructions={game.text[locale].controls[0]}
 >
@@ -61,13 +82,27 @@ const text = t(locale);
         <span class="eyebrow">DENNY GAMES</span>
         <h2 id="overlay-title">{text.ready}</h2>
         <p id="overlay-note">{game.text[locale].controls[0]}</p>
+        <p id="round-record" class="round-record" role="status" hidden></p>
         <div id="game-mode-choice" hidden></div>
-        <button id="start-button" type="button" class="button primary">
+        <button id="start-button" type="button" class="button primary" disabled>
           {text.start} ↗
         </button>
         <button id="share-button" type="button" class="button" hidden>
           {text.share}
         </button>
+        <a
+          id="next-game"
+          class="next-game"
+          href={
+            nextGame ? `/${locale}/play/${nextGame.id}/` : `/${locale}/all/`
+          }
+          hidden
+        >
+          {locale === "ko" ? "다음 한 판" : "Try next"}:{" "}
+          {nextGame?.text[locale].title ??
+            (locale === "ko" ? "게임 둘러보기" : "Explore games")}{" "}
+          ↗
+        </a>
         <textarea
           id="share-fallback"
           aria-label={text.copyResult}
