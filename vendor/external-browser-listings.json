@@ -1,0 +1,59 @@
+{
+  "reviewedAt": "2026-10-15",
+  "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
+  "verificationBoundary": "Each play URL returned HTTP 200 to a HEAD request on reviewedAt. No game session, mobile device, controller, or Tesla browser was tested.",
+  "entries": [
+    {
+      "id": "freedoom",
+      "projectSource": "https://github.com/freedoom/freedoom",
+      "projectLicense": "Freedoom game data: BSD-3-Clause",
+      "engineSource": "https://github.com/chocolate-doom/chocolate-doom",
+      "engineLicense": "GPL-2.0",
+      "externalHost": "https://danborden1.github.io/doom-web/",
+      "hostSource": "https://github.com/danborden1/doom-web",
+      "hostWrapperLicense": "Not stated in the host README; not redistributed by Denny Games.",
+      "urlStatus": "HTTP 200",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "Host README identifies a Freedoom Phase 1 WAD, Chocolate Doom engine, corresponding source and a first load of about 35 MB. It says no proprietary id Software Doom WAD is included."
+    },
+    {
+      "id": "openttd",
+      "projectSource": "https://github.com/OpenTTD/OpenTTD",
+      "projectLicense": "OpenTTD core: GPL-2.0. Upstream documents OpenGFX GPL-2.0, OpenSFX CC BY-SA 3.0 and OpenMSX GPL-2.0 as free basesets; the linked host's selected data was not independently inspected.",
+      "externalHost": "https://openttdonline.com/play/",
+      "hostSource": "https://openttdonline.com/",
+      "hostWrapperLicense": "Not assessed; no host code or data is redistributed by Denny Games.",
+      "urlStatus": "HTTP 200",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "Independent browser host credited as Overgrown Studio. Host page exposes save import/export and online content controls. Original Transport Tycoon Deluxe data is not covered by OpenTTD's general permission."
+    },
+    {
+      "id": "supertux",
+      "projectSource": "https://github.com/SuperTux/supertux",
+      "projectLicense": "GPL-3.0-or-later code; game data has per-file terms and exceptions.",
+      "licenseText": "https://github.com/SuperTux/supertux/blob/master/LICENSE.txt",
+      "externalHost": "https://play.supertux.org/play/",
+      "hostSource": "https://play.supertux.org/",
+      "hostWrapperLicense": "Official project's web build; no build files are redistributed by Denny Games.",
+      "urlStatus": "HTTP 200",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "Official project browser page lists multiple versions. Version behavior, download size and controls can differ."
+    },
+    {
+      "id": "nethack",
+      "projectSource": "https://github.com/NetHack/NetHack",
+      "projectLicense": "NetHack General Public License (NGPL).",
+      "licenseText": "https://www.nethack.org/common/license.html",
+      "externalHost": "https://www.alt.org/nethack/hterm/",
+      "hostSource": "https://alt.org/nethack/",
+      "hostWrapperLicense": "Remote community server and web terminal; no server or client code is redistributed by Denny Games.",
+      "urlStatus": "HTTP 200",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "Remote play is hosted by NAO. The server controls account, session, save and privacy terms; users are directed to read its current guidance before signing in."
+    }
+  ]
+}

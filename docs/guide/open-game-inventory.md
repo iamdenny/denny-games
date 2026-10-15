@@ -7,9 +7,11 @@ read_when:
 
 # Open game inventory
 
-The playable registry includes Circuit Loop, Orbit Break, the credited 2048 adaptation, five original board games, 191 standard-adapter ABA Games Crisp titles, three cycle-owned ABA Games titles, Hextris, Bounce Back and UNDERRUN, for 205 games total. Each import has English/Korean controls, a primary category, a fixed source commit, original notices and self-hosted files. Names remain the authors' original English names. In-canvas bitmap text remains upstream English; navigation and instructions are bilingual.
+The public registry has 209 game pages: 205 games launch on Denny Games and four classic open-source projects link to browser hosts outside this site. The external pages are Freedoom, OpenTTD, SuperTux and NetHack. They are not Denny Games ports: no third-party build, game data, or screenshot is bundled, and there is no local `/play/{id}/` route. Their host, source, license information, reachability evidence and verification limits are recorded in `vendor/external-browser-listings.json`.
 
-The seven primary categories are board, puzzle, arcade, action, shooting, racing and sports. They describe the main interaction, not an assertion that a miniature steering game is a full vehicle simulator. Counts are computed from the registry. No empty categories or placeholder games are published.
+Each locally hosted import has English/Korean controls, a primary category, a fixed source commit, original notices and self-hosted files. External-link pages instead show the source project's license separately from the browser host and explain that account, controls, compatibility, sessions and saves follow that host. Gameplay and device support remain unverified until tested. Names remain the authors' original English names. In-canvas bitmap text remains upstream English; navigation and instructions are bilingual.
+
+The nine categories are board, puzzle, arcade, action, shooting, racing, sports, strategy and roguelike. They describe the main interaction, not an assertion that a miniature steering game is a full vehicle simulator. Counts are computed from the registry. No empty categories or placeholder games are published.
 
 ## Rights records
 
@@ -18,6 +20,7 @@ The seven primary categories are board, puzzle, arcade, action, shooting, racing
 - `vendor/bounceback/provenance.json`: pinned GPL-2.0-or-later source and hashes for Bounce Back, its tile sprite and title-screen image. `public/licenses/bounceback/` provides the full license and corresponding-source links.
 - `vendor/underrun/provenance.json`: pinned MIT source and hashes for UNDERRUN's game, level maps and texture; the modified Sonant-X module keeps its separate zlib notice. `public/licenses/underrun/` provides both notices and source links.
 - `vendor/hextris/provenance.json`: pinned GPL-3.0-or-later source and hashes for the full Hextris repository snapshot. `public/licenses/hextris/` includes the complete GPL license, MIT dependency notices and the Keypress Apache-2.0 license. The hosted adapter removes upstream ads, analytics, social popups and score reporting.
+- `vendor/external-browser-listings.json`: four source-project/host pairs. Only HTTP reachability was checked; Denny Games does not claim that gameplay or device compatibility was tested. Link-only entries do not change the local import count or the port-required candidate dispositions.
 - `vendor/catalogue-review.json`: a disposition for all 294 research entries. Integrated, port-required and rights-or-integration-review are distinct.
 - `scripts/build-crisp.mjs`: reproducible, checked runtime hooks. Original game source files are not rewritten.
 
@@ -33,7 +36,7 @@ Hextris adds a quick hexagonal block-matching puzzle. The source page includes t
 
 Most imports restart on page reload or language change; the shell saves personal best scores, favorites and recent plays. Hextris is an exception: its latest completed board checkpoint and high scores are restored locally. Imported games do not participate in daily seeded challenges. Optional upstream music/WebGL effects are disabled; the shared sound switch controls simple shell-generated effects where supported. A connected standard controller can move a virtual pointer and hold A; Start and disconnect pause. Mouse/touch remains available after controller use. DIGI10 uses number keys or the on-screen number buttons.
 
-At research time the Hextris repository showed about 2.4k GitHub stars. This is a changing developer-interest signal, not evidence of player counts, demand, search rankings or earnings. Candidate games that fail license, load-size or mobile-UX review remain unpublished; A Dark Room is held until its fixed-width, keyboard-dependent mobile experience is redesigned.
+At research time the Hextris repository showed about 2.4k GitHub stars. This is a changing developer-interest signal, not evidence of player counts, demand, search rankings or earnings. Candidate games that fail license, load-size or mobile-UX review remain unpublished as local ports. A separate outbound listing may be added only with a real browser host and a clear external-host notice; it does not imply Denny Games approval of that service. A Dark Room is held until its fixed-width, keyboard-dependent mobile experience is redesigned.
 
 See [runtime decision](../adr/0009-imported-games.md), [onboarding](game-onboarding.md) and [testing](../testing.md).
 

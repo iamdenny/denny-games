@@ -1,11 +1,12 @@
 import { games } from "../data/games";
 const boardGames = games.filter((game) => game.classic);
+const externalGames = games.filter((game) => game.externalPlay);
 export function GET() {
   const base = "https://games.iamdenny.com";
   const lines = [
     "# Denny Games",
     "",
-    `> Free English and Korean browser games. ${games.length} published titles. No account or installation required.`,
+    `> Free English and Korean browser-game catalogue. ${games.length} published titles. Most launch on Denny Games; selected classics open on external hosts with their own account, input and save requirements.`,
     "",
     "## Authoritative pages",
     `- [English catalogue](${base}/en/all/)`,
@@ -25,8 +26,16 @@ export function GET() {
       }),
     ),
     "",
+    "## Classic games on external browser hosts",
+    ...externalGames.flatMap((g) =>
+      ["en", "ko"].map((l) => {
+        const locale = l as "en" | "ko";
+        return `- [${g.text[locale].title}](${base}/${locale}/games/${g.id}/): ${g.text[locale].description} External host: ${g.externalPlay!.host[locale]} (${g.externalPlay!.url}).`;
+      }),
+    ),
+    "",
     "## Interpretation",
-    "Game detail pages contain the implemented rule variant, controls and local-save behavior. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
+    "Denny Games-hosted detail pages describe the implemented rule variant, controls and local-save behavior. The four classic external listings open independent hosts; their gameplay, account/session handling, controls, and saves are not verified or provided by Denny Games. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
     "",
   ];
   return new Response(lines.join("\n"), {

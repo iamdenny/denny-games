@@ -21,7 +21,10 @@ export function pagePaths(): string[] {
     "guides",
     "licenses",
     ...Object.keys(articles),
-    ...games.flatMap((game) => [`games/${game.id}`, `play/${game.id}`]),
+    ...games.flatMap((game) => [
+      `games/${game.id}`,
+      ...(game.externalPlay ? [] : [`play/${game.id}`]),
+    ]),
     ...categories.flatMap((category) =>
       Array.from(
         { length: Math.ceil(categoryGames(category).length / PAGE_SIZE) },

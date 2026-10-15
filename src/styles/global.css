@@ -626,6 +626,15 @@ main {
   gap: 8px;
   margin-bottom: 20px;
 }
+.external-host-note {
+  max-width: 620px;
+  margin: -10px 0 16px;
+  padding-left: 12px;
+  border-left: 3px solid #b76c4b;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
 .badge {
   font-size: 11px;
   padding: 5px 9px;

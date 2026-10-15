@@ -13,7 +13,9 @@ export const GET: APIRoute = ({ params }) => {
       editorialOrder(games).map((game) => ({
         id: game.id,
         title: game.text[locale].title,
-        description: game.text[locale].description,
+        description: game.externalPlay
+          ? `${game.text[locale].description} ${game.externalPlay.note[locale]}`
+          : game.text[locale].description,
         tags: [...game.tags, game.category],
         url: `/${locale}/games/${game.id}/`,
         inputs: game.inputs,
@@ -28,6 +30,8 @@ export const GET: APIRoute = ({ params }) => {
             shooting: "Shooting",
             racing: "Racing",
             sports: "Sports",
+            strategy: "Strategy",
+            roguelike: "Roguelike",
           },
           ko: {
             board: "보드게임",
@@ -37,12 +41,16 @@ export const GET: APIRoute = ({ params }) => {
             shooting: "슈팅",
             racing: "레이싱",
             sports: "스포츠",
+            strategy: "전략·경영",
+            roguelike: "로그라이크",
           },
         }[locale][game.category],
         subtitle: game.text[locale].subtitle,
         artwork: game.artwork,
         color: game.color,
         duration: game.duration,
+        externalHost: game.externalPlay?.host[locale],
+        externalPlayUrl: game.externalPlay?.url,
         added: game.added,
         editorReason: editorialPick(game.id)?.reason[locale],
       })),

@@ -9,7 +9,8 @@ import hextrisProvenance from "../../vendor/hextris/provenance.json";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(205);
+    expect(games).toHaveLength(209);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(4);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)

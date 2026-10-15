@@ -35,3 +35,4 @@
 - [0025 — UNDERRUN WebGL import and isolated runtime](0025-underrun-webgl-adapter.md) — Accepted.
 - [0026 — Hextris responsive adapter and local progress](0026-hextris-responsive-adapter.md) — Accepted.
 - [0027 — Crisp arcade cycles with localized touch controls](0027-crisp-cycle-owned-games.md) — Accepted.
+- [0028 — External browser game listings](0028-external-browser-listings.md) — Accepted.

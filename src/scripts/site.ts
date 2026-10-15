@@ -146,7 +146,7 @@ if (grid) {
     sort.value = ["name", "newest"].includes(q.get("sort") || "")
       ? q.get("sort")!
       : "recommended";
-    input.value = ["touch", "keyboard", "gamepad"].includes(
+    input.value = ["touch", "mouse", "keyboard", "gamepad"].includes(
       q.get("input") || "",
     )
       ? q.get("input")!

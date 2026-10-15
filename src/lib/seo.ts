@@ -45,7 +45,7 @@ export function discoverySchema({
         name: game.text[locale].title,
         description,
         url,
-        image: `${SITE}${game.screenshot ?? game.artwork}`,
+        image: `${SITE}${game.screenshot ?? (game.externalPlay ? "/art/social.png" : game.artwork)}`,
         inLanguage: locale,
         gamePlatform: "Web browser",
         playMode: game.classic
@@ -61,9 +61,11 @@ export function discoverySchema({
             game.imported || game.id === "2048" ? "Person" : "Organization",
           name: game.author,
         },
-        license: game.notice
-          ? `${SITE}${game.notice}`
-          : "https://opensource.org/license/mit",
+        license:
+          game.licenseUrl ??
+          (game.notice
+            ? `${SITE}${game.notice}`
+            : "https://opensource.org/license/mit"),
         isBasedOn: game.source,
       }
     : undefined;

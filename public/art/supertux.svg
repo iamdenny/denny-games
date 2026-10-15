@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="320" y1="0" x2="320" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#215B75"/><stop offset="1" stop-color="#A2D4D8"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="url(#sky)"/>
+  <circle cx="508" cy="84" r="39" fill="#F9D982"/>
+  <path d="m0 242 122-104 83 75 112-135 105 126 73-79 145 116v159H0V242Z" fill="#D7F0E9" fill-opacity=".82"/>
+  <path d="m0 283 103-58 72 54 100-88 86 74 104-97 76 73 99-41v200H0V283Z" fill="#4F8E9A"/>
+  <path d="M0 337h640v63H0z" fill="#315453"/>
+  <path d="M0 318h147v23H0zm206-36h118v22H206zm151 31h116v23H357zm153-39h130v21H510z" fill="#9FD8B4" stroke="#E8FFF0" stroke-width="3"/>
+  <path d="M90 319v-47m23 47v-47m-23 18h23m-23 17h23M248 281v-45m21 45v-45m-21 17h21m-21 16h21M402 313v-46m22 46v-46m-22 17h22m-22 17h22M550 293v-46m22 46v-46m-22 17h22m-22 17h22" stroke="#477B6E" stroke-width="3"/>
+  <g fill="#FFF4CA" stroke="#B88339" stroke-width="3"><circle cx="177" cy="190" r="13"/><circle cx="212" cy="190" r="13"/><circle cx="247" cy="190" r="13"/><circle cx="450" cy="210" r="13"/><circle cx="485" cy="210" r="13"/></g>
+  <path d="m192 266 7 15 17 2-13 11 4 17-15-9-15 9 4-17-13-11 17-2 7-15Z" fill="#FFE38B" stroke="#8F6B3E" stroke-width="3"/>
+  <path d="M168 315h54" stroke="#183D4A" stroke-width="7" stroke-linecap="round"/>
+  <path d="M178 319h34" stroke="#6CC0BC" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 8"/>
+  <text x="37" y="373" fill="#E8FAEE" font-family="monospace" font-size="14" letter-spacing="4">SNOW · JUMP · EXPLORE</text>
+</svg>
