@@ -192,18 +192,18 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "Denny Games offers " +
         games.length +
-        " browser-game listings in English and Korean. Most titles launch on Denny Games; seventeen classics open on independent browser hosts with different input, account and save behavior. The locally hosted catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, two original games and five classic board games.",
+        " browser-game listings in English and Korean. Most titles launch on Denny Games; additional open-source projects open on independent browser hosts with their own controls, account and save behavior. The locally hosted catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, two original games and five classic board games.",
       sections: [
         {
           heading: "What can I play?",
           paragraphs: [
-            "Browse board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation collections. Each game has a detail page with its rules, controls, author and source. Freedoom, OpenTTD, SuperTux, NetHack, Freeciv, Umoria, Larn, Neo Angband, Dungeon Crawl: Stone Soup, Simon Tatham's Puzzles, The Powder Toy, HyperRogue, Tux, of Math Command, Sandspiel, Frozen Bubble 2: Fan Edition, Neverball and HexGL link to independent browser hosts; their builds are not embedded or redistributed here.",
+            "Browse board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation collections. External browser listings now range from solitaire, trick-taking cards, platform and maze games to pinball, tactical duels, WebAssembly action games and 3D herding. Each detail page names the project, license and browser host and explains what has and has not been verified; those games open on their own host.",
           ],
         },
         {
           heading: "Are free games also open source?",
           paragraphs: [
-            "Free-to-play and permission to redistribute are separate questions. The 191 ABA Games imports retain their MIT notices; Hextris and Bounce Back keep their GPL licenses and corresponding source. Hextris also publishes its bundled dependency notices. Seventeen classic titles are external links only: Denny Games does not copy their executables, game data or artwork. Other candidates stay unpublished until their code, assets and dependencies are reviewed. The catalogue does not include commercial console ROM collections. Authors retain their credits, and listing a game does not imply endorsement.",
+            "Free-to-play and permission to redistribute are separate questions. The 191 ABA Games imports retain their MIT notices; Hextris and Bounce Back keep their GPL licenses and corresponding source. Hextris also publishes its bundled dependency notices. External browser listings are links only: Denny Games does not copy their executables, game data or artwork. The code license can differ from the game data, artwork and host terms, so each entry records those boundaries; other candidates are reviewed before publication. The catalogue does not include commercial console ROM collections. Authors retain their credits, and listing a game does not imply endorsement.",
           ],
         },
         {
@@ -244,18 +244,18 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "데니 게임즈는 한국어와 영어로 제공하는 웹게임 " +
         games.length +
-        "개 게임 페이지를 제공합니다. 대부분은 데니 게임즈에서 실행하고, 고전 게임 17종은 입력·계정·저장 방식이 각기 다른 외부 브라우저 호스트에서 엽니다. 데니 게임즈 안에는 MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임 2개와 클래식 보드게임 5개가 있습니다.",
+        "개 게임 페이지를 제공합니다. 대부분은 데니 게임즈에서 실행하고, 오픈소스 게임은 조작·계정·저장 방식이 각기 다른 외부 브라우저 호스트에서도 즐길 수 있습니다. 데니 게임즈 안에는 MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임 2개와 클래식 보드게임 5개가 있습니다.",
       sections: [
         {
           heading: "어떤 게임을 할 수 있나요?",
           paragraphs: [
-            "보드 · 퍼즐 · 아케이드 · 액션 · 슈팅 · 레이싱 · 스포츠 · 전략 · 로그라이크 · 시뮬레이션에서 골라보세요. 게임별 소개 페이지에 규칙 · 조작법 · 제작자 · 원본 소스를 안내합니다. Freedoom · OpenTTD · SuperTux · NetHack · Freeciv · Umoria · Larn · Neo Angband · Dungeon Crawl: Stone Soup · Simon Tatham's Puzzles · The Powder Toy · HyperRogue · Tux, of Math Command · Sandspiel · Frozen Bubble 2: Fan Edition · Neverball · HexGL은 독립 브라우저 호스트로 연결하며 실행물을 이 사이트에 넣지 않습니다.",
+            "보드 · 퍼즐 · 아케이드 · 액션 · 슈팅 · 레이싱 · 스포츠 · 전략 · 로그라이크 · 시뮬레이션을 둘러보세요. 외부 브라우저 게임은 솔리테어·트릭 테이킹 카드·플랫폼·미로부터 핀볼·전술 대전·WebAssembly 액션·3D 양몰이까지 폭넓게 추가했습니다. 게임별 페이지에 프로젝트·라이선스·호스트와 검증 범위를 안내하며 게임은 해당 호스트에서 열립니다.",
           ],
         },
         {
           heading: "무료 게임이면 소스도 가져올 수 있나요?",
           paragraphs: [
-            "무료 플레이와 재배포 허용은 별개입니다. ABA Games 191개는 MIT 고지를, Hextris와 Bounce Back은 각 GPL 라이선스와 대응 소스를 제공합니다. Hextris 의존성 고지도 공개합니다. 고전 게임 17종은 외부 링크만 제공하며 실행 파일·게임 데이터·그림을 복사하지 않았습니다. 다른 후보는 코드·자산·의존성을 확인하기 전까지 공개하지 않습니다. 상용 콘솔 ROM 모음은 제공하지 않으며, 목록 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
+            "무료 플레이와 재배포 허용은 별개입니다. ABA Games 191개는 MIT 고지를, Hextris와 Bounce Back은 각 GPL 라이선스와 대응 소스를 제공합니다. Hextris 의존성 고지도 공개합니다. 외부 브라우저 게임은 링크만 제공하며 실행 파일·게임 데이터·그림을 복사하지 않았습니다. 코드 라이선스와 게임 데이터·그림·호스트 조건이 다를 수 있어 항목별로 기록합니다. 다른 후보도 공개 전에 코드·자산·의존성을 검토합니다. 상용 콘솔 ROM 모음은 제공하지 않으며, 목록 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
           ],
         },
         {
@@ -294,13 +294,13 @@ export const articles: Record<string, Record<Locale, Article>> = {
     en: {
       title: "Small games. A better break.",
       intro:
-        "Denny Games is an independent browser arcade by Denny Lim. Most games launch here without an account or installation; selected classic games open on external sites with their own requirements.",
+        "Denny Games is an independent browser arcade by Denny Lim. Most games launch here without an account or installation; some open-source projects open on external sites with their own requirements.",
       sections: [
         {
           heading: "A curated beginning",
           paragraphs: [
             "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation, 191 ABA Games Crisp mini-games, five classic board games, Hextris under GPL-3.0-or-later and Bounce Back under GPL-2.0-or-later. Denny Games-hosted titles have their own rules, controls and pause/restart flow.",
-            "Freedoom, OpenTTD, SuperTux, NetHack, Freeciv, Umoria, Larn, Neo Angband and Dungeon Crawl: Stone Soup are listed as external browser links only. Their builds and artwork are not copied into this site; account, controls, compatibility and saves follow each host or browser build. Other candidates remain unlisted until rights and integration are reviewed.",
+            "External listings range from Freedoom, Freeciv, Simon Tatham's Puzzles, Sandspiel, Neverball and HexGL to Klondike, Briscola, Njam, pinball and newer open-source browser games. They are links only: builds, game data and artwork are not copied here. Account, controls, compatibility and saves follow each host. Other candidates are reviewed for rights and integration before publication.",
           ],
         },
         {
@@ -314,13 +314,13 @@ export const articles: Record<string, Record<Locale, Article>> = {
     ko: {
       title: "작은 게임, 더 좋은 휴식.",
       intro:
-        "데니 게임즈는 Denny Lim이 만드는 독립 웹게임 사이트입니다. 대부분의 게임은 이곳에서 가입·설치 없이 실행되며, 일부 고전 게임은 별도 조건이 있는 외부 사이트에서 열립니다.",
+        "데니 게임즈는 Denny Lim이 만드는 독립 웹게임 사이트입니다. 대부분의 게임은 이곳에서 가입·설치 없이 실행되며, 일부 오픈소스 게임은 별도 조건이 있는 외부 사이트에서 열립니다.",
       sections: [
         {
           heading: "작지만 분명한 시작",
           paragraphs: [
             "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games Crisp 미니게임 191개, 클래식 보드게임 5종, GPL-3.0-or-later Hextris와 GPL-2.0-or-later 액션 로그라이트 Bounce Back을 제공합니다. 데니 게임즈 안에서 실행되는 타이틀은 게임별 규칙과 조작을 안내합니다.",
-            "Freedoom · OpenTTD · SuperTux · NetHack · Freeciv · Umoria · Larn · Neo Angband · Dungeon Crawl: Stone Soup은 외부 브라우저 게임 링크로만 소개합니다. 빌드나 그림을 이 사이트에 복사하지 않으며 계정 · 조작 · 호환성 · 저장은 각 호스트나 브라우저 빌드에 따릅니다. 다른 후보는 권리와 통합 방식을 검토하기 전까지 공개하지 않습니다.",
+            "외부 목록에는 Freedoom · Freeciv · Simon Tatham's Puzzles · Sandspiel · Neverball · HexGL부터 클론다이크 · 브리스콜라 · Njam · 핀볼과 최신 오픈소스 브라우저 게임까지 있습니다. 링크만 제공하며 빌드 · 게임 데이터 · 그림은 이 사이트에 복사하지 않습니다. 계정 · 조작 · 호환성 · 저장은 각 호스트에 따릅니다. 다른 후보도 공개 전에 권리와 통합 방식을 검토합니다.",
           ],
         },
         {
@@ -388,7 +388,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           paragraphs: [
             "GitHub Pages가 사이트를 제공하며 운영·보안을 위해 방문 IP 등을 처리할 수 있습니다. 입력 진단의 기기 정보는 이 화면에만 표시되고 사이트 코드가 업로드하지 않습니다.",
             "게임 이벤트는 짧은 메모리 목록과 브라우저 CustomEvent로만 기록합니다. 게임 이벤트는 분석 서비스로 전송하지 않습니다.",
-            "일부 고전 게임 링크를 누르면 데니 게임즈를 떠나 외부 호스트로 이동합니다. 해당 업체는 자체 정책에 따라 브라우저 정보 처리·계정·원격 게임 저장을 제공할 수 있습니다. 데니 게임즈는 그 계정 정보나 세션을 받지 않습니다. 이동하기 전에 호스트의 개인정보 안내를 확인하세요.",
+            "외부 게임 링크를 누르면 데니 게임즈를 떠나 독립 호스트로 이동합니다. 해당 업체는 자체 정책에 따라 브라우저 정보 처리·계정·원격 게임 저장을 제공할 수 있습니다. 데니 게임즈는 그 계정 정보나 세션을 받지 않습니다. 이동하기 전에 호스트의 개인정보 안내를 확인하세요.",
             "기기 체크리스트 입력은 현재 폼에만 유지하고 로컬 JSON 파일로 내려받습니다. 결과를 업로드하거나 자동 저장하지 않으며 새로고침하면 입력이 사라집니다. 개인 식별 정보는 포함하지 마세요.",
             "오류·권리·제휴 문의는 GitHub Issues를 이용합니다. 이슈와 답변은 공개되며 GitHub 개인정보 처리방침에 따라 관리됩니다. 비공개 계약 조건·계정 정보·개인 연락처를 올리지 마세요. 공개 게시에 동의한 사업용 연락 채널만 공유하세요.",
           ],
@@ -503,7 +503,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "Can I play browser games on a Tesla?",
           paragraphs: [
-            "Most Denny Games titles launch without an account or installation, but selected classic games open on external hosts with separate requirements. Neither those sites nor this catalog have been tested in a physical Tesla. Loading, touch input, performance, audio and saving remain unverified in vehicle browsers.",
+            "Most Denny Games titles launch without an account or installation, while external browser games open on independent hosts with separate requirements. Neither those sites nor this catalog have been tested in a physical Tesla. Loading, touch input, performance, audio and saving remain unverified in vehicle browsers.",
           ],
         },
         {
@@ -584,7 +584,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "테슬라에서 브라우저 게임을 할 수 있나요?",
           paragraphs: [
-            "대부분의 데니 게임즈 타이틀은 가입·설치 없이 실행되지만 일부 고전 게임은 별도 조건이 있는 외부 호스트에서 열립니다. 데니 게임즈와 외부 사이트 모두 실차에서 시험하지 않았습니다. 차량 브라우저의 로딩·터치·속도·소리·저장은 미검증입니다.",
+            "대부분의 데니 게임즈 타이틀은 가입·설치 없이 실행되지만 외부 브라우저 게임은 별도 조건이 있는 호스트에서 열립니다. 데니 게임즈와 외부 사이트 모두 실차에서 시험하지 않았습니다. 차량 브라우저의 로딩·터치·속도·소리·저장은 미검증입니다.",
           ],
         },
         {

@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { games } from "../../src/data/games";
 import { collections, collectionGames } from "../../src/data/collections";
 import {
+  PAGE_SIZE,
   filterCatalogue,
   paginate,
   search,
@@ -83,7 +84,9 @@ describe("play-style discovery", () => {
     expect(paginate(games, 1).length).toBe(24);
     for (const value of ["0", "-1", "1.5", "NaN", "Infinity"])
       expect(searchPage(value, games.length)).toBe(1);
-    expect(searchPage("999", games.length)).toBe(10);
+    expect(searchPage("999", games.length)).toBe(
+      Math.ceil(games.length / PAGE_SIZE),
+    );
     expect(searchPage("2", 0)).toBe(1);
   });
 });
