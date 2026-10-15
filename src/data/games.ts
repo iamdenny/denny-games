@@ -4,6 +4,7 @@ import { crispCycleGames } from "./crisp-cycles";
 import { boardGames } from "./board-games";
 import { editorialOrder } from "./editorial";
 import { eraExternalGames } from "./external-browser-additions";
+import { worldOpenGames } from "./world-open-games";
 import type { ControlStyle } from "./collections";
 export const categories = [
   "board",
@@ -1385,7 +1386,7 @@ const externalBrowserGames: Game[] = [
     },
   },
 ];
-games.push(...externalBrowserGames, ...eraExternalGames);
+games.push(...externalBrowserGames, ...eraExternalGames, ...worldOpenGames);
 // Scale fixtures are local/CI-only and never part of a normal production build.
 if (import.meta.env?.SCALE_TEST === "1") {
   const originals = [...games];

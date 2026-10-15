@@ -6,7 +6,7 @@ export function GET() {
   const lines = [
     "# Denny Games",
     "",
-    `> Free English and Korean browser-game catalogue. ${games.length} published titles. Most launch on Denny Games; selected classics open on independent hosts with different input, account and save behavior.`,
+    `> Free English and Korean browser-game catalogue. ${games.length} published titles. Most launch on Denny Games; some open-source projects open on independent hosts with different input, account and save behavior.`,
     "",
     "## Authoritative pages",
     `- [English catalogue](${base}/en/all/)`,

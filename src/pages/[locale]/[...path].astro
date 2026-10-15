@@ -97,8 +97,8 @@ const categoryNames = categories.map((item) => text[item]).join(", ");
 const description =
   (isAll
     ? locale === "ko"
-      ? `무료 브라우저 게임 ${games.length}개 중 ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)}번째입니다. ${page}/${totalPages}페이지에서 ${categoryNames} 게임을 찾아보세요. 일부 고전 게임은 별도 브라우저 호스트에서 열립니다.`
-      : `Browse ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)} of ${games.length} free browser games on page ${page} of ${totalPages}. Explore ${categoryNames}; selected classic games open on external browser hosts.`
+      ? `무료 브라우저 게임 ${games.length}개 중 ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)}번째입니다. ${page}/${totalPages}페이지에서 ${categoryNames} 게임을 찾아보세요. 일부 오픈소스 게임은 독립 브라우저 호스트에서 열립니다.`
+      : `Browse ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)} of ${games.length} free browser games on page ${page} of ${totalPages}. Explore ${categoryNames}; some open-source games open on independent browser hosts.`
     : undefined) ??
   collectionCopy?.intro ??
   (path === "collections"
@@ -112,8 +112,8 @@ const description =
     ? `${categoryIntro} ${locale === "ko" ? `${page}페이지 · 총 ${categoryGames(category!).length}개 게임.` : `Page ${page} · ${categoryGames(category!).length} games in this collection.`}`
     : isHome
       ? locale === "ko"
-        ? `무료 브라우저 게임 ${games.length}개를 만나보세요. ${localGameCount}개는 데니 게임즈에서 실행하고, 고전 게임 ${externalGameCount}개는 외부 호스트에서 엽니다. 계정·조작·저장 조건은 호스트별 안내를 확인하세요.`
-        : `Explore ${games.length} free browser games. ${localGameCount} launch on Denny Games and ${externalGameCount} classic titles open on external hosts; account, input and save requirements vary by host.`
+        ? `무료 브라우저 게임 ${games.length}개를 만나보세요. ${localGameCount}개는 데니 게임즈에서 실행하고, 외부 브라우저 게임 ${externalGameCount}개는 각자의 호스트에서 엽니다. 계정·조작·저장 조건은 호스트별 안내를 확인하세요.`
+        : `Explore ${games.length} free browser games. ${localGameCount} launch on Denny Games and ${externalGameCount} titles open on external hosts; account, input and save requirements vary by host.`
       : `${title}. ${text.tagline}`);
 const schema = indexable(path)
   ? discoverySchema({

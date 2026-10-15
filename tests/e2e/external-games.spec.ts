@@ -1,37 +1,16 @@
 import { test, expect } from "@playwright/test";
+import { games } from "../../src/data/games";
 
-const externalGames = [
-  { id: "freedoom", url: "https://danborden1.github.io/doom-web/" },
-  { id: "openttd", url: "https://openttdonline.com/play/" },
-  { id: "supertux", url: "https://play.supertux.org/play/" },
-  { id: "nethack", url: "https://www.alt.org/nethack/hterm/" },
-  {
-    id: "freeciv",
-    url: "https://freecivweb.com/webclient/?action=new&type=singleplayer",
-  },
-  { id: "umoria", url: "https://umoria.org/play/" },
-  { id: "larn", url: "https://larn.org/" },
-  { id: "neo-angband", url: "https://angband.rpgm.world/" },
-  { id: "dcss", url: "https://crawl.nemelex.cards/" },
-  {
-    id: "simon-tatham-puzzles",
-    url: "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/",
-  },
-  { id: "powder-toy", url: "https://powdertoy.co.uk/Wasm.html" },
-  { id: "hyperrogue", url: "https://roguetemple.com/z/hyper/online.php" },
-  {
-    id: "tuxmath",
-    url: "https://tuxmath.org/game.html?opt_lang=en&opt_osk=1",
-  },
-  { id: "sandspiel", url: "https://sandspiel.club/" },
-  { id: "frozen-bubble", url: "https://dchau360.itch.io/frozenbubble2" },
-];
+const externalGames = games.flatMap((game) =>
+  game.externalPlay ? [{ id: game.id, url: game.externalPlay.url }] : [],
+);
 
 for (const locale of ["en", "ko"]) {
   for (const game of externalGames) {
     test(`${locale} ${game.id}: explains and safely opens the external host`, async ({
       page,
     }) => {
+      await page.setViewportSize({ width: 320, height: 800 });
       await page.goto(`/${locale}/games/${game.id}/`);
 
       const launch = page.locator(".detail-actions a.button.primary");
@@ -51,4 +30,29 @@ for (const locale of ["en", "ko"]) {
       ).toHaveCount(0);
     });
   }
+}
+
+for (const locale of ["en", "ko"]) {
+  test(`${locale}: external game details fit phone and iPad viewports`, async ({
+    page,
+  }) => {
+    const viewports: [number, number][] = [
+      [320, 800],
+      [390, 844],
+      [834, 1194],
+      [1194, 834],
+    ];
+    for (const [width, height] of viewports) {
+      await page.setViewportSize({ width, height });
+      await page.goto(`/${locale}/games/sheepdog-sim/`);
+      await expect(
+        page.locator(".detail-actions a.button.primary"),
+      ).toBeVisible();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth,
+        ),
+      ).toBe(true);
+    }
+  });
 }
