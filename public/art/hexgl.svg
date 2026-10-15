@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="52" y1="12" x2="586" y2="398" gradientUnits="userSpaceOnUse"><stop stop-color="#25224A"/><stop offset=".5" stop-color="#10152A"/><stop offset="1" stop-color="#080C17"/></linearGradient>
+    <linearGradient id="track" x1="288" y1="177" x2="332" y2="355" gradientUnits="userSpaceOnUse"><stop stop-color="#3D5473"/><stop offset="1" stop-color="#17263A"/></linearGradient>
+    <linearGradient id="craft" x1="276" y1="221" x2="381" y2="277" gradientUnits="userSpaceOnUse"><stop stop-color="#7BFAF0"/><stop offset=".55" stop-color="#42A9DC"/><stop offset="1" stop-color="#8A74F5"/></linearGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/>
+  <circle cx="322" cy="190" r="132" fill="#433C9A" opacity=".2"/>
+  <path d="M0 195h640" stroke="#7C66EE" stroke-width="2" opacity=".35"/>
+  <path d="M198 175h244l167 180H31l167-180Z" fill="url(#track)" stroke="#4D7793" stroke-width="4"/>
+  <path d="M320 180v28m0 15v25m0 14v27m0 14v22m0 12v24" stroke="#B6FAFF" stroke-width="5" stroke-linecap="round"/>
+  <path d="m195 188-88 142m340-142 90 142" stroke="#43E9E7" stroke-width="5" opacity=".85"/>
+  <path d="M221 195h198M180 237h280M142 278h357" stroke="#806CF8" stroke-width="3" opacity=".7"/>
+  <path d="m277 245 40-54a13 13 0 0 1 21 0l40 54-43-13a23 23 0 0 0-15 0l-43 13Z" fill="url(#craft)" stroke="#D7FFFF" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m294 252-12 24m91-24 12 24" stroke="#FF9A65" stroke-width="7" stroke-linecap="round"/>
+  <path d="M88 166 156 112m398 54-69-54M174 157l38-30m254 30-38-30" stroke="#8E84FF" stroke-width="4" stroke-linecap="round" opacity=".72"/>
+  <path d="m88 294-34 34m488-34 34 34" stroke="#57E7E8" stroke-width="7" stroke-linecap="round"/>
+  <text x="48" y="51" fill="#8CF8F0" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">FUTURISTIC WEBGL RACING</text>
+  <text x="48" y="372" fill="#F2F4FF" font-family="system-ui,sans-serif" font-size="38" font-weight="900" letter-spacing="4">HEXGL</text>
+</svg>

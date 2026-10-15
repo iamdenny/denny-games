@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-15",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All fifteen play URLs returned HTTP 200 to a direct GET request on reviewedAt. The five preceding additions received headless Chromium initial-page or canvas spot checks. Frozen Bubble 2: Fan Edition returned HTTP 429 to automated Chromium before rendering; its itch.io page identifies a released HTML5 build. This confirms URL reachability only for that entry; no complete game session, physical device, controller, or Tesla browser was tested.",
+  "verificationBoundary": "All seventeen play URLs returned HTTP 200 to direct GET on 2026-10-15. Five of the six previous batch additions received Chromium initial-page or canvas spot checks; Frozen Bubble 2: Fan Edition returned HTTP 429 to automated Chromium before rendering. The new Neverball and HexGL pages loaded in Chromium (see per-entry notes). These checks establish reachability and initial-page behavior only; no complete external game session, physical device, controller, or Tesla browser was tested.",
   "entries": [
     {
       "id": "freedoom",
@@ -197,6 +197,32 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The itch.io page identifies a released HTML5 build of an independent rewrite inspired by the 2002 Frozen Bubble 2. Its source repository is GPL-2.0 and lists separate terms for third-party components. The page was not rendered in automated Chromium because the host returned 429; no game session, account, multiplayer, save, mobile or controller behavior was tested."
+    },
+    {
+      "id": "neverball",
+      "projectSource": "https://github.com/Neverball/neverball",
+      "projectLicense": "GNU GPL version 2 or later; third-party libraries, fonts and individual files may have separate terms.",
+      "licenseText": "https://github.com/Neverball/neverball/blob/master/LICENSE.md",
+      "externalHost": "https://play.neverball.org/",
+      "hostSource": "https://github.com/Neverball/neverball",
+      "hostWrapperLicense": "Official project browser build using Emscripten and gl4es. The project links its source and license; Denny Games redistributes no build files, game data or artwork.",
+      "urlStatus": "HTTP 200 (Chromium page/canvas; one texture-load error appeared in the console)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official browser page loaded and displayed a moving course preview; Chromium initialized a canvas. The console reported failure to load texture \"mtrl/default\". The Play Now control became available after the base add-ons loaded. No complete run, replay/add-on upload, save flow or physical device was tested. The host documents mouse, arrow-key, gamepad and touch controls."
+    },
+    {
+      "id": "hexgl",
+      "projectSource": "https://github.com/BKcore/HexGL",
+      "projectLicense": "MIT unless specified otherwise per file; the project credits third-party assets and contributors.",
+      "licenseText": "https://github.com/BKcore/HexGL/blob/master/LICENSE",
+      "externalHost": "https://hexgl.bkcore.com/play/",
+      "hostSource": "https://github.com/BKcore/HexGL",
+      "hostWrapperLicense": "Creator-hosted WebGL game. The source repository says code and resources are MIT-licensed unless a file specifies otherwise. Denny Games redistributes no game files or assets.",
+      "urlStatus": "HTTP 200 (Chromium start menu and control instruction screen)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The creator-hosted page opened over HTTPS and rendered its WebGL start menu and keyboard control instruction screen. The site labels the build desktop and says the Hall of Fame is closed. No complete race, device compatibility, save or privacy flow was tested."
     }
   ]
 }

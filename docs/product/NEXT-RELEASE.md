@@ -1,6 +1,6 @@
 ---
 title: "다음 릴리스 PRD — 플레이 방식별 탐색과 기기 점검"
-summary: "220개 게임 페이지로 확장된 카탈로그의 탐색, 검색·AI 검색용 모음, 실제 기기 점검 준비와 공급 확대의 완료 조건."
+summary: "222개 게임 페이지로 확장된 카탈로그의 탐색, 검색·AI 검색용 모음, 실제 기기 점검 준비와 공급 확대의 완료 조건."
 read_when:
   - Implementing the next catalogue and device-readiness release
 ---
@@ -39,7 +39,7 @@ read_when:
 
 ## 이번 릴리스 이후에도 남는 목표
 
-2026-10-14에 Bounce Back, UNDERRUN, Hextris와 Chain Drift·Comet Slash·Volt Keeper를 각각 별도 권리·런타임 검토를 거쳐 추가했다. 당시 데니 게임즈에서 실행되는 게임은 205개, 카테고리는 7개였다. 2026-10-15에 Freedoom, OpenTTD, SuperTux, NetHack, Freeciv, Umoria, Larn, Neo Angband, Dungeon Crawl: Stone Soup를 외부 브라우저 링크로 추가했다. 이어 Simon Tatham's Puzzles, The Powder Toy, HyperRogue, Tux, of Math Command, Sandspiel과 2002년작 기반의 독립 재작성 Frozen Bubble 2: Fan Edition을 더해 카탈로그는 220개 페이지가 됐다. Denny Games에서 실행되는 게임은 205개이며 나머지 15개는 외부 호스트에서 열린다. 현재 분포는 퍼즐 33, 아케이드 41, 액션 64, 슈팅 47, 레이싱 12, 스포츠 8, 보드 5, 전략 2, 로그라이크 6, 시뮬레이션 2개다. 이 카운트는 사용자 선호 측정치를 대신하지 않는다.
+2026-10-14에 Bounce Back, UNDERRUN, Hextris와 Chain Drift·Comet Slash·Volt Keeper를 각각 별도 권리·런타임 검토를 거쳐 추가했다. 당시 데니 게임즈에서 실행되는 게임은 205개, 카테고리는 7개였다. 2026-10-15에 Freedoom, OpenTTD, SuperTux, NetHack, Freeciv, Umoria, Larn, Neo Angband, Dungeon Crawl: Stone Soup를 외부 브라우저 링크로 추가했다. 이어 Simon Tatham's Puzzles, The Powder Toy, HyperRogue, Tux, of Math Command, Sandspiel과 2002년작 기반의 독립 재작성 Frozen Bubble 2: Fan Edition을 더했다. 이번에는 2003년부터 이어진 Neverball과 2012년 WebGL 레이서 HexGL을 더해 카탈로그가 222개 페이지가 됐다. Denny Games에서 실행되는 게임은 205개이며 나머지 17개는 외부 호스트에서 열린다. 현재 분포는 퍼즐 34, 아케이드 41, 액션 64, 슈팅 47, 레이싱 13, 스포츠 8, 보드 5, 전략 2, 로그라이크 6, 시뮬레이션 2개다. 이 카운트는 사용자 선호 측정치를 대신하지 않는다.
 
 | 목표                       | 현재 상태                                                                                 | 완료 조건                                                                                             |
 | -------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
