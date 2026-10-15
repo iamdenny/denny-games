@@ -142,21 +142,23 @@ const entries = dailyGameIds.flatMap((id) =>
     margin: 0;
     padding: 0;
   }
-  .daily-history li {
+  :global(.daily-history-day) {
+    display: grid;
+    gap: 3px;
     min-width: 0;
-    padding: 8px 2px;
+    padding: 8px 1px;
     border-radius: 10px;
     background: #f7f8f2;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.35;
     text-align: center;
   }
-  .daily-history time,
-  .daily-history span {
+  :global(.daily-history-label),
+  :global(.history-count) {
     display: block;
   }
-  .daily-history time,
-  .daily-history .history-count {
+  :global(.daily-history-label),
+  :global(.history-count) {
     font-weight: 800;
     font-variant-numeric: tabular-nums;
   }

@@ -47,6 +47,7 @@ for (const root of document.querySelectorAll<HTMLElement>(
         historyTotal += completed;
         const dateValue = new Date(`${historyDate}T00:00:00.000Z`);
         const item = document.createElement("li");
+        item.className = "daily-history-day";
         item.dataset.historyDay = historyDate;
         item.setAttribute(
           "aria-label",
@@ -55,6 +56,7 @@ for (const root of document.querySelectorAll<HTMLElement>(
             : `${historyDate}: ${completed} of ${entries.length} challenges completed`,
         );
         const day = document.createElement("time");
+        day.className = "daily-history-label";
         day.dateTime = historyDate;
         day.textContent = `${new Intl.DateTimeFormat(locale, {
           weekday: "short",

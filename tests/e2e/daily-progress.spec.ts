@@ -91,6 +91,18 @@ for (const width of [320, 834, 1194]) {
     await page.setViewportSize({ width, height: 834 });
     await page.goto("/ko/daily/");
     await expect(page.locator("[data-daily-progress]")).toBeVisible();
+    await expect(page.locator("[data-history-day]")).toHaveCount(7);
+    const firstHistoryDay = page.locator("[data-history-day]").first();
+    expect(
+      await firstHistoryDay
+        .locator("time")
+        .evaluate((node) => getComputedStyle(node).display),
+    ).toBe("block");
+    expect(
+      await firstHistoryDay
+        .locator(".history-count")
+        .evaluate((node) => getComputedStyle(node).display),
+    ).toBe("block");
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
