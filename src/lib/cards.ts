@@ -14,6 +14,7 @@ export interface CatalogueItem {
   duration: string;
   added: string;
   inputs: string[];
+  externalHost?: string;
   editorReason?: string;
 }
 let cache: Promise<CatalogueItem[]> | undefined;
@@ -52,14 +53,28 @@ export function makeCard(item: CatalogueItem, locale: Locale): HTMLElement {
   const meta = document.createElement("div");
   meta.className = "card-meta";
   const duration = document.createElement("span");
-  duration.textContent = `◷ ${item.duration} ${text.minutes}`;
+  duration.textContent =
+    item.duration === "varies"
+      ? `◷ ${text.durationVaries}`
+      : `◷ ${item.duration} ${text.minutes}`;
   const inputs = document.createElement("span");
   inputs.textContent = item.inputs
     .map((v) =>
-      v === "gamepad" ? text.pad : v === "touch" ? text.touch : text.keyboard,
+      v === "gamepad"
+        ? text.pad
+        : v === "touch"
+          ? text.touch
+          : v === "mouse"
+            ? text.mouse
+            : text.keyboard,
     )
     .join(" · ");
   meta.append(duration, inputs);
+  if (item.externalHost) {
+    const external = document.createElement("span");
+    external.textContent = text.externalLabel;
+    meta.append(external);
+  }
   if (item.editorReason) {
     const pick = document.createElement("span");
     pick.className = "editor-pick";

@@ -10,13 +10,15 @@ read_when:
 ## Implemented surfaces
 
 - Complete catalogue: `/en/all/` and `/ko/all/`, with static 24-game numbered pages, exact registry coverage, explicit totals/ranges, native previous/next links, independent canonicals and visible-card CollectionPage/ItemList. Home previews and global All games links lead here.
-- Game detail pages: localized titles/descriptions, rules, controls, screenshots, original author/source/license and VideoGame/WebPage/BreadcrumbList data.
+- Game detail pages: localized titles/descriptions, rules, controls, original author/source/license and VideoGame/WebPage/BreadcrumbList data. External-link pages identify the host and open it in a new tab; they are not marked as a Denny Games runtime or tested compatibility claim.
 - Categories: editorial genre descriptions, distinct pagination metadata, crawlable page links and an ItemList matching only the server-rendered cards on that page. Client sorting/filtering remains a convenience rather than the only discovery path.
 - Site: WebSite/Organization entities, canonical URLs, reciprocal English/Korean hreflang and contextual x-default in HTML and XML sitemap, PNG sharing previews.
 - Public guide: `/en/guides/open-browser-games/` and `/ko/guides/open-browser-games/`, linked from home and guides, explain what is playable, sources, redistribution, saves and device evidence.
 - Play, search, library and diagnostic routes stay noindex. Robots allows crawling so the noindex directive can be observed. No private development docs are published.
 
 `src/lib/seo.ts` owns schema generation. `src/data/discovery.ts` owns category copy. Do not add fabricated ratings, unverified hardware compatibility, arbitrary lastmod dates or hidden SEO text. Update bilingual editorial facts with catalogue changes.
+
+External game pages are useful source-and-play guides, not keyword-only landing pages. Keep the game rules and control guidance visible, link to the project and external host, distinguish their licenses, and state when gameplay/device checks have not been performed. The local search index may include the external host and its account/save caveat; do not claim that a successful URL fetch is an indexed result or verified play session.
 
 ## Checks
 

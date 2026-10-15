@@ -44,6 +44,8 @@ const game = ["games", "play"].includes(kind ?? "")
 const category = parts[1];
 const page = Number((isAll ? parts[2] : parts[3]) ?? "1");
 const totalPages = Math.ceil(games.length / PAGE_SIZE);
+const externalGameCount = games.filter((item) => item.externalPlay).length;
+const localGameCount = games.length - externalGameCount;
 const recommended = editorialOrder(games);
 const homeCuratedPreviewCount = 6;
 const homeCategoryPreviewCount = 3;
@@ -64,14 +66,14 @@ const collection =
       : games;
 const title = isHome
   ? locale === "ko"
-    ? "설치 없이 즐기는 무료 웹게임"
-    : "Free games. Right in your browser."
+    ? "무료 웹게임을 찾아보세요"
+    : "Free browser games to explore."
   : game
     ? `${game.text[locale].title} · ${locale === "ko" ? "무료 웹게임" : "Play Free Online"}`
     : (collectionCopy?.title ??
       article?.title ??
       {
-        all: `${text.all} · ${games.length}${locale === "ko" ? "개 무료 웹게임" : " free browser games"}${pageSuffix}`,
+        all: `${text.all} · ${games.length}${locale === "ko" ? "개 무료 게임" : " free browser games"}${pageSuffix}`,
         category: `${text[category as Category]} ${locale === "ko" ? "무료 웹게임" : "Free Browser Games"}${page > 1 ? (locale === "ko" ? ` · ${page}페이지` : ` · Page ${page}`) : ""}`,
         collections:
           locale === "ko"
@@ -90,11 +92,12 @@ const title = isHome
       text.all);
 const categoryIntro =
   kind === "category" ? categoryCopy[category as Category][locale] : undefined;
+const categoryNames = categories.map((item) => text[item]).join(", ");
 const description =
   (isAll
     ? locale === "ko"
-      ? `무료 웹게임 전체 ${games.length}개 중 ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)}번째 게임입니다. ${page}/${totalPages}페이지에서 게임을 고르거나 보드·퍼즐·아케이드·액션·슈팅·레이싱·스포츠 목록으로 이동하세요.`
-      : `Browse games ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)} of all ${games.length} free browser games. Page ${page} of ${totalPages}, with board, puzzle, arcade, action, shooting, racing and sports categories.`
+      ? `무료 브라우저 게임 ${games.length}개 중 ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)}번째입니다. ${page}/${totalPages}페이지에서 ${categoryNames} 게임을 찾아보세요. 일부 고전 게임은 별도 브라우저 호스트에서 열립니다.`
+      : `Browse ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)} of ${games.length} free browser games on page ${page} of ${totalPages}. Explore ${categoryNames}; selected classic games open on external browser hosts.`
     : undefined) ??
   collectionCopy?.intro ??
   (path === "collections"
@@ -108,8 +111,8 @@ const description =
     ? `${categoryIntro} ${locale === "ko" ? `${page}페이지 · 총 ${categoryGames(category!).length}개 게임.` : `Page ${page} · ${categoryGames(category!).length} games in this collection.`}`
     : isHome
       ? locale === "ko"
-        ? `가입·설치 없이 즐기는 ${games.length}개 무료 웹게임. 보드, 퍼즐, 아케이드, 액션, 슈팅, 레이싱과 스포츠를 게임별 규칙·조작 안내와 함께 만나세요.`
-        : `Play ${games.length} free browser games without an account or installation. Explore board, puzzle, arcade, action, shooting, racing and sports with rules and controls.`
+        ? `무료 브라우저 게임 ${games.length}개를 만나보세요. ${localGameCount}개는 데니 게임즈에서 실행하고, 고전 게임 ${externalGameCount}개는 외부 호스트에서 엽니다. 계정·조작·저장 조건은 호스트별 안내를 확인하세요.`
+        : `Explore ${games.length} free browser games. ${localGameCount} launch on Denny Games and ${externalGameCount} classic titles open on external hosts; account, input and save requirements vary by host.`
       : `${title}. ${text.tagline}`);
 const schema = indexable(path)
   ? discoverySchema({
@@ -137,7 +140,12 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
   noindex={!indexable(path)}
   play={isPlay}
   schema={schema}
-  image={game ? (game.screenshot ?? game.artwork) : undefined}
+  image={
+    game
+      ? (game.screenshot ??
+        (game.externalPlay ? "/art/social.png" : game.artwork))
+      : undefined
+  }
 >
   {isHome && (
     <>
@@ -292,22 +300,42 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       <section class="detail-hero">
         <div>
           <span class="eyebrow">
-            {text[game.category]} / {game.duration} {text.minutes}
+            {text[game.category]} /{" "}
+            {game.duration === "varies"
+              ? text.durationVaries
+              : `${game.duration} ${text.minutes}`}
           </span>
           <h1>{game.text[locale].title}</h1>
           <p>{game.text[locale].description}</p>
           <div class="detail-actions">
-            <a class="button primary" href={`/${locale}/play/${game.id}/`}>
-              {text.play} ↗
+            <a
+              class="button primary"
+              href={game.externalPlay?.url ?? `/${locale}/play/${game.id}/`}
+              target={game.externalPlay ? "_blank" : undefined}
+              rel={game.externalPlay ? "noopener noreferrer" : undefined}
+            >
+              {game.externalPlay ? text.externalPlay : text.play} ↗
             </a>
             <button data-favorite={game.id} aria-pressed="false" type="button">
               ♡ {text.favorite}
             </button>
           </div>
+          {game.externalPlay && (
+            <p class="external-host-note">
+              {label("Opens on", "실행 위치")}: {game.externalPlay.host[locale]}
+              .{" "}
+              {label(
+                "New tab; host requirements apply.",
+                "새 탭에서 열리며 호스트 요구사항이 적용됩니다.",
+              )}
+            </p>
+          )}
           <div class="badges">
-            <span class="badge">{text.touch}</span>
-            <span class="badge">{text.keyboard}</span>
-            <span class="badge">{text.pad}</span>
+            {game.inputs.map((input) => (
+              <span class="badge">
+                {input === "gamepad" ? text.pad : text[input]}
+              </span>
+            ))}
           </div>
         </div>
         <img
@@ -379,42 +407,62 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </section>
         <section>
           <h2>{text.support}</h2>
-          <p>{text.deviceNotice}</p>
+          {game.externalPlay && <p>{game.externalPlay.note[locale]}</p>}
+          <p>
+            {game.externalPlay
+              ? label(
+                  "Denny Games has not verified this external build's gameplay, browser compatibility, controls or save behavior. Check the host's current requirements.",
+                  "데니 게임즈는 외부 빌드의 실제 플레이·브라우저 호환성·조작·저장 동작을 검증하지 않았습니다. 호스트의 최신 요구사항을 확인하세요.",
+                )
+              : text.deviceNotice}
+          </p>
           <p>
             {label("Play style", "플레이 방식")}:{" "}
             {controlLabels[game.controlStyle][locale]}.{" "}
-            {game.id === "hextris"
+            {game.externalPlay
               ? label(
-                  "The game and high scores are saved in this browser. Reloading or changing language keeps your progress.",
-                  "게임 진행 상태와 최고 기록은 이 브라우저에 저장됩니다. 새로고침하거나 언어를 바꿔도 이어집니다.",
+                  "The external host manages this game's account, session and saves; Denny Games does not store them.",
+                  "계정·플레이 세션·저장은 외부 호스트가 관리하며 데니 게임즈에는 저장되지 않습니다.",
                 )
-              : game.internalScore
+              : game.id === "hextris"
                 ? label(
-                    "This game keeps its own score table only while this play page stays open. Leaving or reloading starts fresh.",
-                    "게임 안 기록은 플레이 페이지가 열려 있는 동안만 유지돼요. 나가거나 새로고침하면 새로 시작합니다.",
+                    "The game and high scores are saved in this browser. Reloading or changing language keeps your progress.",
+                    "게임 진행 상태와 최고 기록은 이 브라우저에 저장됩니다. 새로고침하거나 언어를 바꿔도 이어집니다.",
                   )
-                : game.imported
+                : game.internalScore
                   ? label(
-                      "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
-                      "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                      "This game keeps its own score table only while this play page stays open. Leaving or reloading starts fresh.",
+                      "게임 안 기록은 플레이 페이지가 열려 있는 동안만 유지돼요. 나가거나 새로고침하면 새로 시작합니다.",
                     )
-                  : label(
-                      "Local progress restoration is available for this game.",
-                      "이 게임은 로컬 진행 상태 복원을 지원합니다.",
-                    )}
+                  : game.imported
+                    ? label(
+                        "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
+                        "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                      )
+                    : label(
+                        "Local progress restoration is available for this game.",
+                        "이 게임은 로컬 진행 상태 복원을 지원합니다.",
+                      )}
           </p>
+          {!game.externalPlay && (
+            <p>
+              <a href={`/${locale}/device-check/?game=${game.id}`}>
+                {label(
+                  "Check this game on your device",
+                  "내 기기에서 이 게임 점검하기",
+                )}{" "}
+                ↗
+              </a>
+            </p>
+          )}
           <p>
-            <a href={`/${locale}/device-check/?game=${game.id}`}>
-              {label(
-                "Check this game on your device",
-                "내 기기에서 이 게임 점검하기",
-              )}{" "}
-              ↗
-            </a>
-          </p>
-          <p>
-            <a href={`/${locale}/compatibility/`}>{text.compatibility}</a> ·{" "}
-            <a href={`/${locale}/gamepad-test/`}>{text.gamepad}</a>
+            <a href={`/${locale}/compatibility/`}>{text.compatibility}</a>
+            {!game.externalPlay && (
+              <>
+                {" "}
+                · <a href={`/${locale}/gamepad-test/`}>{text.gamepad}</a>
+              </>
+            )}
           </p>
         </section>
         <section>
@@ -437,7 +485,32 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
                 {" · "}
               </a>
             )}
+            {game.licenseUrl && (
+              <>
+                <span> · </span>
+                <a
+                  href={game.licenseUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {label("License details", "라이선스 안내")}
+                </a>
+              </>
+            )}
             <a href={game.source}>{text.source}</a>
+            {game.externalPlay && (
+              <>
+                <span> · </span>
+                <a
+                  href={game.externalPlay.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {label("External browser host", "외부 브라우저 호스트")}:{" "}
+                  {game.externalPlay.host[locale]}
+                </a>
+              </>
+            )}
           </p>
           <p>
             {label("Updated", "갱신일")}: {game.added}. {text.noAds}
@@ -486,6 +559,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           <select data-input-filter>
             <option value="any">{text.any}</option>
             <option value="touch">{text.touch}</option>
+            <option value="mouse">{text.mouse}</option>
             <option value="keyboard">{text.keyboard}</option>
             <option value="gamepad">{text.pad}</option>
           </select>
@@ -1025,6 +1099,30 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </p>
           <p>
             <a href={g.source}>{text.source}</a>
+            {g.licenseUrl && (
+              <>
+                <span> · </span>
+                <a
+                  href={g.licenseUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {label("License details", "라이선스 안내")}
+                </a>
+              </>
+            )}
+            {g.externalPlay && (
+              <>
+                <span> · </span>
+                <a
+                  href={g.externalPlay.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {text.externalLabel}: {g.externalPlay.host[locale]}
+                </a>
+              </>
+            )}
             {g.imported && g.notice && (
               <>
                 <span> · </span>

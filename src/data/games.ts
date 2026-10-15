@@ -12,6 +12,8 @@ export const categories = [
   "shooting",
   "racing",
   "sports",
+  "strategy",
+  "roguelike",
 ] as const;
 export type Category = (typeof categories)[number];
 export interface GameCopy {
@@ -37,10 +39,16 @@ export interface Game {
   version: number;
   stages: number;
   tags: string[];
-  inputs: ("touch" | "keyboard" | "gamepad")[];
+  inputs: ("touch" | "mouse" | "keyboard" | "gamepad")[];
   license: string;
+  licenseUrl?: string;
   author: string;
   source: string;
+  externalPlay?: {
+    url: string;
+    host: Record<Locale, string>;
+    note: Record<Locale, string>;
+  };
   added: string;
   artwork: string;
   text: Record<Locale, GameCopy>;
@@ -481,6 +489,8 @@ games.push(
         shooting: "mint",
         racing: "yellow",
         sports: "rust",
+        strategy: "rust",
+        roguelike: "yellow",
       } as const
     )[item.category as Category],
     version: 1,
@@ -549,6 +559,374 @@ games.push(
 );
 games.push(...boardGames);
 games.push(...crispCycleGames);
+const externalBrowserGames: Game[] = [
+  {
+    id: "freedoom",
+    category: "shooting",
+    duration: "varies",
+    controlStyle: "directional",
+    color: "rust",
+    version: 1,
+    stages: 0,
+    tags: [
+      "freedoom",
+      "freedoom phase 1",
+      "classic fps",
+      "retro fps",
+      "first person shooter",
+      "free doom-style game",
+      "browser shooter",
+      "프리덤",
+      "프리덤 페이즈 1",
+      "고전 fps",
+      "둠 스타일 슈팅",
+      "1인칭 슈팅",
+      "무료 슈팅 게임",
+    ],
+    inputs: ["touch", "keyboard"],
+    license: "Freedoom BSD-3-Clause · Chocolate Doom GPL-2.0",
+    licenseUrl:
+      "https://github.com/danborden1/doom-web#what-is-in-here-and-who-owns-it",
+    author: "Freedoom contributors · Chocolate Doom contributors",
+    source: "https://github.com/freedoom/freedoom",
+    externalPlay: {
+      url: "https://danborden1.github.io/doom-web/",
+      host: {
+        en: "Freedoom community browser build",
+        ko: "Freedoom 커뮤니티 브라우저 빌드",
+      },
+      note: {
+        en: "This independent demo runs a Chocolate Doom WebAssembly port with Freedoom Phase 1 data. Its README says the first load is about 35 MB, identifies the engine and game-data licenses, and says it includes no proprietary id Software Doom WAD. Denny Games does not host the build or distribute WAD files; the web wrapper's terms are not stated there.",
+        ko: "독립 데모에서 Chocolate Doom WebAssembly 포트와 Freedoom Phase 1 데이터를 실행합니다. 호스트 README는 첫 로딩이 약 35MB라고 안내하고 엔진·게임 데이터 라이선스를 구분하며 id Software의 상용 Doom WAD는 포함하지 않는다고 밝힙니다. 데니 게임즈는 실행물이나 WAD 파일을 호스팅·배포하지 않으며, 웹 래퍼의 별도 이용 조건은 README에 명시되지 않았습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/freedoom.svg",
+    artworkAlt: {
+      en: "Original illustration of a retro sci-fi corridor and crosshair",
+      ko: "레트로 SF 복도와 조준점을 그린 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Freedoom: Phase 1",
+        subtitle: "A free, open source classic FPS.",
+        description:
+          "Play Freedoom Phase 1, a classic first-person shooter campaign, in a community-hosted browser port. Freedoom supplies original Doom-compatible levels, artwork and sound under BSD-3-Clause; the linked demo uses the Chocolate Doom engine. This is an external game page, not a Denny Games-hosted port.",
+        rules: [
+          "Explore each level, find routes forward and survive encounters with the enemies in your path.",
+          "Look for doors, switches and supplies while watching your health and ammunition.",
+          "The linked build opens Freedoom Phase 1. Other campaigns and multiplayer modes are not promised by this listing.",
+        ],
+        controls: [
+          "Keyboard: arrow keys move and turn; Ctrl fires; Space opens doors; comma and period strafe; number keys switch weapons.",
+          "Touch: use the controls shown below the game viewport in the external build.",
+          "This page opens a third-party browser build in a new tab. Its loading time and behavior depend on that host.",
+        ],
+        tips: [
+          "Check side rooms for switches and supplies before moving deeper.",
+          "Use strafing to dodge while keeping enemies in view.",
+          "The host README says the first load is about 35 MB; wait for it to finish before starting.",
+        ],
+      },
+      ko: {
+        title: "Freedoom: Phase 1",
+        subtitle: "자유 라이선스로 만든 고전 FPS 캠페인.",
+        description:
+          "커뮤니티 브라우저 포트에서 Freedoom Phase 1 1인칭 슈팅 캠페인을 플레이하세요. Freedoom은 BSD-3-Clause에 따라 자체 제작한 Doom 호환 레벨·그림·소리를 제공하고, 연결된 데모는 Chocolate Doom 엔진을 사용합니다. 데니 게임즈가 실행물을 호스팅하는 포트는 아닙니다.",
+        rules: [
+          "레벨을 탐험하고 다음 길을 찾아가며 앞을 가로막는 적과 맞서세요.",
+          "체력과 탄약을 살피며 문·스위치·보급품을 찾아보세요.",
+          "연결된 빌드는 Freedoom Phase 1을 엽니다. 다른 캠페인이나 멀티플레이 모드는 이 목록에서 보장하지 않습니다.",
+        ],
+        controls: [
+          "키보드: 방향키로 이동·회전, Ctrl로 발사, Space로 문 열기, 쉼표·마침표로 옆걸음, 숫자 키로 무기를 바꿉니다.",
+          "터치: 외부 게임 화면 아래에 표시되는 조작 버튼을 사용하세요.",
+          "이 페이지는 새 탭에서 제3자 브라우저 빌드를 엽니다. 로딩 시간과 동작은 호스트에 따라 달라집니다.",
+        ],
+        tips: [
+          "깊이 들어가기 전에 옆방에서 스위치와 보급품을 찾아보세요.",
+          "적을 바라본 채 옆걸음으로 공격을 피하세요.",
+          "호스트 README는 첫 로딩이 약 35MB라고 안내하므로 시작 전 다운로드가 끝날 때까지 기다리세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "openttd",
+    category: "strategy",
+    duration: "varies",
+    controlStyle: "pointer",
+    color: "mint",
+    version: 1,
+    stages: 0,
+    tags: [
+      "openttd",
+      "transport tycoon",
+      "transport simulation",
+      "railway game",
+      "train game",
+      "route planning",
+      "business simulation",
+      "browser strategy game",
+      "오픈티티디",
+      "트랜스포트 타이쿤",
+      "교통 경영",
+      "철도 경영",
+      "기차 게임",
+      "노선 계획",
+      "경영 시뮬레이션",
+    ],
+    inputs: ["mouse", "keyboard"],
+    license:
+      "OpenTTD core GPL-2.0 · base-set licenses vary; linked browser bundle not audited",
+    licenseUrl: "https://www.openttd.org/content-creators",
+    author: "OpenTTD Team",
+    source: "https://github.com/OpenTTD/OpenTTD",
+    externalPlay: {
+      url: "https://openttdonline.com/play/",
+      host: {
+        en: "OpenTTD Online · Overgrown Studio",
+        ko: "OpenTTD Online · Overgrown Studio",
+      },
+      note: {
+        en: "This is an independent browser host, not the official OpenTTD website. The host controls its browser build, online content and save import/export; Denny Games has not audited which basesets it supplies. OpenTTD's official guidance distinguishes free Open* basesets from original Transport Tycoon Deluxe data, so do not assume the host includes rights to commercial data.",
+        ko: "공식 OpenTTD 사이트가 아닌 독립 브라우저 호스트입니다. 브라우저 빌드·온라인 콘텐츠·저장 파일 가져오기와 내보내기는 호스트가 관리하며, 데니 게임즈는 어떤 베이스셋을 제공하는지 감사하지 않았습니다. OpenTTD 공식 안내는 자유 Open* 베이스셋과 Transport Tycoon Deluxe 원본 데이터를 구분하므로 상용 원본 데이터의 권리가 포함된다고 가정하지 마세요.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/openttd.svg",
+    artworkAlt: {
+      en: "Original illustration of a transport network with rail and road routes",
+      ko: "철도와 도로 노선을 그린 교통망 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "OpenTTD",
+        subtitle: "Plan routes. Connect towns. Move cargo.",
+        description:
+          "OpenTTD is an open source transport simulation based on Transport Tycoon Deluxe. Plan rail, road, sea and air links, carry passengers and cargo, and grow a connected network in an independent browser build.",
+        rules: [
+          "Connect towns and industries with transport routes that move passengers or cargo to their destinations.",
+          "Buy vehicles, assign them to useful routes and maintain a network that can earn more than it costs.",
+          "There is no short fixed round. Build at your own pace; the linked host manages browser saves and optional online content.",
+        ],
+        controls: [
+          "Mouse: use the game menus, map and build tools shown in the browser version.",
+          "Keyboard: the build may expose OpenTTD shortcuts; check its in-game help for the current mapping.",
+          "This is a third-party browser host. Its download, save and online-content behavior is managed outside Denny Games.",
+        ],
+        tips: [
+          "Start with a simple route between a nearby industry and the town that needs its cargo.",
+          "Check vehicle orders and running costs before extending a line.",
+          "Use the host's save controls if you want to keep or move a browser save.",
+        ],
+      },
+      ko: {
+        title: "OpenTTD",
+        subtitle: "노선을 만들고 도시와 화물을 연결하세요.",
+        description:
+          "OpenTTD는 Transport Tycoon Deluxe를 바탕으로 만든 오픈소스 교통 경영 시뮬레이션입니다. 철도·도로·해상·항공 노선으로 승객과 화물을 나르고, 독립 브라우저 빌드에서 연결망을 키워보세요.",
+        rules: [
+          "도시와 산업 시설을 운송 노선으로 연결해 승객이나 화물을 목적지까지 옮기세요.",
+          "차량을 구매하고 쓸모 있는 노선에 배정해 운영비보다 더 많은 수익을 내는 망을 만드세요.",
+          "짧은 고정 라운드는 없습니다. 원하는 속도로 확장하세요. 브라우저 저장과 온라인 콘텐츠는 연결된 호스트가 관리합니다.",
+        ],
+        controls: [
+          "마우스: 브라우저 버전에 표시되는 메뉴·지도·건설 도구를 사용하세요.",
+          "키보드: 빌드에서 OpenTTD 단축키를 제공할 수 있습니다. 현재 키 배치는 게임 안 도움말을 확인하세요.",
+          "제3자 브라우저 호스트를 이용합니다. 다운로드·저장·온라인 콘텐츠는 데니 게임즈 밖에서 처리됩니다.",
+        ],
+        tips: [
+          "가까운 산업 시설과 해당 화물이 필요한 도시를 간단한 노선으로 먼저 연결하세요.",
+          "노선을 늘리기 전에 차량의 운행 지시와 유지 비용을 확인하세요.",
+          "브라우저 저장을 보관하거나 옮기려면 호스트의 저장 기능을 사용하세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "supertux",
+    category: "action",
+    duration: "varies",
+    controlStyle: "directional",
+    color: "yellow",
+    version: 1,
+    stages: 0,
+    tags: [
+      "supertux",
+      "platform game",
+      "platformer",
+      "side scrolling",
+      "jump and run",
+      "classic platformer",
+      "open source platform game",
+      "browser platformer",
+      "슈퍼턱스",
+      "플랫폼 게임",
+      "횡스크롤",
+      "점프 액션",
+      "고전 플랫폼 게임",
+      "오픈소스 게임",
+    ],
+    inputs: ["keyboard"],
+    license: "GPL-3.0-or-later code · game data has per-file terms",
+    licenseUrl: "https://github.com/SuperTux/supertux/blob/master/LICENSE.txt",
+    author: "SuperTux Team",
+    source: "https://github.com/SuperTux/supertux",
+    externalPlay: {
+      url: "https://play.supertux.org/play/",
+      host: {
+        en: "Official SuperTux browser page",
+        ko: "SuperTux 공식 브라우저 페이지",
+      },
+      note: {
+        en: "The SuperTux project provides this browser build. The official page lists multiple versions; controls, loading and browser requirements follow the version you choose there.",
+        ko: "SuperTux 프로젝트가 제공하는 브라우저 빌드입니다. 공식 페이지에서 여러 버전을 선택할 수 있으며, 조작·로딩·브라우저 요구사항은 선택한 버전에 따릅니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/supertux.svg",
+    artworkAlt: {
+      en: "Original illustration of a snowy side-scrolling platform course",
+      ko: "눈 덮인 횡스크롤 플랫폼 코스를 그린 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "SuperTux",
+        subtitle: "A classic open source platform adventure.",
+        description:
+          "SuperTux is an open source 2D platform game. Guide Tux across snowy levels, jump over hazards and explore a side-scrolling adventure in the official project browser build.",
+        rules: [
+          "Move through a level, avoid hazards and reach its exit to continue the adventure.",
+          "Collect items and use jumps carefully around enemies and gaps.",
+          "The official browser page offers different game versions; this listing opens its current play page rather than hosting the files on Denny Games.",
+        ],
+        controls: [
+          "Keyboard: read the control guide displayed by the version selected on the official browser page.",
+          "Available actions and key bindings may differ between browser builds; check the game before starting a level.",
+        ],
+        tips: [
+          "Watch an enemy's movement before jumping into its path.",
+          "Look around platforms for alternate routes and collectibles.",
+          "Choose a version on the official play page if the default build does not work in your browser.",
+        ],
+      },
+      ko: {
+        title: "SuperTux",
+        subtitle: "오픈소스로 즐기는 고전 플랫폼 모험.",
+        description:
+          "SuperTux는 오픈소스 2D 플랫폼 게임입니다. 공식 프로젝트 브라우저 빌드에서 Tux를 조작해 눈 덮인 레벨을 달리고, 장애물을 뛰어넘으며 횡스크롤 모험을 즐기세요.",
+        rules: [
+          "레벨을 이동하며 장애물을 피하고 출구에 도달해 모험을 이어가세요.",
+          "아이템을 모으고 적과 낭떠러지 주변에서 점프 타이밍을 살피세요.",
+          "공식 브라우저 페이지에서 여러 버전을 고를 수 있습니다. 데니 게임즈가 파일을 직접 호스팅하지 않고 현재 플레이 페이지를 엽니다.",
+        ],
+        controls: [
+          "키보드: 공식 브라우저 페이지에서 선택한 버전이 표시하는 조작 안내를 확인하세요.",
+          "브라우저 빌드마다 동작과 키 배치가 다를 수 있으니 레벨을 시작하기 전에 게임 안에서 확인하세요.",
+        ],
+        tips: [
+          "적의 움직임을 먼저 보고 진행 경로에 맞춰 점프하세요.",
+          "다른 길과 수집 아이템이 있는지 발판 주변을 살펴보세요.",
+          "기본 빌드가 브라우저에서 동작하지 않으면 공식 플레이 페이지에서 다른 버전을 선택하세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "nethack",
+    category: "roguelike",
+    duration: "varies",
+    controlStyle: "directional",
+    color: "rust",
+    version: 1,
+    stages: 0,
+    tags: [
+      "nethack",
+      "NetHack 5",
+      "roguelike",
+      "rogue-like",
+      "dungeon crawler",
+      "dungeon crawl",
+      "turn based dungeon",
+      "permadeath",
+      "classic roguelike",
+      "browser nethack",
+      "넷핵",
+      "로그라이크",
+      "던전 탐험",
+      "턴제 던전",
+      "고전 로그라이크",
+      "영구 사망",
+      "텍스트 게임",
+    ],
+    inputs: ["keyboard"],
+    license: "NetHack General Public License (NGPL)",
+    licenseUrl: "https://www.nethack.org/common/license.html",
+    author: "NetHack DevTeam",
+    source: "https://github.com/NetHack/NetHack",
+    externalPlay: {
+      url: "https://www.alt.org/nethack/hterm/",
+      host: {
+        en: "NAO Web Term · community server",
+        ko: "NAO Web Term · 커뮤니티 서버",
+      },
+      note: {
+        en: "This is a remote NetHack server with a browser terminal, not a local copy on Denny Games. The server manages accounts, game sessions and saves; read its current rules and privacy information before signing in.",
+        ko: "데니 게임즈에 설치된 게임이 아니라 브라우저 터미널로 접속하는 원격 NetHack 서버입니다. 계정·플레이 세션·저장은 서버가 관리하므로 로그인 전에 최신 이용 규칙과 개인정보 안내를 확인하세요.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/nethack.svg",
+    artworkAlt: {
+      en: "Original illustration of a text-style dungeon map and stairs",
+      ko: "문자형 던전 지도와 계단을 그린 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "NetHack",
+        subtitle: "A legendary turn-based dungeon roguelike.",
+        description:
+          "NetHack is a classic open source roguelike dungeon adventure. Explore a changing dungeon, manage food and equipment, and seek the Amulet of Yendor; a browser terminal connects to the NAO community server, where play is remote.",
+        rules: [
+          "Explore the dungeon, gather equipment and supplies, and search for the Amulet of Yendor.",
+          "Every move and action advances the turn-based world. Enemies, hunger and limited resources make each choice matter.",
+          "A character's run can end permanently. The linked NAO server stores its own game sessions and follows its own account and save rules.",
+        ],
+        controls: [
+          "Keyboard: use the NAO web terminal's current key guide and in-game help; NetHack has many commands.",
+          "This is remote play on a community server. Denny Games does not receive your account credentials or store the game session.",
+        ],
+        tips: [
+          "Read the terminal's key reference and message line before trying unfamiliar commands.",
+          "Check food, health and equipment regularly; a small mistake can cost a run.",
+          "Learn the server's save and session rules before leaving a character unattended.",
+        ],
+      },
+      ko: {
+        title: "NetHack",
+        subtitle: "전설적인 턴제 던전 로그라이크.",
+        description:
+          "NetHack은 고전 오픈소스 로그라이크 던전 모험입니다. 변화하는 던전을 탐험하고 식량과 장비를 관리해 Yendor의 부적을 찾으세요. 브라우저 터미널은 NAO 커뮤니티 서버에 원격으로 접속합니다.",
+        rules: [
+          "던전을 탐험하고 장비와 보급품을 모아 Yendor의 부적을 찾으세요.",
+          "이동과 행동을 할 때마다 턴제 세계가 진행됩니다. 적·허기·제한된 자원 때문에 선택이 중요합니다.",
+          "캐릭터의 모험은 영구히 끝날 수 있습니다. 연결된 NAO 서버가 게임 세션을 저장하며 자체 계정·저장 규칙을 적용합니다.",
+        ],
+        controls: [
+          "키보드: 명령이 많으므로 NAO 웹 터미널의 최신 키 안내와 게임 안 도움말을 확인하세요.",
+          "커뮤니티 서버에서 원격 플레이합니다. 데니 게임즈는 계정 비밀번호를 받거나 게임 세션을 저장하지 않습니다.",
+        ],
+        tips: [
+          "익숙하지 않은 명령을 쓰기 전에 터미널의 키 안내와 메시지 줄을 읽어보세요.",
+          "식량·체력·장비를 자주 확인하세요. 작은 실수가 한 번의 모험을 끝낼 수 있습니다.",
+          "캐릭터를 남겨두고 나가기 전에 서버의 저장·세션 규칙을 확인하세요.",
+        ],
+      },
+    },
+  },
+];
+games.push(...externalBrowserGames);
 // Scale fixtures are local/CI-only and never part of a normal production build.
 if (import.meta.env?.SCALE_TEST === "1") {
   const originals = [...games];

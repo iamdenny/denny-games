@@ -41,13 +41,17 @@ const pick = editorialPick(game.id);
       <p>{pick?.reason[locale] ?? detail.subtitle}</p>
       <div class="card-meta">
         <span>
-          ◷ {game.duration} {text.minutes}
+          ◷{" "}
+          {game.duration === "varies"
+            ? text.durationVaries
+            : `${game.duration} ${text.minutes}`}
         </span>
         <span>
           {game.inputs
             .map((input) => (input === "gamepad" ? text.pad : text[input]))
             .join(" · ")}
         </span>
+        {game.externalPlay && <span>{text.externalLabel}</span>}
       </div>
     </div>
   </a>

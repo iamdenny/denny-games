@@ -92,6 +92,16 @@ test("Hextris has bilingual instructions, source notices and clear mobile contro
     () =>
       (window as unknown as { MainHex: { position: number } }).MainHex.position,
   );
+  await expect
+    .poll(() =>
+      frame!.evaluate(
+        () =>
+          Date.now() -
+          (window as unknown as { MainHex: { lastRotate: number } }).MainHex
+            .lastRotate,
+      ),
+    )
+    .toBeGreaterThanOrEqual(75);
   await rotateRight.click();
   await expect
     .poll(() =>
@@ -227,6 +237,16 @@ test("Hextris flushes the current board before switching language", async ({
     () =>
       (window as unknown as { MainHex: { position: number } }).MainHex.position,
   );
+  await expect
+    .poll(() =>
+      frame!.evaluate(
+        () =>
+          Date.now() -
+          (window as unknown as { MainHex: { lastRotate: number } }).MainHex
+            .lastRotate,
+      ),
+    )
+    .toBeGreaterThanOrEqual(75);
   await page.getByRole("button", { name: "육각형 오른쪽으로 회전" }).click();
   await expect
     .poll(() =>

@@ -9,19 +9,19 @@ read_when:
 
 The shared player fits every immersive game surface by logical aspect ratio (ADR 0021), selecting side or bottom tools from measured space. Imported onReady may report validated width/height; native ratios are known at the page boundary. Primary game actions use controlsHost and are inert while overlays block gameplay; secondary 2048 directions use settingsHost. Adapters remove their externally mounted controls on destroy, and viewport/view changes never remount the engine.
 
-Astro generates real index.html routes for English and Korean. Catalogue metadata drives home, category pagination, detail pages, search indexes and sitemap. No API server or database is required.
+Astro generates real index.html routes for English and Korean. Catalogue metadata drives home, category pagination, detail pages, search indexes and sitemap. Four external-play records have indexable Denny Games detail pages and outbound links, but no local `/play/{id}/` route or embedded third-party runtime. No API server or database is required.
 
 The root page supplies an inline script through the Base layout's head slot to open the first supported browser language before rendering the selector. Explicit locale routes do not redirect. Root HTML retains bilingual fallback links and SEO/verification metadata. See [ADR 0019](adr/0019-browser-language-entry.md).
 
 ## Boundaries
 
-- `src/data`: typed game metadata, localized editorial copy and categories.
+- `src/data`: typed game metadata, localized editorial copy, categories and explicit external-host records.
 - `src/pages`: static routes, search indexes, sitemap and robots endpoints.
 - `src/components` and `src/layouts`: semantic UI, SEO metadata and advertising slots.
 - `src/lib`: storage, deterministic randomness, input, ads and lifecycle contracts.
 - `src/games`: independently loaded game rules and rendering.
 - `public`: original artwork, CNAME, third-party license notices.
-- `vendor`: pinned third-party provenance, unchanged runtime source and all-candidate dispositions.
+- `vendor`: pinned third-party provenance, unchanged runtime source, external-link audit and all-candidate dispositions.
 - `scripts`: documentation, artifact, scale and public-readback checks.
 
 ## Lifecycle
