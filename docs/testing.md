@@ -64,3 +64,7 @@ Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430p
 ## Quick discovery and replay
 
 `quick-play.spec.ts` covers both languages, JavaScript-disabled links, mood selection and cycling, real local-history filtering, denied storage, 320px phones and iPad portrait/landscape widths, reduced motion, artwork containment, disabled start before script hydration, and actual Circuit completion with record feedback and replay on short screens. It runs in the Chromium suite and WebKit mobile suite. These are browser-emulation results, not physical device or retention evidence.
+
+## Daily completion and return
+
+`daily-progress.spec.ts` completes a real Circuit round and checks next-daily navigation, local persistence, home progress, date rollover, saved-stage defaults, pause without completion, corrupt records, static links, denied storage and phone/iPad widths. `daily.test.ts` covers supported seeds, versions, zero scores and date boundaries. These checks do not establish physical-device signoff or increased retention.

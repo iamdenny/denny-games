@@ -1,6 +1,7 @@
 ---
 import { games, type Game } from "../data/games";
 import { quickPlayGroups } from "../data/quick-play";
+import { dailyGameIds } from "../lib/daily";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
 interface Props {
@@ -51,6 +52,20 @@ const nextGame =
   data-locale={locale}
   data-version={game.version}
   data-score-record={!game.classic && !game.internalScore ? "true" : "false"}
+  data-daily-games={JSON.stringify(
+    dailyGameIds
+      .flatMap((id) =>
+        games.filter(
+          (item) =>
+            item.id === id && item.tags.includes("daily") && !item.externalPlay,
+        ),
+      )
+      .map((item) => ({
+        id: item.id,
+        version: item.version,
+        title: item.text[locale].title,
+      })),
+  )}
   data-stages={game.stages}
   data-instructions={game.text[locale].controls[0]}
 >
@@ -83,6 +98,7 @@ const nextGame =
         <h2 id="overlay-title">{text.ready}</h2>
         <p id="overlay-note">{game.text[locale].controls[0]}</p>
         <p id="round-record" class="round-record" role="status" hidden></p>
+        <p id="daily-result" role="status" hidden></p>
         <div id="game-mode-choice" hidden></div>
         <button id="start-button" type="button" class="button primary" disabled>
           {text.start} ↗

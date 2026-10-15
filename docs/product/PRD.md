@@ -75,6 +75,11 @@ Use 12 explicit editor picks with bilingual reasons based on screen/rule review.
 
 Home offers quick-reflex, thinking and same-screen two-player picks with direct play and rules links, actual game imagery and browser-local recent games. Real shell results offer a score record comparison where appropriate and a next-game action. Keep all controls usable on phones and iPad layouts; provide static fallback, reduced motion and honest local-save wording. This improves discovery and replay opportunities; increased fun or retention needs actual player evidence. See [ADR 0029](../adr/0029-quick-play-and-replay.md).
 
+## Daily completion and return — 2026-10-15
+
+Daily challenges start at stage 1 and show the current UTC day, actual completed-round count and browser-local records. A finished round counts regardless of winning; opening, pausing, normal seeds and other stages do not. A daily result leads to the next remaining challenge or the daily summary. No global ranking or retention claim is introduced. See [ADR 0030](../adr/0030-daily-completion-and-return.md).
+
+
 ## Original research draft (historical recommendations)
 
 # Denny Games — 무료 브라우저 미니 아케이드 PRD
