@@ -6,7 +6,7 @@ const cookiePrefix = "dennygames";
 type Consent = "granted" | "denied" | null;
 declare global {
   interface Window {
-    dataLayer?: unknown[][];
+    dataLayer?: IArguments[];
     gtag?: (...args: unknown[]) => void;
   }
 }
@@ -58,8 +58,8 @@ function startAnalytics(): void {
   initialized = true;
   (win as unknown as Record<string, unknown>)[disabledKey] = false;
   win.dataLayer ??= [];
-  win.gtag ??= (...args: unknown[]) => {
-    win.dataLayer!.push(args);
+  win.gtag ??= function () {
+    win.dataLayer!.push(arguments);
   };
   win.gtag("js", new Date());
   win.gtag("config", measurementId, {
@@ -145,6 +145,14 @@ export function initAnalytics(): void {
         allow.focus();
       });
     });
+
+  window.addEventListener("storage", (event) => {
+    if (event.key !== consentKey && event.key !== null) return;
+    const nextConsent = readConsent();
+    panel.hidden = nextConsent !== null;
+    if (nextConsent === "granted") startAnalytics();
+    else stopAnalytics();
+  });
 
   const consent = readConsent();
   panel.hidden = consent !== null;

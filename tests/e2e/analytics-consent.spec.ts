@@ -13,7 +13,7 @@ test("GA4 stays unloaded until the visitor allows it and strips URL details", as
   ).toHaveCount(0);
   expect(
     await page.evaluate(
-      () => (window as Window & { dataLayer?: unknown[][] }).dataLayer,
+      () => (window as Window & { dataLayer?: IArguments[] }).dataLayer,
     ),
   ).toBeUndefined();
 
@@ -25,10 +25,18 @@ test("GA4 stays unloaded until the visitor allows it and strips URL details", as
     ),
   ).toBe("granted");
 
-  const commands = await page.evaluate(
-    () => (window as Window & { dataLayer?: unknown[][] }).dataLayer ?? [],
-  );
-  const config = commands.find(
+  const commands = await page.evaluate(() => {
+    const dataLayer =
+      (window as Window & { dataLayer?: IArguments[] }).dataLayer ?? [];
+    return {
+      types: dataLayer.map((command) =>
+        Object.prototype.toString.call(command),
+      ),
+      values: dataLayer.map((command) => Array.from(command)),
+    };
+  });
+  expect(commands.types).toEqual(["[object Arguments]", "[object Arguments]"]);
+  const config = commands.values.find(
     (command) => Array.isArray(command) && command[0] === "config",
   ) as unknown[] | undefined;
   expect(config?.[1]).toBe("G-5NZLTVBG5Y");
@@ -56,7 +64,7 @@ test("visitors can decline or withdraw analytics from the privacy page", async (
   ).toBe("denied");
   expect(
     await page.evaluate(
-      () => (window as Window & { dataLayer?: unknown[][] }).dataLayer,
+      () => (window as Window & { dataLayer?: IArguments[] }).dataLayer,
     ),
   ).toBeUndefined();
 
@@ -88,4 +96,34 @@ test("visitors can decline or withdraw analytics from the privacy page", async (
   await expect(
     page.locator('script[src*="googletagmanager.com/gtag/js"]'),
   ).toHaveCount(0);
+});
+
+test("consent choices synchronize across open tabs", async ({ context }) => {
+  const firstTab = await context.newPage();
+  const secondTab = await context.newPage();
+  await firstTab.goto("/en/");
+  await secondTab.goto("/ko/");
+
+  await firstTab.getByRole("button", { name: "Allow analytics" }).click();
+  await expect(secondTab.locator("[data-analytics-consent]")).toBeHidden();
+  expect(
+    await secondTab.evaluate(
+      () => (window as Window & { dataLayer?: IArguments[] }).dataLayer?.length,
+    ),
+  ).toBe(2);
+
+  await firstTab.goto("/en/privacy/");
+  await firstTab
+    .getByRole("button", { name: "Manage analytics choice" })
+    .click();
+  await firstTab.getByRole("button", { name: "Decline" }).click();
+  await expect(secondTab.locator("[data-analytics-consent]")).toBeHidden();
+  expect(
+    await secondTab.evaluate(
+      () =>
+        (window as unknown as Record<string, unknown>)[
+          "ga-disable-G-5NZLTVBG5Y"
+        ],
+    ),
+  ).toBe(true);
 });

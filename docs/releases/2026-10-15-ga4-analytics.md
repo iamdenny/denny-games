@@ -18,7 +18,7 @@ read_when:
 
 ## Validation
 
-`npm run verify` passed: Astro check (0 errors; one existing hint in `tests/e2e/discovery.spec.ts`), 68 unit tests, docs checks and lint, 1,000-game scale fixture, 960-page build, output audit and SEO check. `npm run format:check` passed. `PLAYWRIGHT_PORT=4331 npm run test:e2e` passed all 514 browser tests, including both analytics consent scenarios. Property creation and stream configuration are separate from live event receipt; CI, production readback and GA4 Realtime receipt will be recorded after those gates complete.
+`npm run verify` passed: Astro check (0 errors; one existing hint in `tests/e2e/discovery.spec.ts`), 68 unit tests, docs checks and lint, 1,000-game scale fixture, 960-page build, output audit and SEO check. `npm run format:check` passed. The Google tag queue uses the documented `Arguments` command format, and consent changes synchronize across open tabs. `PLAYWRIGHT_PORT=4331 npm run test:e2e` passed all 515 browser tests, including three analytics consent scenarios. Property creation and stream configuration are separate from live event receipt; CI, production readback and GA4 Realtime receipt will be recorded after those gates complete.
 
 ## Evidence
 
