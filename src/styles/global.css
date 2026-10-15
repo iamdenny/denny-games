@@ -114,6 +114,62 @@ h3 {
   gap: 36px;
   border-bottom: 2px solid var(--ink);
 }
+.analytics-consent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 16px 3%;
+  background: #e9eadf;
+  border-bottom: 1px solid var(--line);
+}
+.analytics-consent p {
+  max-width: 900px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.analytics-consent p a {
+  margin-left: 8px;
+  font-weight: 700;
+}
+.analytics-consent-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+.analytics-consent-actions button {
+  min-height: 44px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.play-page .analytics-consent {
+  background: #203642;
+  border-color: #526454;
+}
+.play-page .analytics-consent-actions button {
+  color: var(--paper);
+  background: #26404d;
+  border-color: #718175;
+}
+.play-page .analytics-consent-actions button:hover {
+  color: var(--ink);
+  background: var(--mint);
+}
+@media (max-width: 760px) {
+  .analytics-consent {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px 5%;
+  }
+  .analytics-consent-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
 .brand {
   display: flex;
   align-items: center;

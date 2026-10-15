@@ -965,6 +965,13 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           ))}
         </section>
       ))}
+      {path === "privacy" && (
+        <p>
+          <button type="button" data-analytics-consent-open>
+            {label("Manage analytics choice", "분석 선택 변경")}
+          </button>
+        </p>
+      )}
       {article.links && (
         <section>
           <h2>{label("Sources and next steps", "출처와 다음 단계")}</h2>
