@@ -60,3 +60,7 @@ Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430p
 ## Compact navigation and board space
 
 `compact-layout.spec.ts` checks a bounded catalogue header, earlier thumbnails, native menu reachability without JavaScript, Escape focus restoration, and full-stage board sizing with a side rail at 800×600 and 960×640. Optional direction buttons remain in settings. Classic remount checks require one external tools group and one settings group; existing confirmation, pause, view/orientation and mobile journeys remain release gates. The user's attached Tesla screenshots establish the pre-change layout issue; post-change physical Tesla readback remains separate from browser automation.
+
+## Quick discovery and replay
+
+`quick-play.spec.ts` covers both languages, JavaScript-disabled links, mood selection and cycling, real local-history filtering, denied storage, 320px phones and iPad portrait/landscape widths, reduced motion, artwork containment, disabled start before script hydration, and actual Circuit completion with record feedback and replay on short screens. It runs in the Chromium suite and WebKit mobile suite. These are browser-emulation results, not physical device or retention evidence.

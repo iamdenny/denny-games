@@ -38,7 +38,7 @@ test("editor picks stay consistent across home, full catalogue, categories and d
   page,
 }) => {
   await page.goto("/ko/");
-  await expect(page.locator(".feature a.button")).toHaveAttribute(
+  await expect(page.locator("[data-quick-details]")).toHaveAttribute(
     "href",
     `/ko/games/${editorPicks[0]!.id}/`,
   );

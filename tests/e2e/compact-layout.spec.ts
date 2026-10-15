@@ -19,7 +19,7 @@ for (const locale of ["en", "ko"]) {
       await expect(menu.locator("nav")).not.toBeVisible();
       if (width >= 780) {
         const thumbnail = await page
-          .locator("[data-collection-card]")
+          .locator("[data-quick-art-link]")
           .first()
           .boundingBox();
         expect(thumbnail!.y).toBeLessThan(250);
