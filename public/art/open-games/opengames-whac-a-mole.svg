@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Original Denny Games illustration of a mole popping from a hole">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#27223b"/><stop offset="1" stop-color="#533340"/></linearGradient></defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/><path d="M36 34h568v332H36z" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+  <ellipse cx="452" cy="278" rx="130" ry="32" fill="#322630"/><path d="M377 270c-6-52 23-112 76-112 54 0 85 61 78 112z" fill="#a77b83"/><ellipse cx="409" cy="205" rx="21" ry="29" fill="#e8b4ba"/><ellipse cx="497" cy="205" rx="21" ry="29" fill="#e8b4ba"/><circle cx="429" cy="235" r="7" fill="#191520"/><circle cx="478" cy="235" r="7" fill="#191520"/><ellipse cx="454" cy="256" rx="14" ry="10" fill="#f0a3a6"/>
+  <text x="72" y="153" fill="#fff" font-family="Arial,sans-serif" font-size="51" font-weight="800" letter-spacing="-2">WHAC-A-MOLE</text>
+  <text x="76" y="196" fill="#ffb8a7" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="3">QUICK EYES · QUICK HANDS</text>
+  <text x="76" y="340" fill="#cbbfc6" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2">DENNY GAMES · SOURCE LINKED</text>
+</svg>

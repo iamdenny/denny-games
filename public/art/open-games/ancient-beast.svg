@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Original Denny Games illustration of two fantasy creatures facing off">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101a32"/><stop offset="1" stop-color="#31294e"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#b68cff" stop-opacity=".34"/><stop offset="1" stop-color="#b68cff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/>
+  <path d="M36 34h568v332H36z" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+  <circle cx="443" cy="205" r="178" fill="url(#glow)"/>
+  <path d="m358 238 18-68 42-40 34 7 14 37 38 15-16 51-36 20-20 41h-54l-20-39z" fill="#9e83d9" stroke="#d6c4ff" stroke-width="5"/>
+  <path d="m387 169-27-36 48 13m50-12 30-30-8 48m-77 37 16 8m45-8 14 8" fill="none" stroke="#eddbff" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="406" cy="195" r="5" fill="#fff2b0"/><circle cx="459" cy="195" r="5" fill="#fff2b0"/>
+  <path d="M512 270q28 18 47 3" fill="none" stroke="#ffbf80" stroke-width="7" stroke-linecap="round"/>
+  <text x="72" y="160" fill="#fff" font-family="Arial,sans-serif" font-size="47" font-weight="800" letter-spacing="-2">ANCIENT</text>
+  <text x="74" y="207" fill="#d6c4ff" font-family="Arial,sans-serif" font-size="46" font-weight="800" letter-spacing="1">BEAST</text>
+  <text x="76" y="340" fill="#c0bdd1" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2">DENNY GAMES · SOURCE LINKED</text>
+</svg>

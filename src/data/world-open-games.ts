@@ -13,6 +13,7 @@ type Copy = {
 
 type Listing = {
   id: string;
+  added?: string;
   category: Game["category"];
   controlStyle: Game["controlStyle"];
   color: string;
@@ -34,6 +35,29 @@ const libreHost = "https://linkingtechnologies.github.io/libre-arcade";
 const libreLicenseUrl = `${libreRoot}/blob/main/LICENSE`;
 const libreSource = (slug: string) => `${libreRoot}/tree/main/${slug}`;
 const libreUrl = (path: string) => `${libreHost}/${path}`;
+
+const openGamesRoot =
+  "https://github.com/opengames-dev/opengames-dev.github.io";
+const openGamesHost = "https://opengames-dev.github.io";
+const openGamesNote: Record<Locale, string> = {
+  en: "OpenGames says its six games, artwork and synthesized sounds are MIT licensed, free, ad-free and playable without an account. We checked that each linked page loads; Denny Games has not verified a complete game session or physical-device behavior.",
+  ko: "OpenGames는 여섯 게임과 그림·합성 음향을 MIT 라이선스로 제공하며 무료·광고 없음·계정 없이 플레이 가능하다고 안내합니다. 링크된 각 페이지가 열리는 것은 확인했지만 전체 플레이나 실기기 동작은 검증하지 않았습니다.",
+};
+
+const darkRoomNote: Record<Locale, string> = {
+  en: "This is the official browser game page. In a 390px browser check, its document width measured 920px, so mobile visitors may need to zoom or scroll horizontally. Denny Games links out only and has not verified a full game session or device support.",
+  ko: "공식 브라우저 게임 페이지입니다. 390px 브라우저 확인에서 문서 가로 폭이 920px로 측정되어 모바일에서는 확대하거나 가로로 이동해야 할 수 있습니다. 데니 게임즈는 링크만 제공하며 전체 플레이와 기기 지원을 검증하지 않았습니다.",
+};
+
+const ancientBeastNote: Record<Locale, string> = {
+  en: "The official host currently labels the game v0.5.1-alpha. Its mobile page asks portrait users to rotate to landscape. The code is AGPL-3.0 and artwork/audio have separate CC BY-SA terms; Denny Games reuses none of those assets and has not verified a full match, save or device behavior.",
+  ko: "공식 호스트는 현재 게임을 v0.5.1-alpha로 표시합니다. 모바일 페이지는 세로 화면에서 가로로 돌리라고 안내합니다. 코드는 AGPL-3.0이고 그림·음향에는 별도의 CC BY-SA 조건이 적용됩니다. 데니 게임즈는 해당 자산을 재사용하지 않으며 전체 대전·저장·기기 동작을 검증하지 않았습니다.",
+};
+
+const blockyardNote: Record<Locale, string> = {
+  en: "Blockyard's MIT-licensed project hosts a changing set of browser modes. Its current lobby offers guest play with a display name; progress lasts for that visit, while Discord sign-in keeps achievements. The host, online play and account rules are separate from Denny Games. We checked the lobby only, not a complete match or device compatibility.",
+  ko: "MIT 라이선스의 Blockyard 프로젝트는 여러 브라우저 게임 모드를 호스팅합니다. 현재 로비에서는 표시 이름을 정해 게스트로 플레이할 수 있고, 진행 상황은 해당 방문 중에만 유지되며 Discord 로그인 시 업적이 저장됩니다. 호스트·온라인 플레이·계정 규칙은 데니 게임즈와 별개입니다. 로비만 확인했고 전체 대전이나 기기 호환성은 검증하지 않았습니다.",
+};
 
 const libreNote: Record<Locale, string> = {
   en: "This browser restoration is hosted by the Libre Arcade project on GitHub Pages. Its source repository documents the GPL-3.0 project code plus each game's upstream code and separate asset terms. Denny Games links out only; it does not host the build, game data or artwork. We have not verified a complete external game session or device compatibility.",
@@ -1693,7 +1717,1736 @@ const listings: Listing[] = [
       },
     },
   },
+  {
+    id: "a-dark-room",
+    added: "2026-10-16",
+    category: "strategy",
+    controlStyle: "pointer",
+    color: "rust",
+    inputs: ["mouse", "keyboard"],
+    tags: {
+      en: [
+        "A Dark Room",
+        "minimalist text adventure",
+        "resource management game",
+        "browser survival story",
+        "MPL-2.0 open source game",
+      ],
+      ko: [
+        "A Dark Room",
+        "미니멀 텍스트 어드벤처",
+        "자원 관리 게임",
+        "브라우저 생존 이야기",
+        "MPL-2.0 오픈소스 게임",
+      ],
+    },
+    license: "MPL-2.0",
+    licenseUrl:
+      "https://github.com/doublespeakgames/adarkroom/blob/main/LICENSE.md",
+    author: "Michael Townsend and Doublespeak Games contributors",
+    source: "https://github.com/doublespeakgames/adarkroom",
+    url: "https://adarkroom.doublespeakgames.com/",
+    host: {
+      en: "A Dark Room official browser edition",
+      ko: "A Dark Room 공식 브라우저판",
+    },
+    hostNote: darkRoomNote,
+    artworkAlt: {
+      en: "Original Denny Games illustration of a small flame inside a dark room",
+      ko: "어두운 방 안의 작은 불꽃을 그린 데니 게임즈 자체 일러스트",
+    },
+    copy: {
+      en: {
+        title: "A Dark Room",
+        subtitle: "Light a fire. Build a village. Follow the trail beyond it.",
+        description:
+          "A spare text adventure that grows from tending a fire into gathering supplies, building a settlement and exploring a strange world. Its official browser edition is free and its source is published under MPL-2.0.",
+        objective:
+          "Keep the fire alive, gather resources and decide when your village is ready for a journey.",
+        mode: "The story opens gradually as new people, buildings and places become available.",
+        controls:
+          "Choose the actions shown by the official game page. The host uses a compact desktop-oriented layout; mobile behavior is limited.",
+        tip: "Take a moment to read each new option; small choices open the next part of the story.",
+      },
+      ko: {
+        title: "A Dark Room",
+        subtitle: "불을 밝히고, 마을을 세우고, 바깥세상으로 나아가요.",
+        description:
+          "불을 돌보는 일에서 시작해 자원을 모으고 마을을 꾸린 뒤 낯선 세계를 탐험하는 담백한 텍스트 어드벤처입니다. 공식 브라우저판은 무료이며 소스는 MPL-2.0으로 공개되어 있습니다.",
+        objective:
+          "불을 지키고 자원을 모으며 마을이 여행을 떠날 준비가 되었는지 결정하세요.",
+        mode: "새로운 사람과 건물, 장소가 열릴수록 이야기가 조금씩 모습을 드러냅니다.",
+        controls:
+          "공식 게임 페이지에 표시되는 행동을 선택하세요. 호스트는 데스크톱에 맞춘 좁은 레이아웃이라 모바일 사용성이 제한될 수 있습니다.",
+        tip: "새로운 선택지가 나타나면 잠시 읽어보세요. 작은 결정이 다음 이야기를 열어줍니다.",
+      },
+    },
+  },
+  {
+    id: "ancient-beast",
+    added: "2026-10-16",
+    category: "strategy",
+    controlStyle: "pointer",
+    color: "violet",
+    inputs: ["mouse", "keyboard", "touch"],
+    tags: {
+      en: [
+        "Ancient Beast",
+        "turn based tactical game",
+        "creature strategy game",
+        "1v1 and 2v2 browser game",
+        "AGPL open source game",
+      ],
+      ko: [
+        "Ancient Beast",
+        "턴제 전술 게임",
+        "크리처 전략 게임",
+        "1대1 2대2 브라우저 게임",
+        "AGPL 오픈소스 게임",
+      ],
+    },
+    license:
+      "AGPL-3.0 code · CC-BY-SA-4.0 artwork/audio · name and logo are trademarks",
+    licenseUrl:
+      "https://github.com/FreezingMoon/AncientBeast/blob/master/README.md",
+    author: "Freezing Moon and Ancient Beast contributors",
+    source: "https://github.com/FreezingMoon/AncientBeast",
+    url: "https://play.ancientbeast.com/",
+    host: {
+      en: "Ancient Beast developer-hosted browser alpha",
+      ko: "Ancient Beast 개발자 호스팅 브라우저 알파",
+    },
+    hostNote: ancientBeastNote,
+    artworkAlt: {
+      en: "Original Denny Games illustration of two fantasy creatures facing off",
+      ko: "서로 마주 보는 판타지 크리처 둘을 그린 데니 게임즈 자체 일러스트",
+    },
+    copy: {
+      en: {
+        title: "Ancient Beast",
+        subtitle: "Build a squad of creatures and outplay the other side.",
+        description:
+          "A turn-based tactical game about assembling a team of creatures with different abilities. The official browser host offers hotseat setup and 1v1 or 2v2 match options; the project labels this build alpha.",
+        objective:
+          "Choose units, manage your resources and use their abilities to defeat the opposing team.",
+        mode: "Select hotseat, team size, turn time and other match settings before opening a battle.",
+        controls:
+          "Use the game board's unit, target and ability controls. The official page asks portrait phone users to rotate to landscape.",
+        tip: "Read each unit's ability before spending materialization points on your squad.",
+      },
+      ko: {
+        title: "Ancient Beast",
+        subtitle: "크리처 부대를 구성해 상대의 수를 앞서세요.",
+        description:
+          "서로 다른 능력을 지닌 크리처 팀을 구성해 겨루는 턴제 전술 게임입니다. 공식 브라우저 호스트에서 핫시트 설정과 1대1·2대2 대전을 선택할 수 있으며 프로젝트는 이 빌드를 알파로 표시합니다.",
+        objective:
+          "유닛을 고르고 자원을 관리하며 각 능력을 활용해 상대 팀을 물리치세요.",
+        mode: "대전을 열기 전에 핫시트, 팀 인원, 턴 시간과 기타 설정을 선택하세요.",
+        controls:
+          "게임 보드의 유닛·대상·능력 조작을 사용하세요. 공식 페이지는 세로 화면의 휴대폰을 가로로 돌리라고 안내합니다.",
+        tip: "크리처를 영입하는 데 자원을 쓰기 전에 각 유닛의 능력을 확인하세요.",
+      },
+    },
+  },
+  {
+    id: "opengames-labyrinth",
+    added: "2026-10-16",
+    category: "puzzle",
+    controlStyle: "directional",
+    color: "mint",
+    inputs: ["touch", "keyboard", "gamepad"],
+    tags: {
+      en: [
+        "OpenGames Labyrinth",
+        "procedural maze game",
+        "maze escape",
+        "touch game",
+        "MIT browser game",
+      ],
+      ko: [
+        "OpenGames 미로",
+        "절차 생성 미로 게임",
+        "미로 탈출",
+        "터치 게임",
+        "MIT 브라우저 게임",
+      ],
+    },
+    license: "MIT code, original artwork and synthesized audio",
+    licenseUrl: `${openGamesRoot}/blob/main/LICENSE`,
+    author: "OpenGames contributors",
+    source: openGamesRoot,
+    url: `${openGamesHost}/labyrinth/index.html`,
+    host: { en: "OpenGames project game", ko: "OpenGames 프로젝트 게임" },
+    hostNote: openGamesNote,
+    artworkAlt: {
+      en: "Original Denny Games maze illustration",
+      ko: "데니 게임즈 자체 미로 일러스트",
+    },
+    copy: {
+      en: {
+        title: "OpenGames Labyrinth",
+        subtitle: "Find the exit through a maze that changes each round.",
+        description:
+          "Navigate a randomly generated maze in one of three sizes. OpenGames provides touch, keyboard, on-screen arrow and standard gamepad controls.",
+        objective: "Reach the maze exit and finish in as few moves as you can.",
+        mode: "Choose Easy, Normal or Hard to change the maze size.",
+        controls:
+          "Use arrow keys, WASD, swipe gestures, the on-screen arrows or a standard gamepad.",
+        tip: "Follow one wall consistently when you feel turned around.",
+      },
+      ko: {
+        title: "OpenGames 미로",
+        subtitle: "매번 달라지는 미로를 지나 출구를 찾아요.",
+        description:
+          "세 가지 크기 중 하나를 골라 무작위로 생성된 미로를 탐험하세요. OpenGames는 터치·키보드·화면 방향 버튼·표준 게임패드를 지원한다고 안내합니다.",
+        objective: "가능한 적은 이동으로 미로의 출구에 도착하세요.",
+        mode: "Easy·Normal·Hard를 골라 미로 크기를 바꾸세요.",
+        controls:
+          "방향키, WASD, 스와이프, 화면 방향 버튼 또는 표준 게임패드를 사용하세요.",
+        tip: "길을 잃었다면 한쪽 벽을 정해 계속 따라가 보세요.",
+      },
+    },
+  },
+  {
+    id: "opengames-snake",
+    added: "2026-10-16",
+    category: "arcade",
+    controlStyle: "directional",
+    color: "blue",
+    inputs: ["touch", "keyboard", "gamepad"],
+    tags: {
+      en: [
+        "OpenGames Snake",
+        "classic snake game",
+        "arcade snake",
+        "touch snake game",
+        "MIT browser game",
+      ],
+      ko: [
+        "OpenGames 스네이크",
+        "클래식 스네이크 게임",
+        "아케이드 뱀 게임",
+        "터치 스네이크 게임",
+        "MIT 브라우저 게임",
+      ],
+    },
+    license: "MIT code, original artwork and synthesized audio",
+    licenseUrl: `${openGamesRoot}/blob/main/LICENSE`,
+    author: "OpenGames contributors",
+    source: openGamesRoot,
+    url: `${openGamesHost}/snake/index.html`,
+    host: { en: "OpenGames project game", ko: "OpenGames 프로젝트 게임" },
+    hostNote: openGamesNote,
+    artworkAlt: {
+      en: "Original Denny Games coiled snake illustration",
+      ko: "데니 게임즈 자체 뱀 일러스트",
+    },
+    copy: {
+      en: {
+        title: "OpenGames Snake",
+        subtitle: "Eat, grow and leave enough room to turn.",
+        description:
+          "Guide a growing snake around the board, collect food and avoid its body. Pick a starting speed and keep the run going as the snake gets longer.",
+        objective:
+          "Collect food to grow without hitting a wall or your own tail.",
+        mode: "Choose a starting speed; the game accelerates as your snake grows.",
+        controls:
+          "Use arrow keys, WASD, swipe gestures, on-screen arrows or a standard gamepad.",
+        tip: "Leave a wide loop near the edges so you have room to turn later.",
+      },
+      ko: {
+        title: "OpenGames 스네이크",
+        subtitle: "먹이를 먹고 자라며 방향을 틀 공간을 남기세요.",
+        description:
+          "보드 위의 뱀을 움직여 먹이를 모으고 몸통과 부딪히지 않도록 조심하세요. 시작 속도를 고르고 몸이 길어지는 동안 달리기를 이어가세요.",
+        objective:
+          "벽이나 자기 꼬리에 부딪히지 않고 먹이를 모아 뱀을 키우세요.",
+        mode: "시작 속도를 고를 수 있으며 뱀이 자랄수록 게임이 빨라집니다.",
+        controls:
+          "방향키, WASD, 스와이프, 화면 방향 버튼 또는 표준 게임패드를 사용하세요.",
+        tip: "나중에 방향을 틀 수 있도록 가장자리 가까이에 넓은 회전 공간을 남겨두세요.",
+      },
+    },
+  },
+  {
+    id: "opengames-memory",
+    added: "2026-10-16",
+    category: "puzzle",
+    controlStyle: "pointer",
+    color: "yellow",
+    inputs: ["touch", "mouse", "keyboard"],
+    tags: {
+      en: [
+        "OpenGames Memory",
+        "memory matching game",
+        "card matching puzzle",
+        "concentration game",
+        "MIT browser game",
+      ],
+      ko: [
+        "OpenGames 메모리",
+        "메모리 카드 맞추기",
+        "카드 짝맞추기 퍼즐",
+        "집중력 게임",
+        "MIT 브라우저 게임",
+      ],
+    },
+    license: "MIT code, original artwork and synthesized audio",
+    licenseUrl: `${openGamesRoot}/blob/main/LICENSE`,
+    author: "OpenGames contributors",
+    source: openGamesRoot,
+    url: `${openGamesHost}/memory/index.html`,
+    host: { en: "OpenGames project game", ko: "OpenGames 프로젝트 게임" },
+    hostNote: openGamesNote,
+    artworkAlt: {
+      en: "Original Denny Games illustration of matching cards",
+      ko: "데니 게임즈 자체 짝맞추기 카드 일러스트",
+    },
+    copy: {
+      en: {
+        title: "OpenGames Memory",
+        subtitle: "Turn over cards and remember where each symbol waits.",
+        description:
+          "Find matching pairs by remembering the symbols on face-down cards. Choose a deck with 2, 8 or 10 pairs and try to clear it in fewer turns.",
+        objective: "Match every pair of cards on the board.",
+        mode: "Pick the number of pairs to make the memory challenge shorter or longer.",
+        controls:
+          "Tap or click a card. Keyboard arrows select cards; Enter or Space turns one over.",
+        tip: "Say each symbol and its position to yourself when you reveal it.",
+      },
+      ko: {
+        title: "OpenGames 메모리",
+        subtitle: "카드를 뒤집고 각 그림의 위치를 기억하세요.",
+        description:
+          "뒷면 카드의 그림을 기억해 짝을 찾으세요. 두 쌍·여덟 쌍·열 쌍 중 하나를 골라 더 짧거나 긴 기억력 도전을 시작할 수 있습니다.",
+        objective: "보드에 놓인 모든 카드의 짝을 맞추세요.",
+        mode: "카드 짝의 수를 골라 기억력 도전의 길이를 바꾸세요.",
+        controls:
+          "카드를 누르거나 클릭하세요. 키보드 방향키로 고르고 Enter 또는 Space로 뒤집습니다.",
+        tip: "카드를 열 때 그림과 위치를 함께 소리 내어 기억해보세요.",
+      },
+    },
+  },
+  {
+    id: "opengames-whac-a-mole",
+    added: "2026-10-16",
+    category: "arcade",
+    controlStyle: "pointer",
+    color: "rust",
+    inputs: ["touch", "mouse", "keyboard"],
+    tags: {
+      en: [
+        "OpenGames Whac-A-Mole",
+        "whack a mole game",
+        "reaction time game",
+        "30 second arcade game",
+        "MIT browser game",
+      ],
+      ko: [
+        "OpenGames 두더지 잡기",
+        "두더지 잡기 게임",
+        "반응 속도 게임",
+        "30초 아케이드",
+        "MIT 브라우저 게임",
+      ],
+    },
+    license: "MIT code, original artwork and synthesized audio",
+    licenseUrl: `${openGamesRoot}/blob/main/LICENSE`,
+    author: "OpenGames contributors",
+    source: openGamesRoot,
+    url: `${openGamesHost}/whac-a-mole/index.html`,
+    host: { en: "OpenGames project game", ko: "OpenGames 프로젝트 게임" },
+    hostNote: openGamesNote,
+    artworkAlt: {
+      en: "Original Denny Games mole popping out of a burrow",
+      ko: "굴에서 고개를 내민 두더지 데니 게임즈 자체 일러스트",
+    },
+    copy: {
+      en: {
+        title: "OpenGames Whac-A-Mole",
+        subtitle: "Catch the moles before the thirty-second round ends.",
+        description:
+          "React when a mole pops up, choose a difficulty and try to beat your personal best before the short timer runs out.",
+        objective: "Hit as many moles as possible during the 30-second round.",
+        mode: "Choose Easy, Normal or Hard to change the reaction window.",
+        controls:
+          "Tap or click a mole, use keys 1–9, or select a hole with arrows and hit with Space.",
+        tip: "Watch the whole board instead of staring at one hole.",
+      },
+      ko: {
+        title: "OpenGames 두더지 잡기",
+        subtitle: "30초가 끝나기 전에 두더지를 잡으세요.",
+        description:
+          "두더지가 나타나는 순간 반응하고 난이도를 골라 짧은 제한 시간 동안 최고 기록에 도전하세요.",
+        objective: "30초 동안 가능한 많은 두더지를 잡으세요.",
+        mode: "Easy·Normal·Hard를 골라 반응해야 하는 시간을 바꾸세요.",
+        controls:
+          "두더지를 탭하거나 클릭하세요. 1–9 키를 쓰거나 방향키로 구멍을 고른 뒤 Space를 누르세요.",
+        tip: "한 구멍만 보지 말고 보드 전체를 넓게 살펴보세요.",
+      },
+    },
+  },
+  {
+    id: "opengames-flap",
+    added: "2026-10-16",
+    category: "arcade",
+    controlStyle: "directional",
+    color: "mint",
+    inputs: ["touch", "mouse", "keyboard", "gamepad"],
+    tags: {
+      en: [
+        "OpenGames Flap",
+        "flappy bird style game",
+        "one button flying game",
+        "tap to flap",
+        "MIT browser game",
+      ],
+      ko: [
+        "OpenGames 플랩",
+        "날개짓 아케이드 게임",
+        "원 버튼 비행 게임",
+        "탭해서 날기",
+        "MIT 브라우저 게임",
+      ],
+    },
+    license: "MIT code, original artwork and synthesized audio",
+    licenseUrl: `${openGamesRoot}/blob/main/LICENSE`,
+    author: "OpenGames contributors",
+    source: openGamesRoot,
+    url: `${openGamesHost}/flap/index.html`,
+    host: { en: "OpenGames project game", ko: "OpenGames 프로젝트 게임" },
+    hostNote: openGamesNote,
+    artworkAlt: {
+      en: "Original Denny Games bird flying between gates",
+      ko: "관문 사이를 나는 새를 그린 데니 게임즈 자체 일러스트",
+    },
+    copy: {
+      en: {
+        title: "OpenGames Flap",
+        subtitle: "Tap to fly through the gaps without touching a post.",
+        description:
+          "Keep a small bird in the air through a moving series of gaps. Adjust the difficulty and try to pass one more post on every run.",
+        objective:
+          "Fly through the openings and avoid the ground, ceiling and posts.",
+        mode: "Choose a gap size and speed; the course gets a little faster as your score grows.",
+        controls:
+          "Tap or click, press Space, Enter, Up or W, or use a standard gamepad.",
+        tip: "Use short taps to make small corrections instead of holding the flap control.",
+      },
+      ko: {
+        title: "OpenGames 플랩",
+        subtitle: "관문에 부딪히지 않게 탭해서 날아가세요.",
+        description:
+          "움직이는 틈 사이로 작은 새를 날려 보내세요. 난이도를 고르고 매번 관문 하나를 더 통과하는 기록에 도전하세요.",
+        objective: "땅·천장·기둥에 부딪히지 않고 열린 틈을 통과하세요.",
+        mode: "틈의 크기와 속도를 고르세요. 점수가 오를수록 코스가 조금씩 빨라집니다.",
+        controls:
+          "탭하거나 클릭하고 Space·Enter·위쪽 방향키·W를 누르거나 표준 게임패드를 사용하세요.",
+        tip: "날기 버튼을 계속 누르기보다 짧게 탭해 높이를 조금씩 조절하세요.",
+      },
+    },
+  },
+  {
+    id: "opengames-blocks",
+    added: "2026-10-16",
+    category: "puzzle",
+    controlStyle: "directional",
+    color: "blue",
+    inputs: ["touch", "keyboard", "gamepad"],
+    tags: {
+      en: [
+        "OpenGames Blocks",
+        "falling block puzzle",
+        "line clear game",
+        "touch block game",
+        "MIT browser game",
+      ],
+      ko: [
+        "OpenGames 블록",
+        "낙하 블록 퍼즐",
+        "줄 지우기 게임",
+        "터치 블록 게임",
+        "MIT 브라우저 게임",
+      ],
+    },
+    license: "MIT code, original artwork and synthesized audio",
+    licenseUrl: `${openGamesRoot}/blob/main/LICENSE`,
+    author: "OpenGames contributors",
+    source: openGamesRoot,
+    url: `${openGamesHost}/blocks/index.html`,
+    host: { en: "OpenGames project game", ko: "OpenGames 프로젝트 게임" },
+    hostNote: openGamesNote,
+    artworkAlt: {
+      en: "Original Denny Games illustration of falling geometric blocks",
+      ko: "떨어지는 기하학 블록 데니 게임즈 자체 일러스트",
+    },
+    copy: {
+      en: {
+        title: "OpenGames Blocks",
+        subtitle: "Fit the falling pieces together and clear full lines.",
+        description:
+          "Arrange falling shapes in a tall well, clear complete rows and keep pace as the level rises. The host offers touch buttons and a standard gamepad as well as keyboard controls.",
+        objective: "Clear lines and keep the stack below the top of the board.",
+        mode: "Choose a starting level; speed increases every ten cleared lines.",
+        controls:
+          "Arrows or WASD move pieces; X and Z rotate; Space drops. Swipe, on-screen buttons and gamepad controls are also documented.",
+        tip: "Leave a well open for a long piece instead of filling every column evenly.",
+      },
+      ko: {
+        title: "OpenGames 블록",
+        subtitle: "떨어지는 조각을 맞춰 가로줄을 지우세요.",
+        description:
+          "길쭉한 보드에 도형을 놓아 가로줄을 완성하고 레벨이 오를수록 빨라지는 속도를 따라가세요. 호스트는 키보드와 함께 터치 버튼·표준 게임패드를 안내합니다.",
+        objective: "줄을 지우고 블록이 보드 꼭대기까지 쌓이지 않게 하세요.",
+        mode: "시작 레벨을 고를 수 있고 줄을 열 개 없앨 때마다 속도가 빨라집니다.",
+        controls:
+          "방향키 또는 WASD로 이동하고 X·Z로 회전, Space로 내립니다. 스와이프·화면 버튼·게임패드도 안내됩니다.",
+        tip: "모든 칸을 고르게 채우기보다 긴 조각을 놓을 빈 통로를 남겨두세요.",
+      },
+    },
+  },
+  {
+    id: "blockyard",
+    added: "2026-10-16",
+    category: "arcade",
+    controlStyle: "directional",
+    color: "violet",
+    inputs: ["keyboard", "mouse"],
+    tags: {
+      en: [
+        "Blockyard",
+        "open browser game collection",
+        "WebAssembly voxel game",
+        "browser multiplayer games",
+        "Arena Starfighter Skyship Bed Wars golf sandbox",
+        "MIT open source game",
+      ],
+      ko: [
+        "Blockyard",
+        "오픈 브라우저 게임 모음",
+        "웹어셈블리 복셀 게임",
+        "브라우저 멀티플레이 게임",
+        "아레나 스타파이터 스카이십 베드워즈 골프 샌드박스",
+        "MIT 오픈소스 게임",
+      ],
+    },
+    license: "MIT game and platform code · project-generated artwork",
+    licenseUrl: "https://github.com/Potrock/blockyard/blob/main/LICENSE",
+    author: "Potrock and Blockyard contributors",
+    source: "https://github.com/Potrock/blockyard",
+    url: "https://blockyard.gg/?game=arena",
+    host: {
+      en: "Blockyard developer-hosted browser game lobby",
+      ko: "Blockyard 개발자 호스팅 브라우저 게임 로비",
+    },
+    hostNote: blockyardNote,
+    artworkAlt: {
+      en: "Original Denny Games illustration of small voxel worlds and game modes",
+      ko: "작은 복셀 세계와 게임 모드를 그린 데니 게임즈 자체 일러스트",
+    },
+    copy: {
+      en: {
+        title: "Blockyard",
+        subtitle: "Pick a voxel game mode and join the bots as a guest.",
+        description:
+          "A browser game lobby built on an open-source WebAssembly voxel engine. The live menu offers modes ranging from a wave-survival arena and starfighter to an airship, golf, obstacle course and sandbox.",
+        objective:
+          "Choose a mode in the host menu, enter a display name and follow that mode's goal and controls.",
+        mode: "Guest progress lasts for the current visit; the host offers Discord sign-in to keep achievements.",
+        controls:
+          "The arena mode documents WASD movement, mouse attacks and additional keyboard actions. Check each mode's help before playing.",
+        tip: "Start with the arena's bots to learn the controls before inviting friends to a private room.",
+      },
+      ko: {
+        title: "Blockyard",
+        subtitle: "복셀 게임 모드를 고르고 게스트로 봇과 겨뤄보세요.",
+        description:
+          "오픈소스 WebAssembly 복셀 엔진으로 만든 브라우저 게임 로비입니다. 현재 메뉴에는 웨이브 생존 아레나와 스타파이터, 비행선, 골프, 장애물 코스, 샌드박스 등 여러 모드가 있습니다.",
+        objective:
+          "호스트 메뉴에서 모드를 고르고 표시 이름을 입력한 뒤 해당 모드의 목표와 조작을 확인하세요.",
+        mode: "게스트 진행은 현재 방문 중에만 유지되며 업적을 저장하려면 호스트에서 Discord 로그인을 제공합니다.",
+        controls:
+          "아레나는 WASD 이동, 마우스 공격과 추가 키보드 조작을 안내합니다. 플레이 전에 모드별 도움말을 확인하세요.",
+        tip: "친구를 비공개 방에 초대하기 전에 아레나 봇과 겨뤄 조작을 익혀보세요.",
+      },
+    },
+  },
 ];
+
+type ExpandedListingSpec = {
+  id: string;
+  title: string;
+  category: Game["category"];
+  controlStyle: Game["controlStyle"];
+  inputs: Game["inputs"];
+  license: string;
+  licenseUrl: string;
+  author: string;
+  source: string;
+  url: string;
+  host: Record<Locale, string>;
+  hostNote: Record<Locale, string>;
+  summary: Record<Locale, string>;
+  controls: Record<Locale, string>;
+};
+
+const mashukuiRoot = "https://github.com/mashukui/web-games";
+const mashukuiPage = "https://mashukui.github.io/web-games";
+const mashukuiHost = {
+  en: "Author-hosted mashukui web game",
+  ko: "제작자가 호스팅하는 mashukui 웹게임",
+};
+const mashukuiNote = {
+  en: "The source project lists this game in its MIT-licensed collection of single-file HTML5 games and documents touch, mouse and keyboard input across the collection. Its linked GitHub Pages URL returned HTTP 200 on 2026-10-16. Denny Games links out only; complete gameplay and physical-device behavior were not tested.",
+  ko: "소스 프로젝트는 이 게임을 MIT 라이선스 단일 파일 HTML5 게임 모음에 포함하고, 모음 전체에 터치·마우스·키보드 조작을 안내합니다. 연결된 GitHub Pages URL은 2026-10-16에 HTTP 200을 반환했습니다. 데니 게임즈는 링크만 제공하며 전체 플레이와 실기기 동작은 검증하지 않았습니다.",
+};
+const everyGameMadeHost = {
+  en: "EveryGameMade licensed browser copy",
+  ko: "EveryGameMade 라이선스 브라우저 사본",
+};
+const everyGameMadeNote = {
+  en: "EveryGameMade says this is a copy of the named author's open-source game, served under the license shown on its page inside a sandbox. The page returned HTTP 200 on 2026-10-16. Denny Games links to that external host only; a complete session and device behavior were not tested.",
+  ko: "EveryGameMade는 제작자의 오픈소스 게임 사본을 게임 페이지에 표시된 라이선스로 샌드박스 안에서 제공한다고 안내합니다. 페이지는 2026-10-16에 HTTP 200을 반환했습니다. 데니 게임즈는 외부 호스트로 연결만 하며 전체 플레이와 기기 동작은 검증하지 않았습니다.",
+};
+const openGamesOrgHost = {
+  en: "open-games.org browser game page",
+  ko: "open-games.org 브라우저 게임 페이지",
+};
+const openGamesOrgNote = {
+  en: "The source project describes its CraftyJS HTML5 games as free and GPL-3.0 licensed. This linked page returned HTTP 200 on 2026-10-16. Denny Games links out only; gameplay and device compatibility were not tested.",
+  ko: "소스 프로젝트는 CraftyJS 기반 HTML5 게임을 무료·GPL-3.0 라이선스로 안내합니다. 연결된 페이지는 2026-10-16에 HTTP 200을 반환했습니다. 데니 게임즈는 링크만 제공하며 플레이와 기기 호환성은 검증하지 않았습니다.",
+};
+
+const expandedListingSpecs: ExpandedListingSpec[] = [
+  {
+    id: "mashukui-ant-flap",
+    title: "Ant Flap",
+    category: "arcade",
+    controlStyle: "buttons",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/ant-flap/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Guide a tiny ant through branches by timing each flap.",
+      ko: "날갯짓 타이밍을 맞춰 작은 개미를 나뭇가지 사이로 안내하세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-ant-jump",
+    title: "Ant Jump",
+    category: "arcade",
+    controlStyle: "directional",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/ant-jump/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Bounce an ant up a tower of moving, fragile and springy platforms.",
+      ko: "움직이거나 부서지거나 튀어 오르는 발판을 밟아 개미를 위로 올리세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-block-drop",
+    title: "Block Drop",
+    category: "puzzle",
+    controlStyle: "directional",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/block-drop/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Fit falling blocks together, clear rows and chase perfect clears.",
+      ko: "떨어지는 블록을 맞춰 줄을 지우고 한 번에 보드를 비워 보세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-breakout",
+    title: "Breakout",
+    category: "arcade",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/breakout/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Aim a paddle to break through bricks with angle-based ball physics.",
+      ko: "패들을 움직여 공의 각도를 맞추고 벽돌을 깨뜨리세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-paddle-duel",
+    title: "Paddle Duel",
+    category: "sports",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/paddle-duel/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Play a paddle-and-ball duel against an AI opponent in three difficulty levels.",
+      ko: "세 가지 난이도 중 하나를 골라 AI 상대와 패들 대결을 펼치세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-stack-tower",
+    title: "Stack Tower",
+    category: "arcade",
+    controlStyle: "buttons",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/stack-tower/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Drop one block at a time and line up each layer to build a taller tower.",
+      ko: "블록을 한 번에 하나씩 떨어뜨려 층을 맞추며 탑을 높이 쌓으세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-tic-tac-toe",
+    title: "Tic Tac Toe",
+    category: "board",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/tic-tac-toe/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Play three in a row against an AI or take turns with another player on one device.",
+      ko: "AI와 삼목을 두거나 한 기기에서 다른 사람과 번갈아 플레이하세요.",
+    },
+    controls: {
+      en: "Choose a square using the host's touch, mouse or keyboard controls.",
+      ko: "호스트의 터치·마우스·키보드 조작으로 칸을 선택하세요.",
+    },
+  },
+  {
+    id: "mashukui-minesweeper",
+    title: "Minesweeper",
+    category: "puzzle",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/minesweeper/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Reveal safe squares, flag the mines and choose among three board sizes.",
+      ko: "안전한 칸을 열고 지뢰에 표시하며 세 가지 보드 크기 중에서 선택하세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-memory-match",
+    title: "Memory Match",
+    category: "puzzle",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/memory-match/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Find matching card pairs by remembering their positions across three difficulties.",
+      ko: "세 가지 난이도에서 카드 위치를 기억해 짝을 찾아보세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-star-defender",
+    title: "Star Defender",
+    category: "shooting",
+    controlStyle: "directional",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/star-defender/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Move through waves of enemies, shoot, dodge and try to survive longer.",
+      ko: "적의 파도를 피해 이동하고 공격하며 더 오래 살아남으세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-dino-run",
+    title: "Dino Run",
+    category: "arcade",
+    controlStyle: "buttons",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/dino-run/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Run across the desert, jump cacti, duck birds and keep up as the pace rises.",
+      ko: "사막을 달리며 선인장을 뛰어넘고 새를 피하세요. 속도는 점점 빨라집니다.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-piano-tap",
+    title: "Piano Tap",
+    category: "arcade",
+    controlStyle: "buttons",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/piano-tap/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Tap the lowest black tile before it passes the board; touching white ends the run.",
+      ko: "검은 타일이 보드를 지나가기 전에 누르세요. 흰 타일을 누르면 달리기가 끝납니다.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-cross-road",
+    title: "Cross Road",
+    category: "arcade",
+    controlStyle: "directional",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/cross-road/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Hop across tiles, avoid traffic and ride floating logs over the river.",
+      ko: "타일을 건너고 차량을 피하며 강에서는 떠다니는 통나무를 타세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-slide-puzzle",
+    title: "Slide Puzzle",
+    category: "puzzle",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/slide-puzzle/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Slide numbered tiles into order using as few moves as you can.",
+      ko: "숫자 타일을 밀어 순서대로 맞추고 이동 횟수를 줄여 보세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-fruit-slice",
+    title: "Fruit Slice",
+    category: "action",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/fruit-slice/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Swipe through fruit, chain combos and avoid the bombs.",
+      ko: "과일을 가르고 연속 콤보를 만들되 폭탄은 피하세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-bubble-shooter",
+    title: "Bubble Shooter",
+    category: "arcade",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/bubble-shooter/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Aim and fire to match bubbles; clear a cluster to drop the ones beneath it.",
+      ko: "거품을 조준해 같은 색을 맞추고 아래에 매달린 거품까지 떨어뜨리세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-sudoku",
+    title: "Sudoku",
+    category: "puzzle",
+    controlStyle: "numbers",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/sudoku/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Fill a number grid at one of three difficulties; each generated puzzle has one solution.",
+      ko: "세 가지 난이도의 숫자 격자를 채우세요. 생성된 퍼즐마다 해답은 하나입니다.",
+    },
+    controls: {
+      en: "Select a cell and enter a number using the host's controls.",
+      ko: "칸을 선택하고 호스트 조작으로 숫자를 입력하세요.",
+    },
+  },
+  {
+    id: "mashukui-merge-drop",
+    title: "Merge Drop",
+    category: "puzzle",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/merge-drop/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Drop matching fruit and merge each pair into a larger one.",
+      ko: "같은 과일을 떨어뜨려 합치고 더 큰 과일로 키우세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-water-sort",
+    title: "Water Sort",
+    category: "puzzle",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/water-sort/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Pour colored liquid between tubes until each tube holds a single color.",
+      ko: "각 시험관에 한 가지 색만 남도록 색깔 액체를 옮겨 담으세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-slingshot",
+    title: "Slingshot",
+    category: "action",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/slingshot/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Pull back, follow the projected arc and release to aim for the target.",
+      ko: "뒤로 당겨 예상 궤적을 보고 놓아 과녁을 맞히세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-helix-drop",
+    title: "Helix Drop",
+    category: "action",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/helix-drop/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Rotate a helix tower to guide a falling ball through its gaps.",
+      ko: "나선 탑을 회전해 공이 틈을 통과하도록 안내하세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-gem-match",
+    title: "Gem Match",
+    category: "puzzle",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/gem-match/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Swap neighboring gems, make matches of three and build cascading combos.",
+      ko: "이웃한 보석을 바꾸어 세 개 이상 맞추고 연속 콤보를 만드세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-maze-muncher",
+    title: "Maze Muncher",
+    category: "arcade",
+    controlStyle: "directional",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/maze-muncher/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Clear every dot in a maze while four ghosts chase you; power pellets let you fight back.",
+      ko: "네 유령을 피해 미로의 점을 모두 먹으세요. 파워 알약을 먹으면 반격할 수 있습니다.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-air-hockey",
+    title: "Air Hockey",
+    category: "sports",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/air-hockey/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Drag a mallet to hit the puck; the first player to seven goals wins.",
+      ko: "말렛을 움직여 퍽을 치세요. 먼저 일곱 골을 넣는 쪽이 이깁니다.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-battleship",
+    title: "Battleship",
+    category: "board",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/battleship/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Place a fleet, then search the hidden grid to find five enemy ships.",
+      ko: "함대를 배치한 뒤 숨겨진 격자를 탐색해 적 함선 다섯 척을 찾으세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-sokoban",
+    title: "Sokoban",
+    category: "puzzle",
+    controlStyle: "directional",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/sokoban/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Push every crate onto a target across thirty levels; undo moves when needed.",
+      ko: "서른 개 레벨에서 상자를 목표 지점으로 밀어 옮기세요. 필요하면 되돌릴 수 있습니다.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "mashukui-lights-out",
+    title: "Lights Out",
+    category: "puzzle",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseUrl: `${mashukuiRoot}/blob/main/LICENSE`,
+    author: "mashukui",
+    source: mashukuiRoot,
+    url: `${mashukuiPage}/lights-out/`,
+    host: mashukuiHost,
+    hostNote: mashukuiNote,
+    summary: {
+      en: "Switch off every light by tapping it and its four neighbors.",
+      ko: "불을 누르면 주변 네 칸도 바뀝니다. 모든 불을 꺼 보세요.",
+    },
+    controls: {
+      en: "Use the host's touch, mouse or keyboard input.",
+      ko: "호스트의 터치·마우스·키보드 조작을 사용하세요.",
+    },
+  },
+  {
+    id: "everygamemade-afterglow",
+    title: "AFTERGLOW",
+    category: "arcade",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/afterglow/LICENSE.txt",
+    author: "David Linacre (DLinacre)",
+    source: "https://github.com/DLinacre/afterglow",
+    url: "https://everygamemade.com/arcade/afterglow/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Paint long-exposure trails by steering glowing lights across a night sky.",
+      ko: "밤하늘을 움직이는 빛으로 장노출 사진 같은 흔적을 그려 보세요.",
+    },
+    controls: {
+      en: "Hold and drag anywhere to paint; the page also offers undo and develop actions.",
+      ko: "화면을 누른 채 끌어 그리세요. 실행 취소와 현상 기능도 있습니다.",
+    },
+  },
+  {
+    id: "everygamemade-anime-dash",
+    title: "Anime Dash",
+    category: "action",
+    controlStyle: "directional",
+    inputs: ["touch", "keyboard"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/anime-dash/LICENSE.txt",
+    author: "Muthu Sivasubramanian (smuthu7)",
+    source: "https://github.com/smuthu7/anime-dash",
+    url: "https://everygamemade.com/arcade/anime-dash/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Turn a photo into a cel-shaded hero, then collect stars and dodge hazards for sixty seconds.",
+      ko: "사진을 셀 셰이딩 영웅으로 바꾸고 60초 동안 별을 모으며 장애물을 피하세요.",
+    },
+    controls: {
+      en: "Drag on screen or move with WASD or the arrow keys.",
+      ko: "화면을 끌거나 WASD 또는 방향키로 움직이세요.",
+    },
+  },
+  {
+    id: "everygamemade-clownword-desert",
+    title: "ClownWord Desert",
+    category: "action",
+    controlStyle: "directional",
+    inputs: ["keyboard"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/clownword-desert/LICENSE.txt",
+    author: "iamrichmack111",
+    source: "https://github.com/iamrichmack111/clownword-desert",
+    url: "https://everygamemade.com/arcade/clownword-desert/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Explore a desert and type each highlighted sight word to clear the clown carrying it.",
+      ko: "사막을 돌아다니며 선택된 광대가 든 단어를 입력해 물리치세요.",
+    },
+    controls: {
+      en: "Move with the arrow keys, hold Shift to sprint, type the word and press Enter.",
+      ko: "방향키로 이동하고 Shift를 눌러 달리세요. 단어를 입력한 뒤 Enter를 누르세요.",
+    },
+  },
+  {
+    id: "everygamemade-ink-rider",
+    title: "INK RIDER III",
+    category: "racing",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/ink-rider/LICENSE.txt",
+    author: "jimdo-png",
+    source: "https://github.com/jimdo-png/ink-rider",
+    url: "https://everygamemade.com/arcade/ink-rider/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Draw a road with ink and guide a rider along the path in this phone-first physics game.",
+      ko: "잉크로 길을 그려 자전거를 안내하는 휴대폰 우선 물리 게임입니다.",
+    },
+    controls: {
+      en: "Press Ride, then draw the road with a pointer or finger.",
+      ko: "Ride를 누른 뒤 포인터나 손가락으로 길을 그리세요.",
+    },
+  },
+  {
+    id: "everygamemade-little-sky-pilot",
+    title: "Little Sky Pilot",
+    category: "arcade",
+    controlStyle: "directional",
+    inputs: ["keyboard"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/little-sky-pilot/LICENSE.txt",
+    author: "Brian A. Robinson (brobin09)",
+    source: "https://github.com/brobin09/PlaneGame",
+    url: "https://everygamemade.com/arcade/little-sky-pilot/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Build takeoff power, fly a small plane, collect stars and steer around weather.",
+      ko: "이륙 동력을 모아 작은 비행기를 조종하고 별을 모으며 날씨를 피하세요.",
+    },
+    controls: {
+      en: "Hold Up, W or Space to take off; steer with arrows or WASD.",
+      ko: "Up, W 또는 Space를 눌러 이륙하고 방향키나 WASD로 조종하세요.",
+    },
+  },
+  {
+    id: "everygamemade-perf-and-postmark",
+    title: "Perf & Postmark",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: [],
+    license: "MIT",
+    licenseUrl:
+      "https://everygamemade.com/arcade/perf-and-postmark/LICENSE.txt",
+    author: "peterdsouza247",
+    source: "https://github.com/peterdsouza247/postmark",
+    url: "https://everygamemade.com/arcade/perf-and-postmark/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Identify stamps by reading their inscriptions, measuring perforations and judging condition.",
+      ko: "우표의 글자와 구멍 간격, 보존 상태를 살펴 우표를 알아맞히세요.",
+    },
+    controls: {
+      en: "Choose a difficulty and follow the host's on-screen prompts.",
+      ko: "난이도를 고르고 호스트 화면의 안내를 따라 진행하세요.",
+    },
+  },
+  {
+    id: "everygamemade-petrichor",
+    title: "Petrichor",
+    category: "arcade",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/petrichor/LICENSE.txt",
+    author: "MeatPopSci1972",
+    source: "https://github.com/MeatPopSci1972/petrichor",
+    url: "https://everygamemade.com/arcade/petrichor/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Launch a water drop and find a route through drifting clouds to a yellow umbrella.",
+      ko: "물방울을 날려 움직이는 구름을 지나 노란 우산까지 보내세요.",
+    },
+    controls: {
+      en: "Set the starting water on the slider, then release to begin the trip.",
+      ko: "슬라이더에서 시작 물의 양을 정한 뒤 놓아 여정을 시작하세요.",
+    },
+  },
+  {
+    id: "everygamemade-pulsefield",
+    title: "Pulsefield",
+    category: "arcade",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/pulsefield/LICENSE.txt",
+    author: "jenschristianschroder",
+    source: "https://github.com/jenschristianschroder/pulsefield",
+    url: "https://everygamemade.com/arcade/pulsefield/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Collect sparks, steer clear of a growing swarm and pulse when the field closes in.",
+      ko: "빛을 모으며 무리를 피하고 포위되기 전에 펄스를 터뜨리세요.",
+    },
+    controls: {
+      en: "Drag anywhere to steer; tap Pulse when its meter is full.",
+      ko: "화면을 끌어 이동하고 게이지가 차면 Pulse를 누르세요.",
+    },
+  },
+  {
+    id: "everygamemade-seal-vault",
+    title: "SEAL VAULT",
+    category: "simulation",
+    controlStyle: "directional",
+    inputs: ["touch", "keyboard"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/seal-vault/LICENSE.txt",
+    author: "royalgames0",
+    source: "https://github.com/royalgames0/SealVault",
+    url: "https://everygamemade.com/arcade/seal-vault/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Name a seal, explore an icy floe and visit minigames to collect fish and unlock items.",
+      ko: "물범 이름을 짓고 얼음 위를 돌아다니며 미니게임으로 물고기와 아이템을 모으세요.",
+    },
+    controls: {
+      en: "Move with the arrow keys or on-screen pad; press A at the vault gate.",
+      ko: "방향키나 화면 패드로 이동하고 보관소 문에서 A를 누르세요.",
+    },
+  },
+  {
+    id: "everygamemade-solar-system",
+    title: "Solar System",
+    category: "strategy",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/solar-system/LICENSE.txt",
+    author: "Noah DeMar (noahdemar)",
+    source: "https://github.com/noahdemar/game_solar_system",
+    url: "https://everygamemade.com/arcade/solar-system/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Choose a home base, plan routes and build a fleet among real planets and moons.",
+      ko: "기지를 정하고 실제 행성과 위성 사이의 항로를 계획해 함대를 키우세요.",
+    },
+    controls: {
+      en: "Drag to look, pinch or scroll to zoom, and select a station to travel.",
+      ko: "끌어서 둘러보고 핀치나 스크롤로 확대하며 정거장을 선택해 이동하세요.",
+    },
+  },
+  {
+    id: "everygamemade-speed-racing",
+    title: "极速狂飙 (Speed Racing)",
+    category: "racing",
+    controlStyle: "directional",
+    inputs: ["touch", "keyboard"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/speed-racing/LICENSE.txt",
+    author: "SW DAI (SWDAI916)",
+    source: "https://github.com/SWDAI916/Road_Game",
+    url: "https://everygamemade.com/arcade/speed-racing/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Change lanes in an endless three-lane racer; the interface is in Chinese.",
+      ko: "세 갈래 도로에서 차선을 바꾸며 끝없이 달리세요. 화면은 중국어로 표시됩니다.",
+    },
+    controls: {
+      en: "Use left and right or A and D on desktop; tap or swipe on a phone.",
+      ko: "PC에서는 좌우 방향키 또는 A·D를, 휴대폰에서는 좌우 터치나 스와이프를 사용하세요.",
+    },
+  },
+  {
+    id: "everygamemade-stupid-cjp",
+    title: "Stupid CJP",
+    category: "arcade",
+    controlStyle: "host",
+    inputs: [],
+    license: "Apache-2.0",
+    licenseUrl: "https://everygamemade.com/arcade/stupid-cjp/LICENSE.txt",
+    author: "Kushagra (anshdwivedi922-oss)",
+    source: "https://github.com/anshdwivedi922-oss/CJP-",
+    url: "https://everygamemade.com/arcade/stupid-cjp/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Line up a ricochet, clear a single-screen board and try again.",
+      ko: "튕겨 나갈 각도를 맞춰 한 화면의 보드를 비우고 다시 도전하세요.",
+    },
+    controls: {
+      en: "Press Play and follow the game page's aiming instructions.",
+      ko: "Play를 누르고 게임 페이지의 조준 안내를 따라 진행하세요.",
+    },
+  },
+  {
+    id: "everygamemade-tank-battle",
+    title: "坦克大战 (Tank Battle)",
+    category: "action",
+    controlStyle: "directional",
+    inputs: ["keyboard"],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/tank-battle/LICENSE.txt",
+    author: "Michael-Rudalx",
+    source: "https://github.com/Michael-Rudalx/tank-battle",
+    url: "https://everygamemade.com/arcade/tank-battle/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Defend a base, defeat ten enemy tanks per level and break brick walls; the interface is in Chinese.",
+      ko: "기지를 지키며 레벨마다 적 전차 10대를 물리치고 벽돌 벽을 부수세요. 화면은 중국어로 표시됩니다.",
+    },
+    controls: {
+      en: "Arrows move, Space fires, P pauses and R restarts.",
+      ko: "방향키로 움직이고 Space로 발사, P로 일시정지, R로 다시 시작하세요.",
+    },
+  },
+  {
+    id: "everygamemade-ward-13",
+    title: "WARD 13 — Anomaly Protocol",
+    category: "action",
+    controlStyle: "host",
+    inputs: [],
+    license: "MIT",
+    licenseUrl: "https://everygamemade.com/arcade/ward-13/LICENSE.txt",
+    author: "Negru Gabriel (Negru-Gabriel)",
+    source: "https://github.com/Negru-Gabriel/WARD-13-Anomaly-Protocol",
+    url: "https://everygamemade.com/arcade/ward-13/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Walk a first-person hospital corridor, spot changes and report anomalies across twenty-five wards.",
+      ko: "1인칭 병원 복도를 걸으며 달라진 점을 찾고 25개 병동의 이상 현상을 신고하세요.",
+    },
+    controls: {
+      en: "Choose Enter Ward to begin or Briefing to read the host's instructions.",
+      ko: "Enter Ward를 선택해 시작하거나 Briefing에서 호스트 안내를 읽으세요.",
+    },
+  },
+  {
+    id: "everygamemade-welcome-to-klang",
+    title: "Welcome to Klang",
+    category: "racing",
+    controlStyle: "pointer",
+    inputs: ["touch", "mouse"],
+    license: "Apache-2.0",
+    licenseUrl: "https://everygamemade.com/arcade/welcome-to-klang/LICENSE.txt",
+    author: "SkylineClhS",
+    source: "https://github.com/SkylineClhS/WelcomeToKlang",
+    url: "https://everygamemade.com/arcade/welcome-to-klang/index.html",
+    host: everyGameMadeHost,
+    hostNote: everyGameMadeNote,
+    summary: {
+      en: "Ride a bicycle for one thousand meters while avoiding potholes, vehicles and animals.",
+      ko: "자전거로 1,000m를 달리며 구덩이와 차량, 동물을 피하세요.",
+    },
+    controls: {
+      en: "Hold or drag anywhere to steer; use the up and down buttons to change pace.",
+      ko: "화면을 누른 채 끌어 방향을 잡고 위·아래 버튼으로 속도를 바꾸세요.",
+    },
+  },
+  {
+    id: "open-games-org-space-shooter",
+    title: "Space Shooter",
+    category: "shooting",
+    controlStyle: "host",
+    inputs: [],
+    license: "GPL-3.0",
+    licenseUrl:
+      "https://github.com/opengamesorg/open-games.org/blob/main/LICENSE",
+    author: "open-games.org contributors",
+    source: "https://github.com/opengamesorg/open-games.org",
+    url: "https://www.open-games.org/games/space-shooter/",
+    host: openGamesOrgHost,
+    hostNote: openGamesOrgNote,
+    summary: {
+      en: "A browser space shooter from the open-games.org collection of CraftyJS games.",
+      ko: "CraftyJS 게임 모음 open-games.org에서 제공하는 브라우저 우주 슈팅 게임입니다.",
+    },
+    controls: {
+      en: "Open the game host's instructions to confirm controls before playing.",
+      ko: "플레이 전에 게임 호스트의 안내에서 조작법을 확인하세요.",
+    },
+  },
+  {
+    id: "open-games-org-temple-exploration",
+    title: "Temple Exploration",
+    category: "action",
+    controlStyle: "host",
+    inputs: [],
+    license: "GPL-3.0",
+    licenseUrl:
+      "https://github.com/opengamesorg/open-games.org/blob/main/LICENSE",
+    author: "open-games.org contributors",
+    source: "https://github.com/opengamesorg/open-games.org",
+    url: "https://www.open-games.org/games/temple-exploration/",
+    host: openGamesOrgHost,
+    hostNote: openGamesOrgNote,
+    summary: {
+      en: "Explore a temple in one of the open-games.org HTML5 browser games.",
+      ko: "open-games.org HTML5 브라우저 게임에서 사원을 탐험하세요.",
+    },
+    controls: {
+      en: "Open the game host's instructions to confirm controls before playing.",
+      ko: "플레이 전에 게임 호스트의 안내에서 조작법을 확인하세요.",
+    },
+  },
+  {
+    id: "open-games-org-high-school-stories",
+    title: "High School Stories",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: [],
+    license: "GPL-3.0",
+    licenseUrl:
+      "https://github.com/opengamesorg/open-games.org/blob/main/LICENSE",
+    author: "open-games.org contributors",
+    source: "https://github.com/opengamesorg/open-games.org",
+    url: "https://www.open-games.org/games/high-school-stories/",
+    host: openGamesOrgHost,
+    hostNote: openGamesOrgNote,
+    summary: {
+      en: "Try the demo version of a high-school story game hosted by open-games.org.",
+      ko: "open-games.org에서 제공하는 고등학교 이야기 게임 데모를 플레이해 보세요.",
+    },
+    controls: {
+      en: "Open the game host's instructions to confirm controls before playing.",
+      ko: "플레이 전에 게임 호스트의 안내에서 조작법을 확인하세요.",
+    },
+  },
+  {
+    id: "open-games-org-brick-breaker",
+    title: "Brick Breaker",
+    category: "arcade",
+    controlStyle: "host",
+    inputs: [],
+    license: "GPL-3.0",
+    licenseUrl:
+      "https://github.com/opengamesorg/open-games.org/blob/main/LICENSE",
+    author: "open-games.org contributors",
+    source: "https://github.com/opengamesorg/open-games.org",
+    url: "https://www.open-games.org/games/brick-breaker/",
+    host: openGamesOrgHost,
+    hostNote: openGamesOrgNote,
+    summary: {
+      en: "Break bricks in an HTML5 arcade game from the open-games.org collection.",
+      ko: "open-games.org 게임 모음의 HTML5 아케이드에서 벽돌을 깨뜨리세요.",
+    },
+    controls: {
+      en: "Open the game host's instructions to confirm controls before playing.",
+      ko: "플레이 전에 게임 호스트의 안내에서 조작법을 확인하세요.",
+    },
+  },
+  {
+    id: "open-games-org-ghost-escape",
+    title: "Ghost Escape",
+    category: "action",
+    controlStyle: "host",
+    inputs: [],
+    license: "GPL-3.0",
+    licenseUrl:
+      "https://github.com/opengamesorg/open-games.org/blob/main/LICENSE",
+    author: "open-games.org contributors",
+    source: "https://github.com/opengamesorg/open-games.org",
+    url: "https://www.open-games.org/games/ghost-escape/",
+    host: openGamesOrgHost,
+    hostNote: openGamesOrgNote,
+    summary: {
+      en: "Try to escape from a ghost in another open-games.org HTML5 browser game.",
+      ko: "open-games.org의 또 다른 HTML5 브라우저 게임에서 유령을 피해 탈출하세요.",
+    },
+    controls: {
+      en: "Open the game host's instructions to confirm controls before playing.",
+      ko: "플레이 전에 게임 호스트의 안내에서 조작법을 확인하세요.",
+    },
+  },
+];
+
+const categoryColors: Record<Game["category"], string> = {
+  board: "blue",
+  puzzle: "mint",
+  arcade: "yellow",
+  action: "rust",
+  shooting: "rust",
+  racing: "blue",
+  sports: "blue",
+  strategy: "mint",
+  roguelike: "rust",
+  simulation: "mint",
+};
+
+const categoryNames: Record<Game["category"], Record<Locale, string>> = {
+  board: { en: "board game", ko: "보드게임" },
+  puzzle: { en: "puzzle game", ko: "퍼즐 게임" },
+  arcade: { en: "arcade game", ko: "아케이드 게임" },
+  action: { en: "action game", ko: "액션 게임" },
+  shooting: { en: "shooter", ko: "슈팅 게임" },
+  racing: { en: "racing game", ko: "레이싱 게임" },
+  sports: { en: "sports game", ko: "스포츠 게임" },
+  strategy: { en: "strategy game", ko: "전략 게임" },
+  roguelike: { en: "roguelike game", ko: "로그라이크 게임" },
+  simulation: { en: "simulation game", ko: "시뮬레이션 게임" },
+};
+
+function expandListing(spec: ExpandedListingSpec): Listing {
+  const makeCopy = (locale: Locale) => {
+    const korean = locale === "ko";
+    return {
+      title: spec.title,
+      subtitle: korean
+        ? `브라우저에서 즐기는 무료 ${categoryNames[spec.category].ko}입니다.`
+        : `A free ${categoryNames[spec.category].en} to play in your browser.`,
+      description: `${spec.summary[locale]} ${
+        korean
+          ? "외부 호스트에서 실행되며 게임의 진행과 이용 조건은 해당 페이지를 따릅니다."
+          : "It runs on an external host; gameplay and terms follow that page."
+      }`,
+      objective: korean
+        ? "게임 화면에 표시되는 목표와 안내를 따라 진행하세요."
+        : "Follow the goal and instructions shown in the game.",
+      mode: korean
+        ? "데니 게임즈 바깥의 호스트에서 실행되는 오픈소스 브라우저 게임입니다."
+        : "An open-source browser game running on a host outside Denny Games.",
+      controls: spec.controls[locale],
+      tip: korean
+        ? "처음 움직이기 전에 호스트의 도움말과 조작 안내를 확인하세요."
+        : "Read the host's help and controls before your first move.",
+    };
+  };
+
+  return {
+    id: spec.id,
+    added: "2026-10-16",
+    category: spec.category,
+    controlStyle: spec.controlStyle,
+    color: categoryColors[spec.category],
+    inputs: spec.inputs,
+    tags: {
+      en: [
+        spec.title,
+        categoryNames[spec.category].en,
+        "free open source browser game",
+        "play online",
+      ],
+      ko: [
+        spec.title,
+        categoryNames[spec.category].ko,
+        "무료 오픈소스 브라우저 게임",
+        "온라인 게임",
+      ],
+    },
+    license: spec.license,
+    licenseUrl: spec.licenseUrl,
+    author: spec.author,
+    source: spec.source,
+    url: spec.url,
+    host: spec.host,
+    hostNote: spec.hostNote,
+    artworkAlt: {
+      en: `Original Denny Games title-card artwork for ${spec.title}; not an official game screenshot.`,
+      ko: `${spec.title}의 데니 게임즈 자체 타이틀 카드 일러스트이며 공식 게임 화면이 아닙니다.`,
+    },
+    copy: { en: makeCopy("en"), ko: makeCopy("ko") },
+  };
+}
 
 function toGame(entry: Listing): Game {
   const makeCopy = (locale: Locale) => {
@@ -1743,11 +3496,14 @@ function toGame(entry: Listing): Game {
     author: entry.author,
     source: entry.source,
     externalPlay: { url: entry.url, host: entry.host, note: entry.hostNote },
-    added: "2026-10-15",
+    added: entry.added ?? "2026-10-15",
     artwork: `/art/open-games/${entry.id}.svg`,
     artworkAlt: entry.artworkAlt,
     text: { en: makeCopy("en"), ko: makeCopy("ko") },
   };
 }
 
-export const worldOpenGames = listings.map(toGame);
+export const worldOpenGames = [
+  ...listings,
+  ...expandedListingSpecs.map(expandListing),
+].map(toGame);

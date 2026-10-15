@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Original Denny Games illustration of a bird passing between gate posts">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#112d48"/><stop offset="1" stop-color="#205d76"/></linearGradient></defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/><path d="M36 34h568v332H36z" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+  <path d="M392 100h47v90h-47zm99 101h47v103h-47z" fill="#65d3b6"/><circle cx="456" cy="197" r="31" fill="#ffd475"/><path d="m451 194 29 7-29 7z" fill="#e38a44"/><path d="M427 199q-18-23-25 4 17 11 31 3" fill="#fff1c3"/><circle cx="463" cy="187" r="4" fill="#282440"/>
+  <text x="74" y="163" fill="#fff" font-family="Arial,sans-serif" font-size="72" font-weight="800" letter-spacing="-3">FLAP</text>
+  <text x="78" y="205" fill="#a4ecdc" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="3">TAP TO FLY</text>
+  <text x="78" y="340" fill="#b7c9d7" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2">DENNY GAMES · SOURCE LINKED</text>
+</svg>

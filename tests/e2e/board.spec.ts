@@ -243,7 +243,7 @@ test("board category, collection, guide, schema and llms links are bilingual and
 }) => {
   for (const locale of ["en", "ko"]) {
     await page.goto(`/${locale}/category/board/`);
-    await expect(page.locator("[data-game-card]")).toHaveCount(9);
+    await expect(page.locator("[data-game-card]")).toHaveCount(11);
     await page.goto(`/${locale}/collections/classic-board/`);
     await expect(page.locator("[data-game-card]")).toHaveCount(5);
     await page.goto(`/${locale}/games/gomoku/`);
@@ -269,7 +269,7 @@ test("board category, collection, guide, schema and llms links are bilingual and
   expect(response.ok()).toBe(true);
   const text = await response.text();
   for (const id of classicIds) expect(text).toContain(`/ko/games/${id}/`);
-  expect(text).toContain("248 published titles");
+  expect(text).toContain("304 published titles");
 });
 
 for (const id of classicIds)

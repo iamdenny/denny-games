@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Original Denny Games illustration of a voxel arena with several game paths">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111d37"/><stop offset="1" stop-color="#253857"/></linearGradient><radialGradient id="glow"><stop stop-color="#65d4bd" stop-opacity=".35"/><stop offset="1" stop-color="#65d4bd" stop-opacity="0"/></radialGradient></defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/><path d="M36 34h568v332H36z" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/><circle cx="450" cy="210" r="180" fill="url(#glow)"/>
+  <path d="m365 238 50-30 52 30-51 31z" fill="#6ee1c5"/><path d="m365 238 51 31v58l-51-31z" fill="#348d87"/><path d="m416 269 51-31v58l-51 31z" fill="#4bb4a5"/>
+  <path d="m462 155 36-22 36 22-36 22z" fill="#ffc766"/><path d="m462 155 36 22v43l-36-22z" fill="#bc8451"/><path d="m498 177 36-22v43l-36 22z" fill="#e7a953"/>
+  <path d="M529 287h53v9h-53zm-14 14h40v9h-40z" fill="#b2c2dc"/>
+  <text x="72" y="163" fill="#fff" font-family="Arial,sans-serif" font-size="65" font-weight="800" letter-spacing="-3">BLOCKYARD</text>
+  <text x="76" y="205" fill="#8ee6d2" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="3">BUILD · PLAY · EXPLORE</text>
+  <text x="76" y="340" fill="#b7c9d7" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2">DENNY GAMES · SOURCE LINKED</text>
+</svg>

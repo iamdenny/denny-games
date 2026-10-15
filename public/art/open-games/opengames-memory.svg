@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Original Denny Games illustration of a pair of matching cards">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#242043"/><stop offset="1" stop-color="#452b48"/></linearGradient></defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/><path d="M36 34h568v332H36z" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+  <g transform="rotate(-12 407 205)"><rect x="354" y="122" width="111" height="160" rx="14" fill="#f6d99e"/><path d="M379 180h60m-60 25h60m-60 25h40" stroke="#a85b60" stroke-width="8" stroke-linecap="round"/></g>
+  <g transform="rotate(10 470 203)"><rect x="418" y="124" width="111" height="160" rx="14" fill="#fff2ce"/><path d="M474 165c-24 20-21 43 0 58 22-15 24-38 0-58z" fill="#e27c8d"/><path d="M474 223v22" stroke="#8c586f" stroke-width="6" stroke-linecap="round"/></g>
+  <text x="72" y="165" fill="#fff" font-family="Arial,sans-serif" font-size="62" font-weight="800" letter-spacing="-3">MEMORY</text>
+  <text x="76" y="205" fill="#efc4de" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="3">REMEMBER THE PAIRS</text>
+  <text x="76" y="340" fill="#c7bdca" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2">DENNY GAMES · SOURCE LINKED</text>
+</svg>
