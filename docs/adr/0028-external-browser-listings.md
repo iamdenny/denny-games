@@ -13,11 +13,11 @@ Accepted — 2026-10-15.
 
 ## Context
 
-Four requested classic open-source projects have browser access through independent services, but self-hosting their complete builds would add large downloads, separate license obligations and host-specific runtime requirements. NetHack's available browser route is remote play on a community server. Denny Games must not present a remote service as its own tested or supported game runtime.
+Nine classic open-source projects now have browser access through independent services or browser builds, but self-hosting their complete builds would add separate license obligations and host-specific runtime requirements. Some routes run in a browser; NetHack and Dungeon Crawl: Stone Soup use remote community servers. Denny Games must not present an external build or remote service as its own tested or supported game runtime.
 
 ## Decision
 
-Keep the four projects in the typed game registry as bilingual, indexable detail pages with original Denny Games artwork, source/license links and useful game-specific rules and controls. The play action opens the independently hosted browser game in a new tab. Mark external hosts on catalogue cards, disclose host-specific account/session/save requirements, and state that Denny Games has not verified the external build's gameplay or device compatibility.
+Keep each project in the typed game registry as a bilingual, indexable detail page with original Denny Games artwork, source/license links and useful game-specific rules and controls. The play action opens the independent browser host in a new tab. Mark external hosts on catalogue cards, disclose the host or browser build's account/session/save behavior, and state that Denny Games has not verified external gameplay or device compatibility.
 
 Do not iframe the external service or copy its executables, game data, artwork or other assets. Keep the linked project's license separate from the external host's web-wrapper terms. Record the source/host/license boundary and observed URL reachability in `vendor/external-browser-listings.json`. A response from the host is not proof that a playable session works. Do not imply affiliation or endorsement.
 
@@ -27,4 +27,4 @@ The public catalogue count includes both Denny Games-hosted titles and external-
 
 ## Verification
 
-On 2026-10-15, the four play URLs returned HTTP 200 to a HEAD request. This confirms URL reachability only; no full game session, mobile device, controller or Tesla browser was tested. Project license information was checked against the linked upstream sources and official license pages. Recheck host availability and displayed requirements before a public release.
+On 2026-10-15, all nine play URLs returned HTTP 200 to a GET request. This confirms URL reachability only; no full game session, mobile device, controller or Tesla browser was tested. Project and browser-port license information was checked against the linked sources and official project license pages. Recheck host availability and displayed requirements before a public release.

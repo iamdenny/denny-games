@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-15",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "Each play URL returned HTTP 200 to a HEAD request on reviewedAt. No game session, mobile device, controller, or Tesla browser was tested.",
+  "verificationBoundary": "All nine play URLs returned HTTP 200 to a GET request on reviewedAt. This confirms URL reachability only; no full game session, mobile device, controller, or Tesla browser was tested.",
   "entries": [
     {
       "id": "freedoom",
@@ -54,6 +54,71 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "Remote play is hosted by NAO. The server controls account, session, save and privacy terms; users are directed to read its current guidance before signing in."
+    },
+    {
+      "id": "freeciv",
+      "projectSource": "https://github.com/freeciv/freeciv-web",
+      "projectLicense": "Freeciv C server: GNU GPL; Freeciv-web browser client: GNU AGPL.",
+      "licenseText": "https://github.com/freeciv/freeciv-web/blob/develop/LICENSE.txt",
+      "externalHost": "https://freecivweb.com/webclient/?action=new&type=singleplayer",
+      "hostSource": "https://github.com/Lexxie9952/fcw.org-server",
+      "hostWrapperLicense": "Freeciv-web service based on the linked open-source project; the Denny Games listing does not redistribute its host code or game data.",
+      "urlStatus": "HTTP 200 (GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The community site's action opens its single-player setup. The site links its own terms and privacy policy; account, session, browser-save behavior and multiplayer features follow that service. Freeciv has been in development since 1995."
+    },
+    {
+      "id": "umoria",
+      "projectSource": "https://github.com/dungeons-of-moria/umoria",
+      "projectLicense": "Umoria: GPL-3.0-or-later.",
+      "licenseText": "https://github.com/dungeons-of-moria/umoria/blob/master/LICENSE",
+      "externalHost": "https://umoria.org/play/",
+      "hostSource": "https://github.com/jhirschberg70/browser-based-umoria",
+      "hostWrapperLicense": "Browser-based Umoria source is GPL-3.0-or-later; Umoria.org says the maintainer permitted it to host the WebAssembly build. Denny Games redistributes no build files.",
+      "urlStatus": "HTTP 200 (GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project describes Moria as developed in 1983 and the first public Umoria release as 1987. Its browser build uses IndexedDB for saves scoped to each browser. Reachability was checked; the game session and save flow were not tested."
+    },
+    {
+      "id": "larn",
+      "projectSource": "https://github.com/primeau/Larn",
+      "projectLicense": "MIT for the JavaScript Larn/Ularn port; original contributor attribution is retained upstream.",
+      "licenseText": "https://github.com/primeau/Larn/blob/master/LICENSE",
+      "externalHost": "https://larn.org/",
+      "hostSource": "https://github.com/primeau/Larn",
+      "hostWrapperLicense": "MIT for the linked JavaScript port; Larn.org hosts the game and offers optional score/replay services. Denny Games redistributes no build files.",
+      "urlStatus": "HTTP 200 (GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The Larn project source identifies the original Unix release as 1986 and says the browser port offers Larn and Ularn. The host advertises mobile support, weekly challenges, public scores and replays; none was tested here."
+    },
+    {
+      "id": "neo-angband",
+      "projectSource": "https://github.com/angband/angband",
+      "projectLicense": "Angband: GPL-2.0-or-later or the traditional Angband license; art assets have separate terms.",
+      "licenseText": "https://angband.readthedocs.io/en/latest/copying.html",
+      "externalHost": "https://angband.rpgm.world/",
+      "hostSource": "https://github.com/neostryder/neo-angband",
+      "hostWrapperLicense": "Neo Angband is a community port, dual-licensed under GPLv2 or the traditional Angband license to match upstream; its bundled art has per-pack terms. Denny Games redistributes none of it.",
+      "urlStatus": "HTTP 200 (GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "Neo Angband describes itself as an unofficial community port, says its no-mod mode targets vanilla Angband, and stores saves in browser storage scoped to the host address. Denny Games did not verify parity, account behavior, mods, or device support."
+    },
+    {
+      "id": "dcss",
+      "projectSource": "https://github.com/crawl/crawl",
+      "projectLicense": "Most components are GPLv2-or-later; remaining components use compatible licenses.",
+      "licenseText": "https://github.com/crawl/crawl/blob/master/LICENSE",
+      "externalHost": "https://crawl.nemelex.cards/",
+      "hostSource": "https://crawl.develz.org/wordpress/howto",
+      "hostWrapperLicense": "Community-run remote WebTiles server listed by the DCSS project. No server, client or game data is redistributed by Denny Games.",
+      "urlStatus": "HTTP 200 (GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official server directory lists crawl.nemelex.cards as a WebTiles server in Gyeonggi, South Korea and says accounts are not shared across servers. A GET returned 200; login, session, game and save behavior were not tested."
     }
   ]
 }

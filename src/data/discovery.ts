@@ -32,11 +32,11 @@ export const categoryCopy: Record<Category, Record<Locale, string>> = {
     ko: "브라우저에서 즐기는 골프, 공과 저글링 미니게임입니다. 작품마다 점수 규칙과 조작법이 다르므로 게임 소개를 먼저 확인하세요.",
   },
   strategy: {
-    en: "Plan routes, connect towns and manage transport networks in strategy and simulation games. OpenTTD is available through an independent browser host; its saves and online content follow that host's rules.",
-    ko: "노선을 계획하고 도시를 연결하며 교통망을 운영하는 전략·경영 게임입니다. OpenTTD는 독립 브라우저 호스트에서 실행되며 저장과 온라인 콘텐츠는 해당 호스트가 관리합니다.",
+    en: "Build civilizations and plan transport networks in classic browser strategy games. Freeciv offers turn-based city building, while OpenTTD lets you grow a transport company; each opens on an independent host with its own save and service rules.",
+    ko: "고전 브라우저 전략 게임에서 문명을 세우고 교통망을 계획하세요. Freeciv에서는 턴제로 도시를 키우고 OpenTTD에서는 운송 회사를 확장합니다. 각 게임은 저장과 서비스 규칙이 별도인 외부 호스트에서 열립니다.",
   },
   roguelike: {
-    en: "Explore turn-based dungeons, manage supplies and learn classic roguelike rules. NetHack opens on a community server with its own account and save policies.",
-    ko: "턴제 던전을 탐험하고 자원을 관리하며 고전 로그라이크 규칙을 익혀보세요. NetHack은 계정과 저장 정책이 별도인 커뮤니티 서버에서 열립니다.",
+    en: "Explore classic turn-based dungeons in NetHack, Umoria, Larn, Angband and Dungeon Crawl: Stone Soup. Each game has its own commands, browser build, account or save behavior; read its detail page before starting a run.",
+    ko: "NetHack · Umoria · Larn · Angband · Dungeon Crawl: Stone Soup의 고전 턴제 던전을 탐험하세요. 게임마다 명령 · 브라우저 빌드 · 계정 · 저장 방식이 다르므로 모험을 시작하기 전에 상세 안내를 확인하세요.",
   },
 };

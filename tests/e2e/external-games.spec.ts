@@ -5,6 +5,14 @@ const externalGames = [
   { id: "openttd", url: "https://openttdonline.com/play/" },
   { id: "supertux", url: "https://play.supertux.org/play/" },
   { id: "nethack", url: "https://www.alt.org/nethack/hterm/" },
+  {
+    id: "freeciv",
+    url: "https://freecivweb.com/webclient/?action=new&type=singleplayer",
+  },
+  { id: "umoria", url: "https://umoria.org/play/" },
+  { id: "larn", url: "https://larn.org/" },
+  { id: "neo-angband", url: "https://angband.rpgm.world/" },
+  { id: "dcss", url: "https://crawl.nemelex.cards/" },
 ];
 
 for (const locale of ["en", "ko"]) {

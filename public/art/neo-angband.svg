@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="mountain" x1="106" y1="26" x2="530" y2="371" gradientUnits="userSpaceOnUse"><stop stop-color="#2A2230"/><stop offset="1" stop-color="#090D16"/></linearGradient>
+    <linearGradient id="gate" x1="310" y1="95" x2="380" y2="312" gradientUnits="userSpaceOnUse"><stop stop-color="#A84B45"/><stop offset="1" stop-color="#3D1D29"/></linearGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="#0D121D"/>
+  <path d="m0 219 83-84 52 39 83-121 65 84 74-97 69 100 77-64 60 71 77-50v303H0V219Z" fill="url(#mountain)"/>
+  <path d="m92 193 126-140 68 101-52-28-35 19-37-10-42 41-28-4Zm259-53 70-100 68 100-44-24-29 22-28-17-37 19Zm100 89 100-88 60 63 62-40v236H153l138-102 63 23 97-92Z" fill="#382E3C"/>
+  <path d="M241 304 258 174l50-55 50-35 50 35 50 55 18 130H241Z" fill="url(#gate)" stroke="#D17B5E" stroke-width="3"/>
+  <path d="m294 157 64-46 64 46v147H294V157Z" fill="#151722" stroke="#F0AE6A" stroke-width="3"/>
+  <path d="M318 164h81v141h-81z" fill="#261A24"/>
+  <path d="M331 305v-77a28 28 0 0 1 56 0v77" stroke="#C85D48" stroke-width="5"/>
+  <path d="m255 175 22-20m126-1 18 17M324 188h62" stroke="#F6C85F" stroke-width="4" stroke-linecap="round"/>
+  <path d="M176 307h294" stroke="#7C6B75" stroke-width="3"/>
+  <path d="m154 278 16-8 16 8v19l-16 9-16-9v-19Z" fill="#A7F0E6" stroke="#E6FFF8" stroke-width="2"/>
+  <text x="170" y="292" text-anchor="middle" fill="#14212B" font-family="monospace" font-size="17" font-weight="700">@</text>
+  <path d="M522 85v50m-25-25h50" stroke="#F6C85F" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="522" cy="110" r="35" stroke="#F6C85F" stroke-opacity=".35" stroke-width="2"/>
+  <text x="48" y="56" fill="#F6C85F" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">ANGBAND · 1990</text>
+  <text x="48" y="354" fill="#F5F2E9" font-family="system-ui,sans-serif" font-size="36" font-weight="800" letter-spacing="2">NEO ANGBAND</text>
+  <text x="50" y="378" fill="#A9BEC6" font-family="system-ui,sans-serif" font-size="12" letter-spacing="2">DESCEND · ADAPT · SURVIVE</text>
+</svg>
