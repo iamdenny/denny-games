@@ -19,6 +19,8 @@ Responsive checks use 320, 360, 390, 430 and 1440 CSS pixels and assert no horiz
 
 Record date, release SHA, OS/browser or Tesla model/computer/firmware, input device and USB/Bluetooth path. Check open/start/play/pause/restart/exit, disconnected pad, tab hidden, audio unlock, storage restore, rotation and any approved advertising return. A failed or partial result stays limited; do not promote it to verified.
 
+Daily challenge browser checks cover the seven-date UTC window, previous-day retention, one-day storage migration, malformed and expired entries, browser-local summary, language routes and 320px layout. This does not establish real-player retention or physical-device behavior.
+
 ## Release criteria
 
 Root-entry browser checks cover Korean/English and unsupported browser locales, ordered preferences, query/fragment preservation, explicit locale URLs, manual switching, back navigation and JavaScript-disabled fallback links/metadata. See `tests/e2e/locale-entry.spec.ts` and ADR 0019.

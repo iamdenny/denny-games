@@ -79,6 +79,10 @@ Home offers quick-reflex, thinking and same-screen two-player picks with direct 
 
 Daily challenges start at stage 1 and show the current UTC day, actual completed-round count and browser-local records. A finished round counts regardless of winning; opening, pausing, normal seeds and other stages do not. A daily result leads to the next remaining challenge or the daily summary. No global ranking or retention claim is introduced. See [ADR 0030](../adr/0030-daily-completion-and-return.md).
 
+## Seven-day daily trail — 2026-10-15
+
+Home and the daily route show each of the last seven UTC dates and the number of supported challenges completed that day. Keep only those date buckets in browser storage, preserve existing one-day records on upgrade, and disclose that this is local history. Do not imply a streak, ranking, reminder or measured retention. See [ADR 0032](../adr/0032-seven-day-daily-trail.md).
+
 
 ## Original research draft (historical recommendations)
 

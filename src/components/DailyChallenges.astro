@@ -37,10 +37,23 @@ const entries = dailyGameIds.flatMap((id) =>
           <time data-utc-date></time> · UTC
         </p>
         <p class="daily-progress" data-daily-progress role="status" hidden></p>
+        <div class="daily-history-wrap">
+          <p data-daily-history-summary hidden></p>
+          <ol
+            class="daily-history"
+            data-daily-history
+            aria-label={
+              ko
+                ? "최근 7일 UTC 도전 기록"
+                : "Daily challenge history for the last 7 UTC days"
+            }
+            hidden
+          ></ol>
+        </div>
         <p>
           {ko
-            ? "승패와 관계없이 한 판을 마치면 완료로 표시해요. 이 브라우저에만 저장되며, UTC 00시(한국 오전 9시)에 새 도전이 열려요."
-            : "Finish a round, win or lose, to mark it complete. Saved in this browser only. New challenges at 00:00 UTC (09:00 in Korea)."}
+            ? "승패와 관계없이 한 판을 마치면 완료로 표시해요. 최근 7일 완료 기록은 이 브라우저에만 저장돼요. UTC 00시(한국 오전 9시)에 새 도전이 열려요."
+            : "Finish a round, win or lose, to mark it complete. Your seven-day completion history is saved in this browser only. New challenges open at 00:00 UTC (09:00 in Korea)."}
         </p>
       </div>
       {compact && (
@@ -111,6 +124,41 @@ const entries = dailyGameIds.flatMap((id) =>
   .daily-overview .daily-progress {
     font-size: 22px;
     font-weight: 800;
+  }
+  .daily-history-wrap {
+    width: min(100%, 480px);
+    margin: 10px 0 14px;
+  }
+  .daily-overview .daily-history-wrap p {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .daily-history {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .daily-history li {
+    min-width: 0;
+    padding: 8px 2px;
+    border-radius: 10px;
+    background: #f7f8f2;
+    font-size: 12px;
+    line-height: 1.35;
+    text-align: center;
+  }
+  .daily-history time,
+  .daily-history span {
+    display: block;
+  }
+  .daily-history time,
+  .daily-history .history-count {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
   }
   .daily-overview > a {
     flex-shrink: 0;

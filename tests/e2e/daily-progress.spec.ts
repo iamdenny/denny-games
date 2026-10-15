@@ -10,6 +10,9 @@ for (const locale of ["en", "ko"]) {
     );
     await page.goto(`/${locale}/daily/`);
     await expect(page.locator("[data-daily-progress]")).toContainText("0 / 3");
+    await expect(page.locator("[data-daily-board]")).toContainText(
+      locale === "ko" ? "최근 7일 완료 기록" : "seven-day completion history",
+    );
     await page.locator('[data-daily="circuit-loop"]').click();
     await expect(page.locator("#stage-select")).toHaveValue("1");
     // Old daily links without a stage must also ignore saved stage preferences.
@@ -44,6 +47,15 @@ for (const locale of ["en", "ko"]) {
     await page.clock.setFixedTime(new Date("2026-10-16T00:01:00Z"));
     await page.evaluate(() => window.dispatchEvent(new Event("pageshow")));
     await expect(page.locator("[data-daily-progress]")).toContainText("0 / 3");
+    await expect(page.locator('[data-history-day="2026-10-15"]')).toContainText(
+      "1/3",
+    );
+    await expect(page.locator('[data-history-day="2026-10-16"]')).toContainText(
+      "0/3",
+    );
+    await expect(page.locator("[data-daily-history-summary]")).toContainText(
+      "1 / 21",
+    );
   });
 }
 

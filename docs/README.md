@@ -34,3 +34,4 @@ The original research is retained locally outside this public repository. Produc
 - [Quick discovery and replay](releases/2026-10-15-discovery-replay.md)
 
 - [Daily completion and return](releases/2026-10-15-daily-return.md)
+- [Seven-day daily challenge trail](releases/2026-10-15-seven-day-daily-trail.md)
