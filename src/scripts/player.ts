@@ -2,6 +2,7 @@ import "../styles/player.css";
 import { GameAudio, type SoundCue } from "../lib/audio";
 import { t } from "../data/i18n";
 import { read, write, addRecent } from "../lib/storage";
+import { dailyRounds, recordDailyRound } from "../lib/daily";
 import { dailySeed, validSeed } from "../lib/random";
 import { connectGamepad, focusNext } from "../lib/input";
 import { canServe, eligibleBreak, requestBreak, initH5Ads } from "../lib/ads";
@@ -23,7 +24,10 @@ const seed =
   validSeed(query.get("seed")) ??
   (query.get("daily") === "1" ? dailySeed(id) : `${id}:v1:normal`);
 const count = Number(root.dataset.stages),
-  requested = Number(query.get("stage") ?? read(`stage:${id}`, 1));
+  requested = Number(
+    query.get("stage") ??
+      (query.get("daily") === "1" ? 1 : read(`stage:${id}`, 1)),
+  );
 let stage = Number.isInteger(requested)
   ? Math.max(1, Math.min(count, requested))
   : 1;
@@ -35,6 +39,16 @@ const host = el<HTMLDivElement>("game-host"),
 const pauseButton = el<HTMLButtonElement>("pause-button"),
   restart = el<HTMLButtonElement>("restart-button"),
   select = el<HTMLSelectElement>("stage-select");
+const nextLink = el<HTMLAnchorElement>("next-game");
+const defaultNext = {
+  href: nextLink.getAttribute("href")!,
+  text: nextLink.textContent,
+};
+const dailyGames = JSON.parse(root.dataset.dailyGames!) as {
+  id: string;
+  version: number;
+  title: string;
+}[];
 const share = el<HTMLButtonElement>("share-button"),
   fallback = el<HTMLTextAreaElement>("share-fallback");
 let game: GameInstance | undefined,
@@ -96,6 +110,7 @@ function best() {
 function show(title: string, note = "", showSetup = false) {
   overlay.hidden = false;
   el("round-record").hidden = true;
+  el("daily-result").hidden = true;
   el("next-game").hidden = true;
   host.inert = true;
   el("game-controls").inert = true;
@@ -160,7 +175,35 @@ function end(value: GameResult) {
         : `Your best: ${formatScore(record)} · Ready for another round?`;
     recordNote.hidden = false;
   }
-  el("next-game").hidden = false;
+  nextLink.href = defaultNext.href;
+  nextLink.textContent = defaultNext.text;
+  if (
+    dailyGames.some((item) => item.id === id) &&
+    recordDailyRound(id, Number(root.dataset.version), seed, stage, score)
+  ) {
+    const completed = dailyRounds();
+    const finished = dailyGames.filter(
+      (item) => completed[item.id]?.version === item.version,
+    ).length;
+    const remaining = dailyGames.find(
+      (item) => completed[item.id]?.version !== item.version,
+    );
+    const dailyResult = el("daily-result");
+    dailyResult.textContent =
+      locale === "ko"
+        ? `오늘의 도전 ${finished} / ${dailyGames.length}판 완료 · 이 브라우저 기준`
+        : `Daily challenges: ${finished} / ${dailyGames.length} rounds complete · This browser`;
+    dailyResult.hidden = false;
+    nextLink.href = remaining
+      ? `/${locale}/play/${remaining.id}/?daily=1&stage=1`
+      : `/${locale}/daily/`;
+    nextLink.textContent = remaining
+      ? `${locale === "ko" ? "다음 오늘의 도전" : "Next daily challenge"}: ${remaining.title} ↗`
+      : locale === "ko"
+        ? "오늘의 도전 모두 완료! 기록 보기 ↗"
+        : "All daily challenges complete! View records ↗";
+  }
+  nextLink.hidden = false;
   start.textContent = text.restart;
   share.hidden = false;
   pauseButton.disabled = true;

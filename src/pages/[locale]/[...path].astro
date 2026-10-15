@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import GameCard from "../../components/GameCard.astro";
+import DailyChallenges from "../../components/DailyChallenges.astro";
 import QuickPlay from "../../components/QuickPlay.astro";
 import { editorialOrder } from "../../data/editorial";
 import CataloguePages from "../../components/CataloguePages.astro";
@@ -216,16 +217,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </div>
         </section>
       ))}
-      <section class="daily-banner">
-        <div>
-          <span class="eyebrow">{text.dailyLabel}</span>
-          <h2>{text.dailyTitle}</h2>
-          <p>{text.dailyNote}</p>
-        </div>
-        <a class="button primary" href={`/${locale}/daily/`}>
-          {text.daily} ↗
-        </a>
-      </section>
+      <DailyChallenges locale={locale} compact />
       <AdSlot id="home-mid" locale={locale} />
       <AffiliateCard locale={locale} />
       <section class="notes-grid">
@@ -708,28 +700,8 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         <span class="eyebrow">{text.dailyLabel}</span>
         <h1>{text.dailyTitle}</h1>
         <p>{text.dailyText}</p>
-        <p>
-          <strong>
-            {text.utc}: <time data-utc-date></time>
-          </strong>
-        </p>
       </div>
-      <div class="game-grid">
-        {games
-          .filter((g) => g.tags.includes("daily"))
-          .map((g) => (
-            <article class="daily-card">
-              <GameCard game={g} locale={locale} />
-              <a
-                class="button primary daily-play"
-                data-daily={g.id}
-                href={`/${locale}/play/${g.id}/?daily=1`}
-              >
-                {text.daily} ↗
-              </a>
-            </article>
-          ))}
-      </div>
+      <DailyChallenges locale={locale} />
       <p class="notice">{text.dailyNote}</p>
     </>
   )}

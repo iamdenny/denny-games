@@ -20,3 +20,5 @@
 - `src/lib/audio.ts`: original synthesized effects, volume and note cancellation.
 
 - `src/data/quick-play.ts`, `src/components/QuickPlay.astro` and `src/scripts/quick-play.ts`: static-first mood picker, direct play and validated local recent links.
+
+- `src/lib/daily.ts`, `src/components/DailyChallenges.astro` and `src/scripts/daily.ts`: bounded local daily completion, UTC rollover, daily cards and home progress.

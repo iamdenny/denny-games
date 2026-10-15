@@ -1,0 +1,153 @@
+---
+import { games } from "../data/games";
+import { dailyGameIds } from "../lib/daily";
+import GameCard from "./GameCard.astro";
+import type { Locale } from "../lib/types";
+interface Props {
+  locale: Locale;
+  compact?: boolean;
+}
+const { locale, compact = false } = Astro.props;
+const ko = locale === "ko";
+const entries = dailyGameIds.flatMap((id) =>
+  games.filter(
+    (game) =>
+      game.id === id && game.tags.includes("daily") && !game.externalPlay,
+  ),
+);
+---
+
+{entries.length > 0 && (
+  <section
+    class:list={["daily-board", { compact }]}
+    data-daily-board
+    data-entries={JSON.stringify(
+      entries.map(({ id, version }) => ({ id, version })),
+    )}
+    aria-label={ko ? "오늘의 도전 진행" : "Daily challenge progress"}
+  >
+    <div class="daily-overview">
+      <div>
+        {compact && (
+          <h2>
+            {ko ? "매일 새로운 세 판" : "Three fresh challenges, every day"}
+          </h2>
+        )}
+        <p class="daily-date" data-daily-date hidden>
+          <time data-utc-date></time> · UTC
+        </p>
+        <p class="daily-progress" data-daily-progress role="status" hidden></p>
+        <p>
+          {ko
+            ? "승패와 관계없이 한 판을 마치면 완료로 표시해요. 이 브라우저에만 저장되며, UTC 00시(한국 오전 9시)에 새 도전이 열려요."
+            : "Finish a round, win or lose, to mark it complete. Saved in this browser only. New challenges at 00:00 UTC (09:00 in Korea)."}
+        </p>
+      </div>
+      {compact && (
+        <a class="button primary" href={`/${locale}/daily/`}>
+          {ko ? "오늘의 도전" : "Daily challenge"} ↗
+        </a>
+      )}
+    </div>
+    {!compact && (
+      <div class="game-grid">
+        {entries.map((game) => (
+          <article class="daily-card" data-daily-card={game.id}>
+            <GameCard game={game} locale={locale} />
+            <div class="daily-card-footer">
+              <p data-daily-record hidden></p>
+              <a
+                class="button primary daily-play"
+                data-daily={game.id}
+                href={`/${locale}/play/${game.id}/?daily=1&stage=1`}
+              >
+                {ko ? "오늘의 도전" : "Daily challenge"} ↗
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+    <noscript>
+      <p>
+        {ko
+          ? "완료 상태와 기록은 JavaScript를 켜면 표시됩니다."
+          : "Enable JavaScript to see completion and records."}
+      </p>
+    </noscript>
+  </section>
+)}
+<script>
+  import "../scripts/daily";
+</script>
+<style>
+  .daily-board {
+    margin: 24px 0 36px;
+  }
+  .daily-overview {
+    border: 1px solid #b9c9ba;
+    border-radius: 18px;
+    background: #e8eddf;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .daily-overview h2 {
+    margin: 0 0 12px;
+    font-size: clamp(24px, 3vw, 32px);
+    letter-spacing: -0.035em;
+  }
+  .daily-overview p {
+    max-width: 64ch;
+    line-height: 1.65;
+    margin: 6px 0;
+  }
+  .daily-overview .daily-date {
+    font-size: 13px;
+  }
+  .daily-overview .daily-progress {
+    font-size: 22px;
+    font-weight: 800;
+  }
+  .daily-overview > a {
+    flex-shrink: 0;
+    min-height: 48px;
+  }
+  .daily-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border: 1px solid #c6cbbd;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .daily-card[data-complete="true"] {
+    border-color: #2f685b;
+  }
+  .daily-card-footer {
+    margin-top: auto;
+    padding: 16px;
+  }
+  .daily-card-footer p {
+    margin: 0 0 12px;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+  .daily-card-footer a {
+    width: 100%;
+    min-height: 48px;
+  }
+  @media (max-width: 700px) {
+    .daily-overview {
+      align-items: stretch;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .daily-board .game-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

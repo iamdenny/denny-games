@@ -38,3 +38,5 @@
 - [0028 — External browser game listings](0028-external-browser-listings.md) — Accepted.
 
 - [0029 — Quick game discovery and replay](0029-quick-play-and-replay.md) — Accepted.
+
+- [0030 — Daily completion and return](0030-daily-completion-and-return.md) — Accepted.

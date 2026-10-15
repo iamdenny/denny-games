@@ -47,3 +47,7 @@ Immersive classic boards use the full stage height and width while preserving th
 ## Quick play and replay
 
 Home replaces its single feature with a dark ink game picker, real registered artwork, lime play action and three 48px mood buttons. The default game remains usable without JavaScript; cycling is explicit. Up to three browser-local recent games appear below. Place the picker after the compact introduction and before collections; preserve the six curated cards and full catalogue. Round-end score badges use actual comparable records; a next-game link appears only after completion. Short-screen result panels scroll from the top when needed. See ADR 0029.
+
+## Daily return paths
+
+Use a pale green progress panel on home and daily, with an explicit UTC date and text count. Daily cards show an actual completed-round status and best completed score; never imply a win from completion. Keep actions at least 48px and use a single card column on phones. At daily round end, show progress and a link to a remaining daily game or the completed summary. See ADR 0030.
