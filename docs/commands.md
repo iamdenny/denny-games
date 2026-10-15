@@ -23,7 +23,7 @@ Use Node 22.22.3 (`.nvmrc`) and npm. Run from repository root.
 | `npm run docs:check` | Frontmatter and internal documentation links |
 | `npm run docs:lint` | Markdown style |
 | `npm run test:scale` | Nonpublic 1,000-game registry and static generation |
-| `node scripts/verify-public.mjs --sha <sha>` | Check deployed source and public routes |
+| `node scripts/verify-public.mjs --sha <sha>` | Verify release SHA, public HTML/assets, internal play routes and external-host links |
 | `npm run verify` | Types, unit tests, docs, scale and production build |
 
 Use `npx playwright install chromium` once for local browser tests. No environment variables are required for development. Advertisement mode defaults to off. Do not copy another project's credentials.

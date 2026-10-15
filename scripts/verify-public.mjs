@@ -37,18 +37,28 @@ if (expected)
 for (const locale of ["en", "ko"]) {
   const html = await get(`/${locale}/`);
   assert(html.includes(`lang="${locale}"`));
-  const ids = JSON.parse(await get(`/${locale}/search-index.json`)).map(
-    (item) => item.id,
-  );
-  const preview = inspectHomePreview(html, ids.length);
+  const games = JSON.parse(await get(`/${locale}/search-index.json`));
+  const preview = inspectHomePreview(html, games.length);
   assert(
     preview.valid,
     `${locale} home preview is invalid: ${JSON.stringify(preview)}`,
   );
   await Promise.all(
-    ids.map(async (id) => {
-      await get(`/${locale}/games/${id}/`);
-      const player = await get(`/${locale}/play/${id}/`);
+    games.map(async (game) => {
+      const detail = await get(`/${locale}/games/${game.id}/`);
+      if (game.externalPlayUrl) {
+        const publicUrl = game.externalPlayUrl.replaceAll("&", "&amp;");
+        assert(
+          detail.includes(`href="${publicUrl}"`),
+          `/${locale}/games/${game.id}/: external play link missing`,
+        );
+        assert(
+          detail.includes('class="external-host-note"'),
+          `/${locale}/games/${game.id}/: external host label missing`,
+        );
+        return;
+      }
+      const player = await get(`/${locale}/play/${game.id}/`);
       assert(player.includes("noindex, follow"));
       assert(!player.includes("data-ad-slot"));
     }),
