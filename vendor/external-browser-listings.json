@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-15",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All nine play URLs returned HTTP 200 to a GET request on reviewedAt. This confirms URL reachability only; no full game session, mobile device, controller, or Tesla browser was tested.",
+  "verificationBoundary": "All fifteen play URLs returned HTTP 200 to a direct GET request on reviewedAt. The five preceding additions received headless Chromium initial-page or canvas spot checks. Frozen Bubble 2: Fan Edition returned HTTP 429 to automated Chromium before rendering; its itch.io page identifies a released HTML5 build. This confirms URL reachability only for that entry; no complete game session, physical device, controller, or Tesla browser was tested.",
   "entries": [
     {
       "id": "freedoom",
@@ -119,6 +119,84 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The official server directory lists crawl.nemelex.cards as a WebTiles server in Gyeonggi, South Korea and says accounts are not shared across servers. A GET returned 200; login, session, game and save behavior were not tested."
+    },
+    {
+      "id": "simon-tatham-puzzles",
+      "projectSource": "https://git.tartarus.org/simon/puzzles.git",
+      "projectLicense": "MIT; collection page links the official license and puzzle source.",
+      "licenseText": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/",
+      "externalHost": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/",
+      "hostSource": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/",
+      "hostWrapperLicense": "Official collection author site; browser builds and assets are not redistributed by Denny Games.",
+      "urlStatus": "HTTP 200 (Chromium GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official collection includes many browser puzzles, each with its own controls. The web version does not save puzzle files; puzzle IDs or seeds can reproduce a board. A Fifteen puzzle page was opened as a reachability/render spot check, not played through."
+    },
+    {
+      "id": "powder-toy",
+      "projectSource": "https://github.com/The-Powder-Toy/The-Powder-Toy",
+      "projectLicense": "GPL-3.0; bundled components may have separate terms.",
+      "licenseText": "https://github.com/The-Powder-Toy/The-Powder-Toy/blob/master/LICENSE",
+      "externalHost": "https://powdertoy.co.uk/Wasm.html",
+      "hostSource": "https://github.com/The-Powder-Toy/The-Powder-Toy",
+      "hostWrapperLicense": "Official project WebAssembly build; no build files or game data are redistributed by Denny Games.",
+      "urlStatus": "HTTP 200 (Chromium GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official WebAssembly page rendered its game canvas. Account, community saves and privacy follow The Powder Toy host. No full simulation or save flow was tested."
+    },
+    {
+      "id": "hyperrogue",
+      "projectSource": "https://github.com/zenorogue/hyperrogue",
+      "projectLicense": "GNU GPL version 2; third-party components may have separate terms.",
+      "licenseText": "https://github.com/zenorogue/hyperrogue/blob/master/COPYING",
+      "externalHost": "https://roguetemple.com/z/hyper/online.php",
+      "hostSource": "https://github.com/zenorogue/hyperrogue",
+      "hostWrapperLicense": "Developer-hosted Emscripten online demo; the project describes it as reduced compared with downloads. Denny Games redistributes no demo files.",
+      "urlStatus": "HTTP 200 (Chromium GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official online page lists local saves, highscores, sound effects and additional modes among features in the downloadable version, and identifies Emscripten. The browser page and canvas rendered; no run or save flow was tested."
+    },
+    {
+      "id": "tuxmath",
+      "projectSource": "https://github.com/tux4kids/tuxmath",
+      "projectLicense": "Program GPL-3.0-or-later; source files and data have per-file GPL, Creative Commons and permissive terms.",
+      "licenseText": "https://github.com/tux4kids/tuxmath/blob/master/doc/README",
+      "externalHost": "https://tuxmath.org/game.html?opt_lang=en&opt_osk=1",
+      "hostSource": "https://gitlab.com/Afrikalan/tuxmath-js",
+      "hostWrapperLicense": "Afrikalan says its JavaScript/HTML5 adaptation is distributed under the GNU GPL; the version is not specified on its information page. Denny Games redistributes no browser files.",
+      "urlStatus": "HTTP 200 (Chromium GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The host offers English-language selection and an on-screen answer keypad. The initial interface rendered in a 390px Chromium viewport; autoplay audio was blocked before a user gesture. No level or physical device was tested."
+    },
+    {
+      "id": "sandspiel",
+      "projectSource": "https://github.com/MaxBittker/sandspiel",
+      "projectLicense": "MIT.",
+      "licenseText": "https://github.com/MaxBittker/sandspiel/blob/master/LICENSE",
+      "externalHost": "https://sandspiel.club/",
+      "hostSource": "https://github.com/MaxBittker/sandspiel",
+      "hostWrapperLicense": "Official host for the Rust/WebAssembly and WebGL game; community sharing is hosted there. Denny Games redistributes no game files or saves.",
+      "urlStatus": "HTTP 200 (Chromium GET)",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The repository identifies Rust via WebAssembly and WebGL, links the official host and describes creation sharing. The canvas rendered at 390px with no horizontal overflow; no creation or save flow was tested. A non-blocking host script error appeared in the console."
+    },
+    {
+      "id": "frozen-bubble",
+      "projectSource": "https://github.com/dchau360/frozen-bubble-sdl3",
+      "projectLicense": "GPL-2.0; third-party components have separate terms.",
+      "licenseText": "https://github.com/dchau360/frozen-bubble-sdl3/blob/main/COPYING",
+      "externalHost": "https://dchau360.itch.io/frozenbubble2",
+      "hostSource": "https://github.com/dchau360/frozen-bubble-sdl3",
+      "hostWrapperLicense": "The project links this itch.io page as its HTML5 browser build and describes the port as an independent rewrite, not affiliated with or endorsed by the original Frozen Bubble project.",
+      "urlStatus": "HTTP 200 (direct GET); automated Chromium navigation returned HTTP 429 before rendering",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The itch.io page identifies a released HTML5 build of an independent rewrite inspired by the 2002 Frozen Bubble 2. Its source repository is GPL-2.0 and lists separate terms for third-party components. The page was not rendered in automated Chromium because the host returned 429; no game session, account, multiplayer, save, mobile or controller behavior was tested."
     }
   ]
 }

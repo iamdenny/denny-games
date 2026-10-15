@@ -39,4 +39,8 @@ export const categoryCopy: Record<Category, Record<Locale, string>> = {
     en: "Explore classic turn-based dungeons in NetHack, Umoria, Larn, Angband and Dungeon Crawl: Stone Soup. Each game has its own commands, browser build, account or save behavior; read its detail page before starting a run.",
     ko: "NetHack · Umoria · Larn · Angband · Dungeon Crawl: Stone Soup의 고전 턴제 던전을 탐험하세요. 게임마다 명령 · 브라우저 빌드 · 계정 · 저장 방식이 다르므로 모험을 시작하기 전에 상세 안내를 확인하세요.",
   },
+  simulation: {
+    en: "Experiment with falling sand, heat, water and living materials in two open-source browser sandboxes. The Powder Toy and Sandspiel open on their own hosts; each page explains its controls and sharing boundaries.",
+    ko: "모래·열·물·생명 재료가 반응하는 오픈소스 브라우저 샌드박스 두 종을 살펴보세요. The Powder Toy와 Sandspiel은 각자의 호스트에서 열리며 조작법과 공유 범위를 상세 페이지에서 안내합니다.",
+  },
 };

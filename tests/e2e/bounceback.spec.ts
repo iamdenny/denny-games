@@ -184,7 +184,8 @@ test("Bounce Back: isolated play, touch and pad input, save, sound, pause and re
     .find((item) => item.url().includes("/vendor/bounceback/index.html"));
   expect(frame).toBeDefined();
   await frame!.waitForFunction(
-    () => Number(document.body.dataset.ticks ?? 0) === 0,
+    () =>
+      document.body !== null && Number(document.body.dataset.ticks ?? 0) === 0,
   );
   await page.locator("#start-button").click();
   await frame!.waitForFunction(() => Number(document.body.dataset.ticks) > 5);

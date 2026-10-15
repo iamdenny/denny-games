@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="title desc">
+  <title id="title">Frozen Bubble</title>
+  <desc id="desc">An original illustration of colorful bubbles, a launcher and an icy puzzle board.</desc>
+  <defs>
+    <linearGradient id="ice" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#b9fff0"/>
+      <stop offset="1" stop-color="#5dc7d8"/>
+    </linearGradient>
+    <linearGradient id="pink" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ff9fbc"/>
+      <stop offset="1" stop-color="#e84682"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" rx="34" fill="#10283d"/>
+  <path d="M54 328 180 76h278l128 252Z" fill="#183b51" stroke="#35677b" stroke-width="5"/>
+  <path d="M83 322 194 100h250l111 222Z" fill="#d9f8f3" opacity=".14"/>
+  <g stroke="#e7fffc" stroke-width="4">
+    <circle cx="215" cy="136" r="25" fill="#ef5a85"/>
+    <circle cx="270" cy="136" r="25" fill="#43c7bf"/>
+    <circle cx="325" cy="136" r="25" fill="#ffc44d"/>
+    <circle cx="380" cy="136" r="25" fill="#ef5a85"/>
+    <circle cx="243" cy="184" r="25" fill="#ffc44d"/>
+    <circle cx="298" cy="184" r="25" fill="#43c7bf"/>
+    <circle cx="353" cy="184" r="25" fill="#ef5a85"/>
+    <circle cx="270" cy="232" r="25" fill="#ef5a85"/>
+    <circle cx="325" cy="232" r="25" fill="#ffc44d"/>
+    <circle cx="380" cy="232" r="25" fill="#43c7bf"/>
+  </g>
+  <circle cx="316" cy="327" r="30" fill="url(#pink)" stroke="#ffe3ed" stroke-width="5"/>
+  <path d="m318 300 39-51 20 15-41 52" fill="url(#ice)" stroke="#d7fffc" stroke-width="5" stroke-linejoin="round"/>
+  <circle cx="337" cy="273" r="10" fill="#ffc44d"/>
+  <path d="m139 286 20-27 13 11-20 27m335-160 15-23 12 10-15 23" fill="none" stroke="#b9fff0" stroke-linecap="round" stroke-width="8"/>
+  <circle cx="132" cy="114" r="7" fill="#ffc44d"/>
+  <circle cx="494" cy="254" r="8" fill="#ef5a85"/>
+</svg>

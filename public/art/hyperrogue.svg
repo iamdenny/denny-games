@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs><linearGradient id="bg" x1="40" y1="12" x2="604" y2="394" gradientUnits="userSpaceOnUse"><stop stop-color="#202638"/><stop offset="1" stop-color="#080B12"/></linearGradient><radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 108 -145 0 326 199)" gradientUnits="userSpaceOnUse"><stop stop-color="#9D7644"/><stop offset="1" stop-color="#3C3344"/></radialGradient></defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/>
+  <path d="m321 75 50 22 21 42 42 15 22 43-11 45 19 41-34 34-47-7-35 28-46-13-27-36-48-7-17-43 17-42-17-42 32-33 47-5 32-42Z" fill="url(#glow)" stroke="#D6AD65" stroke-width="3"/>
+  <path d="m321 75 6 85 44-63m0 0-3 71 46-29m0 0-10 66 52-23m0 0-56 18 45 50m-45-50-29 66 48 27m-48-27-57 15 22 49m-22-49-49-34 2 60m-2-60-15-54-45 44m45-44 20-49-52 16m52-16 54-33-7 68m-7 0 69-12" stroke="#90756A" stroke-width="3"/>
+  <path d="m327 161 36 9 19 29-11 35-33 18-34-17-12-35 15-30 20-9Z" fill="#A7F0E6" stroke="#E3FFF5" stroke-width="3"/>
+  <path d="m318 193 10-8 12 8-5 19-12 7-10-9 5-17Z" fill="#17212C"/><circle cx="325" cy="197" r="3" fill="#F6C85F"/>
+  <text x="48" y="52" fill="#A7F0E6" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">TURN-BASED · HYPERBOLIC WORLD</text>
+  <text x="48" y="366" fill="#F5F2E9" font-family="system-ui,sans-serif" font-size="34" font-weight="800" letter-spacing="1">HYPERROGUE</text>
+</svg>

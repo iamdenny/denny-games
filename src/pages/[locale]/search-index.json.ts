@@ -32,6 +32,7 @@ export const GET: APIRoute = ({ params }) => {
             sports: "Sports",
             strategy: "Strategy",
             roguelike: "Roguelike",
+            simulation: "Simulation",
           },
           ko: {
             board: "보드게임",
@@ -43,6 +44,7 @@ export const GET: APIRoute = ({ params }) => {
             sports: "스포츠",
             strategy: "전략·경영",
             roguelike: "로그라이크",
+            simulation: "시뮬레이션",
           },
         }[locale][game.category],
         subtitle: game.text[locale].subtitle,

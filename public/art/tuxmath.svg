@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs><linearGradient id="bg" x1="40" y1="10" x2="607" y2="390" gradientUnits="userSpaceOnUse"><stop stop-color="#202638"/><stop offset="1" stop-color="#080B12"/></linearGradient></defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/>
+  <path d="m146 106 27-46 29 47-28 17-28-18Z" fill="#F0F0E8"/><path d="m416 129 22-39 25 40-24 14-23-15Z" fill="#F0F0E8"/>
+  <path d="M121 143h393" stroke="#34434D" stroke-width="3" stroke-dasharray="9 12"/>
+  <path d="M193 130c-29 0-50 23-50 53v69c0 22 18 40 40 40h30c22 0 40-18 40-40v-69c0-30-21-53-50-53h-10Z" fill="#263746" stroke="#A7F0E6" stroke-width="4"/>
+  <path d="M168 181c12-16 24-16 36 0m9 0c12-16 24-16 36 0" stroke="#F5F2E9" stroke-width="5" stroke-linecap="round"/><path d="m169 220 25 7 24-7" stroke="#E98C69" stroke-width="5" stroke-linecap="round"/>
+  <path d="M183 293h49" stroke="#F6C85F" stroke-width="5" stroke-linecap="round"/><path d="m207 283 26 10-26 10" fill="#F6C85F"/>
+  <circle cx="431" cy="121" r="29" fill="#E98465" stroke="#FFD4A9" stroke-width="3"/><path d="M431 103v22m0 12v1" stroke="#281C24" stroke-width="5" stroke-linecap="round"/>
+  <rect x="314" y="201" width="116" height="57" rx="12" fill="#111923" stroke="#50616B" stroke-width="3"/><text x="372" y="239" text-anchor="middle" fill="#F5F2E9" font-family="monospace" font-size="28" font-weight="700">7 + 5</text>
+  <text x="48" y="51" fill="#A7F0E6" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">ARITHMETIC · QUICK THINKING</text>
+  <text x="48" y="366" fill="#F5F2E9" font-family="system-ui,sans-serif" font-size="31" font-weight="800" letter-spacing="1">TUX, OF MATH COMMAND</text>
+</svg>

@@ -83,7 +83,7 @@ describe("play-style discovery", () => {
     expect(paginate(games, 1).length).toBe(24);
     for (const value of ["0", "-1", "1.5", "NaN", "Infinity"])
       expect(searchPage(value, games.length)).toBe(1);
-    expect(searchPage("999", games.length)).toBe(9);
+    expect(searchPage("999", games.length)).toBe(10);
     expect(searchPage("2", 0)).toBe(1);
   });
 });
