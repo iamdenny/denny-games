@@ -41,3 +41,4 @@
 
 - [0030 — Daily completion and return](0030-daily-completion-and-return.md) — Accepted.
 - [0031 — Opt-in GA4 page views](0031-opt-in-ga4-page-views.md) — Accepted.
+- [0032 — Seven-day daily challenge trail](0032-seven-day-daily-trail.md) — Accepted.

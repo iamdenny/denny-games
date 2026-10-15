@@ -1,4 +1,4 @@
-import { dailyRounds, utcDay } from "../lib/daily";
+import { dailyHistory, dailyRounds, utcDay } from "../lib/daily";
 const locale = document.documentElement.lang === "ko" ? "ko" : "en";
 const ko = locale === "ko";
 for (const root of document.querySelectorAll<HTMLElement>(
@@ -31,6 +31,49 @@ for (const root of document.querySelectorAll<HTMLElement>(
           ? `오늘 ${complete} / ${entries.length}판 완료`
           : `Today: ${complete} / ${entries.length} rounds complete`;
     progress.hidden = false;
+    const history = dailyHistory(now);
+    const historyList = root.querySelector<HTMLOListElement>(
+      "[data-daily-history]",
+    )!;
+    const historySummary = root.querySelector<HTMLElement>(
+      "[data-daily-history-summary]",
+    )!;
+    let historyTotal = 0;
+    historyList.replaceChildren(
+      ...history.map(({ date: historyDate, results: historyResults }) => {
+        const completed = entries.filter(
+          ({ id, version }) => historyResults[id]?.version === version,
+        ).length;
+        historyTotal += completed;
+        const dateValue = new Date(`${historyDate}T00:00:00.000Z`);
+        const item = document.createElement("li");
+        item.className = "daily-history-day";
+        item.dataset.historyDay = historyDate;
+        item.setAttribute(
+          "aria-label",
+          ko
+            ? `${historyDate}: ${completed} / ${entries.length}판 완료`
+            : `${historyDate}: ${completed} of ${entries.length} challenges completed`,
+        );
+        const day = document.createElement("time");
+        day.className = "daily-history-label";
+        day.dateTime = historyDate;
+        day.textContent = `${new Intl.DateTimeFormat(locale, {
+          weekday: "short",
+          timeZone: "UTC",
+        }).format(dateValue)} ${Number(historyDate.slice(-2))}`;
+        const count = document.createElement("span");
+        count.className = "history-count";
+        count.textContent = `${completed}/${entries.length}`;
+        item.append(day, count);
+        return item;
+      }),
+    );
+    historySummary.textContent = ko
+      ? `최근 7일 ${historyTotal} / ${history.length * entries.length}판 완료`
+      : `Last 7 days: ${historyTotal} / ${history.length * entries.length} completed`;
+    historyList.hidden = false;
+    historySummary.hidden = false;
     for (const { id, version } of entries) {
       const card = root.querySelector<HTMLElement>(`[data-daily-card="${id}"]`);
       if (!card) continue;
