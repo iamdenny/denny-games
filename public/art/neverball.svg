@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="36" y1="14" x2="604" y2="390" gradientUnits="userSpaceOnUse"><stop stop-color="#203F58"/><stop offset="1" stop-color="#09141F"/></linearGradient>
+    <linearGradient id="track" x1="250" y1="150" x2="360" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#7E9AAA"/><stop offset="1" stop-color="#314957"/></linearGradient>
+    <radialGradient id="ball" cx="0" cy="0" r="1" gradientTransform="matrix(30 30 -30 30 238 172)" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF7D7"/><stop offset=".45" stop-color="#E9C36A"/><stop offset="1" stop-color="#8A5C32"/></radialGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/>
+  <circle cx="516" cy="114" r="72" fill="#25465A" opacity=".42"/>
+  <path d="M78 314 217 174h206l143 140-36 22H113l-35-22Z" fill="url(#track)" stroke="#A8C6CE" stroke-width="4"/>
+  <path d="m102 314 132-119h174l119 119M151 336l102-113h139l98 113M207 336l62-113h78l62 113" stroke="#7894A1" stroke-width="3" opacity=".75"/>
+  <path d="M216 174h208l45 43H176l40-43Z" fill="#87B8C0" opacity=".46"/>
+  <path d="m142 309 38-35 34 9-34 32m178-123 35 38 44-4-31-37" stroke="#E7F1D3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M497 175v-36h46v36m-35 0v-19h24v19" stroke="#FFD87A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="210" cy="247" r="12" fill="#FFD94A" stroke="#FFF0A1" stroke-width="4"/>
+  <circle cx="319" cy="211" r="12" fill="#FFD94A" stroke="#FFF0A1" stroke-width="4"/>
+  <circle cx="403" cy="270" r="12" fill="#FFD94A" stroke="#FFF0A1" stroke-width="4"/>
+  <path d="m213 141 26-26 26 26-26 26-26-26Z" fill="url(#ball)" stroke="#FFF2C7" stroke-width="3"/>
+  <path d="m237 136 17 10m-21 3 8 16m-23-35 3 17" stroke="#A97037" stroke-width="4" stroke-linecap="round"/>
+  <path d="M71 294 166 196m312 0 92 97" stroke="#57C9D0" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+  <text x="48" y="51" fill="#A8E7E5" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">TILT · ROLL · REACH THE GOAL</text>
+  <text x="48" y="372" fill="#F4F0E4" font-family="system-ui,sans-serif" font-size="35" font-weight="800" letter-spacing="2">NEVERBALL</text>
+</svg>

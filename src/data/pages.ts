@@ -192,18 +192,18 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "Denny Games offers " +
         games.length +
-        " browser-game listings in English and Korean. Most titles launch on Denny Games; fifteen classics open on independent browser hosts with different input, account and save behavior. The locally hosted catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, two original games and five classic board games.",
+        " browser-game listings in English and Korean. Most titles launch on Denny Games; seventeen classics open on independent browser hosts with different input, account and save behavior. The locally hosted catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, two original games and five classic board games.",
       sections: [
         {
           heading: "What can I play?",
           paragraphs: [
-            "Browse board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation collections. Each game has a detail page with its rules, controls, author and source. Freedoom, OpenTTD, SuperTux, NetHack, Freeciv, Umoria, Larn, Neo Angband, Dungeon Crawl: Stone Soup, Simon Tatham's Puzzles, The Powder Toy, HyperRogue, Tux, of Math Command, Sandspiel and Frozen Bubble 2: Fan Edition link to independent browser hosts; their builds are not embedded or redistributed here.",
+            "Browse board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation collections. Each game has a detail page with its rules, controls, author and source. Freedoom, OpenTTD, SuperTux, NetHack, Freeciv, Umoria, Larn, Neo Angband, Dungeon Crawl: Stone Soup, Simon Tatham's Puzzles, The Powder Toy, HyperRogue, Tux, of Math Command, Sandspiel, Frozen Bubble 2: Fan Edition, Neverball and HexGL link to independent browser hosts; their builds are not embedded or redistributed here.",
           ],
         },
         {
           heading: "Are free games also open source?",
           paragraphs: [
-            "Free-to-play and permission to redistribute are separate questions. The 191 ABA Games imports retain their MIT notices; Hextris and Bounce Back keep their GPL licenses and corresponding source. Hextris also publishes its bundled dependency notices. Fifteen classic titles are external links only: Denny Games does not copy their executables, game data or artwork. Other candidates stay unpublished until their code, assets and dependencies are reviewed. The catalogue does not include commercial console ROM collections. Authors retain their credits, and listing a game does not imply endorsement.",
+            "Free-to-play and permission to redistribute are separate questions. The 191 ABA Games imports retain their MIT notices; Hextris and Bounce Back keep their GPL licenses and corresponding source. Hextris also publishes its bundled dependency notices. Seventeen classic titles are external links only: Denny Games does not copy their executables, game data or artwork. Other candidates stay unpublished until their code, assets and dependencies are reviewed. The catalogue does not include commercial console ROM collections. Authors retain their credits, and listing a game does not imply endorsement.",
           ],
         },
         {
@@ -244,18 +244,18 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "데니 게임즈는 한국어와 영어로 제공하는 웹게임 " +
         games.length +
-        "개 게임 페이지를 제공합니다. 대부분은 데니 게임즈에서 실행하고, 고전 게임 15종은 입력·계정·저장 방식이 각기 다른 외부 브라우저 호스트에서 엽니다. 데니 게임즈 안에는 MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임 2개와 클래식 보드게임 5개가 있습니다.",
+        "개 게임 페이지를 제공합니다. 대부분은 데니 게임즈에서 실행하고, 고전 게임 17종은 입력·계정·저장 방식이 각기 다른 외부 브라우저 호스트에서 엽니다. 데니 게임즈 안에는 MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임 2개와 클래식 보드게임 5개가 있습니다.",
       sections: [
         {
           heading: "어떤 게임을 할 수 있나요?",
           paragraphs: [
-            "보드 · 퍼즐 · 아케이드 · 액션 · 슈팅 · 레이싱 · 스포츠 · 전략 · 로그라이크 · 시뮬레이션에서 골라보세요. 게임별 소개 페이지에 규칙 · 조작법 · 제작자 · 원본 소스를 안내합니다. Freedoom · OpenTTD · SuperTux · NetHack · Freeciv · Umoria · Larn · Neo Angband · Dungeon Crawl: Stone Soup · Simon Tatham's Puzzles · The Powder Toy · HyperRogue · Tux, of Math Command · Sandspiel · Frozen Bubble 2: Fan Edition은 독립 브라우저 호스트로 연결하며 실행물을 이 사이트에 넣지 않습니다.",
+            "보드 · 퍼즐 · 아케이드 · 액션 · 슈팅 · 레이싱 · 스포츠 · 전략 · 로그라이크 · 시뮬레이션에서 골라보세요. 게임별 소개 페이지에 규칙 · 조작법 · 제작자 · 원본 소스를 안내합니다. Freedoom · OpenTTD · SuperTux · NetHack · Freeciv · Umoria · Larn · Neo Angband · Dungeon Crawl: Stone Soup · Simon Tatham's Puzzles · The Powder Toy · HyperRogue · Tux, of Math Command · Sandspiel · Frozen Bubble 2: Fan Edition · Neverball · HexGL은 독립 브라우저 호스트로 연결하며 실행물을 이 사이트에 넣지 않습니다.",
           ],
         },
         {
           heading: "무료 게임이면 소스도 가져올 수 있나요?",
           paragraphs: [
-            "무료 플레이와 재배포 허용은 별개입니다. ABA Games 191개는 MIT 고지를, Hextris와 Bounce Back은 각 GPL 라이선스와 대응 소스를 제공합니다. Hextris 의존성 고지도 공개합니다. 고전 게임 15종은 외부 링크만 제공하며 실행 파일·게임 데이터·그림을 복사하지 않았습니다. 다른 후보는 코드·자산·의존성을 확인하기 전까지 공개하지 않습니다. 상용 콘솔 ROM 모음은 제공하지 않으며, 목록 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
+            "무료 플레이와 재배포 허용은 별개입니다. ABA Games 191개는 MIT 고지를, Hextris와 Bounce Back은 각 GPL 라이선스와 대응 소스를 제공합니다. Hextris 의존성 고지도 공개합니다. 고전 게임 17종은 외부 링크만 제공하며 실행 파일·게임 데이터·그림을 복사하지 않았습니다. 다른 후보는 코드·자산·의존성을 확인하기 전까지 공개하지 않습니다. 상용 콘솔 ROM 모음은 제공하지 않으며, 목록 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
           ],
         },
         {
