@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Original Denny Games illustration of a winding arcade snake">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10262b"/><stop offset="1" stop-color="#244b3d"/></linearGradient></defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/><path d="M36 34h568v332H36z" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+  <path d="M386 133h88q27 0 27 27v12q0 27-27 27h-91q-27 0-27 27v9q0 26 27 26h74" fill="none" stroke="#76e6a4" stroke-width="27" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="501" cy="132" r="26" fill="#8bf2ad"/><circle cx="509" cy="124" r="4" fill="#142d27"/><circle cx="509" cy="140" r="4" fill="#142d27"/><circle cx="555" cy="268" r="12" fill="#ffcc73"/>
+  <text x="72" y="173" fill="#fff" font-family="Arial,sans-serif" font-size="68" font-weight="800" letter-spacing="-3">SNAKE</text>
+  <text x="76" y="211" fill="#8bf2ad" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="3">EAT · GROW · TURN</text>
+  <text x="76" y="340" fill="#b7c9d7" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2">DENNY GAMES · SOURCE LINKED</text>
+</svg>
