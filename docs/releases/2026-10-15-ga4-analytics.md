@@ -18,7 +18,7 @@ read_when:
 
 ## Validation
 
-`npm run verify` passed: Astro check (0 errors; one existing hint in `tests/e2e/discovery.spec.ts`), 68 unit tests, docs checks and lint, 1,000-game scale fixture, 960-page build, output audit and SEO check. `npm run format:check` passed. The Google tag queue uses the documented `Arguments` command format, and consent changes synchronize across open tabs. `PLAYWRIGHT_PORT=4331 npm run test:e2e` passed all 515 browser tests, including three analytics consent scenarios. Property creation and stream configuration are separate from live event receipt; CI, production readback and GA4 Realtime receipt will be recorded after those gates complete.
+`npm run verify` passed: Astro check (0 errors; one existing hint in `tests/e2e/discovery.spec.ts`), 68 unit tests, docs checks and lint, 1,000-game scale fixture, 960-page build, output audit and SEO check. `npm run format:check` passed. The Google tag queue uses the documented `Arguments` command format, and consent changes synchronize across open tabs. `PLAYWRIGHT_PORT=4331 npm run test:e2e` passed all 515 browser tests, including three analytics consent scenarios. [Main deployment run 38719763637](https://github.com/iamdenny/denny-games/actions/runs/38719763637) passed its build, browser tests, Pages deploy and IndexNow jobs. Public `/ko/`, `/en/`, `/ko/privacy/` and `/en/privacy/` returned HTTP 200; `release.json` reported deployed SHA `bc0aa5da49954e86f435b45607ab12cf6277590e`. After analytics opt-in in a clean browser session, GA4 Realtime showed one active user and the `page_view`, `first_visit` and `session_start` events.
 
 ## Evidence
 
