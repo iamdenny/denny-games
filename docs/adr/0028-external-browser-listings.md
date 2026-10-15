@@ -13,7 +13,7 @@ Accepted — 2026-10-15.
 
 ## Context
 
-Nine classic open-source projects now have browser access through independent services or browser builds, but self-hosting their complete builds would add separate license obligations and host-specific runtime requirements. Some routes run in a browser; NetHack and Dungeon Crawl: Stone Soup use remote community servers. Denny Games must not present an external build or remote service as its own tested or supported game runtime.
+Fifteen classic open-source projects now have browser access through independent services or browser builds, but self-hosting their complete builds would add separate license obligations and host-specific runtime requirements. Some routes run in a browser; NetHack and Dungeon Crawl: Stone Soup use remote community servers. Frozen Bubble 2: Fan Edition is an independent rewrite inspired by the 2002 game and is not affiliated with its original project. Denny Games must not present an external build or remote service as its own tested or supported game runtime.
 
 ## Decision
 
@@ -27,4 +27,4 @@ The public catalogue count includes both Denny Games-hosted titles and external-
 
 ## Verification
 
-On 2026-10-15, all nine play URLs returned HTTP 200 to a GET request. This confirms URL reachability only; no full game session, mobile device, controller or Tesla browser was tested. Project and browser-port license information was checked against the linked sources and official project license pages. Recheck host availability and displayed requirements before a public release.
+On 2026-10-15, all fifteen play URLs returned HTTP 200 to a GET request. This confirms URL reachability only; no full game session, mobile device, controller or Tesla browser was tested. Project and browser-port license information was checked against the linked sources and official project license pages. Recheck host availability and displayed requirements before a public release.

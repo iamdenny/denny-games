@@ -7,11 +7,11 @@ read_when:
 
 # Open game inventory
 
-The public registry has 214 game pages: 205 games launch on Denny Games and nine classic open-source projects link to browser hosts outside this site. The external pages are Freedoom, OpenTTD, SuperTux, NetHack, Freeciv, Umoria, Larn, Neo Angband and Dungeon Crawl: Stone Soup. They are not Denny Games ports: no third-party build, game data, or screenshot is bundled, and there is no local `/play/{id}/` route. Their host, source, license information, reachability evidence and verification limits are recorded in `vendor/external-browser-listings.json`.
+The public registry has 220 game pages: 205 games launch on Denny Games and fifteen open-source projects link to browser hosts outside this site. The external pages are Freedoom, OpenTTD, SuperTux, NetHack, Freeciv, Umoria, Larn, Neo Angband, Dungeon Crawl: Stone Soup, Simon Tatham's Puzzles, The Powder Toy, HyperRogue, Tux, of Math Command, Sandspiel and Frozen Bubble 2: Fan Edition. They are not Denny Games ports: no third-party build, game data, or screenshot is bundled, and there is no local `/play/{id}/` route. Frozen Bubble 2: Fan Edition is an independent rewrite inspired by the 2002 game, not the original project's official site. Their host, source, license information, reachability evidence and verification limits are recorded in `vendor/external-browser-listings.json`.
 
 Each locally hosted import has English/Korean controls, a primary category, a fixed source commit, original notices and self-hosted files. External-link pages instead show the source project's license separately from the browser host and explain that account, controls, compatibility, sessions and saves follow that host. Gameplay and device support remain unverified until tested. Names remain the authors' original English names. In-canvas bitmap text remains upstream English; navigation and instructions are bilingual.
 
-The nine categories are board, puzzle, arcade, action, shooting, racing, sports, strategy and roguelike. They describe the main interaction, not an assertion that a miniature steering game is a full vehicle simulator. Counts are computed from the registry. No empty categories or placeholder games are published.
+The ten categories are board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation. They describe the main interaction, not an assertion that a miniature steering game is a full vehicle simulator. Counts are computed from the registry. No empty categories or placeholder games are published.
 
 ## Rights records
 
@@ -20,7 +20,7 @@ The nine categories are board, puzzle, arcade, action, shooting, racing, sports,
 - `vendor/bounceback/provenance.json`: pinned GPL-2.0-or-later source and hashes for Bounce Back, its tile sprite and title-screen image. `public/licenses/bounceback/` provides the full license and corresponding-source links.
 - `vendor/underrun/provenance.json`: pinned MIT source and hashes for UNDERRUN's game, level maps and texture; the modified Sonant-X module keeps its separate zlib notice. `public/licenses/underrun/` provides both notices and source links.
 - `vendor/hextris/provenance.json`: pinned GPL-3.0-or-later source and hashes for the full Hextris repository snapshot. `public/licenses/hextris/` includes the complete GPL license, MIT dependency notices and the Keypress Apache-2.0 license. The hosted adapter removes upstream ads, analytics, social popups and score reporting.
-- `vendor/external-browser-listings.json`: nine source-project/host pairs. HTTP GET reachability was checked; Denny Games does not claim that gameplay or device compatibility was tested. Link-only entries do not change the local import count or the port-required candidate dispositions.
+- `vendor/external-browser-listings.json`: fifteen source-project/host pairs. HTTP GET reachability was checked; Denny Games does not claim that gameplay or device compatibility was tested. Link-only entries do not change the local import count or the port-required candidate dispositions.
 - `vendor/catalogue-review.json`: a disposition for all 294 research entries. Integrated, port-required and rights-or-integration-review are distinct.
 - `scripts/build-crisp.mjs`: reproducible, checked runtime hooks. Original game source files are not rewritten.
 

@@ -13,6 +13,18 @@ const externalGames = [
   { id: "larn", url: "https://larn.org/" },
   { id: "neo-angband", url: "https://angband.rpgm.world/" },
   { id: "dcss", url: "https://crawl.nemelex.cards/" },
+  {
+    id: "simon-tatham-puzzles",
+    url: "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/",
+  },
+  { id: "powder-toy", url: "https://powdertoy.co.uk/Wasm.html" },
+  { id: "hyperrogue", url: "https://roguetemple.com/z/hyper/online.php" },
+  {
+    id: "tuxmath",
+    url: "https://tuxmath.org/game.html?opt_lang=en&opt_osk=1",
+  },
+  { id: "sandspiel", url: "https://sandspiel.club/" },
+  { id: "frozen-bubble", url: "https://dchau360.itch.io/frozenbubble2" },
 ];
 
 for (const locale of ["en", "ko"]) {

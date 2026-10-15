@@ -1,0 +1,531 @@
+import type { Game } from "./games";
+
+export const eraExternalGames: Game[] = [
+  {
+    id: "simon-tatham-puzzles",
+    category: "puzzle",
+    duration: "varies",
+    controlStyle: "pointer",
+    color: "mint",
+    version: 1,
+    stages: 0,
+    tags: [
+      "simon tatham puzzles",
+      "portable puzzle collection",
+      "logic puzzle collection",
+      "browser puzzle games",
+      "fifteen bridges net puzzles",
+      "시몬 태텀 퍼즐",
+      "포터블 퍼즐 모음",
+      "논리 퍼즐 모음",
+      "브라우저 퍼즐 게임",
+      "피프틴 브리지스 넷 퍼즐",
+    ],
+    inputs: ["mouse", "keyboard"],
+    license: "MIT · the browser games are part of the collection",
+    licenseUrl: "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/",
+    author: "Simon Tatham and puzzle contributors",
+    source: "https://git.tartarus.org/simon/puzzles.git",
+    externalPlay: {
+      url: "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/",
+      host: {
+        en: "Simon Tatham's official puzzle collection",
+        ko: "Simon Tatham 공식 퍼즐 모음",
+      },
+      note: {
+        en: "This is the collection author's site. Choose one of its browser puzzles to continue. The collection is distributed under the MIT License; its web version has no save-file feature, so keep a puzzle ID or seed if you want to reproduce a board. Denny Games has not verified each puzzle session or device.",
+        ko: "퍼즐 제작자의 공식 사이트입니다. 목록에서 브라우저 퍼즐을 골라 플레이하세요. 모음은 MIT 라이선스로 배포되며 웹 버전에는 저장 파일 기능이 없다고 안내합니다. 같은 보드를 다시 열려면 퍼즐 ID나 시드를 보관하세요. 데니 게임즈는 퍼즐별 플레이와 기기 호환성을 검증하지 않았습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/simon-tatham-puzzles.svg",
+    artworkAlt: {
+      en: "Original illustration of a logic grid with a path of colored puzzle tiles",
+      ko: "색색의 퍼즐 타일과 경로가 놓인 논리 격자 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Simon Tatham's Puzzles",
+        subtitle: "A collection of small, thoughtful challenges.",
+        description:
+          "Explore dozens of compact logic games, from Bridges and Fifteen to Net and Loopy. Each puzzle has its own rules and browser controls; the official collection is MIT-licensed and opens outside Denny Games.",
+        rules: [
+          "Choose a puzzle from the collection. Its Help menu explains the specific goal and rules.",
+          "Start a new board or enter a game ID or random seed to revisit a puzzle.",
+          "The browser pages do not save puzzle files. Copy the ID or seed before leaving if you want to return to the same board.",
+        ],
+        controls: [
+          "Mouse: click the board and the controls shown by the selected puzzle.",
+          "Keyboard: use the selected puzzle's Help menu for its key bindings.",
+          "The linked pages are hosted by the collection author. Denny Games has not verified every puzzle or device.",
+        ],
+        tips: [
+          "Try a small puzzle such as Fifteen or Bridges to learn the interface.",
+          "Open Help before starting; the collection contains many different rule sets.",
+          "Copy the puzzle ID or random seed when you want to share a specific board.",
+        ],
+      },
+      ko: {
+        title: "Simon Tatham's Puzzles",
+        subtitle: "짧게 즐기는 논리 퍼즐 모음.",
+        description:
+          "Bridges와 Fifteen부터 Net, Loopy까지 간결한 논리 게임을 골라보세요. 퍼즐마다 규칙과 브라우저 조작법이 다릅니다. 공식 모음은 MIT 라이선스이며 데니 게임즈 외부에서 열립니다.",
+        rules: [
+          "목록에서 퍼즐을 선택하세요. 해당 게임의 Help 메뉴에서 목표와 규칙을 확인할 수 있습니다.",
+          "새 보드를 만들거나 게임 ID·무작위 시드를 입력해 같은 퍼즐을 다시 열 수 있습니다.",
+          "브라우저 페이지는 퍼즐 파일을 저장하지 않습니다. 같은 보드로 돌아오려면 떠나기 전에 ID나 시드를 복사하세요.",
+        ],
+        controls: [
+          "마우스: 보드와 선택한 퍼즐에 표시된 조작 요소를 누르세요.",
+          "키보드: 선택한 퍼즐의 Help 메뉴에서 키 배치를 확인하세요.",
+          "연결된 페이지는 퍼즐 제작자가 운영합니다. 데니 게임즈는 모든 퍼즐과 기기 호환성을 검증하지 않았습니다.",
+        ],
+        tips: [
+          "처음에는 Fifteen이나 Bridges처럼 작은 퍼즐부터 익혀보세요.",
+          "규칙이 서로 다르므로 시작하기 전에 Help를 읽어보세요.",
+          "특정 보드를 공유하려면 퍼즐 ID나 무작위 시드를 복사하세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "powder-toy",
+    category: "simulation",
+    duration: "varies",
+    controlStyle: "pointer",
+    color: "rust",
+    version: 1,
+    stages: 0,
+    tags: [
+      "the powder toy",
+      "falling sand game",
+      "particle physics sandbox",
+      "chemistry sandbox",
+      "webassembly sandbox",
+      "더 파우더 토이",
+      "낙하 모래 게임",
+      "입자 물리 샌드박스",
+      "화학 샌드박스",
+      "웹어셈블리 샌드박스",
+    ],
+    inputs: ["mouse", "keyboard"],
+    license: "GPL-3.0 · some bundled components have separate terms",
+    licenseUrl:
+      "https://github.com/The-Powder-Toy/The-Powder-Toy/blob/master/LICENSE",
+    author: "The Powder Toy contributors",
+    source: "https://github.com/The-Powder-Toy/The-Powder-Toy",
+    externalPlay: {
+      url: "https://powdertoy.co.uk/Wasm.html",
+      host: {
+        en: "Official The Powder Toy WebAssembly build",
+        ko: "The Powder Toy 공식 WebAssembly 빌드",
+      },
+      note: {
+        en: "This WebAssembly build is hosted by The Powder Toy project. The game code is GPL-3.0; account and community-save features follow the project's own site. Denny Games does not host the build or receive account data, and has not verified gameplay or device compatibility.",
+        ko: "The Powder Toy 프로젝트가 WebAssembly 빌드를 직접 호스팅합니다. 게임 코드는 GPL-3.0이며 계정과 커뮤니티 저장 기능은 프로젝트 사이트의 조건을 따릅니다. 데니 게임즈는 빌드를 호스팅하거나 계정 정보를 받지 않으며 실제 플레이와 기기 호환성을 검증하지 않았습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/powder-toy.svg",
+    artworkAlt: {
+      en: "Original illustration of colorful particles reacting inside a physics sandbox",
+      ko: "물리 샌드박스에서 반응하는 다채로운 입자 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "The Powder Toy",
+        subtitle: "Mix materials. Watch the physics unfold.",
+        description:
+          "Draw sand, water, fire, gases and other materials, then watch pressure, heat and reactions reshape the scene. The GPL-3.0 physics sandbox has an official WebAssembly build on its own site.",
+        rules: [
+          "Choose an element and draw it into the simulation; materials move and react according to their properties.",
+          "Pause, erase, adjust the brush and combine elements to build a small experiment.",
+          "There is no fixed level or score. Save sharing and account features belong to The Powder Toy host.",
+        ],
+        controls: [
+          "Mouse: left-click draws, right-click erases and the wheel changes brush size.",
+          "Keyboard: Space pauses or resumes the simulation.",
+          "This official web build opens on the project's host. Denny Games has not verified its save flow or device behavior.",
+        ],
+        tips: [
+          "Start with a few materials and observe what happens at their boundaries.",
+          "Pause before adjusting a busy scene so you can inspect each interaction.",
+          "The host's community saves and account rules are separate from Denny Games.",
+        ],
+      },
+      ko: {
+        title: "The Powder Toy",
+        subtitle: "재료를 섞고 물리 반응을 지켜보세요.",
+        description:
+          "모래·물·불·기체를 그려 넣고 압력·열·반응에 따라 장면이 바뀌는 모습을 관찰하세요. GPL-3.0 물리 샌드박스를 프로젝트의 공식 WebAssembly 빌드로 실행할 수 있습니다.",
+        rules: [
+          "재료를 골라 화면에 그리세요. 재료는 각자 특성에 따라 움직이고 반응합니다.",
+          "일시정지·지우개·붓 크기를 조절하며 재료를 섞어 작은 실험을 만들어보세요.",
+          "정해진 스테이지나 점수는 없습니다. 저장 공유와 계정 기능은 The Powder Toy 호스트가 관리합니다.",
+        ],
+        controls: [
+          "마우스: 왼쪽 클릭은 그리기, 오른쪽 클릭은 지우기, 휠은 붓 크기를 조절합니다.",
+          "키보드: Space로 시뮬레이션을 멈추거나 다시 실행합니다.",
+          "공식 웹 빌드는 프로젝트 호스트에서 열립니다. 데니 게임즈는 저장 흐름과 기기 동작을 검증하지 않았습니다.",
+        ],
+        tips: [
+          "처음에는 재료 몇 개만 놓고 경계에서 어떤 반응이 생기는지 살펴보세요.",
+          "복잡한 장면을 조정하기 전에 일시정지하면 반응을 관찰하기 쉽습니다.",
+          "호스트의 커뮤니티 저장과 계정 규칙은 데니 게임즈와 별개입니다.",
+        ],
+      },
+    },
+  },
+  {
+    id: "hyperrogue",
+    category: "roguelike",
+    duration: "varies",
+    controlStyle: "directional",
+    color: "yellow",
+    version: 1,
+    stages: 0,
+    tags: [
+      "hyperrogue",
+      "non euclidean roguelike",
+      "hyperbolic geometry game",
+      "turn based dungeon game",
+      "webassembly roguelike",
+      "하이퍼로그",
+      "비유클리드 로그라이크",
+      "쌍곡기하학 게임",
+      "턴제 던전 게임",
+      "웹어셈블리 로그라이크",
+    ],
+    inputs: ["keyboard"],
+    license: "GPL-2.0 · third-party components may have separate terms",
+    licenseUrl: "https://github.com/zenorogue/hyperrogue/blob/master/COPYING",
+    author: "Zeno Rogue",
+    source: "https://github.com/zenorogue/hyperrogue",
+    externalPlay: {
+      url: "https://roguetemple.com/z/hyper/online.php",
+      host: {
+        en: "HyperRogue developer's WebAssembly demo",
+        ko: "HyperRogue 개발자 WebAssembly 데모",
+      },
+      note: {
+        en: "The game developer hosts this Emscripten browser demo. The page describes it as a reduced online demo; the downloadable version has more features and local-save options. Denny Games has not verified a full run, save behavior or device compatibility.",
+        ko: "게임 개발자가 Emscripten 브라우저 데모를 호스팅합니다. 웹 페이지는 온라인 버전을 축소 데모로 설명하며 다운로드 버전에는 더 많은 기능과 로컬 저장 옵션이 있다고 안내합니다. 데니 게임즈는 전체 플레이·저장 방식·기기 호환성을 검증하지 않았습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/hyperrogue.svg",
+    artworkAlt: {
+      en: "Original illustration of a traveler crossing a repeating hyperbolic tile world",
+      ko: "반복되는 쌍곡 타일 세계를 걷는 탐험가 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "HyperRogue",
+        subtitle: "A roguelike where the map bends in impossible ways.",
+        description:
+          "Explore a turn-based roguelike built around hyperbolic geometry. Its official Emscripten demo lets you move through a world that expands differently from an ordinary square-grid dungeon.",
+        rules: [
+          "Move one turn at a time through a hyperbolic world and watch how nearby paths branch and repeat.",
+          "Collect treasure and use the game's help to learn the lands, enemies and special rules as you go.",
+          "A run can end permanently. The browser page is a reduced demo; its available features differ from the downloadable game.",
+        ],
+        controls: [
+          "Keyboard: follow the game help for movement and actions; the exact bindings depend on the selected configuration.",
+          "The developer's browser demo has fewer features than the downloadable version.",
+          "Denny Games has not verified a full run, save behavior or physical-device support.",
+        ],
+        tips: [
+          "Read the in-game help before entering a new land.",
+          "Think about the surrounding geometry before stepping toward a group of enemies.",
+          "Use the downloadable version if you need the additional modes or local-save options listed by the developer.",
+        ],
+      },
+      ko: {
+        title: "HyperRogue",
+        subtitle: "일반적인 격자와 다르게 휘어지는 로그라이크 세계.",
+        description:
+          "쌍곡기하학을 바탕으로 만든 턴제 로그라이크를 탐험하세요. 공식 Emscripten 데모에서 주변 경로가 평범한 사각 격자와 다르게 펼쳐지는 세계를 걸어볼 수 있습니다.",
+        rules: [
+          "한 턴씩 쌍곡 세계를 이동하며 주변 경로가 어떻게 갈라지고 반복되는지 살펴보세요.",
+          "보물을 모으고 게임 도움말을 따라 땅·적·특수 규칙을 익히세요.",
+          "모험은 영구히 끝날 수 있습니다. 브라우저 페이지는 축소 데모이며 다운로드 게임과 기능이 다릅니다.",
+        ],
+        controls: [
+          "키보드: 이동과 행동 키는 게임 안 도움말을 확인하세요. 설정에 따라 키 배치가 다를 수 있습니다.",
+          "개발자의 브라우저 데모는 다운로드 버전보다 기능이 적습니다.",
+          "데니 게임즈는 전체 플레이·저장 방식·실물 기기 지원을 검증하지 않았습니다.",
+        ],
+        tips: [
+          "새로운 땅에 들어가기 전에 게임 안 도움말을 읽어보세요.",
+          "적 무리 쪽으로 움직이기 전에 주변의 기하 구조와 이동 경로를 살펴보세요.",
+          "개발자가 안내한 추가 모드나 로컬 저장이 필요하면 다운로드 버전을 확인하세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "tuxmath",
+    category: "arcade",
+    duration: "varies",
+    controlStyle: "numbers",
+    color: "mint",
+    version: 1,
+    stages: 0,
+    tags: [
+      "tuxmath",
+      "tux of math command",
+      "math arcade game",
+      "arithmetic shooter",
+      "browser math game",
+      "턱스매스",
+      "턱스 수학 게임",
+      "수학 아케이드 게임",
+      "암산 슈팅 게임",
+      "브라우저 수학 게임",
+    ],
+    inputs: ["touch", "keyboard"],
+    license:
+      "GPL-3.0-or-later program · source files and game data have per-file GPL/CC/BSD-like terms",
+    licenseUrl: "https://github.com/tux4kids/tuxmath/blob/master/COPYING",
+    author: "Tux4Kids · Afrikalan browser adaptation",
+    source: "https://github.com/tux4kids/tuxmath",
+    externalPlay: {
+      url: "https://tuxmath.org/game.html?opt_lang=en&opt_osk=1",
+      host: {
+        en: "Afrikalan TuxMath JavaScript browser version",
+        ko: "Afrikalan TuxMath JavaScript 브라우저 버전",
+      },
+      note: {
+        en: "This is an Afrikalan browser adaptation of the TuxMath project, not a Denny Games build. The link starts in English with its on-screen answer keypad enabled. The game code and original data contain separately documented open licenses. Denny Games has not verified every level or physical device.",
+        ko: "TuxMath 프로젝트를 Afrikalan이 브라우저용으로 옮긴 버전이며 데니 게임즈 빌드는 아닙니다. 연결 주소는 영어와 화면 숫자 키패드를 켠 상태로 시작합니다. 게임 코드와 원본 자료에는 각각 별도 오픈 라이선스가 안내되어 있습니다. 데니 게임즈는 모든 레벨과 실물 기기를 검증하지 않았습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/tuxmath.svg",
+    artworkAlt: {
+      en: "Original illustration of an arithmetic answer firing at a falling comet",
+      ko: "떨어지는 혜성에 산수 답을 발사하는 장면의 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Tux, of Math Command",
+        subtitle: "Solve the sum. Fire the answer.",
+        description:
+          "Turn arithmetic into an arcade challenge: solve a falling equation and enter its answer before a comet reaches the ground. The open-source TuxMath game has an Afrikalan JavaScript version for browsers and touch screens.",
+        rules: [
+          "Choose an arithmetic activity, then read the equation on each falling comet.",
+          "Enter the correct answer to fire the laser and protect the penguins below.",
+          "A wrong answer can send the shot off course. The browser version also offers an on-screen number pad.",
+        ],
+        controls: [
+          "Touch: use the on-screen answer keypad enabled by this link.",
+          "Keyboard: type the answer and press Enter.",
+          "The game content opens in English. Denny Games has not tested every level or physical device.",
+        ],
+        tips: [
+          "Read each falling equation before entering an answer.",
+          "Answer carefully; a wrong result may send your shot in the wrong direction.",
+          "Choose a practice level that matches the arithmetic you want to work on.",
+        ],
+      },
+      ko: {
+        title: "Tux, of Math Command",
+        subtitle: "계산하고 정답을 발사하세요.",
+        description:
+          "떨어지는 식을 풀어 땅에 닿기 전에 정답을 입력하는 아케이드 게임입니다. 오픈소스 TuxMath를 Afrikalan이 JavaScript로 옮겨 브라우저와 터치 화면에서 실행합니다.",
+        rules: [
+          "산수 활동을 고르고 혜성에 표시된 식을 읽으세요.",
+          "정답을 입력해 레이저를 발사하고 아래의 펭귄을 지켜주세요.",
+          "틀린 답은 빗나간 방향으로 발사될 수 있습니다. 브라우저 버전은 화면 숫자 키패드도 제공합니다.",
+        ],
+        controls: [
+          "터치: 연결 주소에서 켠 화면 숫자 키패드로 답을 입력하세요.",
+          "키보드: 답을 입력하고 Enter를 누르세요.",
+          "게임 화면은 영어로 열립니다. 데니 게임즈는 모든 레벨과 실물 기기를 시험하지 않았습니다.",
+        ],
+        tips: [
+          "정답을 입력하기 전에 떨어지는 식을 끝까지 읽어보세요.",
+          "틀린 답은 발사 방향을 바꿀 수 있으니 계산을 확인하세요.",
+          "연습하고 싶은 계산에 맞는 레벨을 선택하세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "sandspiel",
+    category: "simulation",
+    duration: "varies",
+    controlStyle: "pointer",
+    color: "yellow",
+    version: 1,
+    stages: 0,
+    tags: [
+      "sandspiel",
+      "cellular automata game",
+      "falling sand sandbox",
+      "webassembly webgl game",
+      "creative physics sandbox",
+      "샌드슈필",
+      "셀룰러 오토마타 게임",
+      "낙하 모래 샌드박스",
+      "웹어셈블리 웹지엘 게임",
+      "창작 물리 샌드박스",
+    ],
+    inputs: ["touch", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://github.com/MaxBittker/sandspiel/blob/master/LICENSE",
+    author: "Max Bittker and Sandspiel contributors",
+    source: "https://github.com/MaxBittker/sandspiel",
+    externalPlay: {
+      url: "https://sandspiel.club/",
+      host: {
+        en: "Sandspiel official browser game",
+        ko: "Sandspiel 공식 브라우저 게임",
+      },
+      note: {
+        en: "Sandspiel's official host runs its Rust/WebAssembly and WebGL game and provides a community for sharing creations. The MIT-licensed source is linked separately; the host's privacy, sharing and any account behavior remain its own. Denny Games has not verified saved creations or device compatibility.",
+        ko: "Sandspiel 공식 호스트에서 Rust/WebAssembly·WebGL 게임과 창작물 공유 커뮤니티를 제공합니다. MIT 라이선스 소스는 별도로 연결했습니다. 개인정보·공유·계정 처리는 호스트가 담당합니다. 데니 게임즈는 창작물 저장과 기기 호환성을 검증하지 않았습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/sandspiel.svg",
+    artworkAlt: {
+      en: "Original illustration of sand, water, plants and fire inside a pixel sandbox",
+      ko: "픽셀 샌드박스에서 모래·물·식물·불이 흐르는 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Sandspiel",
+        subtitle: "Paint a tiny world and watch it change.",
+        description:
+          "Draw materials such as sand, water, plants, fire and lava into a living pixel canvas. Sandspiel is an MIT-licensed Rust/WebAssembly and WebGL sandbox that runs on the developer's own site and supports touch play.",
+        rules: [
+          "Pick a material and paint or drag across the canvas to place it.",
+          "Combine elements and observe how they move and react in the cellular simulation.",
+          "There is no score or final level. Sharing and community features belong to the external host.",
+        ],
+        controls: [
+          "Touch: tap or drag on the canvas to place the selected material.",
+          "Mouse: click or drag to paint; choose another material from the toolbar.",
+          "The official game opens in a new tab. Denny Games has not verified saved creations or physical-device support.",
+        ],
+        tips: [
+          "Begin with sand, water and a plant to see how different materials move.",
+          "Add fire or lava in a small area and watch the simulation spread each reaction.",
+          "Review the host's sharing and privacy details before posting a creation.",
+        ],
+      },
+      ko: {
+        title: "Sandspiel",
+        subtitle: "작은 세계를 그리고 변화를 지켜보세요.",
+        description:
+          "모래·물·식물·불·용암을 픽셀 캔버스에 그려 살아 움직이는 세계를 만들어보세요. MIT 라이선스 Rust/WebAssembly·WebGL 샌드박스이며 개발자 사이트에서 터치로 즐길 수 있습니다.",
+        rules: [
+          "재료를 고른 뒤 캔버스를 누르거나 드래그해 배치하세요.",
+          "요소를 조합하고 셀룰러 시뮬레이션에서 움직임과 반응을 살펴보세요.",
+          "점수나 마지막 스테이지는 없습니다. 공유와 커뮤니티 기능은 외부 호스트가 관리합니다.",
+        ],
+        controls: [
+          "터치: 캔버스를 누르거나 드래그해 선택한 재료를 놓으세요.",
+          "마우스: 클릭·드래그로 그리고 도구 막대에서 재료를 바꾸세요.",
+          "공식 게임은 새 탭에서 열립니다. 데니 게임즈는 저장한 창작물과 실물 기기 지원을 검증하지 않았습니다.",
+        ],
+        tips: [
+          "모래·물·식물부터 놓고 재료마다 움직임이 다른 모습을 보세요.",
+          "작은 영역에 불이나 용암을 더해 반응이 번지는 모습을 관찰하세요.",
+          "창작물을 게시하기 전에 호스트의 공유·개인정보 안내를 확인하세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "frozen-bubble",
+    category: "puzzle",
+    duration: "varies",
+    controlStyle: "pointer",
+    color: "mint",
+    version: 1,
+    stages: 0,
+    tags: [
+      "frozen bubble",
+      "frozen bubble 2",
+      "bubble shooter",
+      "bubble puzzle",
+      "browser bubble shooter",
+      "frozen bubble fan edition",
+      "프로즌 버블",
+      "프로즌 버블 2",
+      "버블 슈터",
+      "버블 퍼즐",
+      "브라우저 버블 슈터",
+      "프로즌 버블 팬 에디션",
+    ],
+    inputs: ["touch", "mouse", "keyboard", "gamepad"],
+    license: "GPL-2.0 · third-party components have separate terms",
+    licenseUrl:
+      "https://github.com/dchau360/frozen-bubble-sdl3/blob/main/COPYING",
+    author: "dchau360 · original Frozen Bubble by Guillaume Cottenceau et al.",
+    source: "https://github.com/dchau360/frozen-bubble-sdl3",
+    externalPlay: {
+      url: "https://dchau360.itch.io/frozenbubble2",
+      host: {
+        en: "Frozen Bubble 2: Fan Edition browser build on itch.io",
+        ko: "itch.io의 Frozen Bubble 2: Fan Edition 브라우저 빌드",
+      },
+      note: {
+        en: "This is an independent C++/SDL3 rewrite inspired by the 2002 Frozen Bubble 2, not the original project's official site or an endorsed release. The port is GPL-2.0; its source lists separate terms for third-party components. Browser saves and any multiplayer server or chat are handled by the external build and host. Denny Games has not verified a full game session or device compatibility.",
+        ko: "2002년 Frozen Bubble 2를 바탕으로 C++/SDL3로 다시 만든 독립판이며 원작 프로젝트의 공식 사이트나 보증판이 아닙니다. 포트는 GPL-2.0이고 소스에서 제3자 구성요소의 별도 조건을 안내합니다. 브라우저 저장과 멀티플레이 서버·채팅은 외부 빌드와 호스트가 관리합니다. 데니 게임즈는 전체 플레이나 기기 호환성을 검증하지 않았습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/frozen-bubble.svg",
+    artworkAlt: {
+      en: "Original illustration of a launcher aiming colorful bubbles into a frozen puzzle grid",
+      ko: "색색의 버블을 얼음 퍼즐 격자에 쏘는 발사대 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Frozen Bubble 2: Fan Edition",
+        subtitle: "Line up a shot. Pop a chain. Clear the board.",
+        description:
+          "Aim and fire colored bubbles to match groups and trigger chain reactions in this independent browser port inspired by the 2002 Frozen Bubble 2. The community rewrite adds current browser and multiplayer builds under GPL-2.0; it is not affiliated with the original project.",
+        rules: [
+          "Aim the launcher and fire a bubble toward matching colors on the board.",
+          "Groups of three or more matching bubbles pop; bubbles no longer attached to the ceiling can fall too.",
+          "In single-player mode, clear each level before the remaining bubbles reach the launcher. Multiplayer modes use the external server's room rules.",
+        ],
+        controls: [
+          "Keyboard: Left/Right aim; Up or Space fires.",
+          "Mouse: move to aim and click to fire.",
+          "Touch: tap or drag to aim, then tap the center or a target to fire. The host also documents gamepad support; Denny Games has not tested it on a physical device.",
+        ],
+        tips: [
+          "Look for a shot that connects to a larger group of the same color.",
+          "Try a wall bounce when a direct path is blocked.",
+          "The fan edition opens on itch.io; review its external host and multiplayer details before joining a room.",
+        ],
+      },
+      ko: {
+        title: "Frozen Bubble 2: Fan Edition",
+        subtitle: "각도를 맞춰 쏘고 연쇄로 보드를 비우세요.",
+        description:
+          "같은 색 버블을 맞춰 연쇄 반응을 만드는 2002년 Frozen Bubble 2 기반의 독립 브라우저 포트입니다. 커뮤니티가 GPL-2.0으로 새로 작성해 브라우저·멀티플레이 빌드를 제공하며 원작 프로젝트와 제휴하지 않았습니다.",
+        rules: [
+          "발사대의 각도를 맞춰 보드의 같은 색 버블을 향해 쏘세요.",
+          "같은 색 버블이 세 개 이상 모이면 터집니다. 천장에 연결되지 않은 버블도 떨어집니다.",
+          "싱글 플레이에서는 남은 버블이 발사대에 닿기 전에 레벨을 비우세요. 멀티플레이는 외부 서버의 방 규칙을 따릅니다.",
+        ],
+        controls: [
+          "키보드: 왼쪽·오른쪽 화살표로 조준하고 위쪽 화살표나 Space로 발사합니다.",
+          "마우스: 움직여 조준하고 클릭해 발사합니다.",
+          "터치: 누르거나 드래그해 조준한 뒤 중앙이나 목표를 눌러 발사합니다. 호스트는 게임패드도 안내하지만 데니 게임즈는 실물 패드에서 시험하지 않았습니다.",
+        ],
+        tips: [
+          "같은 색의 큰 무리에 닿도록 경로를 살펴보세요.",
+          "직선 경로가 막혔다면 벽에 튕기는 각도를 시도해보세요.",
+          "팬 에디션은 itch.io에서 열립니다. 방에 참여하기 전에 외부 호스트와 멀티플레이 안내를 확인하세요.",
+        ],
+      },
+    },
+  },
+];

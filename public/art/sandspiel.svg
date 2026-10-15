@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs><linearGradient id="bg" x1="32" y1="12" x2="606" y2="392" gradientUnits="userSpaceOnUse"><stop stop-color="#202638"/><stop offset="1" stop-color="#080B12"/></linearGradient></defs>
+  <rect width="640" height="400" rx="28" fill="url(#bg)"/>
+  <rect x="86" y="77" width="468" height="248" rx="12" fill="#111923" stroke="#50616B" stroke-width="3"/>
+  <path d="M110 277h420" stroke="#394852" stroke-width="3"/>
+  <path d="m158 255 17-18 18 18-18 18zm32-19 17-18 18 18-18 18zm32 19 17-18 18 18-18 18zm-47 31 17-18 18 18-18 18zm100-38 17-18 18 18-18 18zm31 21 17-18 18 18-18 18z" fill="#E7C265"/>
+  <path d="M310 213c27-20 49-4 50 18 1 24-25 31-43 14-18-17-31-12-34 2" stroke="#67B8CF" stroke-width="14" stroke-linecap="round"/>
+  <path d="M420 269c7-37 38-42 49-15 10 25-12 41-31 25-17-14-13-38 7-45" stroke="#65BC80" stroke-width="8" stroke-linecap="round"/>
+  <path d="M449 197c-17 11-18 31-1 41 15-7 20-25 1-41Z" fill="#75C88D" stroke="#C5F4BD" stroke-width="3"/>
+  <path d="m477 180 5-13m9 20 12-7m-18 18 13 7" stroke="#F7AB68" stroke-width="5" stroke-linecap="round"/>
+  <text x="48" y="51" fill="#A7F0E6" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">PIXELS · MATERIALS · CREATION</text>
+  <text x="48" y="366" fill="#F5F2E9" font-family="system-ui,sans-serif" font-size="35" font-weight="800" letter-spacing="1">SANDSPIEL</text>
+</svg>

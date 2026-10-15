@@ -3,6 +3,7 @@ import crisp from "./crisp.json" with { type: "json" };
 import { crispCycleGames } from "./crisp-cycles";
 import { boardGames } from "./board-games";
 import { editorialOrder } from "./editorial";
+import { eraExternalGames } from "./external-browser-additions";
 import type { ControlStyle } from "./collections";
 export const categories = [
   "board",
@@ -14,6 +15,7 @@ export const categories = [
   "sports",
   "strategy",
   "roguelike",
+  "simulation",
 ] as const;
 export type Category = (typeof categories)[number];
 export interface GameCopy {
@@ -491,6 +493,7 @@ games.push(
         sports: "rust",
         strategy: "rust",
         roguelike: "yellow",
+        simulation: "rust",
       } as const
     )[item.category as Category],
     version: 1,
@@ -1382,7 +1385,7 @@ const externalBrowserGames: Game[] = [
     },
   },
 ];
-games.push(...externalBrowserGames);
+games.push(...externalBrowserGames, ...eraExternalGames);
 // Scale fixtures are local/CI-only and never part of a normal production build.
 if (import.meta.env?.SCALE_TEST === "1") {
   const originals = [...games];
