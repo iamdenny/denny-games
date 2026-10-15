@@ -66,7 +66,7 @@ Use 12 explicit editor picks with bilingual reasons based on screen/rule review.
 | F11 honest compatibility | compatibility and diagnostic pages |
 | F12–F13 ads | ad config/adapter, failure recovery tests |
 | F14 SEO/GEO | static editorial HTML, canonical/hreflang/sitemap |
-| F15 observability | local event ring and CustomEvent, diagnostics; no unapproved remote telemetry |
+| F15 observability | local gameplay event ring and diagnostics; opt-in GA4 page views only; no query strings or gameplay events sent remotely |
 | F19 scale | typed registry, real pagination, 1,000-entry build fixture |
 | F20 mobile | responsive browser tests; physical-device signoff pending |
 | F21 slots | shared component, no display slots in play |

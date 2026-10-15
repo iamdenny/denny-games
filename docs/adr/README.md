@@ -40,3 +40,4 @@
 - [0029 — Quick game discovery and replay](0029-quick-play-and-replay.md) — Accepted.
 
 - [0030 — Daily completion and return](0030-daily-completion-and-return.md) — Accepted.
+- [0031 — Opt-in GA4 page views](0031-opt-in-ga4-page-views.md) — Accepted.

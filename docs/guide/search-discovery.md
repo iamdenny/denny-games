@@ -37,10 +37,12 @@ An HTTP 200 or 202 is recorded only as a submission receipt. HTTP 202 can mean t
 3. For Korean discovery, add the exact host in Naver Search Advisor, verify ownership and submit the sitemap. Keep existing tools/modutt properties untouched.
 4. Record observed indexed URLs, search impressions/clicks and Bing AI Performance citations only when dashboards show them. A submitted sitemap, successful fetch, indexed page, ranking and AI citation are different states. Do not promise timing or rank.
 
-No analytics provider was added. Existing privacy disclosures remain accurate. If analytics is introduced, document provider, consent and data collection before enabling it.
+Optional GA4 page-view measurement is enabled only after an explicit local consent choice. The tag strips query strings and fragments, keeps cookies on the games subdomain for up to 60 days, disables Google Signals and enhanced measurement, and does not send search terms, form text, account identifiers, game inputs, scores or gameplay events. The privacy page describes the data and offers a way to change the choice; local and declined sessions load no Google tag.
 
 ## Primary guidance
 
+- [Google tag setup](https://developers.google.com/tag-platform/gtagjs): install the tag on measured pages and verify its requests. The site loads its tag only after an explicit analytics choice.
+- [Google tag privacy](https://developers.google.com/tag-platform/security/guides/privacy): disable analytics sending after a visitor withdraws their choice.
 - [Google AI features and your website](https://developers.google.com/search/docs/appearance/ai-features): existing SEO and accessible textual content remain relevant; special AI files/schema are unnecessary and inclusion is not guaranteed.
 - [Google localized versions](https://developers.google.com/search/docs/specialty/international/localized-versions): reciprocal alternate language URLs.
 - [Google pagination](https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading): links must be crawlable.
@@ -48,7 +50,7 @@ No analytics provider was added. Existing privacy disclosures remain accurate. I
 - [Bing webmaster guidelines](https://www.bing.com/webmasters/help/bing-webmaster-guidelines-30fba23a): discovery and content clarity support search and AI eligibility.
 - [Bing AI Performance](https://www.bing.com/webmasters/help/ai-performance-9f8e7d6c): use dashboard citation evidence when available.
 
-Reviewed 2026-10-11. Deployment and actual submission receipts belong in release evidence, not predictions in this guide.
+Reviewed 2026-10-15. Deployment and actual submission receipts belong in release evidence, not predictions in this guide.
 
 ## Play-style discovery release
 

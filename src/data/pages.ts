@@ -349,10 +349,17 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "Hosting and diagnostics",
           paragraphs: [
             "GitHub Pages serves this site and may process visitor IP addresses for its operation and security. Input diagnosis displays device data locally; it is not uploaded by our code.",
-            "Gameplay events are kept in a short in-memory list and emitted as browser CustomEvents. No remote analytics service is configured.",
+            "Gameplay events are kept in a short in-memory list and emitted as browser CustomEvents. These game events are not sent to analytics.",
             "Selected classic-game links leave Denny Games for external hosts. Those providers may process browser data, use accounts or store remote game sessions under their own policies. Denny Games does not receive those credentials or sessions; review each host's privacy information before continuing.",
             "The device checklist keeps entered observations in the current form only and generates a local JSON download. It does not upload or automatically store the report; reloading clears the fields. Do not include personal identifiers.",
             "Bug, rights and partnership inquiries use GitHub Issues. Issues and replies are public and handled by GitHub under its privacy statement. Do not post confidential business terms, credentials or private contact details; share a business contact only if you agree to publish it.",
+          ],
+        },
+        {
+          heading: "Optional analytics",
+          paragraphs: [
+            "If you allow analytics, this site loads Google Analytics 4 and sends page views, the page title and path, the referring site's origin, and standard browser/device information used to estimate a broad region. Query strings and fragments are removed. Denny Games does not send typed search terms, form text, account identifiers, game inputs, scores or gameplay events.",
+            "The analytics tag uses cookies scoped to games.iamdenny.com for up to 60 days. Google processes the data under its own terms and privacy policy. Your choice is saved in this browser and can be changed at any time below.",
           ],
         },
         {
@@ -380,10 +387,17 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "호스팅과 진단",
           paragraphs: [
             "GitHub Pages가 사이트를 제공하며 운영·보안을 위해 방문 IP 등을 처리할 수 있습니다. 입력 진단의 기기 정보는 이 화면에만 표시되고 사이트 코드가 업로드하지 않습니다.",
-            "게임 이벤트는 짧은 메모리 목록과 브라우저 CustomEvent로만 기록합니다. 원격 분석 서비스는 연결하지 않았습니다.",
+            "게임 이벤트는 짧은 메모리 목록과 브라우저 CustomEvent로만 기록합니다. 게임 이벤트는 분석 서비스로 전송하지 않습니다.",
             "일부 고전 게임 링크를 누르면 데니 게임즈를 떠나 외부 호스트로 이동합니다. 해당 업체는 자체 정책에 따라 브라우저 정보 처리·계정·원격 게임 저장을 제공할 수 있습니다. 데니 게임즈는 그 계정 정보나 세션을 받지 않습니다. 이동하기 전에 호스트의 개인정보 안내를 확인하세요.",
             "기기 체크리스트 입력은 현재 폼에만 유지하고 로컬 JSON 파일로 내려받습니다. 결과를 업로드하거나 자동 저장하지 않으며 새로고침하면 입력이 사라집니다. 개인 식별 정보는 포함하지 마세요.",
             "오류·권리·제휴 문의는 GitHub Issues를 이용합니다. 이슈와 답변은 공개되며 GitHub 개인정보 처리방침에 따라 관리됩니다. 비공개 계약 조건·계정 정보·개인 연락처를 올리지 마세요. 공개 게시에 동의한 사업용 연락 채널만 공유하세요.",
+          ],
+        },
+        {
+          heading: "선택형 방문 통계",
+          paragraphs: [
+            "분석을 허용하면 Google Analytics 4가 페이지 조회, 페이지 제목과 경로, 방문한 사이트의 출처 도메인, 대략적인 지역을 추정하는 데 쓰이는 기본 브라우저·기기 정보를 받습니다. URL의 검색어와 나머지 쿼리·해시 값은 제거합니다. 데니 게임즈는 검색어·폼 입력·계정 식별자·게임 조작·점수를 보내지 않습니다.",
+            "분석 태그는 games.iamdenny.com에만 적용되는 쿠키를 최대 60일 사용합니다. Google은 자체 약관과 개인정보 처리방침에 따라 데이터를 처리합니다. 선택은 이 브라우저에 저장되며 아래에서 언제든 바꿀 수 있습니다.",
           ],
         },
         {

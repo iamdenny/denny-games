@@ -1,6 +1,7 @@
 import { read, write, list, toggleFavorite } from "../lib/storage";
 import { connectGamepad, focusNext } from "../lib/input";
 import { initDisplayAds } from "../lib/ads";
+import { initAnalytics } from "../lib/analytics";
 import { loadCatalogue, makeCard } from "../lib/cards";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
@@ -172,6 +173,7 @@ if (!document.querySelector("#player")) {
 }
 initDisplayAds();
 window.addEventListener("denny-consent-changed", initDisplayAds);
+initAnalytics();
 
 const menu = document.querySelector<HTMLDetailsElement>(".compact-menu");
 menu?.addEventListener("keydown", (event) => {
