@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="cavern" x1="112" y1="40" x2="523" y2="372" gradientUnits="userSpaceOnUse"><stop stop-color="#26303A"/><stop offset="1" stop-color="#080D12"/></linearGradient>
+    <radialGradient id="torch" cx="0" cy="0" r="1" gradientTransform="matrix(0 132 -155 0 325 220)" gradientUnits="userSpaceOnUse"><stop stop-color="#E88845" stop-opacity=".32"/><stop offset="1" stop-color="#E88845" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="url(#cavern)"/>
+  <path d="M0 75 80 46l44 31 43-54 50 41 50-47 50 45 48-55 45 48 46-39 57 56 42-35 85 39v325H0V75Z" fill="#121B22"/>
+  <path d="M75 114h490v190H75z" fill="#16232A" stroke="#51616A" stroke-width="3"/>
+  <path d="M75 152h490M75 190h490M75 228h490M75 266h490M124 114v190m49-190v190m49-190v190m49-190v190m49-190v190m49-190v190m49-190v190m49-190v190m49-190v190" stroke="#31434B" stroke-width="2"/>
+  <path d="M80 118h38v30H80zm195 38h34v30h-34zm147 38h48v29h-48zm-201 72h32v30h-32zm228-34h42v29h-42z" fill="#44545A"/>
+  <path d="m473 113 29 15v34l-29 16-29-16v-34l29-15Z" fill="#A7F0E6" stroke="#E5FFF6" stroke-width="3"/>
+  <text x="473" y="153" text-anchor="middle" fill="#14212B" font-family="monospace" font-size="27" font-weight="700">@</text>
+  <path d="m229 194 24-11 24 11v30l-24 14-24-14v-30Z" fill="#E27A49" stroke="#FFC184" stroke-width="3"/>
+  <path d="m240 201 13-8 13 8v17l-13 8-13-8v-17Z" fill="#FFDE91"/>
+  <path d="M205 190h-16m94 17h20" stroke="#D5A35C" stroke-width="3" stroke-linecap="round"/>
+  <path d="M328 304v29m0 0-19-18m19 18 19-18" stroke="#F6C85F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="325" cy="214" r="140" fill="url(#torch)"/>
+  <text x="48" y="56" fill="#F6C85F" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">THE DUNGEONS OF MORIA · 1983</text>
+  <text x="48" y="354" fill="#F5F2E9" font-family="system-ui,sans-serif" font-size="36" font-weight="800" letter-spacing="2">UMORIA</text>
+  <text x="50" y="378" fill="#A9BEC6" font-family="system-ui,sans-serif" font-size="12" letter-spacing="2">PREPARE · DESCEND · SURVIVE</text>
+</svg>

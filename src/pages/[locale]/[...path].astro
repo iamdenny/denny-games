@@ -421,8 +421,8 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
             {controlLabels[game.controlStyle][locale]}.{" "}
             {game.externalPlay
               ? label(
-                  "The external host manages this game's account, session and saves; Denny Games does not store them.",
-                  "계정·플레이 세션·저장은 외부 호스트가 관리하며 데니 게임즈에는 저장되지 않습니다.",
+                  "This game runs on an independent host or browser build. Denny Games does not manage its account, session or saves; see the notes above for how this build handles them.",
+                  "독립 호스트나 브라우저 빌드에서 실행합니다. 데니 게임즈는 계정·세션·저장을 관리하지 않으며, 이 빌드의 저장 방식은 위 안내를 확인하세요.",
                 )
               : game.id === "hextris"
                 ? label(

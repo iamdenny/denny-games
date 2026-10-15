@@ -925,6 +925,462 @@ const externalBrowserGames: Game[] = [
       },
     },
   },
+  {
+    id: "freeciv",
+    category: "strategy",
+    duration: "varies",
+    controlStyle: "pointer",
+    color: "mint",
+    version: 1,
+    stages: 0,
+    tags: [
+      "freeciv",
+      "turn based strategy",
+      "4X strategy",
+      "empire builder",
+      "civilization game",
+      "browser strategy game",
+      "freeciv web",
+      "프리시브",
+      "턴제 전략 게임",
+      "4X 전략",
+      "제국 건설",
+      "문명 게임",
+      "브라우저 전략 게임",
+      "무료 전략 게임",
+    ],
+    inputs: ["mouse", "keyboard"],
+    license: "Freeciv server: GPL · Freeciv-web client: AGPL",
+    licenseUrl:
+      "https://github.com/freeciv/freeciv-web/blob/develop/LICENSE.txt",
+    author: "The Freeciv Project",
+    source: "https://github.com/freeciv/freeciv-web",
+    externalPlay: {
+      url: "https://freecivweb.com/webclient/?action=new&type=singleplayer",
+      host: {
+        en: "Freeciv-web community single-player setup",
+        ko: "Freeciv-web 커뮤니티 싱글 플레이 설정",
+      },
+      note: {
+        en: "This community-run Freeciv-web service opens at single-player setup. Its terms and privacy policy apply; multiplayer profiles, browser sessions and saves follow the service's current rules. Denny Games does not operate this host or store its game data.",
+        ko: "커뮤니티가 운영하는 Freeciv-web 서비스의 싱글 플레이 설정 화면을 엽니다. 해당 서비스의 이용 약관과 개인정보 정책이 적용되며 멀티플레이 프로필·브라우저 세션·저장은 서비스의 최신 규칙을 따릅니다. 데니 게임즈는 이 호스트를 운영하거나 게임 데이터를 저장하지 않습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/freeciv.svg",
+    artworkAlt: {
+      en: "Original illustration of a turn-based civilization map with a walled city",
+      ko: "성벽 도시가 있는 턴제 문명 전략 지도를 그린 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Freeciv",
+        subtitle: "Build a civilization, one turn at a time.",
+        description:
+          "Freeciv is a free, open-source turn-based strategy game with roots in the mid-1990s. Start a single-player world in your browser, found cities, research technologies and guide a civilization from early history toward the space age.",
+        rules: [
+          "Choose a nation and world settings in the linked single-player setup, then start a new game.",
+          "Found cities, explore the map, grow your economy and research technologies while rival civilizations develop too.",
+          "There is no short fixed round. The browser host supplies the current game controls, help and save options.",
+        ],
+        controls: [
+          "Mouse: select map tiles, units and the host's city, research and production controls.",
+          "Keyboard: Freeciv has many commands and shortcuts; use the in-game help for the current browser build.",
+          "This is an independent Freeciv-web service. Its terms, sessions and save behavior are separate from Denny Games.",
+        ],
+        tips: [
+          "Begin with a small settlement and check what nearby terrain can produce.",
+          "Balance food, production and research before expanding too quickly.",
+          "Use the host's save and privacy guidance before starting a long campaign.",
+        ],
+      },
+      ko: {
+        title: "Freeciv",
+        subtitle: "한 턴씩 문명을 키우세요.",
+        description:
+          "Freeciv는 1990년대 중반부터 이어진 무료 오픈소스 턴제 전략 게임입니다. 브라우저에서 싱글 플레이 세계를 만들고 도시를 세워 기술을 연구하며 초기 역사부터 우주 시대까지 문명을 이끌어 보세요.",
+        rules: [
+          "연결된 싱글 플레이 설정에서 국가와 세계 규칙을 고른 다음 새 게임을 시작하세요.",
+          "도시를 세우고 지도를 탐험하며 경제를 키우고 기술을 연구하세요. 다른 문명도 함께 발전합니다.",
+          "짧게 정해진 라운드는 없습니다. 현재 브라우저 빌드의 조작·도움말·저장 메뉴는 외부 호스트가 제공합니다.",
+        ],
+        controls: [
+          "마우스: 지도 타일·유닛과 호스트의 도시·연구·생산 메뉴를 선택하세요.",
+          "키보드: 명령과 단축키가 많으므로 현재 브라우저 빌드의 게임 안 도움말을 확인하세요.",
+          "독립 Freeciv-web 서비스에서 플레이합니다. 이용 약관·세션·저장 방식은 데니 게임즈와 별개입니다.",
+        ],
+        tips: [
+          "작은 도시부터 세우고 주변 지형에서 얻을 수 있는 자원을 살펴보세요.",
+          "너무 빨리 확장하기 전에 식량·생산·연구의 균형을 맞추세요.",
+          "긴 캠페인을 시작하기 전에 호스트의 저장·개인정보 안내를 확인하세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "umoria",
+    category: "roguelike",
+    duration: "varies",
+    controlStyle: "directional",
+    color: "rust",
+    version: 1,
+    stages: 0,
+    tags: [
+      "umoria",
+      "moria",
+      "the dungeons of moria",
+      "1983 roguelike",
+      "classic roguelike",
+      "dungeon crawler",
+      "ascii dungeon game",
+      "browser wasm game",
+      "우모리아",
+      "모리아",
+      "1980년대 로그라이크",
+      "고전 로그라이크",
+      "던전 크롤러",
+      "문자 던전 게임",
+      "브라우저 게임",
+    ],
+    inputs: ["keyboard"],
+    license: "GPL-3.0-or-later",
+    licenseUrl:
+      "https://github.com/dungeons-of-moria/umoria/blob/master/LICENSE",
+    author: "Umoria contributors · browser build by Jeff Hirschberg",
+    source: "https://github.com/dungeons-of-moria/umoria",
+    externalPlay: {
+      url: "https://umoria.org/play/",
+      host: {
+        en: "Umoria official browser page · WebAssembly build",
+        ko: "Umoria 공식 브라우저 페이지 · WebAssembly 빌드",
+      },
+      note: {
+        en: "The Umoria site hosts a WebAssembly build of this 1983 dungeon game. Browser saves use IndexedDB and remain in the browser profile where you play; they do not automatically move to another browser. Denny Games does not host the build or store those saves.",
+        ko: "Umoria 사이트가 1983년 던전 게임의 WebAssembly 빌드를 호스팅합니다. 브라우저 저장은 플레이한 브라우저 프로필의 IndexedDB에 남으며 다른 브라우저로 자동 이동하지 않습니다. 데니 게임즈는 실행물이나 저장 데이터를 호스팅하지 않습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/umoria.svg",
+    artworkAlt: {
+      en: "Original illustration of an old-school dungeon map and descending stairs",
+      ko: "고전 던전 지도와 아래로 이어지는 계단을 그린 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Umoria",
+        subtitle: "Descend into the Mines of Moria.",
+        description:
+          "Umoria brings the 1983 Moria dungeon crawler to a browser through a WebAssembly build. Prepare in a town, descend through a dangerous maze, gather equipment and search for the Balrog at the depths.",
+        rules: [
+          "Buy supplies and prepare your character in town before entering the mines.",
+          "Explore one turn at a time, manage health and equipment, and descend deeper through the dungeon.",
+          "A character can die permanently. The browser build stores saves in that browser's local IndexedDB, not in a Denny Games account.",
+        ],
+        controls: [
+          "Keyboard: use the game's command keys and the included manual or in-game help; movement and actions are turn-based.",
+          "This is the Umoria site's WebAssembly build. Check its page for current browser requirements and save instructions.",
+        ],
+        tips: [
+          "Visit the town shops before descending; supplies are harder to replace below.",
+          "Read unfamiliar item descriptions and watch your food and health.",
+          "Back up or export a save before clearing browser data or changing browser profiles.",
+        ],
+      },
+      ko: {
+        title: "Umoria",
+        subtitle: "모리아 광산 깊은 곳으로 내려가세요.",
+        description:
+          "Umoria는 1983년작 던전 크롤러 Moria를 WebAssembly로 브라우저에서 즐기는 게임입니다. 마을에서 준비하고 위험한 미로를 한 턴씩 탐험하며 장비를 모아 깊은 곳의 발로그를 찾아보세요.",
+        rules: [
+          "광산에 들어가기 전에 마을에서 장비와 보급품을 구입하세요.",
+          "한 턴씩 던전을 탐험하고 체력과 장비를 관리하며 아래층으로 내려가세요.",
+          "캐릭터는 영구히 사망할 수 있습니다. 브라우저 빌드의 저장은 데니 게임즈 계정이 아니라 해당 브라우저의 IndexedDB에 보관됩니다.",
+        ],
+        controls: [
+          "키보드: 게임의 명령 키와 포함된 설명서·게임 안 도움말을 사용하세요. 이동과 행동은 턴제로 진행됩니다.",
+          "Umoria 사이트의 WebAssembly 빌드입니다. 최신 브라우저 요구사항과 저장 안내는 해당 페이지에서 확인하세요.",
+        ],
+        tips: [
+          "깊이 내려가기 전에 마을 상점에서 필요한 물품을 준비하세요.",
+          "낯선 아이템의 설명을 읽고 식량과 체력을 살펴보세요.",
+          "브라우저 데이터를 지우거나 프로필을 바꾸기 전에 저장 파일을 백업하거나 내보내세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "larn",
+    category: "roguelike",
+    duration: "varies",
+    controlStyle: "directional",
+    color: "yellow",
+    version: 1,
+    stages: 0,
+    tags: [
+      "larn",
+      "ularn",
+      "1986 roguelike",
+      "classic dungeon game",
+      "turn based dungeon crawler",
+      "browser roguelike",
+      "weekly challenge roguelike",
+      "랜",
+      "울랜",
+      "1980년대 로그라이크",
+      "고전 던전 게임",
+      "턴제 던전 크롤러",
+      "브라우저 로그라이크",
+      "주간 도전 게임",
+    ],
+    inputs: ["keyboard", "mouse", "touch"],
+    license: "MIT · JavaScript Larn/Ularn port",
+    licenseUrl: "https://github.com/primeau/Larn/blob/master/LICENSE",
+    author: "Jason Primeau · Larn and Ularn contributors",
+    source: "https://github.com/primeau/Larn",
+    externalPlay: {
+      url: "https://larn.org/",
+      host: {
+        en: "Larn.org browser game selector",
+        ko: "Larn.org 브라우저 게임 선택 화면",
+      },
+      note: {
+        en: "The page offers browser-playable Larn and Ularn modes, graphics choices and an optional weekly challenge. It also has global scores and game replays; those features and any associated data are handled by Larn.org. Denny Games does not run the service or store its saves.",
+        ko: "페이지에서 브라우저로 Larn·Ularn 모드와 그래픽 옵션, 선택형 주간 도전을 고를 수 있습니다. 전체 점수판과 게임 리플레이도 제공하며 해당 기능과 관련 데이터는 Larn.org가 관리합니다. 데니 게임즈는 서비스를 운영하거나 저장 데이터를 보관하지 않습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/larn.svg",
+    artworkAlt: {
+      en: "Original illustration of a retro dungeon, treasure and a descending staircase",
+      ko: "레트로 던전과 보물, 아래로 이어지는 계단을 그린 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Larn",
+        subtitle: "A compact classic roguelike from 1986.",
+        description:
+          "Larn is a classic roguelike first released in 1986. Explore a dungeon, manage supplies and search for the Eye of Larn in this browser-based JavaScript port, with optional Ularn and retro graphics modes.",
+        rules: [
+          "Choose Larn or Ularn and a graphics mode on the host page, then start a character.",
+          "Explore the dungeon, collect equipment and use shops and resources carefully on the way to the game's goal.",
+          "The host also offers optional weekly challenges, public scores and replays; check its rules before sharing a run.",
+        ],
+        controls: [
+          "Keyboard: use the Larn command keys and the help shown by the game.",
+          "Mouse or touch: the browser port supports clicking its map and offers mobile support; Denny Games has not tested those devices.",
+          "The browser build and any public scores or replays belong to the independent Larn.org service.",
+        ],
+        tips: [
+          "Check your supplies and equipment before leaving town.",
+          "Explore carefully and read the message area before choosing a command.",
+          "Use the host's current save and replay guidance; Denny Games does not keep a copy of your run.",
+        ],
+      },
+      ko: {
+        title: "Larn",
+        subtitle: "1986년부터 이어진 짧은 고전 로그라이크.",
+        description:
+          "Larn은 1986년에 처음 공개된 고전 로그라이크입니다. 던전을 탐험하고 보급품을 관리하며 Eye of Larn을 찾으세요. 브라우저 JavaScript 포트에서 Ularn과 레트로 그래픽 모드도 선택할 수 있습니다.",
+        rules: [
+          "호스트 페이지에서 Larn 또는 Ularn과 그래픽 모드를 고르고 캐릭터를 시작하세요.",
+          "던전을 탐험하고 장비를 모으세요. 게임의 목표를 향해 상점과 보급품을 신중히 이용하세요.",
+          "선택형 주간 도전·공개 점수판·리플레이도 제공하므로 기록을 공유하기 전에 호스트 규칙을 확인하세요.",
+        ],
+        controls: [
+          "키보드: Larn 명령 키와 게임 안에 표시되는 도움말을 사용하세요.",
+          "마우스·터치: 브라우저 포트는 지도 클릭과 모바일 지원을 안내하지만 데니 게임즈는 실제 기기에서 시험하지 않았습니다.",
+          "브라우저 빌드와 공개 점수·리플레이는 독립 Larn.org 서비스가 제공합니다.",
+        ],
+        tips: [
+          "마을을 떠나기 전에 보급품과 장비를 확인하세요.",
+          "신중히 탐험하고 명령을 고르기 전에 메시지 영역을 읽으세요.",
+          "호스트의 최신 저장·리플레이 안내를 확인하세요. 데니 게임즈는 플레이 기록을 보관하지 않습니다.",
+        ],
+      },
+    },
+  },
+  {
+    id: "neo-angband",
+    category: "roguelike",
+    duration: "varies",
+    controlStyle: "directional",
+    color: "rust",
+    version: 1,
+    stages: 0,
+    tags: [
+      "neo angband",
+      "angband",
+      "1990 roguelike",
+      "browser angband",
+      "turn based dungeon crawler",
+      "procedural dungeon game",
+      "classic fantasy roguelike",
+      "네오 앙그반드",
+      "앙그반드",
+      "1990년 로그라이크",
+      "브라우저 앙그반드",
+      "턴제 던전 크롤러",
+      "절차 생성 던전 게임",
+      "고전 판타지 로그라이크",
+    ],
+    inputs: ["keyboard"],
+    license: "GPL-2.0 or Angband License; art has separate terms",
+    licenseUrl:
+      "https://github.com/neostryder/neo-angband/blob/master/LICENSE.md",
+    author: "Angband developers · Neo Angband community port",
+    source: "https://github.com/neostryder/neo-angband",
+    externalPlay: {
+      url: "https://angband.rpgm.world/",
+      host: {
+        en: "Neo Angband community browser port",
+        ko: "Neo Angband 커뮤니티 브라우저 포트",
+      },
+      note: {
+        en: "This is an unofficial community port of Angband, not the original project's site. The host says the no-mod game targets vanilla Angband and browser saves stay in that browser's storage, scoped to this address. Denny Games has not tested gameplay parity or this host's device behavior.",
+        ko: "원본 프로젝트의 공식 사이트가 아닌 Angband 커뮤니티 포트입니다. 호스트는 모드를 쓰지 않을 때 원본 Angband를 목표로 하며 브라우저 저장은 이 주소에 한정된 해당 브라우저 저장 공간에 남는다고 안내합니다. 데니 게임즈는 플레이 동등성이나 호스트의 기기 동작을 검증하지 않았습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/neo-angband.svg",
+    artworkAlt: {
+      en: "Original illustration of a shadowed mountain fortress and a lone dungeon explorer",
+      ko: "어두운 산성 요새와 홀로 던전을 탐험하는 인물을 그린 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Neo Angband",
+        subtitle: "Angband's 1990 dungeon adventure, playable in a browser.",
+        description:
+          "Angband began in 1990 as a deep, turn-based fantasy roguelike. Neo Angband is an independent browser port based on the open-source game; the host says its default no-mod mode follows vanilla Angband and keeps saves in browser storage.",
+        rules: [
+          "Create a character, prepare in town and descend through a procedurally generated dungeon.",
+          "Explore, fight monsters and manage equipment one turn at a time; death can permanently end a character.",
+          "With no mods enabled, the community port targets the original Angband experience. Denny Games has not verified that claim against every game session.",
+        ],
+        controls: [
+          "Keyboard: follow the port's in-game help and quick-start guide for movement, commands and character management.",
+          "Your save stays in browser storage scoped to the external host address. Export it using the host's instructions before clearing browser data.",
+          "Neo Angband is an independent community project and is not an official Angband website.",
+        ],
+        tips: [
+          "Read the quick-start guide before the first descent; character creation and equipment have many choices.",
+          "Check a monster and your resources before committing to a fight.",
+          "Use the port's save export before changing browser profile or clearing site data.",
+        ],
+      },
+      ko: {
+        title: "Neo Angband",
+        subtitle: "1990년 시작한 던전 모험을 브라우저에서.",
+        description:
+          "Angband는 1990년에 시작한 깊이 있는 턴제 판타지 로그라이크입니다. Neo Angband는 오픈소스 게임을 바탕으로 한 독립 브라우저 포트이며, 호스트는 모드를 끈 기본 모드가 원본 Angband를 따르고 저장은 브라우저에 남는다고 안내합니다.",
+        rules: [
+          "캐릭터를 만들고 마을에서 준비한 뒤 절차적으로 생성되는 던전으로 내려가세요.",
+          "한 턴씩 탐험하고 몬스터와 싸우며 장비를 관리하세요. 캐릭터가 영구 사망할 수 있습니다.",
+          "모드를 끈 상태에서 커뮤니티 포트는 원본 Angband 경험을 목표로 합니다. 데니 게임즈가 모든 플레이 상황에서 이를 검증하지는 않았습니다.",
+        ],
+        controls: [
+          "키보드: 이동·명령·캐릭터 관리 방법은 포트의 게임 안 도움말과 시작 안내를 확인하세요.",
+          "저장은 외부 호스트 주소에 한정된 브라우저 저장 공간에 남습니다. 브라우저 데이터를 지우기 전에 호스트 안내에 따라 내보내세요.",
+          "Neo Angband는 독립 커뮤니티 프로젝트이며 공식 Angband 사이트가 아닙니다.",
+        ],
+        tips: [
+          "첫 던전 진입 전에 시작 안내를 읽으세요. 캐릭터 생성과 장비 선택지가 많습니다.",
+          "전투를 시작하기 전에 몬스터와 보유 자원을 확인하세요.",
+          "브라우저 프로필을 바꾸거나 사이트 데이터를 지우기 전에 포트의 저장 내보내기를 이용하세요.",
+        ],
+      },
+    },
+  },
+  {
+    id: "dcss",
+    category: "roguelike",
+    duration: "varies",
+    controlStyle: "directional",
+    color: "mint",
+    version: 1,
+    stages: 0,
+    tags: [
+      "dungeon crawl stone soup",
+      "dcss",
+      "dungeon crawl",
+      "webtiles",
+      "browser roguelike",
+      "turn based dungeon crawler",
+      "classic roguelike sequel",
+      "던전 크롤 스톤 수프",
+      "던전 크롤 스톤수프",
+      "웹타일즈",
+      "브라우저 로그라이크",
+      "턴제 던전 크롤러",
+      "고전 로그라이크 후속작",
+    ],
+    inputs: ["keyboard"],
+    license: "GPL-2.0-or-later components; some compatible licenses",
+    licenseUrl: "https://github.com/crawl/crawl/blob/master/LICENSE",
+    author: "Dungeon Crawl: Stone Soup Devteam",
+    source: "https://github.com/crawl/crawl",
+    externalPlay: {
+      url: "https://crawl.nemelex.cards/",
+      host: {
+        en: "CNC WebTiles · South Korea server",
+        ko: "CNC WebTiles · 한국 서버",
+      },
+      note: {
+        en: "This is remote WebTiles play on the community server crawl.nemelex.cards, listed by the DCSS project for Gyeonggi, South Korea. Each server has its own account database and saves; register on the chosen server and follow its rules. Denny Games does not run the server or receive your account data.",
+        ko: "DCSS 프로젝트 서버 안내에 경기 지역 서버로 올라온 crawl.nemelex.cards에서 원격 WebTiles 플레이를 엽니다. 서버마다 계정 데이터와 저장 공간이 다르므로 선택한 서버에 등록하고 자체 규칙을 확인하세요. 데니 게임즈는 서버를 운영하거나 계정 데이터를 받지 않습니다.",
+      },
+    },
+    added: "2026-10-15",
+    artwork: "/art/dcss.svg",
+    artworkAlt: {
+      en: "Original illustration of a tiled dungeon with a hero facing a monster",
+      ko: "영웅이 몬스터와 마주한 타일형 던전을 그린 자체 일러스트",
+    },
+    text: {
+      en: {
+        title: "Dungeon Crawl: Stone Soup",
+        subtitle: "A deep roguelike, one careful turn at a time.",
+        description:
+          "Dungeon Crawl: Stone Soup is the open-source successor to the 1990s Dungeon Crawl roguelike. Its WebTiles servers let you explore a changing dungeon in a browser, choose a character and pursue the Orb of Zot.",
+        rules: [
+          "Open the Korean WebTiles server, register a character name and choose the available game version or tutorial.",
+          "Explore a procedurally generated dungeon, manage health, magic and equipment, and decide when to fight or retreat.",
+          "Runs can end permanently. Accounts and saved characters belong to the selected community server, not Denny Games.",
+        ],
+        controls: [
+          "Keyboard: WebTiles is designed around game commands. Check the server's help and the in-game command reference.",
+          "The selected server uses a separate account and save database from other WebTiles servers.",
+          "This is remote server play. Denny Games has not tested gameplay or device compatibility on this host.",
+        ],
+        tips: [
+          "Choose the tutorial when learning the game for the first time.",
+          "Read item and monster descriptions, and watch health and magic while exploring.",
+          "Use a server near you and read its rules; the DCSS project lists separate public servers by region.",
+        ],
+      },
+      ko: {
+        title: "Dungeon Crawl: Stone Soup",
+        subtitle: "신중하게 한 턴씩 내려가는 깊은 로그라이크.",
+        description:
+          "Dungeon Crawl: Stone Soup는 1990년대 Dungeon Crawl의 계보를 잇는 오픈소스 후속작입니다. WebTiles 서버에서 브라우저로 변화하는 던전을 탐험하고 캐릭터를 골라 Orb of Zot을 찾아보세요.",
+        rules: [
+          "한국 WebTiles 서버를 열고 캐릭터 이름을 등록한 뒤 제공되는 버전이나 튜토리얼을 고르세요.",
+          "절차적으로 생성되는 던전을 탐험하고 체력·마법력·장비를 관리하며 싸우거나 물러날 때를 판단하세요.",
+          "모험은 영구히 끝날 수 있습니다. 계정과 캐릭터 저장은 데니 게임즈가 아니라 선택한 커뮤니티 서버에 속합니다.",
+        ],
+        controls: [
+          "키보드: WebTiles는 게임 명령 중심으로 조작합니다. 서버 도움말과 게임 안 명령 안내를 확인하세요.",
+          "선택한 서버는 다른 WebTiles 서버와 별도 계정·저장 데이터베이스를 사용합니다.",
+          "원격 서버 플레이입니다. 데니 게임즈는 이 호스트에서 실제 게임이나 기기 호환성을 시험하지 않았습니다.",
+        ],
+        tips: [
+          "처음 시작한다면 튜토리얼을 골라 기본 조작을 익히세요.",
+          "아이템과 몬스터 설명을 읽고 탐험 중 체력과 마법력을 확인하세요.",
+          "가까운 서버를 선택하고 규칙을 확인하세요. DCSS 프로젝트는 지역별 공개 서버를 안내합니다.",
+        ],
+      },
+    },
+  },
 ];
 games.push(...externalBrowserGames);
 // Scale fixtures are local/CI-only and never part of a normal production build.

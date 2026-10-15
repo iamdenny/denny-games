@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="crypt" x1="53" y1="22" x2="588" y2="384" gradientUnits="userSpaceOnUse"><stop stop-color="#202638"/><stop offset="1" stop-color="#080B12"/></linearGradient>
+    <radialGradient id="orb" cx="0" cy="0" r="1" gradientTransform="matrix(0 67 -58 0 335 181)" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF0A0"/><stop offset=".4" stop-color="#E4A14F"/><stop offset="1" stop-color="#9E3F52"/></radialGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="url(#crypt)"/>
+  <path d="M76 89h488v223H76z" fill="#121924" stroke="#57616E" stroke-width="3"/>
+  <path d="M76 133h488m-488 44h488m-488 44h488m-488 44h488m-444-176v223m49-223v223m49-223v223m49-223v223m49-223v223m49-223v223m49-223v223m49-223v223m49-223v223" stroke="#303B49" stroke-width="2"/>
+  <path d="M91 102h34v28H91zm97 45h44v29h-44zm197-1h39v28h-39zm-93 48h34v27h-34zm145 45h44v29h-44zm-194 43h38v28h-38z" fill="#3A4755"/>
+  <path d="M284 188h91v28h-91z" fill="#755C86" fill-opacity=".65"/>
+  <path d="M329 142c-31 0-54 24-54 53 0 17 8 29 18 40 8 9 13 16 14 25h44c1-9 6-16 14-25 10-11 18-23 18-40 0-29-23-53-54-53Z" fill="url(#orb)" stroke="#FFE9A6" stroke-width="4"/>
+  <path d="M311 209c11-16 25-16 36 0-11 16-25 16-36 0Z" fill="#29243D"/>
+  <circle cx="329" cy="209" r="7" fill="#FFF9E4"/>
+  <path d="M312 263h34m-30 11h26m-20 11h14" stroke="#E9B96B" stroke-width="4" stroke-linecap="round"/>
+  <path d="m169 219 21-11 21 11v25l-21 11-21-11v-25Z" fill="#A7F0E6" stroke="#E6FFF8" stroke-width="3"/>
+  <text x="190" y="238" text-anchor="middle" fill="#14212B" font-family="monospace" font-size="22" font-weight="700">@</text>
+  <path d="m440 174 18-9 18 9v21l-18 10-18-10v-21Z" fill="#D97869" stroke="#FFC0A3" stroke-width="2"/>
+  <text x="458" y="191" text-anchor="middle" fill="#2B171D" font-family="monospace" font-size="17" font-weight="700">O</text>
+  <path d="M211 222h49m114 0h36" stroke="#F6C85F" stroke-width="3" stroke-dasharray="4 8"/>
+  <text x="48" y="56" fill="#A7F0E6" font-family="system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="3">WEBTILES · DUNGEON CRAWL</text>
+  <text x="48" y="354" fill="#F5F2E9" font-family="system-ui,sans-serif" font-size="32" font-weight="800" letter-spacing="1">STONE SOUP</text>
+  <text x="50" y="378" fill="#A9BEC6" font-family="system-ui,sans-serif" font-size="12" letter-spacing="2">EXPLORE · LEARN · RETURN</text>
+</svg>

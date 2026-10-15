@@ -6,7 +6,7 @@ export function GET() {
   const lines = [
     "# Denny Games",
     "",
-    `> Free English and Korean browser-game catalogue. ${games.length} published titles. Most launch on Denny Games; selected classics open on external hosts with their own account, input and save requirements.`,
+    `> Free English and Korean browser-game catalogue. ${games.length} published titles. Most launch on Denny Games; selected classics open on independent hosts with different input, account and save behavior.`,
     "",
     "## Authoritative pages",
     `- [English catalogue](${base}/en/all/)`,
@@ -35,7 +35,7 @@ export function GET() {
     ),
     "",
     "## Interpretation",
-    "Denny Games-hosted detail pages describe the implemented rule variant, controls and local-save behavior. The four classic external listings open independent hosts; their gameplay, account/session handling, controls, and saves are not verified or provided by Denny Games. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
+    "Denny Games-hosted detail pages describe the implemented rule variant, controls and local-save behavior. External classic listings open independent browser builds or remote servers; gameplay, controls and device compatibility are unverified, and account/session/save behavior varies by host. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
     "",
   ];
   return new Response(lines.join("\n"), {
