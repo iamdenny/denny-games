@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All 132 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest four-game visual wave adds MIT 3D.CITY and BlockVerse, ThingsPool with Apache-2.0 code but all-rights-reserved original game artwork, and GPL-3.0 Suroi, which is marked work in progress. This wave adds three MIT WebGL games: Match-3D.js, Super Kart 3D.js and Arkanoid-3D. The observed 3D.CITY browser navigation transferred about 28.3 MB before its menu appeared; its README still lists save/load fixes. Suroi's phone viewport asks players to rotate to landscape. BlockVerse's generated local world rendered in a desktop browser; no complete match or game session was played for these listings. The new Match-3D.js board and touch controls fit a 390x844 Chromium viewport. Super Kart showed mobile race controls after a roughly 12-second first-scene load; its touch-driven race is unverified. Arkanoid-3D showed a menu and desktop game scene, but its README does not document touch controls. Earlier evidence and legal boundaries are recorded per entry. These checks establish reachability and limited menu/render observations only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET. This wave adds CityMaker, No Survivor Game, Bash Fighter and Courier City. Chromium showed CityMaker's 3D board and Bash Fighter's touch layout without horizontal overflow at 390x844; No Survivor requested landscape on a phone and showed its ready screen in an 844x390 viewport, while its README warns that the first engine download is about 40 MB. Courier City's official Pages URL redirected to the developer's current domain; the 390px page measured 409 CSS px and its initial instructions were keyboard-centric. These remain menu/render observations, not complete game sessions or physical-device testing. This batch adds Racez.io and Friday Night Funkin' as external links. Racez's 3D lobby rendered in a landscape phone viewport and requested landscape in portrait; no party or race was started. Newgrounds loaded Friday Night Funkin's title screen after its first asset load, but its desktop-width layout clipped the 1280x720 game frame at a 390px mobile viewport. The FNF code is Apache-2.0 while its creative game content and trademarks are proprietary. No full song, mobile gameplay, or physical-device behavior was tested.",
+  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. All 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
   "entries": [
     {
       "id": "freedoom",
@@ -1712,6 +1712,58 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The game page lists WASD/arrow-key controls, rebindable keys and built-in gamepad support. Chromium reached the title screen after the first asset load; no song was played. The 1280x720 embed sat in a desktop-width Newgrounds page and was clipped in a 390px mobile emulation. The source repository licenses software code under Apache-2.0, while a separate content license reserves the art, music, sound effects, creative content and trademarks. No source or content was copied."
+    },
+    {
+      "id": "shapez-demo",
+      "projectSource": "https://github.com/tobspr-games/shapez.io",
+      "projectLicense": "GPL-3.0 game code",
+      "licenseText": "https://github.com/tobspr-games/shapez.io/blob/master/LICENSE",
+      "externalHost": "https://shapez.io/",
+      "hostSource": "https://github.com/tobspr-games/shapez.io",
+      "hostWrapperLicense": "Official developer-hosted browser demo. The page offers free Play and separately promotes the paid full Steam version; the official help center says the demo is free through level 7. Denny Games links out and copies no code or assets.",
+      "urlStatus": "HTTP 200 (Chromium Play opened the extraction tutorial at desktop and 390x844 without horizontal overflow) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official README describes a factory automation game. Chromium clicked Play and reached the tutorial; the game showed WASD view movement, pipette and area selection hints. The official help center limits the free demo to level 7; the full game requires purchase. No complete level, save restoration, touch-driven play or physical-device behavior was tested."
+    },
+    {
+      "id": "cube-wars",
+      "projectSource": "https://github.com/dos884/block_wars",
+      "projectLicense": "MIT project code; separate asset terms are not stated",
+      "licenseText": "https://github.com/dos884/block_wars/blob/main/LICENSE",
+      "externalHost": "https://dos884.itch.io/cube-wars",
+      "hostSource": "https://github.com/dos884/block_wars",
+      "hostWrapperLicense": "The developer's itch.io page offers free browser play, says the prototype is made for phones and links its MIT source repository. The page discloses AI-assisted code, graphics, sounds and text. Denny Games links out and copies no code or assets.",
+      "urlStatus": "HTTP 200 (Chromium Run Game showed friend, bot and pass-and-play menu at desktop and 390x844) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The page labels Cube Wars a prototype. Its menu showed a generated player name and friend, bot and self play choices. The project describes digging and reshaping a voxel battlefield; it notes that confirming each move can feel awkward. No battle, online room, save flow or physical-device session was tested."
+    },
+    {
+      "id": "bitburner",
+      "projectSource": "https://github.com/bitburner-official/bitburner-src",
+      "projectLicense": "Apache-2.0 with Commons Clause; commercial resale is restricted",
+      "licenseText": "https://github.com/bitburner-official/bitburner-src/blob/dev/license.txt",
+      "externalHost": "https://bitburner-official.github.io/",
+      "hostSource": "https://github.com/bitburner-official/bitburner-src",
+      "hostWrapperLicense": "The official release build is linked from the source README and opened without a sign-in or payment prompt. Its code license contains a Commons Clause commercial restriction, so this entry is labeled free browser play and not open source. Denny Games copies no code or game content.",
+      "urlStatus": "HTTP 200 (Chromium v3.0.1 tutorial loaded; page width was 980 CSS px at a 390px viewport) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official README calls Bitburner a programming-based incremental game. The tutorial rendered on desktop and phone emulation, but the phone page exceeds its 390px viewport and needs horizontal movement. The license is Apache-2.0 with Commons Clause; no script, full game session or physical-device behavior was tested."
+    },
+    {
+      "id": "spot-strategy",
+      "projectSource": "https://github.com/Isthimius/Gondwana/tree/master/Demos/Spot.Blazor",
+      "projectLicense": "MIT game code stated on itch.io; separate artwork terms are not stated",
+      "licenseText": "https://github.com/Isthimius/Gondwana/blob/master/LICENSE",
+      "externalHost": "https://isthimius.itch.io/spot",
+      "hostSource": "https://isthimius.itch.io/spot",
+      "hostWrapperLicense": "The author offers the HTML5 game on itch.io with a voluntary support option and no upfront payment gate. Its game page marks code as MIT and lists AI-assisted graphics; separate artwork terms are not stated. Denny Games links out and copies no game code or artwork.",
+      "urlStatus": "HTTP 200 (Chromium loaded a 769x801 game canvas; the embedded frame exceeds a 390px phone viewport) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The author describes a released abstract strategy game for 1-4 local players with computer opponents and mouse-only input. Chromium loaded the HTML5 canvas in the itch page; its 769px embedded width is larger than the 390px phone viewport. No match, mobile input or physical-device behavior was tested."
     }
   ]
 }

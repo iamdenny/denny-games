@@ -1,0 +1,113 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 640 360"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">Spot!</title>
+  <desc id="desc">
+    Original Denny Games illustration of colored pieces claiming a strategy
+    board
+  </desc>
+  <defs>
+    <linearGradient id="field" x2="1" y2="1">
+      <stop stop-color="#1f3153" />
+      <stop offset="1" stop-color="#35406a" />
+    </linearGradient>
+    <radialGradient id="mint">
+      <stop stop-color="#c6ffe7" />
+      <stop offset=".68" stop-color="#63e6b6" />
+      <stop offset="1" stop-color="#188d85" />
+    </radialGradient>
+    <radialGradient id="coral">
+      <stop stop-color="#ffe1d0" />
+      <stop offset=".68" stop-color="#ff9078" />
+      <stop offset="1" stop-color="#c95067" />
+    </radialGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#field)" />
+  <circle cx="89" cy="78" r="58" fill="#58678d" opacity=".24" />
+  <circle cx="91" cy="78" r="33" fill="#58678d" opacity=".18" />
+  <rect
+    x="302"
+    y="44"
+    width="292"
+    height="272"
+    rx="26"
+    fill="#192641"
+    stroke="#8999ba"
+    stroke-width="3"
+  />
+  <g stroke="#63759b" stroke-width="2" opacity=".6">
+    <path
+      d="M350 44v272M399 44v272M448 44v272M497 44v272M546 44v272M302 89h292M302 135h292M302 181h292M302 227h292M302 273h292"
+    />
+  </g>
+  <g fill="url(#mint)" stroke="#d6fff0" stroke-width="3">
+    <circle cx="350" cy="89" r="18" />
+    <circle cx="399" cy="135" r="18" />
+    <circle cx="448" cy="181" r="18" />
+    <circle cx="497" cy="227" r="18" />
+  </g>
+  <g fill="url(#coral)" stroke="#ffe6dc" stroke-width="3">
+    <circle cx="546" cy="89" r="18" />
+    <circle cx="497" cy="135" r="18" />
+    <circle cx="448" cy="227" r="18" />
+  </g>
+  <g fill="#ffd26f" stroke="#fff4cb" stroke-width="3">
+    <circle cx="399" cy="227" r="18" />
+    <circle cx="497" cy="89" r="18" />
+  </g>
+  <path
+    d="M188 151h58m-20-20 20 20-20 20"
+    fill="none"
+    stroke="#9fb7ff"
+    stroke-width="6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <text
+    x="39"
+    y="92"
+    fill="#a8b9d9"
+    font-family="system-ui,sans-serif"
+    font-size="14"
+    font-weight="800"
+    letter-spacing="4"
+  >
+    ABSTRACT BOARD STRATEGY
+  </text>
+  <text
+    x="37"
+    y="172"
+    fill="#f7f8ff"
+    font-family="system-ui,sans-serif"
+    font-size="62"
+    font-weight="900"
+    letter-spacing="-2"
+  >
+    SPOT!
+  </text>
+  <text
+    x="42"
+    y="208"
+    fill="#67e4ba"
+    font-family="system-ui,sans-serif"
+    font-size="15"
+    font-weight="800"
+    letter-spacing="3"
+  >
+    CLONE • JUMP • CONVERT
+  </text>
+  <text
+    x="43"
+    y="318"
+    fill="#a8b9d9"
+    font-family="system-ui,sans-serif"
+    font-size="13"
+    font-weight="700"
+    letter-spacing="2"
+  >
+    PLAY AGAINST FRIENDS OR CPU
+  </text>
+</svg>

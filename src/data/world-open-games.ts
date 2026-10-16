@@ -5353,6 +5353,287 @@ function toGame(entry: Listing): Game {
   };
 }
 
+const freeBrowserWaveSevenSpecs: GraphicalListingSpec[] = [
+  {
+    id: "shapez-demo",
+    isOpenSource: true,
+    title: "shapez (Browser Demo)",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: ["mouse", "keyboard"],
+    license: "GPL-3.0 game code",
+    licenseDescription: {
+      en: "The official source repository publishes the shapez game code under GPL-3.0. The browser page is a limited free demo: the official help center says it is free through level 7, while the full version requires purchase. Denny Games links to the demo and copies no code, factory assets or artwork.",
+      ko: "공식 소스 저장소는 shapez 게임 코드에 GPL-3.0을 적용합니다. 브라우저 페이지는 무료 범위가 제한된 데모입니다. 공식 도움말에 따르면 7레벨까지 무료로 플레이할 수 있고 전체 버전은 구매해야 합니다. 데니 게임즈는 데모로 연결만 하며 코드·공장 자산·그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/tobspr-games/shapez.io/blob/master/LICENSE",
+    licenseUrlLabel: {
+      en: "Game code license (GPL-3.0)",
+      ko: "게임 코드 라이선스 (GPL-3.0)",
+    },
+    licenseAppliesToGame: false,
+    author: "Tobias Springer and contributors",
+    source: "https://github.com/tobspr-games/shapez.io",
+    sourceLabel: {
+      en: "Official game source repository and license",
+      ko: "공식 게임 소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://shapez.io/",
+    host: {
+      en: "Official shapez browser demo",
+      ko: "shapez 공식 브라우저 데모",
+    },
+    hostNote: {
+      en: "The tutorial opened without an account prompt. The official page shows Play and a separate Steam purchase option for the full version; the help center says the free demo covers levels through 7. No chat appeared in the tutorial, and save restoration, a complete level, touch play and physical-device behavior were not tested.",
+      ko: "계정 안내 없이 튜토리얼이 열렸습니다. 공식 페이지는 플레이와 전체 버전 Steam 구매를 별도로 안내하며, 도움말에 따르면 무료 데모는 7레벨까지입니다. 튜토리얼에는 채팅이 보이지 않았고 저장 복원·레벨 완료·터치 플레이·실물 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Build conveyor factories that extract, cut and combine colorful shapes to meet each delivery goal.",
+      ko: "알록달록한 도형을 뽑고 자르고 조합하는 컨베이어 공장을 만들어 납품 목표를 달성하세요.",
+    },
+    objective: {
+      en: "Automate shape production and deliver the requested shape to unlock the next demo level.",
+      ko: "도형 생산을 자동화하고 요청된 모양을 납품해 다음 데모 레벨을 여세요.",
+    },
+    controls: {
+      en: "Use the pointer to place and connect buildings. The host shows WASD to move the view, Q for the pipette and Ctrl for area selection; check its in-game guide for the current mappings.",
+      ko: "포인터로 건물을 놓고 연결하세요. 호스트는 화면 이동에 WASD, 스포이트에 Q, 영역 선택에 Ctrl을 안내합니다. 현재 키 배치는 게임 안의 도움말에서 확인하세요.",
+    },
+    mode: {
+      en: "This is a free browser demo of the GPL-3.0 game. The official help center says the demo covers levels through 7; the full version is paid and offers additional levels and buildings.",
+      ko: "GPL-3.0 게임의 무료 브라우저 데모입니다. 공식 도움말에 따르면 7레벨까지 데모에서 플레이할 수 있고, 전체 버전은 유료이며 추가 레벨과 건물을 제공합니다.",
+    },
+    tip: {
+      en: "Follow the opening tutorial: place an extractor over a circle shape to begin making a deliverable.",
+      ko: "처음 튜토리얼을 따라 원형 도형 위에 채굴기를 놓고 납품품 생산을 시작하세요.",
+    },
+    keywords: {
+      en: [
+        "shapez browser demo",
+        "factory automation puzzle game",
+        "conveyor belt factory game",
+        "free shapez online",
+      ],
+      ko: [
+        "shapez 브라우저 데모",
+        "공장 자동화 퍼즐 게임",
+        "컨베이어 벨트 공장 게임",
+        "무료 shapez 온라인",
+      ],
+    },
+  },
+  {
+    id: "cube-wars",
+    isOpenSource: true,
+    title: "Cube Wars",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: ["mouse", "touch"],
+    license: "MIT game code; separate asset terms are not stated",
+    licenseDescription: {
+      en: "The source repository publishes an MIT license for the project code. The itch.io page labels the game a prototype and discloses AI-assisted code, graphics, sounds and text; it does not explain separate asset terms. Denny Games links to the host and source and copies no code, voxel models or artwork.",
+      ko: "소스 저장소는 프로젝트 코드에 MIT 라이선스를 공개합니다. itch.io 페이지는 게임을 프로토타입으로 표시하고 코드·그래픽·음향·텍스트의 AI 보조 제작을 밝히지만 별도 자산 조건은 설명하지 않습니다. 데니 게임즈는 호스트와 소스로 연결만 하며 코드·복셀 모델·그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/dos884/block_wars/blob/main/LICENSE",
+    licenseUrlLabel: {
+      en: "Project code license (MIT)",
+      ko: "프로젝트 코드 라이선스 (MIT)",
+    },
+    licenseAppliesToGame: false,
+    author: "dos884",
+    source: "https://github.com/dos884/block_wars",
+    sourceLabel: {
+      en: "Game source repository and MIT license",
+      ko: "게임 소스 저장소와 MIT 라이선스",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://dos884.itch.io/cube-wars",
+    host: {
+      en: "Cube Wars on itch.io",
+      ko: "itch.io의 Cube Wars",
+    },
+    hostNote: {
+      en: "The free prototype opened its mode menu without a sign-in or payment prompt; Chromium showed it at desktop size and in a 390×844 phone-sized frame. The menu shows a generated player name and friend, bot and pass-and-play choices. Account handling for friend play, saves, chat and a completed match were not tested; the host's phone claim is not physical-device evidence.",
+      ko: "무료 프로토타입은 로그인이나 결제 안내 없이 모드 메뉴가 열렸고 Chromium 데스크톱과 390×844 휴대폰 크기 프레임 모두에서 확인했습니다. 메뉴에는 자동 생성된 플레이어 이름과 친구·봇·한 기기 번갈아 하기 선택지가 보였습니다. 친구 대전의 계정 처리·저장·채팅·대전 완료는 검증하지 않았으며 호스트의 휴대폰용 안내는 실물 기기 검증이 아닙니다.",
+    },
+    summary: {
+      en: "Raise an army on a colorful voxel battlefield, mine beneath the map and reshape the terrain to outmaneuver your rival.",
+      ko: "알록달록한 복셀 전장에서 군대를 키우고 지형 아래를 채굴해 땅을 바꾸며 상대를 앞서가세요.",
+    },
+    objective: {
+      en: "Build units, gather gold and capture the opposing base while using tunnels, bridges and water to change the battlefield.",
+      ko: "병력을 만들고 금을 모아 상대 기지를 점령하세요. 터널·다리·물을 이용해 전장을 바꿀 수 있습니다.",
+    },
+    controls: {
+      en: "Use the menu to pick a friend, bot or pass-and-play match. The host documents click-drag or swipe to move the camera, then select units and confirm actions in the game UI.",
+      ko: "메뉴에서 친구·봇·한 기기 번갈아 하기 대전을 고르세요. 호스트는 카메라 이동에 클릭 후 끌기 또는 스와이프를 안내하며, 유닛을 선택하고 게임 화면에서 행동을 확정합니다.",
+    },
+    mode: {
+      en: "A free MIT-code browser prototype with bot, local pass-and-play and online friend modes. The developer notes that confirming each move can feel awkward; the external host controls player data and online sessions.",
+      ko: "봇·한 기기 번갈아 하기·온라인 친구 대전을 지원하는 무료 MIT 코드 브라우저 프로토타입입니다. 개발자는 매 행동을 확정하는 조작이 번거로울 수 있다고 안내합니다. 플레이어 데이터와 온라인 세션은 외부 호스트가 관리합니다.",
+    },
+    tip: {
+      en: "Try the bot mode first to learn how digging, unit counters and terrain changes work.",
+      ko: "채굴·상성 유닛·지형 변경을 익히려면 먼저 봇 대전을 해보세요.",
+    },
+    keywords: {
+      en: [
+        "voxel turn-based strategy game",
+        "browser strategy game with bots",
+        "dig and reshape battlefield game",
+        "free online block war game",
+      ],
+      ko: [
+        "복셀 턴제 전략 게임",
+        "봇 대전 브라우저 전략 게임",
+        "땅을 파고 바꾸는 전투 게임",
+        "무료 온라인 블록 전쟁 게임",
+      ],
+    },
+  },
+  {
+    id: "bitburner",
+    isOpenSource: false,
+    title: "Bitburner",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "Apache-2.0 with Commons Clause; commercial resale is restricted",
+    licenseDescription: {
+      en: "The source repository licenses Bitburner under Apache-2.0 with the Commons Clause, which restricts selling the software or services whose value derives from it. Denny Games therefore lists this as a free browser game, not open-source software. The project and its browser host keep their own terms; no code or game content is copied.",
+      ko: "소스 저장소는 Bitburner에 Commons Clause가 포함된 Apache-2.0을 적용합니다. 이 조항은 소프트웨어 자체나 그 기능에서 가치를 얻는 서비스를 판매하는 일을 제한합니다. 따라서 데니 게임즈는 이 게임을 오픈소스가 아닌 무료 브라우저 게임으로 분류합니다. 프로젝트와 브라우저 호스트에는 각자의 조건이 적용되며 코드나 게임 콘텐츠를 복사하지 않습니다.",
+    },
+    licenseUrl:
+      "https://github.com/bitburner-official/bitburner-src/blob/dev/license.txt",
+    licenseUrlLabel: {
+      en: "Apache-2.0 and Commons Clause terms",
+      ko: "Apache-2.0 및 Commons Clause 조건",
+    },
+    licenseAppliesToGame: false,
+    author: "Daniel Y. Xie and Bitburner contributors",
+    source: "https://github.com/bitburner-official/bitburner-src",
+    sourceLabel: {
+      en: "Official source repository and software terms",
+      ko: "공식 소스 저장소와 소프트웨어 조건",
+    },
+    playModes: ["single-player"],
+    url: "https://bitburner-official.github.io/",
+    host: {
+      en: "Official Bitburner browser release",
+      ko: "Bitburner 공식 브라우저 버전",
+    },
+    hostNote: {
+      en: "The official single-player release opened its tutorial without a sign-in or payment prompt; no chat appeared in the tested screen. At a 390px phone viewport the page expands to 980 CSS pixels and needs horizontal movement. Save persistence, script execution and full gameplay were not tested.",
+      ko: "공식 싱글플레이 버전은 로그인이나 결제 안내 없이 튜토리얼이 열렸고, 확인한 화면에는 채팅이 보이지 않았습니다. 390px 휴대폰 화면에서 페이지 너비가 CSS 980픽셀로 늘어나 가로 이동이 필요합니다. 저장 지속성·스크립트 실행·전체 플레이는 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Grow a cyberpunk hacker from small jobs into a network of automated scripts, upgrades and increasingly ambitious in-game intrusions.",
+      ko: "사이버펑크 세계에서 작은 해킹 의뢰를 시작으로 자동화 스크립트와 업그레이드를 쌓아 더 큰 침투에 도전하세요.",
+    },
+    objective: {
+      en: "Earn money and experience by hacking fictional servers, improve your stats and tools, and automate repeat work with scripts.",
+      ko: "가상의 서버를 해킹해 자금과 경험치를 얻고 능력치와 장비를 높이며 스크립트로 반복 작업을 자동화하세요.",
+    },
+    controls: {
+      en: "Use the in-game terminal, editor and menus with a keyboard and mouse. Read the tutorial before entering commands; this is a programming-focused desktop experience.",
+      ko: "키보드와 마우스로 게임 내 터미널·편집기·메뉴를 사용하세요. 명령을 입력하기 전에 튜토리얼을 읽으세요. 프로그래밍 중심의 데스크톱 경험입니다.",
+    },
+    mode: {
+      en: "A free cyberpunk incremental RPG with an official browser release. Its Apache-2.0 license includes a Commons Clause commercial restriction, so its source code is not treated as open source here.",
+      ko: "공식 브라우저 버전을 제공하는 무료 사이버펑크 방치형 RPG입니다. Apache-2.0 라이선스에 상업적 이용을 제한하는 Commons Clause가 있어 이 카탈로그에서는 소스를 오픈소스로 분류하지 않습니다.",
+    },
+    tip: {
+      en: "Work through the built-in tutorial before experimenting with scripts in the terminal.",
+      ko: "터미널에서 스크립트를 실험하기 전에 게임 내 튜토리얼을 따라가세요.",
+    },
+    keywords: {
+      en: [
+        "Bitburner browser game",
+        "cyberpunk incremental RPG",
+        "programming hacking game online",
+        "script automation game",
+      ],
+      ko: [
+        "Bitburner 브라우저 게임",
+        "사이버펑크 방치형 RPG",
+        "프로그래밍 해킹 게임 온라인",
+        "스크립트 자동화 게임",
+      ],
+    },
+  },
+  {
+    id: "spot-strategy",
+    isOpenSource: true,
+    title: "Spot!",
+    category: "board",
+    controlStyle: "host",
+    inputs: ["mouse"],
+    license: "MIT game code; artwork terms not separately stated",
+    licenseDescription: {
+      en: "The itch.io page identifies an MIT code license and links to the Gondwana repository containing the Spot! Blazor game project. The game page does not state separate artwork terms and notes AI-assisted graphics. Denny Games links to the game and source and copies no code or game art.",
+      ko: "itch.io 페이지는 코드에 MIT 라이선스가 적용된다고 표시하고 Spot! Blazor 게임 프로젝트가 있는 Gondwana 저장소로 연결합니다. 게임 페이지는 별도 그림 라이선스를 안내하지 않으며 그래픽의 AI 보조 제작을 표시합니다. 데니 게임즈는 게임과 소스로 연결만 하며 코드나 게임 그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/Isthimius/Gondwana/blob/master/LICENSE",
+    licenseUrlLabel: {
+      en: "MIT source license and Spot! project files",
+      ko: "MIT 소스 라이선스와 Spot! 프로젝트 파일",
+    },
+    licenseAppliesToGame: false,
+    author: "Isthimius",
+    source:
+      "https://github.com/Isthimius/Gondwana/tree/master/Demos/Spot.Blazor",
+    sourceLabel: {
+      en: "Spot! game project and repository license",
+      ko: "Spot! 게임 프로젝트와 저장소 라이선스",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://isthimius.itch.io/spot",
+    host: {
+      en: "Spot! browser game on itch.io",
+      ko: "itch.io의 Spot! 브라우저 게임",
+    },
+    hostNote: {
+      en: "The itch page offers the local 1–4 player game free with voluntary support; its computer/local-player menu opened without a sign-in or payment prompt. The 769×801 canvas exceeds a 390px phone viewport and the page lists mouse-only input. No chat appeared in the menu; save behavior, a match, mobile input and physical-device use were not tested.",
+      ko: "itch 페이지는 1–4인 로컬 게임을 무료로 제공하고 자율 후원을 받습니다. 컴퓨터·로컬 플레이어 메뉴는 로그인이나 결제 안내 없이 열렸습니다. 769×801 캔버스가 390px 휴대폰 화면보다 넓고 마우스 전용 조작을 안내합니다. 메뉴에는 채팅이 보이지 않았으며 저장 방식·대전·모바일 입력·실물 기기 사용은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Clone a piece, jump across the board and convert neighboring rival pieces to control the most spaces.",
+      ko: "말을 복제하거나 건너뛰어 이동하고 이웃한 상대 말을 바꿔 보드의 더 많은 칸을 차지하세요.",
+    },
+    objective: {
+      en: "Finish with the most pieces by cloning one space away, jumping two spaces and converting opponents beside your destination.",
+      ko: "한 칸 이동해 말을 복제하고 두 칸 건너뛰며 도착한 곳 주변의 상대 말을 바꿔 가장 많은 말을 남기세요.",
+    },
+    controls: {
+      en: "The game page says mouse only: select one of your pieces, then choose a valid nearby destination. Use the host's menu to set board size and player types.",
+      ko: "게임 페이지는 마우스 전용 조작을 안내합니다. 내 말을 고른 뒤 이동 가능한 인접 칸을 선택하세요. 호스트 메뉴에서 보드 크기와 플레이어 유형을 정할 수 있습니다.",
+    },
+    mode: {
+      en: "A free abstract board strategy game with computer opponents and local multiplayer for up to four players. Its itch.io listing labels the game released and identifies the code license as MIT.",
+      ko: "컴퓨터 대전과 최대 4인 로컬 플레이를 지원하는 무료 추상 보드 전략 게임입니다. itch.io 목록은 출시 상태와 코드 MIT 라이선스를 표시합니다.",
+    },
+    tip: {
+      en: "A one-space move clones a piece; a two-space move trades reach for a smaller army. Look for turns that convert several rival pieces at once.",
+      ko: "한 칸 이동은 말을 복제하고 두 칸 이동은 말 수를 줄이는 대신 멀리 갑니다. 한 번에 여러 상대 말을 바꿀 수 있는 수를 찾아보세요.",
+    },
+    keywords: {
+      en: [
+        "Spot abstract strategy game",
+        "free browser board game",
+        "local multiplayer strategy game",
+        "MIT turn-based game",
+      ],
+      ko: [
+        "Spot 추상 전략 게임",
+        "무료 브라우저 보드 게임",
+        "로컬 멀티플레이 전략 게임",
+        "MIT 턴제 게임",
+      ],
+    },
+  },
+];
+
 export const worldOpenGames = [
   ...listings,
   ...expandedListingSpecs.map(expandListing),
@@ -5360,4 +5641,5 @@ export const worldOpenGames = [
   ...freeBrowserWaveSpecs.map(expandListing),
   ...visualWaveTwoSpecs.map(expandListing),
   ...freeBrowserWaveSixSpecs.map(expandListing),
+  ...freeBrowserWaveSevenSpecs.map(expandListing),
 ].map(toGame);

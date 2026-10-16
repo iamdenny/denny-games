@@ -1,0 +1,94 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 640 360"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">Bitburner</title>
+  <desc id="desc">
+    Original Denny Games illustration of a neon terminal overlooking a cyberpunk
+    skyline
+  </desc>
+  <defs>
+    <linearGradient id="night" x2="0" y2="1">
+      <stop stop-color="#101527" />
+      <stop offset="1" stop-color="#191c32" />
+    </linearGradient>
+    <linearGradient id="neon" x2="1" y2="0">
+      <stop stop-color="#62e6c0" />
+      <stop offset="1" stop-color="#98ff8d" />
+    </linearGradient>
+    <pattern id="scan" width="1" height="8" patternUnits="userSpaceOnUse">
+      <path d="M0 7H1" stroke="#d9fff3" stroke-opacity=".07" />
+    </pattern>
+  </defs>
+  <rect width="640" height="360" fill="url(#night)" />
+  <path
+    d="M0 294h37v-76h33v44h32V187h43v107h33v-60h39v60h33V154h44v140h30v-81h39v81h31V201h49v93h30v-56h40v56h34v-81h49v81h44v66H0z"
+    fill="#202a43"
+  />
+  <g fill="#63e6c0" opacity=".68">
+    <path
+      d="M53 235h7v7h-7zM121 203h8v8h-8zM128 222h8v8h-8zM249 209h7v7h-7zM258 234h7v7h-7zM331 177h8v8h-8zM381 229h8v8h-8zM486 221h8v8h-8zM583 238h8v8h-8z"
+    />
+  </g>
+  <rect
+    x="272"
+    y="54"
+    width="331"
+    height="194"
+    rx="15"
+    fill="#111b2b"
+    stroke="#61e4bd"
+    stroke-width="3"
+  />
+  <path d="M272 91h331" stroke="#61e4bd" stroke-opacity=".5" stroke-width="2" />
+  <circle cx="294" cy="73" r="5" fill="#ff766f" />
+  <circle cx="313" cy="73" r="5" fill="#ffd271" />
+  <circle cx="332" cy="73" r="5" fill="#61e4bd" />
+  <g
+    font-family="ui-monospace,monospace"
+    font-size="14"
+    font-weight="600"
+    fill="#8bffbd"
+  >
+    <text x="297" y="119">[home /]&gt; connect server-01</text>
+    <text x="297" y="151" fill="#aab8d0">access granted</text>
+    <text x="297" y="184">$ run grow_network.js</text>
+    <text x="297" y="217" fill="#60dfbb">script online_ ▌</text>
+  </g>
+  <rect width="640" height="360" fill="url(#scan)" />
+  <text
+    x="38"
+    y="79"
+    fill="#6d7f9d"
+    font-family="system-ui,sans-serif"
+    font-size="14"
+    font-weight="800"
+    letter-spacing="4"
+  >
+    INCREMENTAL HACKER RPG
+  </text>
+  <text
+    x="36"
+    y="142"
+    fill="#f3f6ff"
+    font-family="system-ui,sans-serif"
+    font-size="42"
+    font-weight="900"
+    letter-spacing="-1"
+  >
+    BITBURNER
+  </text>
+  <text
+    x="40"
+    y="174"
+    fill="#61e4bd"
+    font-family="system-ui,sans-serif"
+    font-size="13"
+    font-weight="700"
+    letter-spacing="3"
+  >
+    WRITE SCRIPTS • BUILD POWER
+  </text>
+</svg>
