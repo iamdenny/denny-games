@@ -192,12 +192,12 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "Denny Games offers " +
         games.length +
-        " browser-game listings in English and Korean. Most titles launch on Denny Games; additional open-source projects open on independent browser hosts with their own controls, account and save behavior. The locally hosted catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, two original games and five classic board games.",
+        " browser-game listings in English and Korean. Most titles launch on Denny Games; external entries include open-source projects and free-to-play hosts with different source-license, control, account and save terms. The locally hosted catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, two original games and five classic board games.",
       sections: [
         {
           heading: "What can I play?",
           paragraphs: [
-            "Browse board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation collections. External browser listings now range from solitaire, trick-taking cards, platform and maze games to pinball, tactical duels, WebAssembly action games and 3D herding. Each detail page names the project, license and browser host and explains what has and has not been verified; those games open on their own host.",
+            "Browse board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation collections. External browser listings now include Tessel tile puzzles, the WebGL maze EkoScape, a voxel world, 3D racing, a shared city, a cafe and pet-care simulations. Other listings cover solitaire, platform games, pinball and WebAssembly action. Each page distinguishes source license from host terms and states what has and has not been verified.",
           ],
         },
         {
@@ -244,12 +244,12 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "데니 게임즈는 한국어와 영어로 제공하는 웹게임 " +
         games.length +
-        "개 게임 페이지를 제공합니다. 대부분은 데니 게임즈에서 실행하고, 오픈소스 게임은 조작·계정·저장 방식이 각기 다른 외부 브라우저 호스트에서도 즐길 수 있습니다. 데니 게임즈 안에는 MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임 2개와 클래식 보드게임 5개가 있습니다.",
+        "개 게임 페이지를 제공합니다. 대부분은 데니 게임즈에서 실행하며 외부 목록에는 오픈소스 프로젝트와 무료 플레이 호스트 게임이 함께 있습니다. 소스 라이선스·조작·계정·저장 조건은 게임마다 다릅니다. 데니 게임즈 안에는 MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임 2개와 클래식 보드게임 5개가 있습니다.",
       sections: [
         {
           heading: "어떤 게임을 할 수 있나요?",
           paragraphs: [
-            "보드 · 퍼즐 · 아케이드 · 액션 · 슈팅 · 레이싱 · 스포츠 · 전략 · 로그라이크 · 시뮬레이션을 둘러보세요. 외부 브라우저 게임은 솔리테어·트릭 테이킹 카드·플랫폼·미로부터 핀볼·전술 대전·WebAssembly 액션·3D 양몰이까지 폭넓게 추가했습니다. 게임별 페이지에 프로젝트·라이선스·호스트와 검증 범위를 안내하며 게임은 해당 호스트에서 열립니다.",
+            "보드 · 퍼즐 · 아케이드 · 액션 · 슈팅 · 레이싱 · 스포츠 · 전략 · 로그라이크 · 시뮬레이션을 둘러보세요. 외부 목록에 Tessel 타일 퍼즐, WebGL 미로 EkoScape, 복셀 월드, 3D 레이싱, 공유 도시, 카페·반려동물 돌봄 시뮬레이션을 추가했습니다. 솔리테어·플랫폼·핀볼·WebAssembly 액션 게임도 있습니다. 게임별 페이지에서 소스 라이선스와 호스트 조건, 검증 범위를 확인할 수 있습니다.",
           ],
         },
         {
@@ -294,13 +294,13 @@ export const articles: Record<string, Record<Locale, Article>> = {
     en: {
       title: "Small games. A better break.",
       intro:
-        "Denny Games is an independent browser arcade by Denny Lim. Most games launch here without an account or installation; some open-source projects open on external sites with their own requirements.",
+        "Denny Games is an independent browser arcade by Denny Lim. Most games launch here without an account or installation; external links include open-source projects and free browser games with host-specific requirements.",
       sections: [
         {
           heading: "A curated beginning",
           paragraphs: [
             "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation, 191 ABA Games Crisp mini-games, five classic board games, Hextris under GPL-3.0-or-later and Bounce Back under GPL-2.0-or-later. Denny Games-hosted titles have their own rules, controls and pause/restart flow.",
-            "External listings range from Freedoom, Freeciv, Simon Tatham's Puzzles, Sandspiel, Neverball and HexGL to Klondike, Briscola, Njam, pinball and newer open-source browser games. They are links only: builds, game data and artwork are not copied here. Account, controls, compatibility and saves follow each host. Other candidates are reviewed for rights and integration before publication.",
+            "External listings range from Freedoom, Freeciv, Tessel, EkoScape, YourCraft and LEXTOWN to Brakeless, hotlapped, cafe and pet-care simulations, Klondike, Njam and pinball. They are links only: builds, game data and artwork are not copied here. Free play does not mean open source; each entry records whether its code license is known, while account, controls, compatibility and saves follow each host.",
           ],
         },
         {
@@ -314,13 +314,13 @@ export const articles: Record<string, Record<Locale, Article>> = {
     ko: {
       title: "작은 게임, 더 좋은 휴식.",
       intro:
-        "데니 게임즈는 Denny Lim이 만드는 독립 웹게임 사이트입니다. 대부분의 게임은 이곳에서 가입·설치 없이 실행되며, 일부 오픈소스 게임은 별도 조건이 있는 외부 사이트에서 열립니다.",
+        "데니 게임즈는 Denny Lim이 만드는 독립 웹게임 사이트입니다. 대부분의 게임은 이곳에서 가입·설치 없이 실행되며, 외부에는 오픈소스 프로젝트와 호스트 조건이 있는 무료 웹게임 링크도 있습니다.",
       sections: [
         {
           heading: "작지만 분명한 시작",
           paragraphs: [
             "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games Crisp 미니게임 191개, 클래식 보드게임 5종, GPL-3.0-or-later Hextris와 GPL-2.0-or-later 액션 로그라이트 Bounce Back을 제공합니다. 데니 게임즈 안에서 실행되는 타이틀은 게임별 규칙과 조작을 안내합니다.",
-            "외부 목록에는 Freedoom · Freeciv · Simon Tatham's Puzzles · Sandspiel · Neverball · HexGL부터 클론다이크 · 브리스콜라 · Njam · 핀볼과 최신 오픈소스 브라우저 게임까지 있습니다. 링크만 제공하며 빌드 · 게임 데이터 · 그림은 이 사이트에 복사하지 않습니다. 계정 · 조작 · 호환성 · 저장은 각 호스트에 따릅니다. 다른 후보도 공개 전에 권리와 통합 방식을 검토합니다.",
+            "외부 목록에는 Freedoom · Freeciv · Tessel · EkoScape · YourCraft · LEXTOWN과 Brakeless · hotlapped · 카페·반려동물 돌봄 시뮬레이션, 클론다이크 · Njam · 핀볼 등이 있습니다. 링크만 제공하며 빌드 · 게임 데이터 · 그림은 복사하지 않습니다. 무료 플레이가 오픈소스를 뜻하지 않으므로 소스 라이선스 상태를 따로 적고 계정 · 조작 · 호환성 · 저장은 각 호스트 안내를 따릅니다.",
           ],
         },
         {

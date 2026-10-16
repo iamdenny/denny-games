@@ -6,7 +6,7 @@ export function GET() {
   const lines = [
     "# Denny Games",
     "",
-    `> Free English and Korean browser-game catalogue. ${games.length} published titles. Most launch on Denny Games; some open-source projects open on independent hosts with different input, account and save behavior.`,
+    `> Free English and Korean browser-game catalogue. ${games.length} published titles. Most launch on Denny Games; external listings include both open-source projects and free-to-play hosts with different license, input, account and save terms.`,
     "",
     "## Authoritative pages",
     `- [English catalogue](${base}/en/all/)`,
@@ -26,7 +26,7 @@ export function GET() {
       }),
     ),
     "",
-    "## Classic games on external browser hosts",
+    "## External browser games",
     ...externalGames.flatMap((g) =>
       ["en", "ko"].map((l) => {
         const locale = l as "en" | "ko";
@@ -35,7 +35,7 @@ export function GET() {
     ),
     "",
     "## Interpretation",
-    "Denny Games-hosted detail pages describe the implemented rule variant, controls and local-save behavior. External classic listings open independent browser builds or remote servers; gameplay, controls and device compatibility are unverified, and account/session/save behavior varies by host. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
+    "Denny Games-hosted detail pages describe the implemented rule variant, controls and local-save behavior. External listings open independent browser games or remote services; the source license may be open, proprietary or unpublished. Gameplay and device compatibility are unverified, and account/session/save behavior varies by host. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
     "",
   ];
   return new Response(lines.join("\n"), {

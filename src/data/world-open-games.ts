@@ -20,9 +20,12 @@ type Listing = {
   inputs: Game["inputs"];
   tags: Record<Locale, string[]>;
   license: string;
-  licenseUrl: string;
+  licenseDescription?: Record<Locale, string>;
+  licenseUrl?: string;
   author: string;
   source: string;
+  sourceLabel?: Record<Locale, string>;
+  playModes?: Game["playModes"];
   url: string;
   host: Record<Locale, string>;
   hostNote: Record<Locale, string>;
@@ -2280,14 +2283,22 @@ type ExpandedListingSpec = {
   controlStyle: Game["controlStyle"];
   inputs: Game["inputs"];
   license: string;
-  licenseUrl: string;
+  licenseDescription?: Record<Locale, string>;
+  licenseUrl?: string;
   author: string;
   source: string;
+  sourceLabel?: Record<Locale, string>;
+  playModes?: Game["playModes"];
+  isOpenSource?: boolean;
   url: string;
   host: Record<Locale, string>;
   hostNote: Record<Locale, string>;
   summary: Record<Locale, string>;
   controls: Record<Locale, string>;
+  mode?: Record<Locale, string>;
+  objective?: Record<Locale, string>;
+  tip?: Record<Locale, string>;
+  keywords?: Record<Locale, string[]>;
 };
 
 const mashukuiRoot = "https://github.com/mashukui/web-games";
@@ -3360,6 +3371,497 @@ const expandedListingSpecs: ExpandedListingSpec[] = [
   },
 ];
 
+type GraphicalListingSpec = Omit<ExpandedListingSpec, "isOpenSource"> & {
+  isOpenSource: boolean;
+};
+
+const graphicalWaveSpecs: GraphicalListingSpec[] = [
+  {
+    id: "tessel",
+    isOpenSource: true,
+    title: "Tessel",
+    category: "puzzle",
+    controlStyle: "pointer",
+    inputs: ["mouse", "keyboard"],
+    license: "GPL-3.0",
+    licenseUrl: "https://github.com/gvtulder/tessel/blob/main/LICENSE.md",
+    author: "Gijs van Tulder",
+    source: "https://github.com/gvtulder/tessel",
+    url: "https://play.tessel.at/",
+    host: {
+      en: "Tessel official browser game",
+      ko: "Tessel 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The project describes Tessel as a free, colorful tile game and publishes its source under GPL-3.0. Its official play page returned HTTP 200 on 2026-10-16. Denny Games links out only; a complete game session and device behavior were not tested.",
+      ko: "프로젝트는 Tessel을 무료 컬러 타일 게임으로 소개하고 소스를 GPL-3.0으로 공개합니다. 공식 플레이 페이지는 2026-10-16에 HTTP 200을 반환했습니다. 데니 게임즈는 링크만 제공하며 전체 플레이와 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Place colorful tiles, match their edges and form shapes to fill a board.",
+      ko: "색 타일의 변을 맞춰 도형을 만들고 판을 채우세요.",
+    },
+    controls: {
+      en: "Choose a tiling and follow the tile placement instructions shown by the host.",
+      ko: "타일 모양을 고른 뒤 호스트 화면의 배치 안내를 따르세요.",
+    },
+    mode: {
+      en: "A free, GPL-3.0 browser puzzle from the game's author; the host offers several tilings and custom games.",
+      ko: "제작자가 GPL-3.0으로 공개한 무료 브라우저 퍼즐입니다. 호스트에서 여러 타일링과 사용자 게임을 고를 수 있습니다.",
+    },
+    keywords: {
+      en: [
+        "color tile puzzle",
+        "tiling puzzle",
+        "shape matching game",
+        "Tessel online",
+      ],
+      ko: [
+        "컬러 타일 퍼즐",
+        "타일링 퍼즐",
+        "도형 맞추기 게임",
+        "테셀레이션 게임",
+      ],
+    },
+  },
+  {
+    id: "ekoscape",
+    isOpenSource: true,
+    title: "EkoScape",
+    category: "action",
+    controlStyle: "host",
+    inputs: ["keyboard"],
+    license: "GPL-3.0-or-later",
+    licenseUrl: "https://github.com/esotericpig/EkoScape/blob/main/LICENSE",
+    author: "Bradley Whited",
+    source: "https://github.com/esotericpig/EkoScape",
+    url: "https://esotericpig.itch.io/ekoscape",
+    host: {
+      en: "EkoScape browser build on itch.io",
+      ko: "itch.io의 EkoScape 브라우저 빌드",
+    },
+    hostNote: {
+      en: "The author offers browser play and documents WebGL 2.0 support. The repository states GPL-3.0-or-later for EkoScape; bundled or third-party assets can have separate terms. The linked page returned HTTP 200 on 2026-10-16. No build or artwork is copied here, and complete play/device support was not tested.",
+      ko: "제작자는 브라우저 플레이와 WebGL 2.0 지원을 안내합니다. 저장소는 EkoScape에 GPL-3.0-or-later를 적용하며 포함된 외부 자산에는 별도 조건이 있을 수 있습니다. 연결 페이지는 2026-10-16에 HTTP 200을 반환했습니다. 빌드나 그림을 복사하지 않았고 전체 플레이·기기 지원은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Explore a step-based 3D maze, rescue alien friends and avoid robots, with fruit and portals along the way.",
+      ko: "한 칸씩 이동하는 3D 미로에서 외계인 친구를 구하고 로봇을 피하며 과일과 포털을 찾아보세요.",
+    },
+    controls: {
+      en: "Use the keyboard controls shown by the game; the browser build requires WebGL 2.0.",
+      ko: "게임 화면의 키보드 조작 안내를 확인하세요. 브라우저 빌드에는 WebGL 2.0이 필요합니다.",
+    },
+    mode: {
+      en: "A free browser version of an open-source 3D maze game; the independent itch.io host controls its build and requirements.",
+      ko: "오픈소스 3D 미로 게임의 무료 브라우저 버전입니다. itch.io 외부 호스트가 빌드와 실행 조건을 관리합니다.",
+    },
+    keywords: {
+      en: [
+        "3D maze game",
+        "Emscripten game",
+        "WebGL 2 game",
+        "alien maze adventure",
+      ],
+      ko: [
+        "3D 미로 게임",
+        "웹어셈블리 미로",
+        "WebGL 2 게임",
+        "외계인 미로 모험",
+      ],
+    },
+  },
+  {
+    id: "astray-2",
+    isOpenSource: true,
+    title: "Astray 2",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "Unlicense",
+    licenseUrl: "https://github.com/wwwtyro/astray-2/blob/master/LICENSE.md",
+    author: "wwwtyro",
+    source: "https://github.com/wwwtyro/astray-2",
+    url: "https://wwwtyro.github.io/astray-2/",
+    host: {
+      en: "Astray 2 project browser build",
+      ko: "Astray 2 프로젝트 브라우저 빌드",
+    },
+    hostNote: {
+      en: "The author calls Astray 2 a real-time WebGL path-tracing maze proof of concept. The repository identifies its license as Unlicense. Its live page returned HTTP 200 on 2026-10-16, but a full session, performance and device behavior were not tested; expect an experimental project rather than a finished release.",
+      ko: "제작자는 Astray 2를 실시간 WebGL 경로 추적 미로의 개념 증명으로 소개합니다. 저장소는 Unlicense를 표시합니다. 라이브 페이지는 2026-10-16에 HTTP 200을 반환했지만 전체 플레이·성능·기기 동작은 검증하지 않았습니다. 완성작보다 실험 프로젝트에 가깝습니다.",
+    },
+    summary: {
+      en: "Walk through a maze rendered with real-time path tracing in this experimental WebGL project.",
+      ko: "실시간 경로 추적으로 렌더링되는 미로를 탐험하는 실험적인 WebGL 프로젝트입니다.",
+    },
+    controls: {
+      en: "Open the live page and follow its in-game prompts; the host does not provide a separate controls guide.",
+      ko: "라이브 페이지를 열고 게임 안의 안내를 확인하세요. 호스트에는 별도 조작 가이드가 없습니다.",
+    },
+    mode: {
+      en: "A free, Unlicense project and visual experiment; the author labels it a proof of concept.",
+      ko: "Unlicense로 공개된 무료 시각 실험이며 제작자는 개념 증명 프로젝트로 분류합니다.",
+    },
+    keywords: {
+      en: [
+        "WebGL path tracing",
+        "experimental 3D maze",
+        "real-time rendered maze",
+      ],
+      ko: ["WebGL 경로 추적", "실험적인 3D 미로", "실시간 렌더링 미로"],
+    },
+  },
+  {
+    id: "yourcraft",
+    isOpenSource: true,
+    title: "YourCraft",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://github.com/wyzuk/yourcraft/blob/main/LICENSE",
+    author: "Wyzuk",
+    source: "https://github.com/wyzuk/yourcraft",
+    url: "https://your-craft.netlify.app/",
+    host: {
+      en: "YourCraft official browser demo",
+      ko: "YourCraft 공식 브라우저 데모",
+    },
+    hostNote: {
+      en: "The project README describes free accountless browser play, procedural voxel terrain and a Three.js/WebGL renderer, and publishes the project under MIT. The live demo returned HTTP 200 on 2026-10-16. Denny Games links out only; a full game session or physical-device behavior was not tested.",
+      ko: "프로젝트 README는 계정 없이 즐기는 무료 브라우저 플레이, 절차 생성 복셀 지형과 Three.js/WebGL 렌더러를 안내하고 MIT 라이선스를 표시합니다. 라이브 데모는 2026-10-16에 HTTP 200을 반환했습니다. 데니 게임즈는 링크만 제공하며 전체 플레이와 실기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Explore a procedurally generated voxel world, mine and place blocks, craft tools and switch between creative and survival play.",
+      ko: "절차 생성 복셀 세계를 탐험하고 블록을 캐고 놓으며 도구를 만들고 창작·생존 모드를 바꿔보세요.",
+    },
+    controls: {
+      en: "The README lists WASD movement, mouse-look, Space to jump or fly, and mouse buttons to mine or place blocks. Pointer lock is used for the camera.",
+      ko: "README는 WASD 이동, 마우스 시점 조작, Space 점프·비행, 마우스 버튼 채굴·설치를 안내합니다. 카메라에는 포인터 잠금이 사용됩니다.",
+    },
+    mode: {
+      en: "A free, single-player voxel sandbox with procedural biomes, caves, crafting and WebGL graphics; the project source is MIT-licensed.",
+      ko: "절차 생성 생물군계와 동굴, 제작 시스템, WebGL 그래픽을 갖춘 무료 싱글플레이 복셀 샌드박스이며 소스는 MIT 라이선스입니다.",
+    },
+    keywords: {
+      en: [
+        "3D voxel sandbox",
+        "block building browser game",
+        "procedural world game",
+        "Three.js game",
+      ],
+      ko: [
+        "3D 복셀 샌드박스",
+        "블록 건축 브라우저 게임",
+        "절차 생성 월드",
+        "Three.js 게임",
+      ],
+    },
+  },
+  {
+    id: "brakeless",
+    title: "Brakeless",
+    category: "racing",
+    controlStyle: "directional",
+    inputs: ["keyboard", "mouse"],
+    isOpenSource: false,
+    license: "Source license not published",
+    licenseDescription: {
+      en: "Source-code license not published; the official host offers free browser play.",
+      ko: "소스 코드 라이선스는 공개되지 않았으며, 공식 호스트가 무료 브라우저 플레이를 제공합니다.",
+    },
+    author: "Brakeless developers",
+    source: "https://brakeless.io/",
+    sourceLabel: { en: "Official game information", ko: "공식 게임 안내" },
+    url: "https://brakeless.io/",
+    host: {
+      en: "Brakeless official browser game",
+      ko: "Brakeless 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The official page describes a free endless driving game with no download, installation or account required for play. The host controls ads, leaderboard and browser-storage behavior. The code license is not published on the page. Its URL returned HTTP 200 on 2026-10-16; gameplay and device compatibility were not tested.",
+      ko: "공식 페이지는 다운로드·설치·계정 없이 즐기는 무료 무한 주행 게임이라고 안내합니다. 광고·랭킹·브라우저 저장은 호스트가 관리합니다. 페이지에서 코드 라이선스는 확인되지 않았습니다. URL은 2026-10-16에 HTTP 200을 반환했으며 플레이와 기기 호환성은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Steer a turbine-powered car through traffic in an endless 3D run where speed keeps climbing and there are no brakes.",
+      ko: "속도가 계속 오르는 무한 3D 주행에서 터빈 자동차를 조종해 교통을 헤쳐 나가세요. 브레이크는 없습니다.",
+    },
+    controls: {
+      en: "Steer with Left/Right or A/D; use M to mute. The host lists mouse input for menus.",
+      ko: "왼쪽·오른쪽 화살표 또는 A/D로 방향을 바꾸고 M으로 음소거하세요. 메뉴는 마우스로 조작합니다.",
+    },
+    mode: {
+      en: "Free-to-play browser driving with an endless 3D route and a separate classic 2D option; optional records and saves follow the host.",
+      ko: "무한 3D 도로와 별도의 클래식 2D 방식을 제공하는 무료 브라우저 주행 게임입니다. 선택 기능과 저장은 호스트 정책을 따릅니다.",
+    },
+    keywords: {
+      en: [
+        "3D endless driving game",
+        "no brakes racing game",
+        "traffic dodging browser game",
+      ],
+      ko: ["3D 무한 주행 게임", "브레이크 없는 레이싱", "차량 피하기 웹게임"],
+    },
+  },
+  {
+    id: "hotlapped",
+    title: "hotlapped",
+    category: "racing",
+    controlStyle: "host",
+    inputs: ["keyboard", "gamepad"],
+    isOpenSource: false,
+    license: "Source license not published",
+    licenseDescription: {
+      en: "Source-code license not published; the host offers free browser racing.",
+      ko: "소스 코드 라이선스는 공개되지 않았으며, 호스트가 무료 브라우저 레이싱을 제공합니다.",
+    },
+    author: "hotlapped",
+    source: "https://hotlapped.com/",
+    sourceLabel: { en: "Official game information", ko: "공식 게임 안내" },
+    playModes: ["single-player", "multi-player"],
+    url: "https://hotlapped.com/",
+    host: {
+      en: "hotlapped official browser game",
+      ko: "hotlapped 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The official page calls this a free browser racer and documents JavaScript and WebGL requirements, time trials, a 3D track editor and ghost replays. Its page says sign-in is needed to save; online features and any store follow the host's terms. The code license is not published there. The URL returned HTTP 200 on 2026-10-16; no full race or device was tested.",
+      ko: "공식 페이지는 무료 브라우저 레이서라고 안내하며 JavaScript·WebGL, 타임 트라이얼, 3D 트랙 편집기와 고스트 리플레이를 설명합니다. 저장에는 로그인이 필요하다고 표시합니다. 온라인 기능과 스토어는 호스트 약관을 따릅니다. 코드 라이선스는 페이지에 공개되지 않았습니다. URL은 2026-10-16에 HTTP 200을 반환했고 전체 레이스와 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Race 3D time trials, chase ghost laps and build or test tracks in the browser.",
+      ko: "브라우저에서 3D 타임 트라이얼을 달리고 고스트 기록을 쫓으며 트랙을 만들고 시험하세요.",
+    },
+    controls: {
+      en: "Use the host's keyboard or controller instructions; it also presents touch-style direction buttons on the page.",
+      ko: "호스트의 키보드·컨트롤러 안내를 확인하세요. 페이지에는 터치형 방향 버튼도 표시됩니다.",
+    },
+    mode: {
+      en: "Free browser racing with solo practice, time trials and a track editor. Sign in if you want the host to save progress.",
+      ko: "솔로 연습·타임 트라이얼·트랙 편집을 제공하는 무료 브라우저 레이싱입니다. 진행을 저장하려면 호스트에 로그인해야 합니다.",
+    },
+    keywords: {
+      en: [
+        "3D browser racing game",
+        "time trial racing",
+        "track editor game",
+        "ghost lap racing",
+      ],
+      ko: [
+        "3D 브라우저 레이싱",
+        "타임 트라이얼 레이싱",
+        "트랙 편집 게임",
+        "고스트 랩 레이싱",
+      ],
+    },
+  },
+  {
+    id: "lextown",
+    isOpenSource: true,
+    title: "LEXTOWN-01",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://github.com/paul-codes-1/lextown/blob/main/LICENSE",
+    author: "Paul Codes and contributors",
+    source: "https://github.com/paul-codes-1/lextown",
+    playModes: ["multi-player"],
+    url: "https://playlextown.com/",
+    host: {
+      en: "LEXTOWN shared browser world",
+      ko: "LEXTOWN 공유 브라우저 월드",
+    },
+    hostNote: {
+      en: "The public game page describes a shared multiplayer city with chat, timed missions, cars and global leaderboards. The project repository is MIT-licensed. The host controls public-world, chat, account and moderation rules. Its URL returned HTTP 200 on 2026-10-16; no complete mission or device behavior was tested.",
+      ko: "공개 게임 페이지는 채팅·시간제 미션·자동차·글로벌 기록이 있는 멀티플레이 도시를 안내합니다. 프로젝트 저장소는 MIT 라이선스입니다. 공개 월드·채팅·계정·운영 정책은 호스트가 관리합니다. URL은 2026-10-16에 HTTP 200을 반환했으며 전체 미션과 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Walk, drive and explore a stylized shared city, then take on timed missions with other visitors.",
+      ko: "다른 방문자와 함께 양식화된 도시를 걷고 운전하며 탐험하고 시간제 미션에 도전하세요.",
+    },
+    controls: {
+      en: "The host lists WASD or arrow keys to walk, Space to jump and E to enter or leave nearby vehicles; read its guide for camera and chat controls.",
+      ko: "호스트는 WASD·화살표 이동, Space 점프, E로 주변 차량 승하차를 안내합니다. 카메라와 채팅 조작은 안내 페이지를 확인하세요.",
+    },
+    mode: {
+      en: "A free multiplayer browser city with public chat and a changing set of timed missions; other players and host moderation are part of the experience.",
+      ko: "공개 채팅과 여러 시간제 미션이 있는 무료 멀티플레이 브라우저 도시입니다. 다른 플레이어와 호스트 운영 정책이 플레이에 포함됩니다.",
+    },
+    keywords: {
+      en: [
+        "multiplayer city game",
+        "3D browser city",
+        "driving and walking game",
+        "LEXTOWN missions",
+      ],
+      ko: [
+        "멀티플레이 도시 게임",
+        "3D 브라우저 도시",
+        "도보·운전 게임",
+        "LEXTOWN 미션",
+      ],
+    },
+  },
+  {
+    id: "mingat-cozy-cafe",
+    title: "Cozy Cafe 3D: Latte the Latte",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse", "touch"],
+    isOpenSource: false,
+    license: "Source license not published",
+    licenseDescription: {
+      en: "No source license was confirmed; the showcase's source link returned HTTP 404 on 2026-10-16.",
+      ko: "소스 라이선스를 확인하지 못했습니다. 소개 페이지의 소스 링크는 2026-10-16에 HTTP 404를 반환했습니다.",
+    },
+    author: "Mingat Games",
+    source: "https://mingatgames.github.io/",
+    sourceLabel: { en: "Developer showcase", ko: "개발자 게임 소개" },
+    url: "https://mingatgames.github.io/games/cozy-cafe/",
+    host: {
+      en: "Mingat Games browser page",
+      ko: "Mingat Games 브라우저 페이지",
+    },
+    hostNote: {
+      en: "Mingat Games presents this as an instant-play 3D barista simulation with keyboard and touch controls. The source link from its showcase returned 404 on 2026-10-16, so no public source license was confirmed. The play page returned HTTP 200 with no payment prompt in its public page; complete play, payment terms and device behavior were not tested.",
+      ko: "Mingat Games는 키보드·터치 조작을 갖춘 즉시 실행 3D 바리스타 시뮬레이션으로 소개합니다. 소개 페이지의 소스 링크는 2026-10-16에 404를 반환해 공개 소스 라이선스를 확인하지 못했습니다. 플레이 페이지는 결제 안내 없이 HTTP 200을 반환했지만 전체 플레이·결제 조건·기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Play as Latte the Latte, take customer orders, prepare coffee and pastries, and grow a relaxed 3D cafe.",
+      ko: "라테 바리스타가 되어 손님 주문을 받고 커피와 페이스트리를 준비하며 아늑한 3D 카페를 키워보세요.",
+    },
+    controls: {
+      en: "The developer lists WASD and arrow keys to move, mouse movement to look around, and E or Space to interact; the page also advertises touch controls.",
+      ko: "개발자는 WASD·화살표 이동, 마우스 시점 조작, E·Space 상호작용을 안내하고 페이지에서 터치 조작도 소개합니다.",
+    },
+    mode: {
+      en: "A relaxed, timer-free 3D cafe simulation offered on the developer's browser host; source and redistribution terms are not published.",
+      ko: "개발자 브라우저 호스트에서 제공하는 시간제한 없는 3D 카페 시뮬레이션입니다. 소스와 재배포 조건은 공개되지 않았습니다.",
+    },
+    keywords: {
+      en: [
+        "3D cafe simulation",
+        "barista browser game",
+        "cozy cafe game",
+        "coffee shop simulator",
+      ],
+      ko: [
+        "3D 카페 시뮬레이션",
+        "바리스타 브라우저 게임",
+        "아늑한 카페 게임",
+        "커피숍 운영 게임",
+      ],
+    },
+  },
+  {
+    id: "mingat-pet-daycare",
+    title: "Paws & Play: 3D Pet Daycare",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse", "touch"],
+    isOpenSource: false,
+    license: "All rights reserved; project README says private project",
+    licenseDescription: {
+      en: "All rights reserved; the public README says the project is private.",
+      ko: "모든 권리는 개발자에게 있으며 공개 README는 비공개 프로젝트라고 안내합니다.",
+    },
+    licenseUrl: "https://github.com/MingatGames/pet-daycare#license",
+    author: "Mingat Games",
+    source: "https://github.com/MingatGames/pet-daycare",
+    sourceLabel: {
+      en: "Project and license page",
+      ko: "프로젝트·라이선스 안내",
+    },
+    url: "https://mingatgames.github.io/games/pet-daycare/",
+    host: {
+      en: "Mingat Games browser page",
+      ko: "Mingat Games 브라우저 페이지",
+    },
+    hostNote: {
+      en: 'The developer describes a free-entry 3D pet-care game and advertises keyboard and iPad touch controls. Its public README says "Private project. All rights reserved" and does not grant an open-source license; no game assets are reused here. The play page returned HTTP 200 on 2026-10-16 with no upfront payment prompt in its public page. Full play, payment terms and device behavior were not tested.',
+      ko: '개발자는 키보드·iPad 터치 조작을 소개하는 무료 입장 3D 반려동물 돌봄 게임을 제공합니다. 공개 README는 "Private project. All rights reserved"라고 밝히며 오픈소스 라이선스를 부여하지 않습니다. 게임 자산은 재사용하지 않았습니다. 플레이 페이지는 2026-10-16에 선결제 안내 없이 HTTP 200을 반환했지만 전체 플레이·결제 조건·기기 동작은 검증하지 않았습니다.',
+    },
+    summary: {
+      en: "Feed, groom, bathe and play fetch with puppies, kittens and bunnies in a colorful 3D daycare.",
+      ko: "알록달록한 3D 돌봄 센터에서 강아지·고양이·토끼에게 먹이를 주고 씻기며 공놀이를 해보세요.",
+    },
+    controls: {
+      en: "The project README lists WASD or arrow keys, mouse-look and E, Space or on-screen actions; it also describes a touch joystick for tablets.",
+      ko: "프로젝트 README는 WASD·화살표 이동, 마우스 시점 조작, E·Space·화면 버튼을 안내하고 태블릿용 터치 조이스틱도 설명합니다.",
+    },
+    mode: {
+      en: "A free-entry browser pet-care simulation with in-game coins and upgrades; its software is proprietary and host terms apply.",
+      ko: "게임 안의 코인과 업그레이드를 제공하는 무료 입장 브라우저 반려동물 돌봄 시뮬레이션입니다. 소프트웨어는 독점 소프트웨어이며 호스트 조건이 적용됩니다.",
+    },
+    keywords: {
+      en: [
+        "3D pet care game",
+        "pet daycare simulator",
+        "puppy and kitten game",
+        "iPad browser pet game",
+      ],
+      ko: [
+        "3D 반려동물 돌봄 게임",
+        "펫 데이케어 시뮬레이터",
+        "강아지·고양이 게임",
+        "아이패드 브라우저 펫 게임",
+      ],
+    },
+  },
+  {
+    id: "mingat-nomad-life",
+    title: "Nomad Life",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard"],
+    isOpenSource: false,
+    license: "Source license not published",
+    licenseDescription: {
+      en: "No source license was confirmed; the showcase's source link returned HTTP 404 on 2026-10-16.",
+      ko: "소스 라이선스를 확인하지 못했습니다. 소개 페이지의 소스 링크는 2026-10-16에 HTTP 404를 반환했습니다.",
+    },
+    author: "Mingat Games",
+    source: "https://mingatgames.github.io/",
+    sourceLabel: { en: "Developer showcase", ko: "개발자 게임 소개" },
+    url: "https://mingatgames.github.io/games/nomad-life/",
+    host: {
+      en: "Mingat Games browser page",
+      ko: "Mingat Games 브라우저 페이지",
+    },
+    hostNote: {
+      en: "Mingat Games presents an open-world pastoral simulation with horse riding and animal herding. Its showcase links to a source repository that returned 404 on 2026-10-16, so no public source license was confirmed. The play page returned HTTP 200 with no payment prompt in its public page; complete gameplay, payment terms and device support were not tested.",
+      ko: "Mingat Games는 말 타기와 동물 몰이가 있는 목가적 오픈월드 시뮬레이션으로 소개합니다. 소개 페이지의 소스 저장소 링크는 2026-10-16에 404를 반환해 공개 소스 라이선스를 확인하지 못했습니다. 플레이 페이지는 결제 안내 없이 HTTP 200을 반환했지만 전체 플레이·결제 조건·기기 지원은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Ride across an open steppe, mount horses and guide several kinds of animals around a nomad camp.",
+      ko: "광활한 초원을 달리고 말을 타며 여러 동물을 유목 캠프 주변으로 이끌어보세요.",
+    },
+    controls: {
+      en: "The host lists WASD movement, Shift to run and E to interact or mount; confirm the current controls in its guide.",
+      ko: "호스트는 WASD 이동, Shift 달리기, E 상호작용·말 타기를 안내합니다. 최신 조작은 게임의 도움말에서 확인하세요.",
+    },
+    mode: {
+      en: "A free-to-enter 3D pastoral sandbox with horse riding and simulated herds, hosted by the developer; source terms are not published.",
+      ko: "개발자가 호스팅하는 말 타기와 무리 시뮬레이션을 갖춘 무료 입장 3D 목가적 샌드박스입니다. 소스 조건은 공개되지 않았습니다.",
+    },
+    keywords: {
+      en: [
+        "3D horse riding game",
+        "animal herding simulator",
+        "pastoral open world",
+        "nomad life browser game",
+      ],
+      ko: [
+        "3D 승마 게임",
+        "동물 몰이 시뮬레이터",
+        "목가적 오픈월드",
+        "노마드 라이프 브라우저 게임",
+      ],
+    },
+  },
+];
+
 const categoryColors: Record<Game["category"], string> = {
   board: "blue",
   puzzle: "mint",
@@ -3389,6 +3891,7 @@ const categoryNames: Record<Game["category"], Record<Locale, string>> = {
 function expandListing(spec: ExpandedListingSpec): Listing {
   const makeCopy = (locale: Locale) => {
     const korean = locale === "ko";
+    const openSource = spec.isOpenSource !== false;
     return {
       title: spec.title,
       subtitle: korean
@@ -3399,16 +3902,26 @@ function expandListing(spec: ExpandedListingSpec): Listing {
           ? "외부 호스트에서 실행되며 게임의 진행과 이용 조건은 해당 페이지를 따릅니다."
           : "It runs on an external host; gameplay and terms follow that page."
       }`,
-      objective: korean
-        ? "게임 화면에 표시되는 목표와 안내를 따라 진행하세요."
-        : "Follow the goal and instructions shown in the game.",
-      mode: korean
-        ? "데니 게임즈 바깥의 호스트에서 실행되는 오픈소스 브라우저 게임입니다."
-        : "An open-source browser game running on a host outside Denny Games.",
+      objective:
+        spec.objective?.[locale] ??
+        (korean
+          ? "게임 화면에 표시되는 목표와 안내를 따라 진행하세요."
+          : "Follow the goal and instructions shown in the game."),
+      mode:
+        spec.mode?.[locale] ??
+        (openSource
+          ? korean
+            ? "데니 게임즈 바깥의 호스트에서 실행되는 오픈소스 브라우저 게임입니다."
+            : "An open-source browser game running on a host outside Denny Games."
+          : korean
+            ? "외부 호스트에서 무료로 플레이할 수 있습니다. 소스 공개와 라이선스 여부는 위 안내를 확인하세요."
+            : "Free browser play is offered by an external host; see the license note above for source availability."),
       controls: spec.controls[locale],
-      tip: korean
-        ? "처음 움직이기 전에 호스트의 도움말과 조작 안내를 확인하세요."
-        : "Read the host's help and controls before your first move.",
+      tip:
+        spec.tip?.[locale] ??
+        (korean
+          ? "처음 움직이기 전에 호스트의 도움말과 조작 안내를 확인하세요."
+          : "Read the host's help and controls before your first move."),
     };
   };
 
@@ -3423,20 +3936,29 @@ function expandListing(spec: ExpandedListingSpec): Listing {
       en: [
         spec.title,
         categoryNames[spec.category].en,
-        "free open source browser game",
+        ...(spec.keywords?.en ?? []),
+        spec.isOpenSource === false
+          ? "free browser game"
+          : "free open source browser game",
         "play online",
       ],
       ko: [
         spec.title,
         categoryNames[spec.category].ko,
-        "무료 오픈소스 브라우저 게임",
+        ...(spec.keywords?.ko ?? []),
+        spec.isOpenSource === false
+          ? "무료 플레이 브라우저 게임"
+          : "무료 오픈소스 브라우저 게임",
         "온라인 게임",
       ],
     },
     license: spec.license,
+    licenseDescription: spec.licenseDescription,
     licenseUrl: spec.licenseUrl,
     author: spec.author,
     source: spec.source,
+    sourceLabel: spec.sourceLabel,
+    playModes: spec.playModes,
     url: spec.url,
     host: spec.host,
     hostNote: spec.hostNote,
@@ -3492,9 +4014,12 @@ function toGame(entry: Listing): Game {
     tags: [...entry.tags.en, ...entry.tags.ko],
     inputs: entry.inputs,
     license: entry.license,
+    licenseDescription: entry.licenseDescription,
     licenseUrl: entry.licenseUrl,
     author: entry.author,
     source: entry.source,
+    sourceLabel: entry.sourceLabel,
+    playModes: entry.playModes,
     externalPlay: { url: entry.url, host: entry.host, note: entry.hostNote },
     added: entry.added ?? "2026-10-15",
     artwork: `/art/open-games/${entry.id}.svg`,
@@ -3506,4 +4031,5 @@ function toGame(entry: Listing): Game {
 export const worldOpenGames = [
   ...listings,
   ...expandedListingSpecs.map(expandListing),
+  ...graphicalWaveSpecs.map(expandListing),
 ].map(toGame);

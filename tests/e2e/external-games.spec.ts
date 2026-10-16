@@ -2,10 +2,18 @@ import { test, expect } from "@playwright/test";
 import { games } from "../../src/data/games";
 
 const externalGames = games.flatMap((game) =>
-  game.externalPlay ? [{ id: game.id, url: game.externalPlay.url }] : [],
+  game.externalPlay
+    ? [
+        {
+          id: game.id,
+          url: game.externalPlay.url,
+          licenseDescription: game.licenseDescription,
+        },
+      ]
+    : [],
 );
 
-for (const locale of ["en", "ko"]) {
+for (const locale of ["en", "ko"] as const) {
   for (const game of externalGames) {
     test(`${locale} ${game.id}: explains and safely opens the external host`, async ({
       page,
@@ -18,6 +26,10 @@ for (const locale of ["en", "ko"]) {
       await expect(launch).toHaveAttribute("target", "_blank");
       await expect(launch).toHaveAttribute("rel", "noopener noreferrer");
       await expect(page.locator(".external-host-note")).toBeVisible();
+      if (game.licenseDescription?.[locale])
+        await expect(page.locator(".prose")).toContainText(
+          game.licenseDescription[locale],
+        );
       await expect(page.locator(".prose")).toContainText(
         locale === "ko" ? "검증하지 않았습니다" : "has not verified",
       );
@@ -44,7 +56,7 @@ for (const locale of ["en", "ko"]) {
     ];
     for (const [width, height] of viewports) {
       await page.setViewportSize({ width, height });
-      await page.goto(`/${locale}/games/sheepdog-sim/`);
+      await page.goto(`/${locale}/games/yourcraft/`);
       await expect(
         page.locator(".detail-actions a.button.primary"),
       ).toBeVisible();

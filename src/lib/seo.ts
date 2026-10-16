@@ -48,12 +48,18 @@ export function discoverySchema({
         image: `${SITE}${game.screenshot ?? (game.externalPlay ? "/art/social.png" : game.artwork)}`,
         inLanguage: locale,
         gamePlatform: "Web browser",
-        playMode: game.classic
-          ? [
-              "https://schema.org/SinglePlayer",
-              "https://schema.org/MultiPlayer",
-            ]
-          : "https://schema.org/SinglePlayer",
+        playMode: game.playModes
+          ? game.playModes.map((mode) =>
+              mode === "single-player"
+                ? "https://schema.org/SinglePlayer"
+                : "https://schema.org/MultiPlayer",
+            )
+          : game.classic
+            ? [
+                "https://schema.org/SinglePlayer",
+                "https://schema.org/MultiPlayer",
+              ]
+            : "https://schema.org/SinglePlayer",
         genre: text[game.category],
         isAccessibleForFree: true,
         author: {
@@ -61,12 +67,12 @@ export function discoverySchema({
             game.imported || game.id === "2048" ? "Person" : "Organization",
           name: game.author,
         },
-        license:
-          game.licenseUrl ??
-          (game.notice
-            ? `${SITE}${game.notice}`
-            : "https://opensource.org/license/mit"),
-        isBasedOn: game.source,
+        ...(game.licenseUrl
+          ? { license: game.licenseUrl }
+          : game.notice
+            ? { license: SITE + game.notice }
+            : {}),
+        ...(!game.sourceLabel ? { isBasedOn: game.source } : {}),
       }
     : undefined;
   const crumbs = [{ name: text.home, item: pageUrl(locale) }];

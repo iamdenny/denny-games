@@ -33,12 +33,18 @@ for (const item of crisp)
     const frame = page
       .frames()
       .find((f) => f.url().includes("/vendor/crisp/index.html"))!;
+    const canvas = frame.locator("canvas");
+    if (item.id === "crisp-rolfrg") {
+      await canvas.dispatchEvent("mousedown", { clientX: 100, clientY: 100 });
+      await page.waitForTimeout(80);
+      await canvas.dispatchEvent("mouseup", {});
+    }
     await frame.waitForFunction(() => Number(document.body.dataset.ticks) > 5);
-    await frame
-      .locator("canvas")
-      .dispatchEvent("mousedown", { clientX: 100, clientY: 100 });
-    await page.waitForTimeout(80);
-    await frame.locator("canvas").dispatchEvent("mouseup", {});
+    if (item.id !== "crisp-rolfrg") {
+      await canvas.dispatchEvent("mousedown", { clientX: 100, clientY: 100 });
+      await page.waitForTimeout(80);
+      await canvas.dispatchEvent("mouseup", {});
+    }
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth > innerWidth,
