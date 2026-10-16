@@ -1,6 +1,6 @@
 ---
 title: "다음 릴리스 PRD — 플레이 방식별 탐색과 기기 점검"
-summary: "314개 게임 페이지로 확장된 카탈로그의 탐색, 검색·AI 검색용 모음, 실제 기기 점검 준비와 공급 확대의 완료 조건."
+summary: "319개 게임 페이지로 확장된 카탈로그의 탐색, 검색·AI 검색용 모음, 실제 기기 점검 준비와 공급 확대의 완료 조건."
 read_when:
   - Implementing the next catalogue and device-readiness release
 ---
@@ -58,3 +58,5 @@ read_when:
 2026-10-16에 mashukui의 MIT 브라우저 게임 27개, EveryGameMade가 라이선스에 따라 호스팅하는 15개 오픈소스 게임, open-games.org의 GPL 브라우저 게임 5개를 외부 링크로 등록했다. 세 컬렉션의 원본 저장소·라이선스·호스트를 기록했다. 확인한 후보 URL 52개는 모두 HTTP 200을 반환했고, 중복 5개를 제외한 47개를 새로 등록했다. 완전한 플레이 세션은 검사하지 않았다. 게임별 조작 정보는 각 출처의 설명을 따르며, 이 사이트에서 실기기 호환성을 보증하지 않는다. 카탈로그는 304개 페이지(사이트 내 실행 205개, 외부 링크 99개)다.
 
 2026-10-16에 Tessel, EkoScape, Astray 2, YourCraft, Brakeless, hotlapped, LEXTOWN-01과 Mingat Games의 Cozy Cafe 3D, Paws & Play: 3D Pet Daycare, Nomad Life를 추가했다. 타일 퍼즐, WebGL 미로, 복셀 샌드박스, 3D 레이싱과 시뮬레이션을 섞고, 오픈소스 코드와 소스 라이선스 미공개·모든 권리 유보 게임을 구분했다. 새 플레이 URL 10개는 HTTP 200을 반환했다. 저장소·호스트·가격 안내를 각각 확인했으며 전체 게임 세션과 실기기 호환성은 검증하지 않았다. 카탈로그는 314개 페이지(사이트 내 실행 205개, 외부 링크 109개)다.
+
+2026-10-16에 Warzone 2100 Web Edition, 실험용 Mindustry 웹 포트, City Defense, YS Flight Simulator Web, NetCraft를 외부 링크로 추가했다. 실시간 전략, 공장 자동화 방어, 실제 도시 지도 방어, 비행 시뮬레이션, 복셀 샌드박스를 포함한다. 네 프로젝트는 공개 소스 라이선스를 기록했고, City Defense는 소스 라이선스 미공개와 무료 브라우저 접속을 분리해 표시했다. 새 플레이 URL 5개는 HTTP 200을 반환했다. WebAssembly/WebGL 요구사항, 초기 로드 크기, 개인정보 안내와 실험·레거시 상태를 출처에 따라 기록했다. 전체 플레이 세션, 실기기, 컨트롤러와 멀티플레이는 검증하지 않았다. 카탈로그는 319개 페이지(사이트 내 실행 205개, 외부 링크 114개)다.
