@@ -20,8 +20,8 @@ export const categoryCopy: Record<Category, Record<Locale, string>> = {
     ko: "플랫폼 모험·미로 대전·아레나 전투·외부 호스트 캠페인 등 액션 게임을 살펴보세요. 상세 페이지에서 조작법·라이선스·호스트 조건을 확인할 수 있습니다.",
   },
   shooting: {
-    en: "Aim, dodge and survive in locally hosted shooters or try external space-combat and artillery games. Check each title's controls and host requirements before playing.",
-    ko: "사이트 안의 조준 도전과 외부 호스트의 우주 전투·포격 게임을 즐겨보세요. 시작하기 전에 게임별 조작과 호스트 요구사항을 확인하세요.",
+    en: "Aim, dodge and survive in locally hosted shooters or try external space-combat, artillery and top-down battle royale games such as Suroi. Check each title's controls and host requirements before playing.",
+    ko: "사이트 안의 조준 도전과 외부 호스트의 우주 전투·포격·탑다운 배틀로얄 게임 Suroi를 즐겨보세요. 시작하기 전에 게임별 조작과 호스트 요구사항을 확인하세요.",
   },
   racing: {
     en: "Race 3D tracks, dodge traffic, and try browser time trials or track editing. The collection also includes short parking and steering games.",
@@ -40,7 +40,7 @@ export const categoryCopy: Record<Category, Record<Locale, string>> = {
     ko: "NetHack · Umoria · Larn · Angband · Dungeon Crawl: Stone Soup의 고전 턴제 던전을 탐험하세요. 게임마다 명령 · 브라우저 빌드 · 계정 · 저장 방식이 다르므로 모험을 시작하기 전에 상세 안내를 확인하세요.",
   },
   simulation: {
-    en: "Explore creative browser sandboxes and simulations, from voxel worlds and a 3D cafe to pet care, horse riding and a shared city. Open-source status and host rules vary by title.",
-    ko: "복셀 월드와 3D 카페부터 반려동물 돌봄·승마·공유 도시까지 웹 시뮬레이션을 둘러보세요. 오픈소스 여부와 호스트 조건은 게임마다 다릅니다.",
+    en: "Explore creative browser sandboxes and simulations, from 3D city building and procedural voxel survival to shared social rooms, cafes, pet care and horse riding. Open-source status and host rules vary by title.",
+    ko: "3D 도시 건설과 절차 생성 복셀 생존부터 공유 소셜 룸·카페·반려동물 돌봄·승마까지 웹 시뮬레이션을 둘러보세요. 오픈소스 여부와 호스트 조건은 게임마다 다릅니다.",
   },
 };

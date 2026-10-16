@@ -197,7 +197,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "What can I play?",
           paragraphs: [
-            "Browse board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation collections. External browser listings now include Tessel tile puzzles, the WebGL maze EkoScape, a voxel world, 3D racing, a shared city, a cafe and pet-care simulations. Other listings cover solitaire, platform games, pinball and WebAssembly action. Each page distinguishes source license from host terms and states what has and has not been verified.",
+            "Browse board, puzzle, arcade, action, shooting, racing, sports, strategy, roguelike and simulation collections. External browser listings now include Tessel tile puzzles, the WebGL maze EkoScape, 3D.CITY, BlockVerse, the social 3D rooms of ThingsPool and Suroi's top-down battle royale, alongside 3D racing, cafe and pet-care simulations. Other listings cover solitaire, platform games, pinball and WebAssembly action. Each page distinguishes source license from host terms and states what has and has not been verified.",
           ],
         },
         {
@@ -249,7 +249,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "어떤 게임을 할 수 있나요?",
           paragraphs: [
-            "보드 · 퍼즐 · 아케이드 · 액션 · 슈팅 · 레이싱 · 스포츠 · 전략 · 로그라이크 · 시뮬레이션을 둘러보세요. 외부 목록에 Tessel 타일 퍼즐, WebGL 미로 EkoScape, 복셀 월드, 3D 레이싱, 공유 도시, 카페·반려동물 돌봄 시뮬레이션을 추가했습니다. 솔리테어·플랫폼·핀볼·WebAssembly 액션 게임도 있습니다. 게임별 페이지에서 소스 라이선스와 호스트 조건, 검증 범위를 확인할 수 있습니다.",
+            "보드 · 퍼즐 · 아케이드 · 액션 · 슈팅 · 레이싱 · 스포츠 · 전략 · 로그라이크 · 시뮬레이션을 둘러보세요. 외부 목록에는 Tessel 타일 퍼즐, WebGL 미로 EkoScape, 3D.CITY, BlockVerse, ThingsPool의 소셜 3D 룸, Suroi의 탑다운 배틀로얄과 3D 레이싱·카페·반려동물 돌봄 시뮬레이션이 있습니다. 솔리테어·플랫폼·핀볼·WebAssembly 액션 게임도 있습니다. 게임별 페이지에서 소스 라이선스와 호스트 조건, 검증 범위를 확인할 수 있습니다.",
           ],
         },
         {
@@ -300,7 +300,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "A curated beginning",
           paragraphs: [
             "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation, 191 ABA Games Crisp mini-games, five classic board games, Hextris under GPL-3.0-or-later and Bounce Back under GPL-2.0-or-later. Denny Games-hosted titles have their own rules, controls and pause/restart flow.",
-            "External listings range from Freedoom, Freeciv, Tessel, EkoScape, YourCraft and LEXTOWN to Brakeless, hotlapped, cafe and pet-care simulations, Klondike, Njam and pinball. They are links only: builds, game data and artwork are not copied here. Free play does not mean open source; each entry records whether its code license is known, while account, controls, compatibility and saves follow each host.",
+            "External listings range from Freedoom, Freeciv, Tessel, EkoScape, YourCraft and LEXTOWN to 3D.CITY, BlockVerse, ThingsPool, Suroi, Brakeless, hotlapped, cafe and pet-care simulations, Klondike, Njam and pinball. They are links only: builds, game data and artwork are not copied here. Free play does not mean open source; each entry records whether its code license is known, while account, controls, compatibility and saves follow each host.",
           ],
         },
         {
@@ -320,7 +320,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "작지만 분명한 시작",
           paragraphs: [
             "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games Crisp 미니게임 191개, 클래식 보드게임 5종, GPL-3.0-or-later Hextris와 GPL-2.0-or-later 액션 로그라이트 Bounce Back을 제공합니다. 데니 게임즈 안에서 실행되는 타이틀은 게임별 규칙과 조작을 안내합니다.",
-            "외부 목록에는 Freedoom · Freeciv · Tessel · EkoScape · YourCraft · LEXTOWN과 Brakeless · hotlapped · 카페·반려동물 돌봄 시뮬레이션, 클론다이크 · Njam · 핀볼 등이 있습니다. 링크만 제공하며 빌드 · 게임 데이터 · 그림은 복사하지 않습니다. 무료 플레이가 오픈소스를 뜻하지 않으므로 소스 라이선스 상태를 따로 적고 계정 · 조작 · 호환성 · 저장은 각 호스트 안내를 따릅니다.",
+            "외부 목록에는 Freedoom · Freeciv · Tessel · EkoScape · YourCraft · LEXTOWN · 3D.CITY · BlockVerse · ThingsPool · Suroi와 Brakeless · hotlapped · 카페·반려동물 돌봄 시뮬레이션, 클론다이크 · Njam · 핀볼 등이 있습니다. 링크만 제공하며 빌드 · 게임 데이터 · 그림은 복사하지 않습니다. 무료 플레이가 오픈소스를 뜻하지 않으므로 소스 라이선스 상태를 따로 적고 계정 · 조작 · 호환성 · 저장은 각 호스트 안내를 따릅니다.",
           ],
         },
         {

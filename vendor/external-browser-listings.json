@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All 119 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest five-game wave includes three projects with published open-source code licenses. TeeBrawl does not publish its source code; its terms say Teeworlds-derived assets and its own additions are CC BY-SA 3.0 but do not clarify whether that covers the JavaScript game code, so it is not labeled open source. LittleWarGame's official credits list third-party media but do not publish an overall code license. Free browser access and host features or purchase terms are recorded separately from code licenses. These checks establish reachability only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
+  "verificationBoundary": "All 123 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest four-game visual wave adds MIT 3D.CITY and BlockVerse, ThingsPool with Apache-2.0 code but all-rights-reserved original game artwork, and GPL-3.0 Suroi, which is marked work in progress. The observed 3D.CITY browser navigation transferred about 28.3 MB before its menu appeared; its README still lists save/load fixes. Suroi's phone viewport asks players to rotate to landscape. BlockVerse's generated local world rendered in a desktop browser; no complete match or game session was played for these listings. Earlier evidence and legal boundaries are recorded per entry. These checks establish reachability and limited menu/render observations only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
   "entries": [
     {
       "id": "freedoom",
@@ -1543,6 +1543,58 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The official site advertises play for up to six players. Its guide describes CPU matches, online lobbies, tutorials and a map editor. Some chat mini-game emotes may be unlocked or purchased; current requirements and prices were not assessed. No match or device behavior was tested."
+    },
+    {
+      "id": "3d-city",
+      "projectSource": "https://github.com/lo-th/3d.city",
+      "projectLicense": "MIT",
+      "licenseText": "https://github.com/lo-th/3d.city/blob/gh-pages/LICENSE",
+      "externalHost": "https://lo-th.github.io/3d.city/",
+      "hostSource": "https://github.com/lo-th/3d.city",
+      "hostWrapperLicense": "Official project GitHub Pages demo. Denny Games links out and redistributes no build, data or artwork.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project describes a WebGL 2/WebGPU city builder and still lists save/load fixes on its roadmap. In one desktop browser navigation, approximately 28.3 MB transferred before the city/menu appeared; actual transfer varies by cache/browser. Complete city-building, save flow and device behavior were not tested."
+    },
+    {
+      "id": "blockverse",
+      "projectSource": "https://github.com/appleweiping/blockverse",
+      "projectLicense": "MIT for code and original procedural textures and sounds",
+      "licenseText": "https://github.com/appleweiping/blockverse/blob/main/LICENSE",
+      "externalHost": "https://appleweiping.github.io/blockverse/",
+      "hostSource": "https://github.com/appleweiping/blockverse",
+      "hostWrapperLicense": "Official GitHub Pages deployment of the MIT project. The README says no download, account, server or third-party game assets are required; world saves are browser-local. Denny Games links out only.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "A procedural voxel world rendered after using the new-world menu in a desktop browser; this was not a complete survival run or save-restore test. The README documents keyboard/mouse controls and IndexedDB saves. Touch controls and physical-device behavior were not tested."
+    },
+    {
+      "id": "thingspool",
+      "projectSource": "https://github.com/architsch/youngjin",
+      "projectLicense": "Apache-2.0 applies to code directories; original game artwork and public writing are all rights reserved; third-party assets and dependencies have separate terms",
+      "licenseText": "https://github.com/architsch/youngjin",
+      "externalHost": "https://app.thingspool.net/",
+      "hostSource": "https://thingspool.net/",
+      "hostWrapperLicense": "Official browser app. The initial tablet-sized room/tutorial rendered without a visible sign-in or payment prompt; account, privacy, save, chat and purchase terms were not assessed. Denny Games links out and copies no code or artwork.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project describes shared 3D rooms, building and real-time chat. A drag-to-move prompt appeared in the initial room, but no room session or chat was entered. The repository distinguishes Apache-2.0 code directories from all-rights-reserved original game artwork; third-party terms vary. No complete session or device behavior was tested."
+    },
+    {
+      "id": "suroi",
+      "projectSource": "https://github.com/HasangerGames/suroi",
+      "projectLicense": "GPL-3.0",
+      "licenseText": "https://github.com/HasangerGames/suroi/blob/master/LICENSE",
+      "externalHost": "https://suroi.io/",
+      "hostSource": "https://github.com/HasangerGames/suroi",
+      "hostWrapperLicense": "Official browser game host linked from the GPL-3.0 project. The repository labels the game work in progress; Denny Games redistributes no code or game assets.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The initial browser menu displayed nickname, server and solo/duo/squad choices. A 390x844 phone viewport asked the player to rotate to landscape. No match, multiplayer session, touch input or physical-device performance was tested."
     }
   ]
 }

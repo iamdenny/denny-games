@@ -4382,6 +4382,231 @@ const freeBrowserWaveSpecs: GraphicalListingSpec[] = [
       ],
     },
   },
+  {
+    id: "3d-city",
+    isOpenSource: true,
+    title: "3D.CITY",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["mouse", "keyboard"],
+    license: "MIT",
+    licenseDescription: {
+      en: "The project describes 3D.CITY as an open-source browser city builder and publishes an MIT license. Third-party libraries retain their own terms; Denny Games links to the project and copies no game files or artwork.",
+      ko: "프로젝트는 3D.CITY를 오픈소스 브라우저 도시 건설 게임으로 소개하고 MIT 라이선스를 공개합니다. 외부 라이브러리에는 별도 조건이 적용되며, 데니 게임즈는 프로젝트로 연결만 하고 게임 파일이나 그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/lo-th/3d.city/blob/gh-pages/LICENSE",
+    author: "lo-th and contributors",
+    source: "https://github.com/lo-th/3d.city",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://lo-th.github.io/3d.city/",
+    host: {
+      en: "Official 3D.CITY browser demo",
+      ko: "3D.CITY 공식 브라우저 데모",
+    },
+    hostNote: {
+      en: "The README describes WebGL 2/WebGPU city building and still lists save/load fixes on its roadmap. In one desktop browser navigation the city and menu appeared after about 28.3 MB of transferred resources; actual transfer varies by cache and browser. The page returned HTTP 200 on 2026-10-16. No complete city-building session, save flow or physical device was tested.",
+      ko: "README는 WebGL 2/WebGPU 도시 건설을 안내하며 저장·불러오기 수정을 아직 로드맵에 적고 있습니다. 데스크톱 브라우저에서 한 번 열어 확인했을 때 도시와 메뉴가 표시되기까지 약 28.3MB가 전송됐으며 실제 전송량은 캐시와 브라우저에 따라 달라집니다. 페이지는 2026-10-16에 HTTP 200을 반환했습니다. 도시 건설 전체 세션, 저장 흐름, 실물 기기는 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Lay out roads and grow a detailed 3D city in an isometric browser builder.",
+      ko: "등각 3D 브라우저 도시 건설 게임에서 도로를 놓고 도시를 키워보세요.",
+    },
+    controls: {
+      en: "Use the host's in-game tutorial and current mouse/keyboard instructions; save and load behavior is still listed as work in progress.",
+      ko: "호스트 게임 내 튜토리얼과 현재 마우스·키보드 안내를 따르세요. 저장·불러오기는 아직 진행 중인 작업으로 표시됩니다.",
+    },
+    mode: {
+      en: "A free MIT-licensed 3D city-building demo that uses WebGL 2 or WebGPU. Its project roadmap still lists save/load fixes.",
+      ko: "WebGL 2 또는 WebGPU를 사용하는 무료 MIT 라이선스 3D 도시 건설 데모입니다. 프로젝트 로드맵에는 저장·불러오기 수정이 남아 있습니다.",
+    },
+    keywords: {
+      en: [
+        "3D city builder",
+        "WebGL city simulation",
+        "isometric city game",
+        "browser city building game",
+      ],
+      ko: [
+        "3D 도시 건설 게임",
+        "WebGL 도시 시뮬레이션",
+        "등각 도시 게임",
+        "브라우저 도시 만들기",
+      ],
+    },
+  },
+  {
+    id: "blockverse",
+    isOpenSource: true,
+    title: "BlockVerse",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "MIT",
+    licenseDescription: {
+      en: "The project publishes its code and original procedural textures and sounds under MIT. The README says it uses no third-party game assets; its browser-hosted save remains in IndexedDB on that device.",
+      ko: "프로젝트는 코드와 자체 절차 생성 텍스처·소리에 MIT 라이선스를 적용합니다. README는 외부 게임 자산을 사용하지 않는다고 밝히며, 브라우저 저장은 해당 기기의 IndexedDB에 남습니다.",
+    },
+    licenseUrl: "https://github.com/appleweiping/blockverse/blob/main/LICENSE",
+    author: "appleweiping",
+    source: "https://github.com/appleweiping/blockverse",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://appleweiping.github.io/blockverse/",
+    host: {
+      en: "Official BlockVerse browser game",
+      ko: "BlockVerse 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The project says no download, account or server is needed and worlds save locally in the browser. The new-world flow rendered a procedural voxel world in a desktop browser on 2026-10-16; this did not verify a complete survival run, save restore or physical-device behavior. The play URL returned HTTP 200.",
+      ko: "프로젝트는 다운로드·계정·서버가 필요 없고 월드를 브라우저에 로컬 저장한다고 안내합니다. 2026-10-16 데스크톱 브라우저에서 새 월드를 만들어 절차 생성 복셀 월드가 표시되는 것을 확인했지만, 생존 플레이 전체·저장 복원·실물 기기는 검증하지 않았습니다. 플레이 URL은 HTTP 200을 반환했습니다.",
+    },
+    summary: {
+      en: "Explore procedural biomes, mine blocks, craft tools and build a voxel world in survival or creative mode.",
+      ko: "절차 생성 생태계를 탐험하고 블록을 캐며 도구를 만들어 생존 또는 창작 모드에서 복셀 월드를 꾸며보세요.",
+    },
+    controls: {
+      en: "The project documents WASD movement, mouse look, left/right-click block actions, Space to jump, E for inventory and Esc to pause. Touch controls are not documented.",
+      ko: "프로젝트는 WASD 이동, 마우스 시점 조작, 좌·우 클릭 블록 동작, 스페이스 점프, E 인벤토리, Esc 일시 정지를 안내합니다. 터치 조작은 문서화되지 않았습니다.",
+    },
+    mode: {
+      en: "An MIT-licensed, single-player browser voxel sandbox with procedural terrain, survival and creative modes, and browser-local world saves, according to its README.",
+      ko: "README에 따르면 절차 생성 지형, 생존·창작 모드, 브라우저 로컬 월드 저장을 제공하는 MIT 라이선스 싱글 플레이 복셀 샌드박스입니다.",
+    },
+    keywords: {
+      en: [
+        "voxel survival sandbox",
+        "procedural block world",
+        "browser crafting game",
+        "creative voxel builder",
+      ],
+      ko: [
+        "복셀 생존 샌드박스",
+        "절차 생성 블록 월드",
+        "브라우저 제작 게임",
+        "복셀 창작 건설 게임",
+      ],
+    },
+  },
+  {
+    id: "thingspool",
+    isOpenSource: false,
+    title: "ThingsPool",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["mouse"],
+    license:
+      "Source code: Apache-2.0; original game artwork: all rights reserved; third-party assets have separate terms",
+    licenseDescription: {
+      en: "The repository licenses its code directories under Apache-2.0, but says original game artwork and public writing are all rights reserved; third-party assets and dependencies have separate terms. This listing is not labeled open source as a complete game-content package, and Denny Games copies no code or artwork.",
+      ko: "저장소는 코드 디렉터리에 Apache-2.0을 적용하지만 자체 게임 그림과 공개 글은 모든 권리 유보라고 밝힙니다. 외부 자산과 의존성에는 별도 조건이 있습니다. 전체 게임 콘텐츠가 오픈소스인 것으로 분류하지 않으며, 데니 게임즈는 코드나 그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/architsch/youngjin",
+    author: "ThingsPool contributors",
+    source: "https://github.com/architsch/youngjin",
+    sourceLabel: {
+      en: "Code repository and license terms",
+      ko: "코드 저장소와 라이선스 조건",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://app.thingspool.net/",
+    host: {
+      en: "Official ThingsPool browser world",
+      ko: "ThingsPool 공식 브라우저 월드",
+    },
+    hostNote: {
+      en: "The project describes shared 3D rooms, building and real-time chat. Its initial room/tutorial rendered in a tablet-sized browser viewport with a drag-to-move prompt and no visible sign-in or payment prompt; no room session or chat was entered. Account, privacy, save and purchase conditions follow the host and were not assessed. The app URL returned HTTP 200 on 2026-10-16; no complete play session or device behavior was tested.",
+      ko: "프로젝트는 공유 3D 룸, 건축과 실시간 채팅을 안내합니다. 태블릿 크기 브라우저 화면에서 드래그 이동 안내가 있는 첫 룸·튜토리얼이 표시됐고 로그인·결제 안내는 보이지 않았지만, 룸 세션이나 채팅에 들어가지는 않았습니다. 계정·개인정보·저장·구매 조건은 호스트 정책을 따르며 확인하지 않았습니다. 앱 URL은 2026-10-16에 HTTP 200을 반환했지만 전체 플레이와 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Explore connected 3D rooms, discover spaces made by other visitors and build in a shared voxel sandbox.",
+      ko: "연결된 3D 룸을 탐험하고 다른 방문자의 공간을 둘러보며 공유 복셀 샌드박스에서 만들어보세요.",
+    },
+    controls: {
+      en: "Follow the host's on-screen drag and movement tutorial. Review the host's current room, chat and privacy guidance before joining public spaces.",
+      ko: "호스트 화면의 드래그·이동 튜토리얼을 따르세요. 공개 공간에 참여하기 전에 룸·채팅·개인정보 안내를 확인하세요.",
+    },
+    mode: {
+      en: "A free-to-enter 3D browser social sandbox. Apache-2.0 covers the code directories, while original game artwork remains all rights reserved and host rules apply to rooms and chat.",
+      ko: "무료로 접속할 수 있는 3D 브라우저 소셜 샌드박스입니다. Apache-2.0은 코드 디렉터리에 적용되고 자체 게임 그림은 모든 권리 유보이며 룸·채팅에는 호스트 규칙이 적용됩니다.",
+    },
+    keywords: {
+      en: [
+        "3D social sandbox",
+        "browser virtual world",
+        "multiplayer voxel rooms",
+        "3D building world",
+      ],
+      ko: [
+        "3D 소셜 샌드박스",
+        "브라우저 가상 세계",
+        "멀티플레이 복셀 룸",
+        "3D 건축 월드",
+      ],
+    },
+  },
+  {
+    id: "suroi",
+    isOpenSource: true,
+    title: "Suroi",
+    category: "shooting",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "GPL-3.0",
+    licenseDescription: {
+      en: "The public repository identifies the Suroi project as GPL-3.0 licensed and labels the game a work in progress. Denny Games links to the official browser host and redistributes no code or game assets.",
+      ko: "공개 저장소는 Suroi 프로젝트에 GPL-3.0을 적용하고 게임이 개발 중이라고 표시합니다. 데니 게임즈는 공식 브라우저 호스트로 연결만 하며 코드나 게임 자산을 재배포하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/HasangerGames/suroi/blob/master/LICENSE",
+    author: "HasangerGames contributors",
+    source: "https://github.com/HasangerGames/suroi",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["multi-player"],
+    url: "https://suroi.io/",
+    host: {
+      en: "Official Suroi browser game",
+      ko: "Suroi 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The project says the game is a work in progress. The browser menu displayed nickname, server and solo/duo/squad choices; no match was started. At a 390×844 phone viewport the host asked the player to rotate to landscape. The page returned HTTP 200 on 2026-10-16; match play, multiplayer, touch input and physical-device performance were not tested.",
+      ko: "프로젝트는 게임이 개발 중이라고 밝힙니다. 브라우저 메뉴에는 닉네임·서버·솔로/듀오/스쿼드 선택이 표시됐지만 경기는 시작하지 않았습니다. 390×844 휴대폰 화면에서 호스트는 가로로 회전하라고 안내했습니다. 페이지는 2026-10-16에 HTTP 200을 반환했으며 경기·멀티플레이·터치 입력·실물 기기 성능은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Drop into a top-down 2D battle royale, choose a solo, duo or squad queue and fight to be the last player standing.",
+      ko: "탑다운 2D 배틀로얄에 참가해 솔로·듀오·스쿼드를 고르고 최후까지 살아남으세요.",
+    },
+    controls: {
+      en: "Choose a server and nickname, then follow Suroi's current keyboard/mouse tutorial. The host asks phone players to rotate to landscape; mobile gameplay is not verified here.",
+      ko: "서버와 닉네임을 고른 뒤 Suroi의 현재 키보드·마우스 튜토리얼을 따르세요. 호스트는 휴대폰을 가로로 돌리라고 안내하며, 여기서는 모바일 플레이를 검증하지 않았습니다.",
+    },
+    mode: {
+      en: "A free GPL-3.0 2D battle royale browser game in active development. The host presents solo, duo and squad queues; a full match has not been tested.",
+      ko: "개발 중인 무료 GPL-3.0 2D 배틀로얄 브라우저 게임입니다. 호스트는 솔로·듀오·스쿼드 대기열을 제공하지만 전체 경기는 검증하지 않았습니다.",
+    },
+    keywords: {
+      en: [
+        "2D battle royale browser game",
+        "Suroi online",
+        "top-down survival shooter",
+        "surviv.io inspired game",
+      ],
+      ko: [
+        "2D 배틀로얄 브라우저 게임",
+        "수로이 온라인",
+        "탑다운 생존 슈터",
+        "surviv.io 영감 게임",
+      ],
+    },
+  },
 ];
 
 const categoryColors: Record<Game["category"], string> = {
