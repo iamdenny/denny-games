@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">No Survivor Game</title>
+  <desc id="desc">Original Denny Games illustration of a small ship weaving through a glowing field of enemy craft</desc>
+  <defs>
+    <radialGradient id="space"><stop stop-color="#22264c"/><stop offset="1" stop-color="#080b1d"/></radialGradient>
+    <linearGradient id="ship" x2="0" y2="1"><stop stop-color="#fff2b5"/><stop offset="1" stop-color="#f5a746"/></linearGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#space)"/>
+  <g fill="#d9e8ff" opacity=".72"><circle cx="62" cy="126" r="2"/><circle cx="136" cy="91" r="2"/><circle cx="218" cy="151" r="2"/><circle cx="567" cy="102" r="2"/><circle cx="532" cy="286" r="2"/><circle cx="88" cy="284" r="2"/><circle cx="390" cy="80" r="1.5"/><circle cx="463" cy="221" r="1.5"/></g>
+  <path d="M0 231c122-57 180 59 293 3s191-65 347-4" fill="none" stroke="#3f60c9" stroke-width="2" opacity=".35"/>
+  <g fill="#fe5d83" stroke="#ffb3c7" stroke-width="2" opacity=".94">
+    <path d="m141 148 19-13 19 13-8 25h-22Z"/><path d="m478 150 16-11 16 11-7 21h-18Z"/>
+    <path d="m509 244 22-14 22 14-9 29h-26Z"/><path d="m98 247 15-10 15 10-6 20h-18Z"/>
+  </g>
+  <g fill="none" stroke="#fb4775" stroke-width="4" opacity=".5" filter="url(#glow)">
+    <circle cx="160" cy="154" r="34"/><circle cx="494" cy="155" r="29"/><circle cx="531" cy="250" r="39"/>
+  </g>
+  <g transform="translate(305 154)" filter="url(#glow)">
+    <path d="M15 0 29 47l37 30-34-2-17 22-17-22-34 2 37-30Z" fill="url(#ship)" stroke="#fff3c4" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M15 19v49" stroke="#fff" stroke-width="4" opacity=".85"/>
+    <path d="M5 97 15 83l10 14-10 21Z" fill="#ff6d5b" opacity=".92"/>
+    <path d="M15 108 7 129m8-21 8 21" stroke="#ffb94e" stroke-width="4"/>
+  </g>
+  <g fill="#64e4ff" opacity=".85"><circle cx="273" cy="153" r="5"/><circle cx="273" cy="168" r="4"/><circle cx="363" cy="211" r="4"/><circle cx="251" cy="227" r="3"/></g>
+  <text x="32" y="49" fill="#fff2ce" font-family="system-ui,sans-serif" font-size="28" font-weight="900" letter-spacing="1">NO SURVIVOR</text>
+  <text x="34" y="72" fill="#8ea9ff" font-family="system-ui,sans-serif" font-size="11" font-weight="800" letter-spacing="2.2">ARENA SURVIVOR · GODOT WEB</text>
+</svg>

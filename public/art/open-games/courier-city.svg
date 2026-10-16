@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Courier City</title>
+  <desc id="desc">Original Denny Games illustration of a small car on a procedural 3D city street with distant towers</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#b7e5f5"/><stop offset="1" stop-color="#f8dfb5"/></linearGradient>
+    <linearGradient id="road" x2="0" y2="1"><stop stop-color="#657789"/><stop offset="1" stop-color="#293a4b"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-40%" width="170%" height="190%"><feDropShadow dx="0" dy="12" stdDeviation="8" flood-color="#182c3a" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#sky)"/>
+  <circle cx="513" cy="79" r="31" fill="#ffdb8a"/>
+  <path d="M0 204 78 177v-59l58-22v93l51-18V81l79-28v142l49-17V95l56-21v90l76-25V87l71-25v121l72-26v228H0Z" fill="#698b94" opacity=".86"/>
+  <path d="M0 223 640 194v166H0Z" fill="#86a99a"/>
+  <path d="m212 215 196-8 212 153H20Z" fill="url(#road)"/>
+  <path d="m308 211 21-1-31 149h-13Z" fill="#f5d78d" opacity=".9"/>
+  <path d="m338 210 19-1 64 151h-14Z" fill="#f5d78d" opacity=".9"/>
+  <g fill="#d8e2cd" opacity=".8"><path d="m172 238 14-1-22 33-15 1Zm-53 60 17-1-31 44H86Z"/><path d="m459 237 15-1 42 36-16 1Zm80 68 18 1 48 43h-22Z"/></g>
+  <g filter="url(#shadow)" stroke="#253444" stroke-width="3" stroke-linejoin="round">
+    <path d="m249 251 32-25 77-4 33 25-4 31-135 7Z" fill="#e8744f"/>
+    <path d="m281 226 14-23 47-2 17 21Z" fill="#b9e4e9"/>
+    <path d="m302 224 8-16 24-1 10 16Z" fill="#e8f5ec"/>
+    <path d="m281 226-31 25 53 4 16-31Z" fill="#f18a60"/>
+    <path d="m319 224 3 31 69-7-33-25Z" fill="#cf6048"/>
+    <circle cx="281" cy="282" r="15" fill="#202c37"/><circle cx="358" cy="278" r="15" fill="#202c37"/>
+    <circle cx="281" cy="282" r="6" fill="#cad9dc"/><circle cx="358" cy="278" r="6" fill="#cad9dc"/>
+  </g>
+  <path d="M55 319h97M505 331h82" stroke="#bde0c8" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+  <text x="32" y="49" fill="#183749" font-family="system-ui,sans-serif" font-size="30" font-weight="950" letter-spacing="1">COURIER CITY</text>
+  <text x="34" y="72" fill="#406b75" font-family="system-ui,sans-serif" font-size="11" font-weight="800" letter-spacing="2.4">PROCEDURAL 3D CITY · BENGALURU</text>
+</svg>

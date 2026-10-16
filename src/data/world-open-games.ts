@@ -4790,6 +4790,262 @@ const freeBrowserWaveSpecs: GraphicalListingSpec[] = [
   },
 ];
 
+const visualWaveTwoSpecs: GraphicalListingSpec[] = [
+  {
+    id: "citymaker",
+    isOpenSource: true,
+    title: "CityMaker",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: ["touch", "keyboard"],
+    license: "MIT · third-party packages retain their own licenses",
+    licenseDescription: {
+      en: "The project licenses its source and original procedural city models under MIT. Third-party packages keep their own terms. Denny Games links to the hosted game and copies no code, models or artwork.",
+      ko: "프로젝트는 소스와 자체 절차 생성 도시 모델에 MIT 라이선스를 적용합니다. 외부 패키지에는 각자의 조건이 적용됩니다. 데니 게임즈는 호스팅 게임으로 연결만 하며 코드·모델·그림을 복사하지 않습니다.",
+    },
+    licenseUrl:
+      "https://github.com/derek-wangpch/OpenCityMaker/blob/master/LICENSE",
+    author: "OpenCityMaker contributors",
+    source: "https://github.com/derek-wangpch/OpenCityMaker",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://citymaker.0to1app.com/",
+    host: {
+      en: "Official CityMaker browser game",
+      ko: "CityMaker 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The source README describes free play without an account or backend and browser-local saves. Chromium showed the start page and a rendered 3D board at 390×844 with no horizontal overflow. The play URL returned HTTP 200 on 2026-10-16. A full puzzle run, save restoration and physical devices were not tested; Denny Games links out only.",
+      ko: "소스 README는 계정·백엔드 없이 무료로 플레이할 수 있고 진행을 브라우저에 저장한다고 안내합니다. Chromium 390×844 화면에서 시작 페이지와 3D 보드가 가로 넘침 없이 표시됐습니다. 플레이 URL은 2026-10-16에 HTTP 200을 반환했습니다. 퍼즐 전체 플레이·저장 복원·실물 기기는 검증하지 않았고 데니 게임즈는 링크만 제공합니다.",
+    },
+    summary: {
+      en: "Merge matching buildings in a 3D 2048 puzzle and grow one of twelve cities through 132 original architectural models.",
+      ko: "3D 2048 퍼즐에서 같은 건물을 합쳐 132개 자체 건축 모델을 거치며 열두 도시를 키워보세요.",
+    },
+    controls: {
+      en: "Use arrow keys or WASD on a computer. On a phone or tablet, swipe the board or use its on-screen direction buttons; rotate the city view with the two 45° controls.",
+      ko: "컴퓨터에서는 방향키나 WASD를 사용하세요. 휴대폰·태블릿에서는 보드를 스와이프하거나 화면의 방향 버튼을 누르고, 45° 회전 버튼으로 도시 시점을 바꾸세요.",
+    },
+    mode: {
+      en: "A free MIT-licensed 3D city-building merge puzzle. The project describes twelve city packs, eleven tiers per city and browser-local saves; third-party packages have separate licenses.",
+      ko: "무료 MIT 라이선스 3D 도시 건설 합치기 퍼즐입니다. 프로젝트는 도시 열두 곳, 도시마다 열한 단계와 브라우저 로컬 저장을 안내하며 외부 패키지에는 별도 라이선스가 적용됩니다.",
+    },
+    tip: {
+      en: "Rotate the view for a fresh angle; rotation does not move tiles or spend a turn.",
+      ko: "새 시점이 필요할 때 보기를 회전해보세요. 회전은 타일을 옮기거나 턴을 소비하지 않습니다.",
+    },
+    keywords: {
+      en: [
+        "3D city building puzzle",
+        "2048 city game",
+        "landmark merge game",
+        "procedural architecture game",
+        "mobile swipe puzzle",
+      ],
+      ko: [
+        "3D 도시 건설 퍼즐",
+        "2048 도시 게임",
+        "랜드마크 합치기 게임",
+        "절차 생성 건축 게임",
+        "모바일 스와이프 퍼즐",
+      ],
+    },
+  },
+  {
+    id: "no-survivor",
+    isOpenSource: true,
+    title: "No Survivor Game",
+    category: "shooting",
+    controlStyle: "host",
+    inputs: ["mouse", "touch"],
+    license:
+      "MIT code and generated art/audio · CC0 ship models · SIL OFL 1.1 font · Godot MIT",
+    licenseDescription: {
+      en: "The project lists MIT for its code and generated art/audio, CC0 for Quaternius ship models, SIL OFL 1.1 for the font and MIT for Godot. Denny Games links to the browser build and redistributes none of these files.",
+      ko: "프로젝트는 코드·생성 그림·음향에 MIT, Quaternius 함선 모델에 CC0, 글꼴에 SIL OFL 1.1, Godot에 MIT를 안내합니다. 데니 게임즈는 브라우저 빌드로 연결만 하며 이 파일들을 재배포하지 않습니다.",
+    },
+    licenseUrl:
+      "https://github.com/Mocas-12/no-survivor-game/blob/main/LICENSE",
+    author: "Mocas-12 and credited asset authors",
+    source: "https://github.com/Mocas-12/no-survivor-game",
+    sourceLabel: {
+      en: "Source repository and license details",
+      ko: "소스 저장소와 라이선스 안내",
+    },
+    playModes: ["single-player"],
+    url: "https://mocas-12.github.io/no-survivor-game/",
+    host: {
+      en: "Developer-hosted No Survivor browser game",
+      ko: "개발자 호스팅 No Survivor 브라우저 게임",
+    },
+    hostNote: {
+      en: "The README says the first load downloads about 40 MB for the engine; later loads can use the browser cache. At 390×844 the host asks players to rotate to landscape; its ready screen and left-thumb touch instructions appeared at 844×390. The README describes automatic fire. The page returned HTTP 200 on 2026-10-16; no full run or physical-device behavior was tested.",
+      ko: "README에 따르면 첫 방문에는 엔진 약 40MB를 내려받고 다음 방문부터 브라우저 캐시를 사용할 수 있습니다. 390×844 화면에서 호스트는 가로 회전을 요청했고 844×390 화면에는 시작 화면과 왼손 엄지 터치 안내가 표시됐습니다. README는 자동 발사를 안내합니다. 페이지는 2026-10-16에 HTTP 200을 반환했으며 전체 플레이와 실물 기기는 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Pilot a 3D ship through scrolling enemy waves, collect experience gems, evolve weapons and face five bosses in a Godot arena-survivor shooter.",
+      ko: "Godot 아레나 생존 슈터에서 3D 함선을 조종해 적의 파도를 뚫고 경험치 보석을 모아 무기를 키운 뒤 다섯 보스에 도전하세요.",
+    },
+    controls: {
+      en: "Computer: move the mouse to steer while weapons fire automatically. Phone: touch the left half of the screen to use the movement joystick; landscape is recommended.",
+      ko: "컴퓨터에서는 마우스로 함선을 움직이며 무기는 자동 발사됩니다. 휴대폰에서는 화면 왼쪽 절반을 터치해 이동 조이스틱을 쓰고 가로 화면으로 플레이하세요.",
+    },
+    mode: {
+      en: "A free MIT-licensed Godot browser shooter with generated effects and CC0 ship models. Its project README warns that the first WebAssembly engine download is about 40 MB.",
+      ko: "생성 효과와 CC0 함선 모델을 사용하는 무료 MIT 라이선스 Godot 브라우저 슈터입니다. 프로젝트 README는 첫 WebAssembly 엔진 다운로드가 약 40MB라고 안내합니다.",
+    },
+    tip: {
+      en: "Move continuously through incoming waves; the fighter fires without a separate attack button.",
+      ko: "별도 공격 버튼 없이 함선이 발사하므로 다가오는 적 사이를 계속 움직이세요.",
+    },
+    keywords: {
+      en: [
+        "bullet heaven browser game",
+        "3D arena survivor shooter",
+        "survivors-like space game",
+        "Godot WebAssembly game",
+        "touch joystick shooter",
+      ],
+      ko: [
+        "불릿 헤븐 브라우저 게임",
+        "3D 아레나 생존 슈터",
+        "서바이버 라이크 우주 게임",
+        "고도 웹어셈블리 게임",
+        "터치 조이스틱 슈팅",
+      ],
+    },
+  },
+  {
+    id: "bash-fighter",
+    isOpenSource: true,
+    title: "Bash Fighter",
+    category: "action",
+    controlStyle: "host",
+    inputs: ["keyboard", "touch"],
+    license: "AGPL-3.0",
+    licenseDescription: {
+      en: "The public source repository and its LICENSE identify Bash Fighter as AGPL-3.0. A contributor agreement permits the publisher to offer additional commercial terms; Denny Games links to the live host and copies no game code or artwork.",
+      ko: "공개 소스 저장소와 LICENSE는 Bash Fighter에 AGPL-3.0을 적용합니다. 기여자 계약에 따라 배급자는 별도 상업 조건을 제공할 수 있습니다. 데니 게임즈는 운영 중인 호스트로 연결만 하며 게임 코드나 그림을 복사하지 않습니다.",
+    },
+    licenseUrl:
+      "https://github.com/Bash-Entertainment/bash-fighter/blob/main/LICENSE",
+    author: "Bash Entertainment and contributors",
+    source: "https://github.com/Bash-Entertainment/bash-fighter",
+    sourceLabel: {
+      en: "Source repository and AGPL-3.0 license",
+      ko: "소스 저장소와 AGPL-3.0 라이선스",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://bashfighter.com/",
+    host: {
+      en: "Bash Fighter live online arena",
+      ko: "Bash Fighter 실시간 온라인 아레나",
+    },
+    hostNote: {
+      en: "The project describes the game as early but live, with a production 20-player server. Its page says bots fill empty seats, offers play with friends by invite link and documents phone touch controls. The 390×844 Chromium view had no horizontal overflow. The page returned HTTP 200 on 2026-10-16; no network match, account flow or physical-device play was tested.",
+      ko: "프로젝트는 개발 초기지만 20인용 운영 서버에서 플레이할 수 있다고 밝힙니다. 페이지는 빈 자리를 봇으로 채우고 초대 링크 친구 플레이와 휴대폰 터치 조작을 안내합니다. 390×844 Chromium 화면에는 가로 넘침이 없었습니다. 페이지는 2026-10-16에 HTTP 200을 반환했으며 네트워크 대전·계정 흐름·실물 기기는 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Knock rivals off a shrinking platform, choose from eight fighters and battle bots or invite friends into a 20-player brawl.",
+      ko: "좁아지는 발판 밖으로 상대를 날려 보세요. 여덟 전투기 중 하나를 골라 봇과 싸우거나 초대 링크로 친구를 불러 20인 난전을 펼칠 수 있습니다.",
+    },
+    controls: {
+      en: "Computer: A/D move, Space jump, F attack, G special and Shift shield. Phone: drag the stick to move, then tap Jump, Attack, Special or Shield. Check the host's HUD for mode-specific rules.",
+      ko: "컴퓨터에서는 A/D 이동, Space 점프, F 공격, G 특수 기술, Shift 방어를 사용하세요. 휴대폰에서는 조이스틱을 끌어 이동하고 점프·공격·특수 기술·방어 버튼을 누르세요. 모드별 규칙은 호스트 HUD에서 확인하세요.",
+    },
+    mode: {
+      en: "A free AGPL-3.0 browser platform fighter with online and local play. The project says the live service is early; bots fill open seats, and online matches run on the external host.",
+      ko: "온라인·로컬 플레이를 제공하는 무료 AGPL-3.0 브라우저 플랫폼 격투 게임입니다. 프로젝트는 운영 서비스가 초기 단계라고 밝히며 빈 자리는 봇으로 채우고 온라인 대전은 외부 호스트에서 진행됩니다.",
+    },
+    tip: {
+      en: "Damage increases knockback, so keep moving when your fighter has taken several hits.",
+      ko: "피해를 많이 입을수록 멀리 날아가므로 여러 번 맞았다면 계속 움직이며 가장자리를 피하세요.",
+    },
+    keywords: {
+      en: [
+        "20 player platform fighter",
+        "online browser fighting game",
+        "free for all brawler",
+        "platform fighter with bots",
+        "AGPL multiplayer game",
+      ],
+      ko: [
+        "20인 플랫폼 격투 게임",
+        "온라인 브라우저 대전 게임",
+        "프리 포 올 난투 게임",
+        "봇 대전 플랫폼 파이터",
+        "AGPL 멀티플레이 게임",
+      ],
+    },
+  },
+  {
+    id: "courier-city",
+    isOpenSource: true,
+    title: "Courier City",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "MIT · third-party packages retain their own licenses",
+    licenseDescription: {
+      en: "The repository publishes an MIT license and describes procedural city graphics made without external 3D assets. Dependencies keep their own terms. Denny Games links to the developer's browser build and copies no source, assets or artwork.",
+      ko: "저장소는 MIT 라이선스를 공개하고 외부 3D 자산 없이 절차적으로 도시를 만든다고 설명합니다. 의존성에는 각자의 조건이 적용됩니다. 데니 게임즈는 개발자의 브라우저 빌드로 연결만 하며 소스·자산·그림을 복사하지 않습니다.",
+    },
+    licenseUrl:
+      "https://github.com/shubhransh-gupta/courier-city/blob/main/LICENSE",
+    author: "Shubhransh Gupta",
+    source: "https://github.com/shubhransh-gupta/courier-city",
+    sourceLabel: {
+      en: "Source repository and MIT license",
+      ko: "소스 저장소와 MIT 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://shubhransh-gupta.github.io/courier-city/",
+    host: {
+      en: "Developer-hosted Courier City browser world",
+      ko: "개발자 호스팅 Courier City 브라우저 월드",
+    },
+    hostNote: {
+      en: "The official Pages URL redirects to the developer's current domain. Chromium showed the game's introduction at desktop and 390×844; the phone document measured 409 CSS px across. Its initial controls are keyboard-centric (WASD, F, E and M) and no touch controls were advertised. The URL returned HTTP 200 on 2026-10-16; a full session, mobile input and physical devices were not tested.",
+      ko: "공식 Pages URL은 개발자의 현재 도메인으로 리다이렉트됩니다. Chromium 데스크톱과 390×844 화면에서 게임 소개가 표시됐지만 휴대폰 문서 폭은 CSS 409px였습니다. 첫 화면은 키보드 중심(WASD, F, E, M)이며 터치 조작을 안내하지 않습니다. URL은 2026-10-16에 HTTP 200을 반환했으며 전체 플레이·모바일 입력·실물 기기는 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Explore a procedural 3D Bengaluru, walk its streets, drive cars and buses, ride the metro or take off in planes and helicopters.",
+      ko: "절차 생성 3D 벵갈루루를 탐험하고 거리를 걷거나 자동차·버스·지하철을 타고 비행기와 헬리콥터로 날아보세요.",
+    },
+    controls: {
+      en: "The host lists WASD to move or steer, F to enter vehicles, E for metro or elevators and M for the map. It does not advertise touch controls; use a keyboard for the documented actions.",
+      ko: "호스트는 WASD 이동·조향, F 차량 탑승, E 지하철·엘리베이터, M 지도를 안내합니다. 터치 조작은 안내하지 않으므로 문서화된 조작에는 키보드가 필요합니다.",
+    },
+    mode: {
+      en: "A free MIT-licensed browser open world built with Three.js and Cannon-ES. Its README lists walking, cars, aircraft, helicopters and landmarks; those activities were not tested as a complete session.",
+      ko: "Three.js와 Cannon-ES로 만든 무료 MIT 라이선스 브라우저 오픈월드입니다. README는 걷기·자동차·항공기·헬리콥터와 랜드마크를 안내하지만 전체 플레이로 기능을 확인하지는 않았습니다.",
+    },
+    tip: {
+      en: "Check the host's keyboard panel before starting; this page does not document a touch driving interface.",
+      ko: "시작하기 전에 호스트의 키보드 조작 안내를 확인하세요. 이 페이지는 터치 운전 인터페이스를 안내하지 않습니다.",
+    },
+    keywords: {
+      en: [
+        "3D open world browser game",
+        "Bengaluru city exploration game",
+        "browser driving and flight simulator",
+        "procedural city game",
+        "Three.js open world",
+      ],
+      ko: [
+        "3D 오픈월드 브라우저 게임",
+        "벵갈루루 도시 탐험 게임",
+        "브라우저 운전 비행 시뮬레이터",
+        "절차 생성 도시 게임",
+        "Three.js 오픈월드",
+      ],
+    },
+  },
+];
+
 const categoryColors: Record<Game["category"], string> = {
   board: "blue",
   puzzle: "mint",
@@ -4961,4 +5217,5 @@ export const worldOpenGames = [
   ...expandedListingSpecs.map(expandListing),
   ...graphicalWaveSpecs.map(expandListing),
   ...freeBrowserWaveSpecs.map(expandListing),
+  ...visualWaveTwoSpecs.map(expandListing),
 ].map(toGame);
