@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Gridland</title>
+  <desc id="desc">Original Denny Games illustration of a bright match grid beside a tiny village at dusk</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#394e78"/><stop offset="1" stop-color="#f1a46e"/></linearGradient>
+    <linearGradient id="field" x2="0" y2="1"><stop stop-color="#5a7b73"/><stop offset="1" stop-color="#263d4b"/></linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#sky)"/>
+  <circle cx="505" cy="100" r="39" fill="#ffe8ad" opacity=".9"/>
+  <path d="M0 234 115 168l86 44 105-72 103 73 98-53 133 67v133H0Z" fill="#536b75" opacity=".78"/>
+  <path d="M0 281 134 213l105 49 112-62 119 73 76-40 94 48v119H0Z" fill="url(#field)"/>
+  <g stroke="#203e49" stroke-width="5" stroke-linejoin="round">
+    <path d="m115 231 48-28 49 28v53l-49 28-48-28Z" fill="#d57f63"/><path d="m163 203 49 28-49 29-48-29Z" fill="#f3bd82"/><path d="m212 231-49 29v52l49-28Z" fill="#a95d55"/>
+    <path d="m208 262 39-22 40 23v45l-40 23-39-23Z" fill="#789d7c"/><path d="m247 240 40 23-40 23-39-24Z" fill="#bfd495"/><path d="m287 263-40 23v45l40-23Z" fill="#547b69"/>
+    <path d="m298 213 52-30 53 30v59l-53 30-52-30Z" fill="#e2ae68"/><path d="m350 183 53 30-53 31-52-31Z" fill="#ffe0a1"/><path d="m403 213-53 31v58l53-30Z" fill="#b47c4e"/>
+  </g>
+  <g filter="url(#glow)" stroke="#fff6c9" stroke-width="4">
+    <rect x="414" y="155" width="48" height="48" rx="10" fill="#f3cf58"/><rect x="469" y="155" width="48" height="48" rx="10" fill="#63d3c1"/><rect x="524" y="155" width="48" height="48" rx="10" fill="#ed7a79"/>
+    <rect x="414" y="210" width="48" height="48" rx="10" fill="#9e8bea"/><rect x="469" y="210" width="48" height="48" rx="10" fill="#f3cf58"/><rect x="524" y="210" width="48" height="48" rx="10" fill="#63d3c1"/>
+  </g>
+  <path d="M438 177h12m-6-6v12m79-5 10 10m0-10-10 10m-57 39 12 12m0-12-12 12" stroke="#fff9e4" stroke-width="4" stroke-linecap="round"/>
+</svg>
