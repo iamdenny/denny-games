@@ -1,0 +1,123 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 640 360"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">Cube Wars</title>
+  <desc id="desc">
+    Original Denny Games illustration of opposing block armies on a reshaped
+    battlefield
+  </desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#a8e3e1" />
+      <stop offset="1" stop-color="#e5f0ce" />
+    </linearGradient>
+    <linearGradient id="top" x2="1" y2="1">
+      <stop stop-color="#c8e98e" />
+      <stop offset="1" stop-color="#8fc58d" />
+    </linearGradient>
+    <linearGradient id="side" x2="0" y2="1">
+      <stop stop-color="#609985" />
+      <stop offset="1" stop-color="#3d6f73" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#sky)" />
+  <circle cx="515" cy="75" r="35" fill="#fff4ba" opacity=".9" />
+  <path
+    d="m213 185 130-70 130 70-130 74z"
+    fill="url(#top)"
+    stroke="#f3ffd9"
+    stroke-width="4"
+  />
+  <path
+    d="M213 185v71l130 75v-72z"
+    fill="url(#side)"
+    stroke="#d7f0c5"
+    stroke-width="4"
+  />
+  <path
+    d="M473 185v71l-130 75v-72z"
+    fill="#548c7f"
+    stroke="#d7f0c5"
+    stroke-width="4"
+  />
+  <g stroke="#efffdb" stroke-opacity=".5" stroke-width="2" fill="none">
+    <path d="m278 150 130 74v66M343 115v72M408 151l-130 76v62" />
+    <path d="m213 220 130 74 130-74" />
+  </g>
+  <path
+    d="m132 223 55-30 54 31-55 31z"
+    fill="#79b9e7"
+    stroke="#e1f5ff"
+    stroke-width="3"
+  />
+  <path
+    d="M132 223v39l54 31v-38z"
+    fill="#427fae"
+    stroke="#e1f5ff"
+    stroke-width="3"
+  />
+  <path
+    d="M241 224v38l-55 31v-38z"
+    fill="#35688f"
+    stroke="#e1f5ff"
+    stroke-width="3"
+  />
+  <path
+    d="m397 143 47-26 48 27-48 28z"
+    fill="#ff9b74"
+    stroke="#fff0d6"
+    stroke-width="3"
+  />
+  <path
+    d="M397 143v34l47 28v-33z"
+    fill="#c96565"
+    stroke="#fff0d6"
+    stroke-width="3"
+  />
+  <path
+    d="M492 144v33l-48 28v-33z"
+    fill="#ac4f5b"
+    stroke="#fff0d6"
+    stroke-width="3"
+  />
+  <path
+    d="M328 254c-17 13-20 25-8 36 8 7 18 9 28 1 12-11 9-24-9-37z"
+    fill="#f2cc75"
+  />
+  <text
+    x="34"
+    y="72"
+    fill="#3e7775"
+    font-family="system-ui,sans-serif"
+    font-size="14"
+    font-weight="800"
+    letter-spacing="4"
+  >
+    VOXEL TACTICS
+  </text>
+  <text
+    x="33"
+    y="123"
+    fill="#173553"
+    font-family="system-ui,sans-serif"
+    font-size="40"
+    font-weight="900"
+    letter-spacing="-1"
+  >
+    CUBE WARS
+  </text>
+  <text
+    x="37"
+    y="151"
+    fill="#42766f"
+    font-family="system-ui,sans-serif"
+    font-size="13"
+    font-weight="700"
+    letter-spacing="2"
+  >
+    DIG • BUILD • OUTPLAY
+  </text>
+</svg>
