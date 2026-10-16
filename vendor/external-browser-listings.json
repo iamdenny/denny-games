@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All 114 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest five graphical listings were checked individually; four link to projects with published open-source licenses, while City Defense's source-code license is unpublished. The preceding ten-game wave also recorded unpublished or all-rights-reserved source terms where applicable. For Mingat pages, the fetched public page had no upfront payment prompt; complete gameplay and any in-game payment terms were not verified. These checks establish reachability only, not a complete external game session, physical device, controller or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
+  "verificationBoundary": "All 119 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest five-game wave includes three projects with published open-source code licenses. TeeBrawl does not publish its source code; its terms say Teeworlds-derived assets and its own additions are CC BY-SA 3.0 but do not clarify whether that covers the JavaScript game code, so it is not labeled open source. LittleWarGame's official credits list third-party media but do not publish an overall code license. Free browser access and host features or purchase terms are recorded separately from code licenses. These checks establish reachability only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
   "entries": [
     {
       "id": "freedoom",
@@ -1481,6 +1481,68 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The legacy repository describes a WebGL voxel sandbox, procedural terrain, local persistence and optional multiplayer server support. Save and multiplayer behavior were not verified in the linked demo. The page's HTTP response establishes reachability only."
+    },
+    {
+      "id": "junk-magnet",
+      "projectSource": "https://github.com/SafaElmali/junk-magnet",
+      "projectLicense": "MIT for the game's code and original assets; third-party libraries, fonts and audio retain separate licenses.",
+      "licenseText": "https://github.com/SafaElmali/junk-magnet/blob/main/LICENSE",
+      "externalHost": "https://playjunkmagnet.com/play/",
+      "hostSource": "https://playjunkmagnet.com/",
+      "hostWrapperLicense": "Official developer-hosted game. The developer offers it free in the browser without a download or account; Denny Games copies no build or assets.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official page documents keyboard and touch controls and browser-local progress. The README calls it a playable prototype with balancing and physical-device testing ongoing. Complete gameplay and device behavior were not tested by Denny Games."
+    },
+    {
+      "id": "wibbly",
+      "projectSource": "https://github.com/vul-os/wibbly",
+      "projectLicense": "MIT OR Apache-2.0",
+      "licenseText": "https://github.com/vul-os/wibbly",
+      "externalHost": "https://vulos.org/projects/wibbly/play/",
+      "hostSource": "https://vulos.org/projects/wibbly/",
+      "hostWrapperLicense": "Official developer-hosted game; its project lists MIT and Apache-2.0 licenses. The project says webcam tracking stays on-device and spacebar is a complete no-camera fallback.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project says it is early, with single-player tennis as the only playable game. Its page says camera tracking has been tested in Chrome and Edge and other browsers are untried. Denny Games did not test a complete match, webcam behavior or device compatibility."
+    },
+    {
+      "id": "teebrawl",
+      "projectLicense": "TeeBrawl source code is not published; the host says its own additions and Teeworlds-derived assets are CC BY-SA 3.0 but does not clarify whether that covers the JavaScript game code.",
+      "licenseText": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "externalHost": "https://teebrawl.com/",
+      "hostSource": "https://teebrawl.com/",
+      "hostWrapperLicense": "Official free, non-commercial fan-game host. The host describes an independent JavaScript reimplementation and publishes Teeworlds asset credits; Denny Games links out only.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The host offers accountless Free Play and says optional accounts add ranked and social features. Its terms describe open text chat and virtual currency that cannot be bought with real money. Game code is not labeled open source because its code license is not published. No full match, moderation, multiplayer session or device behavior was tested."
+    },
+    {
+      "id": "serpentine-3d",
+      "projectSource": "https://github.com/S-SUJAN-S/serpentine-game",
+      "projectLicense": "MIT",
+      "licenseText": "https://github.com/S-SUJAN-S/serpentine-game/blob/main/LICENSE",
+      "externalHost": "https://serpentine-game.netlify.app/",
+      "hostSource": "https://github.com/S-SUJAN-S/serpentine-game",
+      "hostWrapperLicense": "Developer-hosted browser demo listed by the project README. Denny Games copies no game files or assets.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README describes a free Three.js/WebGL snake game, three difficulty levels, browser-local high scores, and mobile joystick, swipe and mouse controls. The public demo returned HTTP 200; a full run and phone/tablet behavior were not tested."
+    },
+    {
+      "id": "littlewargame",
+      "projectLicense": "No overall game-code license was published on the official pages reviewed; the official credits list many third-party graphics and audio contributors.",
+      "externalHost": "https://www.littlewargame.com/play/",
+      "hostSource": "https://www.littlewargame.com/",
+      "hostWrapperLicense": "Official free-to-play game host. The homepage says no download or registration is required; Denny Games links out and redistributes no source or assets.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official site advertises play for up to six players. Its guide describes CPU matches, online lobbies, tutorials and a map editor. Some chat mini-game emotes may be unlocked or purchased; current requirements and prices were not assessed. No match or device behavior was tested."
     }
   ]
 }
