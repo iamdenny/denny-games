@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All 99 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest 52 reachability checks found 47 new pages from mashukui, EveryGameMade and open-games.org after excluding five duplicate games. These checks establish reachability only, not a complete external game session, physical device, controller or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
+  "verificationBoundary": "All 109 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest ten graphical listings were checked individually; five link to open-source projects with published licenses, and the rest identify unpublished or all-rights-reserved source terms. For Mingat pages, the fetched public page had no upfront payment prompt; complete gameplay and any in-game payment terms were not verified. These checks establish reachability only, not a complete external game session, physical device, controller or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
   "entries": [
     {
       "id": "freedoom",
@@ -1289,6 +1289,132 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "Try to escape from a ghost in another open-games.org HTML5 browser game. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+    },
+    {
+      "id": "tessel",
+      "projectSource": "https://github.com/gvtulder/tessel",
+      "projectLicense": "GPL-3.0 for the Tessel project source.",
+      "licenseText": "https://github.com/gvtulder/tessel/blob/main/LICENSE.md",
+      "externalHost": "https://play.tessel.at/",
+      "hostSource": "https://play.tessel.at/",
+      "hostWrapperLicense": "Official browser host; wrapper terms were not separately assessed. Denny Games redistributes no host code or game data.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project describes a free tile-placement puzzle and links its GPL-3.0 source. The official page returned HTTP 200. Complete play, account/save conditions and device behavior were not tested."
+    },
+    {
+      "id": "ekoscape",
+      "projectSource": "https://github.com/esotericpig/EkoScape",
+      "projectLicense": "GPL-3.0-or-later for EkoScape; the README notes that bundled or third-party assets can have separate terms.",
+      "licenseText": "https://github.com/esotericpig/EkoScape/blob/main/LICENSE",
+      "externalHost": "https://esotericpig.itch.io/ekoscape",
+      "hostSource": "https://esotericpig.itch.io/ekoscape",
+      "hostWrapperLicense": "itch.io page hosting the author-provided browser build; wrapper and asset terms are not separately assessed. Denny Games redistributes no build or artwork.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The author offers browser play and documents WebGL 2.0. The page returned HTTP 200. No complete session, input behavior, device compatibility or asset-license inventory was checked."
+    },
+    {
+      "id": "astray-2",
+      "projectSource": "https://github.com/wwwtyro/astray-2",
+      "projectLicense": "Unlicense, as identified by the project repository.",
+      "licenseText": "https://github.com/wwwtyro/astray-2/blob/master/LICENSE.md",
+      "externalHost": "https://wwwtyro.github.io/astray-2/",
+      "hostSource": "https://github.com/wwwtyro/astray-2",
+      "hostWrapperLicense": "Project-hosted browser proof of concept; no build files are redistributed by Denny Games.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project README calls this a real-time WebGL path-tracing maze proof of concept. The live URL returned HTTP 200 but exposed no static title text. A complete session, performance, controls and device behavior were not tested."
+    },
+    {
+      "id": "yourcraft",
+      "projectSource": "https://github.com/wyzuk/yourcraft",
+      "projectLicense": "MIT for the project source, according to its README and LICENSE file.",
+      "licenseText": "https://github.com/wyzuk/yourcraft/blob/main/LICENSE",
+      "externalHost": "https://your-craft.netlify.app/",
+      "hostSource": "https://your-craft.netlify.app/",
+      "hostWrapperLicense": "Developer-hosted browser demo; wrapper and service terms were not separately assessed. Denny Games copies no build or assets.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README offers free accountless play and describes a Three.js/WebGL voxel sandbox with procedural worlds. The live demo returned HTTP 200. Denny Games did not test world generation, saves, pointer-lock behavior, device compatibility or runtime performance."
+    },
+    {
+      "id": "brakeless",
+      "projectSource": "https://brakeless.io/",
+      "projectLicense": "No source-code license was published on the official game page reviewed; the host advertises free browser play.",
+      "externalHost": "https://brakeless.io/",
+      "hostSource": "https://brakeless.io/",
+      "hostWrapperLicense": "Official game and service host. Denny Games links out only; the host controls advertising, leaderboards, storage and service terms.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official page describes free browser play without download, installation or account for a normal run. The route returned HTTP 200. No complete session, leaderboard/account flow, device support or code license was verified."
+    },
+    {
+      "id": "hotlapped",
+      "projectSource": "https://hotlapped.com/",
+      "projectLicense": "No source-code license was published on the official game page reviewed; the host calls the browser racer free.",
+      "externalHost": "https://hotlapped.com/",
+      "hostSource": "https://hotlapped.com/",
+      "hostWrapperLicense": "Official game and service host. Denny Games links out only; sign-in, online play, saves and any store follow host terms.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The public page documents JavaScript/WebGL requirements, time trials, a 3D track editor and ghost replays; it says sign-in is needed to save. The code license is not published there. No full race, account flow, store pricing or device behavior was tested."
+    },
+    {
+      "id": "lextown",
+      "projectSource": "https://github.com/paul-codes-1/lextown",
+      "projectLicense": "MIT for the LEXTOWN project source; host content and service terms are separate.",
+      "licenseText": "https://github.com/paul-codes-1/lextown/blob/main/LICENSE",
+      "externalHost": "https://playlextown.com/",
+      "hostSource": "https://playlextown.com/",
+      "hostWrapperLicense": "Official shared-world host; public chat, leaderboards, accounts and moderation are host-controlled. No code or assets are copied by Denny Games.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official page describes a free shared multiplayer city with timed missions, vehicles, chat and leaderboards. The project repository displays an MIT license. A complete mission, public-chat behavior, account needs and device support were not tested."
+    },
+    {
+      "id": "mingat-cozy-cafe",
+      "projectSource": "https://mingatgames.github.io/",
+      "projectLicense": "No source license found; the developer showcase links to a source repository that returned HTTP 404 on 2026-10-16.",
+      "externalHost": "https://mingatgames.github.io/games/cozy-cafe/",
+      "hostSource": "https://mingatgames.github.io/",
+      "hostWrapperLicense": "Developer-hosted browser game. Its play page returned HTTP 200 and no upfront payment prompt was present in the public HTML reviewed. Complete gameplay and payment terms were not verified.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The developer showcase describes a 3D barista game with keyboard and touch controls. Its source link returned HTTP 404. The browser page returned HTTP 200 with no upfront payment prompt in the fetched public HTML; this does not verify every in-game payment or device condition."
+    },
+    {
+      "id": "mingat-pet-daycare",
+      "projectSource": "https://github.com/MingatGames/pet-daycare",
+      "projectLicense": "All rights reserved; the public README says the project is private.",
+      "licenseText": "https://github.com/MingatGames/pet-daycare#license",
+      "externalHost": "https://mingatgames.github.io/games/pet-daycare/",
+      "hostSource": "https://mingatgames.github.io/",
+      "hostWrapperLicense": "Developer-hosted browser game. Its play page returned HTTP 200 with no upfront payment prompt in the public HTML reviewed. Complete gameplay and payment terms were not verified.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The public project README describes a 3D pet-care game, keyboard and tablet touch controls, in-game coins/upgrades, and says \"Private project. All rights reserved\" without granting an open-source license. The public play route returned HTTP 200 with no upfront payment prompt in the fetched page. Denny Games copies no code or assets; full play and device behavior were not tested."
+    },
+    {
+      "id": "mingat-nomad-life",
+      "projectSource": "https://mingatgames.github.io/",
+      "projectLicense": "No source license found; the developer showcase links to a source repository that returned HTTP 404 on 2026-10-16.",
+      "externalHost": "https://mingatgames.github.io/games/nomad-life/",
+      "hostSource": "https://mingatgames.github.io/",
+      "hostWrapperLicense": "Developer-hosted browser game. Its play page returned HTTP 200 and no upfront payment prompt was present in the public HTML reviewed. Complete gameplay and payment terms were not verified.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The developer showcase describes horse riding, animal herding and an open-world pastoral simulation. Its source link returned HTTP 404. The browser page returned HTTP 200 with no upfront payment prompt in the fetched public HTML; this does not verify every in-game payment or device condition."
     }
   ]
 }

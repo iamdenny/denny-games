@@ -90,7 +90,15 @@ async function inspect(url) {
   if (route.includes("/games/")) {
     gameCount++;
     const game = nodes.find((node) => node["@type"] === "VideoGame");
-    assert(game && game.author.name && game.isBasedOn && game.license);
+    assert(game && game.author.name);
+    const hasSourceCodeLink =
+      html.includes(">Source code</a>") || html.includes(">소스 코드</a>");
+    const hasLicenseSource =
+      html.includes("License details") ||
+      html.includes("라이선스 안내") ||
+      /href="\/licenses\/[^"]+"/.test(html);
+    assert.equal(Boolean(game.isBasedOn), hasSourceCodeLink, "Source metadata");
+    assert.equal(Boolean(game.license), hasLicenseSource, "License metadata");
     assert(!("aggregateRating" in game), "No invented ratings");
     assert.equal(
       game.description

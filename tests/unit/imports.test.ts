@@ -6,11 +6,12 @@ import crisp from "../../src/data/crisp.json";
 import provenance from "../../vendor/crisp/provenance.json";
 import cycleProvenance from "../../vendor/crisp-cycles/provenance.json";
 import hextrisProvenance from "../../vendor/hextris/provenance.json";
+import { discoverySchema } from "../../src/lib/seo";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(304);
-    expect(games.filter((game) => game.externalPlay)).toHaveLength(99);
+    expect(games).toHaveLength(314);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(109);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)
@@ -22,6 +23,55 @@ describe("import admission and catalogue", () => {
         expect(g.text[l].rules.length).toBeGreaterThan(0);
         expect(g.text[l].description.length).toBeGreaterThan(20);
       }
+    }
+  });
+  it("does not label free proprietary listings as open source in search metadata", () => {
+    const hotlapped = games.find((game) => game.id === "hotlapped")!;
+    expect(hotlapped.tags).not.toContain("free open source browser game");
+    expect(hotlapped.license).toContain("Source license not published");
+    expect(hotlapped.sourceLabel?.en).toBe("Official game information");
+
+    const schema = discoverySchema({
+      locale: "en",
+      path: "games/hotlapped",
+      title: hotlapped.text.en.title,
+      description: hotlapped.text.en.description,
+      game: hotlapped,
+    });
+    const entity = schema["@graph"].find(
+      (item) =>
+        item !== undefined && "@type" in item && item["@type"] === "VideoGame",
+    );
+    expect(entity).toBeDefined();
+    expect(entity).not.toHaveProperty("license");
+    expect(entity).not.toHaveProperty("isBasedOn");
+
+    const lextown = games.find((game) => game.id === "lextown")!;
+    const lextownSchema = discoverySchema({
+      locale: "en",
+      path: "games/lextown",
+      title: lextown.text.en.title,
+      description: lextown.text.en.description,
+      game: lextown,
+    });
+    const lextownEntity = lextownSchema["@graph"].find(
+      (item) =>
+        item !== undefined && "@type" in item && item["@type"] === "VideoGame",
+    );
+    expect(lextownEntity).toMatchObject({
+      playMode: ["https://schema.org/MultiPlayer"],
+    });
+
+    for (const id of [
+      "brakeless",
+      "hotlapped",
+      "mingat-cozy-cafe",
+      "mingat-pet-daycare",
+      "mingat-nomad-life",
+    ]) {
+      const game = games.find((entry) => entry.id === id)!;
+      expect(game.licenseDescription?.en.length).toBeGreaterThan(10);
+      expect(game.licenseDescription?.ko.length).toBeGreaterThan(10);
     }
   });
   it("retains the audited game sources and sprite hashes exactly", () => {

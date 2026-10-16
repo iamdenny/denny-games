@@ -24,8 +24,8 @@ export const categoryCopy: Record<Category, Record<Locale, string>> = {
     ko: "사이트 안의 조준 도전과 외부 호스트의 우주 전투·포격 게임을 즐겨보세요. 시작하기 전에 게임별 조작과 호스트 요구사항을 확인하세요.",
   },
   racing: {
-    en: "Steering and movement mini-games including parking, lane changes and slalom. This collection includes direction-control challenges as well as driving games.",
-    ko: "주차, 차선 변경과 슬라럼 등 방향·움직임을 다루는 미니게임입니다. 자동차 운전뿐 아니라 방향 조작에 도전하는 게임도 포함합니다.",
+    en: "Race 3D tracks, dodge traffic, and try browser time trials or track editing. The collection also includes short parking and steering games.",
+    ko: "주차·차선 변경 미니게임부터 3D 레이싱 트랙 편집, 타임 트라이얼과 교통 피하기까지 즐겨보세요. 외부 게임은 각 호스트에서 열립니다.",
   },
   sports: {
     en: "Try browser sports and table games, from golf and ball challenges to 3D pong. Scoring and controls differ between titles; external games open on their own host.",
@@ -40,7 +40,7 @@ export const categoryCopy: Record<Category, Record<Locale, string>> = {
     ko: "NetHack · Umoria · Larn · Angband · Dungeon Crawl: Stone Soup의 고전 턴제 던전을 탐험하세요. 게임마다 명령 · 브라우저 빌드 · 계정 · 저장 방식이 다르므로 모험을 시작하기 전에 상세 안내를 확인하세요.",
   },
   simulation: {
-    en: "Run creative experiments in open-source browser sandboxes and simulations, from falling sand to guiding a 3D flock. Each external page explains its host, controls and save behavior.",
-    ko: "모래 물리 실험부터 3D 양 떼 몰이까지 오픈소스 웹 시뮬레이션을 즐겨보세요. 외부 페이지마다 호스트·조작·저장 방식을 확인할 수 있습니다.",
+    en: "Explore creative browser sandboxes and simulations, from voxel worlds and a 3D cafe to pet care, horse riding and a shared city. Open-source status and host rules vary by title.",
+    ko: "복셀 월드와 3D 카페부터 반려동물 돌봄·승마·공유 도시까지 웹 시뮬레이션을 둘러보세요. 오픈소스 여부와 호스트 조건은 게임마다 다릅니다.",
   },
 };

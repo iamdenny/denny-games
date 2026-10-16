@@ -44,9 +44,12 @@ export interface Game {
   tags: string[];
   inputs: ("touch" | "mouse" | "keyboard" | "gamepad")[];
   license: string;
+  licenseDescription?: Record<Locale, string>;
   licenseUrl?: string;
   author: string;
   source: string;
+  sourceLabel?: Record<Locale, string>;
+  playModes?: ("single-player" | "multi-player")[];
   externalPlay?: {
     url: string;
     host: Record<Locale, string>;
