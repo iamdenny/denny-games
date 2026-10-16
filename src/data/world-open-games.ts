@@ -6053,8 +6053,8 @@ const freeBrowserWaveNineSpecs: GraphicalListingSpec[] = [
     inputs: ["keyboard", "mouse"],
     license: "zlib code license; art is CC-BY or CC-BY-SA as marked",
     licenseDescription: {
-      en: "The source README licenses the code under zlib and describes the included art as CC-BY or CC-BY-SA, with per-directory terms taking precedence. The project is archived and no longer actively developed. Denny Games links to its WebAssembly demo and copies no source, map, model, texture or sound.",
-      ko: "소스 README는 코드를 zlib 라이선스로, 포함된 그림을 CC-BY 또는 CC-BY-SA로 안내하며 디렉터리별 조건이 우선합니다. 프로젝트는 보관 상태이며 더 이상 활발히 개발되지 않습니다. 데니 게임즈는 WebAssembly 데모로만 연결하고 소스·맵·모델·텍스처·음향을 복사하지 않습니다.",
+      en: "The source README licenses the code under zlib and describes the included art as CC-BY or CC-BY-SA, with per-directory terms taking precedence. The project is no longer actively developed. Denny Games links to its WebAssembly demo and copies no source, map, model, texture or sound.",
+      ko: "소스 README는 코드를 zlib 라이선스로, 포함된 그림을 CC-BY 또는 CC-BY-SA로 안내하며 디렉터리별 조건이 우선합니다. 프로젝트는 더 이상 활발히 개발되지 않습니다. 데니 게임즈는 WebAssembly 데모로만 연결하고 소스·맵·모델·텍스처·음향을 복사하지 않습니다.",
     },
     licenseUrl: "https://github.com/kripken/BananaBread#license",
     licenseUrlLabel: {
@@ -6075,8 +6075,8 @@ const freeBrowserWaveNineSpecs: GraphicalListingSpec[] = [
       ko: "BananaBread WebAssembly FPS 데모",
     },
     hostNote: {
-      en: "The project's archived README links to this WebAssembly demo. Chromium loaded a 640×480 first-person arena after about 18 seconds and roughly 14.8 MB of resource transfers. At 390×844 the document measured 986 CSS px wide while the canvas stayed 640×480; the demo is desktop-oriented and advertises no touch controls. No full combat run or physical-device behavior was tested.",
-      ko: "보관된 프로젝트 README가 이 WebAssembly 데모로 연결합니다. Chromium에서 약 18초와 리소스 약 14.8MB 전송 뒤 640×480 1인칭 전투 공간이 표시됐습니다. 390×844에서 문서 폭은 986 CSS px였고 캔버스는 640×480 고정이었습니다. 데스크톱 중심이며 터치 조작은 안내하지 않습니다. 전투를 끝까지 진행하거나 실물 기기에서 확인하지 않았습니다.",
+      en: "The older project README, which says the project is no longer under active development, links to this WebAssembly demo. Chromium loaded a 640×480 first-person arena after about 18 seconds and roughly 14.8 MB of resource transfers. At 390×844 the document measured 986 CSS px wide while the canvas stayed 640×480; the demo is desktop-oriented and advertises no touch controls. No full combat run or physical-device behavior was tested.",
+      ko: "프로젝트가 더 이상 활발히 개발되지 않는다고 안내하는 README가 이 WebAssembly 데모로 연결합니다. Chromium에서 약 18초와 리소스 약 14.8MB 전송 뒤 640×480 1인칭 전투 공간이 표시됐습니다. 390×844에서 문서 폭은 986 CSS px였고 캔버스는 640×480 고정이었습니다. 데스크톱 중심이며 터치 조작은 안내하지 않습니다. 전투를 끝까지 진행하거나 실물 기기에서 확인하지 않았습니다.",
     },
     summary: {
       en: "Load a classic Cube 2 first-person shooter into a browser through WebAssembly and WebGL, with bots and a rendered 3D arena.",
