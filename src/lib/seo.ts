@@ -67,7 +67,7 @@ export function discoverySchema({
             game.imported || game.id === "2048" ? "Person" : "Organization",
           name: game.author,
         },
-        ...(game.licenseUrl
+        ...(game.licenseUrl && game.licenseAppliesToGame !== false
           ? { license: game.licenseUrl }
           : game.notice
             ? { license: SITE + game.notice }

@@ -8,6 +8,8 @@ const externalGames = games.flatMap((game) =>
           id: game.id,
           url: game.externalPlay.url,
           licenseDescription: game.licenseDescription,
+          licenseUrl: game.licenseUrl,
+          licenseUrlLabel: game.licenseUrlLabel,
         },
       ]
     : [],
@@ -30,6 +32,10 @@ for (const locale of ["en", "ko"] as const) {
         await expect(page.locator(".prose")).toContainText(
           game.licenseDescription[locale],
         );
+      if (game.id === "friday-night-funkin")
+        await expect(
+          page.getByRole("link", { name: game.licenseUrlLabel?.[locale] }),
+        ).toHaveAttribute("href", game.licenseUrl!);
       await expect(page.locator(".prose")).toContainText(
         locale === "ko" ? "검증하지 않았습니다" : "has not verified",
       );

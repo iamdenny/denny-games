@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Racez.io</title>
+  <desc id="desc">Original Denny Games illustration of two cars racing on a curving road through a forest</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#7bd7f4"/><stop offset="1" stop-color="#e7f8eb"/></linearGradient>
+    <linearGradient id="road" x2="0" y2="1"><stop stop-color="#56677b"/><stop offset="1" stop-color="#1b2b3b"/></linearGradient>
+    <linearGradient id="car" x2="0" y2="1"><stop stop-color="#ffe47b"/><stop offset="1" stop-color="#ff6d4e"/></linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#sky)"/>
+  <circle cx="535" cy="62" r="34" fill="#fff5bd"/>
+  <path d="M0 220 88 88l70 118 95-161 81 159 91-117 75 127 64-96 76 116v126H0Z" fill="#72a69a"/>
+  <path d="m52 199 35-84 49 81zm153-3 48-126 49 126zm202 1 42-84 47 88zm135 10 50-94 53 93z" fill="#316f68"/>
+  <path d="M0 244q152-46 310-3t330-24v143H0Z" fill="#58aa73"/>
+  <path d="M219 360q-13-55 17-99 28-40 97-55 53-12 99-38l30 31q-44 26-83 38-45 15-66 42-23 29-18 81Z" fill="url(#road)" stroke="#e8f6ea" stroke-width="5"/>
+  <path d="M241 360q-11-48 16-82 26-34 84-47 52-12 91-35" fill="none" stroke="#ffe589" stroke-width="7" stroke-dasharray="23 17"/>
+  <g transform="translate(286 260)">
+    <path d="m-38 20 9-28q26-23 61 0l12 28-8 19h-66z" fill="url(#car)" stroke="#15283a" stroke-width="5" stroke-linejoin="round"/>
+    <path d="m-14-7 10-18h23L31-7z" fill="#d9f4f6" stroke="#15283a" stroke-width="4"/>
+    <path d="M-32 12h68" stroke="#ffe69b" stroke-width="7"/>
+    <circle cx="-22" cy="39" r="10" fill="#14212e" stroke="#eef4ed" stroke-width="3"/><circle cx="27" cy="39" r="10" fill="#14212e" stroke="#eef4ed" stroke-width="3"/>
+  </g>
+  <g transform="translate(426 205) scale(.66)">
+    <path d="m-38 20 9-28q26-23 61 0l12 28-8 19h-66z" fill="#42c5ef" stroke="#15283a" stroke-width="5" stroke-linejoin="round"/>
+    <path d="m-14-7 10-18h23L31-7z" fill="#e7fbff" stroke="#15283a" stroke-width="4"/>
+    <circle cx="-22" cy="39" r="10" fill="#14212e"/><circle cx="27" cy="39" r="10" fill="#14212e"/>
+  </g>
+  <path d="M66 251v-61m-20 0h40m-34 12 28 28m0-28-28 28" fill="none" stroke="#fff9dc" stroke-width="6" stroke-linecap="round"/>
+  <path d="M84 269h62" stroke="#d5fae2" stroke-width="5" stroke-linecap="round"/>
+  <text x="31" y="48" fill="#12324a" font-family="system-ui,sans-serif" font-size="31" font-weight="950" letter-spacing="1">RACEZ.IO</text>
+  <text x="34" y="71" fill="#246c71" font-family="system-ui,sans-serif" font-size="11" font-weight="850" letter-spacing="3">PICK A TRACK · RACE TOGETHER</text>
+  <circle cx="585" cy="124" r="4" fill="#fff"/><circle cx="550" cy="158" r="3" fill="#efffc8"/><circle cx="603" cy="183" r="2" fill="#fff"/>
+</svg>

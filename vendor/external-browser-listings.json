@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All 130 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest four-game visual wave adds MIT 3D.CITY and BlockVerse, ThingsPool with Apache-2.0 code but all-rights-reserved original game artwork, and GPL-3.0 Suroi, which is marked work in progress. This wave adds three MIT WebGL games: Match-3D.js, Super Kart 3D.js and Arkanoid-3D. The observed 3D.CITY browser navigation transferred about 28.3 MB before its menu appeared; its README still lists save/load fixes. Suroi's phone viewport asks players to rotate to landscape. BlockVerse's generated local world rendered in a desktop browser; no complete match or game session was played for these listings. The new Match-3D.js board and touch controls fit a 390x844 Chromium viewport. Super Kart showed mobile race controls after a roughly 12-second first-scene load; its touch-driven race is unverified. Arkanoid-3D showed a menu and desktop game scene, but its README does not document touch controls. Earlier evidence and legal boundaries are recorded per entry. These checks establish reachability and limited menu/render observations only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET. This wave adds CityMaker, No Survivor Game, Bash Fighter and Courier City. Chromium showed CityMaker's 3D board and Bash Fighter's touch layout without horizontal overflow at 390x844; No Survivor requested landscape on a phone and showed its ready screen in an 844x390 viewport, while its README warns that the first engine download is about 40 MB. Courier City's official Pages URL redirected to the developer's current domain; the 390px page measured 409 CSS px and its initial instructions were keyboard-centric. These remain menu/render observations, not complete game sessions or physical-device testing.",
+  "verificationBoundary": "All 132 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest four-game visual wave adds MIT 3D.CITY and BlockVerse, ThingsPool with Apache-2.0 code but all-rights-reserved original game artwork, and GPL-3.0 Suroi, which is marked work in progress. This wave adds three MIT WebGL games: Match-3D.js, Super Kart 3D.js and Arkanoid-3D. The observed 3D.CITY browser navigation transferred about 28.3 MB before its menu appeared; its README still lists save/load fixes. Suroi's phone viewport asks players to rotate to landscape. BlockVerse's generated local world rendered in a desktop browser; no complete match or game session was played for these listings. The new Match-3D.js board and touch controls fit a 390x844 Chromium viewport. Super Kart showed mobile race controls after a roughly 12-second first-scene load; its touch-driven race is unverified. Arkanoid-3D showed a menu and desktop game scene, but its README does not document touch controls. Earlier evidence and legal boundaries are recorded per entry. These checks establish reachability and limited menu/render observations only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET. This wave adds CityMaker, No Survivor Game, Bash Fighter and Courier City. Chromium showed CityMaker's 3D board and Bash Fighter's touch layout without horizontal overflow at 390x844; No Survivor requested landscape on a phone and showed its ready screen in an 844x390 viewport, while its README warns that the first engine download is about 40 MB. Courier City's official Pages URL redirected to the developer's current domain; the 390px page measured 409 CSS px and its initial instructions were keyboard-centric. These remain menu/render observations, not complete game sessions or physical-device testing. This batch adds Racez.io and Friday Night Funkin' as external links. Racez's 3D lobby rendered in a landscape phone viewport and requested landscape in portrait; no party or race was started. Newgrounds loaded Friday Night Funkin's title screen after its first asset load, but its desktop-width layout clipped the 1280x720 game frame at a 390px mobile viewport. The FNF code is Apache-2.0 while its creative game content and trademarks are proprietary. No full song, mobile gameplay, or physical-device behavior was tested.",
   "entries": [
     {
       "id": "freedoom",
@@ -1686,6 +1686,32 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The README describes a procedural Three.js/Cannon-ES open-world city with walking, cars, aircraft, helicopters and landmarks, generated without external 3D assets. The initial page lists keyboard controls but no touch input. At 390x844, the document measured 409 CSS px wide. No complete session, mobile input or physical-device behavior was tested."
+    },
+    {
+      "id": "racez",
+      "projectSource": "https://github.com/MankyDanky/web-racing",
+      "projectLicense": "MIT project code; third-party dependencies retain their own terms",
+      "licenseText": "https://github.com/MankyDanky/web-racing/blob/master/LICENSE",
+      "externalHost": "https://www.racez.io/",
+      "hostSource": "https://github.com/MankyDanky/web-racing",
+      "hostWrapperLicense": "The linked browser host is named by the MIT source repository and offers an online multiplayer lobby. Denny Games copies no code, game build, car models or artwork.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium 390x844 landscape prompt and 844x390 lobby) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project describes a Three.js multiplayer racer with touch controls, track selection, car colors and party codes. Chromium showed a landscape lobby and asked portrait players to rotate. The lobby requests a name and uses a party code to join. No name was submitted, party created, race played or physical-device behavior tested."
+    },
+    {
+      "id": "friday-night-funkin",
+      "projectSource": "https://github.com/FunkinCrew/Funkin",
+      "projectLicense": "Apache-2.0 software code; game art, audio, creative content and trademarks are proprietary",
+      "licenseText": "https://github.com/FunkinCrew/Funkin/blob/main/LICENSE.md",
+      "externalHost": "https://www.newgrounds.com/portal/view/770371",
+      "hostSource": "https://www.newgrounds.com/portal/view/770371",
+      "hostWrapperLicense": "The official Newgrounds game page linked from the source repository offers a Play Game button without an upfront payment gate. Account login is optional for saving medals. Denny Games links out and copies no game code or media.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium title screen loaded after first asset download; 390px mobile layout clipped game frame) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The game page lists WASD/arrow-key controls, rebindable keys and built-in gamepad support. Chromium reached the title screen after the first asset load; no song was played. The 1280x720 embed sat in a desktop-width Newgrounds page and was clipped in a 390px mobile emulation. The source repository licenses software code under Apache-2.0, while a separate content license reserves the art, music, sound effects, creative content and trademarks. No source or content was copied."
     }
   ]
 }

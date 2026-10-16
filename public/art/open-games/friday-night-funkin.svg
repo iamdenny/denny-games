@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Friday Night Funkin'</title>
+  <desc id="desc">Original Denny Games illustration of glowing rhythm arrows on a purple-blue concert stage</desc>
+  <defs>
+    <linearGradient id="night" x2="0" y2="1"><stop stop-color="#11142d"/><stop offset=".58" stop-color="#30204f"/><stop offset="1" stop-color="#101326"/></linearGradient>
+    <linearGradient id="pink" x2="1" y2="1"><stop stop-color="#ffd4fa"/><stop offset=".5" stop-color="#ff70d4"/><stop offset="1" stop-color="#9a4cff"/></linearGradient>
+    <linearGradient id="cyan" x2="0" y2="1"><stop stop-color="#d6ffff"/><stop offset="1" stop-color="#43d8f2"/></linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#night)"/>
+  <path d="M0 270 87 70l46 200 93-185 49 185 87-220 57 220 98-184 37 184 86-170v260H0Z" fill="#584276" opacity=".2"/>
+  <path d="M0 286q160-63 320 0t320 0v74H0Z" fill="#0b1022" opacity=".88"/>
+  <path d="M78 274 183 91m-47 211L224 88m250 213L532 87m-62 217L576 111" stroke="#c35bff" stroke-width="3" opacity=".36"/>
+  <path d="M0 303h640" stroke="#53efff" stroke-width="3" opacity=".58" filter="url(#glow)"/>
+  <g filter="url(#glow)" stroke="#fff4ff" stroke-width="4" stroke-linejoin="round">
+    <path d="M105 200h40v-38l55 67-55 67v-39h-40z" fill="url(#pink)" transform="translate(0 -18)"/>
+    <path d="M276 113h54v40h38l-65 57-65-57h38z" fill="url(#cyan)"/>
+    <path d="M435 199h39v-39l57 67-57 66v-38h-39z" fill="url(#cyan)" transform="translate(0 -18)"/>
+  </g>
+  <path d="M83 145h53v-43l75 84-75 83v-42H83z" fill="none" stroke="#fff" stroke-width="4" opacity=".25"/>
+  <g fill="#f7dcff" opacity=".9">
+    <circle cx="44" cy="118" r="3"/><circle cx="590" cy="96" r="3"/><circle cx="552" cy="218" r="2"/><circle cx="233" cy="62" r="2"/><circle cx="393" cy="75" r="3"/>
+  </g>
+  <text x="30" y="42" fill="#fff7ff" font-family="system-ui,sans-serif" font-size="24" font-weight="950" letter-spacing=".3">FRIDAY NIGHT FUNKIN'</text>
+  <text x="33" y="63" fill="#d9b9ff" font-family="system-ui,sans-serif" font-size="10" font-weight="850" letter-spacing="3">RHYTHM · MUSIC · STORY</text>
+  <text x="320" y="338" text-anchor="middle" fill="#a8f8ff" font-family="system-ui,sans-serif" font-size="12" font-weight="850" letter-spacing="3">HIT THE BEAT</text>
+</svg>

@@ -46,6 +46,8 @@ export interface Game {
   license: string;
   licenseDescription?: Record<Locale, string>;
   licenseUrl?: string;
+  licenseUrlLabel?: Record<Locale, string>;
+  licenseAppliesToGame?: boolean;
   author: string;
   source: string;
   sourceLabel?: Record<Locale, string>;
