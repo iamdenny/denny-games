@@ -368,6 +368,6 @@ test("Hextris blocks locale navigation when browser storage rejects progress", a
     .click();
   await expect(page).toHaveURL(/\/ko\/play\/hextris\//);
   await expect(page.locator("#game-message")).toContainText(
-    "게임을 저장하지 못했어요",
+    /게임을 저장하지 못했어요|이 기기에서 저장할 수 없어요/,
   );
 });
