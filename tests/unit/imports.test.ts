@@ -10,8 +10,8 @@ import { discoverySchema } from "../../src/lib/seo";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(319);
-    expect(games.filter((game) => game.externalPlay)).toHaveLength(114);
+    expect(games).toHaveLength(324);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(119);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)
@@ -65,6 +65,8 @@ describe("import admission and catalogue", () => {
     for (const id of [
       "brakeless",
       "hotlapped",
+      "teebrawl",
+      "littlewargame",
       "mingat-cozy-cafe",
       "mingat-pet-daycare",
       "mingat-nomad-life",
@@ -72,6 +74,28 @@ describe("import admission and catalogue", () => {
       const game = games.find((entry) => entry.id === id)!;
       expect(game.licenseDescription?.en.length).toBeGreaterThan(10);
       expect(game.licenseDescription?.ko.length).toBeGreaterThan(10);
+    }
+
+    for (const id of ["teebrawl", "littlewargame"]) {
+      const game = games.find((entry) => entry.id === id)!;
+      expect(game.tags).not.toContain("free open source browser game");
+      expect(game.license.toLowerCase()).toContain("not published");
+      const schema = discoverySchema({
+        locale: "en",
+        path: `games/${id}`,
+        title: game.text.en.title,
+        description: game.text.en.description,
+        game,
+      });
+      const entity = schema["@graph"].find(
+        (item) =>
+          item !== undefined &&
+          "@type" in item &&
+          item["@type"] === "VideoGame",
+      );
+      expect(entity).toBeDefined();
+      expect(entity).not.toHaveProperty("license");
+      expect(entity).not.toHaveProperty("isBasedOn");
     }
   });
   it("retains the audited game sources and sprite hashes exactly", () => {

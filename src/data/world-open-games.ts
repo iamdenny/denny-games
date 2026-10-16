@@ -4105,6 +4105,285 @@ const graphicalWaveSpecs: GraphicalListingSpec[] = [
   },
 ];
 
+const freeBrowserWaveSpecs: GraphicalListingSpec[] = [
+  {
+    id: "junk-magnet",
+    isOpenSource: true,
+    title: "Junk Magnet",
+    category: "action",
+    controlStyle: "host",
+    inputs: ["keyboard", "touch"],
+    license: "MIT",
+    licenseDescription: {
+      en: "The project says its game code and original assets are MIT licensed. Third-party libraries, fonts and audio keep separate licenses listed by the project.",
+      ko: "프로젝트는 게임 코드와 자체 자산에 MIT 라이선스가 적용된다고 안내합니다. 외부 라이브러리·글꼴·오디오에는 프로젝트가 기록한 별도 라이선스가 적용됩니다.",
+    },
+    licenseUrl: "https://github.com/SafaElmali/junk-magnet/blob/main/LICENSE",
+    author: "Safa Elmali and contributors",
+    source: "https://github.com/SafaElmali/junk-magnet",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://playjunkmagnet.com/play/",
+    host: {
+      en: "Official Junk Magnet browser game",
+      ko: "Junk Magnet 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The developer offers free browser play with no download or account and documents keyboard and touch controls. The project describes browser-local progress and calls itself a playable prototype with balancing and physical-device testing ongoing. The play URL returned HTTP 200 on 2026-10-16; a complete run and device behavior were not tested.",
+      ko: "개발자는 다운로드나 계정 없이 브라우저에서 무료로 플레이할 수 있고 키보드·터치 조작을 안내합니다. 프로젝트는 브라우저에 진행을 저장한다고 설명하며, 밸런스 조정과 실기기 테스트가 진행 중인 플레이 가능한 프로토타입이라고 밝힙니다. 플레이 URL은 2026-10-16에 HTTP 200을 반환했지만 한 판 전체와 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Drive a small robot through an endless scrapyard, gather wreckage and turn orbiting scrap into automatic weapons against robot swarms.",
+      ko: "끝없는 폐차장을 누비며 고철을 모으고, 주변을 도는 고철을 자동 무기로 바꿔 로봇 무리를 상대하세요.",
+    },
+    controls: {
+      en: "Use the host's keyboard or touch controls; attacks fire automatically when you collect scrap.",
+      ko: "호스트의 키보드 또는 터치 조작을 사용하세요. 고철을 모으면 공격은 자동으로 발사됩니다.",
+    },
+    mode: {
+      en: "A free MIT-licensed 3D browser survival game. The official host says no account or download is required and saves progress in this browser.",
+      ko: "무료 MIT 라이선스 3D 브라우저 생존 게임입니다. 공식 호스트는 계정·다운로드가 필요 없고 이 브라우저에 진행을 저장한다고 안내합니다.",
+    },
+    keywords: {
+      en: [
+        "3D survival shooter",
+        "robot survival game",
+        "scrapyard roguelite",
+        "junk magnet game",
+      ],
+      ko: [
+        "3D 생존 슈터",
+        "로봇 생존 게임",
+        "폐차장 로그라이트",
+        "정크 마그넷 게임",
+      ],
+    },
+  },
+  {
+    id: "wibbly",
+    isOpenSource: true,
+    title: "wibbly",
+    category: "sports",
+    controlStyle: "buttons",
+    inputs: ["keyboard"],
+    license: "MIT OR Apache-2.0",
+    licenseDescription: {
+      en: "The developer lists the project under MIT OR Apache-2.0. Webcam tracking is optional; the host documents spacebar play as a complete fallback.",
+      ko: "개발자는 프로젝트에 MIT 또는 Apache-2.0 라이선스를 안내합니다. 웹캠 동작 인식은 선택 사항이며 호스트는 스페이스바로 전체 플레이를 할 수 있다고 설명합니다.",
+    },
+    licenseUrl: "https://github.com/vul-os/wibbly",
+    author: "VulOS contributors",
+    source: "https://github.com/vul-os/wibbly",
+    sourceLabel: {
+      en: "Source repository and licenses",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://vulos.org/projects/wibbly/play/",
+    host: {
+      en: "Official wibbly browser game",
+      ko: "wibbly 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The developer offers free browser tennis with no account, download or payment. Webcam motion control is optional: the spacebar can play the whole game. The project describes itself as early and says tennis is the only playable game; its page says camera tracking has been tested in Chrome and Edge while other browsers are untried. The URL returned HTTP 200 on 2026-10-16; Denny Games did not test a complete match or any device.",
+      ko: "개발자는 계정·다운로드·결제 없이 무료 브라우저 테니스를 제공합니다. 웹캠 동작 조작은 선택 사항이며 스페이스바만으로도 전체 게임을 플레이할 수 있습니다. 프로젝트는 초기 단계이며 지금 플레이할 수 있는 게임은 테니스뿐이라고 밝힙니다. 안내 페이지는 카메라 인식을 Chrome·Edge에서 테스트했고 다른 브라우저에서는 시험하지 않았다고 합니다. URL은 2026-10-16에 HTTP 200을 반환했지만 데니 게임즈는 전체 경기나 기기를 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Swing your arm to rally in a simple 3D tennis match against an AI opponent, or use the spacebar if you do not want to enable a webcam.",
+      ko: "AI 상대와 간단한 3D 테니스 랠리를 하세요. 웹캠을 켜고 팔을 휘두르거나 스페이스바를 사용할 수 있습니다.",
+    },
+    controls: {
+      en: "The host offers optional webcam swing tracking and a spacebar fallback; read its camera and play instructions first.",
+      ko: "호스트는 웹캠 스윙 인식과 스페이스바 조작을 제공합니다. 먼저 카메라 및 플레이 안내를 확인하세요.",
+    },
+    mode: {
+      en: "An early open-source browser tennis game with one playable single-player mode. Camera use is optional, and the developer says video stays on the device.",
+      ko: "현재 싱글 플레이 테니스 한 가지를 제공하는 초기 오픈소스 브라우저 게임입니다. 카메라는 선택 사항이며 개발자는 영상이 기기를 벗어나지 않는다고 안내합니다.",
+    },
+    keywords: {
+      en: [
+        "webcam tennis game",
+        "motion control sports game",
+        "camera controlled tennis",
+        "spacebar tennis game",
+      ],
+      ko: [
+        "웹캠 테니스 게임",
+        "동작 인식 스포츠 게임",
+        "카메라 조작 테니스",
+        "스페이스바 테니스 게임",
+      ],
+    },
+  },
+  {
+    id: "teebrawl",
+    isOpenSource: false,
+    title: "TeeBrawl",
+    category: "shooting",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse", "touch"],
+    license:
+      "Source code not published; own additions and Teeworlds-derived assets CC BY-SA 3.0 (scope unclear)",
+    licenseDescription: {
+      en: "The host describes an independent JavaScript reimplementation and says Teeworlds-derived assets and TeeBrawl's own additions are CC BY-SA 3.0, but it does not publish the source or clarify whether that license covers the game code. Denny Games redistributes no source or assets.",
+      ko: "호스트는 JavaScript 독립 재구현이라고 설명하며 Teeworlds 기반 자산과 TeeBrawl 자체 추가물에 CC BY-SA 3.0을 안내하지만, 소스 코드는 공개하지 않고 이 라이선스가 게임 코드까지 포함하는지는 밝히지 않습니다. 데니 게임즈는 소스나 자산을 재배포하지 않습니다.",
+    },
+    author: "Sven Antwertinger and contributors",
+    source: "https://teebrawl.com/",
+    sourceLabel: {
+      en: "Official game information and credits",
+      ko: "공식 게임 안내와 크레딧",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://teebrawl.com/",
+    host: {
+      en: "Official TeeBrawl browser game",
+      ko: "TeeBrawl 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The host offers free play without a download or account; the project says accounts are optional for ranked play, a battle pass and friends. Its terms describe open text chat and state that virtual currency cannot be bought for real money. The host returned HTTP 200 on 2026-10-16. A complete match, chat moderation, multiplayer session and device behavior were not tested.",
+      ko: "호스트는 다운로드나 계정 없이 무료 플레이를 제공하며, 랭크전·배틀 패스·친구 기능에는 선택 계정을 안내합니다. 이용 약관은 공개 텍스트 채팅을 설명하고 가상 화폐를 실제 돈으로 구매할 수 없다고 밝힙니다. 호스트는 2026-10-16에 HTTP 200을 반환했습니다. 전체 경기, 채팅 관리, 멀티플레이 세션과 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Run, double-jump and swing a grappling hook across a 2D arena in free play against bots or other players.",
+      ko: "2D 경기장을 달리고 이단 점프와 그래플링 훅을 활용해 봇 또는 다른 플레이어와 겨루세요.",
+    },
+    controls: {
+      en: "The host documents keyboard, mouse and phone touch controls. Play in landscape on a phone and read the tutorial before joining a match.",
+      ko: "호스트는 키보드·마우스·휴대폰 터치 조작을 안내합니다. 휴대폰은 가로로 두고 경기 전에 튜토리얼을 확인하세요.",
+    },
+    mode: {
+      en: "A free browser shooter with bot practice and online multiplayer. Optional accounts unlock ranked and social features; the source is not published and the scope of its CC BY-SA statement is unclear.",
+      ko: "봇 연습과 온라인 대전을 제공하는 무료 브라우저 슈터입니다. 선택 계정으로 랭크·소셜 기능을 이용할 수 있습니다. 소스는 공개되지 않았고 CC BY-SA 안내 범위는 명확하지 않습니다.",
+    },
+    keywords: {
+      en: [
+        "Teeworlds browser game",
+        "2D grappling hook shooter",
+        "multiplayer arena shooter",
+        "browser shooter with bots",
+      ],
+      ko: [
+        "티월즈 브라우저 게임",
+        "2D 그래플링 훅 슈터",
+        "멀티플레이 아레나 슈터",
+        "봇 대전 브라우저 슈터",
+      ],
+    },
+  },
+  {
+    id: "serpentine-3d",
+    isOpenSource: true,
+    title: "Serpentine — 3D Snake Game",
+    category: "arcade",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse", "touch"],
+    license: "MIT",
+    licenseUrl:
+      "https://github.com/S-SUJAN-S/serpentine-game/blob/main/LICENSE",
+    author: "S-SUJAN-S",
+    source: "https://github.com/S-SUJAN-S/serpentine-game",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://serpentine-game.netlify.app/",
+    host: {
+      en: "Developer-hosted Serpentine game",
+      ko: "개발자 호스팅 Serpentine 게임",
+    },
+    hostNote: {
+      en: "The developer describes free browser play, three difficulty levels and WebGL 3D graphics. The README lists joystick, swipe and mouse support for mobile, plus browser-local high scores. Its play page returned HTTP 200 on 2026-10-16; Denny Games did not test a complete run or mobile/tablet behavior.",
+      ko: "개발자는 무료 브라우저 플레이, 세 가지 난이도와 WebGL 3D 그래픽을 안내합니다. README는 모바일 조이스틱·스와이프·마우스 조작과 브라우저 로컬 최고 점수를 설명합니다. 플레이 페이지는 2026-10-16에 HTTP 200을 반환했지만 데니 게임즈는 전체 게임이나 모바일·태블릿 동작을 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Guide a glowing snake through a 3D arena, collect targets and choose between easy, medium and hard runs.",
+      ko: "3D 경기장에서 빛나는 뱀을 조작해 표적을 모으고 쉬움·보통·어려움 난이도에 도전하세요.",
+    },
+    controls: {
+      en: "The project documents keyboard, mouse, joystick and swipe controls; use the host's in-game guide for the selected mode.",
+      ko: "프로젝트는 키보드·마우스·조이스틱·스와이프 조작을 안내합니다. 선택한 모드의 호스트 게임 내 안내를 확인하세요.",
+    },
+    mode: {
+      en: "An MIT-licensed 3D browser snake game with three difficulty settings and high scores stored in the browser, according to its README.",
+      ko: "README에 따르면 세 가지 난이도와 브라우저 저장 최고 점수를 제공하는 MIT 라이선스 3D 브라우저 스네이크 게임입니다.",
+    },
+    keywords: {
+      en: [
+        "3D snake game",
+        "WebGL snake game",
+        "mobile snake game",
+        "serpentine online",
+      ],
+      ko: [
+        "3D 스네이크 게임",
+        "WebGL 스네이크",
+        "모바일 뱀 게임",
+        "서펜타인 온라인",
+      ],
+    },
+  },
+  {
+    id: "littlewargame",
+    isOpenSource: false,
+    title: "LittleWarGame",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: ["mouse", "keyboard"],
+    license: "Source license not published",
+    licenseDescription: {
+      en: "The official site publishes contributor credits for graphics, sound and music, including references to separately licensed works, but no overall game-code license was found. This is a link to the official free-to-play game only; no source or assets are reused.",
+      ko: "공식 사이트는 별도 라이선스 작품을 포함해 그래픽·효과음·음악 제작자 크레딧을 공개하지만 게임 코드 전체 라이선스는 확인되지 않았습니다. 이 항목은 공식 무료 게임으로 연결만 하며 소스나 자산을 재사용하지 않습니다.",
+    },
+    author: "jbs and LittleWarGame contributors",
+    source: "https://www.littlewargame.com/",
+    sourceLabel: {
+      en: "Official game information and credits",
+      ko: "공식 게임 안내와 크레딧",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://www.littlewargame.com/play/",
+    host: {
+      en: "Official LittleWarGame browser lobby",
+      ko: "LittleWarGame 공식 브라우저 로비",
+    },
+    hostNote: {
+      en: "The official site describes free play for up to six players with no download or registration. Its guide also documents CPU matches, online lobbies, tutorials and a map editor; some chat mini-game emotes may be unlocked or purchased, but current requirements and prices were not assessed. The credits list many third-party graphics and audio contributors, but no overall code license was found. The play URL returned HTTP 200 on 2026-10-16; no match, purchase flow or device behavior was tested.",
+      ko: "공식 사이트는 다운로드나 가입 없이 최대 6명이 무료로 플레이할 수 있다고 안내합니다. 가이드에는 CPU 대전, 온라인 로비, 튜토리얼과 맵 편집기도 소개됩니다. 채팅 미니게임 이모트 일부는 해제하거나 구매할 수 있다고 안내하지만 현재 조건과 가격은 확인하지 않았습니다. 크레딧에는 여러 외부 그래픽·오디오 기여자가 있지만 전체 코드 라이선스는 확인되지 않았습니다. 플레이 URL은 2026-10-16에 HTTP 200을 반환했으며 경기·구매 흐름·기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Gather resources, build a base and command an army in a browser real-time strategy match against the computer or other players.",
+      ko: "브라우저 실시간 전략 경기에서 자원을 모으고 기지를 세워 컴퓨터 또는 다른 플레이어와 군대를 지휘하세요.",
+    },
+    controls: {
+      en: "Choose a CPU match, multiplayer lobby or tutorial and follow the host's mouse and keyboard hotkey guide.",
+      ko: "CPU 대전·멀티플레이 로비·튜토리얼을 고르고 호스트의 마우스·키보드 단축키 안내를 따르세요.",
+    },
+    mode: {
+      en: "A free-to-play browser RTS with CPU and multiplayer modes. The official site says no registration is required; its game-code license is not published.",
+      ko: "CPU·멀티플레이 모드를 갖춘 무료 브라우저 RTS입니다. 공식 사이트는 가입이 필요 없다고 안내하며 게임 코드 라이선스는 공개되지 않았습니다.",
+    },
+    keywords: {
+      en: [
+        "browser real-time strategy",
+        "free online RTS",
+        "RTS against CPU",
+        "LittleWarGame online",
+      ],
+      ko: [
+        "브라우저 실시간 전략",
+        "무료 온라인 RTS",
+        "컴퓨터 대전 RTS",
+        "리틀워게임 온라인",
+      ],
+    },
+  },
+];
+
 const categoryColors: Record<Game["category"], string> = {
   board: "blue",
   puzzle: "mint",
@@ -4275,4 +4554,5 @@ export const worldOpenGames = [
   ...listings,
   ...expandedListingSpecs.map(expandListing),
   ...graphicalWaveSpecs.map(expandListing),
+  ...freeBrowserWaveSpecs.map(expandListing),
 ].map(toGame);
