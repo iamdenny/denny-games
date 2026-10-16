@@ -5634,6 +5634,279 @@ const freeBrowserWaveSevenSpecs: GraphicalListingSpec[] = [
   },
 ];
 
+const freeBrowserWaveEightSpecs: GraphicalListingSpec[] = [
+  {
+    id: "gridland",
+    isOpenSource: true,
+    title: "Gridland",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: ["mouse"],
+    license: "MPL-2.0",
+    licenseDescription: {
+      en: "Doublespeak Games publishes the Gridland source under MPL-2.0 and links to its developer-hosted browser game. Denny Games links out and copies no code, build or artwork; the external host controls its own service and save terms.",
+      ko: "Doublespeak Games는 Gridland 소스를 MPL-2.0으로 공개하고 개발자 호스팅 브라우저 게임으로 연결합니다. 데니 게임즈는 링크만 제공하며 코드·빌드·그림을 복사하지 않습니다. 서비스와 저장 조건은 외부 호스트가 관리합니다.",
+    },
+    licenseUrl:
+      "https://github.com/doublespeakgames/gridland/blob/main/LICENSE",
+    licenseUrlLabel: {
+      en: "License details: game source (MPL-2.0)",
+      ko: "라이선스 안내: 게임 소스 (MPL-2.0)",
+    },
+    licenseAppliesToGame: true,
+    author: "Doublespeak Games",
+    source: "https://github.com/doublespeakgames/gridland",
+    sourceLabel: {
+      en: "Official source repository and license",
+      ko: "공식 소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://gridland.doublespeakgames.com/",
+    host: {
+      en: "Official Gridland browser game",
+      ko: "Gridland 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The official repository links to this browser host; a direct GET returned HTTP 200 and the public page showed no upfront payment gate on 2026-10-16. A complete run, save restoration, account flow, mobile controls and physical-device behavior were not tested. The game opens on the developer's own site.",
+      ko: "공식 저장소가 이 브라우저 호스트로 연결합니다. 2026-10-16 직접 GET에서 HTTP 200을 받았고 공개 페이지에는 선결제 단계가 없었습니다. 전체 플레이·저장 복원·계정 흐름·모바일 조작·실물 기기 동작은 검증하지 않았습니다. 게임은 제작자 사이트에서 열립니다.",
+    },
+    summary: {
+      en: "Match colorful tiles to gather supplies and grow a tiny settlement through a cycle of daylight and danger after dark.",
+      ko: "알록달록한 타일을 맞춰 물자를 모으고 낮과 어둠의 위험이 번갈아 오는 작은 정착지를 키우세요.",
+    },
+    objective: {
+      en: "Use daytime matches to gather resources for your settlement, then face the threats that arrive at night.",
+      ko: "낮에 타일을 맞춰 정착지에 필요한 자원을 모으고 밤에 찾아오는 위협에 맞서세요.",
+    },
+    mode: {
+      en: "A single-player match-3 survival puzzle that alternates between resource gathering and nighttime danger. Browser save behavior follows the external host and was not tested.",
+      ko: "자원 모으기와 밤의 위기가 번갈아 이어지는 1인용 매치-3 생존 퍼즐입니다. 브라우저 저장 동작은 외부 호스트를 따르며 검증하지 않았습니다.",
+    },
+    controls: {
+      en: "Use the pointer to match tiles and follow the host's opening instructions for its current controls.",
+      ko: "포인터로 타일을 맞추고 현재 조작법은 호스트의 시작 안내를 확인하세요.",
+    },
+    tip: {
+      en: "Read the day-and-night instructions before spending your resources; the next phase changes what matters.",
+      ko: "자원을 쓰기 전에 낮과 밤의 안내를 읽어보세요. 다음 단계가 되면 중요한 요소가 달라집니다.",
+    },
+    keywords: {
+      en: [
+        "match 3 survival game",
+        "day and night puzzle",
+        "resource gathering match game",
+        "browser village defense game",
+      ],
+      ko: [
+        "매치3 생존 게임",
+        "낮과 밤 퍼즐",
+        "자원 모으기 매치 게임",
+        "브라우저 마을 방어 게임",
+      ],
+    },
+  },
+  {
+    id: "cube-composer",
+    isOpenSource: true,
+    title: "Cube Composer",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: ["mouse"],
+    license: "MIT",
+    licenseUrl: "https://github.com/sharkdp/cube-composer/blob/master/LICENSE",
+    licenseUrlLabel: {
+      en: "License details: game source (MIT)",
+      ko: "라이선스 안내: 게임 소스 (MIT)",
+    },
+    licenseAppliesToGame: true,
+    author: "David Peter",
+    source: "https://github.com/sharkdp/cube-composer",
+    sourceLabel: {
+      en: "Game source repository and MIT license",
+      ko: "게임 소스 저장소와 MIT 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://david-peter.de/cube-composer/",
+    host: {
+      en: "Author-linked Cube Composer browser game",
+      ko: "제작자가 연결한 Cube Composer 브라우저 게임",
+    },
+    hostNote: {
+      en: "The project README links to this online game; a direct GET returned HTTP 200 and the public page showed no upfront payment gate on 2026-10-16. The game uses a functional-programming theme; no complete puzzle or device behavior was tested. Denny Games copies no code or game art.",
+      ko: "프로젝트 README가 이 온라인 게임으로 연결합니다. 2026-10-16 직접 GET에서 HTTP 200을 받았고 공개 페이지에는 선결제 단계가 없었습니다. 함수형 프로그래밍 테마의 게임입니다. 퍼즐을 끝까지 풀거나 기기 동작을 확인하지 않았습니다. 데니 게임즈는 코드나 게임 그림을 복사하지 않았습니다.",
+    },
+    summary: {
+      en: "Compose tiny programs from color-changing operations to transform stacks of cubes into each level's target shape.",
+      ko: "색을 바꾸는 연산으로 작은 프로그램을 조합해 큐브 더미를 각 레벨의 목표 모양으로 바꾸세요.",
+    },
+    objective: {
+      en: "Arrange a sequence of transformations that turns the starting cubes into the exact target arrangement.",
+      ko: "시작 큐브를 정확한 목표 배열로 바꾸는 변환 순서를 구성하세요.",
+    },
+    mode: {
+      en: "A single-player logic puzzle inspired by functional programming. Each chapter introduces operations that can be composed to transform colored cube stacks.",
+      ko: "함수형 프로그래밍에서 영감을 얻은 1인용 논리 퍼즐입니다. 장마다 색 큐브 더미를 바꾸는 연산을 배우고 서로 조합합니다.",
+    },
+    controls: {
+      en: "Use the pointer to choose and arrange the operations shown by the host, then run the sequence and compare its output with the target.",
+      ko: "포인터로 호스트에 표시된 연산을 고르고 순서를 정한 뒤 실행 결과를 목표와 비교하세요.",
+    },
+    tip: {
+      en: "Try one operation at a time and inspect how it changes the cube stacks before composing a longer sequence.",
+      ko: "긴 순서를 만들기 전에 연산을 하나씩 실행해 큐브 더미가 어떻게 바뀌는지 확인하세요.",
+    },
+    keywords: {
+      en: [
+        "functional programming puzzle",
+        "cube transformation game",
+        "color logic puzzle",
+        "programming browser game",
+      ],
+      ko: [
+        "함수형 프로그래밍 퍼즐",
+        "큐브 변환 게임",
+        "색 논리 퍼즐",
+        "프로그래밍 브라우저 게임",
+      ],
+    },
+  },
+  {
+    id: "evolve-civilization",
+    isOpenSource: true,
+    title: "Evolve",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["mouse"],
+    license: "MPL-2.0",
+    licenseUrl: "https://github.com/pmotschmann/Evolve/blob/master/LICENSE",
+    licenseUrlLabel: {
+      en: "License details: game source (MPL-2.0)",
+      ko: "라이선스 안내: 게임 소스 (MPL-2.0)",
+    },
+    licenseAppliesToGame: true,
+    author: "pmotschmann and Evolve contributors",
+    source: "https://github.com/pmotschmann/Evolve",
+    sourceLabel: {
+      en: "Official source repository and license",
+      ko: "공식 소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://pmotschmann.github.io/Evolve/",
+    host: {
+      en: "Official Evolve browser release",
+      ko: "Evolve 공식 브라우저 버전",
+    },
+    hostNote: {
+      en: "The MPL-2.0 source repository links directly to this browser release; a direct GET returned HTTP 200 and the public page showed no upfront payment gate on 2026-10-16. The game contains extensive incremental systems and was not played to completion; save restoration, mobile controls and physical-device behavior were not tested.",
+      ko: "MPL-2.0 소스 저장소가 이 브라우저 버전으로 직접 연결합니다. 2026-10-16 직접 GET에서 HTTP 200을 받았고 공개 페이지에는 선결제 단계가 없었습니다. 점진적으로 확장되는 시스템이 많은 게임으로 끝까지 플레이하지 않았습니다. 저장 복원·모바일 조작·실물 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Guide a civilization from primordial life toward a spacefaring future by unlocking species, technologies and production systems.",
+      ko: "종족·기술·생산 체계를 열어 원시 생명에서 우주 문명으로 발전하는 사회를 이끄세요.",
+    },
+    objective: {
+      en: "Discover new stages of civilization while balancing resources, population, jobs and the systems that keep growth sustainable.",
+      ko: "자원·인구·직업과 지속 가능한 성장 체계를 관리하며 문명의 다음 단계를 발견하세요.",
+    },
+    mode: {
+      en: "A long-form single-player incremental civilization game that combines clicker and idle systems with substantial micromanagement. The external host controls saves and community links.",
+      ko: "클리커·방치형 시스템과 세밀한 관리 요소를 결합한 장기 진행형 1인 문명 게임입니다. 저장과 커뮤니티 연결은 외부 호스트가 관리합니다.",
+    },
+    controls: {
+      en: "Use the pointer to manage jobs, research, upgrades and resource panels; follow the in-game guide as new systems unlock.",
+      ko: "포인터로 직업·연구·업그레이드·자원 패널을 관리하고 새 시스템이 열릴 때 게임 안내를 따라가세요.",
+    },
+    tip: {
+      en: "Keep essential food and production steady before spending scarce resources on a new unlock.",
+      ko: "희소 자원을 새 해금에 쓰기 전에 식량과 생산이 안정적인지 확인하세요.",
+    },
+    keywords: {
+      en: [
+        "incremental civilization game",
+        "idle evolution simulator",
+        "space empire browser game",
+        "resource management clicker",
+      ],
+      ko: [
+        "점진형 문명 게임",
+        "방치형 진화 시뮬레이터",
+        "우주 제국 브라우저 게임",
+        "자원 관리 클리커",
+      ],
+    },
+  },
+  {
+    id: "we-become-what-we-behold",
+    isOpenSource: true,
+    title: "We Become What We Behold",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["mouse"],
+    license:
+      "Unlicense code and CC0 artwork; third-party sounds have separate CC BY/CC0 terms",
+    licenseDescription: {
+      en: "Nicky Case dedicates the game's code to the public domain under the Unlicense and its artwork under CC0. The README separately credits MIT-licensed PixiJS/Howler.js and sound files with CC BY or CC0 terms. Denny Games links to the author's page and copies no source, artwork or sound.",
+      ko: "Nicky Case는 게임 코드를 Unlicense로 퍼블릭 도메인에 두고 그림에는 CC0를 적용합니다. README는 MIT 라이선스 PixiJS·Howler.js와 CC BY 또는 CC0 조건의 음원을 별도로 표시합니다. 데니 게임즈는 제작자 페이지로만 연결하며 소스·그림·음향을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/ncase/wbwwb/blob/master/README.md",
+    licenseUrlLabel: {
+      en: "Author's source and asset credits",
+      ko: "제작자 소스와 자산 크레딧",
+    },
+    licenseAppliesToGame: false,
+    author: "Nicky Case",
+    source: "https://github.com/ncase/wbwwb",
+    sourceLabel: {
+      en: "Author's source repository and asset credits",
+      ko: "제작자 소스 저장소와 자산 크레딧",
+    },
+    playModes: ["single-player"],
+    url: "https://ncase.itch.io/wbwwb",
+    host: {
+      en: "Nicky Case's HTML5 game page on itch.io",
+      ko: "itch.io의 Nicky Case HTML5 게임 페이지",
+    },
+    hostNote: {
+      en: "The author's itch.io page lists a released HTML5 game with mouse input and an optional Support This Game button. On 2026-10-16 one automated GET returned HTTP 429; HEAD and a later GET returned HTTP 200. Browser access was not verified. The short story uses dark humor and ends with stylized violence. No complete session, saved state or device behavior was tested.",
+      ko: "제작자 itch.io 페이지는 마우스 조작의 출시된 HTML5 게임과 선택형 후원 버튼을 표시합니다. 2026-10-16 자동 GET 한 번은 HTTP 429를 반환했고, HEAD와 이후 GET은 HTTP 200을 반환했습니다. 브라우저 접근은 검증하지 않았습니다. 짧은 이야기에 블랙 유머가 있고 끝부분에 비현실적 폭력이 나옵니다. 전체 플레이·저장 상태·기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Photograph small moments in a town square, then watch the news loop reshape what its circle and square characters notice.",
+      ko: "광장에서 작은 순간을 사진으로 남기고 원·네모 캐릭터들이 주목하는 것과 마을의 흐름이 어떻게 달라지는지 지켜보세요.",
+    },
+    objective: {
+      en: "Observe how the moments you capture and publish change what the town sees next.",
+      ko: "포착해 내보낸 장면이 이후 마을 사람들의 시선을 어떻게 바꾸는지 살펴보세요.",
+    },
+    mode: {
+      en: "A short mouse-driven interactive story about news cycles and feedback loops. The author releases the code and artwork under open terms, with sound credits kept separate; its ending contains stylized violence.",
+      ko: "뉴스와 되먹임의 순환을 다루는 짧은 마우스 조작 인터랙티브 이야기입니다. 제작자는 코드와 그림을 개방형 조건으로 공개하고 음원 크레딧은 별도로 표시하며, 결말에는 비현실적 폭력이 있습니다.",
+    },
+    controls: {
+      en: "Mouse: click a scene to take a picture. Continue observing the square as the story reacts to what gets published.",
+      ko: "마우스: 장면을 눌러 사진을 찍으세요. 공개한 장면에 이야기가 반응하는 동안 광장을 계속 살펴보세요.",
+    },
+    tip: {
+      en: "Try photographing different kinds of moments and notice how the loop changes over time.",
+      ko: "서로 다른 순간을 사진으로 남기고 시간이 지나며 순환이 어떻게 바뀌는지 관찰하세요.",
+    },
+    keywords: {
+      en: [
+        "interactive story about news",
+        "media cycle browser game",
+        "short mouse narrative game",
+        "public domain indie game",
+      ],
+      ko: [
+        "뉴스 인터랙티브 이야기",
+        "미디어 순환 브라우저 게임",
+        "짧은 마우스 서사 게임",
+        "퍼블릭 도메인 인디 게임",
+      ],
+    },
+  },
+];
+
 export const worldOpenGames = [
   ...listings,
   ...expandedListingSpecs.map(expandListing),
@@ -5642,4 +5915,5 @@ export const worldOpenGames = [
   ...visualWaveTwoSpecs.map(expandListing),
   ...freeBrowserWaveSixSpecs.map(expandListing),
   ...freeBrowserWaveSevenSpecs.map(expandListing),
+  ...freeBrowserWaveEightSpecs.map(expandListing),
 ].map(toGame);

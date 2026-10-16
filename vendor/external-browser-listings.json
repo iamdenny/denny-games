@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. All 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
+  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. The previous 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. This wave adds three more direct-GET HTTP 200 hosts; the We Become What We Behold itch.io host returned HTTP 429 to one automated GET, then HTTP 200 to HEAD and a later GET; browser access remains unverified. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
   "entries": [
     {
       "id": "freedoom",
@@ -1764,6 +1764,58 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The author describes a released abstract strategy game for 1-4 local players with computer opponents and mouse-only input. Chromium loaded the HTML5 canvas in the itch page; its 769px embedded width is larger than the 390px phone viewport. No match, mobile input or physical-device behavior was tested."
+    },
+    {
+      "id": "gridland",
+      "projectSource": "https://github.com/doublespeakgames/gridland",
+      "projectLicense": "MPL-2.0",
+      "licenseText": "https://github.com/doublespeakgames/gridland/blob/main/LICENSE",
+      "externalHost": "https://gridland.doublespeakgames.com/",
+      "hostSource": "https://github.com/doublespeakgames/gridland",
+      "hostWrapperLicense": "Official developer-hosted browser game linked by the source repository. The public page showed no upfront payment gate. Denny Games links out and copies no code, build, game data or artwork.",
+      "urlStatus": "HTTP 200 (direct GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The source project describes a match-3 game with a daylight resource phase and nighttime threats. No complete run, save restoration, account flow, mobile controls or physical-device behavior was tested."
+    },
+    {
+      "id": "cube-composer",
+      "projectSource": "https://github.com/sharkdp/cube-composer",
+      "projectLicense": "MIT",
+      "licenseText": "https://github.com/sharkdp/cube-composer/blob/master/LICENSE",
+      "externalHost": "https://david-peter.de/cube-composer/",
+      "hostSource": "https://github.com/sharkdp/cube-composer",
+      "hostWrapperLicense": "Author-linked browser game from the MIT project README. The public page showed no upfront payment gate. Denny Games links out and copies no game code or artwork.",
+      "urlStatus": "HTTP 200 (direct GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project presents a functional-programming-themed cube transformation puzzle. No complete puzzle or device behavior was tested."
+    },
+    {
+      "id": "evolve-civilization",
+      "projectSource": "https://github.com/pmotschmann/Evolve",
+      "projectLicense": "MPL-2.0",
+      "licenseText": "https://github.com/pmotschmann/Evolve/blob/master/LICENSE",
+      "externalHost": "https://pmotschmann.github.io/Evolve/",
+      "hostSource": "https://github.com/pmotschmann/Evolve",
+      "hostWrapperLicense": "Official browser release linked from the MPL-2.0 source repository. The public page showed no upfront payment gate. Denny Games links out and copies no source, build, data or artwork.",
+      "urlStatus": "HTTP 200 (direct GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The source describes a long-form incremental civilization game with evolving species, research and resource systems. No complete progression, save restoration, mobile controls or physical-device behavior was tested."
+    },
+    {
+      "id": "we-become-what-we-behold",
+      "projectSource": "https://github.com/ncase/wbwwb",
+      "projectLicense": "Unlicense game code; CC0 artwork; CC BY/CC0 sound effects; MIT dependencies",
+      "licenseText": "https://github.com/ncase/wbwwb/blob/master/README.md",
+      "externalHost": "https://ncase.itch.io/wbwwb",
+      "hostSource": "https://ncase.itch.io/wbwwb",
+      "hostWrapperLicense": "Author-hosted itch.io HTML5 game page with an optional support button and no upfront payment gate. Denny Games links out and copies no game content.",
+      "urlStatus": "HTTP 429 (one automated GET), HTTP 200 (HEAD and later GET) 2026-10-16; browser access not verified",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The author page identifies an HTML5 mouse game and offers optional support. The short story uses dark humor and ends with stylized violence. Code, artwork, sound effects and dependencies have separate credits and terms. One GET was subsequently retried to confirm public HTML availability; no complete session, save flow or device behavior was tested."
     }
   ]
 }

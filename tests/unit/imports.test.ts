@@ -10,8 +10,8 @@ import { discoverySchema } from "../../src/lib/seo";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(341);
-    expect(games.filter((game) => game.externalPlay)).toHaveLength(136);
+    expect(games).toHaveLength(345);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(140);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Evolve</title>
+  <desc id="desc">Original Denny Games illustration of life growing from a tiny sprout into a spacefaring civilization</desc>
+  <defs>
+    <linearGradient id="space" x2="0" y2="1"><stop stop-color="#152340"/><stop offset="1" stop-color="#46577a"/></linearGradient>
+    <linearGradient id="planet" x2="1" y2="1"><stop stop-color="#ffc878"/><stop offset="1" stop-color="#e07861"/></linearGradient>
+    <filter id="shine" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#space)"/>
+  <g fill="#fff2c5"><circle cx="57" cy="113" r="2"/><circle cx="122" cy="92" r="3"/><circle cx="204" cy="135" r="2"/><circle cx="332" cy="92" r="2"/><circle cx="420" cy="123" r="3"/><circle cx="575" cy="151" r="2"/></g>
+  <circle cx="522" cy="113" r="61" fill="url(#planet)"/><path d="M472 94q49 15 100-5m-107 37q52 16 112-8" fill="none" stroke="#ffe0a6" stroke-width="7" opacity=".65"/>
+  <path d="M0 264q155-61 285-5t355-8v109H0Z" fill="#273852"/><path d="M0 300q145-54 279-3t361-8v68H0Z" fill="#1d2d47"/>
+  <path d="M82 281h462" stroke="#8cabc0" stroke-width="3" stroke-dasharray="6 12" opacity=".65"/>
+  <g transform="translate(112 0)"><path d="M48 278v-38m0 16q-27-28-43-5 20 30 43 10m0-17q20-33 43-14-12 29-43 22" fill="#83ca86" stroke="#d7f1b0" stroke-width="4" stroke-linejoin="round"/><path d="M13 279q35-20 71 0" fill="none" stroke="#ddc58e" stroke-width="5"/></g>
+  <g transform="translate(246 0)" stroke="#a4d9c1" stroke-width="4" stroke-linejoin="round"><path d="m51 221 47-28 48 28v56l-48 28-47-28Z" fill="#437c80"/><path d="m98 193 48 28-48 28-47-28Z" fill="#8ec9a6"/><path d="M98 249v54m-33-70 33 16 34-20m-57 43 23 15 31-19" fill="none"/></g>
+  <g transform="translate(414 0)" filter="url(#shine)"><path d="m63 174 32-83 32 83-32 22Z" fill="#f5e9c3" stroke="#fff6d6" stroke-width="3"/><path d="m63 174 32 22v42l-17-14Z" fill="#e88167"/><path d="m127 174-32 22v42l18-14Z" fill="#72c9c2"/><path d="M95 229v29m-15-12-13 18m43-18 14 18" stroke="#fff0bd" stroke-width="5" stroke-linecap="round"/><circle cx="95" cy="182" r="9" fill="#ffdb75"/></g>
+</svg>
