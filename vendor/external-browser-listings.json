@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All 123 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest four-game visual wave adds MIT 3D.CITY and BlockVerse, ThingsPool with Apache-2.0 code but all-rights-reserved original game artwork, and GPL-3.0 Suroi, which is marked work in progress. The observed 3D.CITY browser navigation transferred about 28.3 MB before its menu appeared; its README still lists save/load fixes. Suroi's phone viewport asks players to rotate to landscape. BlockVerse's generated local world rendered in a desktop browser; no complete match or game session was played for these listings. Earlier evidence and legal boundaries are recorded per entry. These checks establish reachability and limited menu/render observations only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
+  "verificationBoundary": "All 126 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest four-game visual wave adds MIT 3D.CITY and BlockVerse, ThingsPool with Apache-2.0 code but all-rights-reserved original game artwork, and GPL-3.0 Suroi, which is marked work in progress. This wave adds three MIT WebGL games: Match-3D.js, Super Kart 3D.js and Arkanoid-3D. The observed 3D.CITY browser navigation transferred about 28.3 MB before its menu appeared; its README still lists save/load fixes. Suroi's phone viewport asks players to rotate to landscape. BlockVerse's generated local world rendered in a desktop browser; no complete match or game session was played for these listings. The new Match-3D.js board and touch controls fit a 390x844 Chromium viewport. Super Kart showed mobile race controls after a roughly 12-second first-scene load; its touch-driven race is unverified. Arkanoid-3D showed a menu and desktop game scene, but its README does not document touch controls. Earlier evidence and legal boundaries are recorded per entry. These checks establish reachability and limited menu/render observations only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
   "entries": [
     {
       "id": "freedoom",
@@ -1595,6 +1595,45 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The initial browser menu displayed nickname, server and solo/duo/squad choices. A 390x844 phone viewport asked the player to rotate to landscape. No match, multiplayer session, touch input or physical-device performance was tested."
+    },
+    {
+      "id": "match-3djs",
+      "projectSource": "https://github.com/fecolinhares/match-3djs",
+      "projectLicense": "MIT",
+      "licenseText": "https://github.com/fecolinhares/match-3djs/blob/main/LICENSE",
+      "externalHost": "https://fecolinhares.github.io/match-3djs/",
+      "hostSource": "https://github.com/fecolinhares/match-3djs",
+      "hostWrapperLicense": "Developer-hosted GitHub Pages game linked from the MIT source repository. Public browser play is offered without an upfront payment gate. Denny Games links out and copies no code or assets.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium board rendered at desktop and 390x844) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README describes a Three.js/WebGL2 Columns-style match puzzle with keyboard, mouse and mobile touch controls. A desktop run responded to a hard-drop input; the 390x844 Chromium view showed the board and five touch buttons without horizontal overflow. No full run or physical-device behavior was tested."
+    },
+    {
+      "id": "super-kart-3djs",
+      "projectSource": "https://github.com/fecolinhares/super-kart-3djs",
+      "projectLicense": "MIT",
+      "licenseText": "https://github.com/fecolinhares/super-kart-3djs/blob/main/LICENSE",
+      "externalHost": "https://fecolinhares.github.io/super-kart-3djs/",
+      "hostSource": "https://github.com/fecolinhares/super-kart-3djs",
+      "hostWrapperLicense": "Developer-hosted GitHub Pages game linked from the MIT source repository. The public start page showed no upfront payment gate. Denny Games links out and copies no build or artwork.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium race scene at desktop and 390x844) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README describes a procedural Three.js kart racer with touch controls. The desktop race scene rendered without console errors. At 390x844 the mobile race view and steering, drift, item and pause buttons appeared without horizontal overflow; its first scene took about 12 seconds to appear in Chromium. No full race, touch-driven race or physical-device behavior was tested."
+    },
+    {
+      "id": "arkanoid-3d",
+      "projectSource": "https://github.com/dev-matru/Arkanoid-3D",
+      "projectLicense": "MIT",
+      "licenseText": "https://github.com/dev-matru/Arkanoid-3D/blob/main/LICENSE",
+      "externalHost": "https://dev-matru.github.io/Arkanoid-3D/",
+      "hostSource": "https://github.com/dev-matru/Arkanoid-3D",
+      "hostWrapperLicense": "Developer-hosted GitHub Pages game linked from its MIT source repository. The public start page showed no upfront payment gate. Denny Games links out and copies no code or artwork.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium start menu and game scene) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project describes a bare-WebGL2 3D brick breaker. Chromium showed its neon start menu and, after Play Game, the 3D paddle/brick scene; the 390x844 menu had no horizontal overflow. The README lists mouse and keyboard controls, not touch. No complete run, mobile control or physical-device behavior was tested."
     }
   ]
 }
