@@ -4607,6 +4607,187 @@ const freeBrowserWaveSpecs: GraphicalListingSpec[] = [
       ],
     },
   },
+  {
+    id: "match-3djs",
+    isOpenSource: true,
+    title: "Match-3D.js",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: ["touch", "mouse", "keyboard"],
+    license: "MIT",
+    licenseDescription: {
+      en: "The project publishes the game repository under MIT. Its README describes a Three.js/WebGL2 puzzle with procedural sound; dependencies keep their own licenses. Denny Games links to the hosted game and copies no source, build or artwork.",
+      ko: "프로젝트는 게임 저장소에 MIT 라이선스를 적용합니다. README는 절차 생성 음향을 포함한 Three.js/WebGL2 퍼즐이라고 설명하며 의존성에는 각자의 라이선스가 적용됩니다. 데니 게임즈는 호스팅된 게임으로 연결만 하며 소스·빌드·그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/fecolinhares/match-3djs/blob/main/LICENSE",
+    author: "Feco Linhares",
+    source: "https://github.com/fecolinhares/match-3djs",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://fecolinhares.github.io/match-3djs/",
+    host: {
+      en: "Developer-hosted Match-3D.js browser game",
+      ko: "개발자 호스팅 Match-3D.js 브라우저 게임",
+    },
+    hostNote: {
+      en: "The project README links this free GitHub Pages game and documents keyboard, mouse and touch controls. The page returned HTTP 200; a desktop browser run rendered the 3D board and responded to a hard-drop input. At 390×844, Chromium showed the board and five touch buttons without horizontal overflow. No complete run or physical-device behavior was tested.",
+      ko: "프로젝트 README는 무료 GitHub Pages 게임으로 연결하고 키보드·마우스·터치 조작을 안내합니다. 페이지는 HTTP 200을 반환했고 데스크톱 브라우저에서 3D 보드가 표시되어 하드 드롭 입력에 반응했습니다. 390×844 Chromium 화면에는 가로 넘침 없이 보드와 터치 버튼 다섯 개가 표시됐습니다. 전체 플레이와 실기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Move falling columns of faceted jewels and match three or more of the same color across rows, columns or diagonals to trigger cascades.",
+      ko: "보석 세 개가 든 낙하 열을 움직여 가로·세로·대각선으로 같은 색 세 개 이상을 맞추고 연속 폭발을 만드세요.",
+    },
+    controls: {
+      en: "The project documents arrow keys or A/D to move, Up/W to rotate, Down/S to soft-drop and Space to hard-drop. Touch devices get labeled move, rotate and drop buttons; check the host for current pause controls.",
+      ko: "프로젝트는 방향키 또는 A/D 이동, 위쪽 화살표 또는 W 회전, 아래쪽 화살표 또는 S 천천히 내리기, 스페이스바 즉시 내리기를 안내합니다. 터치 기기에는 이동·회전·내리기 버튼이 표시되며 일시정지 조작은 호스트 안내를 확인하세요.",
+    },
+    mode: {
+      en: "A free MIT-licensed Columns-style jewel puzzle built with Three.js and WebGL2. The source README lists keyboard, mouse and mobile touch controls; scores and the session remain on the external host.",
+      ko: "Three.js와 WebGL2로 만든 무료 MIT 라이선스 컬럼스 방식 보석 퍼즐입니다. 소스 README는 키보드·마우스·모바일 터치 조작을 안내하며 점수와 플레이 세션은 외부 호스트에 남습니다.",
+    },
+    tip: {
+      en: "Watch the three jewels in the Next panel before rotating a column into place.",
+      ko: "열을 회전해 놓기 전에 Next 칸의 다음 보석 세 개를 살펴보세요.",
+    },
+    keywords: {
+      en: [
+        "3D jewel matching puzzle",
+        "Columns browser game",
+        "WebGL2 match puzzle",
+        "touch block puzzle online",
+      ],
+      ko: [
+        "3D 보석 맞추기 퍼즐",
+        "컬럼스 브라우저 게임",
+        "웹지엘2 매치 퍼즐",
+        "터치 블록 퍼즐 온라인",
+      ],
+    },
+  },
+  {
+    id: "super-kart-3djs",
+    isOpenSource: true,
+    title: "Super Kart 3D.js",
+    category: "racing",
+    controlStyle: "host",
+    inputs: ["keyboard", "touch"],
+    license: "MIT",
+    licenseDescription: {
+      en: "The project publishes an MIT license and says its karts, tracks, effects, music and sound are generated procedurally rather than copied from other games. Dependencies retain their own terms; Denny Games links out only.",
+      ko: "프로젝트는 MIT 라이선스를 공개하며 카트·트랙·효과·음악·소리를 다른 게임에서 복사하지 않고 절차적으로 생성한다고 설명합니다. 의존성에는 각자의 조건이 적용되며 데니 게임즈는 외부 링크만 제공합니다.",
+    },
+    licenseUrl:
+      "https://github.com/fecolinhares/super-kart-3djs/blob/main/LICENSE",
+    author: "Feco Linhares",
+    source: "https://github.com/fecolinhares/super-kart-3djs",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://fecolinhares.github.io/super-kart-3djs/",
+    host: {
+      en: "Developer-hosted Super Kart browser game",
+      ko: "개발자 호스팅 Super Kart 브라우저 게임",
+    },
+    hostNote: {
+      en: "The README links the free browser build and lists keyboard and mobile touch controls. The page returned HTTP 200; Chromium rendered the race scene at desktop size. At 390×844 it showed the race view and steering, drift and item buttons without horizontal overflow, though the initial mobile scene took about 12 seconds to appear. No complete race or physical-device input was tested.",
+      ko: "README는 무료 브라우저 빌드로 연결하고 키보드·모바일 터치 조작을 안내합니다. 페이지는 HTTP 200을 반환했고 Chromium 데스크톱 화면에서 레이싱 장면이 표시됐습니다. 390×844 화면에는 가로 넘침 없이 경주 화면과 방향·드리프트·아이템 버튼이 나타났지만 모바일 첫 장면이 표시되기까지 약 12초 걸렸습니다. 전체 경기와 실기기 입력은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Choose a kart and track, then race five computer rivals for three laps with drifts, turbo pads and item pickups.",
+      ko: "카트와 트랙을 고르고 컴퓨터 상대 다섯 명과 세 바퀴를 달리세요. 드리프트와 터보 패드, 아이템을 활용할 수 있습니다.",
+    },
+    controls: {
+      en: "The README lists arrow keys or A/D to steer, Up/W to accelerate, Shift plus steering to drift and Space to use an item. Mobile offers left/right, drift and item buttons; enable Auto-accelerate in the menu if needed.",
+      ko: "README는 방향키 또는 A/D 조향, 위쪽 화살표 또는 W 가속, Shift와 조향을 함께 눌러 드리프트, 스페이스바 아이템 사용을 안내합니다. 모바일에는 좌우·드리프트·아이템 버튼이 있으며 필요하면 메뉴에서 자동 가속을 켜세요.",
+    },
+    mode: {
+      en: "A free MIT-licensed Three.js kart racer with AI rivals and two tracks, according to its README. Its public start page showed no upfront payment gate; host behavior and device support can change independently.",
+      ko: "README에 따르면 AI 상대와 두 트랙을 갖춘 무료 MIT 라이선스 Three.js 카트 레이싱입니다. 공개 시작 화면에는 선결제 안내가 없었으며 호스트 동작과 기기 지원은 별도로 바뀔 수 있습니다.",
+    },
+    tip: {
+      en: "Turn on Auto-accelerate for touch play, then use a short drift through corners to charge a boost.",
+      ko: "터치 플레이에서는 자동 가속을 켜고 코너에서 짧게 드리프트해 부스트를 충전해 보세요.",
+    },
+    keywords: {
+      en: [
+        "3D kart racing game",
+        "browser kart racer",
+        "WebGL racing game",
+        "kart game with power ups",
+      ],
+      ko: [
+        "3D 카트 레이싱 게임",
+        "브라우저 카트 레이서",
+        "웹지엘 레이싱 게임",
+        "아이템 카트 게임",
+      ],
+    },
+  },
+  {
+    id: "arkanoid-3d",
+    isOpenSource: true,
+    title: "Arkanoid-3D",
+    category: "arcade",
+    controlStyle: "host",
+    inputs: ["mouse", "keyboard"],
+    license: "MIT",
+    licenseDescription: {
+      en: "The source repository publishes an MIT license. Denny Games links to its browser build and does not copy the game code, build or artwork; dependency and host terms remain with their respective projects.",
+      ko: "소스 저장소는 MIT 라이선스를 공개합니다. 데니 게임즈는 브라우저 빌드로 연결만 하며 게임 코드·빌드·그림을 복사하지 않습니다. 의존성과 호스트에는 각 프로젝트의 조건이 적용됩니다.",
+    },
+    licenseUrl: "https://github.com/dev-matru/Arkanoid-3D/blob/main/LICENSE",
+    author: "Matru",
+    source: "https://github.com/dev-matru/Arkanoid-3D",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://dev-matru.github.io/Arkanoid-3D/",
+    host: {
+      en: "Developer-hosted Arkanoid-3D browser game",
+      ko: "개발자 호스팅 Arkanoid-3D 브라우저 게임",
+    },
+    hostNote: {
+      en: "The README links this free GitHub Pages build. Its 3D start menu and neon brick-breaking scene rendered in Chromium at desktop size; the 390×844 menu had no horizontal overflow. The README documents mouse and keyboard controls, not touch input. No full run, mobile control, physical device or controller behavior was tested.",
+      ko: "README는 무료 GitHub Pages 빌드로 연결합니다. Chromium 데스크톱 화면에서 3D 시작 메뉴와 네온 브릭 브레이커 장면이 표시됐고 390×844 메뉴에는 가로 넘침이 없었습니다. README는 마우스·키보드 조작을 안내하며 터치 조작은 문서화하지 않았습니다. 전체 플레이, 모바일 조작, 실기기와 컨트롤러 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Guide a ball with the paddle to clear 3D brick formations, switch between five camera views and tune the challenge.",
+      ko: "패들로 공을 받아 3D 벽돌 배치를 부수고 다섯 카메라 시점과 난이도를 바꿔보세요.",
+    },
+    controls: {
+      en: "The project lists mouse movement for the paddle, left-click to launch or restart, the scroll wheel to zoom and keys 1–5 for camera views. Touch controls are not documented; open the host's settings for sound and difficulty.",
+      ko: "프로젝트는 마우스 이동으로 패들을 조작하고 왼쪽 클릭으로 공을 발사하거나 다시 시작하며 휠로 확대·축소, 1~5 키로 카메라 시점을 바꾸도록 안내합니다. 터치 조작은 문서화되지 않았으며 음향·난이도는 호스트 설정에서 확인하세요.",
+    },
+    mode: {
+      en: "A free MIT-licensed WebGL2 3D Breakout-style arcade game with selectable camera angles and difficulty settings. The project README lists mouse and keyboard play; mobile touch support is not documented.",
+      ko: "카메라 시점과 난이도를 고를 수 있는 무료 MIT 라이선스 WebGL2 3D 브레이크아웃 방식 아케이드 게임입니다. 프로젝트 README는 마우스·키보드 플레이를 안내하며 모바일 터치 지원은 문서화하지 않았습니다.",
+    },
+    tip: {
+      en: "Try the top-down or ball-follow camera if the default angle makes the paddle hard to judge.",
+      ko: "기본 시점에서 패들 조작이 어렵다면 탑다운 또는 공 추적 카메라를 골라보세요.",
+    },
+    keywords: {
+      en: [
+        "3D Breakout game online",
+        "WebGL2 brick breaker",
+        "neon arcade brick game",
+        "Arkanoid 3D browser game",
+      ],
+      ko: [
+        "3D 브레이크아웃 온라인 게임",
+        "웹지엘2 벽돌깨기",
+        "네온 아케이드 벽돌 게임",
+        "아카노이드 3D 브라우저 게임",
+      ],
+    },
+  },
 ];
 
 const categoryColors: Record<Game["category"], string> = {

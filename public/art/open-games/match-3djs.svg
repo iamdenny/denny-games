@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Match-3D.js</title>
+  <desc id="desc">Original Denny Games illustration of glowing jewel blocks on a tilted arcade board</desc>
+  <defs>
+    <linearGradient id="back" x2="0" y2="1"><stop stop-color="#11182d"/><stop offset="1" stop-color="#261547"/></linearGradient>
+    <linearGradient id="board" x2="0" y2="1"><stop stop-color="#4e3423"/><stop offset="1" stop-color="#241a27"/></linearGradient>
+    <linearGradient id="gem" x2="1" y2="1"><stop stop-color="#fff1ab"/><stop offset=".48" stop-color="#ff73dc"/><stop offset="1" stop-color="#793dff"/></linearGradient>
+    <linearGradient id="cyan" x2="0" y2="1"><stop stop-color="#b8fff2"/><stop offset="1" stop-color="#35baff"/></linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#back)"/>
+  <circle cx="527" cy="69" r="93" fill="#893fbb" opacity=".22"/>
+  <circle cx="527" cy="69" r="54" fill="#f28bdd" opacity=".18"/>
+  <path d="M0 280 640 219v141H0Z" fill="#111522" opacity=".85"/>
+  <path d="m78 94 443-29 66 220-439 31z" fill="url(#board)" stroke="#f2bd6a" stroke-width="8" stroke-linejoin="round"/>
+  <path d="m105 112 389-25 48 178-383 26z" fill="#0b1328" stroke="#f7e5ba" stroke-width="5"/>
+  <g stroke="#455172" stroke-width="3" opacity=".82">
+    <path d="m143 111 39 179M192 108l39 179M241 105l38 179M290 101l39 179M339 98l39 179M388 95l39 179M437 92l39 179"/>
+    <path d="m111 139 399-25m7 51-392 25m407 20-397 25m403 20-400 25"/>
+  </g>
+  <g filter="url(#glow)" stroke="#ffeefc" stroke-width="3" stroke-linejoin="round">
+    <path d="m213 183 18-13 19 11 1 24-18 14-19-11z" fill="url(#gem)"/>
+    <path d="m267 180 18-13 19 11 1 24-18 14-19-11z" fill="url(#gem)"/>
+    <path d="m321 177 18-13 19 11 1 24-18 14-19-11z" fill="url(#gem)"/>
+  </g>
+  <path d="m218 184 13-14v24l-13 11m54-25 13-13v24l-13 14m54-25 13-13v24l-13 14" fill="none" stroke="#fff8ff" stroke-width="2" opacity=".8"/>
+  <path d="m241 210 50-3 3 18-50 3z" fill="#b9f7ff" opacity=".2" filter="url(#glow)"/>
+  <g transform="translate(488 230) rotate(-8)">
+    <path d="M0 18 20 4l22 10v25L21 52 0 40z" fill="url(#cyan)" stroke="#e3ffff" stroke-width="3"/>
+    <path d="m20 4 1 24 21 11M20 28 0 40" fill="none" stroke="#1684c5" stroke-width="3"/>
+  </g>
+  <path d="m106 311 445-32" stroke="#ffc96c" stroke-width="5" stroke-linecap="round"/>
+  <text x="31" y="48" fill="#fff8f3" font-family="system-ui,sans-serif" font-size="28" font-weight="900" letter-spacing="1">MATCH-3D.js</text>
+  <text x="34" y="70" fill="#d7a7ff" font-family="system-ui,sans-serif" font-size="11" font-weight="800" letter-spacing="3">STACK · MATCH · CASCADE</text>
+  <g fill="#ff8de6"><circle cx="584" cy="78" r="3"/><circle cx="553" cy="137" r="2"/><circle cx="42" cy="229" r="3"/><circle cx="603" cy="177" r="2"/></g>
+</svg>
