@@ -269,7 +269,7 @@ test("board category, collection, guide, schema and llms links are bilingual and
   expect(response.ok()).toBe(true);
   const text = await response.text();
   for (const id of classicIds) expect(text).toContain(`/ko/games/${id}/`);
-  expect(text).toContain("345 published titles");
+  expect(text).toContain("348 published titles");
 });
 
 for (const id of classicIds)

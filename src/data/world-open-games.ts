@@ -5907,6 +5907,216 @@ const freeBrowserWaveEightSpecs: GraphicalListingSpec[] = [
   },
 ];
 
+const freeBrowserWaveNineSpecs: GraphicalListingSpec[] = [
+  {
+    id: "trust",
+    isOpenSource: false,
+    title: "The Evolution of Trust",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: ["mouse"],
+    license: "CC0 core project; third-party sound files have separate terms",
+    licenseDescription: {
+      en: "Nicky Case dedicates the core project to CC0. Its README separately credits sound files under CC BY-NC and CC Sampling+ terms. Denny Games links to the author's browser page and copies no game code, sound, music or artwork; no single license is claimed for every component.",
+      ko: "Nicky Case는 핵심 프로젝트를 CC0로 공개합니다. README에는 CC BY-NC와 CC Sampling+ 조건의 음원이 별도로 표시되어 있습니다. 데니 게임즈는 제작자의 브라우저 페이지로 연결만 하고 게임 코드·음향·음악·그림을 복사하지 않으며 모든 구성요소에 단일 라이선스가 적용된다고 주장하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/ncase/trust/blob/gh-pages/README.md",
+    licenseUrlLabel: {
+      en: "Author's license and sound credits",
+      ko: "제작자 라이선스와 음원 크레딧",
+    },
+    licenseAppliesToGame: false,
+    author: "Nicky Case",
+    source: "https://github.com/ncase/trust",
+    sourceLabel: {
+      en: "Author's source repository and asset credits",
+      ko: "제작자 소스 저장소와 자산 크레딧",
+    },
+    playModes: ["single-player"],
+    url: "https://ncase.me/trust/",
+    host: {
+      en: "The Evolution of Trust by Nicky Case",
+      ko: "Nicky Case의 The Evolution of Trust",
+    },
+    hostNote: {
+      en: "The author links this interactive game-theory guide from the source repository; its public page showed no upfront payment gate. Chromium opened the start screen and first interactive scene at 390×844. The canvas is authored at a wider layout, so some content may appear small or cropped on phones. No full chapter, save flow or physical-device behavior was tested.",
+      ko: "제작자의 소스 저장소가 이 게임이론 인터랙티브 가이드로 연결합니다. 공개 페이지에는 선결제 단계가 없었습니다. Chromium 390×844에서 시작 화면과 첫 인터랙티브 장면이 열렸습니다. 캔버스는 더 넓은 화면 기준으로 만들어져 휴대폰에서 일부 내용이 작거나 잘릴 수 있습니다. 전체 챕터·저장 흐름·실물 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Play through the prisoner's dilemma, cooperation strategies and evolutionary tournaments in an illustrated game-theory guide about trust.",
+      ko: "신뢰를 주제로 한 그림 인터랙티브 가이드에서 죄수의 딜레마와 협력 전략, 진화 토너먼트를 직접 진행하세요.",
+    },
+    objective: {
+      en: "Try cooperate-or-cheat choices, compare strategies over repeated rounds and experiment with the optional tournament sandbox.",
+      ko: "협력과 배신을 선택해 보고 반복 라운드에서 전략을 비교한 뒤 선택형 토너먼트 샌드박스도 실험해 보세요.",
+    },
+    controls: {
+      en: "Mouse: click the illustrated choices and use the sliders in the optional sandbox. The mobile-sized Chromium check opened the first scene, but the complete experience was not tested.",
+      ko: "마우스: 그림 속 선택지를 누르고 선택형 샌드박스에서 슬라이더를 조절하세요. 휴대폰 크기 Chromium에서 첫 장면은 열렸지만 전체 경험은 검증하지 않았습니다.",
+    },
+    mode: {
+      en: "A roughly 30-minute single-player interactive guide with short rounds, illustrated explanations and an optional strategy sandbox. Core project licensing is CC0; some credited sound files have separate restrictions.",
+      ko: "짧은 라운드와 그림 설명, 선택형 전략 샌드박스를 갖춘 약 30분 분량의 1인용 인터랙티브 가이드입니다. 핵심 프로젝트는 CC0이며 일부 음원에는 별도 조건이 있습니다.",
+    },
+    tip: {
+      en: "Use the sandbox after the guided rounds to compare how forgiving, retaliatory and consistently cooperative strategies behave.",
+      ko: "안내 라운드 뒤에 샌드박스를 열어 관대한 전략·보복 전략·꾸준한 협력 전략의 차이를 비교해 보세요.",
+    },
+    keywords: {
+      en: [
+        "Nicky Case trust game",
+        "prisoner's dilemma browser game",
+        "game theory interactive",
+        "cooperation strategy game",
+        "trust and betrayal game",
+      ],
+      ko: [
+        "신뢰의 진화 게임",
+        "죄수의 딜레마 브라우저 게임",
+        "게임이론 인터랙티브",
+        "협력 전략 게임",
+        "신뢰와 배신 게임",
+      ],
+    },
+  },
+  {
+    id: "scorched-tanks",
+    isOpenSource: false,
+    title: "Scorched Tanks",
+    category: "shooting",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse", "touch"],
+    license: "Source-code license not published",
+    licenseDescription: {
+      en: "The public source repository does not publish a code license. Its README says the game's graphics and sounds are drawn or synthesized in code, but that is not a grant to reuse the work. Denny Games links to the free browser host and copies no source, game content or artwork.",
+      ko: "공개 소스 저장소에는 코드 라이선스가 없습니다. README는 게임 그림과 소리가 코드로 그려지거나 합성된다고 설명하지만 이는 재사용 허가가 아닙니다. 데니 게임즈는 무료 브라우저 호스트로만 연결하며 소스·게임 콘텐츠·그림을 복사하지 않습니다.",
+    },
+    author: "whorn76",
+    source: "https://github.com/whorn76/scorched-tanks",
+    sourceLabel: {
+      en: "Project repository; source license not published",
+      ko: "프로젝트 저장소; 소스 라이선스 미공개",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://whorn76.github.io/scorched-tanks/",
+    host: {
+      en: "Scorched Tanks browser game",
+      ko: "Scorched Tanks 브라우저 게임",
+    },
+    hostNote: {
+      en: "The project README links to this free browser build and documents local play against AI, hot-seat play and online rooms. Chromium showed the title and AI setup at 390×844 and an 820×1180 tablet-sized viewport without horizontal overflow. The source license is unpublished; no complete battle, online room or physical device was tested.",
+      ko: "프로젝트 README가 무료 브라우저 빌드로 연결하며 AI 대전·한 기기 교대 플레이·온라인 방을 안내합니다. Chromium 390×844와 태블릿 크기 820×1180에서 제목 화면과 AI 설정이 가로 넘침 없이 표시됐습니다. 소스 라이선스는 공개되지 않았으며 전체 전투·온라인 방·실물 기기는 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Aim turn-based tank artillery across destructible hills; adjust for wind, choose weapons and battle AI or friends.",
+      ko: "바람을 고려해 언덕 너머로 포탄을 날리고 무기를 고른 뒤 AI나 친구와 턴제 탱크 포격전을 벌이세요.",
+    },
+    objective: {
+      en: "Set your angle and shot power, then outlast the other tanks through a round of artillery and changing terrain.",
+      ko: "발사 각도와 힘을 맞춘 뒤 포격과 지형 변화가 이어지는 라운드에서 다른 탱크보다 오래 살아남으세요.",
+    },
+    controls: {
+      en: "Keyboard: use the arrow keys to aim and set power, then Space or Enter to fire. Mouse and touch controls are shown by the host; phones and tablets have an on-screen control layout.",
+      ko: "키보드: 방향키로 각도와 발사 힘을 맞춘 뒤 Space 또는 Enter로 쏘세요. 마우스·터치 조작은 호스트 화면에 표시되며 휴대폰과 태블릿에는 화면 조작부가 나타납니다.",
+    },
+    mode: {
+      en: "A free turn-based artillery game with local AI, same-keyboard hot-seat and optional online rooms. The code license is not published, so this listing does not describe it as open source.",
+      ko: "로컬 AI 대전·한 키보드 교대 플레이·선택형 온라인 방을 갖춘 무료 턴제 포격 게임입니다. 코드 라이선스가 공개되지 않아 오픈소스 게임으로 표기하지 않습니다.",
+    },
+    tip: {
+      en: "Check the wind before firing and try a short move when an opponent has started zeroing in on your tank.",
+      ko: "발사 전에 바람을 확인하고 상대가 조준을 맞추기 시작하면 짧게 이동해 보세요.",
+    },
+    keywords: {
+      en: [
+        "turn based artillery game",
+        "tank shooting browser game",
+        "Scorched Earth inspired game",
+        "hot seat tank game",
+        "wind trajectory game",
+      ],
+      ko: [
+        "턴제 포격 게임",
+        "탱크 슈팅 브라우저 게임",
+        "포트리스 스타일 탱크 게임",
+        "한 기기 탱크 대전",
+        "바람 탄도 게임",
+      ],
+    },
+  },
+  {
+    id: "bananabread",
+    isOpenSource: true,
+    title: "BananaBread",
+    category: "shooting",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "zlib code license; art is CC-BY or CC-BY-SA as marked",
+    licenseDescription: {
+      en: "The source README licenses the code under zlib and describes the included art as CC-BY or CC-BY-SA, with per-directory terms taking precedence. The project is archived and no longer actively developed. Denny Games links to its WebAssembly demo and copies no source, map, model, texture or sound.",
+      ko: "소스 README는 코드를 zlib 라이선스로, 포함된 그림을 CC-BY 또는 CC-BY-SA로 안내하며 디렉터리별 조건이 우선합니다. 프로젝트는 보관 상태이며 더 이상 활발히 개발되지 않습니다. 데니 게임즈는 WebAssembly 데모로만 연결하고 소스·맵·모델·텍스처·음향을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/kripken/BananaBread#license",
+    licenseUrlLabel: {
+      en: "Project code and artwork terms",
+      ko: "프로젝트 코드와 그림 조건",
+    },
+    licenseAppliesToGame: false,
+    author: "Alon Zakai, Gregor Koch and Bobby Richter",
+    source: "https://github.com/kripken/BananaBread",
+    sourceLabel: {
+      en: "Source repository and separate code/art licenses",
+      ko: "소스 저장소와 코드·그림별 라이선스",
+    },
+    playModes: ["single-player"],
+    url: "https://kripken.github.io/BananaBread/cube2/bb.html",
+    host: {
+      en: "BananaBread WebAssembly FPS demo",
+      ko: "BananaBread WebAssembly FPS 데모",
+    },
+    hostNote: {
+      en: "The project's archived README links to this WebAssembly demo. Chromium loaded a 640×480 first-person arena after about 18 seconds and roughly 14.8 MB of resource transfers. At 390×844 the document measured 986 CSS px wide while the canvas stayed 640×480; the demo is desktop-oriented and advertises no touch controls. No full combat run or physical-device behavior was tested.",
+      ko: "보관된 프로젝트 README가 이 WebAssembly 데모로 연결합니다. Chromium에서 약 18초와 리소스 약 14.8MB 전송 뒤 640×480 1인칭 전투 공간이 표시됐습니다. 390×844에서 문서 폭은 986 CSS px였고 캔버스는 640×480 고정이었습니다. 데스크톱 중심이며 터치 조작은 안내하지 않습니다. 전투를 끝까지 진행하거나 실물 기기에서 확인하지 않았습니다.",
+    },
+    summary: {
+      en: "Load a classic Cube 2 first-person shooter into a browser through WebAssembly and WebGL, with bots and a rendered 3D arena.",
+      ko: "WebAssembly와 WebGL로 클래식 Cube 2 1인칭 슈팅을 브라우저에서 실행하고 봇과 3D 전투 공간을 만나보세요.",
+    },
+    objective: {
+      en: "Explore the arena, aim with the mouse and fight through the demo's free-for-all match against bots.",
+      ko: "전투 공간을 탐색하고 마우스로 조준해 데모의 자유 난투에서 봇과 싸우세요.",
+    },
+    controls: {
+      en: "Keyboard and mouse: the demo uses first-person movement and mouse aiming; open the game's menu for key bindings. It requires WebAssembly and WebGL, and its 640×480 canvas does not fit a phone viewport.",
+      ko: "키보드와 마우스: 1인칭 이동과 마우스 조준을 사용하며 키 배치는 게임 메뉴에서 확인하세요. WebAssembly와 WebGL이 필요하고 640×480 캔버스는 휴대폰 화면에 맞지 않습니다.",
+    },
+    mode: {
+      en: "A browser port and technical demo of the Cube 2/Sauerbraten engine with a 3D arena and bot opponents. Code and artwork use separate open licenses; this older build is not actively maintained and is desktop-oriented.",
+      ko: "3D 전투 공간과 봇을 갖춘 Cube 2/Sauerbraten 엔진의 브라우저 포트·기술 데모입니다. 코드와 그림에 서로 다른 공개 라이선스가 적용됩니다. 오래된 빌드이며 활발히 관리되지 않고 데스크톱 중심입니다.",
+    },
+    tip: {
+      en: "Allow the first WebAssembly download to finish, then use the in-game menu to review controls and adjust options.",
+      ko: "첫 WebAssembly 다운로드가 끝날 때까지 기다린 뒤 게임 메뉴에서 조작법과 설정을 확인하세요.",
+    },
+    keywords: {
+      en: [
+        "WebAssembly FPS game",
+        "WebGL first person shooter",
+        "Cube 2 browser game",
+        "Sauerbraten online demo",
+        "open source browser shooter",
+      ],
+      ko: [
+        "웹어셈블리 FPS 게임",
+        "웹지엘 1인칭 슈팅 게임",
+        "Cube 2 브라우저 게임",
+        "Sauerbraten 온라인 데모",
+        "오픈소스 브라우저 슈터",
+      ],
+    },
+  },
+];
+
 export const worldOpenGames = [
   ...listings,
   ...expandedListingSpecs.map(expandListing),
@@ -5916,4 +6126,5 @@ export const worldOpenGames = [
   ...freeBrowserWaveSixSpecs.map(expandListing),
   ...freeBrowserWaveSevenSpecs.map(expandListing),
   ...freeBrowserWaveEightSpecs.map(expandListing),
+  ...freeBrowserWaveNineSpecs.map(expandListing),
 ].map(toGame);

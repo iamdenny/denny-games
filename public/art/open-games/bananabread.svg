@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">BananaBread</title>
+  <desc id="desc">Original Denny Games illustration of a geometric first-person arena with a bright aiming reticle</desc>
+  <defs>
+    <linearGradient id="arena" x2="0" y2="1"><stop stop-color="#33475c"/><stop offset="1" stop-color="#101b2a"/></linearGradient>
+    <linearGradient id="floor" x2="0" y2="1"><stop stop-color="#8a705a"/><stop offset="1" stop-color="#263344"/></linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="#111b29"/>
+  <path d="M45 42h550v226H45Z" fill="url(#arena)" stroke="#708296" stroke-width="5"/>
+  <path d="m45 268 215-92h120l215 92v54H45Z" fill="url(#floor)"/>
+  <path d="m260 176 34-44h52l34 44Z" fill="#586d82" stroke="#1c2936" stroke-width="5"/>
+  <path d="M80 75h44v113H80Zm436 0h44v113h-44ZM160 96h31v88h-31Zm289 0h31v88h-31Z" fill="#788797" stroke="#273544" stroke-width="5"/>
+  <path d="M101 188h73l-43 37h-30Zm364 0h73v37h-30Z" fill="#495d70"/>
+  <path d="M260 176h120l137 92H123Z" fill="none" stroke="#d9b986" stroke-width="3" opacity=".65"/>
+  <path d="m320 177-129 91m130-91 129 91M320 177v91M171 224h298m-260-26h220m-174-21h128" fill="none" stroke="#a88d6d" stroke-width="2" opacity=".55"/>
+  <g fill="none" stroke="#f4de9c" stroke-width="4" stroke-linecap="round"><path d="M300 160h16m8 0h16M320 144v13m0 8v14"/><circle cx="320" cy="160" r="25" opacity=".6"/></g>
+  <path d="M278 323q8-57 39-77l18 8 25 69Z" fill="#587a5e" stroke="#24343b" stroke-width="5"/>
+  <path d="m312 246 10-31 18-8 17 11 12 44-24 18-21-13Z" fill="#85a476" stroke="#24343b" stroke-width="5"/>
+  <path d="m329 211 13-21 12 22" fill="none" stroke="#24343b" stroke-width="8" stroke-linecap="round"/>
+  <rect x="61" y="281" width="124" height="24" rx="12" fill="#d2dcdf" opacity=".9"/>
+  <rect x="61" y="281" width="82" height="24" rx="12" fill="#6fc08a"/>
+  <rect x="455" y="282" width="121" height="24" rx="12" fill="#d2dcdf" opacity=".9"/>
+  <rect x="455" y="282" width="76" height="24" rx="12" fill="#e1b65f"/>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Scorched Tanks</title>
+  <desc id="desc">Original Denny Games illustration of small tanks aiming across a wind-swept artillery landscape</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#202f55"/><stop offset=".62" stop-color="#d17865"/><stop offset="1" stop-color="#f2bd79"/></linearGradient>
+    <linearGradient id="hill" x2="0" y2="1"><stop stop-color="#67775e"/><stop offset="1" stop-color="#354744"/></linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#sky)"/>
+  <circle cx="497" cy="78" r="37" fill="#ffe6aa" opacity=".92"/>
+  <path d="M0 208 104 162l70 31 112-84 91 82 97-62 166 93v138H0Z" fill="#505a5b" opacity=".8"/>
+  <path d="M0 266q98-57 193-5t203-20 244 27v92H0Z" fill="url(#hill)"/>
+  <path d="M0 302q106-37 209-12t198-22 233 23v69H0Z" fill="#293d40"/>
+  <g fill="none" stroke="#fff2c8" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 10" opacity=".9">
+    <path d="M113 222Q287 55 495 161"/>
+    <path d="M193 251Q328 158 506 192" opacity=".55"/>
+  </g>
+  <circle cx="320" cy="117" r="8" fill="#fff2c8"/>
+  <g stroke="#21333a" stroke-width="5" stroke-linejoin="round">
+    <g transform="translate(83 202)"><path d="M0 22h96l-13 29H11Z" fill="#385d68"/><path d="M21 4h56l15 18H8Z" fill="#79a98b"/><path d="M51 7 93-18" fill="none" stroke="#263b42" stroke-width="9"/><circle cx="24" cy="48" r="8" fill="#d9c37e"/><circle cx="48" cy="48" r="8" fill="#d9c37e"/><circle cx="72" cy="48" r="8" fill="#d9c37e"/></g>
+    <g transform="translate(452 173)"><path d="M0 25h104l-11 30H10Z" fill="#794f50"/><path d="M19 6h62l17 19H8Z" fill="#d98e68"/><path d="M48 8 14-10" fill="none" stroke="#473c43" stroke-width="9"/><circle cx="27" cy="53" r="8" fill="#e1bd80"/><circle cx="53" cy="53" r="8" fill="#e1bd80"/><circle cx="79" cy="53" r="8" fill="#e1bd80"/></g>
+  </g>
+  <g fill="none" stroke="#eff1df" stroke-width="3" opacity=".8"><path d="M44 76h87m-49-18v36M171 108h74m-43-16v32M427 116h62m-33-14v28"/></g>
+  <path d="M535 47q24 12 45 0m-39 17q25 12 48 0" fill="none" stroke="#fff2c8" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+</svg>

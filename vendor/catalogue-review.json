@@ -444,7 +444,7 @@
       "researchTier": "C",
       "runtime": "W",
       "status": "rights-or-integration-review",
-      "reason": "원작 코드가 CC0여도 그대로 수익화 판정 불가. 제한 음원 교체·폰트 권리 확인 후 재검토. 일부 음원 CC BY-NC / CC Sampling+",
+      "reason": "Published as a free link-only browser entry; local import remains in rights review because some separately credited sound effects have CC BY-NC or CC Sampling+ terms. No game code or media is copied.",
       "source": "https://github.com/ncase/trust"
     },
     {
