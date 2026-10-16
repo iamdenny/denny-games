@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All 109 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest ten graphical listings were checked individually; five link to open-source projects with published licenses, and the rest identify unpublished or all-rights-reserved source terms. For Mingat pages, the fetched public page had no upfront payment prompt; complete gameplay and any in-game payment terms were not verified. These checks establish reachability only, not a complete external game session, physical device, controller or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
+  "verificationBoundary": "All 114 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest five graphical listings were checked individually; four link to projects with published open-source licenses, while City Defense's source-code license is unpublished. The preceding ten-game wave also recorded unpublished or all-rights-reserved source terms where applicable. For Mingat pages, the fetched public page had no upfront payment prompt; complete gameplay and any in-game payment terms were not verified. These checks establish reachability only, not a complete external game session, physical device, controller or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
   "entries": [
     {
       "id": "freedoom",
@@ -1415,6 +1415,72 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The developer showcase describes horse riding, animal herding and an open-world pastoral simulation. Its source link returned HTTP 404. The browser page returned HTTP 200 with no upfront payment prompt in the fetched public HTML; this does not verify every in-game payment or device condition."
+    },
+    {
+      "id": "warzone-2100-web",
+      "projectSource": "https://github.com/Warzone2100/warzone2100",
+      "projectLicense": "GPL-2.0-or-later",
+      "licenseText": "https://github.com/Warzone2100/warzone2100/blob/master/COPYING",
+      "externalHost": "https://play.wz2100.net/latest/",
+      "hostSource": "https://play.wz2100.net/latest/",
+      "hostWrapperLicense": "Official project Web Edition; Denny Games links out and redistributes no build files.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official page describes campaign and skirmish play, about a 60 MiB first load, WebAssembly and WebGL 2 requirements, mouse/keyboard input, browser-cleared saves and no online multiplayer for this web edition. Reachability only was checked; no full session or device behavior was tested."
+    },
+    {
+      "id": "mindustry-web",
+      "projectSource": "https://github.com/khoichon/mindustry-web",
+      "projectLicense": "GPL-3.0 for the community port; the original Mindustry project is also GPL-3.0.",
+      "licenseText": "https://github.com/khoichon/mindustry-web/blob/main/LICENSE",
+      "externalHost": "https://khoichon.dev/mindustry-web/offlinemode/build/",
+      "hostSource": "https://khoichon.dev/mindustry-web/",
+      "hostWrapperLicense": "Unofficial experimental TeaVM port. Its source is published by the community project; Denny Games links out only.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The linked page is a standalone offline build. The repository warns that builds may be rough and labels its online CheerpJ version deprecated. Controls, saves, complete play and device behavior were not tested."
+    },
+    {
+      "id": "city-defense",
+      "projectSource": "https://citydefense.app/en/",
+      "projectLicense": "No source-code license was published on the official game site reviewed.",
+      "externalHost": "https://citydefense.app/?lang=en",
+      "hostSource": "https://citydefense.app/en/",
+      "hostWrapperLicense": "Official free browser game and service. Denny Games copies no source, game data or artwork; host privacy and service terms apply.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official site describes free WebGL 2 tower defense on real-world city maps without an upfront account or download gate. Its privacy page describes self-hosted analytics and game-progress processing; map data and referenced 3D assets have separate terms. This listing does not claim the game source is open."
+    },
+    {
+      "id": "ysflight-web",
+      "projectSource": "https://github.com/tomingtoming/ysflight-web",
+      "projectLicense": "Web-port code: BSD-2-Clause; upstream YSFlight source and runtime data: BSD-3-Clause; third-party components may have separate terms.",
+      "licenseText": "https://github.com/tomingtoming/ysflight-web",
+      "engineSource": "https://github.com/captainys/YSFLIGHT",
+      "engineLicense": "BSD-3-Clause",
+      "externalHost": "https://ysflight-web.toming.app/",
+      "hostSource": "https://github.com/tomingtoming/ysflight-web",
+      "hostWrapperLicense": "Unofficial Emscripten/WebAssembly port documented by the linked BSD-2-Clause project; Denny Games redistributes no runtime files.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README documents a first load of about 25 MB, keyboard/mouse and gamepad controls, browser-to-browser multiplayer and service-worker offline use after loading. No flight, peer session, controller or physical-device behavior was tested."
+    },
+    {
+      "id": "netcraft",
+      "projectSource": "https://github.com/satoshinm/NetCraft",
+      "projectLicense": "MIT",
+      "licenseText": "https://github.com/satoshinm/NetCraft/blob/master/LICENSE.md",
+      "externalHost": "https://satoshinm.github.io/NetCraft/",
+      "hostSource": "https://github.com/satoshinm/NetCraft",
+      "hostWrapperLicense": "GitHub Pages demo of the MIT project; Denny Games links out only.",
+      "urlStatus": "HTTP 200 (GET) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The legacy repository describes a WebGL voxel sandbox, procedural terrain, local persistence and optional multiplayer server support. Save and multiplayer behavior were not verified in the linked demo. The page's HTTP response establishes reachability only."
     }
   ]
 }

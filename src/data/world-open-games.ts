@@ -3860,6 +3860,249 @@ const graphicalWaveSpecs: GraphicalListingSpec[] = [
       ],
     },
   },
+  {
+    id: "warzone-2100-web",
+    isOpenSource: true,
+    title: "Warzone 2100 Web Edition",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: ["mouse", "keyboard"],
+    license: "GPL-2.0-or-later",
+    licenseUrl:
+      "https://github.com/Warzone2100/warzone2100/blob/master/COPYING",
+    author: "Warzone 2100 Project",
+    source: "https://github.com/Warzone2100/warzone2100",
+    sourceLabel: { en: "Official source repository", ko: "공식 소스 저장소" },
+    playModes: ["single-player"],
+    url: "https://play.wz2100.net/latest/",
+    host: {
+      en: "Warzone 2100 official Web Edition",
+      ko: "Warzone 2100 공식 웹 에디션",
+    },
+    hostNote: {
+      en: "The project's Web Edition offers campaign and skirmish play. Its first visit downloads about 60 MiB and requires WebAssembly and WebGL 2; the page recommends a mouse and keyboard. This edition has no online multiplayer, and browser storage may be cleared. The page returned HTTP 200 on 2026-10-16; a complete session and device behavior were not tested.",
+      ko: "프로젝트 웹 에디션은 캠페인과 스커미시를 제공합니다. 첫 방문에 약 60MiB를 내려받고 WebAssembly와 WebGL 2가 필요하며, 페이지는 마우스와 키보드를 권장합니다. 이 에디션은 온라인 멀티플레이를 제공하지 않고 브라우저 저장 내용은 지워질 수 있습니다. 페이지는 2026-10-16에 HTTP 200을 반환했으며 전체 플레이와 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Build a base, research weapons and command an army across a 3D real-time strategy campaign.",
+      ko: "3D 실시간 전략 캠페인에서 기지를 세우고 무기를 연구하며 부대를 지휘하세요.",
+    },
+    controls: {
+      en: "Use the host's mouse and keyboard instructions; check its settings before starting a campaign.",
+      ko: "호스트의 마우스·키보드 안내를 따르고 캠페인 시작 전에 설정을 확인하세요.",
+    },
+    mode: {
+      en: "A GPL-2.0-or-later real-time strategy game with a browser campaign and skirmish mode; the web edition is single-player.",
+      ko: "브라우저 캠페인과 스커미시를 갖춘 GPL-2.0-or-later 실시간 전략 게임입니다. 웹 에디션은 싱글 플레이입니다.",
+    },
+    keywords: {
+      en: [
+        "3D RTS browser game",
+        "real-time strategy campaign",
+        "Warzone 2100 Web Edition",
+      ],
+      ko: ["3D RTS 브라우저 게임", "실시간 전략 캠페인", "워존 2100 웹 에디션"],
+    },
+  },
+  {
+    id: "mindustry-web",
+    isOpenSource: true,
+    title: "Mindustry Web Port",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: [],
+    license: "GPL-3.0",
+    licenseUrl: "https://github.com/khoichon/mindustry-web/blob/main/LICENSE",
+    author: "Khoi Chon and Mindustry contributors",
+    source: "https://github.com/khoichon/mindustry-web",
+    sourceLabel: {
+      en: "Community web-port source",
+      ko: "커뮤니티 웹 포트 소스",
+    },
+    playModes: ["single-player"],
+    url: "https://khoichon.dev/mindustry-web/offlinemode/build/",
+    host: {
+      en: "Community Mindustry TeaVM web build",
+      ko: "커뮤니티 Mindustry TeaVM 웹 빌드",
+    },
+    hostNote: {
+      en: "This is an unofficial experimental TeaVM port of Mindustry, not the project's official browser edition. The linked page is a standalone offline build; the port repository warns that builds may be rough and labels its online CheerpJ version deprecated. The page returned HTTP 200 on 2026-10-16, but the game itself, controls, save behavior and device support were not tested.",
+      ko: "Mindustry 프로젝트의 공식 브라우저 에디션이 아닌 비공식 실험용 TeaVM 포트입니다. 연결된 페이지는 독립형 오프라인 빌드이며, 포트 저장소는 빌드가 불완전할 수 있다고 알리고 온라인 CheerpJ 버전을 폐기 대상으로 표시합니다. 페이지는 2026-10-16에 HTTP 200을 반환했지만 게임, 조작, 저장 동작과 기기 지원은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Lay out conveyors, automate production and defend an industrial base in a community browser port of Mindustry.",
+      ko: "Mindustry 커뮤니티 브라우저 포트에서 컨베이어를 배치하고 생산을 자동화해 산업 기지를 지키세요.",
+    },
+    controls: {
+      en: "The experimental port may differ from the desktop game; follow any controls shown by the host and expect rough edges.",
+      ko: "실험용 포트는 데스크톱 게임과 다를 수 있습니다. 호스트가 표시하는 조작법을 따르고 미완성 동작이 있을 수 있음을 확인하세요.",
+    },
+    mode: {
+      en: "An unofficial, experimental GPL-3.0 browser port of the open-source factory-defense game; this linked build is presented as offline play.",
+      ko: "오픈소스 공장 방어 게임을 GPL-3.0으로 웹에 옮긴 비공식 실험용 포트입니다. 연결된 빌드는 오프라인 플레이용으로 제공됩니다.",
+    },
+    keywords: {
+      en: [
+        "factory tower defense",
+        "conveyor automation game",
+        "Mindustry browser port",
+      ],
+      ko: [
+        "공장 타워 디펜스",
+        "컨베이어 자동화 게임",
+        "Mindustry 브라우저 포트",
+      ],
+    },
+  },
+  {
+    id: "city-defense",
+    title: "City Defense",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: [],
+    isOpenSource: false,
+    license: "Source license not published",
+    licenseDescription: {
+      en: "The developer's site does not publish a source-code license. This listing links to the free browser game only; free play does not grant reuse rights.",
+      ko: "개발자 사이트에서 소스 코드 라이선스를 공개하지 않습니다. 이 목록은 무료 브라우저 게임으로 연결할 뿐이며 무료 플레이가 재사용 권한을 뜻하지 않습니다.",
+    },
+    author: "City Defense developers",
+    source: "https://citydefense.app/en/",
+    sourceLabel: { en: "Official game information", ko: "공식 게임 안내" },
+    playModes: ["single-player"],
+    url: "https://citydefense.app/?lang=en",
+    host: {
+      en: "City Defense official browser game",
+      ko: "City Defense 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The developer offers free browser tower defense on real-world city maps without a download or account gate and says WebGL 2 is required. The game source license is not published. The host's privacy page describes self-hosted analytics and game-progress processing; map data and referenced assets have separate terms. The play page returned HTTP 200 on 2026-10-16; gameplay and device support were not tested.",
+      ko: "개발자는 다운로드나 계정 관문 없이 실제 도시 지도 기반 타워 디펜스를 무료 브라우저 게임으로 제공하고 WebGL 2가 필요하다고 안내합니다. 게임 소스 라이선스는 공개되지 않았습니다. 호스트 개인정보 안내에는 자체 호스팅 분석과 게임 진행 정보 처리가 설명되어 있으며 지도 데이터와 참조 자산에는 별도 조건이 있습니다. 플레이 페이지는 2026-10-16에 HTTP 200을 반환했지만 게임과 기기 지원은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Place defenses along real city streets and stop waves of enemies on a map-based 3D battlefield.",
+      ko: "실제 도시 도로를 따라 방어 시설을 놓고 지도 기반 3D 전장에서 적의 물결을 막으세요.",
+    },
+    controls: {
+      en: "Check the host's current tutorial and map controls before placing towers.",
+      ko: "타워를 놓기 전에 호스트의 최신 튜토리얼과 지도 조작법을 확인하세요.",
+    },
+    mode: {
+      en: "A free browser tower-defense game using city maps. Its source-code license is unpublished, and the host's privacy and map-data terms apply.",
+      ko: "도시 지도를 사용하는 무료 브라우저 타워 디펜스입니다. 소스 코드 라이선스는 공개되지 않았으며 호스트의 개인정보·지도 데이터 조건이 적용됩니다.",
+    },
+    keywords: {
+      en: [
+        "city map tower defense",
+        "3D urban defense game",
+        "real map browser game",
+      ],
+      ko: [
+        "도시 지도 타워 디펜스",
+        "3D 도시 방어 게임",
+        "실제 지도 브라우저 게임",
+      ],
+    },
+  },
+  {
+    id: "ysflight-web",
+    isOpenSource: true,
+    title: "YS Flight Simulator Web",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse", "gamepad"],
+    license: "BSD-2-Clause (web port); BSD-3-Clause (upstream)",
+    licenseDescription: {
+      en: "The web-port code is documented as BSD-2-Clause; the upstream YSFlight source and runtime data are BSD-3-Clause. Third-party components may keep separate terms.",
+      ko: "웹 포트 코드는 BSD-2-Clause, 상류 YSFlight 소스와 실행 데이터는 BSD-3-Clause로 안내됩니다. 외부 구성요소에는 별도 조건이 적용될 수 있습니다.",
+    },
+    licenseUrl: "https://github.com/tomingtoming/ysflight-web",
+    author: "Tomingtoming and YSFlight contributors",
+    source: "https://github.com/tomingtoming/ysflight-web",
+    sourceLabel: {
+      en: "Web-port source and license notes",
+      ko: "웹 포트 소스와 라이선스 안내",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://ysflight-web.toming.app/",
+    host: {
+      en: "Unofficial YS Flight Simulator Web port",
+      ko: "비공식 YS Flight Simulator 웹 포트",
+    },
+    hostNote: {
+      en: "This unofficial Emscripten/WebAssembly port documents a first load of about 25 MB, keyboard/mouse and gamepad controls, and browser-to-browser multiplayer. It says a service worker can support offline use after loading. The page returned HTTP 200 on 2026-10-16; a complete flight, multiplayer session, controller and device behavior were not tested.",
+      ko: "이 비공식 Emscripten/WebAssembly 포트는 최초 로드가 약 25MB이며 키보드·마우스와 게임패드 조작, 브라우저 간 멀티플레이를 안내합니다. 서비스 워커를 통해 로드 후 오프라인 사용이 가능하다고 설명합니다. 페이지는 2026-10-16에 HTTP 200을 반환했지만 전체 비행, 멀티플레이 세션, 컨트롤러와 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Take off, navigate and practice aircraft maneuvers in a long-running flight simulator adapted for WebAssembly.",
+      ko: "WebAssembly로 옮긴 장수 비행 시뮬레이터에서 이륙하고 항로를 잡으며 항공기 기동을 연습하세요.",
+    },
+    controls: {
+      en: "The port documents keyboard and mouse-as-stick controls plus gamepad or joystick support; review its current guide before flying.",
+      ko: "포트는 키보드와 마우스 스틱 조작, 게임패드 또는 조이스틱 지원을 안내합니다. 비행 전에 최신 가이드를 확인하세요.",
+    },
+    mode: {
+      en: "An unofficial BSD-licensed browser flight-simulator port with a documented peer-to-peer multiplayer option; session availability follows the host.",
+      ko: "BSD 라이선스의 비공식 브라우저 비행 시뮬레이터 포트이며 P2P 멀티플레이 기능을 안내합니다. 세션 이용 가능 여부는 호스트를 따릅니다.",
+    },
+    keywords: {
+      en: [
+        "browser flight simulator",
+        "WebAssembly flight game",
+        "YSFlight online",
+      ],
+      ko: [
+        "브라우저 비행 시뮬레이터",
+        "WebAssembly 비행 게임",
+        "YSFlight 온라인",
+      ],
+    },
+  },
+  {
+    id: "netcraft",
+    isOpenSource: true,
+    title: "NetCraft",
+    category: "simulation",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "MIT",
+    licenseUrl: "https://github.com/satoshinm/NetCraft/blob/master/LICENSE.md",
+    author: "Satoshi Nakamura and contributors",
+    source: "https://github.com/satoshinm/NetCraft",
+    sourceLabel: {
+      en: "Source repository and license",
+      ko: "소스 저장소와 라이선스",
+    },
+    url: "https://satoshinm.github.io/NetCraft/",
+    host: {
+      en: "NetCraft GitHub Pages demo",
+      ko: "NetCraft GitHub Pages 데모",
+    },
+    hostNote: {
+      en: "This legacy MIT browser project describes a WebGL voxel sandbox with procedural terrain, blocks, plants and day/night changes. Its repository also discusses local persistence and optional multiplayer server support; those features were not checked in the linked demo. The page returned HTTP 200 on 2026-10-16, but gameplay, saves, multiplayer and device behavior were not tested.",
+      ko: "이 오래된 MIT 브라우저 프로젝트는 절차적 지형, 블록, 식물과 낮·밤 변화가 있는 WebGL 복셀 샌드박스로 소개됩니다. 저장소는 로컬 저장과 선택형 멀티플레이 서버 기능도 설명하지만 연결된 데모에서는 확인하지 않았습니다. 페이지는 2026-10-16에 HTTP 200을 반환했지만 플레이, 저장, 멀티플레이와 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Explore a blocky procedural world, gather materials and shape a small WebGL sandbox.",
+      ko: "블록으로 이루어진 절차적 세계를 탐험하고 재료를 모으며 작은 WebGL 샌드박스를 꾸며보세요.",
+    },
+    controls: {
+      en: "Follow the demo's own keyboard and mouse guide; the linked build's current save and multiplayer behavior is unverified.",
+      ko: "데모 자체의 키보드·마우스 안내를 따르세요. 연결된 빌드의 현재 저장과 멀티플레이 동작은 검증되지 않았습니다.",
+    },
+    mode: {
+      en: "A legacy MIT-licensed WebGL voxel sandbox. Optional server features are described by the project, but are not confirmed for this hosted demo.",
+      ko: "오래된 MIT 라이선스 WebGL 복셀 샌드박스입니다. 프로젝트가 선택형 서버 기능을 설명하지만 이 호스팅 데모에서는 확인되지 않았습니다.",
+    },
+    keywords: {
+      en: [
+        "WebGL voxel sandbox",
+        "browser block world",
+        "procedural voxel game",
+      ],
+      ko: ["WebGL 복셀 샌드박스", "브라우저 블록 월드", "절차적 복셀 게임"],
+    },
+  },
 ];
 
 const categoryColors: Record<Game["category"], string> = {
