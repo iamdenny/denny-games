@@ -22,6 +22,8 @@ type Listing = {
   license: string;
   licenseDescription?: Record<Locale, string>;
   licenseUrl?: string;
+  licenseUrlLabel?: Record<Locale, string>;
+  licenseAppliesToGame?: boolean;
   author: string;
   source: string;
   sourceLabel?: Record<Locale, string>;
@@ -2285,6 +2287,8 @@ type ExpandedListingSpec = {
   license: string;
   licenseDescription?: Record<Locale, string>;
   licenseUrl?: string;
+  licenseUrlLabel?: Record<Locale, string>;
+  licenseAppliesToGame?: boolean;
   author: string;
   source: string;
   sourceLabel?: Record<Locale, string>;
@@ -5046,6 +5050,139 @@ const visualWaveTwoSpecs: GraphicalListingSpec[] = [
   },
 ];
 
+const freeBrowserWaveSixSpecs: GraphicalListingSpec[] = [
+  {
+    id: "racez",
+    isOpenSource: true,
+    title: "Racez.io",
+    category: "racing",
+    controlStyle: "host",
+    inputs: ["keyboard", "touch"],
+    license:
+      "MIT project code · third-party dependencies retain their own terms",
+    licenseDescription: {
+      en: "The source repository publishes an MIT license for its project code. Its browser service, matchmaking and third-party dependencies have separate terms. Denny Games links to the hosted game and copies no code, cars, tracks or artwork.",
+      ko: "소스 저장소는 프로젝트 코드에 MIT 라이선스를 공개합니다. 브라우저 서비스·매치메이킹·외부 의존성에는 별도 조건이 적용됩니다. 데니 게임즈는 호스팅 게임으로 연결만 하며 코드·차량·트랙·그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/MankyDanky/web-racing/blob/master/LICENSE",
+    author: "MankyDanky and contributors",
+    source: "https://github.com/MankyDanky/web-racing",
+    sourceLabel: {
+      en: "Source repository and MIT license",
+      ko: "소스 저장소와 MIT 라이선스",
+    },
+    playModes: ["multi-player"],
+    url: "https://www.racez.io/",
+    host: {
+      en: "Racez.io multiplayer browser game",
+      ko: "Racez.io 멀티플레이 브라우저 게임",
+    },
+    hostNote: {
+      en: "The linked game is the host named by its MIT source repository. Chromium showed the lobby at 844×390; a 390×844 portrait view asked players to rotate to landscape. The lobby requests a display name and party code for joining; multiplayer networking and service rules belong to Racez.io. No party was created and no race, physical device or complete match was tested.",
+      ko: "연결한 게임은 MIT 소스 저장소에서 안내하는 공식 호스트입니다. Chromium 844×390 화면에서 로비가 표시됐고 390×844 세로 화면에서는 가로로 돌리라는 안내가 나왔습니다. 로비는 표시 이름을 요청하고 참가할 때 파티 코드를 사용합니다. 멀티플레이 네트워크와 서비스 규칙은 Racez.io에 따릅니다. 파티 생성·실제 레이스·실물 기기·전체 대전은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Pick a car and track, then race friends through a colorful 3D course with real-time multiplayer.",
+      ko: "차량과 트랙을 고르고 친구들과 알록달록한 3D 코스를 실시간으로 달리세요.",
+    },
+    controls: {
+      en: "Computer: W accelerates, S brakes or reverses, A/D steer and R resets the car. Phone: use the virtual joystick. The host asks portrait players to rotate to landscape.",
+      ko: "컴퓨터에서는 W 가속, S 브레이크·후진, A/D 조향, R 차량 복귀를 사용하세요. 휴대폰에서는 가상 조이스틱을 쓰고 가로 화면으로 돌리세요.",
+    },
+    mode: {
+      en: "A free MIT-licensed Three.js multiplayer racer with party codes, track selection and touch controls. The host runs the online session; no complete race was verified.",
+      ko: "파티 코드·트랙 선택·터치 조작이 있는 무료 MIT 라이선스 Three.js 멀티플레이 레이싱입니다. 온라인 세션은 외부 호스트에서 진행되며 전체 레이스는 검증하지 않았습니다.",
+    },
+    tip: {
+      en: "Share a party code with friends and choose a track before the host starts the race.",
+      ko: "친구에게 파티 코드를 공유하고 호스트가 레이스를 시작하기 전에 트랙을 고르세요.",
+    },
+    keywords: {
+      en: [
+        "3D multiplayer browser racing game",
+        "WebGL car racer with friends",
+        "Three.js racing game",
+        "mobile landscape racing game",
+        "Racez.io online multiplayer",
+      ],
+      ko: [
+        "3D 멀티플레이 브라우저 레이싱",
+        "친구와 하는 WebGL 자동차 게임",
+        "Three.js 레이싱 게임",
+        "모바일 가로 화면 레이싱",
+        "Racez.io 온라인 멀티플레이",
+      ],
+    },
+  },
+  {
+    id: "friday-night-funkin",
+    isOpenSource: false,
+    title: "Friday Night Funkin'",
+    category: "arcade",
+    controlStyle: "host",
+    inputs: ["keyboard", "gamepad"],
+    license: "Apache-2.0 source code · proprietary game content and trademarks",
+    licenseUrlLabel: {
+      en: "Apache-2.0 software code license",
+      ko: "Apache-2.0 소프트웨어 코드 라이선스",
+    },
+    licenseAppliesToGame: false,
+    licenseDescription: {
+      en: "The source repository licenses its software code under Apache-2.0. A separate content notice reserves the game's art, music, sound effects, other creative content and trademarks to The Funkin' Crew Inc. Denny Games links to the official browser page and copies none of the game files or media.",
+      ko: "소스 저장소는 소프트웨어 코드에 Apache-2.0을 적용합니다. 별도의 콘텐츠 고지는 그림·음악·효과음과 창작물 및 상표권을 The Funkin' Crew Inc.에 유보합니다. 데니 게임즈는 공식 브라우저 페이지로 연결만 하며 게임 파일이나 미디어를 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/FunkinCrew/Funkin/blob/main/LICENSE.md",
+    author: "The Funkin' Crew Inc. and credited creators",
+    source: "https://github.com/FunkinCrew/Funkin",
+    sourceLabel: {
+      en: "Official source repository and separate content notice",
+      ko: "공식 소스 저장소와 별도 콘텐츠 고지",
+    },
+    playModes: ["single-player"],
+    url: "https://www.newgrounds.com/portal/view/770371",
+    host: {
+      en: "Friday Night Funkin' on Newgrounds",
+      ko: "Newgrounds의 Friday Night Funkin'",
+    },
+    hostNote: {
+      en: "The official browser page starts without an account; a Newgrounds login is optional for saving medals. Chromium loaded the game's title screen after its first asset load. In a 390px mobile emulation, Newgrounds kept a desktop-width layout and clipped the 1280×720 game frame; the host provides fullscreen, but a mobile song or physical-device session was not tested. The host says to refresh if loading freezes.",
+      ko: "공식 브라우저 페이지는 계정 없이 시작할 수 있고 메달을 저장할 때만 Newgrounds 로그인이 필요합니다. Chromium에서 최초 자산 로딩 후 게임 타이틀 화면까지 확인했습니다. 390px 모바일 에뮬레이션에서는 Newgrounds 페이지가 데스크톱 폭으로 표시되어 1280×720 게임 화면이 잘렸습니다. 호스트에 전체 화면 버튼이 있지만 모바일 곡 플레이나 실물 기기는 검증하지 않았습니다. 로딩이 멈추면 새로고침하라고 안내합니다.",
+    },
+    summary: {
+      en: "Hit the matching arrows in time with the music in a story-driven rhythm game with a large song list and freeplay mode.",
+      ko: "이야기 모드와 프리플레이 곡이 있는 리듬 게임에서 음악에 맞춰 같은 방향 화살표를 누르세요.",
+    },
+    controls: {
+      en: "Use WASD or the arrow keys for notes. Newgrounds lists built-in gamepad support; the game page says keys can be rebound. A tutorial is available from the game menu.",
+      ko: "노트 입력에는 WASD 또는 방향키를 사용하세요. Newgrounds는 게임패드 지원을 표시하고 게임 페이지는 키 변경을 안내합니다. 게임 메뉴에서 튜토리얼을 고를 수 있습니다.",
+    },
+    mode: {
+      en: "A free rhythm game played on the official Newgrounds host. The game's software code is Apache-2.0, while its creative content and trademarks are proprietary; this listing includes no game assets.",
+      ko: "공식 Newgrounds 호스트에서 무료로 즐기는 리듬 게임입니다. 소프트웨어 코드는 Apache-2.0이지만 창작 콘텐츠와 상표는 독점 권리이며 이 목록에는 게임 자산을 포함하지 않습니다.",
+    },
+    tip: {
+      en: "Try Tutorial first to learn the note timing before opening Story Mode or Freeplay.",
+      ko: "스토리 모드나 프리플레이 전에 튜토리얼로 노트 타이밍을 익혀보세요.",
+    },
+    keywords: {
+      en: [
+        "Friday Night Funkin' browser game",
+        "FNF rhythm game online",
+        "free music rhythm game",
+        "arrow key rhythm game",
+        "Newgrounds rhythm game",
+      ],
+      ko: [
+        "프라이데이 나이트 펑킨 브라우저 게임",
+        "FNF 온라인 리듬 게임",
+        "무료 음악 리듬 게임",
+        "방향키 리듬 게임",
+        "뉴그라운즈 리듬 게임",
+      ],
+    },
+  },
+];
+
 const categoryColors: Record<Game["category"], string> = {
   board: "blue",
   puzzle: "mint",
@@ -5139,6 +5276,8 @@ function expandListing(spec: ExpandedListingSpec): Listing {
     license: spec.license,
     licenseDescription: spec.licenseDescription,
     licenseUrl: spec.licenseUrl,
+    licenseUrlLabel: spec.licenseUrlLabel,
+    licenseAppliesToGame: spec.licenseAppliesToGame,
     author: spec.author,
     source: spec.source,
     sourceLabel: spec.sourceLabel,
@@ -5200,6 +5339,8 @@ function toGame(entry: Listing): Game {
     license: entry.license,
     licenseDescription: entry.licenseDescription,
     licenseUrl: entry.licenseUrl,
+    licenseUrlLabel: entry.licenseUrlLabel,
+    licenseAppliesToGame: entry.licenseAppliesToGame,
     author: entry.author,
     source: entry.source,
     sourceLabel: entry.sourceLabel,
@@ -5218,4 +5359,5 @@ export const worldOpenGames = [
   ...graphicalWaveSpecs.map(expandListing),
   ...freeBrowserWaveSpecs.map(expandListing),
   ...visualWaveTwoSpecs.map(expandListing),
+  ...freeBrowserWaveSixSpecs.map(expandListing),
 ].map(toGame);

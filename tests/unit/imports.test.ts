@@ -10,8 +10,8 @@ import { discoverySchema } from "../../src/lib/seo";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(335);
-    expect(games.filter((game) => game.externalPlay)).toHaveLength(130);
+    expect(games).toHaveLength(337);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(132);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)
@@ -96,6 +96,35 @@ describe("import admission and catalogue", () => {
       expect(entity).toBeDefined();
       expect(entity).not.toHaveProperty("license");
       expect(entity).not.toHaveProperty("isBasedOn");
+    }
+  });
+  it("keeps code-only licenses out of whole-game structured data", () => {
+    const fnf = games.find((game) => game.id === "friday-night-funkin")!;
+    expect(fnf.licenseAppliesToGame).toBe(false);
+    expect(fnf.licenseUrl).toBe(
+      "https://github.com/FunkinCrew/Funkin/blob/main/LICENSE.md",
+    );
+    expect(fnf.licenseUrlLabel).toEqual({
+      en: "Apache-2.0 software code license",
+      ko: "Apache-2.0 소프트웨어 코드 라이선스",
+    });
+
+    for (const locale of ["en", "ko"] as const) {
+      const schema = discoverySchema({
+        locale,
+        path: "games/friday-night-funkin",
+        title: fnf.text[locale].title,
+        description: fnf.text[locale].description,
+        game: fnf,
+      });
+      const entity = schema["@graph"].find(
+        (item) =>
+          item !== undefined &&
+          "@type" in item &&
+          item["@type"] === "VideoGame",
+      );
+      expect(entity).toBeDefined();
+      expect(entity).not.toHaveProperty("license");
     }
   });
   it("retains the audited game sources and sprite hashes exactly", () => {

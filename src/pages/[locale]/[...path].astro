@@ -462,7 +462,8 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {label("License details", "라이선스 안내")}
+                  {game.licenseUrlLabel?.[locale] ??
+                    label("License details", "라이선스 안내")}
                 </a>
                 <span> · </span>
               </>
