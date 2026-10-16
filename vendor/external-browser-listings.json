@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "All 126 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest four-game visual wave adds MIT 3D.CITY and BlockVerse, ThingsPool with Apache-2.0 code but all-rights-reserved original game artwork, and GPL-3.0 Suroi, which is marked work in progress. This wave adds three MIT WebGL games: Match-3D.js, Super Kart 3D.js and Arkanoid-3D. The observed 3D.CITY browser navigation transferred about 28.3 MB before its menu appeared; its README still lists save/load fixes. Suroi's phone viewport asks players to rotate to landscape. BlockVerse's generated local world rendered in a desktop browser; no complete match or game session was played for these listings. The new Match-3D.js board and touch controls fit a 390x844 Chromium viewport. Super Kart showed mobile race controls after a roughly 12-second first-scene load; its touch-driven race is unverified. Arkanoid-3D showed a menu and desktop game scene, but its README does not document touch controls. Earlier evidence and legal boundaries are recorded per entry. These checks establish reachability and limited menu/render observations only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
+  "verificationBoundary": "All 130 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. The latest four-game visual wave adds MIT 3D.CITY and BlockVerse, ThingsPool with Apache-2.0 code but all-rights-reserved original game artwork, and GPL-3.0 Suroi, which is marked work in progress. This wave adds three MIT WebGL games: Match-3D.js, Super Kart 3D.js and Arkanoid-3D. The observed 3D.CITY browser navigation transferred about 28.3 MB before its menu appeared; its README still lists save/load fixes. Suroi's phone viewport asks players to rotate to landscape. BlockVerse's generated local world rendered in a desktop browser; no complete match or game session was played for these listings. The new Match-3D.js board and touch controls fit a 390x844 Chromium viewport. Super Kart showed mobile race controls after a roughly 12-second first-scene load; its touch-driven race is unverified. Arkanoid-3D showed a menu and desktop game scene, but its README does not document touch controls. Earlier evidence and legal boundaries are recorded per entry. These checks establish reachability and limited menu/render observations only, not complete game sessions, physical devices, controllers or Tesla browser behavior. OpenFront remains excluded after its host returned HTTP 403 to automated GET. This wave adds CityMaker, No Survivor Game, Bash Fighter and Courier City. Chromium showed CityMaker's 3D board and Bash Fighter's touch layout without horizontal overflow at 390x844; No Survivor requested landscape on a phone and showed its ready screen in an 844x390 viewport, while its README warns that the first engine download is about 40 MB. Courier City's official Pages URL redirected to the developer's current domain; the 390px page measured 409 CSS px and its initial instructions were keyboard-centric. These remain menu/render observations, not complete game sessions or physical-device testing.",
   "entries": [
     {
       "id": "freedoom",
@@ -1634,6 +1634,58 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The project describes a bare-WebGL2 3D brick breaker. Chromium showed its neon start menu and, after Play Game, the 3D paddle/brick scene; the 390x844 menu had no horizontal overflow. The README lists mouse and keyboard controls, not touch. No complete run, mobile control or physical-device behavior was tested."
+    },
+    {
+      "id": "citymaker",
+      "projectSource": "https://github.com/derek-wangpch/OpenCityMaker",
+      "projectLicense": "MIT for source and original procedural city models; third-party packages have separate licenses",
+      "licenseText": "https://github.com/derek-wangpch/OpenCityMaker/blob/master/LICENSE",
+      "externalHost": "https://citymaker.0to1app.com/",
+      "hostSource": "https://github.com/derek-wangpch/OpenCityMaker",
+      "hostWrapperLicense": "Official developer-hosted game linked from the source repository. The README says no account or backend is required and progress saves locally. The public page showed no upfront payment gate; Denny Games links out only.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium 3D board rendered at desktop and 390x844) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README describes a 3D 2048 puzzle with twelve cities, 132 original procedural models, keyboard and mobile swipe/on-screen-arrow controls. The start page and board rendered at 390x844 without horizontal overflow. No complete puzzle run, save restoration or physical-device behavior was tested."
+    },
+    {
+      "id": "no-survivor",
+      "projectSource": "https://github.com/Mocas-12/no-survivor-game",
+      "projectLicense": "MIT code and generated art/audio; CC0 Quaternius ship models; SIL OFL 1.1 font; MIT Godot engine",
+      "licenseText": "https://github.com/Mocas-12/no-survivor-game/blob/main/LICENSE",
+      "externalHost": "https://mocas-12.github.io/no-survivor-game/",
+      "hostSource": "https://github.com/Mocas-12/no-survivor-game",
+      "hostWrapperLicense": "Official GitHub Pages browser build linked by the project. Denny Games redistributes no game code or assets.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium ready screen at desktop and 844x390 landscape) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README documents a Godot 3D arena-survivor shooter, automatic fire, mouse steering and a left-thumb touch joystick. It warns that the first load is about 40 MB for the engine. A 390x844 portrait view requested landscape; the ready screen and control prompt rendered at 844x390. No complete run or physical-device behavior was tested."
+    },
+    {
+      "id": "bash-fighter",
+      "projectSource": "https://github.com/Bash-Entertainment/bash-fighter",
+      "projectLicense": "AGPL-3.0; the repository also describes a contributor agreement for possible additional commercial terms",
+      "licenseText": "https://github.com/Bash-Entertainment/bash-fighter/blob/main/LICENSE",
+      "externalHost": "https://bashfighter.com/",
+      "hostSource": "https://github.com/Bash-Entertainment/bash-fighter",
+      "hostWrapperLicense": "Official production host linked from the AGPL-3.0 project. The README says there are no accounts, invite links can join private lobbies and bots fill empty seats. Denny Games links out only.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium page and 390x844 touch layout rendered) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project says its 20-player online service is early but live. The host documents keyboard and phone touch controls and displays a live match played by bots. No network match, invite flow, account flow or physical-device gameplay was tested."
+    },
+    {
+      "id": "courier-city",
+      "projectSource": "https://github.com/shubhransh-gupta/courier-city",
+      "projectLicense": "MIT; third-party dependencies retain their own licenses",
+      "licenseText": "https://github.com/shubhransh-gupta/courier-city/blob/main/LICENSE",
+      "externalHost": "https://shubhransh-gupta.github.io/courier-city/",
+      "hostSource": "https://github.com/shubhransh-gupta/courier-city",
+      "hostWrapperLicense": "Developer-hosted browser build linked from the MIT repository. The official Pages URL currently redirects to shubhransh-gupta.is-a.bot. Denny Games copies no build or artwork.",
+      "urlStatus": "HTTP 200 (direct GET; redirected to developer domain; Chromium intro rendered at desktop and 390x844) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README describes a procedural Three.js/Cannon-ES open-world city with walking, cars, aircraft, helicopters and landmarks, generated without external 3D assets. The initial page lists keyboard controls but no touch input. At 390x844, the document measured 409 CSS px wide. No complete session, mobile input or physical-device behavior was tested."
     }
   ]
 }
