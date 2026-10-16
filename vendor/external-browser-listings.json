@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-16",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. The previous 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. This wave adds three more direct-GET HTTP 200 hosts; the We Become What We Behold itch.io host returned HTTP 429 to one automated GET, then HTTP 200 to HEAD and a later GET; browser access remains unverified. OpenFront remains excluded after its host returned HTTP 403 to automated GET.",
+  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. The previous 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. This wave adds three more direct-GET HTTP 200 hosts; the We Become What We Behold itch.io host returned HTTP 429 to one automated GET, then HTTP 200 to HEAD and a later GET; browser access remains unverified. OpenFront remains excluded after its host returned HTTP 403 to automated GET. The next three listings add The Evolution of Trust, Scorched Tanks and BananaBread. Their hosts returned HTTP 200. Chromium opened the first Trust scene at 390x844, Scorched Tanks title/AI setup at 390x844 and tablet-sized 820x1180 without overflow, and BananaBread’s 640x480 WebAssembly arena after about 18 seconds and roughly 14.8 MB transferred. Trust source terms include separately licensed audio; Scorched Tanks publishes no source-code license; BananaBread separates zlib code from CC-BY/CC-BY-SA artwork. The BananaBread page measures 986 CSS px at 390px and has no advertised touch input. No full chapter, battle, combat run, online room, save flow or physical device was verified. No third-party content was copied.",
   "entries": [
     {
       "id": "freedoom",
@@ -1816,6 +1816,44 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The author page identifies an HTML5 mouse game and offers optional support. The short story uses dark humor and ends with stylized violence. Code, artwork, sound effects and dependencies have separate credits and terms. One GET was subsequently retried to confirm public HTML availability; no complete session, save flow or device behavior was tested."
+    },
+    {
+      "id": "trust",
+      "projectSource": "https://github.com/ncase/trust",
+      "projectLicense": "CC0 core project; separately credited sound effects include CC BY-NC and CC Sampling+ terms",
+      "licenseText": "https://github.com/ncase/trust/blob/gh-pages/README.md",
+      "externalHost": "https://ncase.me/trust/",
+      "hostSource": "https://github.com/ncase/trust",
+      "hostWrapperLicense": "Author-hosted interactive game-theory guide linked from the public source repository. The page showed no upfront payment gate. Denny Games links out and copies no game code, sound, music or artwork.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium opened the start screen and first scene at 390x844) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project dedicates its core work to CC0 and separately credits some sound effects under CC BY-NC or CC Sampling+. The interactive guide is authored at a wider canvas layout; at 390x844 some details appear small or cropped. No full chapter, save flow or physical-device behavior was tested."
+    },
+    {
+      "id": "scorched-tanks",
+      "projectSource": "https://github.com/whorn76/scorched-tanks",
+      "projectLicense": "No code license is published in the public repository; the README says graphics and sounds are drawn or synthesized in code",
+      "externalHost": "https://whorn76.github.io/scorched-tanks/",
+      "hostSource": "https://github.com/whorn76/scorched-tanks",
+      "hostWrapperLicense": "The project README links to this free browser game, whose Local Game menu opens without an upfront payment gate. Denny Games links out and copies no code, content or artwork.",
+      "urlStatus": "HTTP 200 (direct GET; Chromium title and AI setup at 390x844; no horizontal overflow at 820x1180) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README documents local AI, same-keyboard hot-seat and optional online rooms, and says the visuals and sounds are generated in code. Source-code license terms are not published, so this is listed as a free browser game rather than open source. No complete battle, online room or physical device was tested."
+    },
+    {
+      "id": "bananabread",
+      "projectSource": "https://github.com/kripken/BananaBread",
+      "projectLicense": "zlib code; CC-BY or CC-BY-SA artwork as marked; individual third-party files may have separate terms",
+      "licenseText": "https://github.com/kripken/BananaBread#license",
+      "externalHost": "https://kripken.github.io/BananaBread/cube2/bb.html",
+      "hostSource": "https://github.com/kripken/BananaBread",
+      "hostWrapperLicense": "Project-linked WebAssembly browser demo. The public demo showed no upfront payment gate. Denny Games links out and copies no code, maps, models, textures or sound.",
+      "urlStatus": "HTTP 200 (Chromium rendered a 640x480 arena after about 18 s and 14.8 MB transferred; 390x844 page measured 986 CSS px wide) 2026-10-16",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The source project says it is no longer actively developed and requires WebAssembly; its README separates zlib code terms from CC-BY/CC-BY-SA artwork. The fixed 640x480 canvas does not fit a 390px phone viewport and no touch controls are advertised. No full combat run or physical-device behavior was tested."
     }
   ]
 }

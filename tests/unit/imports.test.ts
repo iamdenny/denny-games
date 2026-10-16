@@ -10,8 +10,8 @@ import { discoverySchema } from "../../src/lib/seo";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(345);
-    expect(games.filter((game) => game.externalPlay)).toHaveLength(140);
+    expect(games).toHaveLength(348);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(143);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)
@@ -45,6 +45,24 @@ describe("import admission and catalogue", () => {
     expect(entity).toBeDefined();
     expect(entity).not.toHaveProperty("license");
     expect(entity).not.toHaveProperty("isBasedOn");
+
+    const scorchedTanks = games.find((game) => game.id === "scorched-tanks")!;
+    expect(scorchedTanks.tags).not.toContain("free open source browser game");
+    expect(scorchedTanks.license).toContain("not published");
+    expect(scorchedTanks.licenseUrl).toBeUndefined();
+    const scorchedSchema = discoverySchema({
+      locale: "en",
+      path: "games/scorched-tanks",
+      title: scorchedTanks.text.en.title,
+      description: scorchedTanks.text.en.description,
+      game: scorchedTanks,
+    });
+    const scorchedEntity = scorchedSchema["@graph"].find(
+      (item) =>
+        item !== undefined && "@type" in item && item["@type"] === "VideoGame",
+    );
+    expect(scorchedEntity).toBeDefined();
+    expect(scorchedEntity).not.toHaveProperty("license");
 
     const lextown = games.find((game) => game.id === "lextown")!;
     const lextownSchema = discoverySchema({
@@ -126,6 +144,17 @@ describe("import admission and catalogue", () => {
       expect(entity).toBeDefined();
       expect(entity).not.toHaveProperty("license");
     }
+
+    const trust = games.find((game) => game.id === "trust")!;
+    expect(trust.licenseAppliesToGame).toBe(false);
+    expect(trust.licenseUrlLabel?.en).toContain("license");
+    expect(trust.tags).not.toContain("free open source browser game");
+
+    const bananaBread = games.find((game) => game.id === "bananabread")!;
+    expect(bananaBread.licenseAppliesToGame).toBe(false);
+    expect(bananaBread.license).toContain("zlib");
+    expect(bananaBread.license).toContain("CC-BY");
+    expect(bananaBread.tags).toContain("free open source browser game");
   });
   it("retains the audited game sources and sprite hashes exactly", () => {
     for (const g of provenance.games) {
