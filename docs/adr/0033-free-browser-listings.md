@@ -23,6 +23,8 @@ Link only to an official project, developer or host page. If source code is unav
 
 Each bilingual detail page must identify the external host, describe account, save, chat and purchase conditions supported by evidence, and say that full gameplay and device compatibility have not been verified until they are tested. Public-world chat and prototype status must be disclosed. Keep controls tied to the host's own current instructions. Only emit a structured-data license link when a license source is known.
 
+When a host publishes a relevant privacy policy, store its URL and a concise bilingual summary in the listing. Render the summary and direct policy link before the outbound play action so visitors can review host data practices before leaving Denny Games.
+
 ## Consequences
 
 The public catalog can include a broader range of 2D, WebGL and WebAssembly browser experiences without distributing third-party content. The game, its source license and its host can have different rights and rules. Visitors must leave Denny Games to play an external entry, and each host controls uptime, compatibility, privacy, moderation, accounts, saves and payment changes. HTTP reachability records remain reachability evidence only.

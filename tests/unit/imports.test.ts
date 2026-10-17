@@ -31,11 +31,20 @@ describe("import admission and catalogue", () => {
     expect(openfront.license).toContain("AGPL-3.0");
     expect(openfront.licenseDescription?.en).toContain("proprietary");
     expect(openfront.licenseAppliesToGame).toBe(false);
+    expect(openfront.tags).not.toContain("free open source browser game");
+    expect(openfront.tags).not.toContain("무료 오픈소스 브라우저 게임");
+    expect(openfront.externalPlay?.privacyUrl).toBe(
+      "https://openfront.io/privacy-policy.html",
+    );
+    expect(openfront.externalPlay?.privacyNote?.en).toContain("chat");
+    expect(openfront.externalPlay?.privacyNote?.ko).toContain("채팅");
 
     const hypersomnia = games.find((game) => game.id === "hypersomnia")!;
     expect(hypersomnia.externalPlay?.url).toBe("https://play.hypersomnia.io/");
     expect(hypersomnia.license).toContain("AGPL-3.0");
     expect(hypersomnia.licenseAppliesToGame).toBe(false);
+    expect(hypersomnia.tags).not.toContain("free open source browser game");
+    expect(hypersomnia.tags).not.toContain("무료 오픈소스 브라우저 게임");
   });
   it("does not label free proprietary listings as open source in search metadata", () => {
     const hotlapped = games.find((game) => game.id === "hotlapped")!;

@@ -1860,13 +1860,14 @@
       "projectSource": "https://github.com/openfrontio/OpenFrontIO",
       "projectLicense": "AGPL-3.0 source code; CC BY-SA 4.0 only for /resources; /proprietary and external assets are proprietary",
       "licenseText": "https://github.com/openfrontio/OpenFrontIO#license",
+      "privacyPolicy": "https://openfront.io/privacy-policy.html",
       "externalHost": "https://openfront.io/",
       "hostSource": "https://github.com/openfrontio/OpenFrontIO",
       "hostWrapperLicense": "Official browser game linked from the source repository. Solo/tutorial entry showed no upfront payment step; the host also displays ads and purchase or Steam offers. Denny Games links out and copies no code, maps, assets or screenshots.",
       "urlStatus": "HTTP 403 (automated GET); official UI and solo map chooser loaded in Chromium; initial UI fit 390x844 and 820x1180 2026-10-17",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README describes an online real-time strategy game with solo/tutorial and online lobby options. Optional sign-in is offered for achievements. The source code is AGPL-3.0; the separate asset policy grants CC BY-SA 4.0 only to /resources and reserves /proprietary and CDN/database/API assets. No full battle, touch gameplay, purchase flow or physical-device behavior was tested."
+      "notes": "The README describes an online real-time strategy game with solo/tutorial and online lobby options. Optional sign-in is offered for achievements. The source code is AGPL-3.0; the separate asset policy grants CC BY-SA 4.0 only to /resources and reserves /proprietary and CDN/database/API assets. Its privacy policy (last updated 2026-07-01) says it may collect IP/device/browser and gameplay data including chat, use analytics and advertising cookies, receive Discord account information for sign-in, and display some profile and match data publicly; the detail page summarizes these points and links the policy before play. No full battle, touch gameplay, purchase flow or physical-device behavior was tested."
     },
     {
       "id": "hypersomnia",

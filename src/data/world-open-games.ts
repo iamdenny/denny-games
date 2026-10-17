@@ -31,6 +31,8 @@ type Listing = {
   url: string;
   host: Record<Locale, string>;
   hostNote: Record<Locale, string>;
+  privacyNote?: Record<Locale, string>;
+  privacyUrl?: string;
   artworkAlt: Record<Locale, string>;
   copy: Record<Locale, Copy>;
 };
@@ -2298,6 +2300,8 @@ type ExpandedListingSpec = {
   url: string;
   host: Record<Locale, string>;
   hostNote: Record<Locale, string>;
+  privacyNote?: Record<Locale, string>;
+  privacyUrl?: string;
   summary: Record<Locale, string>;
   controls: Record<Locale, string>;
   mode?: Record<Locale, string>;
@@ -5286,6 +5290,8 @@ function expandListing(spec: ExpandedListingSpec): Listing {
     url: spec.url,
     host: spec.host,
     hostNote: spec.hostNote,
+    privacyNote: spec.privacyNote,
+    privacyUrl: spec.privacyUrl,
     artworkAlt: {
       en: `Original Denny Games title-card artwork for ${spec.title}; not an official game screenshot.`,
       ko: `${spec.title}의 데니 게임즈 자체 타이틀 카드 일러스트이며 공식 게임 화면이 아닙니다.`,
@@ -5346,7 +5352,13 @@ function toGame(entry: Listing): Game {
     source: entry.source,
     sourceLabel: entry.sourceLabel,
     playModes: entry.playModes,
-    externalPlay: { url: entry.url, host: entry.host, note: entry.hostNote },
+    externalPlay: {
+      url: entry.url,
+      host: entry.host,
+      note: entry.hostNote,
+      privacyNote: entry.privacyNote,
+      privacyUrl: entry.privacyUrl,
+    },
     added: entry.added ?? "2026-10-15",
     artwork: `/art/open-games/${entry.id}.svg`,
     artworkAlt: entry.artworkAlt,
@@ -6122,7 +6134,7 @@ const freeBrowserWaveTenSpecs: GraphicalListingSpec[] = [
   {
     id: "openfront",
     added: "2026-10-17",
-    isOpenSource: true,
+    isOpenSource: false,
     title: "OpenFront",
     category: "strategy",
     controlStyle: "host",
@@ -6154,6 +6166,11 @@ const freeBrowserWaveTenSpecs: GraphicalListingSpec[] = [
       en: "The source README describes a real-time strategy game and links to this host. Chromium opened the solo map chooser; its first screens fit at 390×844 and 820×1180 without horizontal overflow. Solo/tutorial entry showed no upfront payment step, while the public interface also includes ads and purchase or Steam offers. Sign-in is offered for achievements. A complete battle, touch gameplay, purchase flow and physical-device behavior were not tested.",
       ko: "소스 README는 실시간 전략 게임을 설명하고 이 호스트로 연결합니다. Chromium에서 1인 플레이 맵 선택기가 열렸으며 첫 화면은 390×844와 820×1180에서 가로 넘침 없이 표시됐습니다. 1인 플레이·튜토리얼 진입에는 선결제가 없었고 공개 화면에는 광고와 구매·Steam 안내도 있습니다. 업적용 로그인은 선택 사항입니다. 전체 전투·터치 플레이·구매 과정·실물 기기는 검증하지 않았습니다.",
     },
+    privacyNote: {
+      en: "The host says it may collect IP, device and browser details, plus gameplay data including chat; analytics and advertising cookies may be used. Discord sign-in shares account details, while some player names and game statistics may be public. Review the policy before continuing.",
+      ko: "호스트는 IP·기기·브라우저 정보와 채팅을 포함한 게임 데이터를 수집할 수 있고 분석·광고 쿠키를 사용할 수 있다고 안내합니다. Discord 로그인 시 계정 정보가 전달되며 일부 플레이어 이름과 게임 통계가 공개될 수 있습니다. 계속하기 전에 정책을 확인하세요.",
+    },
+    privacyUrl: "https://openfront.io/privacy-policy.html",
     summary: {
       en: "Expand across map-based territories, manage a growing front and form alliances in a real-time strategy game.",
       ko: "지도 위 영토를 넓히고 전선을 관리하며 동맹을 맺는 실시간 전략 게임입니다.",
@@ -6194,7 +6211,7 @@ const freeBrowserWaveTenSpecs: GraphicalListingSpec[] = [
   {
     id: "hypersomnia",
     added: "2026-10-17",
-    isOpenSource: true,
+    isOpenSource: false,
     title: "Hypersomnia",
     category: "shooting",
     controlStyle: "host",
