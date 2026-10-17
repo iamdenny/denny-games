@@ -421,15 +421,20 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
                       "This game keeps its own score table only while this play page stays open. Leaving or reloading starts fresh.",
                       "게임 안 기록은 플레이 페이지가 열려 있는 동안만 유지돼요. 나가거나 새로고침하면 새로 시작합니다.",
                     )
-                  : game.imported
+                  : game.id === "sokoban"
                     ? label(
-                        "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
-                        "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                        "Completed levels are saved in this browser. The original game interface has been adapted and translated for Denny Games.",
+                        "완료한 레벨은 이 브라우저에 저장됩니다. 원본 게임 인터페이스를 데니 게임즈에서 번역하고 다시 구성했습니다.",
                       )
-                    : label(
-                        "Local progress restoration is available for this game.",
-                        "이 게임은 로컬 진행 상태 복원을 지원합니다.",
-                      )}
+                    : game.imported
+                      ? label(
+                          "Original in-game text is English. Leaving or changing language restarts the round; personal bests remain local.",
+                          "게임 내부 원본 문자는 영어입니다. 이탈·언어 변경 시 라운드가 재시작되며 최고 점수는 로컬에 남습니다.",
+                        )
+                      : label(
+                          "Local progress restoration is available for this game.",
+                          "이 게임은 로컬 진행 상태 복원을 지원합니다.",
+                        )}
           </p>
           {!game.externalPlay && (
             <p>
@@ -463,12 +468,14 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
                       "GPL-2.0-or-later source",
                       "GPL-2.0-or-later 대응 소스",
                     )
-                  : game.id === "hextris"
-                    ? label(
-                        "GPL-3.0-or-later source and dependency notices",
-                        "GPL-3.0-or-later 소스와 의존성 고지",
-                      )
-                    : label("MIT notices and source", "MIT 고지와 출처")}
+                  : game.id === "sokoban"
+                    ? label("MIT license", "MIT 라이선스")
+                    : game.id === "hextris"
+                      ? label(
+                          "GPL-3.0-or-later source and dependency notices",
+                          "GPL-3.0-or-later 소스와 의존성 고지",
+                        )
+                      : label("MIT notices and source", "MIT 고지와 출처")}
                 {" · "}
               </a>
             )}

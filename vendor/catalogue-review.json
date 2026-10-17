@@ -1,12 +1,22 @@
 {
-  "reviewedAt": "2026-10-11",
-  "scope": "All 294 entries in the existing commercial-redistribution research; not every open game worldwide.",
+  "reviewedAt": "2026-10-17",
+  "scope": "All 295 entries in the commercial-redistribution research; not every open game worldwide.",
   "counts": {
-    "integrated": 194,
-    "rights-or-integration-review": 26,
+    "integrated": 199,
+    "rights-or-integration-review": 22,
     "port-required": 74
   },
   "entries": [
+    {
+      "id": "sokoban-senltd",
+      "title": "Sokoban (sen-ltd)",
+      "category": "논리 퍼즐",
+      "researchTier": "B",
+      "runtime": "W",
+      "status": "integrated",
+      "reason": "MIT source pinned and hash-verified; six upstream solver-verified levels use a bilingual responsive Denny Games adapter.",
+      "source": "https://github.com/sen-ltd/sokoban"
+    },
     {
       "id": "2048",
       "title": "2048",

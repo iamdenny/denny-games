@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sokoban — solver + dead-square analysis</title>
+    <meta
+      name="description"
+      content="Sokoban with a push-optimal BFS solver and provable deadlock detection: reverse pull-BFS marks every dead square before the search begins."
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Soko<span>ban</span></h1>
+        <p class="sub">Push every box onto a goal. Arrow keys / WASD to move, or use the buttons.</p>
+      </header>
+
+      <div id="board" aria-label="sokoban board"></div>
+
+      <div class="hud">
+        <span id="status"></span>
+        <span id="counts">moves: 0 · pushes: 0</span>
+      </div>
+
+      <div class="controls">
+        <label>Level
+          <select id="level"></select>
+        </label>
+        <button id="undo">Undo</button>
+        <button id="reset">Reset</button>
+        <button id="solve">Solve (BFS)</button>
+        <label class="chk"><input id="showdead" type="checkbox" /> Dead squares</label>
+      </div>
+
+      <div class="dpad">
+        <button data-dir="up">▲</button>
+        <div>
+          <button data-dir="left">◀</button>
+          <button data-dir="down">▼</button>
+          <button data-dir="right">▶</button>
+        </div>
+      </div>
+
+      <p class="note">
+        Before any search, a <strong>reverse pull-BFS</strong> from the goals marks
+        every square a box could ever be brought home from; the rest are
+        <strong>dead squares</strong> (toggle the checkbox to see them). Push a box
+        onto one and it is <em>provably</em> stuck — the solver prunes those pushes
+        outright. The solver itself is a <strong>push-optimal BFS</strong> whose
+        state is the box set plus the player's reachable region.
+      </p>
+    </main>
+  </body>
+  <script type="module" src="/src/main.ts"></script>
+</html>

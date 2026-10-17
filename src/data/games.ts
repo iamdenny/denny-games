@@ -2,6 +2,7 @@ import type { Locale } from "../lib/types";
 import crisp from "./crisp.json" with { type: "json" };
 import { crispCycleGames } from "./crisp-cycles";
 import { boardGames } from "./board-games";
+import { openSourceGames } from "./open-source-games";
 import { editorialOrder } from "./editorial";
 import { eraExternalGames } from "./external-browser-additions";
 import { worldOpenGames } from "./world-open-games";
@@ -1393,7 +1394,12 @@ const externalBrowserGames: Game[] = [
     },
   },
 ];
-games.push(...externalBrowserGames, ...eraExternalGames, ...worldOpenGames);
+games.push(
+  ...openSourceGames,
+  ...externalBrowserGames,
+  ...eraExternalGames,
+  ...worldOpenGames,
+);
 // Scale fixtures are local/CI-only and never part of a normal production build.
 if (import.meta.env?.SCALE_TEST === "1") {
   const originals = [...games];
