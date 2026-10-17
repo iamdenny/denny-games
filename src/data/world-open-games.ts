@@ -6284,6 +6284,380 @@ const freeBrowserWaveTenSpecs: GraphicalListingSpec[] = [
   },
 ];
 
+const freeBrowserWaveElevenSpecs: GraphicalListingSpec[] = [
+  {
+    id: "bloxd-io",
+    added: "2026-10-17",
+    isOpenSource: false,
+    title: "Bloxd.io",
+    category: "action",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license: "No public source-code license identified; host terms apply",
+    licenseDescription: {
+      en: "Bloxd.io offers a free browser game, but no public source-code license was identified. Its terms govern use of the game; Denny Games links to the official host and copies no game code, build or artwork.",
+      ko: "Bloxd.io는 무료 브라우저 게임을 제공하지만 공개된 소스 코드 라이선스는 확인하지 못했습니다. 게임 이용에는 호스트 약관이 적용됩니다. 데니 게임즈는 공식 호스트로 연결만 하며 게임 코드·빌드·그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://bloxd.io/terms-of-service",
+    licenseUrlLabel: {
+      en: "Official terms of service",
+      ko: "공식 서비스 이용약관",
+    },
+    licenseAppliesToGame: false,
+    author: "Bloxd LTD",
+    source: "https://bloxd.io/",
+    sourceLabel: {
+      en: "Official game and publisher site",
+      ko: "공식 게임 및 운영사 사이트",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://bloxd.io/",
+    host: {
+      en: "Bloxd.io official browser game",
+      ko: "Bloxd.io 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The official game hub and mode menu loaded at 390×844 and 810×1080 without horizontal overflow. A privacy-consent dialog was present; we did not accept it or enter a mode. The host offers sign-in for saving progress. These checks cover the opening screen only, not gameplay, touch controls or a physical device.",
+      ko: "공식 게임 허브와 모드 메뉴가 390×844 및 810×1080 크기에서 가로 넘침 없이 열렸습니다. 개인정보 동의 창이 표시됐으며 동의하거나 게임 모드에 들어가지는 않았습니다. 호스트는 진행 저장을 위한 로그인을 제공합니다. 시작 화면만 확인했으며 실제 플레이·터치 조작·실물 기기는 검증하지 않았습니다.",
+    },
+    privacyNote: {
+      en: "Bloxd says it may collect IP, device/browser, screen, language, usage and moderation data. Cookies support settings, progress, analytics and ads; personalized ads require consent. Accounts require age 13+ or parental consent for younger players. Review the policy before continuing.",
+      ko: "Bloxd는 IP·기기·브라우저·화면·언어·이용·관리 데이터를 수집할 수 있다고 안내합니다. 쿠키는 설정·진행·분석·광고에 쓰이며 맞춤 광고에는 동의가 필요합니다. 계정은 만 13세 이상이거나 더 어린 경우 보호자 동의가 있어야 합니다. 계속하기 전에 정책을 확인하세요.",
+    },
+    privacyUrl: "https://bloxd.io/privacy-policy",
+    summary: {
+      en: "Explore a colorful block-built world with a changing menu of creative, challenge and multiplayer modes.",
+      ko: "창작·도전·멀티플레이 모드가 있는 알록달록한 블록 세계를 탐험하세요.",
+    },
+    objective: {
+      en: "Choose a mode from the host menu and follow its in-game goal and instructions.",
+      ko: "호스트 메뉴에서 모드를 고르고 게임 안에 표시되는 목표와 안내를 따라가세요.",
+    },
+    controls: {
+      en: "The hub showed keyboard-and-mouse play modes. Check the selected mode's controls before playing; touch gameplay was not tested.",
+      ko: "허브에는 키보드와 마우스를 쓰는 플레이 모드가 표시됩니다. 플레이 전에 선택한 모드의 조작 안내를 확인하세요. 터치 플레이는 검증하지 않았습니다.",
+    },
+    mode: {
+      en: "Free browser access with multiple modes; sign-in is offered for saving progress. The host may change its modes, account features and terms. No game mode was entered during our check.",
+      ko: "여러 모드를 무료 브라우저에서 이용할 수 있으며 진행 저장용 로그인이 제공됩니다. 모드·계정 기능·이용 조건은 호스트가 변경할 수 있습니다. 확인 과정에서 게임 모드에는 들어가지 않았습니다.",
+    },
+    tip: {
+      en: "Read the privacy dialog and the selected mode's controls before joining an online world.",
+      ko: "온라인 월드에 들어가기 전에 개인정보 안내와 선택한 모드의 조작법을 확인하세요.",
+    },
+    keywords: {
+      en: [
+        "Bloxd.io browser game",
+        "voxel multiplayer game",
+        "block building game online",
+        "free 3D browser game",
+      ],
+      ko: [
+        "Bloxd.io 브라우저 게임",
+        "복셀 멀티플레이 게임",
+        "온라인 블록 건설 게임",
+        "무료 3D 브라우저 게임",
+      ],
+    },
+  },
+  {
+    id: "lichess",
+    added: "2026-10-17",
+    isOpenSource: true,
+    title: "Lichess",
+    category: "board",
+    controlStyle: "host",
+    inputs: ["touch", "mouse"],
+    license: "AGPL-3.0-or-later Lila code; listed assets have separate terms",
+    licenseDescription: {
+      en: "Lichess publishes its main Lila application under AGPL-3.0-or-later. Its copying guide lists separately licensed fonts, icons, images and other exceptions, so the code license is not a blanket license for every hosted asset. Denny Games links to Lichess and copies no software or media.",
+      ko: "Lichess는 주 애플리케이션 Lila를 AGPL-3.0-or-later로 공개합니다. 복제 지침에는 별도 라이선스가 적용되는 글꼴·아이콘·이미지와 예외가 나열되어 있으므로 코드 라이선스가 호스트의 모든 자산에 일괄 적용되지는 않습니다. 데니 게임즈는 Lichess로 연결만 하며 소프트웨어나 미디어를 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/lichess-org/lila/blob/master/COPYING.md",
+    licenseUrlLabel: {
+      en: "Lila license and asset exceptions",
+      ko: "Lila 라이선스와 자산별 예외",
+    },
+    licenseAppliesToGame: false,
+    author: "Lichess.org and contributors",
+    source: "https://github.com/lichess-org/lila",
+    sourceLabel: { en: "Official source repository", ko: "공식 소스 저장소" },
+    playModes: ["single-player", "multi-player"],
+    url: "https://lichess.org/",
+    host: { en: "Lichess official chess site", ko: "Lichess 공식 체스 사이트" },
+    hostNote: {
+      en: "The home and play menus loaded at 390×844 and 810×1080 without horizontal overflow; they offered quick pairing, a lobby and play against the computer. A network-assets warning appeared in this check. We did not start a game, and physical-device behavior was not tested.",
+      ko: "홈과 플레이 메뉴가 390×844 및 810×1080 크기에서 가로 넘침 없이 열렸고 빠른 대전·로비·컴퓨터와 대전 메뉴가 보였습니다. 이번 확인 환경에서는 네트워크 자산 경고가 표시됐습니다. 실제 대국은 시작하지 않았으며 실물 기기 동작도 검증하지 않았습니다.",
+    },
+    privacyNote: {
+      en: "Lichess says connection logs may include IP and browser/device details; accounts may include registration details and messages, and session cookies support sign-in. The site says it runs without ads or tracking cookies beyond its login cookie. Review the policy for retention and account details.",
+      ko: "Lichess는 접속 기록에 IP와 브라우저·기기 정보가 포함될 수 있고 계정에는 가입 정보와 메시지가 포함될 수 있으며 로그인에 세션 쿠키를 쓴다고 안내합니다. 사이트는 로그인 쿠키 외 광고나 추적 쿠키 없이 운영한다고 밝힙니다. 보관 기간과 계정 관련 내용은 정책에서 확인하세요.",
+    },
+    privacyUrl: "https://lichess.org/privacy",
+    summary: {
+      en: "Play chess online, find a quick opponent, join the lobby or face the computer on a free, open-source chess server.",
+      ko: "무료 오픈소스 체스 서버에서 온라인 대전·빠른 상대 찾기·로비·컴퓨터 대전을 즐기세요.",
+    },
+    objective: {
+      en: "Choose a chess mode, then check or checkmate your opponent while protecting your king.",
+      ko: "체스 모드를 고른 뒤 킹을 지키면서 상대를 체크하거나 체크메이트하세요.",
+    },
+    controls: {
+      en: "Use touch or a mouse to select and move pieces. Review the host's controls and game settings before starting.",
+      ko: "터치나 마우스로 기물을 선택하고 이동하세요. 시작 전에 호스트의 조작법과 대국 설정을 확인하세요.",
+    },
+    mode: {
+      en: "Lichess describes its service as free, ad-free and open source. The home page offers quick pairing, lobby play and computer games; the host controls accounts, matchmaking and game rules.",
+      ko: "Lichess는 서비스를 무료·광고 없음·오픈소스로 안내합니다. 홈에서 빠른 대전·로비·컴퓨터 대전을 제공하며 계정·상대 연결·대국 규칙은 호스트가 운영합니다.",
+    },
+    tip: {
+      en: "Try a computer game or a casual time control if you want a relaxed first match.",
+      ko: "가볍게 첫 대국을 시작하려면 컴퓨터 대전이나 여유 있는 시간 설정을 골라 보세요.",
+    },
+    keywords: {
+      en: [
+        "free online chess",
+        "open source chess game",
+        "play chess against computer",
+        "multiplayer chess browser game",
+      ],
+      ko: [
+        "무료 온라인 체스",
+        "오픈소스 체스 게임",
+        "컴퓨터와 체스 대전",
+        "멀티플레이 브라우저 체스",
+      ],
+    },
+  },
+  {
+    id: "pokemon-showdown",
+    added: "2026-10-17",
+    isOpenSource: false,
+    title: "Pokémon Showdown",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: ["mouse", "keyboard"],
+    license: "MIT server code; client and Pokémon content have separate rights",
+    licenseDescription: {
+      en: "The Pokémon Showdown server repository publishes MIT-licensed code. That does not license all client code, artwork, names or Pokémon-related content hosted by the service. This fan-made simulator is not affiliated with or endorsed by Nintendo, Game Freak or The Pokémon Company; Denny Games links out and copies no game material.",
+      ko: "Pokémon Showdown 서버 저장소는 MIT 라이선스 코드를 공개합니다. 이 라이선스가 호스트의 모든 클라이언트 코드·그림·이름·포켓몬 관련 콘텐츠에 적용되는 것은 아닙니다. 이 팬 제작 시뮬레이터는 Nintendo·Game Freak·The Pokémon Company와 제휴하거나 승인을 받은 서비스가 아닙니다. 데니 게임즈는 링크만 제공하며 게임 자료를 복사하지 않습니다.",
+    },
+    licenseUrl:
+      "https://github.com/smogon/pokemon-showdown/blob/master/LICENSE",
+    licenseUrlLabel: {
+      en: "Server code license (MIT)",
+      ko: "서버 코드 라이선스 (MIT)",
+    },
+    licenseAppliesToGame: false,
+    author: "Pokémon Showdown contributors",
+    source: "https://github.com/smogon/pokemon-showdown",
+    sourceLabel: {
+      en: "Official simulator source repository",
+      ko: "공식 시뮬레이터 소스 저장소",
+    },
+    playModes: ["multi-player"],
+    url: "https://play.pokemonshowdown.com/",
+    host: {
+      en: "Pokémon Showdown fan battle simulator",
+      ko: "Pokémon Showdown 팬 배틀 시뮬레이터",
+    },
+    hostNote: {
+      en: "The official simulator's home and Battle prompt loaded at 390×844 and 810×1080 without horizontal overflow. This is a fan-made, unofficial simulator; we did not build a team, join a battle or test physical-device play.",
+      ko: "공식 시뮬레이터의 홈과 대전 시작 메뉴가 390×844 및 810×1080 크기에서 가로 넘침 없이 열렸습니다. 팬이 만든 비공식 시뮬레이터입니다. 팀 구성·대전 참여·실물 기기 플레이는 검증하지 않았습니다.",
+    },
+    privacyNote: {
+      en: "The host says cookies store login/preferences; Google Analytics, Google AdSense and Playwire provide analytics or ads. IP/cookie data may be used for bans, and chat, battle and private-message logs may be retained. Review the official policy before joining chat or battles.",
+      ko: "호스트는 로그인·설정 저장에 쿠키를 쓰고 Google Analytics·AdSense와 Playwire를 통해 분석이나 광고를 제공한다고 안내합니다. 차단 조치에 IP·쿠키 정보를 쓸 수 있으며 채팅·대전·비공개 메시지 기록을 보관할 수 있습니다. 채팅이나 대전에 참여하기 전에 공식 정책을 확인하세요.",
+    },
+    privacyUrl: "https://pokemonshowdown.com/privacy",
+    summary: {
+      en: "Build or choose a team and battle other players in a free online Pokémon battle simulator.",
+      ko: "팀을 구성하거나 선택해 무료 온라인 포켓몬 배틀 시뮬레이터에서 다른 플레이어와 대전하세요.",
+    },
+    objective: {
+      en: "Choose a battle format, bring a legal team and defeat the opposing team with careful move and switch choices.",
+      ko: "대전 형식을 고르고 사용할 수 있는 팀을 준비해 기술과 교체를 판단하며 상대 팀을 이기세요.",
+    },
+    controls: {
+      en: "Use the pointer and keyboard to choose a format, manage a team and select battle actions. Confirm the current controls in the host's instructions.",
+      ko: "포인터와 키보드로 형식 선택·팀 관리·대전 행동을 진행하세요. 현재 조작법은 호스트 안내에서 확인하세요.",
+    },
+    mode: {
+      en: "The official host presents online battles and team-building tools. The server code is MIT licensed, but the simulator's client, media and Pokémon-related content have separate rights; the service is unofficial and fan-made.",
+      ko: "공식 호스트는 온라인 대전과 팀 구성 도구를 제공합니다. 서버 코드는 MIT 라이선스지만 시뮬레이터 클라이언트·미디어·포켓몬 관련 콘텐츠에는 별도 권리가 적용되며 비공식 팬 제작 서비스입니다.",
+    },
+    tip: {
+      en: "Read the format rules and privacy policy before entering a public battle or chat room.",
+      ko: "공개 대전이나 채팅방에 들어가기 전에 형식 규칙과 개인정보 정책을 확인하세요.",
+    },
+    keywords: {
+      en: [
+        "Pokémon Showdown online battles",
+        "Pokémon battle simulator",
+        "competitive team builder",
+        "free multiplayer strategy game",
+      ],
+      ko: [
+        "포켓몬 쇼다운 온라인 대전",
+        "포켓몬 배틀 시뮬레이터",
+        "경쟁전 팀 빌더",
+        "무료 멀티플레이 전략 게임",
+      ],
+    },
+  },
+  {
+    id: "city-guesser",
+    added: "2026-10-17",
+    isOpenSource: false,
+    title: "City Guesser",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: ["touch", "mouse"],
+    license: "No public source-code license identified; host terms apply",
+    licenseDescription: {
+      en: "The official site offers free browser play without an account, but no public source-code license was identified. Video and game-content reuse terms were not separately reviewed. Denny Games links to the official game and copies no video, map data or artwork.",
+      ko: "공식 사이트는 계정 없이 무료 브라우저 플레이를 제공하지만 공개된 소스 코드 라이선스는 확인하지 못했습니다. 영상과 게임 콘텐츠 재사용 조건은 별도로 검토하지 않았습니다. 데니 게임즈는 공식 게임으로 연결만 하며 영상·지도 데이터·그림을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://cityguesser.eu/terms",
+    licenseUrlLabel: {
+      en: "Official terms of service",
+      ko: "공식 서비스 이용약관",
+    },
+    licenseAppliesToGame: false,
+    author: "City Guesser",
+    source: "https://cityguesser.eu/",
+    sourceLabel: {
+      en: "Official game site and information",
+      ko: "공식 게임 사이트와 안내",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://play.cityguesser.eu/",
+    host: {
+      en: "City Guesser official browser game",
+      ko: "City Guesser 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The official private-room menu rendered at 390×844 and 810×1080 without horizontal overflow. The game asks players to watch a location video and guess on a map; the site's newer-version page says it is free and needs no account. We saw ads but did not create a room or play a video round; physical-device behavior was not tested.",
+      ko: "공식 비공개 방 메뉴가 390×844 및 810×1080 크기에서 가로 넘침 없이 표시됐습니다. 위치 영상을 보고 지도에서 추측하는 게임이며, 사이트의 새 버전 안내는 무료·계정 불필요라고 설명합니다. 광고가 보였지만 방을 만들거나 영상 라운드를 진행하지 않았고 실물 기기 동작도 검증하지 않았습니다.",
+    },
+    privacyNote: {
+      en: "City Guesser says the game needs no account and does not store personal information, but standard logs may include IP address, browser details, pages visited, visit time and usage statistics. Review the policy before playing.",
+      ko: "City Guesser는 계정이 필요 없고 개인정보를 저장하지 않는다고 안내하지만 표준 로그에는 IP 주소·브라우저 정보·방문 페이지·시간·이용 통계가 포함될 수 있습니다. 플레이 전에 정책을 확인하세요.",
+    },
+    privacyUrl: "https://cityguesser.eu/privacy",
+    summary: {
+      en: "Watch a street-level video, spot clues and place a guess on the world map in a geography game.",
+      ko: "거리 영상을 보고 단서를 찾아 세계 지도에 위치를 찍는 지리 추측 게임입니다.",
+    },
+    objective: {
+      en: "Use signs, scenery and landmarks to guess the filmed location as accurately as possible.",
+      ko: "표지판·풍경·랜드마크를 단서로 영상 속 위치를 최대한 정확하게 맞히세요.",
+    },
+    controls: {
+      en: "Watch the video, then tap or click the map to place a guess. Check the selected room's instructions for round and scoring rules.",
+      ko: "영상을 본 뒤 지도에서 탭하거나 클릭해 위치를 고르세요. 라운드와 점수 규칙은 선택한 방의 안내를 확인하세요.",
+    },
+    mode: {
+      en: "The official site describes free play without an account and private multiplayer rooms. The newer version advertises improved mobile support; this check reached the room menu only, not a video round.",
+      ko: "공식 사이트는 계정 없는 무료 플레이와 비공개 멀티플레이 방을 안내합니다. 새 버전은 모바일 개선을 설명하지만 이번 확인은 방 메뉴까지만 했고 영상 라운드는 진행하지 않았습니다.",
+    },
+    tip: {
+      en: "Look for language, road markings, signs and vegetation before placing your map guess.",
+      ko: "지도에 찍기 전에 언어·도로 표시·표지판·식생을 살펴보세요.",
+    },
+    keywords: {
+      en: [
+        "City Guesser online game",
+        "geography guessing game",
+        "guess the city from video",
+        "multiplayer world map game",
+      ],
+      ko: [
+        "City Guesser 온라인 게임",
+        "지리 위치 추측 게임",
+        "영상으로 도시 맞히기",
+        "멀티플레이 세계 지도 게임",
+      ],
+    },
+  },
+  {
+    id: "skribbl-io",
+    added: "2026-10-17",
+    isOpenSource: false,
+    title: "skribbl.io",
+    category: "puzzle",
+    controlStyle: "host",
+    inputs: ["touch", "mouse"],
+    license:
+      "All rights reserved; terms permit personal, non-commercial viewing",
+    licenseDescription: {
+      en: "The official terms restrict site materials to personal, non-commercial viewing and prohibit copying or mirroring. No open-source license is published for the game. Denny Games links to the official host and copies no software, drawings or other content.",
+      ko: "공식 약관은 사이트 자료를 개인의 비상업적 열람으로 제한하며 복사와 미러링을 금지합니다. 게임의 오픈소스 라이선스는 공개되지 않았습니다. 데니 게임즈는 공식 호스트로 연결만 하며 소프트웨어·그림·기타 콘텐츠를 복사하지 않습니다.",
+    },
+    licenseUrl: "https://skribbl.io/terms",
+    licenseUrlLabel: {
+      en: "Terms and privacy policy",
+      ko: "이용약관 및 개인정보 정책",
+    },
+    licenseAppliesToGame: false,
+    author: "skribbl.io",
+    source: "https://skribbl.io/terms",
+    sourceLabel: {
+      en: "Official terms and privacy policy",
+      ko: "공식 이용약관 및 개인정보 정책",
+    },
+    playModes: ["multi-player"],
+    url: "https://skribbl.io/",
+    host: {
+      en: "skribbl.io official drawing game",
+      ko: "skribbl.io 공식 그림 게임",
+    },
+    hostNote: {
+      en: "The official home and Play/Create Private Room menu rendered at 390×844 and 810×1080 without horizontal overflow. The host's 2022 update says it added mobile support and experimental pressure touch input. We did not join a room or test drawing; its terms page contains both terms and a privacy policy, rather than a separate privacy page.",
+      ko: "공식 홈과 Play/Create Private Room 메뉴가 390×844 및 810×1080 크기에서 가로 넘침 없이 표시됐습니다. 호스트의 2022년 업데이트는 모바일 지원과 실험적 압력 터치 입력을 소개합니다. 방에 들어가거나 그림을 그려 보지는 않았습니다. 별도 개인정보 페이지 대신 이용약관 페이지에 약관과 개인정보 정책이 함께 있습니다.",
+    },
+    privacyNote: {
+      en: "The host's privacy policy says third-party advertising companies may use information about visits to skribbl.io and other websites to personalize ads; it excludes direct identifiers such as name, address, email and phone from that advertising data. Review the full policy before playing.",
+      ko: "호스트 개인정보 정책에 따르면 제3자 광고사는 skribbl.io와 다른 웹사이트 방문 정보를 맞춤 광고에 사용할 수 있습니다. 해당 광고 정보에서 이름·주소·이메일·전화번호 같은 직접 식별 정보는 제외한다고 안내합니다. 플레이 전에 전체 정책을 확인하세요.",
+    },
+    privacyUrl: "https://skribbl.io/terms",
+    summary: {
+      en: "Draw a secret word while other players guess it, then switch turns in a free online party game.",
+      ko: "다른 플레이어가 맞힐 수 있도록 제시어를 그리고, 차례를 바꿔 가며 즐기는 무료 온라인 파티 게임입니다.",
+    },
+    objective: {
+      en: "Draw the chosen word without spelling it, or guess what another player is drawing to earn points.",
+      ko: "제시어를 글자로 쓰지 않고 그림으로 표현하거나 다른 사람의 그림을 맞혀 점수를 얻으세요.",
+    },
+    controls: {
+      en: "Use touch or a mouse to choose colors and draw; type guesses in the room chat. The host calls pressure touch experimental.",
+      ko: "터치나 마우스로 색을 고르고 그리며 방 채팅에 답을 입력하세요. 압력 터치는 호스트가 실험 기능으로 안내합니다.",
+    },
+    mode: {
+      en: "The host offers free public games and private rooms. Its official site lists mobile support, but the room and drawing interaction were not tested here.",
+      ko: "호스트는 무료 공개 게임과 비공개 방을 제공합니다. 공식 사이트는 모바일 지원을 안내하지만 이번에는 방과 그리기 상호작용을 확인하지 않았습니다.",
+    },
+    tip: {
+      en: "Choose a simple outline first, then add color or details before the round timer ends.",
+      ko: "먼저 단순한 윤곽을 그리고 라운드 시간이 끝나기 전에 색이나 세부 묘사를 더해 보세요.",
+    },
+    keywords: {
+      en: [
+        "skribbl.io drawing game",
+        "online Pictionary game",
+        "free multiplayer drawing game",
+        "guess the word party game",
+      ],
+      ko: [
+        "skribbl.io 그림 게임",
+        "온라인 픽셔너리 게임",
+        "무료 멀티플레이 그림 게임",
+        "단어 맞히기 파티 게임",
+      ],
+    },
+  },
+];
+
 export const worldOpenGames = [
   ...listings,
   ...expandedListingSpecs.map(expandListing),
@@ -6295,4 +6669,5 @@ export const worldOpenGames = [
   ...freeBrowserWaveEightSpecs.map(expandListing),
   ...freeBrowserWaveNineSpecs.map(expandListing),
   ...freeBrowserWaveTenSpecs.map(expandListing),
+  ...freeBrowserWaveElevenSpecs.map(expandListing),
 ].map(toGame);

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">City Guesser</title>
+  <desc id="desc">Original Denny Games illustration of a stylized city-video frame and map marker</desc>
+  <defs>
+    <linearGradient id="sunset" x2="0" y2="1"><stop stop-color="#f6b879"/><stop offset="1" stop-color="#d87579"/></linearGradient>
+    <linearGradient id="night" x2="0" y2="1"><stop stop-color="#244c63"/><stop offset="1" stop-color="#142e4e"/></linearGradient>
+    <linearGradient id="road" x2="1" y2="1"><stop stop-color="#526578"/><stop offset="1" stop-color="#273b56"/></linearGradient>
+    <filter id="pinshadow"><feGaussianBlur stdDeviation="4"/></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#night)"/><g opacity=".14" stroke="#d6eff2"><path d="M0 80h640M0 160h640M0 240h640M80 0v360M160 0v360M240 0v360M320 0v360M400 0v360M480 0v360M560 0v360"/></g>
+  <rect x="39" y="35" width="418" height="287" rx="20" fill="#17283d" stroke="#8ba4ba" stroke-opacity=".6" stroke-width="3"/><rect x="50" y="46" width="396" height="265" rx="12" fill="url(#sunset)"/>
+  <circle cx="346" cy="105" r="33" fill="#ffe1a7" opacity=".88"/><path d="M50 199 112 157l55 36 66-71 58 58 53-45 102 62v114H50Z" fill="#39546a"/>
+  <path d="M50 231 119 201l59 27 49-41 63 53 65-39 91 40v70H50Z" fill="#477264"/><path d="M50 284q90-91 159-66 65 23 108 92H50Z" fill="url(#road)"/><path d="M317 311q52-99 129-95v95Z" fill="#314a60"/>
+  <path d="M290 311q23-54 50-70" fill="none" stroke="#f4d69e" stroke-width="4" stroke-dasharray="10 11"/><path d="M81 201v-44l22-22 25 22v47m205-26v-57l26-25 31 25v61m-181-3v-29l20-18 22 18v32" fill="#263e54" stroke="#a9c0ba" stroke-opacity=".52" stroke-width="3"/>
+  <rect x="68" y="62" width="68" height="25" rx="12" fill="#182e49" opacity=".82"/><circle cx="83" cy="74" r="5" fill="#ff817c"/><path d="M98 74h28" stroke="#d6e2db" stroke-width="3" stroke-linecap="round"/>
+  <g transform="translate(460 66)"><rect width="140" height="226" rx="18" fill="#e4e4cb" stroke="#fff0ce" stroke-width="2"/><path d="M0 59h140M0 119h140M0 179h140M46 0v226M93 0v226" stroke="#b4c3a8" stroke-width="2"/><path d="m12 34 29 20 21-4 17 27 21-7 25 28-20 18-5 35-26 19-19-22-32 8-23-21" fill="none" stroke="#70a5a0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="72" cy="102" rx="24" ry="8" fill="#d85d78" opacity=".25" filter="url(#pinshadow)"/>
+    <path d="M72 131s-24-26-24-43a24 24 0 1 1 48 0c0 17-24 43-24 43Z" fill="#df5275" stroke="#fff4d9" stroke-width="3"/><circle cx="72" cy="88" r="8" fill="#fff0ce"/></g>
+  <path d="M482 315h83" stroke="#9cc9d2" stroke-opacity=".65" stroke-width="4" stroke-linecap="round"/>
+</svg>

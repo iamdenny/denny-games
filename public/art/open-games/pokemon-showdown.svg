@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Pokémon Showdown</title>
+  <desc id="desc">Original Denny Games illustration of an abstract turn-based battle interface with elemental energy shapes</desc>
+  <defs>
+    <linearGradient id="arena" x2="1" y2="1"><stop stop-color="#171b3b"/><stop offset="1" stop-color="#302c57"/></linearGradient>
+    <linearGradient id="panel" x2="0" y2="1"><stop stop-color="#314869"/><stop offset="1" stop-color="#1d314d"/></linearGradient>
+    <linearGradient id="cyan" x2="1" y2="1"><stop stop-color="#64f0dc"/><stop offset="1" stop-color="#44a9e9"/></linearGradient>
+    <linearGradient id="coral" x2="1" y2="1"><stop stop-color="#ffba72"/><stop offset="1" stop-color="#e56a8e"/></linearGradient>
+    <filter id="aura"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#arena)"/><circle cx="165" cy="142" r="88" fill="#3ed9db" opacity=".14" filter="url(#aura)"/><circle cx="462" cy="116" r="91" fill="#fa7f9f" opacity=".17" filter="url(#aura)"/>
+  <path d="M42 205q145-66 280 0t276 0v107H42Z" fill="#222a4a"/><path d="M42 251q139-48 278 0t278 0" fill="none" stroke="#68779d" stroke-opacity=".38" stroke-width="3"/>
+  <g stroke="#203049" stroke-width="5" stroke-linejoin="round">
+    <path d="m113 162 23-48 25 25 27-32 24 39-14 59-43 13-46-20Z" fill="url(#cyan)"/><path d="m126 150 22 7 4-16m34 8-15 7" fill="none" stroke="#18364c" stroke-width="7" stroke-linecap="round"/>
+    <path d="m400 144 27-55 23 25 22-46 34 60 19 37-15 52-55 17-44-33Z" fill="url(#coral)"/><path d="m417 141 25 3 3-13m39 17-18 5" fill="none" stroke="#5b324e" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g fill="#fff0b5"><path d="m312 102 7 16 17 3-13 10 3 17-14-9-15 9 4-17-13-10 17-3Z"/><path d="m331 194 5 11 12 2-9 7 2 12-10-6-10 6 3-12-9-7 12-2Z" opacity=".77"/></g>
+  <g fill="none" stroke="#b4d9e9" stroke-width="3" opacity=".68"><path d="m76 77 22-18 18 7-2 20-19 12-20-8z"/><path d="m530 239 18-13 20 7 1 20-22 7z"/><path d="m84 282 13-10 15 5-1 16-15 7z"/></g>
+  <rect x="53" y="24" width="534" height="34" rx="12" fill="url(#panel)" stroke="#7588ac" stroke-opacity=".5"/><path d="M78 42h118M452 42h108" stroke="#b8d4ea" stroke-opacity=".68" stroke-width="4" stroke-linecap="round"/>
+  <text x="320" y="47" fill="#f1e9d2" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" letter-spacing="4">TURN / TACTICS</text>
+</svg>
