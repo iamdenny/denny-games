@@ -60,7 +60,7 @@ for (const locale of ["en", "ko"] as const) {
           [390, 844],
           [834, 1194],
           [1194, 834],
-        ]) {
+        ] as const) {
           await page.setViewportSize({ width, height });
           expect(
             await page.evaluate(
