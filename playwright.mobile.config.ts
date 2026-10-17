@@ -8,8 +8,14 @@ export default defineConfig({
     "game-tools.spec.ts",
     "quick-play.spec.ts",
     "daily-progress.spec.ts",
+    "sokoban.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },
+    {
+      name: "webkit-ipad-touch",
+      testMatch: "sokoban.spec.ts",
+      use: { ...devices["iPad Mini"] },
+    },
   ],
 });

@@ -1,0 +1,22 @@
+{
+  "name": "sokoban",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sokoban with a push-optimal BFS solver and provable deadlock detection via reverse pull-BFS dead-square analysis. TypeScript, no runtime deps.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.5"
+  },
+  "license": "MIT",
+  "allowScripts": {
+    "esbuild@0.21.5": true
+  }
+}

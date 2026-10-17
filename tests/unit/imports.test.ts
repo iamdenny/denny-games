@@ -6,11 +6,12 @@ import crisp from "../../src/data/crisp.json";
 import provenance from "../../vendor/crisp/provenance.json";
 import cycleProvenance from "../../vendor/crisp-cycles/provenance.json";
 import hextrisProvenance from "../../vendor/hextris/provenance.json";
+import sokobanProvenance from "../../vendor/sokoban/provenance.json";
 import { discoverySchema } from "../../src/lib/seo";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(355);
+    expect(games).toHaveLength(356);
     expect(games.filter((game) => game.externalPlay)).toHaveLength(150);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
@@ -258,11 +259,50 @@ describe("import admission and catalogue", () => {
     const review = JSON.parse(
       readFileSync("vendor/catalogue-review.json", "utf8"),
     );
-    expect(review.entries).toHaveLength(294);
+    expect(review.entries).toHaveLength(295);
     expect(
       review.entries.filter(
         (g: { status: string }) => g.status === "integrated",
       ),
-    ).toHaveLength(198);
+    ).toHaveLength(199);
+    const sokoban = games.find((game) => game.id === "sokoban")!;
+    expect(sokoban.externalPlay).toBeUndefined();
+    expect(sokoban.license).toBe("MIT");
+    expect(sokoban.notice).toBe("/licenses/sokoban/LICENSE.txt");
+    expect(sokoban.imported).toBe(true);
+    expect(sokoban.inputs).toContain("touch");
+    expect(sokoban.inputs).toContain("keyboard");
+    expect(sokoban.inputs).toContain("gamepad");
+    expect(sokoban.text.en.controls.join(" ")).toContain(
+      "physical controllers are not verified",
+    );
+    expect(sokoban.text.ko.controls.join(" ")).toContain(
+      "실물 컨트롤러 동작은 검증하지 않았어요",
+    );
+    for (const [file, expected] of Object.entries(
+      sokobanProvenance.upstream_files,
+    )) {
+      expect(
+        createHash("sha256")
+          .update(readFileSync("vendor/sokoban/upstream/" + file))
+          .digest("hex"),
+      ).toBe(expected);
+    }
+    expect(readFileSync("public/licenses/sokoban/LICENSE.txt", "utf8")).toMatch(
+      /Permission is hereby granted/,
+    );
+    for (const [file, expected] of Object.entries(
+      sokobanProvenance.product_artwork,
+    )) {
+      expect(
+        createHash("sha256").update(readFileSync(file)).digest("hex"),
+      ).toBe(expected);
+    }
+    expect(
+      existsSync("public/vendor/sokoban/source/upstream/src/sokoban.ts.txt"),
+    ).toBe(true);
+    expect(
+      existsSync("public/vendor/sokoban/source/upstream/index.html.txt"),
+    ).toBe(true);
   });
 });

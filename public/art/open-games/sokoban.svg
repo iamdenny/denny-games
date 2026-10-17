@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Sokoban: Every push matters</title>
+  <desc id="desc">A blue keeper pushes an amber crate toward a glowing goal in a geometric warehouse.</desc>
+  <defs>
+    <linearGradient id="back" x2="0" y2="1">
+      <stop stop-color="#17223a"/>
+      <stop offset="1" stop-color="#0b1120"/>
+    </linearGradient>
+    <linearGradient id="stone" x2="0.8" y2="1">
+      <stop stop-color="#536d94"/>
+      <stop offset="1" stop-color="#263854"/>
+    </linearGradient>
+    <linearGradient id="crate" x2="0.8" y2="1">
+      <stop stop-color="#ffd477"/>
+      <stop offset="1" stop-color="#b96b22"/>
+    </linearGradient>
+    <radialGradient id="goal">
+      <stop stop-color="#d1baff" stop-opacity=".9"/>
+      <stop offset=".72" stop-color="#906bff" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#906bff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <rect width="960" height="540" rx="28" fill="url(#back)"/>
+  <path d="M0 420 960 320v220H0Z" fill="#111a2b"/>
+  <g opacity=".18" stroke="#91a9d1">
+    <path d="M0 440 960 340M0 488 960 388M0 536 960 436"/>
+    <path d="M110 540 310 404M310 540 445 390M510 540 595 376M740 540 775 358M920 540 940 340"/>
+  </g>
+  <ellipse cx="615" cy="365" rx="105" ry="60" fill="url(#goal)" filter="url(#glow)"/>
+  <g transform="translate(244 185)">
+    <path d="M0 0h330v34H0zm0 0v194h34V34h262v160h34V0z" fill="url(#stone)" stroke="#7890b5" stroke-opacity=".4"/>
+    <path d="M34 34h66v66H34zm132 0h66v66h-66zm66 66h66v60h-66zM34 166h66v28H34z" fill="#1a263b"/>
+    <circle cx="235" cy="159" r="19" fill="none" stroke="#c5aaff" stroke-width="5" stroke-dasharray="5 5"/>
+    <g transform="translate(165 99)">
+      <rect width="66" height="66" rx="9" fill="url(#crate)" stroke="#ffe4a2" stroke-width="4"/>
+      <path d="M14 14h38v38H14zM14 33h38M33 14v38" fill="none" stroke="#8e501e" stroke-width="3"/>
+    </g>
+    <g transform="translate(78 99)">
+      <circle cx="33" cy="26" r="18" fill="#71d2ff" stroke="#d9f7ff" stroke-width="4"/>
+      <path d="M17 49q16-13 32 0v22H17z" fill="#657ce3" stroke="#c7d6ff" stroke-width="4"/>
+      <path d="M35 31 114 46" stroke="#9edfff" stroke-width="4" stroke-dasharray="7 7" opacity=".8"/>
+    </g>
+  </g>
+  <g fill="#eff4ff" font-family="system-ui, sans-serif">
+    <text x="630" y="140" font-size="18" letter-spacing="5" fill="#a7b8d8">A LOGIC PUZZLE</text>
+    <text x="630" y="205" font-size="52" font-weight="800">SOKOBAN</text>
+    <text x="632" y="246" font-size="22" fill="#c4cee2">Every push matters.</text>
+  </g>
+  <g transform="translate(650 305)" fill="#c8d4ec">
+    <rect width="48" height="48" rx="12" fill="#2a3a58" stroke="#6a83af"/>
+    <text x="24" y="32" text-anchor="middle" font-size="24" font-family="system-ui, sans-serif">↶</text>
+    <text x="64" y="30" font-size="16" font-family="system-ui, sans-serif">Undo a risky move</text>
+    <rect y="68" width="48" height="48" rx="12" fill="#2a3a58" stroke="#6a83af"/>
+    <text x="24" y="100" text-anchor="middle" font-size="24" font-family="system-ui, sans-serif">✦</text>
+    <text x="64" y="98" font-size="16" font-family="system-ui, sans-serif">Find a push-optimal path</text>
+  </g>
+</svg>

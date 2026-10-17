@@ -43,3 +43,4 @@
 - [0031 — Opt-in GA4 page views](0031-opt-in-ga4-page-views.md) — Accepted.
 - [0032 — Seven-day daily challenge trail](0032-seven-day-daily-trail.md) — Accepted.
 - [0033 — Free browser game listings](0033-free-browser-listings.md) — Accepted.
+- [0034 — Self-hosted Sokoban](0034-self-hosted-sokoban.md) — Accepted.

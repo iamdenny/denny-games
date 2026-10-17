@@ -1,6 +1,7 @@
 import { setBoardMode } from "./helpers/board-settings";
 import { test, expect } from "@playwright/test";
 import { classicIds } from "../../src/data/board-games";
+import { games } from "../../src/data/games";
 import { initial } from "../../src/games/board/rules";
 for (const locale of ["en", "ko"] as const)
   for (const id of classicIds)
@@ -269,7 +270,7 @@ test("board category, collection, guide, schema and llms links are bilingual and
   expect(response.ok()).toBe(true);
   const text = await response.text();
   for (const id of classicIds) expect(text).toContain(`/ko/games/${id}/`);
-  expect(text).toContain("355 published titles");
+  expect(text).toContain(`${games.length} published titles`);
 });
 
 for (const id of classicIds)

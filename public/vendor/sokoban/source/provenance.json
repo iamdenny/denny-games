@@ -1,0 +1,37 @@
+{
+  "title": "Sokoban",
+  "author": "sen-ltd",
+  "license": "MIT",
+  "source_repository": "https://github.com/sen-ltd/sokoban",
+  "source_commit": "fb38f850151476809b6c65d86789912a9b0c4776",
+  "license_scope": "The upstream MIT license is retained. The six bundled mini-levels are identified by the upstream README as original. No upstream screenshot, font, sound or runtime dependency is used in the Denny Games game adapter.",
+  "product_artwork": {
+    "public/art/open-games/sokoban.svg": "fe3baa82f6b76e085504ca27ca3c0c59268ec0aa6834ed5c79a6633ad2ed0b62",
+    "public/art/open-games/sokoban-preview.png": "08dd60667a15fdcd9531198b3f3574329b8c867d521d17cf8d39ac28ad2e81e9"
+  },
+  "upstream_files": {
+    ".gitignore": "2c0bb3dc20ff30b51d8f58e362d38f03d8b2172dbbc4c1c4698888f412cb81b0",
+    "LICENSE": "22f46816349fa9958e42b98d71b7136db97c2e8e5c319dc76c7d5a341e6bc969",
+    "README.md": "b4dc97a1b593a28b22958f329e38769eff60df939d6737890353b45efb16a980",
+    "assets/screenshot.png": "9bc6e5b3233036dbf32c65f7f461631dfbeefe096e3b9d4263f5cf438744d97c",
+    "index.html": "44f6875b072d2c364fc642b3211fed5b385eaaa2a115c69d6086155ae59535b5",
+    "package-lock.json": "c48e04fa3e8b65b1631930fa03ee1775c0fe1cca67e068337aa042bcc514dae9",
+    "package.json": "28a6625d74d1df5008d511c6d1a4887f657501fe37f06d929f28343f2d6a07d0",
+    "public/assets/screenshot.png": "9bc6e5b3233036dbf32c65f7f461631dfbeefe096e3b9d4263f5cf438744d97c",
+    "src/levels.ts": "a6c8a32a572fbb313de5d86107c8fe129a0b59e256282464a7f85d5e83be1ee7",
+    "src/main.ts": "cf806e665a43d2203ecf5f3e01e48ee395f3e03cbbe4fa674e6685e24e25e7ed",
+    "src/sokoban.test.ts": "ce382a7993e0e82b0ea2b97543aff057516f8540ec7ceb8d527fa19f75602166",
+    "src/sokoban.ts": "560b8a2c4f192ce0898fb91c0715d9afa3a2dbe40ac0931dcfa9fa046e6a4d05",
+    "src/style.css": "17a8edd47533605d805d1ffa3be03408e5fcdc408bd4ac7941ff5bac6552437b",
+    "tsconfig.json": "6be3a8ae297ea6190bcb533a32810ac12aa9fb2e2efc6c44ebd8aea4c3ef2a21",
+    "vite.config.ts": "4366cbfc7359391746a3b8248e2a439211eaed765796f7d56ec67763a22c6fbc"
+  },
+  "host_adaptations": [
+    "Loads only the pure upstream Sokoban rules, solver and six level definitions; the upstream DOM shell, Vite build, screenshot and dev dependencies are not executed.",
+    "Adds a Denny Games lifecycle adapter with pause/resume/restart, accessible keyboard, gamepad and touch movement, undo, level selection and reduced-motion-aware solver playback.",
+    "Translates the visible game UI and messages into English and Korean.",
+    "Stores completed level IDs in the Denny Games browser save; a partially played level restarts after reload.",
+    "Preserves the full pinned upstream snapshot and checks every file hash before publishing corresponding source and license files."
+  ],
+  "device_evidence": "Chromium browser automation is recorded in tests/e2e/sokoban.spec.ts after implementation; physical phones, tablets, controllers and Tesla are not verified."
+}

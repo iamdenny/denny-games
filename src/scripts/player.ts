@@ -309,7 +309,7 @@ async function restartRound() {
     select.disabled = false; // Never resume gameplay in an SDK callback.
   }
   track("restart", id);
-  mount(id === "bounce-back" || id === "hextris");
+  mount(id === "bounce-back" || id === "hextris" || id === "sokoban");
   save();
   start.focus();
 }
@@ -567,6 +567,7 @@ try {
     hextris: () => import("../games/hextris"),
     "bounce-back": () => import("../games/bounceback"),
     underrun: () => import("../games/underrun"),
+    sokoban: () => import("../games/sokoban"),
     "crisp-chain-drift": () => import("../games/crisp-cycles"),
     "crisp-comet-slash": () => import("../games/crisp-cycles"),
     "crisp-volt-keeper": () => import("../games/crisp-cycles"),
