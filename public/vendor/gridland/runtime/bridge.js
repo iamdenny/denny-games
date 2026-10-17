@@ -2,6 +2,9 @@
   "use strict";
 
   var allowed = { gameOptions: true, slot0: true, slot1: true, slot2: true };
+  function isAllowed(key) {
+    return Object.prototype.hasOwnProperty.call(allowed, key);
+  }
   var maxValue = 200000;
   var maxTotal = 320000;
   var channel = new URLSearchParams(location.search).get("channel");
@@ -83,13 +86,13 @@
     },
     getItem: function (key) {
       key = String(key);
-      return allowed[key] && Object.prototype.hasOwnProperty.call(values, key)
+      return isAllowed(key) && Object.prototype.hasOwnProperty.call(values, key)
         ? values[key]
         : null;
     },
     setItem: function (key, value) {
       key = String(key);
-      if (!allowed[key]) return;
+      if (!isAllowed(key)) return;
       value = String(value);
       if (value.length > maxValue)
         throw new DOMException("Quota exceeded", "QuotaExceededError");
@@ -100,7 +103,7 @@
     },
     removeItem: function (key) {
       key = String(key);
-      if (allowed[key] && Object.prototype.hasOwnProperty.call(values, key)) {
+      if (isAllowed(key) && Object.prototype.hasOwnProperty.call(values, key)) {
         delete values[key];
         scheduleSnapshot();
       }
@@ -113,7 +116,7 @@
 
   var localStorage = new Proxy(storage, {
     get: function (target, key) {
-      if (typeof key === "string" && allowed[key]) {
+      if (typeof key === "string" && isAllowed(key)) {
         return Object.prototype.hasOwnProperty.call(values, key)
           ? values[key]
           : undefined;
@@ -121,14 +124,14 @@
       return target[key];
     },
     set: function (target, key, value) {
-      if (typeof key === "string" && allowed[key]) {
+      if (typeof key === "string" && isAllowed(key)) {
         target.setItem(key, value);
         return true;
       }
       return false;
     },
     deleteProperty: function (target, key) {
-      if (typeof key === "string" && allowed[key]) {
+      if (typeof key === "string" && isAllowed(key)) {
         target.removeItem(key);
         return true;
       }

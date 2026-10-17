@@ -117,14 +117,24 @@ test("Gridland plays locally, saves in the browser and fits phone and tablet vie
 
   const readBoard = () =>
     frame!.evaluate(() => {
+      const syncRequire = (
+        window as unknown as {
+          require?: (module: string) => unknown;
+        }
+      ).require;
+      const gameBoard = syncRequire?.("app/gameboard") as
+        { canMove: () => boolean } | undefined;
+      const world = syncRequire?.("app/world") as
+        { canMove: () => boolean } | undefined;
       const tiles = Array.from(
         document.querySelectorAll<HTMLElement>(
           ".gameBoard .tile:not(.hidden):not(.pooled)",
         ),
       );
-      const cells = tiles.map((tile) => {
+      const cells = tiles.map((tile, index) => {
         const rect = tile.getBoundingClientRect();
         return {
+          index,
           x: rect.x + rect.width / 2,
           y: rect.y + rect.height / 2,
           width: rect.width,
@@ -162,7 +172,7 @@ test("Gridland plays locally, saves in the browser and fits phone and tablet vie
         { length: ys.length },
         () => Array(xs.length),
       );
-      const centers: { x: number; y: number }[][] = Array.from(
+      const centers: { index: number; x: number; y: number }[][] = Array.from(
         { length: ys.length },
         () => Array(xs.length),
       );
@@ -170,7 +180,11 @@ test("Gridland plays locally, saves in the browser and fits phone and tablet vie
         const row = nearest(ys, cell.y);
         const column = nearest(xs, cell.x);
         grid[row]![column] = cell.type;
-        centers[row]![column] = { x: cell.x, y: cell.y };
+        centers[row]![column] = {
+          index: cell.index,
+          x: cell.x,
+          y: cell.y,
+        };
       }
       const matchesAt = (row: number, column: number) => {
         const type = grid[row]?.[column];
@@ -194,7 +208,10 @@ test("Gridland plays locally, saves in the browser and fits phone and tablet vie
         return false;
       };
       let candidate:
-        | { from: { x: number; y: number }; to: { x: number; y: number } }
+        | {
+            from: { index: number; x: number; y: number };
+            to: { index: number; x: number; y: number };
+          }
         | undefined;
       for (let row = 0; row < grid.length && !candidate; row++) {
         for (
@@ -240,6 +257,7 @@ test("Gridland plays locally, saves in the browser and fits phone and tablet vie
               row.every((cell) => typeof cell === "string"),
           ) &&
           cells.length === xs.length * ys.length,
+        settled: gameBoard?.canMove() === true && world?.canMove() === true,
       };
     });
   await expect
@@ -249,21 +267,82 @@ test("Gridland plays locally, saves in the browser and fits phone and tablet vie
     .poll(async () => (await readBoard()).candidate, { timeout: 15_000 })
     .toBeDefined();
   const beforeMove = await readBoard();
-  const frameBox = (await iframe.boundingBox())!;
   if (!beforeMove.candidate)
     throw new Error("Gridland did not expose a match-producing move.");
-  const tapOrClick = (point: { x: number; y: number }) =>
-    hasTouch
-      ? page.touchscreen.tap(frameBox.x + point.x, frameBox.y + point.y)
-      : page.mouse.click(frameBox.x + point.x, frameBox.y + point.y);
-  await tapOrClick(beforeMove.candidate.from);
-  await tapOrClick(beforeMove.candidate.to);
+  await frame!.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        const requireModules = (
+          window as unknown as {
+            require?: (
+              modules: string[],
+              callback: (events: {
+                bind: (name: string, listener: () => void) => void;
+              }) => void,
+            ) => void;
+          }
+        ).require;
+        if (!requireModules)
+          throw new Error("Gridland event manager is unavailable");
+        requireModules(["app/eventmanager"], (events) => {
+          (
+            window as Window & { __gridlandMatches?: number }
+          ).__gridlandMatches = 0;
+          events.bind("tilesCleared", () => {
+            const state = window as Window & { __gridlandMatches?: number };
+            state.__gridlandMatches = (state.__gridlandMatches ?? 0) + 1;
+          });
+          resolve();
+        });
+      }),
+  );
+  if (hasTouch) {
+    await frame!.evaluate(({ from, to }) => {
+      const start = document.elementFromPoint(from.x, from.y);
+      const end = document.elementFromPoint(to.x, to.y);
+      if (!start || !end) throw new Error("Gridland swipe targets are missing");
+      const dispatchTouch = (
+        target: Element,
+        name: string,
+        x: number,
+        y: number,
+      ) => {
+        const event = new Event(name, { bubbles: true, cancelable: true });
+        Object.defineProperty(event, "changedTouches", {
+          value: [{ target, clientX: x, clientY: y }],
+        });
+        target.dispatchEvent(event);
+      };
+      dispatchTouch(start, "touchstart", from.x, from.y);
+      dispatchTouch(end, "touchmove", to.x, to.y);
+      dispatchTouch(end, "touchend", to.x, to.y);
+    }, beforeMove.candidate);
+  } else {
+    const boardTiles = frame!.locator(
+      ".gameBoard .tile:not(.hidden):not(.pooled)",
+    );
+    await boardTiles.nth(beforeMove.candidate.from.index).click();
+    await boardTiles.nth(beforeMove.candidate.to.index).click();
+  }
   await expect
-    .poll(async () => (await readBoard()).signature, {
+    .poll(
+      () =>
+        frame!.evaluate(
+          () =>
+            (window as Window & { __gridlandMatches?: number })
+              .__gridlandMatches,
+        ),
+      { timeout: 15_000, intervals: [200, 400, 700] },
+    )
+    .toBeGreaterThan(0);
+  await expect
+    .poll(readBoard, {
       timeout: 15_000,
       intervals: [200, 400, 700],
     })
-    .not.toBe(beforeMove.signature);
+    .toMatchObject({ complete: true, settled: true });
+  const afterMove = await readBoard();
+  expect(afterMove.signature).not.toBe(beforeMove.signature);
 
   await page.locator("#pause-button").click();
   await expect(page.locator("#game-overlay")).toBeVisible();
@@ -289,6 +368,17 @@ test("Gridland plays locally, saves in the browser and fits phone and tablet vie
   expect(await frame!.evaluate(() => localStorage.getItem("slot2"))).toBe(
     saved.storage.slot2,
   );
+  const inheritedKeysResult = await frame!.evaluate(() => {
+    localStorage.clear();
+    localStorage.setItem("constructor", "x");
+    localStorage.setItem("toString", "y");
+    return (
+      localStorage.getItem("constructor") === null &&
+      localStorage.getItem("toString") === null &&
+      localStorage.length === 0
+    );
+  });
+  expect(inheritedKeysResult).toBe(true);
   const quotaResult = await frame!.evaluate(() => {
     localStorage.clear();
     localStorage.setItem("slot0", "a".repeat(200_000));
@@ -305,4 +395,80 @@ test("Gridland plays locally, saves in the browser and fits phone and tablet vie
   expect(quotaResult).toBe(true);
   expect(external).toEqual([]);
   expect(errors).toEqual([]);
+});
+
+test("Gridland saves the slot selected from its native picker", async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/en/play/gridland/");
+  await page.evaluate(() => window.localStorage.clear());
+  const hasTouch = testInfo.project.use.hasTouch === true;
+  const persistedSlots = new Set<number>();
+
+  for (const selectedSlot of [0, 1, 2]) {
+    await page.goto("/en/play/gridland/");
+    await page.locator("#start-button").click();
+    const frame = page
+      .frames()
+      .find((candidate) =>
+        candidate.url().includes("/vendor/gridland/runtime/"),
+      );
+    expect(frame).toBeDefined();
+    const slots = frame!.locator(".saveSlot");
+    await expect(slots).toHaveCount(3);
+    if (hasTouch) await slots.nth(selectedSlot).tap();
+    else await slots.nth(selectedSlot).click();
+    await frame!.waitForFunction(() => {
+      if (document.body.classList.contains("titleScreen")) return false;
+      return new Promise<boolean>((resolve) => {
+        const requireModules = (
+          window as unknown as {
+            require?: (
+              modules: string[],
+              callback: (
+                board: { canMove: () => boolean },
+                world: { canMove: () => boolean },
+                state: { save: () => void },
+              ) => void,
+            ) => void;
+          }
+        ).require;
+        if (!requireModules) {
+          resolve(false);
+          return;
+        }
+        requireModules(
+          ["app/gameboard", "app/world", "app/gamestate"],
+          (board, world, state) => {
+            if (board.canMove() && world.canMove()) {
+              state.save();
+              resolve(true);
+            } else {
+              window.setTimeout(
+                () => resolve(board.canMove() && world.canMove()),
+                100,
+              );
+            }
+          },
+        );
+      });
+    });
+    persistedSlots.add(selectedSlot);
+    await expect
+      .poll(() =>
+        page.evaluate(() => {
+          const key = Object.keys(localStorage).find((name) =>
+            name.startsWith("denny-games:v1:progress:gridland:"),
+          );
+          const saved = key
+            ? JSON.parse(localStorage.getItem(key) ?? "null")
+            : null;
+          return ["slot0", "slot1", "slot2"].map((slot) =>
+            Boolean(saved?.storage?.[slot]),
+          );
+        }),
+      )
+      .toEqual([0, 1, 2].map((slot) => persistedSlots.has(slot)));
+  }
 });
