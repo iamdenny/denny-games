@@ -9,12 +9,13 @@ export default defineConfig({
     "quick-play.spec.ts",
     "daily-progress.spec.ts",
     "sokoban.spec.ts",
+    "gridland.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },
     {
       name: "webkit-ipad-touch",
-      testMatch: "sokoban.spec.ts",
+      testMatch: ["sokoban.spec.ts", "gridland.spec.ts"],
       use: { ...devices["iPad Mini"] },
     },
   ],

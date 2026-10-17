@@ -2,6 +2,100 @@ import type { Game } from "./games";
 
 export const openSourceGames: Game[] = [
   {
+    id: "gridland",
+    category: "puzzle",
+    duration: "5–10",
+    controlStyle: "pointer",
+    color: "mint",
+    version: 1,
+    stages: 1,
+    tags: [
+      "gridland",
+      "match 3 survival game",
+      "day and night puzzle",
+      "resource match puzzle",
+      "매치 3 생존 게임",
+      "정착지 퍼즐",
+      "낮과 밤 퍼즐",
+      "자원 매치 퍼즐",
+      "오픈소스 게임",
+    ],
+    inputs: ["touch", "mouse"],
+    license: "MPL-2.0",
+    licenseDescription: {
+      en: "Gridland's game code and graphics are published under MPL-2.0 by Michael Townsend. Music, analytics, sharing and donation integrations are omitted; play runs locally on Denny Games.",
+      ko: "Michael Townsend가 공개한 Gridland 게임 코드와 그림은 MPL-2.0을 따릅니다. 별도 허가를 확인하지 못한 음악과 분석·공유·기부 연결은 제외하고 데니 게임즈에서 직접 실행합니다.",
+    },
+    licenseUrl:
+      "https://github.com/doublespeakgames/gridland/blob/06af02c3af7062aead04a1e6f67b6e59f3e4b6a1/LICENSE",
+    licenseUrlLabel: {
+      en: "MPL-2.0 source and license",
+      ko: "MPL-2.0 소스와 라이선스",
+    },
+    author: "Michael Townsend",
+    source:
+      "https://github.com/doublespeakgames/gridland/tree/06af02c3af7062aead04a1e6f67b6e59f3e4b6a1",
+    sourceLabel: {
+      en: "Pinned upstream source and notices",
+      ko: "버전을 고정한 원본 소스와 고지",
+    },
+    playModes: ["single-player"],
+    added: "2026-10-17",
+    imported: true,
+    internalScore: true,
+    notice: "/licenses/gridland/",
+    artworkAlt: {
+      en: "Original Denny Games illustration of colorful matching tiles above a settlement under a night sky",
+      ko: "밤하늘 아래 정착지 위로 알록달록한 매치 타일을 그린 데니 게임즈 자체 일러스트",
+    },
+    artwork: "/art/open-games/gridland.svg",
+    screenshot: "/art/open-games/gridland-preview.png",
+    text: {
+      en: {
+        title: "Gridland",
+        subtitle: "Match by day. Make it through the night.",
+        description:
+          "Match colorful tiles to gather supplies, build a tiny settlement and survive the dangers that arrive after dark. The original game runs here with local browser saves and no account.",
+        rules: [
+          "Drag or swipe a tile to swap it with a neighbor and match three or more of the same kind.",
+          "Gather resources in daylight and spend them on buildings that help your settlement survive.",
+          "Night brings enemies. Keep matching, build up your defenses and continue into the next day.",
+        ],
+        controls: [
+          "Touch: drag a tile toward a neighboring tile. Mouse: click and drag. The game is designed around direct board gestures.",
+          "Choose one of the three save slots when you start. Progress is stored in this browser on this device.",
+          "Use the pause button above the game to stop the action. Music and sound are omitted in this hosted version.",
+        ],
+        tips: [
+          "Look for a useful match before the sun sets; resources collected by day shape the next night.",
+          "Prioritize buildings that support the way you are playing, then keep the board moving.",
+          "Nighttime is part of the loop. Keep matching while your defenses handle the threats.",
+        ],
+      },
+      ko: {
+        title: "Gridland",
+        subtitle: "낮에는 맞추고, 밤에는 버텨요.",
+        description:
+          "알록달록한 타일을 맞춰 물자를 모으고 작은 정착지를 지어 밤의 위협을 견디세요. 계정 없이 이 사이트에서 바로 실행하며 진행 상황은 이 브라우저에 저장됩니다.",
+        rules: [
+          "타일을 끌거나 밀어 이웃 타일과 바꾸고 같은 종류 세 개 이상을 맞추세요.",
+          "낮에는 자원을 모으고 정착지를 지킬 건물을 지으세요.",
+          "밤이 되면 적이 찾아와요. 계속 타일을 맞추고 방어를 준비해 다음 낮까지 살아남으세요.",
+        ],
+        controls: [
+          "터치: 타일을 이웃 타일 쪽으로 끌어 옮기세요. 마우스: 누른 채 드래그하세요. 게임판을 직접 움직이는 방식으로 조작해요.",
+          "시작할 때 세 저장 슬롯 중 하나를 고르세요. 진행 상황은 이 기기의 브라우저에 저장됩니다.",
+          "게임 위의 일시정지 버튼으로 멈출 수 있어요. 이 호스팅 버전에서는 음악과 효과음을 제외했어요.",
+        ],
+        tips: [
+          "해가 지기 전에 다음에 필요한 매치를 찾아보세요. 낮에 모은 자원이 밤을 준비해요.",
+          "내 전략에 도움 되는 건물부터 짓고 타일을 계속 맞춰보세요.",
+          "밤도 게임 흐름의 일부예요. 방어 시설이 적을 상대하는 동안 매치를 이어가세요.",
+        ],
+      },
+    },
+  },
+  {
     id: "sokoban",
     category: "puzzle",
     duration: "5–10",

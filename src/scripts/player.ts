@@ -259,7 +259,7 @@ function mount(saved: boolean) {
     true,
   );
   start.textContent = text.start;
-  start.disabled = id.startsWith("crisp-");
+  start.disabled = id.startsWith("crisp-") || id === "gridland";
   restart.disabled = false;
   pauseButton.disabled = true;
   fitStage();
@@ -568,6 +568,7 @@ try {
     "bounce-back": () => import("../games/bounceback"),
     underrun: () => import("../games/underrun"),
     sokoban: () => import("../games/sokoban"),
+    gridland: () => import("../games/gridland"),
     "crisp-chain-drift": () => import("../games/crisp-cycles"),
     "crisp-comet-slash": () => import("../games/crisp-cycles"),
     "crisp-volt-keeper": () => import("../games/crisp-cycles"),

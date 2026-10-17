@@ -1,0 +1,1 @@
+define(function(){return {encode:function(value){return btoa(Array.from(new TextEncoder().encode(String(value)),function(byte){return String.fromCharCode(byte);}).join(""));},decode:function(value){return new TextDecoder().decode(Uint8Array.from(atob(String(value)),function(char){return char.charCodeAt(0);}));}};});
