@@ -1,7 +1,7 @@
 {
   "reviewedAt": "2026-10-17",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. The previous 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. This wave adds three more direct-GET HTTP 200 hosts; the We Become What We Behold itch.io host returned HTTP 429 to one automated GET, then HTTP 200 to HEAD and a later GET; browser access remains unverified. An automated GET for OpenFront returned HTTP 403, but the official UI and solo map chooser loaded in Chromium; the listing below records both outcomes. The next three listings add The Evolution of Trust, Scorched Tanks and BananaBread. Their hosts returned HTTP 200. Chromium opened the first Trust scene at 390x844, Scorched Tanks title/AI setup at 390x844 and tablet-sized 820x1180 without overflow, and BananaBread’s 640x480 WebAssembly arena after about 18 seconds and roughly 14.8 MB transferred. Trust source terms include separately licensed audio; Scorched Tanks publishes no source-code license; BananaBread separates zlib code from CC-BY/CC-BY-SA artwork. The BananaBread page measures 986 CSS px at 390px and has no advertised touch input. No full chapter, battle, combat run, online room, save flow or physical device was verified. No third-party content was copied. The 2026-10-17 wave adds OpenFront and Hypersomnia. OpenFront’s official UI and solo map chooser loaded in Chromium; the initial UI fit 390x844 and 820x1180, but an automated GET returned HTTP 403. The browser host showed ads and purchase/Steam offers, with no upfront payment on the solo/tutorial path. Hypersomnia’s guest tutorial loaded after an initial 23.42 MB transfer; Discord sign-in is offered for ranked play. At 390px its page/canvas measured about 980 CSS px without visible touch controls; at 820x1180 it fit without horizontal overflow. No complete match or physical-device behavior was tested.",
+  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. The previous 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. This wave adds three more direct-GET HTTP 200 hosts; the We Become What We Behold itch.io host returned HTTP 429 to one automated GET, then HTTP 200 to HEAD and a later GET; browser access remains unverified. An automated GET for OpenFront returned HTTP 403, but the official UI and solo map chooser loaded in Chromium; the listing below records both outcomes. The next three listings add The Evolution of Trust, Scorched Tanks and BananaBread. Their hosts returned HTTP 200. Chromium opened the first Trust scene at 390x844, Scorched Tanks title/AI setup at 390x844 and tablet-sized 820x1180 without overflow, and BananaBread’s 640x480 WebAssembly arena after about 18 seconds and roughly 14.8 MB transferred. Trust source terms include separately licensed audio; Scorched Tanks publishes no source-code license; BananaBread separates zlib code from CC-BY/CC-BY-SA artwork. The BananaBread page measures 986 CSS px at 390px and has no advertised touch input. No full chapter, battle, combat run, online room, save flow or physical device was verified. No third-party content was copied. The 2026-10-17 wave adds OpenFront and Hypersomnia. OpenFront’s official UI and solo map chooser loaded in Chromium; the initial UI fit 390x844 and 820x1180, but an automated GET returned HTTP 403. The browser host showed ads and purchase/Steam offers, with no upfront payment on the solo/tutorial path. Hypersomnia’s guest tutorial loaded after an initial 23.42 MB transfer; Discord sign-in is offered for ranked play. At 390px its page/canvas measured about 980 CSS px without visible touch controls; at 820x1180 it fit without horizontal overflow. No complete match or physical-device behavior was tested. The next 2026-10-17 wave adds Bloxd.io, Lichess, Pokémon Showdown, City Guesser and skribbl.io. Each official homepage or opening menu returned HTTP 200 and rendered at 390x844 and 810x1080 without horizontal overflow. Bloxd displayed a privacy-consent dialog, which was not accepted. Lichess showed a network-assets warning in the test browser. We did not enter a game mode, chess game, battle, room or video round, and no physical device was tested. The listings distinguish Lichess AGPL-3.0-or-later application code from separate asset terms, Pokémon Showdown MIT server code from separate client and Pokémon-related media rights, and free browser access from the unpublished source-code licenses of Bloxd.io, City Guesser and skribbl.io. Their privacy and terms links are included where published; no third-party software, media or game data was copied.",
   "entries": [
     {
       "id": "freedoom",
@@ -1881,6 +1881,76 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The project describes a top-down multiplayer shooter and links its browser version. The guest tutorial loaded, but no full match was completed. No touch controls were visible at phone or tablet widths; physical-device behavior was not tested."
+    },
+    {
+      "id": "bloxd-io",
+      "projectSource": "https://bloxd.io/",
+      "projectLicense": "No public source-code license identified; official terms govern game use",
+      "licenseText": "https://bloxd.io/terms-of-service",
+      "privacyPolicy": "https://bloxd.io/privacy-policy",
+      "externalHost": "https://bloxd.io/",
+      "hostSource": "https://bloxd.io/",
+      "hostWrapperLicense": "Official free browser game hub. The privacy-consent dialog and mode menu loaded; sign-in is offered for saving progress. Denny Games links out and copies no code, build or artwork.",
+      "urlStatus": "HTTP 200; opening UI and mode menu rendered at 390x844 and 810x1080 without horizontal overflow; privacy dialog not accepted 2026-10-17",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "No public source-code license was identified. The official privacy policy says visitor data may include IP, browser/device, screen and language details, site usage and moderation information; cookies support settings, progress, analytics and advertising, with personalized advertising based on consent. Account creation requires age 13+ or parental consent for younger players. No mode, chat room, full game or physical device was tested."
+    },
+    {
+      "id": "lichess",
+      "projectSource": "https://github.com/lichess-org/lila",
+      "projectLicense": "AGPL-3.0-or-later for the Lila application; copying guide lists separately licensed assets and exceptions",
+      "licenseText": "https://github.com/lichess-org/lila/blob/master/COPYING.md",
+      "privacyPolicy": "https://lichess.org/privacy",
+      "externalHost": "https://lichess.org/",
+      "hostSource": "https://lichess.org/about",
+      "hostWrapperLicense": "Official free and open-source chess service. The home menu showed quick pairing, lobby and computer-play options. Denny Games links out and copies no software or media.",
+      "urlStatus": "HTTP 200; home/play menus rendered at 390x844 and 810x1080 without horizontal overflow; a network-assets warning appeared in the automated browser 2026-10-17",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "Lila is AGPL-3.0-or-later, while the project copying guide lists exceptions for fonts, icons, graphics and other assets. The privacy policy says connection logs may include IP/browser/device information, uses session cookies for authentication, and describes registered-user data and messages. Lichess says its site is free and does not run ads or tracking cookies beyond its login cookie. No game or physical device was tested."
+    },
+    {
+      "id": "pokemon-showdown",
+      "projectSource": "https://github.com/smogon/pokemon-showdown",
+      "projectLicense": "MIT license for server code; client code and Pokémon-related game content have separate rights",
+      "licenseText": "https://github.com/smogon/pokemon-showdown/blob/master/LICENSE",
+      "privacyPolicy": "https://pokemonshowdown.com/privacy",
+      "externalHost": "https://play.pokemonshowdown.com/",
+      "hostSource": "https://pokemonshowdown.com/",
+      "hostWrapperLicense": "Official fan-made, unofficial online battle simulator. The home and Battle prompt rendered; no account, team or match was entered. Denny Games copies no game content.",
+      "urlStatus": "HTTP 200; home and battle prompt rendered at 390x844 and 810x1080 without horizontal overflow 2026-10-17",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The official repository publishes MIT server code; this does not establish that all client code or Pokémon-related names and media share that license. The simulator is not affiliated with or endorsed by Nintendo, Game Freak or The Pokémon Company. The privacy policy describes login/preferences cookies, Google Analytics, Google AdSense and Playwire advertising, IP/cookie use for bans and possible chat/battle/private-message logs. No battle, chat or physical-device behavior was tested."
+    },
+    {
+      "id": "city-guesser",
+      "projectSource": "https://cityguesser.eu/",
+      "projectLicense": "No public source-code license identified; official terms apply",
+      "licenseText": "https://cityguesser.eu/terms",
+      "privacyPolicy": "https://cityguesser.eu/privacy",
+      "externalHost": "https://play.cityguesser.eu/",
+      "hostSource": "https://cityguesser.eu/",
+      "hostWrapperLicense": "Official site links to a free browser game and private rooms, with no account required on its newer-version page. Ads appeared in the browser check. Denny Games copies no video, map data or artwork.",
+      "urlStatus": "HTTP 200; private-room menu rendered at 390x844 and 810x1080 without horizontal overflow 2026-10-17",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "No public source-code license was identified. The official privacy policy says the game needs no account and does not store personal information, while standard log data may include IP address, browser type/version, pages visited, visit time and usage statistics. The room menu loaded, but no room was created and no video round or physical device was tested."
+    },
+    {
+      "id": "skribbl-io",
+      "projectSource": "https://skribbl.io/",
+      "projectLicense": "No open-source license published; terms permit personal, non-commercial viewing and prohibit copying or mirroring",
+      "licenseText": "https://skribbl.io/terms",
+      "privacyPolicy": "https://skribbl.io/terms",
+      "externalHost": "https://skribbl.io/",
+      "hostSource": "https://skribbl.io/terms",
+      "hostWrapperLicense": "Official free multiplayer drawing/guessing game. The home and private-room menu rendered; Denny Games links out and copies no software, drawing or other game content.",
+      "urlStatus": "HTTP 200; home and private-room menu rendered at 390x844 and 810x1080 without horizontal overflow 2026-10-17",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The terms page includes both Terms of Service and a Privacy Policy; there is no separate privacy page. The policy says third-party advertising companies may use information about visits to this and other websites for advertising, excluding direct identifiers such as name, address, email and phone from that ad information. Its 2022 news post describes mobile support and experimental pressure touch input. No room, drawing round or physical device was tested."
     }
   ]
 }

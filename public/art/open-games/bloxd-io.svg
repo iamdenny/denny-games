@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Bloxd.io</title>
+  <desc id="desc">Original Denny Games illustration of a bright voxel landscape with floating blocks</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#274975"/><stop offset="1" stop-color="#5cb6bd"/></linearGradient>
+    <linearGradient id="grass" x2="0" y2="1"><stop stop-color="#8bd77c"/><stop offset="1" stop-color="#397d68"/></linearGradient>
+    <linearGradient id="water" x2="1" y2="1"><stop stop-color="#4bd0d2"/><stop offset="1" stop-color="#3879bb"/></linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#sky)"/><circle cx="500" cy="74" r="36" fill="#ffe6a3" opacity=".92"/>
+  <path d="M0 230 110 155l86 53 92-85 130 91 83-66 139 84v128H0Z" fill="#315c70" opacity=".7"/>
+  <path d="m0 249 122-69 103 68 93-80 94 66 102-56 126 75v107H0Z" fill="#478d77"/>
+  <path d="M0 283 147 222l98 49 118-45 81 50 114-47 82 43v88H0Z" fill="url(#grass)"/>
+  <path d="M252 360q51-50 83-95t82-50q48 5 70 41t83 42l70 62Z" fill="url(#water)" opacity=".94"/>
+  <g stroke="#10263d" stroke-opacity=".35" stroke-width="3" stroke-linejoin="round">
+    <path d="m82 201 37-21 37 21v42l-37 22-37-22Z" fill="#a8d96e"/><path d="m119 180 38 21-38 22-37-22Z" fill="#dbef9b"/><path d="M119 223v42l38-22v-42Z" fill="#74b957"/>
+    <path d="m434 216 30-17 31 17v35l-31 18-30-18Z" fill="#f6b86b"/><path d="m464 199 31 17-31 18-30-18Z" fill="#ffdb91"/><path d="M464 234v35l31-18v-35Z" fill="#dd8755"/>
+    <path d="m311 102 25-15 26 15v30l-26 15-25-15Z" fill="#ed7f89"/><path d="m336 87 26 15-26 15-25-15Z" fill="#ffbac0"/><path d="M336 117v30l26-15v-30Z" fill="#c95678"/>
+  </g>
+  <g fill="#eaf8dc" opacity=".74"><path d="M44 72h48v6H44zm0 13h31v4H44z"/><path d="M510 300h70v6h-70zm0 13h43v4h-43z"/></g>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Lichess</title>
+  <desc id="desc">Original Denny Games chessboard illustration with a rook and a knight silhouette</desc>
+  <defs>
+    <linearGradient id="felt" x2="1" y2="1"><stop stop-color="#172d33"/><stop offset="1" stop-color="#2f6057"/></linearGradient>
+    <linearGradient id="ivory" x2="0" y2="1"><stop stop-color="#fff0cc"/><stop offset="1" stop-color="#d7b980"/></linearGradient>
+    <linearGradient id="wood" x2="0" y2="1"><stop stop-color="#ae7352"/><stop offset="1" stop-color="#704438"/></linearGradient>
+    <filter id="shadow" x="-.3" y="-.3" width="1.6" height="1.7"><feGaussianBlur in="SourceAlpha" stdDeviation="7"/><feOffset dy="8"/><feComponentTransfer><feFuncA type="linear" slope=".36"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#felt)"/><path d="M0 80h640M0 282h640" stroke="#cce5d4" stroke-opacity=".13" stroke-width="2"/>
+  <g transform="translate(77 66) rotate(-5 170 125)" stroke="#f2dbb4" stroke-opacity=".5" stroke-width="2">
+    <rect width="264" height="224" rx="8" fill="url(#wood)"/><g transform="translate(14 12)">
+      <rect width="236" height="196" fill="#e4cfaa"/>
+      <path d="M0 0h29.5v24.5H0zm59 0h29.5v24.5H59zm59 0h29.5v24.5H118zm59 0h29.5v24.5H177zM29.5 24.5H59V49H29.5zm59 0H118V49H88.5zm59 0H177V49h-29.5zM0 49h29.5v24.5H0zm59 0h29.5v24.5H59zm59 0h29.5v24.5H118zm59 0h29.5v24.5H177z" fill="#476c59"/>
+      <path d="M0 98h236v24.5H0zm0 49h236v24.5H0z" fill="#b5d1a1" opacity=".8"/><circle cx="73" cy="85" r="9" fill="#f5c975"/><circle cx="162" cy="134" r="9" fill="#ef9174"/>
+      <path d="M73 85 103 61 132 85 162 134" fill="none" stroke="#fff1bd" stroke-width="3" stroke-dasharray="5 7"/>
+    </g>
+  </g>
+  <g filter="url(#shadow)" stroke="#76533b" stroke-width="4" stroke-linejoin="round">
+    <path d="M423 277h133l-8 19H431Z" fill="url(#wood)"/><path d="M442 272q20-12 24-35l-12-16q-7-8 2-15l24-23q-1-18 15-31 11 17 25 18 10 1 22-10l7 26q-4 23-22 31 11 19 13 55Z" fill="url(#ivory)"/>
+    <path d="m458 207 19-3-13 18m50-44q14 9 24 5" fill="none" stroke="#a2764e" stroke-width="5"/><circle cx="515" cy="196" r="4" fill="#33463e" stroke="none"/>
+  </g>
+  <g fill="#e5eed8" opacity=".72"><circle cx="532" cy="86" r="3"/><circle cx="559" cy="103" r="2"/><circle cx="421" cy="103" r="2"/><circle cx="571" cy="73" r="2"/></g>
+</svg>

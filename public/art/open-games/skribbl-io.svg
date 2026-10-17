@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">skribbl.io</title>
+  <desc id="desc">Original Denny Games illustration of a colorful drawing board, pencil and playful sketch marks</desc>
+  <defs>
+    <linearGradient id="paper" x2="0" y2="1"><stop stop-color="#fffaf0"/><stop offset="1" stop-color="#eee8d8"/></linearGradient>
+    <linearGradient id="blue" x2="1" y2="1"><stop stop-color="#5ad1da"/><stop offset="1" stop-color="#3984c8"/></linearGradient>
+    <linearGradient id="pencil" x2="1" y2="0"><stop stop-color="#ffca69"/><stop offset="1" stop-color="#f08361"/></linearGradient>
+    <filter id="lift" x="-.2" y="-.2" width="1.4" height="1.5"><feGaussianBlur in="SourceAlpha" stdDeviation="7"/><feOffset dy="7"/><feComponentTransfer><feFuncA type="linear" slope=".28"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="#2c3856"/><circle cx="92" cy="71" r="32" fill="#ffe08d" opacity=".85"/><path d="M0 266q116-70 224-18t215-13q112-24 201 15v110H0Z" fill="#27344d"/>
+  <g filter="url(#lift)" transform="rotate(-4 291 185)"><rect x="73" y="61" width="430" height="260" rx="18" fill="#cf9d67"/><rect x="84" y="70" width="408" height="237" rx="12" fill="url(#paper)"/>
+    <path d="M124 107h89" stroke="#d4d2c3" stroke-width="2" stroke-dasharray="5 8"/><path d="M128 250q35-67 79-49 36 14 51 47 35-89 90-55 21 13 38 43" fill="none" stroke="#457fca" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M161 202q13-31 36-14l15 23-18 20-28-4Z" fill="#ed7188"/><circle cx="174" cy="207" r="3.5" fill="#343c5a"/><circle cx="198" cy="207" r="3.5" fill="#343c5a"/>
+    <path d="m341 122 25-20 17 20-5 28-15 14-22-16Z" fill="#75c88a"/><path d="m382 249 24-17 26 7 20 24-5 23h-67Z" fill="#f3b64e"/><path d="M294 98q20-22 39 0m27 85 24-13m-180 88 8-15m147 31 22 12" fill="none" stroke="#db78ad" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(485 76) rotate(31)" stroke="#382e4c" stroke-width="3" stroke-linejoin="round"><path d="M0 21h44v181L22 227 0 202Z" fill="url(#pencil)"/><path d="M0 21 22 0l22 21Z" fill="#f7d5a1"/><path d="m15 211 7 16 8-16" fill="#5d4654"/><path d="M0 45h44" stroke="#fff0bb" stroke-width="5"/></g>
+  <g fill="none" stroke-linecap="round" stroke-width="5"><path d="m547 52 14-13m-12 37 20 2M63 129l-16-8m17 34-18 7" stroke="#ffd47f"/><path d="m554 288 17 9m-29 13-5 18" stroke="#81e1d7"/></g>
+</svg>
