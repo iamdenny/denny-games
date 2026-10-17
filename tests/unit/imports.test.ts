@@ -10,8 +10,8 @@ import { discoverySchema } from "../../src/lib/seo";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(348);
-    expect(games.filter((game) => game.externalPlay)).toHaveLength(143);
+    expect(games).toHaveLength(350);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(145);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)
@@ -24,6 +24,27 @@ describe("import admission and catalogue", () => {
         expect(g.text[l].description.length).toBeGreaterThan(20);
       }
     }
+  });
+  it("keeps the new external game hosts and their license boundaries explicit", () => {
+    const openfront = games.find((game) => game.id === "openfront")!;
+    expect(openfront.externalPlay?.url).toBe("https://openfront.io/");
+    expect(openfront.license).toContain("AGPL-3.0");
+    expect(openfront.licenseDescription?.en).toContain("proprietary");
+    expect(openfront.licenseAppliesToGame).toBe(false);
+    expect(openfront.tags).not.toContain("free open source browser game");
+    expect(openfront.tags).not.toContain("무료 오픈소스 브라우저 게임");
+    expect(openfront.externalPlay?.privacyUrl).toBe(
+      "https://openfront.io/privacy-policy.html",
+    );
+    expect(openfront.externalPlay?.privacyNote?.en).toContain("chat");
+    expect(openfront.externalPlay?.privacyNote?.ko).toContain("채팅");
+
+    const hypersomnia = games.find((game) => game.id === "hypersomnia")!;
+    expect(hypersomnia.externalPlay?.url).toBe("https://play.hypersomnia.io/");
+    expect(hypersomnia.license).toContain("AGPL-3.0");
+    expect(hypersomnia.licenseAppliesToGame).toBe(false);
+    expect(hypersomnia.tags).not.toContain("free open source browser game");
+    expect(hypersomnia.tags).not.toContain("무료 오픈소스 브라우저 게임");
   });
   it("does not label free proprietary listings as open source in search metadata", () => {
     const hotlapped = games.find((game) => game.id === "hotlapped")!;

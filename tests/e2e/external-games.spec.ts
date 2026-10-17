@@ -6,10 +6,13 @@ const externalGames = games.flatMap((game) =>
     ? [
         {
           id: game.id,
+          title: game.text,
           url: game.externalPlay.url,
           licenseDescription: game.licenseDescription,
           licenseUrl: game.licenseUrl,
           licenseUrlLabel: game.licenseUrlLabel,
+          privacyNote: game.externalPlay.privacyNote,
+          privacyUrl: game.externalPlay.privacyUrl,
         },
       ]
     : [],
@@ -27,7 +30,48 @@ for (const locale of ["en", "ko"] as const) {
       await expect(launch).toHaveAttribute("href", game.url);
       await expect(launch).toHaveAttribute("target", "_blank");
       await expect(launch).toHaveAttribute("rel", "noopener noreferrer");
-      await expect(page.locator(".external-host-note")).toBeVisible();
+      if (game.privacyNote?.[locale] && game.privacyUrl) {
+        const privacyNote = page.locator(".external-privacy-note");
+        await expect(privacyNote).toBeVisible();
+        await expect(privacyNote).toContainText(game.privacyNote[locale]);
+        const privacyLink = privacyNote.getByRole("link");
+        await expect(privacyLink).toHaveAttribute("href", game.privacyUrl);
+        await expect(privacyLink).toHaveAccessibleName(
+          locale === "ko"
+            ? `${game.title[locale].title} 개인정보 처리방침 읽기`
+            : `Read privacy policy for ${game.title[locale].title}`,
+        );
+        expect(
+          await page.evaluate(() => {
+            const disclosure = document.querySelector(".external-privacy-note");
+            const launch = document.querySelector(
+              ".detail-actions a.button.primary",
+            );
+            return Boolean(
+              disclosure &&
+              launch &&
+              disclosure.compareDocumentPosition(launch) &
+                Node.DOCUMENT_POSITION_FOLLOWING,
+            );
+          }),
+        ).toBe(true);
+        for (const [width, height] of [
+          [320, 800],
+          [390, 844],
+          [834, 1194],
+          [1194, 834],
+        ] as const) {
+          await page.setViewportSize({ width, height });
+          expect(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth <= window.innerWidth,
+            ),
+          ).toBe(true);
+        }
+      }
+      await expect(
+        page.locator(".external-host-note:not(.external-privacy-note)"),
+      ).toBeVisible();
       if (game.licenseDescription?.[locale])
         await expect(page.locator(".prose")).toContainText(
           game.licenseDescription[locale],

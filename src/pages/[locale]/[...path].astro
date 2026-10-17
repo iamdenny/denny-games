@@ -276,6 +276,24 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </span>
           <h1>{game.text[locale].title}</h1>
           <p>{game.text[locale].description}</p>
+          {game.externalPlay?.privacyNote && game.externalPlay.privacyUrl && (
+            <p class="external-host-note external-privacy-note">
+              <strong>
+                {label("Privacy before play:", "플레이 전 개인정보 안내:")}
+              </strong>{" "}
+              {game.externalPlay.privacyNote[locale]}{" "}
+              <a
+                href={game.externalPlay.privacyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {label(
+                  `Read privacy policy for ${game.text[locale].title}`,
+                  `${game.text[locale].title} 개인정보 처리방침 읽기`,
+                )}
+              </a>
+            </p>
+          )}
           <div class="detail-actions">
             <a
               class="button primary"

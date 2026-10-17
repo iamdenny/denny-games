@@ -31,6 +31,8 @@ type Listing = {
   url: string;
   host: Record<Locale, string>;
   hostNote: Record<Locale, string>;
+  privacyNote?: Record<Locale, string>;
+  privacyUrl?: string;
   artworkAlt: Record<Locale, string>;
   copy: Record<Locale, Copy>;
 };
@@ -2280,6 +2282,7 @@ const listings: Listing[] = [
 
 type ExpandedListingSpec = {
   id: string;
+  added?: string;
   title: string;
   category: Game["category"];
   controlStyle: Game["controlStyle"];
@@ -2297,6 +2300,8 @@ type ExpandedListingSpec = {
   url: string;
   host: Record<Locale, string>;
   hostNote: Record<Locale, string>;
+  privacyNote?: Record<Locale, string>;
+  privacyUrl?: string;
   summary: Record<Locale, string>;
   controls: Record<Locale, string>;
   mode?: Record<Locale, string>;
@@ -5248,7 +5253,7 @@ function expandListing(spec: ExpandedListingSpec): Listing {
 
   return {
     id: spec.id,
-    added: "2026-10-16",
+    added: spec.added ?? "2026-10-16",
     category: spec.category,
     controlStyle: spec.controlStyle,
     color: categoryColors[spec.category],
@@ -5285,6 +5290,8 @@ function expandListing(spec: ExpandedListingSpec): Listing {
     url: spec.url,
     host: spec.host,
     hostNote: spec.hostNote,
+    privacyNote: spec.privacyNote,
+    privacyUrl: spec.privacyUrl,
     artworkAlt: {
       en: `Original Denny Games title-card artwork for ${spec.title}; not an official game screenshot.`,
       ko: `${spec.title}의 데니 게임즈 자체 타이틀 카드 일러스트이며 공식 게임 화면이 아닙니다.`,
@@ -5345,7 +5352,13 @@ function toGame(entry: Listing): Game {
     source: entry.source,
     sourceLabel: entry.sourceLabel,
     playModes: entry.playModes,
-    externalPlay: { url: entry.url, host: entry.host, note: entry.hostNote },
+    externalPlay: {
+      url: entry.url,
+      host: entry.host,
+      note: entry.hostNote,
+      privacyNote: entry.privacyNote,
+      privacyUrl: entry.privacyUrl,
+    },
     added: entry.added ?? "2026-10-15",
     artwork: `/art/open-games/${entry.id}.svg`,
     artworkAlt: entry.artworkAlt,
@@ -6117,6 +6130,160 @@ const freeBrowserWaveNineSpecs: GraphicalListingSpec[] = [
   },
 ];
 
+const freeBrowserWaveTenSpecs: GraphicalListingSpec[] = [
+  {
+    id: "openfront",
+    added: "2026-10-17",
+    isOpenSource: false,
+    title: "OpenFront",
+    category: "strategy",
+    controlStyle: "host",
+    inputs: ["mouse"],
+    license: "AGPL-3.0 code; CC BY-SA 4.0 and proprietary asset terms",
+    licenseDescription: {
+      en: "The source code is licensed under AGPL-3.0. The separate asset policy covers only files in /resources under CC BY-SA 4.0 with attribution; /proprietary files and CDN, database or API assets remain proprietary. The browser host also displays ads and purchase or Steam offers. Denny Games links to the official host and copies no code, maps, game assets or screenshots.",
+      ko: "소스 코드는 AGPL-3.0 라이선스입니다. 별도 자산 정책은 /resources 안의 파일에만 저작자 표시가 필요한 CC BY-SA 4.0을 적용하며 /proprietary 파일과 CDN·데이터베이스·API 자산은 독점 권리로 남습니다. 브라우저 호스트에는 광고와 구매·Steam 안내도 표시됩니다. 데니 게임즈는 공식 호스트로 연결만 하며 코드·맵·게임 자산·스크린샷을 복사하지 않습니다.",
+    },
+    licenseUrl: "https://github.com/openfrontio/OpenFrontIO#license",
+    licenseUrlLabel: {
+      en: "Project code and asset terms",
+      ko: "프로젝트 코드와 자산 조건",
+    },
+    licenseAppliesToGame: false,
+    author: "OpenFront and contributors",
+    source: "https://github.com/openfrontio/OpenFrontIO",
+    sourceLabel: {
+      en: "Official source repository and licensing notes",
+      ko: "공식 소스 저장소",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://openfront.io/",
+    host: {
+      en: "OpenFront official browser game",
+      ko: "OpenFront 공식 브라우저 게임",
+    },
+    hostNote: {
+      en: "The source README describes a real-time strategy game and links to this host. Chromium opened the solo map chooser; its first screens fit at 390×844 and 820×1180 without horizontal overflow. Solo/tutorial entry showed no upfront payment step, while the public interface also includes ads and purchase or Steam offers. Sign-in is offered for achievements. A complete battle, touch gameplay, purchase flow and physical-device behavior were not tested.",
+      ko: "소스 README는 실시간 전략 게임을 설명하고 이 호스트로 연결합니다. Chromium에서 1인 플레이 맵 선택기가 열렸으며 첫 화면은 390×844와 820×1180에서 가로 넘침 없이 표시됐습니다. 1인 플레이·튜토리얼 진입에는 선결제가 없었고 공개 화면에는 광고와 구매·Steam 안내도 있습니다. 업적용 로그인은 선택 사항입니다. 전체 전투·터치 플레이·구매 과정·실물 기기는 검증하지 않았습니다.",
+    },
+    privacyNote: {
+      en: "The host says it may collect IP, device and browser details, plus gameplay data including chat; analytics and advertising cookies may be used. Discord sign-in shares account details, while some player names and game statistics may be public. Review the policy before continuing.",
+      ko: "호스트는 IP·기기·브라우저 정보와 채팅을 포함한 게임 데이터를 수집할 수 있고 분석·광고 쿠키를 사용할 수 있다고 안내합니다. Discord 로그인 시 계정 정보가 전달되며 일부 플레이어 이름과 게임 통계가 공개될 수 있습니다. 계속하기 전에 정책을 확인하세요.",
+    },
+    privacyUrl: "https://openfront.io/privacy-policy.html",
+    summary: {
+      en: "Expand across map-based territories, manage a growing front and form alliances in a real-time strategy game.",
+      ko: "지도 위 영토를 넓히고 전선을 관리하며 동맹을 맺는 실시간 전략 게임입니다.",
+    },
+    objective: {
+      en: "Choose solo or tutorial play, select a map and follow the host's instructions for expanding and defending territory.",
+      ko: "1인 플레이나 튜토리얼을 선택하고 맵을 고른 뒤 호스트 안내에 따라 영토를 넓히고 방어하세요.",
+    },
+    controls: {
+      en: "Mouse: choose a mode and map and interact with the game UI. Read the host's current controls before a match; touch gameplay was not verified.",
+      ko: "마우스: 모드와 맵을 선택하고 게임 UI와 상호작용하세요. 대전 전에 호스트의 최신 조작 안내를 확인하세요. 터치 플레이는 검증하지 않았습니다.",
+    },
+    mode: {
+      en: "Free browser entry offers solo play, a tutorial and online lobbies. Optional sign-in, ads and purchase or Steam offers are controlled by the host. Source code is AGPL-3.0; game assets have separate CC BY-SA or proprietary terms.",
+      ko: "브라우저에서 1인 플레이·튜토리얼·온라인 로비로 무료 진입할 수 있습니다. 선택형 로그인·광고·구매·Steam 안내는 호스트가 운영합니다. 소스 코드는 AGPL-3.0이며 게임 자산에는 CC BY-SA 또는 독점 조건이 따로 적용됩니다.",
+    },
+    tip: {
+      en: "Start with the tutorial or a solo map to learn how expansion and alliances work before joining a public lobby.",
+      ko: "공개 로비에 들어가기 전에 튜토리얼이나 1인 맵에서 영토 확장과 동맹 규칙을 익혀 보세요.",
+    },
+    keywords: {
+      en: [
+        "OpenFront browser game",
+        "real time strategy browser game",
+        "territory control strategy game",
+        "world map RTS",
+        "online alliance strategy game",
+      ],
+      ko: [
+        "OpenFront 브라우저 게임",
+        "실시간 전략 브라우저 게임",
+        "영토 점령 전략 게임",
+        "세계 지도 RTS",
+        "온라인 동맹 전략 게임",
+      ],
+    },
+  },
+  {
+    id: "hypersomnia",
+    added: "2026-10-17",
+    isOpenSource: false,
+    title: "Hypersomnia",
+    category: "shooting",
+    controlStyle: "host",
+    inputs: ["keyboard", "mouse"],
+    license:
+      "AGPL-3.0 source code; hosted content terms not independently reviewed",
+    licenseDescription: {
+      en: "The project publishes its source under AGPL-3.0 and describes the game as free and open source. This listing points to the official browser version but does not redistribute its build or assets; separate terms for every hosted media item were not independently reviewed.",
+      ko: "프로젝트는 소스를 AGPL-3.0으로 공개하고 게임을 무료·오픈소스로 안내합니다. 이 목록은 공식 브라우저 버전으로 연결하지만 빌드나 자산을 재배포하지 않습니다. 호스트의 모든 미디어 항목에 별도 조건이 있는지는 각각 확인하지 않았습니다.",
+    },
+    licenseUrl:
+      "https://github.com/TeamHypersomnia/Hypersomnia/blob/master/LICENSE.md",
+    licenseUrlLabel: {
+      en: "Project source license",
+      ko: "프로젝트 소스 라이선스",
+    },
+    licenseAppliesToGame: false,
+    author: "Team Hypersomnia",
+    source: "https://github.com/TeamHypersomnia/Hypersomnia",
+    sourceLabel: {
+      en: "Official source repository and browser build link",
+      ko: "공식 소스 저장소와 브라우저 빌드 링크",
+    },
+    playModes: ["single-player", "multi-player"],
+    url: "https://play.hypersomnia.io/",
+    host: {
+      en: "Hypersomnia official browser build",
+      ko: "Hypersomnia 공식 브라우저 빌드",
+    },
+    hostNote: {
+      en: "The source README links to this browser shooter and says the project is free and open source. A guest tutorial loaded after an initial 23.42 MB transfer; Discord sign-in is offered for ranked play and leaderboards. At 390px, the page/canvas measured about 980 CSS px and no touch controls were visible. At an 820×1180 tablet-sized viewport it fit without horizontal overflow, but touch play was still unavailable. No full match or physical-device behavior was tested.",
+      ko: "소스 README가 이 브라우저 슈터로 연결하며 프로젝트를 무료·오픈소스로 안내합니다. 초기 약 23.42MB를 받은 뒤 게스트 튜토리얼이 열렸고 랭크 게임과 순위표에는 Discord 로그인이 제공됩니다. 390px 화면에서 페이지·캔버스 폭은 약 980 CSS px였고 터치 조작은 보이지 않았습니다. 820×1180 태블릿 크기에서는 가로 넘침이 없었지만 터치 플레이는 여전히 제공되지 않았습니다. 전체 대전과 실물 기기 동작은 검증하지 않았습니다.",
+    },
+    summary: {
+      en: "Fight through a fast top-down multiplayer shooter with AI opponents, network rooms and an in-game map editor.",
+      ko: "AI 상대·온라인 방·게임 내 맵 편집기를 갖춘 빠른 탑다운 멀티플레이 슈터입니다.",
+    },
+    objective: {
+      en: "Use the guest tutorial to learn movement and aiming, then explore the host's rooms or map editor.",
+      ko: "게스트 튜토리얼에서 이동과 조준을 익힌 뒤 호스트의 대전 방이나 맵 편집기를 살펴보세요.",
+    },
+    controls: {
+      en: "Keyboard and mouse: follow the in-game tutorial for movement, aiming and actions. No touch controls were visible in the browser build during the phone and tablet checks.",
+      ko: "키보드와 마우스: 게임 내 튜토리얼에서 이동·조준·행동 조작을 확인하세요. 휴대폰과 태블릿 크기 브라우저 확인에서 터치 조작은 보이지 않았습니다.",
+    },
+    mode: {
+      en: "The guest tutorial is available without signing in. Discord sign-in is offered for ranked matches and leaderboards. The initial browser build transferred about 23.42 MB; mobile layout is wide and has no visible touch controls.",
+      ko: "로그인 없이 게스트 튜토리얼을 이용할 수 있습니다. 랭크 대전과 순위표에는 Discord 로그인이 제공됩니다. 브라우저 빌드는 처음에 약 23.42MB를 전송했고 모바일 레이아웃은 넓으며 화면 터치 조작이 보이지 않습니다.",
+    },
+    tip: {
+      en: "Try the tutorial on a keyboard-and-mouse device first; check the host menu for current room and editor options.",
+      ko: "먼저 키보드와 마우스를 쓸 수 있는 기기에서 튜토리얼을 해보고 호스트 메뉴에서 방과 편집기 옵션을 확인하세요.",
+    },
+    keywords: {
+      en: [
+        "Hypersomnia browser game",
+        "top down multiplayer shooter",
+        "free online arena shooter",
+        "pixel art tactical shooter",
+        "browser game map editor",
+      ],
+      ko: [
+        "Hypersomnia 브라우저 게임",
+        "탑다운 멀티플레이 슈터",
+        "무료 온라인 아레나 슈터",
+        "픽셀 아트 전술 슈팅 게임",
+        "브라우저 게임 맵 편집기",
+      ],
+    },
+  },
+];
+
 export const worldOpenGames = [
   ...listings,
   ...expandedListingSpecs.map(expandListing),
@@ -6127,4 +6294,5 @@ export const worldOpenGames = [
   ...freeBrowserWaveSevenSpecs.map(expandListing),
   ...freeBrowserWaveEightSpecs.map(expandListing),
   ...freeBrowserWaveNineSpecs.map(expandListing),
+  ...freeBrowserWaveTenSpecs.map(expandListing),
 ].map(toGame);

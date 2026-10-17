@@ -56,6 +56,8 @@ export interface Game {
     url: string;
     host: Record<Locale, string>;
     note: Record<Locale, string>;
+    privacyNote?: Record<Locale, string>;
+    privacyUrl?: string;
   };
   added: string;
   artwork: string;

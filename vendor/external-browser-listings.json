@@ -1,7 +1,7 @@
 {
-  "reviewedAt": "2026-10-16",
+  "reviewedAt": "2026-10-17",
   "deliveryModel": "Outbound links only. Denny Games does not embed hosts or copy their builds, game data, or artwork.",
-  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. The previous 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. This wave adds three more direct-GET HTTP 200 hosts; the We Become What We Behold itch.io host returned HTTP 429 to one automated GET, then HTTP 200 to HEAD and a later GET; browser access remains unverified. OpenFront remains excluded after its host returned HTTP 403 to automated GET. The next three listings add The Evolution of Trust, Scorched Tanks and BananaBread. Their hosts returned HTTP 200. Chromium opened the first Trust scene at 390x844, Scorched Tanks title/AI setup at 390x844 and tablet-sized 820x1180 without overflow, and BananaBread’s 640x480 WebAssembly arena after about 18 seconds and roughly 14.8 MB transferred. Trust source terms include separately licensed audio; Scorched Tanks publishes no source-code license; BananaBread separates zlib code from CC-BY/CC-BY-SA artwork. The BananaBread page measures 986 CSS px at 390px and has no advertised touch input. No full chapter, battle, combat run, online room, save flow or physical device was verified. No third-party content was copied.",
+  "verificationBoundary": "The 2026-10-16 wave adds four external links: the GPL-3.0 shapez browser demo (free through level 7; full game paid), the MIT-code Cube Wars phone prototype, Bitburner under Apache-2.0 with Commons Clause, and the MIT-code Spot! board game. Direct GET returned HTTP 200 for all four. Chromium reached the shapez extraction tutorial, Cube Wars mode menu, Bitburner tutorial and Spot! game canvas. The shapez canvas fit 390x844; Cube Wars showed its menu in a 390x844 frame; Bitburner expanded to 980 CSS px at a 390px viewport; Spot! embeds a 769px canvas in a phone-sized page. No full game session, mobile input, save restoration, physical device, controller or Tesla behavior was tested. No third-party builds, source code, game data or artwork were copied. Earlier evidence and rights boundaries remain recorded per entry. The previous 136 listed play URLs returned HTTP 200 to direct GET by 2026-10-16. This wave adds three more direct-GET HTTP 200 hosts; the We Become What We Behold itch.io host returned HTTP 429 to one automated GET, then HTTP 200 to HEAD and a later GET; browser access remains unverified. An automated GET for OpenFront returned HTTP 403, but the official UI and solo map chooser loaded in Chromium; the listing below records both outcomes. The next three listings add The Evolution of Trust, Scorched Tanks and BananaBread. Their hosts returned HTTP 200. Chromium opened the first Trust scene at 390x844, Scorched Tanks title/AI setup at 390x844 and tablet-sized 820x1180 without overflow, and BananaBread’s 640x480 WebAssembly arena after about 18 seconds and roughly 14.8 MB transferred. Trust source terms include separately licensed audio; Scorched Tanks publishes no source-code license; BananaBread separates zlib code from CC-BY/CC-BY-SA artwork. The BananaBread page measures 986 CSS px at 390px and has no advertised touch input. No full chapter, battle, combat run, online room, save flow or physical device was verified. No third-party content was copied. The 2026-10-17 wave adds OpenFront and Hypersomnia. OpenFront’s official UI and solo map chooser loaded in Chromium; the initial UI fit 390x844 and 820x1180, but an automated GET returned HTTP 403. The browser host showed ads and purchase/Steam offers, with no upfront payment on the solo/tutorial path. Hypersomnia’s guest tutorial loaded after an initial 23.42 MB transfer; Discord sign-in is offered for ranked play. At 390px its page/canvas measured about 980 CSS px without visible touch controls; at 820x1180 it fit without horizontal overflow. No complete match or physical-device behavior was tested.",
   "entries": [
     {
       "id": "freedoom",
@@ -1854,6 +1854,33 @@
       "gameplayVerified": false,
       "assetsCopied": false,
       "notes": "The source project says it is no longer actively developed and requires WebAssembly; its README separates zlib code terms from CC-BY/CC-BY-SA artwork. The fixed 640x480 canvas does not fit a 390px phone viewport and no touch controls are advertised. No full combat run or physical-device behavior was tested."
+    },
+    {
+      "id": "openfront",
+      "projectSource": "https://github.com/openfrontio/OpenFrontIO",
+      "projectLicense": "AGPL-3.0 source code; CC BY-SA 4.0 only for /resources; /proprietary and external assets are proprietary",
+      "licenseText": "https://github.com/openfrontio/OpenFrontIO#license",
+      "privacyPolicy": "https://openfront.io/privacy-policy.html",
+      "externalHost": "https://openfront.io/",
+      "hostSource": "https://github.com/openfrontio/OpenFrontIO",
+      "hostWrapperLicense": "Official browser game linked from the source repository. Solo/tutorial entry showed no upfront payment step; the host also displays ads and purchase or Steam offers. Denny Games links out and copies no code, maps, assets or screenshots.",
+      "urlStatus": "HTTP 403 (automated GET); official UI and solo map chooser loaded in Chromium; initial UI fit 390x844 and 820x1180 2026-10-17",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The README describes an online real-time strategy game with solo/tutorial and online lobby options. Optional sign-in is offered for achievements. The source code is AGPL-3.0; the separate asset policy grants CC BY-SA 4.0 only to /resources and reserves /proprietary and CDN/database/API assets. Its privacy policy (last updated 2026-07-01) says it may collect IP/device/browser and gameplay data including chat, use analytics and advertising cookies, receive Discord account information for sign-in, and display some profile and match data publicly; the detail page summarizes these points and links the policy before play. No full battle, touch gameplay, purchase flow or physical-device behavior was tested."
+    },
+    {
+      "id": "hypersomnia",
+      "projectSource": "https://github.com/TeamHypersomnia/Hypersomnia",
+      "projectLicense": "AGPL-3.0 source code; separate terms for every hosted media item were not independently reviewed",
+      "licenseText": "https://github.com/TeamHypersomnia/Hypersomnia/blob/master/LICENSE.md",
+      "externalHost": "https://play.hypersomnia.io/",
+      "hostSource": "https://github.com/TeamHypersomnia/Hypersomnia",
+      "hostWrapperLicense": "Official browser version linked from the source README, which describes the project as free and open source. The guest tutorial loaded without sign-in; Discord sign-in is offered for ranked play and leaderboards. Denny Games links out and copies no build or artwork.",
+      "urlStatus": "HTTP 200; guest tutorial loaded after about 23.42 MB; 390px page/canvas about 980 CSS px with no visible touch controls; 820x1180 fit without horizontal overflow 2026-10-17",
+      "gameplayVerified": false,
+      "assetsCopied": false,
+      "notes": "The project describes a top-down multiplayer shooter and links its browser version. The guest tutorial loaded, but no full match was completed. No touch controls were visible at phone or tablet widths; physical-device behavior was not tested."
     }
   ]
 }

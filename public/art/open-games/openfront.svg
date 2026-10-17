@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">OpenFront</title>
+  <desc id="desc">Original Denny Games illustration of a fictional map divided into colorful strategy territories</desc>
+  <defs>
+    <linearGradient id="night" x2="0" y2="1"><stop stop-color="#101c35"/><stop offset="1" stop-color="#182e48"/></linearGradient>
+    <linearGradient id="sea" x2="1" y2="1"><stop stop-color="#214a63"/><stop offset="1" stop-color="#18374d"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#night)"/>
+  <path d="M0 69h640M0 137h640M0 205h640M0 273h640M76 0v360M204 0v360M332 0v360M460 0v360M588 0v360" stroke="#8cc6d1" stroke-opacity=".08" stroke-width="1"/>
+  <rect x="44" y="38" width="552" height="286" rx="22" fill="url(#sea)" stroke="#77c3cf" stroke-opacity=".42" stroke-width="2"/>
+  <g stroke="#142c42" stroke-width="5" stroke-linejoin="round">
+    <path d="m83 98 60-29 58 11 36 39-18 35-49 10-21 31-55-14-32-40Z" fill="#3e9d94"/>
+    <path d="m190 175 48-21 52 17 19 37-28 48-51 12-37-40Z" fill="#e5a85e"/>
+    <path d="m264 82 62-18 66 23 12 33-34 29-72-8-41-26Z" fill="#607ed4"/>
+    <path d="m362 161 37-29 68 12 43 39-13 47-43 26-66-19-25-38Z" fill="#bf637e"/>
+    <path d="m459 82 55-12 43 30-8 40-43 15-39-27Z" fill="#9a83d5"/>
+  </g>
+  <g fill="none" stroke="#f3d88d" stroke-width="3" stroke-dasharray="5 8" opacity=".9">
+    <path d="M154 119Q252 55 322 103T469 115"/>
+    <path d="M219 193Q310 139 380 183T496 186"/>
+    <path d="M288 119Q275 195 330 224"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="151" cy="119" r="8" fill="#dbfff1"/><circle cx="323" cy="103" r="8" fill="#e9f3ff"/>
+    <circle cx="468" cy="115" r="8" fill="#fff0dc"/><circle cx="380" cy="183" r="8" fill="#ffe5ed"/>
+  </g>
+  <g fill="#d7edf0" opacity=".72"><circle cx="115" cy="246" r="3"/><circle cx="149" cy="262" r="3"/><circle cx="526" cy="252" r="3"/><circle cx="548" cy="231" r="3"/></g>
+  <g fill="#f0f5df" opacity=".86"><path d="M76 54h62v6H76zm0 12h37v4H76z"/><path d="M500 284h58v6h-58zm0 12h34v4h-34z"/></g>
+  <path d="M50 319h540" stroke="#a8d6d2" stroke-opacity=".35"/>
+</svg>
