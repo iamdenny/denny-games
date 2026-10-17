@@ -2,8 +2,8 @@
   "reviewedAt": "2026-10-17",
   "scope": "All 295 entries in the commercial-redistribution research; not every open game worldwide.",
   "counts": {
-    "integrated": 199,
-    "rights-or-integration-review": 22,
+    "integrated": 200,
+    "rights-or-integration-review": 21,
     "port-required": 74
   },
   "entries": [
@@ -73,8 +73,8 @@
       "category": "매치 퍼즐 / 생존",
       "researchTier": "B",
       "runtime": "W",
-      "status": "rights-or-integration-review",
-      "reason": "MPL 대상 파일과 수정분 소스 제공. Ant 빌드 검증 필요. 별도 예외 감사 전",
+      "status": "integrated",
+      "reason": "MPL-2.0 source and notices pinned; local mobile-friendly play adapter, bounded browser save bridge, remote analytics/music/share/donation removed, and corresponding source published.",
       "source": "https://github.com/doublespeakgames/gridland"
     },
     {

@@ -1,23 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
   <title id="title">Gridland</title>
-  <desc id="desc">Original Denny Games illustration of a bright match grid beside a tiny village at dusk</desc>
+  <desc id="desc">Match colorful tiles and build a settlement under a night sky.</desc>
   <defs>
-    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#394e78"/><stop offset="1" stop-color="#f1a46e"/></linearGradient>
-    <linearGradient id="field" x2="0" y2="1"><stop stop-color="#5a7b73"/><stop offset="1" stop-color="#263d4b"/></linearGradient>
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#171c3f"/><stop offset="1" stop-color="#47345d"/></linearGradient>
+    <linearGradient id="land" x2="0" y2="1"><stop stop-color="#5c754e"/><stop offset="1" stop-color="#283b3b"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
-  <rect width="640" height="360" rx="24" fill="url(#sky)"/>
-  <circle cx="505" cy="100" r="39" fill="#ffe8ad" opacity=".9"/>
-  <path d="M0 234 115 168l86 44 105-72 103 73 98-53 133 67v133H0Z" fill="#536b75" opacity=".78"/>
-  <path d="M0 281 134 213l105 49 112-62 119 73 76-40 94 48v119H0Z" fill="url(#field)"/>
-  <g stroke="#203e49" stroke-width="5" stroke-linejoin="round">
-    <path d="m115 231 48-28 49 28v53l-49 28-48-28Z" fill="#d57f63"/><path d="m163 203 49 28-49 29-48-29Z" fill="#f3bd82"/><path d="m212 231-49 29v52l49-28Z" fill="#a95d55"/>
-    <path d="m208 262 39-22 40 23v45l-40 23-39-23Z" fill="#789d7c"/><path d="m247 240 40 23-40 23-39-24Z" fill="#bfd495"/><path d="m287 263-40 23v45l40-23Z" fill="#547b69"/>
-    <path d="m298 213 52-30 53 30v59l-53 30-52-30Z" fill="#e2ae68"/><path d="m350 183 53 30-53 31-52-31Z" fill="#ffe0a1"/><path d="m403 213-53 31v58l53-30Z" fill="#b47c4e"/>
+  <rect width="640" height="420" rx="28" fill="url(#sky)"/>
+  <circle cx="524" cy="72" r="28" fill="#ffe8a1" filter="url(#glow)"/>
+  <g fill="#fff3c7" opacity=".8"><circle cx="82" cy="58" r="2"/><circle cx="170" cy="88" r="2"/><circle cx="438" cy="42" r="2"/><circle cx="344" cy="66" r="1.8"/></g>
+  <path d="M0 260 98 210l105 39 92-63 105 50 104-67 136 67v184H0Z" fill="#314251"/>
+  <path d="M0 291 104 250l112 36 107-55 98 53 115-45 104 46v135H0Z" fill="url(#land)"/>
+  <g transform="translate(145 170)">
+    <path d="M5 166V87l70-42 71 42v79Z" fill="#9a674d" stroke="#e8bd7d" stroke-width="5"/>
+    <path d="m-5 88 80-50 81 50-15 17-66-41-64 41Z" fill="#d39057" stroke="#f0cb86" stroke-width="5"/>
+    <path d="M62 166v-46a17 17 0 0 1 34 0v46" fill="#3b3446" stroke="#f0cb86" stroke-width="4"/>
+    <rect x="20" y="104" width="25" height="23" rx="4" fill="#ffd87d"/>
+    <path d="M121 84v-35h18v47" fill="#5a4852"/>
   </g>
-  <g filter="url(#glow)" stroke="#fff6c9" stroke-width="4">
-    <rect x="414" y="155" width="48" height="48" rx="10" fill="#f3cf58"/><rect x="469" y="155" width="48" height="48" rx="10" fill="#63d3c1"/><rect x="524" y="155" width="48" height="48" rx="10" fill="#ed7a79"/>
-    <rect x="414" y="210" width="48" height="48" rx="10" fill="#9e8bea"/><rect x="469" y="210" width="48" height="48" rx="10" fill="#f3cf58"/><rect x="524" y="210" width="48" height="48" rx="10" fill="#63d3c1"/>
+  <g stroke="#fff0c4" stroke-width="4" stroke-linejoin="round">
+    <rect x="125" y="70" width="54" height="54" rx="12" fill="#d75f6c"/>
+    <path d="M149 84v26m-13-13h26" stroke="#fff7df" stroke-width="6"/>
+    <rect x="190" y="70" width="54" height="54" rx="12" fill="#69a8df"/>
+    <path d="m217 80 7 13-7 14-7-14Z" fill="#d9f5ff" stroke="none"/>
+    <rect x="255" y="70" width="54" height="54" rx="12" fill="#e5b74d"/>
+    <path d="m282 78 6 12-6 12-6-12Z" fill="#fff1b7" stroke="none"/>
+    <rect x="320" y="70" width="54" height="54" rx="12" fill="#72b97e"/>
+    <path d="M347 80v26m-11-13h22" stroke="#e4ffe0" stroke-width="5"/>
+    <rect x="385" y="70" width="54" height="54" rx="12" fill="#ab7bdd"/>
+    <path d="m412 80 8 13-8 13-8-13Z" fill="#f3e5ff" stroke="none"/>
   </g>
-  <path d="M438 177h12m-6-6v12m79-5 10 10m0-10-10 10m-57 39 12 12m0-12-12 12" stroke="#fff9e4" stroke-width="4" stroke-linecap="round"/>
+  <text x="30" y="365" fill="#fff1cf" font-family="system-ui,sans-serif" font-size="25" font-weight="800" letter-spacing="3">GRIDLAND</text>
+  <text x="30" y="393" fill="#d8d4e9" font-family="system-ui,sans-serif" font-size="14">MATCH BY DAY · SURVIVE THE NIGHT</text>
 </svg>

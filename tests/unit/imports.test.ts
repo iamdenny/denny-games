@@ -7,12 +7,13 @@ import provenance from "../../vendor/crisp/provenance.json";
 import cycleProvenance from "../../vendor/crisp-cycles/provenance.json";
 import hextrisProvenance from "../../vendor/hextris/provenance.json";
 import sokobanProvenance from "../../vendor/sokoban/provenance.json";
+import gridlandProvenance from "../../vendor/gridland/provenance.json";
 import { discoverySchema } from "../../src/lib/seo";
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
     expect(games).toHaveLength(356);
-    expect(games.filter((game) => game.externalPlay)).toHaveLength(150);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(149);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
     for (const c of categories)
@@ -264,7 +265,43 @@ describe("import admission and catalogue", () => {
       review.entries.filter(
         (g: { status: string }) => g.status === "integrated",
       ),
-    ).toHaveLength(199);
+    ).toHaveLength(200);
+    expect(
+      review.entries.filter(
+        (g: { status: string }) => g.status === "rights-or-integration-review",
+      ),
+    ).toHaveLength(21);
+    const gridland = games.find((game) => game.id === "gridland")!;
+    expect(gridland.externalPlay).toBeUndefined();
+    expect(gridland.license).toBe("MPL-2.0");
+    expect(gridland.notice).toBe("/licenses/gridland/");
+    expect(gridland.imported).toBe(true);
+    expect(gridland.inputs).toEqual(["touch", "mouse"]);
+    expect(gridland.screenshot).toBe("/art/open-games/gridland-preview.png");
+    expect(existsSync("public" + gridland.screenshot)).toBe(true);
+    expect(gridland.text.en.controls.join(" ")).toContain(
+      "Music and sound are omitted",
+    );
+    expect(gridland.text.ko.controls.join(" ")).toContain(
+      "음악과 효과음을 제외",
+    );
+    expect(
+      JSON.parse(
+        readFileSync("vendor/external-browser-listings.json", "utf8"),
+      ).entries.some((entry: { id: string }) => entry.id === "gridland"),
+    ).toBe(false);
+    for (const [file, expected] of Object.entries(
+      gridlandProvenance.upstream_files,
+    )) {
+      expect(
+        createHash("sha256")
+          .update(readFileSync("vendor/gridland/upstream/" + file))
+          .digest("hex"),
+      ).toBe(expected);
+    }
+    expect(readFileSync("vendor/gridland/provenance.json", "utf8")).toContain(
+      "www/audio/",
+    );
     const sokoban = games.find((game) => game.id === "sokoban")!;
     expect(sokoban.externalPlay).toBeUndefined();
     expect(sokoban.license).toBe("MIT");

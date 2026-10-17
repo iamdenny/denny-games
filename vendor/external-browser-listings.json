@@ -1766,19 +1766,6 @@
       "notes": "The author describes a released abstract strategy game for 1-4 local players with computer opponents and mouse-only input. Chromium loaded the HTML5 canvas in the itch page; its 769px embedded width is larger than the 390px phone viewport. No match, mobile input or physical-device behavior was tested."
     },
     {
-      "id": "gridland",
-      "projectSource": "https://github.com/doublespeakgames/gridland",
-      "projectLicense": "MPL-2.0",
-      "licenseText": "https://github.com/doublespeakgames/gridland/blob/main/LICENSE",
-      "externalHost": "https://gridland.doublespeakgames.com/",
-      "hostSource": "https://github.com/doublespeakgames/gridland",
-      "hostWrapperLicense": "Official developer-hosted browser game linked by the source repository. The public page showed no upfront payment gate. Denny Games links out and copies no code, build, game data or artwork.",
-      "urlStatus": "HTTP 200 (direct GET) 2026-10-16",
-      "gameplayVerified": false,
-      "assetsCopied": false,
-      "notes": "The source project describes a match-3 game with a daylight resource phase and nighttime threats. No complete run, save restoration, account flow, mobile controls or physical-device behavior was tested."
-    },
-    {
       "id": "cube-composer",
       "projectSource": "https://github.com/sharkdp/cube-composer",
       "projectLicense": "MIT",
