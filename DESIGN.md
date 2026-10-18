@@ -50,6 +50,8 @@ Home replaces its single feature with a dark ink game picker, real registered ar
 
 Home discovery refresh (2026-10-18): keep exact-count catalogue and search actions together, then expose every real genre as a horizontally browsable, keyboard-accessible row of 48px links below the quick-play feature. The six opening editor picks represent six different genres and carry a direct local-play action alongside their detail route. Search results use the same real artwork, category, editorial description, estimated duration and control-style metadata; preserve the landscape artwork ratio and 48px actions at phone widths. Local games have a direct play action, while external games lead to their detail page first. Selection is editorial, never a popularity ranking. See ADR 0037.
 
+On compact screens, label the quick-play artwork action "Play now" / "바로 플레이" so the first game can be launched without scrolling past its artwork. Keep its accessible name synchronized when the selected game changes.
+
 ## Daily return paths
 
 Use a pale green progress panel on home and daily, with an explicit UTC date and text count. Daily cards show an actual completed-round status and best completed score; never imply a win from completion. Keep actions at least 48px and use a single card column on phones. At daily round end, show progress and a link to a remaining daily game or the completed summary. See ADR 0030.

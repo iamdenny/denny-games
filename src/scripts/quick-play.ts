@@ -32,7 +32,11 @@ if (root) {
     get<HTMLAnchorElement>("launch").href = play;
     get<HTMLAnchorElement>("details").href = `/${locale}/games/${item.id}/`;
     get<HTMLAnchorElement>("art-link").href = play;
-    get("art-link").setAttribute("aria-label", item.title);
+    const playLabel =
+      get("art-link")
+        .querySelector(".quick-art-play-label")
+        ?.textContent?.trim() ?? item.title;
+    get("art-link").setAttribute("aria-label", `${item.title}: ${playLabel}`);
     const image = get<HTMLImageElement>("image");
     image.src = item.image;
     image.alt = item.title;
