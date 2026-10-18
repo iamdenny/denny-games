@@ -8,16 +8,30 @@ import cycleProvenance from "../../vendor/crisp-cycles/provenance.json";
 import hextrisProvenance from "../../vendor/hextris/provenance.json";
 import sokobanProvenance from "../../vendor/sokoban/provenance.json";
 import gridlandProvenance from "../../vendor/gridland/provenance.json";
-import { discoverySchema } from "../../src/lib/seo";
+import { categoryCopy } from "../../src/data/discovery";
+import { copy } from "../../src/data/i18n";
+import { controlStyles } from "../../src/data/play-styles";
+const externalResearch = JSON.parse(
+  readFileSync("vendor/external-browser-listings.json", "utf8"),
+) as {
+  entries: {
+    id: string;
+    projectLicense: string;
+    archivedArtwork: string;
+  }[];
+};
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(356);
-    expect(games.filter((game) => game.externalPlay)).toHaveLength(149);
+    expect(games).toHaveLength(207);
+    expect(games.filter((game) => game.externalPlay)).toHaveLength(0);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
-    for (const c of categories)
-      expect(games.some((g) => g.category === c)).toBe(true);
+    expect(
+      categories.filter((category) =>
+        games.every((game) => game.category !== category),
+      ),
+    ).toEqual([]);
     for (const g of games) {
       expect(existsSync("public" + g.artwork)).toBe(true);
       for (const l of ["en", "ko"] as const) {
@@ -27,157 +41,68 @@ describe("import admission and catalogue", () => {
       }
     }
   });
-  it("keeps the new external game hosts and their license boundaries explicit", () => {
-    const openfront = games.find((game) => game.id === "openfront")!;
-    expect(openfront.externalPlay?.url).toBe("https://openfront.io/");
-    expect(openfront.license).toContain("AGPL-3.0");
-    expect(openfront.licenseDescription?.en).toContain("proprietary");
-    expect(openfront.licenseAppliesToGame).toBe(false);
-    expect(openfront.tags).not.toContain("free open source browser game");
-    expect(openfront.tags).not.toContain("무료 오픈소스 브라우저 게임");
-    expect(openfront.externalPlay?.privacyUrl).toBe(
-      "https://openfront.io/privacy-policy.html",
-    );
-    expect(openfront.externalPlay?.privacyNote?.en).toContain("chat");
-    expect(openfront.externalPlay?.privacyNote?.ko).toContain("채팅");
-
-    const hypersomnia = games.find((game) => game.id === "hypersomnia")!;
-    expect(hypersomnia.externalPlay?.url).toBe("https://play.hypersomnia.io/");
-    expect(hypersomnia.license).toContain("AGPL-3.0");
-    expect(hypersomnia.licenseAppliesToGame).toBe(false);
-    expect(hypersomnia.tags).not.toContain("free open source browser game");
-    expect(hypersomnia.tags).not.toContain("무료 오픈소스 브라우저 게임");
-  });
-  it("does not label free proprietary listings as open source in search metadata", () => {
-    const hotlapped = games.find((game) => game.id === "hotlapped")!;
-    expect(hotlapped.tags).not.toContain("free open source browser game");
-    expect(hotlapped.license).toContain("Source license not published");
-    expect(hotlapped.sourceLabel?.en).toBe("Official game information");
-
-    const schema = discoverySchema({
-      locale: "en",
-      path: "games/hotlapped",
-      title: hotlapped.text.en.title,
-      description: hotlapped.text.en.description,
-      game: hotlapped,
-    });
-    const entity = schema["@graph"].find(
-      (item) =>
-        item !== undefined && "@type" in item && item["@type"] === "VideoGame",
-    );
-    expect(entity).toBeDefined();
-    expect(entity).not.toHaveProperty("license");
-    expect(entity).not.toHaveProperty("isBasedOn");
-
-    const scorchedTanks = games.find((game) => game.id === "scorched-tanks")!;
-    expect(scorchedTanks.tags).not.toContain("free open source browser game");
-    expect(scorchedTanks.license).toContain("not published");
-    expect(scorchedTanks.licenseUrl).toBeUndefined();
-    const scorchedSchema = discoverySchema({
-      locale: "en",
-      path: "games/scorched-tanks",
-      title: scorchedTanks.text.en.title,
-      description: scorchedTanks.text.en.description,
-      game: scorchedTanks,
-    });
-    const scorchedEntity = scorchedSchema["@graph"].find(
-      (item) =>
-        item !== undefined && "@type" in item && item["@type"] === "VideoGame",
-    );
-    expect(scorchedEntity).toBeDefined();
-    expect(scorchedEntity).not.toHaveProperty("license");
-
-    const lextown = games.find((game) => game.id === "lextown")!;
-    const lextownSchema = discoverySchema({
-      locale: "en",
-      path: "games/lextown",
-      title: lextown.text.en.title,
-      description: lextown.text.en.description,
-      game: lextown,
-    });
-    const lextownEntity = lextownSchema["@graph"].find(
-      (item) =>
-        item !== undefined && "@type" in item && item["@type"] === "VideoGame",
-    );
-    expect(lextownEntity).toMatchObject({
-      playMode: ["https://schema.org/MultiPlayer"],
-    });
-
-    for (const id of [
-      "brakeless",
-      "hotlapped",
-      "teebrawl",
-      "littlewargame",
-      "mingat-cozy-cafe",
-      "mingat-pet-daycare",
-      "mingat-nomad-life",
-    ]) {
-      const game = games.find((entry) => entry.id === id)!;
-      expect(game.licenseDescription?.en.length).toBeGreaterThan(10);
-      expect(game.licenseDescription?.ko.length).toBeGreaterThan(10);
-    }
-
-    for (const id of ["teebrawl", "littlewargame"]) {
-      const game = games.find((entry) => entry.id === id)!;
-      expect(game.tags).not.toContain("free open source browser game");
-      expect(game.license.toLowerCase()).toContain("not published");
-      const schema = discoverySchema({
-        locale: "en",
-        path: `games/${id}`,
-        title: game.text.en.title,
-        description: game.text.en.description,
-        game,
-      });
-      const entity = schema["@graph"].find(
-        (item) =>
-          item !== undefined &&
-          "@type" in item &&
-          item["@type"] === "VideoGame",
+  it("publishes only games with an in-site player route", () => {
+    expect(externalResearch.entries).toHaveLength(149);
+    const publishedIds = new Set(games.map((game) => game.id));
+    expect(games.every((game) => !game.externalPlay)).toBe(true);
+    for (const candidate of externalResearch.entries) {
+      expect(publishedIds.has(candidate.id), candidate.id).toBe(false);
+      const archivedArtwork = candidate.archivedArtwork.replace(
+        "vendor/external-listing-art/",
+        "",
       );
-      expect(entity).toBeDefined();
-      expect(entity).not.toHaveProperty("license");
-      expect(entity).not.toHaveProperty("isBasedOn");
+      expect(candidate.archivedArtwork).toMatch(
+        /^vendor\/external-listing-art\//,
+      );
+      expect(existsSync(candidate.archivedArtwork), candidate.id).toBe(true);
+      expect(existsSync(`public/art/${archivedArtwork}`), candidate.id).toBe(
+        false,
+      );
     }
   });
-  it("keeps code-only licenses out of whole-game structured data", () => {
-    const fnf = games.find((game) => game.id === "friday-night-funkin")!;
-    expect(fnf.licenseAppliesToGame).toBe(false);
-    expect(fnf.licenseUrl).toBe(
-      "https://github.com/FunkinCrew/Funkin/blob/main/LICENSE.md",
+  it("keeps public discovery copy and search filters local-play only", () => {
+    const activeCopy = [copy.en.intro, copy.ko.intro].concat(
+      categories.flatMap((category) => [
+        categoryCopy[category].en,
+        categoryCopy[category].ko,
+      ]),
     );
-    expect(fnf.licenseUrlLabel).toEqual({
-      en: "Apache-2.0 software code license",
-      ko: "Apache-2.0 소프트웨어 코드 라이선스",
-    });
-
-    for (const locale of ["en", "ko"] as const) {
-      const schema = discoverySchema({
-        locale,
-        path: "games/friday-night-funkin",
-        title: fnf.text[locale].title,
-        description: fnf.text[locale].description,
-        game: fnf,
-      });
-      const entity = schema["@graph"].find(
-        (item) =>
-          item !== undefined &&
-          "@type" in item &&
-          item["@type"] === "VideoGame",
-      );
-      expect(entity).toBeDefined();
-      expect(entity).not.toHaveProperty("license");
+    expect(activeCopy.join(" ").toLowerCase()).not.toMatch(
+      /external|independent host|host rules|호스트|외부/,
+    );
+    expect(controlStyles).not.toContain("host");
+  });
+  it("keeps mixed-license and unpublished-license candidates out of the catalogue", () => {
+    const byId = new Map(
+      externalResearch.entries.map((entry) => [entry.id, entry]),
+    );
+    for (const [id, licenseText] of [
+      ["openfront", "AGPL-3.0"],
+      ["hypersomnia", "AGPL-3.0"],
+      ["hotlapped", "No source-code license"],
+      ["scorched-tanks", "No code license"],
+      ["friday-night-funkin", "proprietary"],
+    ] as const) {
+      const candidate = byId.get(id);
+      expect(candidate?.projectLicense, id).toContain(licenseText);
+      expect(
+        games.some((game) => game.id === id),
+        id,
+      ).toBe(false);
     }
-
-    const trust = games.find((game) => game.id === "trust")!;
-    expect(trust.licenseAppliesToGame).toBe(false);
-    expect(trust.licenseUrlLabel?.en).toContain("license");
-    expect(trust.tags).not.toContain("free open source browser game");
-
-    const bananaBread = games.find((game) => game.id === "bananabread")!;
-    expect(bananaBread.licenseAppliesToGame).toBe(false);
-    expect(bananaBread.license).toContain("zlib");
-    expect(bananaBread.license).toContain("CC-BY");
-    expect(bananaBread.tags).toContain("free open source browser game");
+  });
+  it("retains original-project license evidence for removed candidates", () => {
+    const byId = new Map(
+      externalResearch.entries.map((entry) => [entry.id, entry]),
+    );
+    expect(byId.get("friday-night-funkin")?.projectLicense).toContain(
+      "Apache-2.0 software code",
+    );
+    expect(byId.get("friday-night-funkin")?.projectLicense).toContain(
+      "proprietary",
+    );
+    expect(byId.get("trust")?.projectLicense).toContain("CC0 core");
+    expect(byId.get("bananabread")?.projectLicense).toContain("zlib code");
   });
   it("retains the audited game sources and sprite hashes exactly", () => {
     for (const g of provenance.games) {

@@ -1,120 +1,103 @@
 import { test, expect } from "@playwright/test";
-import { games } from "../../src/data/games";
 
-const externalGames = games.flatMap((game) =>
-  game.externalPlay
-    ? [
-        {
-          id: game.id,
-          title: game.text,
-          url: game.externalPlay.url,
-          licenseDescription: game.licenseDescription,
-          licenseUrl: game.licenseUrl,
-          licenseUrlLabel: game.licenseUrlLabel,
-          privacyNote: game.externalPlay.privacyNote,
-          privacyUrl: game.externalPlay.privacyUrl,
-        },
-      ]
-    : [],
-);
+const retiredExternalIds = [
+  "freedoom",
+  "openfront",
+  "yourcraft",
+  "friday-night-funkin",
+];
+const publishedCategories = [
+  "board",
+  "puzzle",
+  "arcade",
+  "action",
+  "shooting",
+  "racing",
+  "sports",
+];
+
+test("public descriptions and search controls promise on-site play", async ({
+  page,
+  request,
+}) => {
+  const root = await request.get("/");
+  const rootHtml = await root.text();
+  expect(rootHtml).toMatch(
+    /name="description" content="[^"]*all playable on Denny Games/,
+  );
+
+  for (const locale of ["en", "ko"] as const) {
+    await page.goto(`/${locale}/`);
+    await expect(page.locator(".rail-note")).toContainText(
+      locale === "ko" ? "이 사이트 안에서 플레이해요" : "plays right here",
+    );
+    for (const category of publishedCategories) {
+      await page.goto(`/${locale}/category/${category}/`);
+      const content = await page.locator("main").innerText();
+      expect(content.toLowerCase()).not.toMatch(
+        /external links?|external hosts?|independent host|host rules/,
+      );
+      expect(content).not.toMatch(/외부 링크|외부 호스트|호스트 조건/);
+      const description = await page
+        .locator('meta[name="description"]')
+        .getAttribute("content");
+      expect(description?.toLowerCase()).not.toMatch(
+        /external|independent host|host rules/,
+      );
+      expect(description).not.toMatch(/외부|호스트/);
+    }
+    await page.goto(`/${locale}/search/`);
+    await expect(
+      page.locator('[name="control"] option[value="host"]'),
+    ).toHaveCount(0);
+  }
+});
 
 for (const locale of ["en", "ko"] as const) {
-  for (const game of externalGames) {
-    test(`${locale} ${game.id}: explains and safely opens the external host`, async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 320, height: 800 });
-      await page.goto(`/${locale}/games/${game.id}/`);
-
-      const launch = page.locator(".detail-actions a.button.primary");
-      await expect(launch).toHaveAttribute("href", game.url);
-      await expect(launch).toHaveAttribute("target", "_blank");
-      await expect(launch).toHaveAttribute("rel", "noopener noreferrer");
-      if (game.privacyNote?.[locale] && game.privacyUrl) {
-        const privacyNote = page.locator(".external-privacy-note");
-        await expect(privacyNote).toBeVisible();
-        await expect(privacyNote).toContainText(game.privacyNote[locale]);
-        const privacyLink = privacyNote.getByRole("link");
-        await expect(privacyLink).toHaveAttribute("href", game.privacyUrl);
-        await expect(privacyLink).toHaveAccessibleName(
-          locale === "ko"
-            ? `${game.title[locale].title} 개인정보 처리방침 읽기`
-            : `Read privacy policy for ${game.title[locale].title}`,
-        );
-        expect(
-          await page.evaluate(() => {
-            const disclosure = document.querySelector(".external-privacy-note");
-            const launch = document.querySelector(
-              ".detail-actions a.button.primary",
-            );
-            return Boolean(
-              disclosure &&
-              launch &&
-              disclosure.compareDocumentPosition(launch) &
-                Node.DOCUMENT_POSITION_FOLLOWING,
-            );
-          }),
-        ).toBe(true);
-        for (const [width, height] of [
-          [320, 800],
-          [390, 844],
-          [834, 1194],
-          [1194, 834],
-        ] as const) {
-          await page.setViewportSize({ width, height });
-          expect(
-            await page.evaluate(
-              () => document.documentElement.scrollWidth <= window.innerWidth,
-            ),
-          ).toBe(true);
-        }
-      }
-      await expect(
-        page.locator(".external-host-note:not(.external-privacy-note)"),
-      ).toBeVisible();
-      if (game.licenseDescription?.[locale])
-        await expect(page.locator(".prose")).toContainText(
-          game.licenseDescription[locale],
-        );
-      if (game.id === "friday-night-funkin")
-        await expect(
-          page.getByRole("link", { name: game.licenseUrlLabel?.[locale] }),
-        ).toHaveAttribute("href", game.licenseUrl!);
-      await expect(page.locator(".prose")).toContainText(
-        locale === "ko" ? "검증하지 않았습니다" : "has not verified",
-      );
-      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
-        "content",
-        /\.png$/,
-      );
-      await expect(
-        page.locator(`.detail-actions a[href="/${locale}/play/${game.id}/"]`),
-      ).toHaveCount(0);
-    });
-  }
-}
-
-for (const locale of ["en", "ko"]) {
-  test(`${locale}: external game details fit phone and iPad viewports`, async ({
+  test(`${locale}: every published game launches on this site`, async ({
     page,
   }) => {
-    const viewports: [number, number][] = [
+    for (const [width, height] of [
       [320, 800],
       [390, 844],
       [834, 1194],
       [1194, 834],
-    ];
-    for (const [width, height] of viewports) {
+    ] as const) {
       await page.setViewportSize({ width, height });
-      await page.goto(`/${locale}/games/yourcraft/`);
-      await expect(
-        page.locator(".detail-actions a.button.primary"),
-      ).toBeVisible();
+      await page.goto(`/${locale}/games/circuit-loop/`);
+      const play = page.locator(".detail-actions a.button.primary");
+      await expect(play).toHaveAttribute(
+        "href",
+        `/${locale}/play/circuit-loop/`,
+      );
+      await expect(play).not.toHaveAttribute("target", "_blank");
+      await expect(page.locator(".external-host-note")).toHaveCount(0);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= window.innerWidth,
         ),
       ).toBe(true);
     }
+
+    for (const id of retiredExternalIds) {
+      const response = await page.goto(`/${locale}/games/${id}/`);
+      expect(response?.status(), `${locale}/${id}`).toBe(404);
+    }
+
+    await page.goto(`/${locale}/search/`);
+    const searchIndex = await page.evaluate(async (activeLocale) => {
+      const response = await fetch(`/${activeLocale}/search-index.json`);
+      return (await response.json()) as {
+        externalHost?: string;
+        externalPlayUrl?: string;
+      }[];
+    }, locale);
+    expect(searchIndex).toHaveLength(207);
+    expect(
+      searchIndex.every(
+        (entry) => !entry.externalHost && !entry.externalPlayUrl,
+      ),
+    ).toBe(true);
+    await expect(page.locator(".external-label")).toHaveCount(0);
   });
 }

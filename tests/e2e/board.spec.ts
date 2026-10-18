@@ -244,7 +244,7 @@ test("board category, collection, guide, schema and llms links are bilingual and
 }) => {
   for (const locale of ["en", "ko"]) {
     await page.goto(`/${locale}/category/board/`);
-    await expect(page.locator("[data-game-card]")).toHaveCount(13);
+    await expect(page.locator("[data-game-card]")).toHaveCount(5);
     await page.goto(`/${locale}/collections/classic-board/`);
     await expect(page.locator("[data-game-card]")).toHaveCount(5);
     await page.goto(`/${locale}/games/gomoku/`);

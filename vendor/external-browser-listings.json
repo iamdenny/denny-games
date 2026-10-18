@@ -15,7 +15,8 @@
       "urlStatus": "HTTP 200",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Host README identifies a Freedoom Phase 1 WAD, Chocolate Doom engine, corresponding source and a first load of about 35 MB. It says no proprietary id Software Doom WAD is included."
+      "notes": "Host README identifies a Freedoom Phase 1 WAD, Chocolate Doom engine, corresponding source and a first load of about 35 MB. It says no proprietary id Software Doom WAD is included.",
+      "archivedArtwork": "vendor/external-listing-art/freedoom.svg"
     },
     {
       "id": "openttd",
@@ -27,7 +28,8 @@
       "urlStatus": "HTTP 200",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Independent browser host credited as Overgrown Studio. Host page exposes save import/export and online content controls. Original Transport Tycoon Deluxe data is not covered by OpenTTD's general permission."
+      "notes": "Independent browser host credited as Overgrown Studio. Host page exposes save import/export and online content controls. Original Transport Tycoon Deluxe data is not covered by OpenTTD's general permission.",
+      "archivedArtwork": "vendor/external-listing-art/openttd.svg"
     },
     {
       "id": "supertux",
@@ -40,7 +42,8 @@
       "urlStatus": "HTTP 200",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Official project browser page lists multiple versions. Version behavior, download size and controls can differ."
+      "notes": "Official project browser page lists multiple versions. Version behavior, download size and controls can differ.",
+      "archivedArtwork": "vendor/external-listing-art/supertux.svg"
     },
     {
       "id": "nethack",
@@ -53,7 +56,8 @@
       "urlStatus": "HTTP 200",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Remote play is hosted by NAO. The server controls account, session, save and privacy terms; users are directed to read its current guidance before signing in."
+      "notes": "Remote play is hosted by NAO. The server controls account, session, save and privacy terms; users are directed to read its current guidance before signing in.",
+      "archivedArtwork": "vendor/external-listing-art/nethack.svg"
     },
     {
       "id": "freeciv",
@@ -66,7 +70,8 @@
       "urlStatus": "HTTP 200 (GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The community site's action opens its single-player setup. The site links its own terms and privacy policy; account, session, browser-save behavior and multiplayer features follow that service. Freeciv has been in development since 1995."
+      "notes": "The community site's action opens its single-player setup. The site links its own terms and privacy policy; account, session, browser-save behavior and multiplayer features follow that service. Freeciv has been in development since 1995.",
+      "archivedArtwork": "vendor/external-listing-art/freeciv.svg"
     },
     {
       "id": "umoria",
@@ -79,7 +84,8 @@
       "urlStatus": "HTTP 200 (GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project describes Moria as developed in 1983 and the first public Umoria release as 1987. Its browser build uses IndexedDB for saves scoped to each browser. Reachability was checked; the game session and save flow were not tested."
+      "notes": "The project describes Moria as developed in 1983 and the first public Umoria release as 1987. Its browser build uses IndexedDB for saves scoped to each browser. Reachability was checked; the game session and save flow were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/umoria.svg"
     },
     {
       "id": "larn",
@@ -92,7 +98,8 @@
       "urlStatus": "HTTP 200 (GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The Larn project source identifies the original Unix release as 1986 and says the browser port offers Larn and Ularn. The host advertises mobile support, weekly challenges, public scores and replays; none was tested here."
+      "notes": "The Larn project source identifies the original Unix release as 1986 and says the browser port offers Larn and Ularn. The host advertises mobile support, weekly challenges, public scores and replays; none was tested here.",
+      "archivedArtwork": "vendor/external-listing-art/larn.svg"
     },
     {
       "id": "neo-angband",
@@ -105,7 +112,8 @@
       "urlStatus": "HTTP 200 (GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Neo Angband describes itself as an unofficial community port, says its no-mod mode targets vanilla Angband, and stores saves in browser storage scoped to the host address. Denny Games did not verify parity, account behavior, mods, or device support."
+      "notes": "Neo Angband describes itself as an unofficial community port, says its no-mod mode targets vanilla Angband, and stores saves in browser storage scoped to the host address. Denny Games did not verify parity, account behavior, mods, or device support.",
+      "archivedArtwork": "vendor/external-listing-art/neo-angband.svg"
     },
     {
       "id": "dcss",
@@ -118,7 +126,8 @@
       "urlStatus": "HTTP 200 (GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official server directory lists crawl.nemelex.cards as a WebTiles server in Gyeonggi, South Korea and says accounts are not shared across servers. A GET returned 200; login, session, game and save behavior were not tested."
+      "notes": "The official server directory lists crawl.nemelex.cards as a WebTiles server in Gyeonggi, South Korea and says accounts are not shared across servers. A GET returned 200; login, session, game and save behavior were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/dcss.svg"
     },
     {
       "id": "simon-tatham-puzzles",
@@ -131,7 +140,8 @@
       "urlStatus": "HTTP 200 (Chromium GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official collection includes many browser puzzles, each with its own controls. The web version does not save puzzle files; puzzle IDs or seeds can reproduce a board. A Fifteen puzzle page was opened as a reachability/render spot check, not played through."
+      "notes": "The official collection includes many browser puzzles, each with its own controls. The web version does not save puzzle files; puzzle IDs or seeds can reproduce a board. A Fifteen puzzle page was opened as a reachability/render spot check, not played through.",
+      "archivedArtwork": "vendor/external-listing-art/simon-tatham-puzzles.svg"
     },
     {
       "id": "powder-toy",
@@ -144,7 +154,8 @@
       "urlStatus": "HTTP 200 (Chromium GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official WebAssembly page rendered its game canvas. Account, community saves and privacy follow The Powder Toy host. No full simulation or save flow was tested."
+      "notes": "The official WebAssembly page rendered its game canvas. Account, community saves and privacy follow The Powder Toy host. No full simulation or save flow was tested.",
+      "archivedArtwork": "vendor/external-listing-art/powder-toy.svg"
     },
     {
       "id": "hyperrogue",
@@ -157,7 +168,8 @@
       "urlStatus": "HTTP 200 (Chromium GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official online page lists local saves, highscores, sound effects and additional modes among features in the downloadable version, and identifies Emscripten. The browser page and canvas rendered; no run or save flow was tested."
+      "notes": "The official online page lists local saves, highscores, sound effects and additional modes among features in the downloadable version, and identifies Emscripten. The browser page and canvas rendered; no run or save flow was tested.",
+      "archivedArtwork": "vendor/external-listing-art/hyperrogue.svg"
     },
     {
       "id": "tuxmath",
@@ -170,7 +182,8 @@
       "urlStatus": "HTTP 200 (Chromium GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The host offers English-language selection and an on-screen answer keypad. The initial interface rendered in a 390px Chromium viewport; autoplay audio was blocked before a user gesture. No level or physical device was tested."
+      "notes": "The host offers English-language selection and an on-screen answer keypad. The initial interface rendered in a 390px Chromium viewport; autoplay audio was blocked before a user gesture. No level or physical device was tested.",
+      "archivedArtwork": "vendor/external-listing-art/tuxmath.svg"
     },
     {
       "id": "sandspiel",
@@ -183,7 +196,8 @@
       "urlStatus": "HTTP 200 (Chromium GET)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The repository identifies Rust via WebAssembly and WebGL, links the official host and describes creation sharing. The canvas rendered at 390px with no horizontal overflow; no creation or save flow was tested. A non-blocking host script error appeared in the console."
+      "notes": "The repository identifies Rust via WebAssembly and WebGL, links the official host and describes creation sharing. The canvas rendered at 390px with no horizontal overflow; no creation or save flow was tested. A non-blocking host script error appeared in the console.",
+      "archivedArtwork": "vendor/external-listing-art/sandspiel.svg"
     },
     {
       "id": "frozen-bubble",
@@ -196,7 +210,8 @@
       "urlStatus": "HTTP 200 (direct GET); automated Chromium navigation returned HTTP 429 before rendering",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The itch.io page identifies a released HTML5 build of an independent rewrite inspired by the 2002 Frozen Bubble 2. Its source repository is GPL-2.0 and lists separate terms for third-party components. The page was not rendered in automated Chromium because the host returned 429; no game session, account, multiplayer, save, mobile or controller behavior was tested."
+      "notes": "The itch.io page identifies a released HTML5 build of an independent rewrite inspired by the 2002 Frozen Bubble 2. Its source repository is GPL-2.0 and lists separate terms for third-party components. The page was not rendered in automated Chromium because the host returned 429; no game session, account, multiplayer, save, mobile or controller behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/frozen-bubble.svg"
     },
     {
       "id": "neverball",
@@ -209,7 +224,8 @@
       "urlStatus": "HTTP 200 (Chromium page/canvas; one texture-load error appeared in the console)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official browser page loaded and displayed a moving course preview; Chromium initialized a canvas. The console reported failure to load texture \"mtrl/default\". The Play Now control became available after the base add-ons loaded. No complete run, replay/add-on upload, save flow or physical device was tested. The host documents mouse, arrow-key, gamepad and touch controls."
+      "notes": "The official browser page loaded and displayed a moving course preview; Chromium initialized a canvas. The console reported failure to load texture \"mtrl/default\". The Play Now control became available after the base add-ons loaded. No complete run, replay/add-on upload, save flow or physical device was tested. The host documents mouse, arrow-key, gamepad and touch controls.",
+      "archivedArtwork": "vendor/external-listing-art/neverball.svg"
     },
     {
       "id": "hexgl",
@@ -222,7 +238,8 @@
       "urlStatus": "HTTP 200 (Chromium start menu and control instruction screen)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The creator-hosted page opened over HTTPS and rendered its WebGL start menu and keyboard control instruction screen. The site labels the build desktop and says the Hall of Fame is closed. No complete race, device compatibility, save or privacy flow was tested."
+      "notes": "The creator-hosted page opened over HTTPS and rendered its WebGL start menu and keyboard control instruction screen. The site labels the build desktop and says the Hall of Fame is closed. No complete race, device compatibility, save or privacy flow was tested.",
+      "archivedArtwork": "vendor/external-listing-art/hexgl.svg"
     },
     {
       "id": "grugnetto-klondike",
@@ -235,7 +252,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/grugnetto-klondike.svg"
     },
     {
       "id": "briscola",
@@ -248,7 +266,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/briscola.svg"
     },
     {
       "id": "netris",
@@ -261,7 +280,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/netris.svg"
     },
     {
       "id": "netrok",
@@ -274,7 +294,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/netrok.svg"
     },
     {
       "id": "njam",
@@ -287,7 +308,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/njam.svg"
     },
     {
       "id": "naval-battle",
@@ -300,7 +322,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/naval-battle.svg"
     },
     {
       "id": "for-science",
@@ -313,7 +336,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/for-science.svg"
     },
     {
       "id": "donkey-bolonkey",
@@ -326,7 +350,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/donkey-bolonkey.svg"
     },
     {
       "id": "psy-pong-3d",
@@ -339,7 +364,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/psy-pong-3d.svg"
     },
     {
       "id": "wok",
@@ -352,7 +378,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/wok.svg"
     },
     {
       "id": "glparchis",
@@ -365,7 +392,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/glparchis.svg"
     },
     {
       "id": "game-of-the-goose",
@@ -378,7 +406,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/game-of-the-goose.svg"
     },
     {
       "id": "grugnetto-go",
@@ -391,7 +420,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/grugnetto-go.svg"
     },
     {
       "id": "bubble-train",
@@ -404,7 +434,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/bubble-train.svg"
     },
     {
       "id": "nova-pinball",
@@ -417,7 +448,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/nova-pinball.svg"
     },
     {
       "id": "mechanical-night-pinball",
@@ -430,7 +462,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mechanical-night-pinball.svg"
     },
     {
       "id": "comet-pinball",
@@ -443,7 +476,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/comet-pinball.svg"
     },
     {
       "id": "highmoon",
@@ -456,7 +490,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/highmoon.svg"
     },
     {
       "id": "100-square-challenge",
@@ -469,7 +504,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/100-square-challenge.svg"
     },
     {
       "id": "asteroids-infinity",
@@ -482,7 +518,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/asteroids-infinity.svg"
     },
     {
       "id": "oglbricks",
@@ -495,7 +532,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/oglbricks.svg"
     },
     {
       "id": "5ud0ku",
@@ -508,7 +546,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/5ud0ku.svg"
     },
     {
       "id": "lawn-mower",
@@ -521,7 +560,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested."
+      "notes": "The project README links the original source and per-game license/asset notices. A direct GET returned HTTP 200 on 2026-10-15. No complete game session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/lawn-mower.svg"
     },
     {
       "id": "pvp-arena-shooter",
@@ -534,7 +574,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project describes network play as experimental; the linked host is its browser game page. A direct GET returned HTTP 200 on 2026-10-15. No full match or device compatibility was tested."
+      "notes": "The project describes network play as experimental; the linked host is its browser game page. A direct GET returned HTTP 200 on 2026-10-15. No full match or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/pvp-arena-shooter.svg"
     },
     {
       "id": "openglad",
@@ -547,7 +588,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project provides a WebAssembly browser build; multiplayer, relay and save behavior were not tested. A direct GET returned HTTP 200 on 2026-10-15."
+      "notes": "The project provides a WebAssembly browser build; multiplayer, relay and save behavior were not tested. A direct GET returned HTTP 200 on 2026-10-15.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/openglad.svg"
     },
     {
       "id": "sheepdog-sim",
@@ -560,7 +602,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-15)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project has a separate runtime asset license ledger. A direct GET returned HTTP 200 on 2026-10-15. No complete game session, save flow or device compatibility was tested."
+      "notes": "The project has a separate runtime asset license ledger. A direct GET returned HTTP 200 on 2026-10-15. No complete game session, save flow or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/sheepdog-sim.svg"
     },
     {
       "id": "a-dark-room",
@@ -573,7 +616,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official page loads. At a 390px Chromium viewport, its document width measured 920px, so mobile use may require zoom or horizontal scrolling. The game is listed as an external link with this limitation disclosed."
+      "notes": "The official page loads. At a 390px Chromium viewport, its document width measured 920px, so mobile use may require zoom or horizontal scrolling. The game is listed as an external link with this limitation disclosed.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/a-dark-room.svg"
     },
     {
       "id": "ancient-beast",
@@ -586,7 +630,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The host title reports v0.5.1-alpha. A 390px portrait browser page asks the player to rotate to landscape. The URL loads, but no complete match, save flow or physical-device behavior was tested."
+      "notes": "The host title reports v0.5.1-alpha. A 390px portrait browser page asks the player to rotate to landscape. The URL loads, but no complete match, save flow or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/ancient-beast.svg"
     },
     {
       "id": "opengames-labyrinth",
@@ -599,7 +644,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project documents touch, keyboard, on-screen arrow and standard gamepad controls. Page reachability was checked; complete play and physical-device behavior were not."
+      "notes": "The project documents touch, keyboard, on-screen arrow and standard gamepad controls. Page reachability was checked; complete play and physical-device behavior were not.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/opengames-labyrinth.svg"
     },
     {
       "id": "opengames-snake",
@@ -612,7 +658,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project documents touch, keyboard, on-screen arrow and standard gamepad controls. Page reachability was checked; complete play and physical-device behavior were not."
+      "notes": "The project documents touch, keyboard, on-screen arrow and standard gamepad controls. Page reachability was checked; complete play and physical-device behavior were not.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/opengames-snake.svg"
     },
     {
       "id": "opengames-memory",
@@ -625,7 +672,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project documents touch and mouse card selection plus keyboard controls. Page reachability was checked; complete play and physical-device behavior were not."
+      "notes": "The project documents touch and mouse card selection plus keyboard controls. Page reachability was checked; complete play and physical-device behavior were not.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/opengames-memory.svg"
     },
     {
       "id": "opengames-whac-a-mole",
@@ -638,7 +686,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project documents touch, mouse and keyboard play in 30-second rounds. Page reachability was checked; complete play and physical-device behavior were not."
+      "notes": "The project documents touch, mouse and keyboard play in 30-second rounds. Page reachability was checked; complete play and physical-device behavior were not.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/opengames-whac-a-mole.svg"
     },
     {
       "id": "opengames-flap",
@@ -651,7 +700,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project documents tap, mouse, keyboard and standard gamepad controls. Page reachability was checked; complete play and physical-device behavior were not."
+      "notes": "The project documents tap, mouse, keyboard and standard gamepad controls. Page reachability was checked; complete play and physical-device behavior were not.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/opengames-flap.svg"
     },
     {
       "id": "opengames-blocks",
@@ -664,7 +714,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project documents swipe, keyboard, on-screen buttons and standard gamepad controls. Page reachability was checked; complete play and physical-device behavior were not."
+      "notes": "The project documents swipe, keyboard, on-screen buttons and standard gamepad controls. Page reachability was checked; complete play and physical-device behavior were not.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/opengames-blocks.svg"
     },
     {
       "id": "blockyard",
@@ -677,7 +728,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "A desktop guest lobby loaded without sign-in and displayed the Arena controls and other modes. A display name is requested before play; no complete match, account flow or device compatibility was tested."
+      "notes": "A desktop guest lobby loaded without sign-in and displayed the Arena controls and other modes. A display name is requested before play; no complete match, account flow or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/blockyard.svg"
     },
     {
       "id": "mashukui-ant-flap",
@@ -690,7 +742,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Guide a tiny ant through branches by timing each flap. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Guide a tiny ant through branches by timing each flap. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-ant-flap.svg"
     },
     {
       "id": "mashukui-ant-jump",
@@ -703,7 +756,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Bounce an ant up a tower of moving, fragile and springy platforms. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Bounce an ant up a tower of moving, fragile and springy platforms. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-ant-jump.svg"
     },
     {
       "id": "mashukui-block-drop",
@@ -716,7 +770,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Fit falling blocks together, clear rows and chase perfect clears. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Fit falling blocks together, clear rows and chase perfect clears. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-block-drop.svg"
     },
     {
       "id": "mashukui-breakout",
@@ -729,7 +784,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Aim a paddle to break through bricks with angle-based ball physics. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Aim a paddle to break through bricks with angle-based ball physics. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-breakout.svg"
     },
     {
       "id": "mashukui-paddle-duel",
@@ -742,7 +798,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Play a paddle-and-ball duel against an AI opponent in three difficulty levels. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Play a paddle-and-ball duel against an AI opponent in three difficulty levels. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-paddle-duel.svg"
     },
     {
       "id": "mashukui-stack-tower",
@@ -755,7 +812,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Drop one block at a time and line up each layer to build a taller tower. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Drop one block at a time and line up each layer to build a taller tower. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-stack-tower.svg"
     },
     {
       "id": "mashukui-tic-tac-toe",
@@ -768,7 +826,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Play three in a row against an AI or take turns with another player on one device. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Play three in a row against an AI or take turns with another player on one device. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-tic-tac-toe.svg"
     },
     {
       "id": "mashukui-minesweeper",
@@ -781,7 +840,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Reveal safe squares, flag the mines and choose among three board sizes. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Reveal safe squares, flag the mines and choose among three board sizes. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-minesweeper.svg"
     },
     {
       "id": "mashukui-memory-match",
@@ -794,7 +854,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Find matching card pairs by remembering their positions across three difficulties. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Find matching card pairs by remembering their positions across three difficulties. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-memory-match.svg"
     },
     {
       "id": "mashukui-star-defender",
@@ -807,7 +868,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Move through waves of enemies, shoot, dodge and try to survive longer. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Move through waves of enemies, shoot, dodge and try to survive longer. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-star-defender.svg"
     },
     {
       "id": "mashukui-dino-run",
@@ -820,7 +882,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Run across the desert, jump cacti, duck birds and keep up as the pace rises. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Run across the desert, jump cacti, duck birds and keep up as the pace rises. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-dino-run.svg"
     },
     {
       "id": "mashukui-piano-tap",
@@ -833,7 +896,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Tap the lowest black tile before it passes the board; touching white ends the run. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Tap the lowest black tile before it passes the board; touching white ends the run. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-piano-tap.svg"
     },
     {
       "id": "mashukui-cross-road",
@@ -846,7 +910,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Hop across tiles, avoid traffic and ride floating logs over the river. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Hop across tiles, avoid traffic and ride floating logs over the river. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-cross-road.svg"
     },
     {
       "id": "mashukui-slide-puzzle",
@@ -859,7 +924,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Slide numbered tiles into order using as few moves as you can. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Slide numbered tiles into order using as few moves as you can. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-slide-puzzle.svg"
     },
     {
       "id": "mashukui-fruit-slice",
@@ -872,7 +938,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Swipe through fruit, chain combos and avoid the bombs. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Swipe through fruit, chain combos and avoid the bombs. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-fruit-slice.svg"
     },
     {
       "id": "mashukui-bubble-shooter",
@@ -885,7 +952,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Aim and fire to match bubbles; clear a cluster to drop the ones beneath it. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Aim and fire to match bubbles; clear a cluster to drop the ones beneath it. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-bubble-shooter.svg"
     },
     {
       "id": "mashukui-sudoku",
@@ -898,7 +966,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Fill a number grid at one of three difficulties; each generated puzzle has one solution. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Fill a number grid at one of three difficulties; each generated puzzle has one solution. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-sudoku.svg"
     },
     {
       "id": "mashukui-merge-drop",
@@ -911,7 +980,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Drop matching fruit and merge each pair into a larger one. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Drop matching fruit and merge each pair into a larger one. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-merge-drop.svg"
     },
     {
       "id": "mashukui-water-sort",
@@ -924,7 +994,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Pour colored liquid between tubes until each tube holds a single color. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Pour colored liquid between tubes until each tube holds a single color. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-water-sort.svg"
     },
     {
       "id": "mashukui-slingshot",
@@ -937,7 +1008,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Pull back, follow the projected arc and release to aim for the target. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Pull back, follow the projected arc and release to aim for the target. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-slingshot.svg"
     },
     {
       "id": "mashukui-helix-drop",
@@ -950,7 +1022,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Rotate a helix tower to guide a falling ball through its gaps. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Rotate a helix tower to guide a falling ball through its gaps. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-helix-drop.svg"
     },
     {
       "id": "mashukui-gem-match",
@@ -963,7 +1036,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Swap neighboring gems, make matches of three and build cascading combos. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Swap neighboring gems, make matches of three and build cascading combos. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-gem-match.svg"
     },
     {
       "id": "mashukui-maze-muncher",
@@ -976,7 +1050,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Clear every dot in a maze while four ghosts chase you; power pellets let you fight back. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Clear every dot in a maze while four ghosts chase you; power pellets let you fight back. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-maze-muncher.svg"
     },
     {
       "id": "mashukui-air-hockey",
@@ -989,7 +1064,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Drag a mallet to hit the puck; the first player to seven goals wins. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Drag a mallet to hit the puck; the first player to seven goals wins. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-air-hockey.svg"
     },
     {
       "id": "mashukui-battleship",
@@ -1002,7 +1078,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Place a fleet, then search the hidden grid to find five enemy ships. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Place a fleet, then search the hidden grid to find five enemy ships. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-battleship.svg"
     },
     {
       "id": "mashukui-sokoban",
@@ -1015,7 +1092,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Push every crate onto a target across thirty levels; undo moves when needed. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Push every crate onto a target across thirty levels; undo moves when needed. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-sokoban.svg"
     },
     {
       "id": "mashukui-lights-out",
@@ -1028,7 +1106,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Switch off every light by tapping it and its four neighbors. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Switch off every light by tapping it and its four neighbors. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mashukui-lights-out.svg"
     },
     {
       "id": "everygamemade-afterglow",
@@ -1041,7 +1120,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Paint long-exposure trails by steering glowing lights across a night sky. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Paint long-exposure trails by steering glowing lights across a night sky. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-afterglow.svg"
     },
     {
       "id": "everygamemade-anime-dash",
@@ -1054,7 +1134,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Turn a photo into a cel-shaded hero, then collect stars and dodge hazards for sixty seconds. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Turn a photo into a cel-shaded hero, then collect stars and dodge hazards for sixty seconds. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-anime-dash.svg"
     },
     {
       "id": "everygamemade-clownword-desert",
@@ -1067,7 +1148,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Explore a desert and type each highlighted sight word to clear the clown carrying it. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Explore a desert and type each highlighted sight word to clear the clown carrying it. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-clownword-desert.svg"
     },
     {
       "id": "everygamemade-ink-rider",
@@ -1080,7 +1162,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Draw a road with ink and guide a rider along the path in this phone-first physics game. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Draw a road with ink and guide a rider along the path in this phone-first physics game. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-ink-rider.svg"
     },
     {
       "id": "everygamemade-little-sky-pilot",
@@ -1093,7 +1176,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Build takeoff power, fly a small plane, collect stars and steer around weather. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Build takeoff power, fly a small plane, collect stars and steer around weather. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-little-sky-pilot.svg"
     },
     {
       "id": "everygamemade-perf-and-postmark",
@@ -1106,7 +1190,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Identify stamps by reading their inscriptions, measuring perforations and judging condition. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Identify stamps by reading their inscriptions, measuring perforations and judging condition. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-perf-and-postmark.svg"
     },
     {
       "id": "everygamemade-petrichor",
@@ -1119,7 +1204,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Launch a water drop and find a route through drifting clouds to a yellow umbrella. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Launch a water drop and find a route through drifting clouds to a yellow umbrella. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-petrichor.svg"
     },
     {
       "id": "everygamemade-pulsefield",
@@ -1132,7 +1218,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Collect sparks, steer clear of a growing swarm and pulse when the field closes in. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Collect sparks, steer clear of a growing swarm and pulse when the field closes in. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-pulsefield.svg"
     },
     {
       "id": "everygamemade-seal-vault",
@@ -1145,7 +1232,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Name a seal, explore an icy floe and visit minigames to collect fish and unlock items. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Name a seal, explore an icy floe and visit minigames to collect fish and unlock items. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-seal-vault.svg"
     },
     {
       "id": "everygamemade-solar-system",
@@ -1158,7 +1246,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Choose a home base, plan routes and build a fleet among real planets and moons. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Choose a home base, plan routes and build a fleet among real planets and moons. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-solar-system.svg"
     },
     {
       "id": "everygamemade-speed-racing",
@@ -1171,7 +1260,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Change lanes in an endless three-lane racer; the interface is in Chinese. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Change lanes in an endless three-lane racer; the interface is in Chinese. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-speed-racing.svg"
     },
     {
       "id": "everygamemade-stupid-cjp",
@@ -1184,7 +1274,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Line up a ricochet, clear a single-screen board and try again. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Line up a ricochet, clear a single-screen board and try again. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-stupid-cjp.svg"
     },
     {
       "id": "everygamemade-tank-battle",
@@ -1197,7 +1288,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Defend a base, defeat ten enemy tanks per level and break brick walls; the interface is in Chinese. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Defend a base, defeat ten enemy tanks per level and break brick walls; the interface is in Chinese. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-tank-battle.svg"
     },
     {
       "id": "everygamemade-ward-13",
@@ -1210,7 +1302,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Walk a first-person hospital corridor, spot changes and report anomalies across twenty-five wards. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Walk a first-person hospital corridor, spot changes and report anomalies across twenty-five wards. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-ward-13.svg"
     },
     {
       "id": "everygamemade-welcome-to-klang",
@@ -1223,7 +1316,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Ride a bicycle for one thousand meters while avoiding potholes, vehicles and animals. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Ride a bicycle for one thousand meters while avoiding potholes, vehicles and animals. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/everygamemade-welcome-to-klang.svg"
     },
     {
       "id": "open-games-org-space-shooter",
@@ -1236,7 +1330,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "A browser space shooter from the open-games.org collection of CraftyJS games. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "A browser space shooter from the open-games.org collection of CraftyJS games. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/open-games-org-space-shooter.svg"
     },
     {
       "id": "open-games-org-temple-exploration",
@@ -1249,7 +1344,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Explore a temple in one of the open-games.org HTML5 browser games. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Explore a temple in one of the open-games.org HTML5 browser games. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/open-games-org-temple-exploration.svg"
     },
     {
       "id": "open-games-org-high-school-stories",
@@ -1262,7 +1358,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Try the demo version of a high-school story game hosted by open-games.org. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Try the demo version of a high-school story game hosted by open-games.org. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/open-games-org-high-school-stories.svg"
     },
     {
       "id": "open-games-org-brick-breaker",
@@ -1275,7 +1372,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Break bricks in an HTML5 arcade game from the open-games.org collection. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Break bricks in an HTML5 arcade game from the open-games.org collection. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/open-games-org-brick-breaker.svg"
     },
     {
       "id": "open-games-org-ghost-escape",
@@ -1288,7 +1386,8 @@
       "urlStatus": "HTTP 200 (GET, 2026-10-16)",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Try to escape from a ghost in another open-games.org HTML5 browser game. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested."
+      "notes": "Try to escape from a ghost in another open-games.org HTML5 browser game. Direct GET reachability was checked on 2026-10-16; no complete session or device compatibility was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/open-games-org-ghost-escape.svg"
     },
     {
       "id": "tessel",
@@ -1301,7 +1400,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project describes a free tile-placement puzzle and links its GPL-3.0 source. The official page returned HTTP 200. Complete play, account/save conditions and device behavior were not tested."
+      "notes": "The project describes a free tile-placement puzzle and links its GPL-3.0 source. The official page returned HTTP 200. Complete play, account/save conditions and device behavior were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/tessel.svg"
     },
     {
       "id": "ekoscape",
@@ -1314,7 +1414,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The author offers browser play and documents WebGL 2.0. The page returned HTTP 200. No complete session, input behavior, device compatibility or asset-license inventory was checked."
+      "notes": "The author offers browser play and documents WebGL 2.0. The page returned HTTP 200. No complete session, input behavior, device compatibility or asset-license inventory was checked.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/ekoscape.svg"
     },
     {
       "id": "astray-2",
@@ -1327,7 +1428,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project README calls this a real-time WebGL path-tracing maze proof of concept. The live URL returned HTTP 200 but exposed no static title text. A complete session, performance, controls and device behavior were not tested."
+      "notes": "The project README calls this a real-time WebGL path-tracing maze proof of concept. The live URL returned HTTP 200 but exposed no static title text. A complete session, performance, controls and device behavior were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/astray-2.svg"
     },
     {
       "id": "yourcraft",
@@ -1340,7 +1442,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README offers free accountless play and describes a Three.js/WebGL voxel sandbox with procedural worlds. The live demo returned HTTP 200. Denny Games did not test world generation, saves, pointer-lock behavior, device compatibility or runtime performance."
+      "notes": "The README offers free accountless play and describes a Three.js/WebGL voxel sandbox with procedural worlds. The live demo returned HTTP 200. Denny Games did not test world generation, saves, pointer-lock behavior, device compatibility or runtime performance.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/yourcraft.svg"
     },
     {
       "id": "brakeless",
@@ -1352,7 +1455,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official page describes free browser play without download, installation or account for a normal run. The route returned HTTP 200. No complete session, leaderboard/account flow, device support or code license was verified."
+      "notes": "The official page describes free browser play without download, installation or account for a normal run. The route returned HTTP 200. No complete session, leaderboard/account flow, device support or code license was verified.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/brakeless.svg"
     },
     {
       "id": "hotlapped",
@@ -1364,7 +1468,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The public page documents JavaScript/WebGL requirements, time trials, a 3D track editor and ghost replays; it says sign-in is needed to save. The code license is not published there. No full race, account flow, store pricing or device behavior was tested."
+      "notes": "The public page documents JavaScript/WebGL requirements, time trials, a 3D track editor and ghost replays; it says sign-in is needed to save. The code license is not published there. No full race, account flow, store pricing or device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/hotlapped.svg"
     },
     {
       "id": "lextown",
@@ -1377,7 +1482,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official page describes a free shared multiplayer city with timed missions, vehicles, chat and leaderboards. The project repository displays an MIT license. A complete mission, public-chat behavior, account needs and device support were not tested."
+      "notes": "The official page describes a free shared multiplayer city with timed missions, vehicles, chat and leaderboards. The project repository displays an MIT license. A complete mission, public-chat behavior, account needs and device support were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/lextown.svg"
     },
     {
       "id": "mingat-cozy-cafe",
@@ -1389,7 +1495,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The developer showcase describes a 3D barista game with keyboard and touch controls. Its source link returned HTTP 404. The browser page returned HTTP 200 with no upfront payment prompt in the fetched public HTML; this does not verify every in-game payment or device condition."
+      "notes": "The developer showcase describes a 3D barista game with keyboard and touch controls. Its source link returned HTTP 404. The browser page returned HTTP 200 with no upfront payment prompt in the fetched public HTML; this does not verify every in-game payment or device condition.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mingat-cozy-cafe.svg"
     },
     {
       "id": "mingat-pet-daycare",
@@ -1402,7 +1509,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The public project README describes a 3D pet-care game, keyboard and tablet touch controls, in-game coins/upgrades, and says \"Private project. All rights reserved\" without granting an open-source license. The public play route returned HTTP 200 with no upfront payment prompt in the fetched page. Denny Games copies no code or assets; full play and device behavior were not tested."
+      "notes": "The public project README describes a 3D pet-care game, keyboard and tablet touch controls, in-game coins/upgrades, and says \"Private project. All rights reserved\" without granting an open-source license. The public play route returned HTTP 200 with no upfront payment prompt in the fetched page. Denny Games copies no code or assets; full play and device behavior were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mingat-pet-daycare.svg"
     },
     {
       "id": "mingat-nomad-life",
@@ -1414,7 +1522,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The developer showcase describes horse riding, animal herding and an open-world pastoral simulation. Its source link returned HTTP 404. The browser page returned HTTP 200 with no upfront payment prompt in the fetched public HTML; this does not verify every in-game payment or device condition."
+      "notes": "The developer showcase describes horse riding, animal herding and an open-world pastoral simulation. Its source link returned HTTP 404. The browser page returned HTTP 200 with no upfront payment prompt in the fetched public HTML; this does not verify every in-game payment or device condition.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mingat-nomad-life.svg"
     },
     {
       "id": "warzone-2100-web",
@@ -1427,7 +1536,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official page describes campaign and skirmish play, about a 60 MiB first load, WebAssembly and WebGL 2 requirements, mouse/keyboard input, browser-cleared saves and no online multiplayer for this web edition. Reachability only was checked; no full session or device behavior was tested."
+      "notes": "The official page describes campaign and skirmish play, about a 60 MiB first load, WebAssembly and WebGL 2 requirements, mouse/keyboard input, browser-cleared saves and no online multiplayer for this web edition. Reachability only was checked; no full session or device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/warzone-2100-web.svg"
     },
     {
       "id": "mindustry-web",
@@ -1440,7 +1550,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The linked page is a standalone offline build. The repository warns that builds may be rough and labels its online CheerpJ version deprecated. Controls, saves, complete play and device behavior were not tested."
+      "notes": "The linked page is a standalone offline build. The repository warns that builds may be rough and labels its online CheerpJ version deprecated. Controls, saves, complete play and device behavior were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/mindustry-web.svg"
     },
     {
       "id": "city-defense",
@@ -1452,7 +1563,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official site describes free WebGL 2 tower defense on real-world city maps without an upfront account or download gate. Its privacy page describes self-hosted analytics and game-progress processing; map data and referenced 3D assets have separate terms. This listing does not claim the game source is open."
+      "notes": "The official site describes free WebGL 2 tower defense on real-world city maps without an upfront account or download gate. Its privacy page describes self-hosted analytics and game-progress processing; map data and referenced 3D assets have separate terms. This listing does not claim the game source is open.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/city-defense.svg"
     },
     {
       "id": "ysflight-web",
@@ -1467,7 +1579,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README documents a first load of about 25 MB, keyboard/mouse and gamepad controls, browser-to-browser multiplayer and service-worker offline use after loading. No flight, peer session, controller or physical-device behavior was tested."
+      "notes": "The README documents a first load of about 25 MB, keyboard/mouse and gamepad controls, browser-to-browser multiplayer and service-worker offline use after loading. No flight, peer session, controller or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/ysflight-web.svg"
     },
     {
       "id": "netcraft",
@@ -1480,7 +1593,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The legacy repository describes a WebGL voxel sandbox, procedural terrain, local persistence and optional multiplayer server support. Save and multiplayer behavior were not verified in the linked demo. The page's HTTP response establishes reachability only."
+      "notes": "The legacy repository describes a WebGL voxel sandbox, procedural terrain, local persistence and optional multiplayer server support. Save and multiplayer behavior were not verified in the linked demo. The page's HTTP response establishes reachability only.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/netcraft.svg"
     },
     {
       "id": "junk-magnet",
@@ -1493,7 +1607,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official page documents keyboard and touch controls and browser-local progress. The README calls it a playable prototype with balancing and physical-device testing ongoing. Complete gameplay and device behavior were not tested by Denny Games."
+      "notes": "The official page documents keyboard and touch controls and browser-local progress. The README calls it a playable prototype with balancing and physical-device testing ongoing. Complete gameplay and device behavior were not tested by Denny Games.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/junk-magnet.svg"
     },
     {
       "id": "wibbly",
@@ -1506,7 +1621,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project says it is early, with single-player tennis as the only playable game. Its page says camera tracking has been tested in Chrome and Edge and other browsers are untried. Denny Games did not test a complete match, webcam behavior or device compatibility."
+      "notes": "The project says it is early, with single-player tennis as the only playable game. Its page says camera tracking has been tested in Chrome and Edge and other browsers are untried. Denny Games did not test a complete match, webcam behavior or device compatibility.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/wibbly.svg"
     },
     {
       "id": "teebrawl",
@@ -1518,7 +1634,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The host offers accountless Free Play and says optional accounts add ranked and social features. Its terms describe open text chat and virtual currency that cannot be bought with real money. Game code is not labeled open source because its code license is not published. No full match, moderation, multiplayer session or device behavior was tested."
+      "notes": "The host offers accountless Free Play and says optional accounts add ranked and social features. Its terms describe open text chat and virtual currency that cannot be bought with real money. Game code is not labeled open source because its code license is not published. No full match, moderation, multiplayer session or device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/teebrawl.svg"
     },
     {
       "id": "serpentine-3d",
@@ -1531,7 +1648,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README describes a free Three.js/WebGL snake game, three difficulty levels, browser-local high scores, and mobile joystick, swipe and mouse controls. The public demo returned HTTP 200; a full run and phone/tablet behavior were not tested."
+      "notes": "The README describes a free Three.js/WebGL snake game, three difficulty levels, browser-local high scores, and mobile joystick, swipe and mouse controls. The public demo returned HTTP 200; a full run and phone/tablet behavior were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/serpentine-3d.svg"
     },
     {
       "id": "littlewargame",
@@ -1542,7 +1660,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official site advertises play for up to six players. Its guide describes CPU matches, online lobbies, tutorials and a map editor. Some chat mini-game emotes may be unlocked or purchased; current requirements and prices were not assessed. No match or device behavior was tested."
+      "notes": "The official site advertises play for up to six players. Its guide describes CPU matches, online lobbies, tutorials and a map editor. Some chat mini-game emotes may be unlocked or purchased; current requirements and prices were not assessed. No match or device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/littlewargame.svg"
     },
     {
       "id": "3d-city",
@@ -1555,7 +1674,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project describes a WebGL 2/WebGPU city builder and still lists save/load fixes on its roadmap. In one desktop browser navigation, approximately 28.3 MB transferred before the city/menu appeared; actual transfer varies by cache/browser. Complete city-building, save flow and device behavior were not tested."
+      "notes": "The project describes a WebGL 2/WebGPU city builder and still lists save/load fixes on its roadmap. In one desktop browser navigation, approximately 28.3 MB transferred before the city/menu appeared; actual transfer varies by cache/browser. Complete city-building, save flow and device behavior were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/3d-city.svg"
     },
     {
       "id": "blockverse",
@@ -1568,7 +1688,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "A procedural voxel world rendered after using the new-world menu in a desktop browser; this was not a complete survival run or save-restore test. The README documents keyboard/mouse controls and IndexedDB saves. Touch controls and physical-device behavior were not tested."
+      "notes": "A procedural voxel world rendered after using the new-world menu in a desktop browser; this was not a complete survival run or save-restore test. The README documents keyboard/mouse controls and IndexedDB saves. Touch controls and physical-device behavior were not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/blockverse.svg"
     },
     {
       "id": "thingspool",
@@ -1581,7 +1702,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project describes shared 3D rooms, building and real-time chat. A drag-to-move prompt appeared in the initial room, but no room session or chat was entered. The repository distinguishes Apache-2.0 code directories from all-rights-reserved original game artwork; third-party terms vary. No complete session or device behavior was tested."
+      "notes": "The project describes shared 3D rooms, building and real-time chat. A drag-to-move prompt appeared in the initial room, but no room session or chat was entered. The repository distinguishes Apache-2.0 code directories from all-rights-reserved original game artwork; third-party terms vary. No complete session or device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/thingspool.svg"
     },
     {
       "id": "suroi",
@@ -1594,7 +1716,8 @@
       "urlStatus": "HTTP 200 (GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The initial browser menu displayed nickname, server and solo/duo/squad choices. A 390x844 phone viewport asked the player to rotate to landscape. No match, multiplayer session, touch input or physical-device performance was tested."
+      "notes": "The initial browser menu displayed nickname, server and solo/duo/squad choices. A 390x844 phone viewport asked the player to rotate to landscape. No match, multiplayer session, touch input or physical-device performance was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/suroi.svg"
     },
     {
       "id": "match-3djs",
@@ -1607,7 +1730,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium board rendered at desktop and 390x844) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README describes a Three.js/WebGL2 Columns-style match puzzle with keyboard, mouse and mobile touch controls. A desktop run responded to a hard-drop input; the 390x844 Chromium view showed the board and five touch buttons without horizontal overflow. No full run or physical-device behavior was tested."
+      "notes": "The README describes a Three.js/WebGL2 Columns-style match puzzle with keyboard, mouse and mobile touch controls. A desktop run responded to a hard-drop input; the 390x844 Chromium view showed the board and five touch buttons without horizontal overflow. No full run or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/match-3djs.svg"
     },
     {
       "id": "super-kart-3djs",
@@ -1620,7 +1744,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium race scene at desktop and 390x844) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README describes a procedural Three.js kart racer with touch controls. The desktop race scene rendered without console errors. At 390x844 the mobile race view and steering, drift, item and pause buttons appeared without horizontal overflow; its first scene took about 12 seconds to appear in Chromium. No full race, touch-driven race or physical-device behavior was tested."
+      "notes": "The README describes a procedural Three.js kart racer with touch controls. The desktop race scene rendered without console errors. At 390x844 the mobile race view and steering, drift, item and pause buttons appeared without horizontal overflow; its first scene took about 12 seconds to appear in Chromium. No full race, touch-driven race or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/super-kart-3djs.svg"
     },
     {
       "id": "arkanoid-3d",
@@ -1633,7 +1758,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium start menu and game scene) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project describes a bare-WebGL2 3D brick breaker. Chromium showed its neon start menu and, after Play Game, the 3D paddle/brick scene; the 390x844 menu had no horizontal overflow. The README lists mouse and keyboard controls, not touch. No complete run, mobile control or physical-device behavior was tested."
+      "notes": "The project describes a bare-WebGL2 3D brick breaker. Chromium showed its neon start menu and, after Play Game, the 3D paddle/brick scene; the 390x844 menu had no horizontal overflow. The README lists mouse and keyboard controls, not touch. No complete run, mobile control or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/arkanoid-3d.svg"
     },
     {
       "id": "citymaker",
@@ -1646,7 +1772,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium 3D board rendered at desktop and 390x844) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README describes a 3D 2048 puzzle with twelve cities, 132 original procedural models, keyboard and mobile swipe/on-screen-arrow controls. The start page and board rendered at 390x844 without horizontal overflow. No complete puzzle run, save restoration or physical-device behavior was tested."
+      "notes": "The README describes a 3D 2048 puzzle with twelve cities, 132 original procedural models, keyboard and mobile swipe/on-screen-arrow controls. The start page and board rendered at 390x844 without horizontal overflow. No complete puzzle run, save restoration or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/citymaker.svg"
     },
     {
       "id": "no-survivor",
@@ -1659,7 +1786,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium ready screen at desktop and 844x390 landscape) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README documents a Godot 3D arena-survivor shooter, automatic fire, mouse steering and a left-thumb touch joystick. It warns that the first load is about 40 MB for the engine. A 390x844 portrait view requested landscape; the ready screen and control prompt rendered at 844x390. No complete run or physical-device behavior was tested."
+      "notes": "The README documents a Godot 3D arena-survivor shooter, automatic fire, mouse steering and a left-thumb touch joystick. It warns that the first load is about 40 MB for the engine. A 390x844 portrait view requested landscape; the ready screen and control prompt rendered at 844x390. No complete run or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/no-survivor.svg"
     },
     {
       "id": "bash-fighter",
@@ -1672,7 +1800,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium page and 390x844 touch layout rendered) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project says its 20-player online service is early but live. The host documents keyboard and phone touch controls and displays a live match played by bots. No network match, invite flow, account flow or physical-device gameplay was tested."
+      "notes": "The project says its 20-player online service is early but live. The host documents keyboard and phone touch controls and displays a live match played by bots. No network match, invite flow, account flow or physical-device gameplay was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/bash-fighter.svg"
     },
     {
       "id": "courier-city",
@@ -1685,7 +1814,8 @@
       "urlStatus": "HTTP 200 (direct GET; redirected to developer domain; Chromium intro rendered at desktop and 390x844) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README describes a procedural Three.js/Cannon-ES open-world city with walking, cars, aircraft, helicopters and landmarks, generated without external 3D assets. The initial page lists keyboard controls but no touch input. At 390x844, the document measured 409 CSS px wide. No complete session, mobile input or physical-device behavior was tested."
+      "notes": "The README describes a procedural Three.js/Cannon-ES open-world city with walking, cars, aircraft, helicopters and landmarks, generated without external 3D assets. The initial page lists keyboard controls but no touch input. At 390x844, the document measured 409 CSS px wide. No complete session, mobile input or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/courier-city.svg"
     },
     {
       "id": "racez",
@@ -1698,7 +1828,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium 390x844 landscape prompt and 844x390 lobby) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project describes a Three.js multiplayer racer with touch controls, track selection, car colors and party codes. Chromium showed a landscape lobby and asked portrait players to rotate. The lobby requests a name and uses a party code to join. No name was submitted, party created, race played or physical-device behavior tested."
+      "notes": "The project describes a Three.js multiplayer racer with touch controls, track selection, car colors and party codes. Chromium showed a landscape lobby and asked portrait players to rotate. The lobby requests a name and uses a party code to join. No name was submitted, party created, race played or physical-device behavior tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/racez.svg"
     },
     {
       "id": "friday-night-funkin",
@@ -1711,7 +1842,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium title screen loaded after first asset download; 390px mobile layout clipped game frame) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The game page lists WASD/arrow-key controls, rebindable keys and built-in gamepad support. Chromium reached the title screen after the first asset load; no song was played. The 1280x720 embed sat in a desktop-width Newgrounds page and was clipped in a 390px mobile emulation. The source repository licenses software code under Apache-2.0, while a separate content license reserves the art, music, sound effects, creative content and trademarks. No source or content was copied."
+      "notes": "The game page lists WASD/arrow-key controls, rebindable keys and built-in gamepad support. Chromium reached the title screen after the first asset load; no song was played. The 1280x720 embed sat in a desktop-width Newgrounds page and was clipped in a 390px mobile emulation. The source repository licenses software code under Apache-2.0, while a separate content license reserves the art, music, sound effects, creative content and trademarks. No source or content was copied.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/friday-night-funkin.svg"
     },
     {
       "id": "shapez-demo",
@@ -1724,7 +1856,8 @@
       "urlStatus": "HTTP 200 (Chromium Play opened the extraction tutorial at desktop and 390x844 without horizontal overflow) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official README describes a factory automation game. Chromium clicked Play and reached the tutorial; the game showed WASD view movement, pipette and area selection hints. The official help center limits the free demo to level 7; the full game requires purchase. No complete level, save restoration, touch-driven play or physical-device behavior was tested."
+      "notes": "The official README describes a factory automation game. Chromium clicked Play and reached the tutorial; the game showed WASD view movement, pipette and area selection hints. The official help center limits the free demo to level 7; the full game requires purchase. No complete level, save restoration, touch-driven play or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/shapez-demo.svg"
     },
     {
       "id": "cube-wars",
@@ -1737,7 +1870,8 @@
       "urlStatus": "HTTP 200 (Chromium Run Game showed friend, bot and pass-and-play menu at desktop and 390x844) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The page labels Cube Wars a prototype. Its menu showed a generated player name and friend, bot and self play choices. The project describes digging and reshaping a voxel battlefield; it notes that confirming each move can feel awkward. No battle, online room, save flow or physical-device session was tested."
+      "notes": "The page labels Cube Wars a prototype. Its menu showed a generated player name and friend, bot and self play choices. The project describes digging and reshaping a voxel battlefield; it notes that confirming each move can feel awkward. No battle, online room, save flow or physical-device session was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/cube-wars.svg"
     },
     {
       "id": "bitburner",
@@ -1750,7 +1884,8 @@
       "urlStatus": "HTTP 200 (Chromium v3.0.1 tutorial loaded; page width was 980 CSS px at a 390px viewport) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official README calls Bitburner a programming-based incremental game. The tutorial rendered on desktop and phone emulation, but the phone page exceeds its 390px viewport and needs horizontal movement. The license is Apache-2.0 with Commons Clause; no script, full game session or physical-device behavior was tested."
+      "notes": "The official README calls Bitburner a programming-based incremental game. The tutorial rendered on desktop and phone emulation, but the phone page exceeds its 390px viewport and needs horizontal movement. The license is Apache-2.0 with Commons Clause; no script, full game session or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/bitburner.svg"
     },
     {
       "id": "spot-strategy",
@@ -1763,7 +1898,8 @@
       "urlStatus": "HTTP 200 (Chromium loaded a 769x801 game canvas; the embedded frame exceeds a 390px phone viewport) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The author describes a released abstract strategy game for 1-4 local players with computer opponents and mouse-only input. Chromium loaded the HTML5 canvas in the itch page; its 769px embedded width is larger than the 390px phone viewport. No match, mobile input or physical-device behavior was tested."
+      "notes": "The author describes a released abstract strategy game for 1-4 local players with computer opponents and mouse-only input. Chromium loaded the HTML5 canvas in the itch page; its 769px embedded width is larger than the 390px phone viewport. No match, mobile input or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/spot-strategy.svg"
     },
     {
       "id": "cube-composer",
@@ -1776,7 +1912,8 @@
       "urlStatus": "HTTP 200 (direct GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project presents a functional-programming-themed cube transformation puzzle. No complete puzzle or device behavior was tested."
+      "notes": "The project presents a functional-programming-themed cube transformation puzzle. No complete puzzle or device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/cube-composer.svg"
     },
     {
       "id": "evolve-civilization",
@@ -1789,7 +1926,8 @@
       "urlStatus": "HTTP 200 (direct GET) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The source describes a long-form incremental civilization game with evolving species, research and resource systems. No complete progression, save restoration, mobile controls or physical-device behavior was tested."
+      "notes": "The source describes a long-form incremental civilization game with evolving species, research and resource systems. No complete progression, save restoration, mobile controls or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/evolve-civilization.svg"
     },
     {
       "id": "we-become-what-we-behold",
@@ -1802,7 +1940,8 @@
       "urlStatus": "HTTP 429 (one automated GET), HTTP 200 (HEAD and later GET) 2026-10-16; browser access not verified",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The author page identifies an HTML5 mouse game and offers optional support. The short story uses dark humor and ends with stylized violence. Code, artwork, sound effects and dependencies have separate credits and terms. One GET was subsequently retried to confirm public HTML availability; no complete session, save flow or device behavior was tested."
+      "notes": "The author page identifies an HTML5 mouse game and offers optional support. The short story uses dark humor and ends with stylized violence. Code, artwork, sound effects and dependencies have separate credits and terms. One GET was subsequently retried to confirm public HTML availability; no complete session, save flow or device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/we-become-what-we-behold.svg"
     },
     {
       "id": "trust",
@@ -1815,7 +1954,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium opened the start screen and first scene at 390x844) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project dedicates its core work to CC0 and separately credits some sound effects under CC BY-NC or CC Sampling+. The interactive guide is authored at a wider canvas layout; at 390x844 some details appear small or cropped. No full chapter, save flow or physical-device behavior was tested."
+      "notes": "The project dedicates its core work to CC0 and separately credits some sound effects under CC BY-NC or CC Sampling+. The interactive guide is authored at a wider canvas layout; at 390x844 some details appear small or cropped. No full chapter, save flow or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/trust.svg"
     },
     {
       "id": "scorched-tanks",
@@ -1827,7 +1967,8 @@
       "urlStatus": "HTTP 200 (direct GET; Chromium title and AI setup at 390x844; no horizontal overflow at 820x1180) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README documents local AI, same-keyboard hot-seat and optional online rooms, and says the visuals and sounds are generated in code. Source-code license terms are not published, so this is listed as a free browser game rather than open source. No complete battle, online room or physical device was tested."
+      "notes": "The README documents local AI, same-keyboard hot-seat and optional online rooms, and says the visuals and sounds are generated in code. Source-code license terms are not published, so this is listed as a free browser game rather than open source. No complete battle, online room or physical device was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/scorched-tanks.svg"
     },
     {
       "id": "bananabread",
@@ -1840,7 +1981,8 @@
       "urlStatus": "HTTP 200 (Chromium rendered a 640x480 arena after about 18 s and 14.8 MB transferred; 390x844 page measured 986 CSS px wide) 2026-10-16",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The source project says it is no longer actively developed and requires WebAssembly; its README separates zlib code terms from CC-BY/CC-BY-SA artwork. The fixed 640x480 canvas does not fit a 390px phone viewport and no touch controls are advertised. No full combat run or physical-device behavior was tested."
+      "notes": "The source project says it is no longer actively developed and requires WebAssembly; its README separates zlib code terms from CC-BY/CC-BY-SA artwork. The fixed 640x480 canvas does not fit a 390px phone viewport and no touch controls are advertised. No full combat run or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/bananabread.svg"
     },
     {
       "id": "openfront",
@@ -1854,7 +1996,8 @@
       "urlStatus": "HTTP 403 (automated GET); official UI and solo map chooser loaded in Chromium; initial UI fit 390x844 and 820x1180 2026-10-17",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The README describes an online real-time strategy game with solo/tutorial and online lobby options. Optional sign-in is offered for achievements. The source code is AGPL-3.0; the separate asset policy grants CC BY-SA 4.0 only to /resources and reserves /proprietary and CDN/database/API assets. Its privacy policy (last updated 2026-07-01) says it may collect IP/device/browser and gameplay data including chat, use analytics and advertising cookies, receive Discord account information for sign-in, and display some profile and match data publicly; the detail page summarizes these points and links the policy before play. No full battle, touch gameplay, purchase flow or physical-device behavior was tested."
+      "notes": "The README describes an online real-time strategy game with solo/tutorial and online lobby options. Optional sign-in is offered for achievements. The source code is AGPL-3.0; the separate asset policy grants CC BY-SA 4.0 only to /resources and reserves /proprietary and CDN/database/API assets. Its privacy policy (last updated 2026-07-01) says it may collect IP/device/browser and gameplay data including chat, use analytics and advertising cookies, receive Discord account information for sign-in, and display some profile and match data publicly; the detail page summarizes these points and links the policy before play. No full battle, touch gameplay, purchase flow or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/openfront.svg"
     },
     {
       "id": "hypersomnia",
@@ -1867,7 +2010,8 @@
       "urlStatus": "HTTP 200; guest tutorial loaded after about 23.42 MB; 390px page/canvas about 980 CSS px with no visible touch controls; 820x1180 fit without horizontal overflow 2026-10-17",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The project describes a top-down multiplayer shooter and links its browser version. The guest tutorial loaded, but no full match was completed. No touch controls were visible at phone or tablet widths; physical-device behavior was not tested."
+      "notes": "The project describes a top-down multiplayer shooter and links its browser version. The guest tutorial loaded, but no full match was completed. No touch controls were visible at phone or tablet widths; physical-device behavior was not tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/hypersomnia.svg"
     },
     {
       "id": "bloxd-io",
@@ -1881,7 +2025,8 @@
       "urlStatus": "HTTP 200; opening UI and mode menu rendered at 390x844 and 810x1080 without horizontal overflow; privacy dialog not accepted 2026-10-17",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "No public source-code license was identified. The official privacy policy says visitor data may include IP, browser/device, screen and language details, site usage and moderation information; cookies support settings, progress, analytics and advertising, with personalized advertising based on consent. Account creation requires age 13+ or parental consent for younger players. No mode, chat room, full game or physical device was tested."
+      "notes": "No public source-code license was identified. The official privacy policy says visitor data may include IP, browser/device, screen and language details, site usage and moderation information; cookies support settings, progress, analytics and advertising, with personalized advertising based on consent. Account creation requires age 13+ or parental consent for younger players. No mode, chat room, full game or physical device was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/bloxd-io.svg"
     },
     {
       "id": "lichess",
@@ -1895,7 +2040,8 @@
       "urlStatus": "HTTP 200; home/play menus rendered at 390x844 and 810x1080 without horizontal overflow; a network-assets warning appeared in the automated browser 2026-10-17",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "Lila is AGPL-3.0-or-later, while the project copying guide lists exceptions for fonts, icons, graphics and other assets. The privacy policy says connection logs may include IP/browser/device information, uses session cookies for authentication, and describes registered-user data and messages. Lichess says its site is free and does not run ads or tracking cookies beyond its login cookie. No game or physical device was tested."
+      "notes": "Lila is AGPL-3.0-or-later, while the project copying guide lists exceptions for fonts, icons, graphics and other assets. The privacy policy says connection logs may include IP/browser/device information, uses session cookies for authentication, and describes registered-user data and messages. Lichess says its site is free and does not run ads or tracking cookies beyond its login cookie. No game or physical device was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/lichess.svg"
     },
     {
       "id": "pokemon-showdown",
@@ -1909,7 +2055,8 @@
       "urlStatus": "HTTP 200; home and battle prompt rendered at 390x844 and 810x1080 without horizontal overflow 2026-10-17",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The official repository publishes MIT server code; this does not establish that all client code or Pokémon-related names and media share that license. The simulator is not affiliated with or endorsed by Nintendo, Game Freak or The Pokémon Company. The privacy policy describes login/preferences cookies, Google Analytics, Google AdSense and Playwire advertising, IP/cookie use for bans and possible chat/battle/private-message logs. No battle, chat or physical-device behavior was tested."
+      "notes": "The official repository publishes MIT server code; this does not establish that all client code or Pokémon-related names and media share that license. The simulator is not affiliated with or endorsed by Nintendo, Game Freak or The Pokémon Company. The privacy policy describes login/preferences cookies, Google Analytics, Google AdSense and Playwire advertising, IP/cookie use for bans and possible chat/battle/private-message logs. No battle, chat or physical-device behavior was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/pokemon-showdown.svg"
     },
     {
       "id": "city-guesser",
@@ -1923,7 +2070,8 @@
       "urlStatus": "HTTP 200; private-room menu rendered at 390x844 and 810x1080 without horizontal overflow 2026-10-17",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "No public source-code license was identified. The official privacy policy says the game needs no account and does not store personal information, while standard log data may include IP address, browser type/version, pages visited, visit time and usage statistics. The room menu loaded, but no room was created and no video round or physical device was tested."
+      "notes": "No public source-code license was identified. The official privacy policy says the game needs no account and does not store personal information, while standard log data may include IP address, browser type/version, pages visited, visit time and usage statistics. The room menu loaded, but no room was created and no video round or physical device was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/city-guesser.svg"
     },
     {
       "id": "skribbl-io",
@@ -1937,7 +2085,8 @@
       "urlStatus": "HTTP 200; home and private-room menu rendered at 390x844 and 810x1080 without horizontal overflow 2026-10-17",
       "gameplayVerified": false,
       "assetsCopied": false,
-      "notes": "The terms page includes both Terms of Service and a Privacy Policy; there is no separate privacy page. The policy says third-party advertising companies may use information about visits to this and other websites for advertising, excluding direct identifiers such as name, address, email and phone from that ad information. Its 2022 news post describes mobile support and experimental pressure touch input. No room, drawing round or physical device was tested."
+      "notes": "The terms page includes both Terms of Service and a Privacy Policy; there is no separate privacy page. The policy says third-party advertising companies may use information about visits to this and other websites for advertising, excluding direct identifiers such as name, address, email and phone from that ad information. Its 2022 news post describes mobile support and experimental pressure touch input. No room, drawing round or physical device was tested.",
+      "archivedArtwork": "vendor/external-listing-art/open-games/skribbl-io.svg"
     }
   ]
 }

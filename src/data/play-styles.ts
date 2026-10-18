@@ -1,13 +1,14 @@
 import type { Locale } from "../lib/types";
 
+export type ControlStyle =
+  "buttons" | "pointer" | "numbers" | "directional" | "host";
+
 export const controlStyles = [
   "buttons",
   "pointer",
   "numbers",
   "directional",
-  "host",
 ] as const;
-export type ControlStyle = (typeof controlStyles)[number];
 
 export const controlLabels: Record<ControlStyle, Record<Locale, string>> = {
   buttons: { en: "One button", ko: "한 버튼" },

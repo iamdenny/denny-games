@@ -9,6 +9,8 @@ read_when:
 
 Status: Accepted · 2026-10-18
 
+The external-host result routing described below was superseded on 2026-10-18 by [ADR 0038](0038-local-play-only-catalogue.md). Published search results now contain only games with an in-site player.
+
 ## Context
 
 The first six home picks were five board games and one arcade game. Search results exposed only a title and short text, so visitors could not scan game art, control style or expected round length, and had to open a detail page before launching an internally hosted game. Genre navigation also disappeared from the main viewport on compact layouts.
@@ -19,7 +21,7 @@ Keep the existing six-pick editorial system and its shared ordering across home,
 
 Place links to every published genre below the quick-play feature and before the collection cards. Use the existing real category routes, horizontally scrollable on narrow screens, with visible focus and large touch targets. Keep the quick-play picker directly below the compact introduction so its playable artwork stays near the top of the page.
 
-Render search matches as bilingual, image-led cards with real category, description, estimated round length and play-style metadata. Preserve the landscape artwork ratio and 48px action targets at phone widths. A locally hosted game can launch from the result card; an external-host game first opens its Denny Games detail page, where the host and its conditions are explained. Preserve filter, query, URL history, pagination, no-JavaScript collection fallback and search index boundaries.
+Render search matches as bilingual, image-led cards with real category, description, estimated round length and play-style metadata. Preserve the landscape artwork ratio and 48px action targets at phone widths. Every published game launches from its result card on Denny Games. Preserve filter, query, URL history, pagination, no-JavaScript collection fallback and search index boundaries.
 
 Share play-style labels through a small data module so the search page does not import the full game registry to render client-side results.
 
@@ -29,4 +31,4 @@ Visitors can scan a broader set of genres and see what a game asks of them befor
 
 ## Verification
 
-Unit and browser checks assert six distinct opening genres, stable pick order, real category links without JavaScript, real artwork and play-style metadata in search results, landscape artwork and 48px actions at phone widths, direct in-site launch, external-host detail routing, and layouts without horizontal page overflow at phone widths. Repository verification, browser runs and public release readback are recorded in the release note.
+Unit and browser checks assert six distinct opening genres, stable pick order, real category links without JavaScript, real artwork and play-style metadata in search results, landscape artwork and 48px actions at phone widths, direct in-site launch, and layouts without horizontal page overflow at phone widths. Repository verification, browser runs and public release readback are recorded in the release note.

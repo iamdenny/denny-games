@@ -1,12 +1,11 @@
 import { games } from "../data/games";
 const boardGames = games.filter((game) => game.classic);
-const externalGames = games.filter((game) => game.externalPlay);
 export function GET() {
   const base = "https://games.iamdenny.com";
   const lines = [
     "# Denny Games",
     "",
-    `> Free English and Korean browser-game catalogue. ${games.length} published titles. Most launch on Denny Games; external listings include both open-source projects and free-to-play hosts with different license, input, account and save terms.`,
+    `> Free English and Korean browser-game catalogue. All ${games.length} published titles launch on Denny Games. Source and license links identify the original projects; gameplay stays on this site.`,
     "",
     "## Authoritative pages",
     `- [English catalogue](${base}/en/all/)`,
@@ -26,16 +25,8 @@ export function GET() {
       }),
     ),
     "",
-    "## External browser games",
-    ...externalGames.flatMap((g) =>
-      ["en", "ko"].map((l) => {
-        const locale = l as "en" | "ko";
-        return `- [${g.text[locale].title}](${base}/${locale}/games/${g.id}/): ${g.text[locale].description} External host: ${g.externalPlay!.host[locale]} (${g.externalPlay!.url}).`;
-      }),
-    ),
-    "",
     "## Interpretation",
-    "Denny Games-hosted detail pages describe the implemented rule variant, controls and local-save behavior. External listings open independent browser games or remote services; the source license may be open, proprietary or unpublished. Gameplay and device compatibility are unverified, and account/session/save behavior varies by host. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
+    "Every published game has an in-site player route. Detail pages describe the implemented rules, controls and local-save behavior, and link to original projects and license notices. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
     "",
   ];
   return new Response(lines.join("\n"), {

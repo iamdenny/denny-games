@@ -25,7 +25,7 @@ export const copy = {
     tagline: "A QUICK BREAK. A GOOD GAME.",
     title: "Less scrolling.\nMore playing.",
     intro:
-      "An open arcade of small escapes. Most games start here without an install or account; some open-source projects continue on independent browser hosts with their own requirements.",
+      "An open arcade of small escapes. Browse every game on Denny Games, with rules and controls ready before you play.",
     featured: "THE EDITOR’S PICK",
     curated: "Made for a little downtime.",
     available: "games to play",
@@ -136,7 +136,7 @@ export const copy = {
     tagline: "잠깐의 여유, 바로 한 판.",
     title: "잠깐 쉬어가요.\n즐겁게 한 판.",
     intro:
-      "대부분은 이곳에서 가입·설치 없이 시작하고, 일부 오픈소스 게임은 각자 조건이 있는 외부 브라우저 호스트에서 열립니다. 카테고리별로 찾아보세요.",
+      "잠깐의 여유에 즐기는 웹 아케이드. 모든 게임을 이 사이트 안에서 플레이하고, 시작 전에 규칙과 조작법을 확인하세요.",
     featured: "오늘의 에디터 픽",
     curated: "잠깐의 여유에 어울리는 게임.",
     available: "개의 플레이 가능한 게임",

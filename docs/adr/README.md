@@ -35,15 +35,16 @@
 - [0025 — UNDERRUN WebGL import and isolated runtime](0025-underrun-webgl-adapter.md) — Accepted.
 - [0026 — Hextris responsive adapter and local progress](0026-hextris-responsive-adapter.md) — Accepted.
 - [0027 — Crisp arcade cycles with localized touch controls](0027-crisp-cycle-owned-games.md) — Accepted.
-- [0028 — External browser game listings](0028-external-browser-listings.md) — Accepted.
+- [0028 — External browser game listings](0028-external-browser-listings.md) — Superseded by ADR 0038.
 
 - [0029 — Quick game discovery and replay](0029-quick-play-and-replay.md) — Accepted.
 
 - [0030 — Daily completion and return](0030-daily-completion-and-return.md) — Accepted.
 - [0031 — Opt-in GA4 page views](0031-opt-in-ga4-page-views.md) — Accepted.
 - [0032 — Seven-day daily challenge trail](0032-seven-day-daily-trail.md) — Accepted.
-- [0033 — Free browser game listings](0033-free-browser-listings.md) — Accepted.
+- [0033 — Free browser game listings](0033-free-browser-listings.md) — Superseded by ADR 0038.
 - [0034 — Self-hosted Sokoban](0034-self-hosted-sokoban.md) — Accepted.
 - [0035 — Self-hosted Gridland](0035-self-hosted-gridland.md) — Accepted.
 - [0036 — Game learning and canonical sharing](0036-game-learning-and-sharing.md) — Accepted.
 - [0037 — Varied home picks and visual search results](0037-varied-home-and-search.md) — Accepted.
+- [0038 — Local-play-only public catalogue](0038-local-play-only-catalogue.md) — Accepted.

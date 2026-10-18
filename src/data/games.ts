@@ -7,7 +7,18 @@ import { editorialOrder } from "./editorial";
 import { eraExternalGames } from "./external-browser-additions";
 import { worldOpenGames } from "./world-open-games";
 import type { ControlStyle } from "./play-styles";
-export const categories = [
+export type Category =
+  | "board"
+  | "puzzle"
+  | "arcade"
+  | "action"
+  | "shooting"
+  | "racing"
+  | "sports"
+  | "strategy"
+  | "roguelike"
+  | "simulation";
+export const categories: readonly Category[] = [
   "board",
   "puzzle",
   "arcade",
@@ -15,11 +26,7 @@ export const categories = [
   "shooting",
   "racing",
   "sports",
-  "strategy",
-  "roguelike",
-  "simulation",
-] as const;
-export type Category = (typeof categories)[number];
+];
 export interface GameCopy {
   title: string;
   searchTitle?: string;
@@ -65,7 +72,7 @@ export interface Game {
   artwork: string;
   text: Record<Locale, GameCopy>;
 }
-export const games: Game[] = [
+const gameCandidates: Game[] = [
   {
     id: "circuit-loop",
     controlStyle: "pointer",
@@ -253,7 +260,7 @@ export const games: Game[] = [
     },
   },
 ];
-games.push({
+gameCandidates.push({
   id: "hextris",
   category: "arcade",
   controlStyle: "directional",
@@ -329,7 +336,7 @@ games.push({
     },
   },
 });
-games.push({
+gameCandidates.push({
   id: "bounce-back",
   category: "action",
   controlStyle: "pointer",
@@ -407,7 +414,7 @@ games.push({
     },
   },
 });
-games.push({
+gameCandidates.push({
   id: "underrun",
   category: "shooting",
   controlStyle: "pointer",
@@ -484,7 +491,7 @@ games.push({
     },
   },
 });
-games.push(
+gameCandidates.push(
   ...crisp.map((item): Game => ({
     id: item.id,
     controlStyle: item.digits
@@ -572,8 +579,8 @@ games.push(
     },
   })),
 );
-games.push(...boardGames);
-games.push(...crispCycleGames);
+gameCandidates.push(...boardGames);
+gameCandidates.push(...crispCycleGames);
 const externalBrowserGames: Game[] = [
   {
     id: "freedoom",
@@ -1397,11 +1404,16 @@ const externalBrowserGames: Game[] = [
     },
   },
 ];
-games.push(
+gameCandidates.push(
   ...openSourceGames,
   ...externalBrowserGames,
   ...eraExternalGames,
   ...worldOpenGames,
+);
+// Publish only games that launch under the Denny Games origin. External hosts
+// remain research candidates until their code and assets are imported locally.
+export const games: Game[] = gameCandidates.filter(
+  (game) => !game.externalPlay,
 );
 // Scale fixtures are local/CI-only and never part of a normal production build.
 if (import.meta.env?.SCALE_TEST === "1") {
