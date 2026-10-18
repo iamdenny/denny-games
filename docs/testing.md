@@ -21,6 +21,8 @@ Record date, release SHA, OS/browser or Tesla model/computer/firmware, input dev
 
 Daily challenge browser checks cover the seven-date UTC window, previous-day retention, one-day storage migration, malformed and expired entries, browser-local summary, language routes and 320px layout. This does not establish real-player retention or physical-device behavior.
 
+Daily challenge sharing checks the localized invite labels and titles, the same-site `daily=1&stage=1` launch URL, native share payload, manual URL fallback without JavaScript, successful stage-1 launch and phone/tablet widths. Link sharing does not establish that a recipient opened or played it.
+
 ## Release criteria
 
 Root-entry browser checks cover Korean/English and unsupported browser locales, ordered preferences, query/fragment preservation, explicit locale URLs, manual switching, back navigation and JavaScript-disabled fallback links/metadata. See `tests/e2e/locale-entry.spec.ts` and ADR 0019.

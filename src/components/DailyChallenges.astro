@@ -1,7 +1,9 @@
 ---
 import { games } from "../data/games";
-import { dailyGameIds } from "../lib/daily";
+import { dailyGameIds, dailyPlayHref } from "../lib/daily";
+import { SITE } from "../lib/seo";
 import GameCard from "./GameCard.astro";
+import ShareLink from "./ShareLink.astro";
 import type { Locale } from "../lib/types";
 interface Props {
   locale: Locale;
@@ -72,10 +74,20 @@ const entries = dailyGameIds.flatMap((id) =>
               <a
                 class="button primary daily-play"
                 data-daily={game.id}
-                href={`/${locale}/play/${game.id}/?daily=1&stage=1`}
+                href={dailyPlayHref(locale, game.id)}
               >
                 {ko ? "오늘의 도전" : "Daily challenge"} ↗
               </a>
+              <ShareLink
+                locale={locale}
+                url={`${SITE}${dailyPlayHref(locale, game.id)}`}
+                title={
+                  ko
+                    ? `${game.text[locale].title} 오늘의 도전 · 데니 게임즈`
+                    : `${game.text[locale].title} daily challenge · Denny Games`
+                }
+                buttonLabel={ko ? "친구에게 도전 보내기" : "Challenge a friend"}
+              />
             </div>
           </article>
         ))}

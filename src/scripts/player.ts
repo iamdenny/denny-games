@@ -2,7 +2,7 @@ import "../styles/player.css";
 import { GameAudio, type SoundCue } from "../lib/audio";
 import { t } from "../data/i18n";
 import { read, write, addRecent } from "../lib/storage";
-import { dailyRounds, recordDailyRound } from "../lib/daily";
+import { dailyPlayHref, dailyRounds, recordDailyRound } from "../lib/daily";
 import { dailySeed, validSeed } from "../lib/random";
 import { connectGamepad, focusNext } from "../lib/input";
 import { canServe, eligibleBreak, requestBreak, initH5Ads } from "../lib/ads";
@@ -195,7 +195,7 @@ function end(value: GameResult) {
         : `Daily challenges: ${finished} / ${dailyGames.length} rounds complete · This browser`;
     dailyResult.hidden = false;
     nextLink.href = remaining
-      ? `/${locale}/play/${remaining.id}/?daily=1&stage=1`
+      ? dailyPlayHref(locale, remaining.id)
       : `/${locale}/daily/`;
     nextLink.textContent = remaining
       ? `${locale === "ko" ? "다음 오늘의 도전" : "Next daily challenge"}: ${remaining.title} ↗`

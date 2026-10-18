@@ -84,6 +84,8 @@ Daily challenges start at stage 1 and show the current UTC day, actual completed
 Home and the daily route show each of the last seven UTC dates and the number of supported challenges completed that day. Keep only those date buckets in browser storage, preserve existing one-day records on upgrade, and disclose that this is local history. Do not imply a streak, ranking, reminder or measured retention. See [ADR 0032](../adr/0032-seven-day-daily-trail.md).
 
 
+Daily challenge cards also offer a friend-share action that opens the selected local game with today's UTC seed at stage 1. The date resolves when the recipient opens the link; no score, identity, tracking value or gameplay event is shared. See [ADR 0039](../adr/0039-daily-challenge-sharing.md).
+
 ## Game entry learning and sharing — 2026-10-18
 
 Enrich the existing 2048 and Gomoku pages with static worked rules and beginner guidance. Home links to these sections and the five-game same-device board comparison. Share game and collection landing pages through native sharing, clipboard or a manual address, using only canonical URLs. No new game routes, gameplay tracking or search success claims are introduced. See [ADR 0036](../adr/0036-game-learning-and-sharing.md).

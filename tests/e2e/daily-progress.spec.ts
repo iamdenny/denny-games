@@ -59,6 +59,44 @@ for (const locale of ["en", "ko"]) {
   });
 }
 
+for (const locale of ["en", "ko"]) {
+  test(`${locale}: a daily challenge can be shared as a direct play invitation`, async ({
+    page,
+  }) => {
+    await page.clock.setFixedTime(new Date("2026-10-18T08:59:00Z"));
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "share", {
+        configurable: true,
+        value: async (data: ShareData) => {
+          (window as unknown as { shared: ShareData }).shared = data;
+        },
+      });
+    });
+    await page.goto(`/${locale}/daily/`);
+    const card = page.locator('[data-daily-card="circuit-loop"]');
+    const shareButton = card.locator("[data-share-button]");
+    await expect(shareButton).toHaveText(
+      locale === "ko" ? "친구에게 도전 보내기 ↗" : "Challenge a friend ↗",
+    );
+    await shareButton.click();
+    const shared = await page.evaluate(
+      () => (window as unknown as { shared: ShareData }).shared,
+    );
+    expect(shared.title).toMatch(
+      locale === "ko"
+        ? /오늘의 도전 · 데니 게임즈$/
+        : /daily challenge · Denny Games$/,
+    );
+    expect(shared.url).toBe(
+      `https://games.iamdenny.com/${locale}/play/circuit-loop/?daily=1&stage=1`,
+    );
+    const localLaunch = new URL(shared.url!);
+    await page.goto(localLaunch.pathname + localLaunch.search);
+    await expect(page.locator("#stage-select")).toHaveValue("1");
+    await expect(page.locator('[data-id="circuit-loop"]')).toBeVisible();
+  });
+}
+
 test("daily progress rejects corrupt, old-version and old-date records", async ({
   page,
 }) => {
@@ -114,6 +152,14 @@ for (const width of [320, 834, 1194]) {
       expect(rect!.x).toBeGreaterThanOrEqual(0);
       expect(rect!.x + rect!.width).toBeLessThanOrEqual(width + 1);
     }
+    for (const button of await page
+      .locator("[data-daily-card] [data-share-button]")
+      .all()) {
+      const rect = await button.boundingBox();
+      expect(rect!.height).toBeGreaterThanOrEqual(48);
+      expect(rect!.x).toBeGreaterThanOrEqual(0);
+      expect(rect!.x + rect!.width).toBeLessThanOrEqual(width + 1);
+    }
   });
 }
 
@@ -125,6 +171,18 @@ test("static daily links work without JavaScript and denied storage stays usable
   const staticPage = await context.newPage();
   await staticPage.goto("/en/daily/");
   await expect(staticPage.locator("[data-daily]")).toHaveCount(3);
+  await expect(
+    staticPage.locator('[data-daily-card="2048"] [data-share-button]'),
+  ).toBeHidden();
+  await expect(
+    staticPage.locator('[data-daily-card="2048"] [data-share-url]'),
+  ).toHaveValue("https://games.iamdenny.com/en/play/2048/?daily=1&stage=1");
+  const shareFallback = staticPage.locator(
+    '[data-daily-card="2048"] [data-share-fallback] summary',
+  );
+  expect((await shareFallback.boundingBox())!.height).toBeGreaterThanOrEqual(
+    48,
+  );
   await staticPage.locator('[data-daily="2048"]').click();
   await expect(staticPage).toHaveURL(/\/en\/play\/2048\/\?daily=1&stage=1/);
   await context.close();
