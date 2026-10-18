@@ -1,12 +1,14 @@
 ---
-import { gameById, type Game } from "../data/games";
+import { categories, gameById, type Game } from "../data/games";
 import { quickPlayGroups } from "../data/quick-play";
+import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
 const ko = locale === "ko";
+const text = t(locale);
 const groups = quickPlayGroups
   .map((group) => ({
     id: group.id,
@@ -135,6 +137,22 @@ const first = groups[0]?.games[0];
         </span>
       </a>
     </div>
+    <nav
+      class="home-genres"
+      aria-label={ko ? "장르로 게임 찾기" : "Browse by genre"}
+    >
+      <span>{ko ? "장르 바로가기" : "Browse by genre"}</span>
+      <div class="home-genre-links">
+        {categories.map((category) => (
+          <a
+            data-home-genre={category}
+            href={`/${locale}/category/${category}/`}
+          >
+            {text[category]}
+          </a>
+        ))}
+      </div>
+    </nav>
     <div class="quick-recent" data-quick-recent hidden>
       <h3>{ko ? "다시 만나도 재밌는 한 판" : "Back for another round"}</h3>
       <p>

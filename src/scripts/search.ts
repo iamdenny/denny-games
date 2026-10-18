@@ -6,6 +6,7 @@ import {
   PAGE_SIZE,
 } from "../lib/catalogue";
 import { loadCatalogue, type CatalogueItem } from "../lib/cards";
+import { controlLabels } from "../data/play-styles";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
 const locale = document.documentElement.lang as Locale,
@@ -21,6 +22,80 @@ const empty = document.querySelector<HTMLElement>("#search-empty")!;
 const pages = document.querySelector<HTMLElement>("#search-pages")!;
 let items: CatalogueItem[] = [],
   timer: ReturnType<typeof setTimeout>;
+
+function resultCard(item: CatalogueItem): HTMLLIElement {
+  const li = document.createElement("li");
+  li.dataset.searchResult = item.id;
+
+  const card = document.createElement("article");
+  card.className = "search-result-card";
+
+  const imageLink = document.createElement("a");
+  imageLink.className = "search-result-art";
+  imageLink.href = `/${locale}/games/${item.id}/`;
+  imageLink.setAttribute("aria-label", item.title);
+  const image = document.createElement("img");
+  image.src = item.artwork;
+  image.width = 320;
+  image.height = 200;
+  image.alt = "";
+  image.loading = "lazy";
+  imageLink.append(image);
+
+  const body = document.createElement("div");
+  body.className = "search-result-body";
+  const categoryName = document.createElement("span");
+  categoryName.className = "search-result-category";
+  categoryName.textContent = item.categoryName;
+  const title = document.createElement("a");
+  title.className = "search-result-title";
+  title.href = `/${locale}/games/${item.id}/`;
+  title.textContent = item.title;
+  const description = document.createElement("p");
+  description.className = "search-result-description";
+  description.textContent = item.editorReason ?? item.subtitle;
+
+  const metadata = document.createElement("div");
+  metadata.className = "search-result-meta";
+  const duration = document.createElement("span");
+  duration.textContent =
+    item.duration === "varies"
+      ? text.durationVaries
+      : `${item.duration} ${text.minutes}`;
+  const playStyle = document.createElement("span");
+  playStyle.textContent =
+    controlLabels[item.controlStyle as keyof typeof controlLabels]?.[locale] ??
+    text.filter;
+  metadata.append(duration, playStyle);
+  if (item.externalHost) {
+    const host = document.createElement("span");
+    host.textContent = text.externalLabel;
+    metadata.append(host);
+  }
+
+  const actions = document.createElement("div");
+  actions.className = "search-result-actions";
+  if (!item.externalHost) {
+    const play = document.createElement("a");
+    play.className = "button primary";
+    play.dataset.searchPlay = item.id;
+    play.href = `/${locale}/play/${item.id}/`;
+    play.textContent = text.play;
+    actions.append(play);
+  }
+  const details = document.createElement("a");
+  details.className = "button secondary";
+  details.dataset.searchDetails = item.id;
+  details.href = `/${locale}/games/${item.id}/`;
+  details.textContent = text.details;
+  actions.append(details);
+
+  body.append(categoryName, title, description, metadata, actions);
+  card.append(imageLink, body);
+  li.append(card);
+  return li;
+}
+
 function updateUrl(url: URL, push: boolean) {
   if (url.href !== location.href)
     history[push ? "pushState" : "replaceState"](null, "", url);
@@ -42,18 +117,7 @@ function render(requested: string | null = "1", push = false) {
   );
   const page = searchPage(requested, matches.length);
   results.replaceChildren();
-  for (const item of paginate(matches, page)) {
-    const li = document.createElement("li"),
-      link = document.createElement("a"),
-      title = document.createElement("strong"),
-      desc = document.createElement("span");
-    link.href = `/${locale}/games/${item.id}/`;
-    title.textContent = item.title;
-    desc.textContent = item.description;
-    link.append(title, desc);
-    li.append(link);
-    results.append(li);
-  }
+  for (const item of paginate(matches, page)) results.append(resultCard(item));
   count.textContent = `${matches.length} ${text.results}`;
   empty.hidden = matches.length > 0;
   const url = new URL(location.href);
