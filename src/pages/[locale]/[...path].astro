@@ -50,8 +50,6 @@ const game = ["games", "play"].includes(kind ?? "")
 const category = parts[1];
 const page = Number((isAll ? parts[2] : parts[3]) ?? "1");
 const totalPages = Math.ceil(games.length / PAGE_SIZE);
-const externalGameCount = games.filter((item) => item.externalPlay).length;
-const localGameCount = games.length - externalGameCount;
 const recommended = editorialOrder(games);
 const homeCuratedPreviewCount = 6;
 const homeCategoryPreviewCount = 3;
@@ -102,8 +100,8 @@ const categoryNames = categories.map((item) => text[item]).join(", ");
 const description =
   (isAll
     ? locale === "ko"
-      ? `무료 브라우저 게임 ${games.length}개 중 ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)}번째입니다. ${page}/${totalPages}페이지에서 ${categoryNames} 게임을 찾아보세요. 일부 게임은 라이선스·계정·저장 방식이 다른 외부 호스트에서 열립니다.`
-      : `Browse ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)} of ${games.length} free browser games on page ${page} of ${totalPages}. Explore ${categoryNames}; some games open on independent hosts with different license, account and save terms.`
+      ? `데니 게임즈에서 바로 플레이할 수 있는 브라우저 게임 ${games.length}개 중 ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)}번째입니다. ${page}/${totalPages}페이지에서 ${categoryNames} 게임을 찾아보세요.`
+      : `Browse ${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, games.length)} of ${games.length} browser games, all playable on Denny Games. Explore ${categoryNames} on page ${page} of ${totalPages}.`
     : undefined) ??
   collectionCopy?.intro ??
   (path === "collections"
@@ -117,8 +115,8 @@ const description =
     ? `${categoryIntro} ${locale === "ko" ? `${page}페이지 · 총 ${categoryGames(category!).length}개 게임.` : `Page ${page} · ${categoryGames(category!).length} games in this collection.`}`
     : isHome
       ? locale === "ko"
-        ? `무료 브라우저 게임 ${games.length}개를 만나보세요. ${localGameCount}개는 데니 게임즈에서 실행하고, 외부 브라우저 게임 ${externalGameCount}개는 각자의 호스트에서 엽니다. 계정·조작·저장 조건은 호스트별 안내를 확인하세요.`
-        : `Explore ${games.length} free browser games. ${localGameCount} launch on Denny Games and ${externalGameCount} titles open on external hosts; account, input and save requirements vary by host.`
+        ? `무료 브라우저 게임 ${games.length}개를 데니 게임즈 안에서 바로 플레이하세요. 게임의 규칙과 조작을 확인하고 원하는 장르를 찾아보세요.`
+        : `Explore ${games.length} free browser games and play every title on Denny Games. Read the rules and controls, then choose a genre.`
       : `${title}. ${text.tagline}`);
 const schema = indexable(path)
   ? discoverySchema({
@@ -146,12 +144,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
   noindex={!indexable(path)}
   play={isPlay}
   schema={schema}
-  image={
-    game
-      ? (game.screenshot ??
-        (game.externalPlay ? "/art/social.png" : game.artwork))
-      : undefined
-  }
+  image={game ? (game.screenshot ?? game.artwork) : undefined}
 >
   {isHome && (
     <>

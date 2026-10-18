@@ -1,11 +1,13 @@
 ---
 title: "다음 릴리스 PRD — 플레이 방식별 탐색과 기기 점검"
-summary: "356개 게임 페이지로 확장된 카탈로그의 탐색, 검색·AI 검색용 모음, 실제 기기 점검 준비와 공급 확대의 완료 조건."
+summary: "카탈로그 탐색, 검색·AI 검색용 모음, 실제 기기 점검 준비와 게임 공급 확대의 완료 조건."
 read_when:
   - Implementing the next catalogue and device-readiness release
 ---
 
 # 다음 릴리스 PRD
+
+> Historical delivery plan. Its October 2026 external-listing waves are no longer public: [ADR 0038](../adr/0038-local-play-only-catalogue.md) requires every published game to run on Denny Games. The current public registry contains 207 in-site games.
 
 ## 해결할 문제
 

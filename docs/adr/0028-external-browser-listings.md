@@ -9,7 +9,7 @@ read_when:
 
 ## Status
 
-Accepted — 2026-10-15.
+Superseded — 2026-10-18 by [ADR 0038](0038-local-play-only-catalogue.md).
 
 ## Context
 

@@ -59,7 +59,7 @@ test("editor picks stay consistent across home, full catalogue, categories and d
     "href",
     `/ko/play/${editorPicks[0]!.id}/`,
   );
-  await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(10);
+  await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(7);
   for (const link of await page
     .locator(".home-genres [data-home-genre]")
     .all()) {

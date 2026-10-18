@@ -28,7 +28,7 @@ Gridland was listed as an outbound browser game even though its source is publis
 
 ## Consequences
 
-Gridland becomes a locally playable game at `/en/play/gridland/` and `/ko/play/gridland/`; the catalog remains 356 pages, with 207 local games and 149 outbound listings. Progress is local to this browser and device. The game remains silent in this hosted version. Gamepad support and actual iPhone/iPad/Android/Tesla behavior are not claimed.
+At the 2026-10-17 release, Gridland became locally playable at `/en/play/gridland/` and `/ko/play/gridland/`; the catalog then had 356 pages, with 207 local games and 149 outbound listings. ADR 0038 later removed outbound listings from the public catalogue. Progress is local to this browser and device. The game remains silent in this hosted version. Gamepad support and actual iPhone/iPad/Android/Tesla behavior are not claimed.
 
 ## Verification
 

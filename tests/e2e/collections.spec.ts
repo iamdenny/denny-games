@@ -75,7 +75,7 @@ test("search composes filters, preserves URL and language, handles history and r
   await expect(page.locator("#search-empty")).toBeVisible();
   await page.goBack();
   await expect(page.locator('[name="control"]')).toHaveValue("");
-  await expect(page.locator("#search-results li")).toHaveCount(12);
+  await expect(page.locator("#search-results li")).toHaveCount(8);
   await page.goto(
     "/ko/search/?page=Infinity&category=unknown&control=forged&length=invalid",
   );

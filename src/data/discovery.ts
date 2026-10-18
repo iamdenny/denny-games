@@ -4,43 +4,43 @@ import type { Locale } from "../lib/types";
 // Editorial category descriptions must describe the actual catalogue.
 export const categoryCopy: Record<Category, Record<Locale, string>> = {
   board: {
-    en: "Play local classics such as Gomoku, Reversi, checkers and Four in a Row, or follow links to card-table and board-game variations including Briscola, Klondike, Naval Battle and Parchis. Local multiplayer and external host rules vary by title.",
-    ko: "오목·리버시·체커·사목 같은 로컬 게임과 브리스콜라·클론다이크·해전·파르치스 보드게임을 둘러보세요. 로컬 대전과 외부 호스트 방식은 게임마다 다릅니다.",
+    en: "Play Gomoku, Reversi, checkers, Four in a Row and Dots and Boxes with local opponents or on one shared device. Every published board game launches on Denny Games.",
+    ko: "오목·리버시·체커·사목·점과 상자 게임을 로컬 상대 또는 한 기기에서 함께 즐겨보세요. 공개된 보드게임은 모두 데니 게임즈에서 실행됩니다.",
   },
   puzzle: {
-    en: "Browser puzzles range from circuits, number grids and matching boards to Klondike solitaire and classic arcade variations. Read each game's rules and host details before playing.",
-    ko: "회로·숫자 퍼즐·짝 맞추기부터 클론다이크와 고전 아케이드 변형까지 즐겨보세요. 게임별 규칙과 외부 호스트 안내를 확인하세요.",
+    en: "Follow circuit paths, combine number tiles and solve quick logic challenges. Every published puzzle starts on Denny Games, with its rules and controls on the game page.",
+    ko: "회로를 연결하고 숫자 타일을 합치며 짧은 논리 퍼즐에 도전해보세요. 공개된 퍼즐은 모두 데니 게임즈에서 실행되며, 규칙과 조작법은 게임 페이지에서 확인할 수 있습니다.",
   },
   arcade: {
-    en: "Play quick in-site arcade challenges or follow external links to block games, pinball tables and classic arcade experiments. Controls, scores and saves depend on the title and host.",
-    ko: "사이트 안의 짧은 아케이드 게임과 외부 링크의 블록 게임·핀볼·고전 아케이드 실험작을 둘러보세요. 조작·점수·저장 방식은 게임과 호스트마다 다릅니다.",
+    en: "Take a short break with quick reflex games, block challenges and classic arcade action. Every published arcade game launches right here on Denny Games.",
+    ko: "짧은 반사 신경 게임과 블록 도전, 고전 아케이드 액션으로 잠깐 쉬어가세요. 공개된 아케이드 게임은 모두 데니 게임즈에서 바로 플레이할 수 있습니다.",
   },
   action: {
-    en: "Action games include platform adventures, maze duels, arena combat and longer host-based campaigns. Each detail page explains its controls, license and external-host conditions.",
-    ko: "플랫폼 모험·미로 대전·아레나 전투·외부 호스트 캠페인 등 액션 게임을 살펴보세요. 상세 페이지에서 조작법·라이선스·호스트 조건을 확인할 수 있습니다.",
+    en: "Move, dodge and react in action games built for quick rounds or longer runs. Each title has its own player page on Denny Games with rules and controls ready before you start.",
+    ko: "짧은 라운드부터 긴 도전까지, 움직이고 피하며 반응하는 액션 게임을 즐겨보세요. 모든 게임은 데니 게임즈 안에 전용 플레이 페이지와 규칙·조작 안내가 있습니다.",
   },
   shooting: {
-    en: "Aim, dodge and survive in locally hosted shooters or try external space-combat, artillery and top-down battle royale games such as Suroi. Check each title's controls and host requirements before playing.",
-    ko: "사이트 안의 조준 도전과 외부 호스트의 우주 전투·포격·탑다운 배틀로얄 게임 Suroi를 즐겨보세요. 시작하기 전에 게임별 조작과 호스트 요구사항을 확인하세요.",
+    en: "Aim, dodge and survive in fast shooting challenges. Every published shooter runs on Denny Games, and each game page explains how to play before launch.",
+    ko: "빠른 슈팅 도전에서 조준하고 피하며 살아남아 보세요. 공개된 슈팅 게임은 모두 데니 게임즈에서 실행되며, 시작 전에 게임 페이지에서 조작법을 확인할 수 있습니다.",
   },
   racing: {
-    en: "Race 3D tracks, dodge traffic, and try browser time trials or track editing. The collection also includes short parking and steering games.",
-    ko: "주차·차선 변경 미니게임부터 3D 레이싱 트랙 편집, 타임 트라이얼과 교통 피하기까지 즐겨보세요. 외부 게임은 각 호스트에서 열립니다.",
+    en: "Park, steer and race through short driving challenges. Every listed racing game plays on Denny Games, with its controls shown on the detail page.",
+    ko: "주차하고 방향을 조작하며 짧은 운전 도전에 참여해보세요. 공개된 레이싱 게임은 모두 데니 게임즈에서 플레이할 수 있고 상세 페이지에서 조작법을 확인할 수 있습니다.",
   },
   sports: {
-    en: "Try browser sports and table games, from golf and ball challenges to 3D pong. Scoring and controls differ between titles; external games open on their own host.",
-    ko: "골프·공·저글링부터 3D 탁구까지 브라우저 스포츠 게임을 해보세요. 점수 규칙과 조작법은 다르며 외부 게임은 해당 호스트에서 열립니다.",
+    en: "Try golf, ball and table challenges in a few minutes. Every published sports game launches on Denny Games, with scoring and controls explained on its page.",
+    ko: "골프와 공, 테이블 스포츠 도전을 짧게 즐겨보세요. 공개된 스포츠 게임은 모두 데니 게임즈에서 실행되며, 점수 규칙과 조작법은 각 페이지에 안내되어 있습니다.",
   },
   strategy: {
-    en: "Plan, build and outthink rivals in turn-based, tile-based and real-time strategy games. Freeciv, OpenTTD and tactical match-3 titles link to independent hosts with different save and service rules.",
-    ko: "턴제·타일 기반 전략 게임에서 문명을 세우고 교통망을 만들며 전술 대전을 즐겨보세요. Freeciv·OpenTTD 등은 저장과 서비스 규칙이 서로 다른 외부 호스트에서 열립니다.",
+    en: "Strategy games will be listed here when a locally playable selection is ready.",
+    ko: "사이트 안에서 플레이할 수 있는 전략 게임을 준비하면 이곳에 소개합니다.",
   },
   roguelike: {
-    en: "Explore classic turn-based dungeons in NetHack, Umoria, Larn, Angband and Dungeon Crawl: Stone Soup. Each game has its own commands, browser build, account or save behavior; read its detail page before starting a run.",
-    ko: "NetHack · Umoria · Larn · Angband · Dungeon Crawl: Stone Soup의 고전 턴제 던전을 탐험하세요. 게임마다 명령 · 브라우저 빌드 · 계정 · 저장 방식이 다르므로 모험을 시작하기 전에 상세 안내를 확인하세요.",
+    en: "Roguelike games will be listed here when a locally playable selection is ready.",
+    ko: "사이트 안에서 플레이할 수 있는 로그라이크 게임을 준비하면 이곳에 소개합니다.",
   },
   simulation: {
-    en: "Explore creative browser sandboxes and simulations, from 3D city building and procedural voxel survival to shared social rooms, cafes, pet care and horse riding. Open-source status and host rules vary by title.",
-    ko: "3D 도시 건설과 절차 생성 복셀 생존부터 공유 소셜 룸·카페·반려동물 돌봄·승마까지 웹 시뮬레이션을 둘러보세요. 오픈소스 여부와 호스트 조건은 게임마다 다릅니다.",
+    en: "Simulation games will be listed here when a locally playable selection is ready.",
+    ko: "사이트 안에서 플레이할 수 있는 시뮬레이션 게임을 준비하면 이곳에 소개합니다.",
   },
 };

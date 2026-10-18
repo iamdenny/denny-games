@@ -55,9 +55,7 @@ for (const locale of ["en", "ko"]) {
     await expect(page.locator("[data-quick-title]")).toHaveText("Hextris");
     await expect(page.locator("[data-quick-controls]")).toBeHidden();
     await expect(page.locator("[data-quick-next]")).toBeHidden();
-    await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(
-      10,
-    );
+    await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(7);
     await page.locator('[data-home-genre="puzzle"]').click();
     await expect(page).toHaveURL(`/${locale}/category/puzzle/`);
     await page.goto(`/${locale}/`);
@@ -102,16 +100,14 @@ test("search results show game art, controls and an in-site launch", async ({
   }
 });
 
-test("external search results route through their details before the host", async ({
+test("external game candidates are absent from public search", async ({
   page,
 }) => {
   await page.goto("/en/search/?q=Lichess");
-  const result = page.locator('[data-search-result="lichess"]');
-  await expect(result).toBeVisible();
-  await expect(result.locator("[data-search-play]")).toHaveCount(0);
-  await expect(result.locator("[data-search-details]")).toHaveAttribute(
-    "href",
-    "/en/games/lichess/",
+  await expect(page.locator('[data-search-result="lichess"]')).toHaveCount(0);
+  await expect(page.locator("#search-empty")).toBeVisible();
+  await expect(page.locator("#search-results [data-search-play]")).toHaveCount(
+    0,
   );
 });
 
