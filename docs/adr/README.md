@@ -46,3 +46,4 @@
 - [0034 — Self-hosted Sokoban](0034-self-hosted-sokoban.md) — Accepted.
 - [0035 — Self-hosted Gridland](0035-self-hosted-gridland.md) — Accepted.
 - [0036 — Game learning and canonical sharing](0036-game-learning-and-sharing.md) — Accepted.
+- [0037 — Varied home picks and visual search results](0037-varied-home-and-search.md) — Accepted.

@@ -55,11 +55,65 @@ for (const locale of ["en", "ko"]) {
     await expect(page.locator("[data-quick-title]")).toHaveText("Hextris");
     await expect(page.locator("[data-quick-controls]")).toBeHidden();
     await expect(page.locator("[data-quick-next]")).toBeHidden();
+    await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(
+      10,
+    );
+    await page.locator('[data-home-genre="puzzle"]').click();
+    await expect(page).toHaveURL(`/${locale}/category/puzzle/`);
+    await page.goto(`/${locale}/`);
     await page.locator("[data-quick-details]").click();
     await expect(page).toHaveURL(new RegExp(`/${locale}/games/hextris/`));
     await context.close();
   });
 }
+
+test("search results show game art, controls and an in-site launch", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto("/ko/search/?q=회로");
+  const circuit = page.locator('[data-search-result="circuit-loop"]');
+  await expect(circuit).toBeVisible();
+  await expect(circuit.locator("img")).toHaveAttribute(
+    "src",
+    "/art/circuit-loop.svg",
+  );
+  await expect(circuit).toContainText("위치 조작");
+  await expect(circuit.locator("[data-search-play]")).toHaveAttribute(
+    "href",
+    "/ko/play/circuit-loop/",
+  );
+  await expect(circuit.locator("[data-search-details]")).toHaveAttribute(
+    "href",
+    "/ko/games/circuit-loop/",
+  );
+  const artwork = await circuit.locator("img").boundingBox();
+  expect(artwork).not.toBeNull();
+  expect(artwork!.width).toBeGreaterThan(artwork!.height);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  for (const action of await circuit
+    .locator(".search-result-actions a")
+    .all()) {
+    expect((await action.boundingBox())!.height).toBeGreaterThanOrEqual(48);
+  }
+});
+
+test("external search results route through their details before the host", async ({
+  page,
+}) => {
+  await page.goto("/en/search/?q=Lichess");
+  const result = page.locator('[data-search-result="lichess"]');
+  await expect(result).toBeVisible();
+  await expect(result.locator("[data-search-play]")).toHaveCount(0);
+  await expect(result.locator("[data-search-details]")).toHaveAttribute(
+    "href",
+    "/en/games/lichess/",
+  );
+});
 
 test("recent games use real local history and never generate unknown or external play routes", async ({
   page,

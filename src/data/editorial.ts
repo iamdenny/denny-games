@@ -3,73 +3,87 @@ import type { Locale } from "../lib/types";
 // Editorial judgement from screen/rule review, not measured popularity.
 export const editorPicks = [
   {
-    id: "hextris",
-    reason: {
-      en: "A legible hexagonal board, quick color matches and touch rotation.",
-      ko: "한눈에 보이는 육각형 판, 빠른 색 맞추기와 터치 회전",
-    },
-  },
-  {
-    id: "gomoku",
-    reason: {
-      en: "A clear 15×15 board, move preview and freestyle five-in-a-row.",
-      ko: "15×15 선명한 판과 수 미리보기로 즐기는 자유룰 오목",
-    },
-  },
-  {
-    id: "reversi",
-    reason: {
-      en: "Legal-move hints, clear disc counts and sweeping reversals.",
-      ko: "가능한 수와 돌 개수가 보이는 차분한 뒤집기 전략",
-    },
-  },
-  {
-    id: "four-in-a-row",
-    reason: {
-      en: "Seven columns, simple drops and readable connection threats.",
-      ko: "7개 열에 돌을 떨어뜨리는 쉽고 선명한 연결 전략",
-    },
-  },
-  {
-    id: "checkers",
-    reason: {
-      en: "Highlighted destinations, capture chains and crowned kings.",
-      ko: "목적지 표시와 연속 잡기, 킹 승급의 전략",
-    },
-  },
-  {
-    id: "dots-and-boxes",
-    reason: {
-      en: "A compact four-by-four board and satisfying box chains.",
-      ko: "작은 4×4 판에서 사각형을 연달아 차지하는 재미",
-    },
-  },
-  {
-    id: "bounce-back",
-    reason: {
-      en: "Aim a boomerang, dodge enemies and shop between generated rooms.",
-      ko: "절차 생성 방에서 부메랑 조준·회피·상점 강화를 즐기는 액션 로그라이트",
-    },
-  },
-  {
     id: "orbit-break",
     reason: {
-      en: "Readable rebounds and twelve colourful brick layouts.",
-      ko: "선명한 반사각과 12가지 컬러 벽돌 배치",
-    },
-  },
-  {
-    id: "2048",
-    reason: {
-      en: "A familiar sliding puzzle with clear, tactile number tiles.",
-      ko: "큰 숫자 타일로 즐기는 익숙한 슬라이딩 퍼즐",
+      en: "Read the rebound, clear twelve colourful brick layouts and keep the rally alive.",
+      ko: "반사각을 읽고 알록달록한 벽돌 12개 배치를 깨며 랠리를 이어가요.",
     },
   },
   {
     id: "circuit-loop",
     reason: {
-      en: "Thirty solvable boards, connected paths and no countdown.",
-      ko: "연결이 보이는 30개 회로 보드, 시간제한 없는 퍼즐",
+      en: "Rotate the loose tiles into a complete circuit across thirty calm boards.",
+      ko: "흩어진 타일을 돌려 30개 보드에서 회로를 완성하는 차분한 퍼즐.",
+    },
+  },
+  {
+    id: "bounce-back",
+    reason: {
+      en: "Throw a returning boomerang, dodge roomfuls of enemies and collect upgrades.",
+      ko: "되돌아오는 부메랑을 던지고 적을 피하며 강화 아이템을 모아요.",
+    },
+  },
+  {
+    id: "underrun",
+    reason: {
+      en: "Explore a pixel-lit 3D facility, restore systems and dodge incoming fire.",
+      ko: "픽셀 조명 3D 시설을 탐색하고 설비를 복구하며 적의 공격을 피하세요.",
+    },
+  },
+  {
+    id: "crisp-skygolf",
+    reason: {
+      en: "Pick a three, six or nine-hole course and set each shot's power.",
+      ko: "3·6·9홀 코스를 고르고 샷의 세기를 조절해 코스를 돌아요.",
+    },
+  },
+  {
+    id: "gomoku",
+    reason: {
+      en: "Read a clear 15×15 board, preview a move and line up five stones.",
+      ko: "15×15 판에서 수를 미리 보고 돌 다섯 개를 한 줄로 이어요.",
+    },
+  },
+  {
+    id: "hextris",
+    reason: {
+      en: "Match blocks on a six-sided board and rotate the whole playfield.",
+      ko: "육각형 판에서 블록을 맞추고 게임판 전체를 돌려요.",
+    },
+  },
+  {
+    id: "reversi",
+    reason: {
+      en: "Use legal-move hints and turn a small advantage into a sweeping reversal.",
+      ko: "가능한 수를 살피고 작은 우세를 판 전체의 역전으로 바꿔요.",
+    },
+  },
+  {
+    id: "four-in-a-row",
+    reason: {
+      en: "Drop a disc into one of seven columns and connect four before your rival.",
+      ko: "일곱 열 중 하나에 돌을 떨어뜨려 상대보다 먼저 넷을 이어요.",
+    },
+  },
+  {
+    id: "checkers",
+    reason: {
+      en: "Plan capture chains, watch the highlighted destinations and crown a king.",
+      ko: "표시된 목적지를 따라 연속으로 잡고 킹 승급을 노려요.",
+    },
+  },
+  {
+    id: "dots-and-boxes",
+    reason: {
+      en: "Claim a square, set a trap and turn one line into a chain of boxes.",
+      ko: "선을 그어 칸을 차지하고 한 번의 연결로 사각형을 이어가요.",
+    },
+  },
+  {
+    id: "2048",
+    reason: {
+      en: "Slide matching number tiles together and plan the next move on a 4×4 board.",
+      ko: "4×4 판에서 같은 숫자 타일을 밀어 합치고 다음 수를 계획해요.",
     },
   },
   {
@@ -77,13 +91,6 @@ export const editorPicks = [
     reason: {
       en: "A bright brick field and a distinct flipping-paddle mechanic.",
       ko: "밝은 벽돌판과 패들을 뒤집는 독특한 조작",
-    },
-  },
-  {
-    id: "crisp-skygolf",
-    reason: {
-      en: "Aim at a visible course and follow the in-game stroke count.",
-      ko: "코스를 보며 조준하고 타수를 줄이는 골프",
     },
   },
   {

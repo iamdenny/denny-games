@@ -15,7 +15,7 @@ The root page supplies an inline script through the Base layout's head slot to o
 
 ## Boundaries
 
-- `src/data`: typed game metadata, localized editorial copy, categories and explicit external-host records.
+- `src/data`: typed game metadata, localized editorial copy, categories, shared play-style labels in `play-styles.ts`, and explicit external-host records.
 - `src/pages`: static routes, search indexes, sitemap and robots endpoints.
 - `src/components` and `src/layouts`: semantic UI, SEO metadata and advertising slots.
 - `src/lib`: storage, deterministic randomness, input, ads and lifecycle contracts.

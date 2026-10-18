@@ -61,9 +61,15 @@ test("search composes filters, preserves URL and language, handles history and r
     .getByRole("link", { name: "2", exact: true })
     .click();
   await expect(page).toHaveURL(/page=2/);
-  const second = await page.locator("#search-results li").first().innerText();
+  const secondId = await page
+    .locator("#search-results li")
+    .first()
+    .getAttribute("data-search-result");
   await page.reload();
-  await expect(page.locator("#search-results li").first()).toHaveText(second);
+  await expect(page.locator("#search-results li").first()).toHaveAttribute(
+    "data-search-result",
+    secondId!,
+  );
   await page.locator('[name="category"]').selectOption("sports");
   await page.locator('[name="control"]').selectOption("numbers");
   await expect(page.locator("#search-empty")).toBeVisible();

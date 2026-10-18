@@ -40,7 +40,7 @@ test("editor picks stay consistent across home, full catalogue, categories and d
   await page.goto("/ko/");
   await expect(page.locator("[data-quick-details]")).toHaveAttribute(
     "href",
-    `/ko/games/${editorPicks[0]!.id}/`,
+    "/ko/games/hextris/",
   );
   expect(
     await page
@@ -49,6 +49,23 @@ test("editor picks stay consistent across home, full catalogue, categories and d
         cards.slice(0, 6).map((card) => card.getAttribute("data-game-card")),
       ),
   ).toEqual(editorPicks.slice(0, 6).map((pick) => pick.id));
+  const featuredCategories = await page
+    .locator("[data-game-card]")
+    .evaluateAll((cards) =>
+      cards.slice(0, 6).map((card) => card.getAttribute("data-category")),
+    );
+  expect(new Set(featuredCategories).size).toBe(6);
+  await expect(page.locator("[data-home-play-link]").first()).toHaveAttribute(
+    "href",
+    `/ko/play/${editorPicks[0]!.id}/`,
+  );
+  await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(10);
+  for (const link of await page
+    .locator(".home-genres [data-home-genre]")
+    .all()) {
+    const category = await link.getAttribute("data-home-genre");
+    await expect(link).toHaveAttribute("href", `/ko/category/${category}/`);
+  }
   await page.goto("/ko/all/");
   expect(
     await page
@@ -67,13 +84,13 @@ test("editor picks stay consistent across home, full catalogue, categories and d
   await page.goto("/en/category/arcade/");
   await expect(page.locator("[data-game-card]").first()).toHaveAttribute(
     "data-game-card",
-    "hextris",
+    "orbit-break",
   );
   await page.locator("[data-sort]").selectOption("name");
   await page.locator("[data-sort]").selectOption("recommended");
   await expect(page.locator("[data-game-card]").first()).toHaveAttribute(
     "data-game-card",
-    "hextris",
+    "orbit-break",
   );
   await page.goto("/en/search/");
   await expect(page.locator("#search-results a").first()).toHaveAttribute(

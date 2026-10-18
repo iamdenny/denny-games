@@ -6,7 +6,7 @@ import { openSourceGames } from "./open-source-games";
 import { editorialOrder } from "./editorial";
 import { eraExternalGames } from "./external-browser-additions";
 import { worldOpenGames } from "./world-open-games";
-import type { ControlStyle } from "./collections";
+import type { ControlStyle } from "./play-styles";
 export const categories = [
   "board",
   "puzzle",

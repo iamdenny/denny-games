@@ -6,8 +6,9 @@ import type { Locale } from "../lib/types";
 interface Props {
   game: Game;
   locale: Locale;
+  directPlay?: boolean;
 }
-const { game, locale } = Astro.props;
+const { game, locale, directPlay = false } = Astro.props;
 const text = t(locale);
 const detail = game.text[locale];
 const pick = editorialPick(game.id);
@@ -55,6 +56,15 @@ const pick = editorialPick(game.id);
       </div>
     </div>
   </a>
+  {directPlay && !game.externalPlay && (
+    <a
+      class="card-play-link"
+      data-home-play-link={game.id}
+      href={`/${locale}/play/${game.id}/`}
+    >
+      {text.play} <span aria-hidden="true">↗</span>
+    </a>
+  )}
   <button
     class="favorite-button"
     data-favorite={game.id}
