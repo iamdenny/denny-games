@@ -1,5 +1,5 @@
 ---
-import { categories, gameById, type Game } from "../data/games";
+import { categories, gameById, games } from "../data/games";
 import { quickPlayGroups } from "../data/quick-play";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
@@ -9,49 +9,56 @@ interface Props {
 const { locale } = Astro.props;
 const ko = locale === "ko";
 const text = t(locale);
+const localChoices = games.map((game) => ({
+  id: game.id,
+  title: game.text[locale].title,
+  hook: game.text[locale].subtitle,
+  image: game.artwork,
+  note: game.text[locale].controls[0],
+  duration:
+    game.duration === "varies"
+      ? ko
+        ? "내 페이스로"
+        : "At your pace"
+      : `${game.duration}${ko ? "분" : " min"}`,
+}));
+const localChoiceIds = new Set(localChoices.map((game) => game.id));
 const groups = quickPlayGroups
   .map((group) => ({
     id: group.id,
     label: group.label[locale],
-    games: group.ids
-      .map(gameById)
-      .filter(
-        (game): game is Game =>
-          game !== undefined &&
-          !game.externalPlay &&
-          game.inputs.includes("touch"),
-      )
-      .map((game) => {
-        return {
-          id: game.id,
-          title: game.text[locale].title,
-          hook: game.text[locale].subtitle,
-          image: game.artwork,
-          note:
-            group.id === "together"
-              ? ko
-                ? "시작 화면에서 ‘2인 플레이’를 선택하세요. 같은 화면에서 번갈아 둬요."
-                : "Choose two-player mode on the start screen. Take turns on the same screen."
-              : game.text[locale].controls[0],
-          duration:
-            game.duration === "varies"
-              ? ko
-                ? "내 페이스로"
-                : "At your pace"
-              : `${game.duration}${ko ? "분" : " min"}`,
-        };
-      }),
+    note:
+      group.id === "together"
+        ? ko
+          ? "시작 화면에서 ‘2인 플레이’를 선택하세요. 같은 화면에서 번갈아 둬요."
+          : "Choose two-player mode on the start screen. Take turns on the same screen."
+        : undefined,
+    ids: group.ids.filter((id) => {
+      const game = gameById(id);
+      return localChoiceIds.has(id) && game?.inputs.includes("touch");
+    }),
   }))
-  .filter((group) => group.games.length > 0);
-const first = groups[0]?.games[0];
+  .filter((group) => group.ids.length > 0);
+const pools = [
+  {
+    id: "all",
+    label: ko ? "전체 게임" : "All games",
+    ids: localChoices.map((game) => game.id),
+  },
+  ...groups,
+];
+const first =
+  localChoices.find((game) => game.id === "hextris") ?? localChoices[0]!;
 ---
 
 {first && (
   <section
     class="quick-play"
     data-quick-play
-    data-choices={JSON.stringify(groups)}
+    data-choices={JSON.stringify({ items: localChoices, pools })}
+    data-quick-current={first.id}
     aria-labelledby="quick-heading"
+    aria-roledescription={ko ? "게임 추천" : "game carousel"}
   >
     <div class="quick-heading">
       <div>
@@ -67,18 +74,24 @@ const first = groups[0]?.games[0];
         role="group"
         aria-label={ko ? "플레이 방식" : "Play style"}
       >
-        {groups.map((group, i) => (
-          <button
-            type="button"
-            data-quick-mood={group.id}
-            aria-pressed={i === 0 ? "true" : "false"}
-          >
+        <button type="button" data-quick-mood="all" aria-pressed="true">
+          {ko ? "전체 게임" : "All games"}
+        </button>
+        {groups.map((group) => (
+          <button type="button" data-quick-mood={group.id} aria-pressed="false">
             {group.label}
           </button>
         ))}
       </div>
     </div>
-    <div class="quick-feature">
+    <div
+      class="quick-feature"
+      data-quick-slide
+      role="group"
+      aria-roledescription={ko ? "슬라이드" : "slide"}
+      aria-label={`${ko ? "추천 게임" : "Featured game"}: ${first.title}`}
+      aria-live="off"
+    >
       <div class="quick-copy">
         <span class="quick-meta">
           {ko ? "여기서 바로 플레이" : "Play right here"}{" "}
@@ -108,9 +121,18 @@ const first = groups[0]?.games[0];
             {ko ? "게임 알아보기" : "How to play"}
           </a>
         </div>
-        <button class="quick-shuffle" type="button" data-quick-next hidden>
-          ↻ {ko ? "다른 게임 골라줘" : "Pick another game"}
-        </button>
+        <div class="quick-rotation-controls">
+          <button
+            type="button"
+            data-quick-toggle
+            data-pause-label={ko ? "자동 넘김 멈춤" : "Pause rotation"}
+            data-resume-label={ko ? "자동 넘김 시작" : "Resume rotation"}
+            hidden
+          ></button>
+          <button type="button" data-quick-next hidden>
+            ↻ {ko ? "다른 게임 보기" : "Pick another game"}
+          </button>
+        </div>
         <span
           class="quick-status"
           data-quick-status
@@ -194,6 +216,9 @@ const first = groups[0]?.games[0];
     flex-wrap: wrap;
     gap: 6px;
   }
+  .quick-moods[hidden] {
+    display: none;
+  }
   .quick-moods button {
     border: 1px solid #17211d;
     border-radius: 99px;
@@ -262,18 +287,40 @@ const first = groups[0]?.games[0];
     text-underline-offset: 4px;
     padding: 12px 0;
   }
-  .quick-shuffle {
-    color: #a7f0e6;
-    background: none;
-    border: 0;
-    padding: 12px 0;
+  .quick-rotation-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .quick-rotation-controls button {
+    border: 1px solid #75918c;
+    border-radius: 999px;
+    background: transparent;
+    color: #f5f2e9;
+    padding: 8px 14px;
     min-height: 48px;
-    margin-top: 8px;
     font: inherit;
     font-size: 13px;
+    font-weight: 700;
     cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  }
+  .quick-rotation-controls button[hidden] {
+    display: none;
+  }
+  .quick-rotation-controls [data-quick-toggle] {
+    border-color: #d9ed68;
+    background: #d9ed68;
+    color: #17211d;
+  }
+  .quick-rotation-controls button:hover {
+    border-color: #a7f0e6;
+  }
+  .quick-rotation-controls button:focus-visible,
+  .quick-moods button:focus-visible {
+    outline: 3px solid #a7f0e6;
+    outline-offset: 3px;
   }
   .quick-art {
     display: grid;

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { quickPlayGroups } from "../../src/data/quick-play";
-import { gameById } from "../../src/data/games";
+import { gameById, games } from "../../src/data/games";
 
 test("all curated launch targets exist and declare local touch play", () => {
   for (const group of quickPlayGroups)
@@ -19,7 +19,14 @@ for (const locale of ["en", "ko"]) {
   }) => {
     await page.goto(`/${locale}/`);
     const launch = page.locator("[data-quick-launch]");
-    await expect(launch).toHaveAttribute("href", `/${locale}/play/hextris/`);
+    await expect(launch).toHaveAttribute(
+      "href",
+      new RegExp(`^/${locale}/play/[^/]+/$`),
+    );
+    const initialId = await page
+      .locator("[data-quick-play]")
+      .getAttribute("data-quick-current");
+    expect(gameById(initialId!)).toBeDefined();
     await page.locator('[data-quick-mood="think"]').click();
     await expect(page.locator('[data-quick-mood="think"]')).toHaveAttribute(
       "aria-pressed",
@@ -55,6 +62,7 @@ for (const locale of ["en", "ko"]) {
     await expect(page.locator("[data-quick-title]")).toHaveText("Hextris");
     await expect(page.locator("[data-quick-controls]")).toBeHidden();
     await expect(page.locator("[data-quick-next]")).toBeHidden();
+    await expect(page.locator("[data-quick-toggle]")).toBeHidden();
     await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(7);
     await page.locator('[data-home-genre="puzzle"]').click();
     await expect(page).toHaveURL(`/${locale}/category/puzzle/`);
@@ -64,6 +72,76 @@ for (const locale of ["en", "ko"]) {
     await context.close();
   });
 }
+
+test("home spotlight rotates through the complete local catalogue and can pause", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.clock.install();
+  await page.goto("/en/");
+  const root = page.locator("[data-quick-play]");
+  const choices = JSON.parse((await root.getAttribute("data-choices"))!);
+  expect(choices.items.map((item: { id: string }) => item.id)).toEqual(
+    games.map((game) => game.id),
+  );
+  expect(
+    new Set(choices.items.map((item: { id: string }) => item.id)).size,
+  ).toBe(games.length);
+
+  const launch = page.locator("[data-quick-launch]");
+  const initialHref = await launch.getAttribute("href");
+  const rotation = page.locator("[data-quick-toggle]");
+  await expect(rotation).toContainText("Pause rotation");
+  await page.clock.fastForward(8000);
+  await expect(launch).not.toHaveAttribute("href", initialHref!);
+
+  await rotation.click();
+  await expect(rotation).toContainText("Resume rotation");
+  const pausedHref = await launch.getAttribute("href");
+  await page.clock.fastForward(16000);
+  await expect(launch).toHaveAttribute("href", pausedHref!);
+
+  await page.mouse.move(0, 0);
+  await rotation.evaluate((button: HTMLButtonElement) => button.blur());
+  await rotation.click();
+  await expect(rotation).toContainText("Pause rotation");
+  await rotation.evaluate((button: HTMLButtonElement) => button.blur());
+  await page.mouse.move(0, 0);
+  await page.clock.fastForward(8000);
+  await expect(launch).not.toHaveAttribute("href", pausedHref!);
+});
+
+test("keyboard focus pauses rotation even immediately after a pointer click", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.clock.install();
+  await page.goto("/en/");
+  const launch = page.locator("[data-quick-launch]");
+  const initialHref = await launch.getAttribute("href");
+
+  await page.locator("#quick-heading").click();
+  await page.evaluate(() => {
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab" }));
+    document
+      .querySelector<HTMLButtonElement>('[data-quick-mood="all"]')!
+      .focus();
+  });
+
+  await expect(page.locator("[data-quick-toggle]")).toContainText(
+    "Resume rotation",
+  );
+  await page.clock.fastForward(16000);
+  await expect(launch).toHaveAttribute("href", initialHref!);
+
+  const rotation = page.locator("[data-quick-toggle]");
+  await rotation.click();
+  await expect(rotation).toContainText("Pause rotation");
+  const resumedHref = await launch.getAttribute("href");
+  await page.mouse.move(0, 0);
+  await page.clock.fastForward(8000);
+  await expect(launch).not.toHaveAttribute("href", resumedHref!);
+});
 
 test("search results show game art, controls and an in-site launch", async ({
   page,
@@ -140,11 +218,15 @@ test("denied storage keeps discovery working", async ({ page }) => {
   });
   await page.goto("/en/");
   await expect(page.locator("[data-quick-recent]")).toBeHidden();
+  const current = await page
+    .locator("[data-quick-play]")
+    .getAttribute("data-quick-current");
   await page.locator("[data-quick-next]").click();
-  await expect(page.locator("[data-quick-launch]")).toHaveAttribute(
-    "href",
-    "/en/play/orbit-break/",
-  );
+  const selected = await page
+    .locator("[data-quick-play]")
+    .getAttribute("data-quick-current");
+  expect(selected).not.toBe(current);
+  expect(gameById(selected!)).toBeDefined();
 });
 
 for (const [width, height] of [
@@ -163,6 +245,7 @@ for (const [width, height] of [
     for (const selector of [
       "[data-quick-launch]",
       "[data-quick-next]",
+      "[data-quick-toggle]",
       '[data-quick-mood="together"]',
     ]) {
       const button = page.locator(selector);
