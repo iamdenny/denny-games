@@ -13,57 +13,205 @@ if (root) {
     note: string;
     duration: string;
   };
-  const groups = JSON.parse(root.dataset.choices!) as {
-    id: string;
-    label: string;
-    games: Choice[];
-  }[];
-  let group = groups[0]!;
-  let index = 0;
+  type Pool = { id: string; label: string; ids: string[]; note?: string };
+  const data = JSON.parse(root.dataset.choices!) as {
+    items: Choice[];
+    pools: Pool[];
+  };
+  const items = data.items;
+  const byId = new Map(items.map((item) => [item.id, item]));
+  const pools = data.pools
+    .map((pool) => ({
+      ...pool,
+      games: pool.ids
+        .map((id) => byId.get(id))
+        .filter((item): item is Choice => item !== undefined),
+    }))
+    .filter((pool) => pool.games.length > 0);
+  const allPool = pools.find((pool) => pool.id === "all")!;
   const get = <T extends HTMLElement>(key: string) =>
     root.querySelector<T>(`[data-quick-${key}]`)!;
-  const render = () => {
-    const item = group.games[index]!;
-    get("title").textContent = item.title;
-    get("hook").textContent = item.hook;
-    get("note").textContent = item.note;
-    get("duration").textContent = item.duration;
-    const play = `/${locale}/play/${item.id}/`;
+  const shuffle = (values: Choice[]) => {
+    const result = [...values];
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j]!, result[i]!];
+    }
+    return result;
+  };
+
+  let activePool = allPool;
+  let order = shuffle(activePool.games);
+  let orderIndex = 0;
+  let current = order[0]!;
+  let rotationRunning = !window.matchMedia("(prefers-reduced-motion: reduce)")
+    .matches;
+  let hovering = false;
+  let inputModality: "keyboard" | "pointer" = "keyboard";
+  let timer: number | undefined;
+  const rotationButton = get<HTMLButtonElement>("toggle");
+  const nextButton = get<HTMLButtonElement>("next");
+  const motionPreference = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  );
+  const rotationMs = 8000;
+
+  const updateRotationButton = () => {
+    const label = rotationRunning
+      ? rotationButton.dataset.pauseLabel!
+      : rotationButton.dataset.resumeLabel!;
+    rotationButton.textContent = `${rotationRunning ? "Ⅱ" : "▶"} ${label}`;
+    rotationButton.setAttribute("aria-label", label);
+    rotationButton.setAttribute("aria-pressed", String(rotationRunning));
+  };
+  const clearTimer = () => {
+    if (timer !== undefined) window.clearTimeout(timer);
+    timer = undefined;
+  };
+  const schedule = () => {
+    clearTimer();
+    if (!rotationRunning || hovering || document.visibilityState !== "visible")
+      return;
+    timer = window.setTimeout(() => {
+      advance(false);
+      schedule();
+    }, rotationMs);
+  };
+  const render = (announce: boolean) => {
+    get("title").textContent = current.title;
+    get("hook").textContent = current.hook;
+    get("note").textContent = activePool.note ?? current.note;
+    get("duration").textContent = current.duration;
+    const play = `/${locale}/play/${current.id}/`;
     get<HTMLAnchorElement>("launch").href = play;
-    get<HTMLAnchorElement>("details").href = `/${locale}/games/${item.id}/`;
+    get<HTMLAnchorElement>("details").href = `/${locale}/games/${current.id}/`;
     get<HTMLAnchorElement>("art-link").href = play;
-    const playLabel =
-      get("art-link")
-        .querySelector(".quick-art-play-label")
-        ?.textContent?.trim() ?? item.title;
-    get("art-link").setAttribute("aria-label", `${item.title}: ${playLabel}`);
+    get<HTMLAnchorElement>("art-link").setAttribute(
+      "aria-label",
+      `${current.title}: ${
+        get("art-link")
+          .querySelector(".quick-art-play-label")
+          ?.textContent?.trim() ?? current.title
+      }`,
+    );
     const image = get<HTMLImageElement>("image");
-    image.src = item.image;
-    image.alt = item.title;
-    get("status").textContent = `${group.label}: ${item.title}. ${item.hook}`;
+    image.src = current.image;
+    image.alt = current.title;
+    root.dataset.quickCurrent = current.id;
+    const slide = get("slide");
+    slide.setAttribute(
+      "aria-label",
+      `${locale === "ko" ? "추천 게임" : "Featured game"}: ${current.title}`,
+    );
     root
       .querySelectorAll<HTMLButtonElement>("[data-quick-mood]")
       .forEach((button) =>
         button.setAttribute(
           "aria-pressed",
-          String(button.dataset.quickMood === group.id),
+          String(button.dataset.quickMood === activePool.id),
         ),
       );
+    if (announce) {
+      get("status").textContent =
+        `${activePool.label}: ${current.title}. ${current.hook}`;
+    }
   };
+  function advance(announce: boolean) {
+    if (activePool.games.length > 1) {
+      if (activePool.id !== "all") {
+        orderIndex = (orderIndex + 1) % order.length;
+      } else if (orderIndex + 1 < order.length) {
+        orderIndex++;
+      } else {
+        order = shuffle(activePool.games);
+        if (order[0]!.id === current.id) {
+          [order[0], order[1]] = [order[1]!, order[0]!];
+        }
+        orderIndex = 0;
+      }
+      current = order[orderIndex]!;
+    }
+    render(announce);
+  }
+
   root
     .querySelectorAll<HTMLButtonElement>("[data-quick-mood]")
     .forEach((button) =>
       button.addEventListener("click", () => {
-        group = groups.find((value) => value.id === button.dataset.quickMood)!;
-        index = 0;
-        render();
+        const pool = pools.find(
+          (value) => value.id === button.dataset.quickMood,
+        );
+        if (!pool) return;
+        rotationRunning = false;
+        activePool = pool;
+        order = pool.id === "all" ? shuffle(pool.games) : [...pool.games];
+        orderIndex = 0;
+        current = order[0]!;
+        render(true);
+        updateRotationButton();
+        schedule();
       }),
     );
-  get("controls").hidden = false;
-  get("next").hidden = false;
-  get("next").addEventListener("click", () => {
-    index = (index + 1) % group.games.length;
-    render();
+
+  rotationButton.hidden = false;
+  nextButton.hidden = false;
+  get<HTMLElement>("controls").hidden = false;
+  updateRotationButton();
+  render(false);
+  schedule();
+
+  rotationButton.addEventListener("click", () => {
+    rotationRunning = !rotationRunning;
+    updateRotationButton();
+    schedule();
+  });
+  nextButton.addEventListener("click", () => {
+    rotationRunning = false;
+    advance(true);
+    updateRotationButton();
+    schedule();
+  });
+
+  root.addEventListener("pointerenter", (event) => {
+    if (event.pointerType !== "mouse") return;
+    hovering = true;
+    clearTimer();
+  });
+  root.addEventListener("pointerleave", (event) => {
+    if (event.pointerType !== "mouse") return;
+    hovering = false;
+    schedule();
+  });
+  document.addEventListener(
+    "pointerdown",
+    () => {
+      inputModality = "pointer";
+    },
+    true,
+  );
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (!["Alt", "Control", "Meta", "Shift"].includes(event.key)) {
+        inputModality = "keyboard";
+      }
+    },
+    true,
+  );
+  root.addEventListener("focusin", () => {
+    if (inputModality === "keyboard") {
+      rotationRunning = false;
+      updateRotationButton();
+    }
+    schedule();
+  });
+  document.addEventListener("visibilitychange", schedule);
+  motionPreference.addEventListener("change", (event) => {
+    if (event.matches) {
+      rotationRunning = false;
+      updateRotationButton();
+    }
+    schedule();
   });
 
   // Existing local history only. Unknown IDs and external games cannot create links.
@@ -71,9 +219,11 @@ if (root) {
     const ids = list("recent");
     if (!ids.length) return;
     try {
-      const items = await loadCatalogue(locale);
+      const recentItems = await loadCatalogue(locale);
       const selected = [...new Set(ids)]
-        .map((id) => items.find((item) => item.id === id && !item.externalHost))
+        .map((id) =>
+          recentItems.find((item) => item.id === id && !item.externalHost),
+        )
         .filter((item) => item !== undefined)
         .slice(0, 3);
       get("recent-list").replaceChildren(

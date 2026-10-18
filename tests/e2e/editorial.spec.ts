@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { editorPicks } from "../../src/data/editorial";
+import { gameById } from "../../src/data/games";
 
 test("2048 remains playable with reduced motion and low effects", async ({
   page,
@@ -38,9 +39,13 @@ test("editor picks stay consistent across home, full catalogue, categories and d
   page,
 }) => {
   await page.goto("/ko/");
+  const featuredId = await page
+    .locator("[data-quick-play]")
+    .getAttribute("data-quick-current");
+  expect(gameById(featuredId!)).toBeDefined();
   await expect(page.locator("[data-quick-details]")).toHaveAttribute(
     "href",
-    "/ko/games/hextris/",
+    `/ko/games/${featuredId}/`,
   );
   expect(
     await page
