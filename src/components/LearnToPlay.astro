@@ -1,0 +1,90 @@
+---
+import { gameById } from "../data/games";
+import { collectionGames } from "../data/collections";
+import type { Locale } from "../lib/types";
+const { locale } = Astro.props as { locale: Locale };
+const ko = locale === "ko";
+const links = [
+  {
+    path: "games/2048/#learn",
+    title: ko ? "2048 하는 법" : "How to play 2048",
+    note: ko
+      ? "2·2·4를 밀면 8이 될까요? 한 번의 합치기를 예시로 익혀요."
+      : "Will 2, 2, 4 become 8? Learn one-move merges with worked examples.",
+  },
+  {
+    path: "games/gomoku/#learn",
+    title: ko ? "오목 규칙과 첫 대국" : "Gomoku rules and your first match",
+    note: ko
+      ? "다섯 돌·장목·금수 규칙을 확인하고 AI 또는 친구와 시작해요."
+      : "Understand five-in-a-row, overlines and this version's freestyle rules.",
+  },
+  {
+    path: "collections/classic-board/#choose",
+    title: ko
+      ? "같은 화면 2인용 게임 고르기"
+      : "Choose a two-player board game",
+    note: ko
+      ? "사목·오목·리버시·체커·점 잇기의 차이를 한눈에 비교해요."
+      : "Compare Four in a Row, Gomoku, Reversi, checkers and Dots and Boxes.",
+  },
+].filter((link) =>
+  link.path.startsWith("games/")
+    ? Boolean(gameById(link.path.split("/")[1]!))
+    : collectionGames("classic-board").length > 0,
+);
+---
+
+{links.length > 0 && (
+  <section class="learn-links" aria-labelledby="learn-links-heading">
+    <div class="section-heading">
+      <h2 id="learn-links-heading">
+        {ko ? "처음이라면, 한 수부터" : "New here? Start with one move"}
+      </h2>
+    </div>
+    <div class="learn-grid">
+      {links.map((link) => (
+        <a href={`/${locale}/${link.path}`}>
+          <h3>{link.title} ↗</h3>
+          <p>{link.note}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+<style>
+  .learn-links {
+    margin: 32px 0;
+  }
+  .learn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .learn-grid a {
+    padding: 18px;
+    border: 1px solid #c6cbbd;
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
+    background: #e9eadf;
+  }
+  .learn-grid h3 {
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 0 0 8px;
+  }
+  .learn-grid p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .learn-grid a:hover {
+    border-color: #206251;
+  }
+  @media (max-width: 800px) {
+    .learn-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

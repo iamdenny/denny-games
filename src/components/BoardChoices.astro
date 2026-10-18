@@ -1,0 +1,130 @@
+---
+import { gameById } from "../data/games";
+import type { Locale } from "../lib/types";
+const { locale } = Astro.props as { locale: Locale };
+const ko = locale === "ko";
+const choices = [
+  {
+    id: "four-in-a-row",
+    en: "Start with dropping pieces",
+    ko: "놓을 열만 고르고 싶다면",
+    note: ko
+      ? "7열·6행에서 말을 아래로 떨어뜨려 가로·세로·대각선 네 개를 이으세요. 빈 교차점을 고르는 오목보다 선택할 위치가 적습니다."
+      : "Drop a piece into one of seven columns on a six-row board and connect four. You choose a column rather than any empty intersection.",
+  },
+  {
+    id: "gomoku",
+    en: "Build lines across a larger board",
+    ko: "넓은 판에서 수를 읽고 싶다면",
+    note: ko
+      ? "15×15 교차점에서 다섯 돌 이상을 이으세요. 삼삼·사사 금수가 없고 장목도 승리인 자유룰입니다."
+      : "Connect five or more on 15×15 intersections. This freestyle version allows overlines, double-threes and double-fours.",
+  },
+  {
+    id: "reversi",
+    en: "Change the board by flipping discs",
+    ko: "한 수로 판세를 뒤집고 싶다면",
+    note: ko
+      ? "8×8 보드에서 상대 돌을 양쪽으로 끼워 뒤집습니다. 둘 곳이 없으면 자동으로 차례를 넘기며, 양쪽 모두 둘 수 없을 때 돌이 많은 쪽이 이깁니다."
+      : "Bracket opposing discs on an 8×8 board to flip them. No legal move means an automatic pass; when neither side can move, the larger disc count wins.",
+  },
+  {
+    id: "checkers",
+    en: "Plan a chain of captures",
+    ko: "연속 잡기를 계획하고 싶다면",
+    note: ko
+      ? "영국식 체커입니다. 일반 말은 앞으로 움직이고 잡을 수 있으면 반드시 잡습니다. 연속 점프와 킹의 양방향 이동을 생각하세요."
+      : "English checkers has forward-moving men and mandatory captures. Plan continued jumps and bidirectional king moves.",
+  },
+  {
+    id: "dots-and-boxes",
+    en: "Draw lines and claim squares",
+    ko: "돌 대신 선을 긋고 싶다면",
+    note: ko
+      ? "선을 하나씩 이어 16개 상자를 나눠 가집니다. 상자의 마지막 선을 완성하면 점수와 한 번 더 둘 기회를 얻습니다."
+      : "Take turns drawing edges around sixteen boxes. Closing a box scores it and grants another turn.",
+  },
+].flatMap((choice) => {
+  const game = gameById(choice.id);
+  return game?.classic ? [{ ...choice, game }] : [];
+});
+---
+
+{choices.length > 0 && (
+  <section
+    id="choose"
+    class="board-choices"
+    aria-labelledby="board-choice-heading"
+  >
+    <h2 id="board-choice-heading">
+      {ko
+        ? "둘이 할 게임, 무엇부터 고를까요?"
+        : "Which game should two people try first?"}
+    </h2>
+    <p>
+      {ko
+        ? "다섯 게임 모두 가입·설치 없이 이 사이트에서 실행됩니다. 한 기기에서 차례를 주고받거나 로컬 AI를 고를 수 있어요. 온라인 매칭·방 만들기 방식은 아닙니다."
+        : "All five games run here without an account or installation. Take turns on one device or choose local AI. These are not online matchmaking or room-based games."}
+    </p>
+    <ol>
+      {choices.map((choice) => (
+        <li>
+          <h3>{ko ? choice.ko : choice.en}</h3>
+          <p>{choice.note}</p>
+          <a href={`/${locale}/games/${choice.id}/`}>
+            {choice.game.text[locale].title} ·{" "}
+            {ko ? "규칙과 게임 시작" : "Rules and play"} ↗
+          </a>
+        </li>
+      ))}
+    </ol>
+    <h3>{ko ? "2인 플레이 시작 순서" : "Start a two-player match"}</h3>
+    <p>
+      {ko
+        ? "게임의 시작 화면에서 ‘2인 플레이’를 고른 뒤 시작하세요. 한 번 눌러 둘 자리를 미리 보고, 같은 자리를 다시 누르거나 ‘수 두기’로 확정하세요. 체커는 말을 고른 뒤 표시된 목적지를 누릅니다. 모드를 바꾸면 기존 대국 대신 새 판이 시작됩니다."
+        : "Choose two-player mode on the game's start screen, then start. Select a space to preview and select it again or use Confirm move. In checkers, choose a piece and then a marked destination. Changing mode starts a new match instead of continuing the old board."}
+    </p>
+    <p>
+      <a href={`/${locale}/guides/classic-board-games/`}>
+        {ko
+          ? "AI 난이도·조작·저장 방식 더 알아보기"
+          : "Read about AI levels, controls and local saves"}{" "}
+        ↗
+      </a>
+    </p>
+  </section>
+)}
+<style>
+  .board-choices {
+    margin: 28px 0;
+    max-width: 820px;
+    scroll-margin-top: 24px;
+  }
+  .board-choices p {
+    line-height: 1.8;
+  }
+  ol {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  li {
+    border: 1px solid #c6cbbd;
+    padding: 18px;
+    border-radius: 12px;
+    background: #e9eadf;
+  }
+  h3 {
+    font-size: 18px;
+    margin: 0 0 8px;
+  }
+  li p {
+    margin: 0 0 12px;
+  }
+  a {
+    display: inline-block;
+    padding-block: 8px;
+    overflow-wrap: anywhere;
+  }
+</style>
