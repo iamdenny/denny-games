@@ -122,7 +122,7 @@ const first = groups[0]?.games[0];
         class="quick-art"
         data-quick-art-link
         href={`/${locale}/play/${first.id}/`}
-        aria-label={first.title}
+        aria-label={`${first.title}: ${text.play}`}
       >
         <img
           data-quick-image
@@ -133,7 +133,7 @@ const first = groups[0]?.games[0];
           fetchpriority="high"
         />
         <span class="quick-art-play" aria-hidden="true">
-          ▶
+          <span class="quick-art-play-label">{text.play}</span>▶
         </span>
       </a>
     </div>
@@ -310,6 +310,9 @@ const first = groups[0]?.games[0];
     background: #d9ed68;
     box-shadow: 0 4px 16px #0003;
   }
+  .quick-art-play-label {
+    display: none;
+  }
   .quick-status {
     position: absolute;
     width: 1px;
@@ -363,6 +366,21 @@ const first = groups[0]?.games[0];
       grid-row: 1;
       height: 180px;
       padding: 16px;
+    }
+    .quick-art-play {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: auto;
+      min-height: 48px;
+      height: auto;
+      padding: 0 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 750;
+    }
+    .quick-art-play-label {
+      display: inline;
     }
     .quick-copy {
       padding: 20px;
