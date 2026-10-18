@@ -1,9 +1,12 @@
 import { dailySeed } from "./random";
 import { read, write } from "./storage";
+import type { Locale } from "./types";
 
 export const dailyGameIds = ["circuit-loop", "orbit-break", "2048"] as const;
 export const dailyHistoryDays = 7;
 export const utcDay = (date = new Date()) => date.toISOString().slice(0, 10);
+export const dailyPlayHref = (locale: Locale, id: string) =>
+  `/${locale}/play/${id}/?daily=1&stage=1`;
 type DailyRound = { version: number; score: number };
 export type DailyRounds = Partial<Record<string, DailyRound>>;
 
