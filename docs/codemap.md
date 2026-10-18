@@ -4,9 +4,9 @@
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/data/`            | Registry, shared editorial picks/order, interaction metadata, curated collections, translations and editorial pages                                                             |
 | `src/layouts/`         | SEO shell, locale navigation and common chrome                                                                                                                                  |
-| `src/components/`      | Cards, responsive viewport player/settings host, complete-catalogue pagination, original SVG artwork, content ad slots and disclosed static affiliate cards                     |
+| `src/components/`      | Cards, static worked game examples and choice guides, canonical share controls, responsive viewport player/settings host, pagination, artwork and disclosed ad/affiliate slots |
 | `src/pages/`           | Static bilingual route generation and discovery files                                                                                                                           |
-| `src/scripts/`         | Catalogue/search state, player shell, diagnostics and local device report downloads                                                                                             |
+| `src/scripts/`         | Catalogue/search state, player shell, canonical URL sharing with manual recovery, diagnostics and local device report downloads                                                 |
 | `src/lib/`             | Storage, seed, input, filtered pagination, device report validation, advertisement contracts and registry-derived discovery schema                                              |
 | `src/games/`           | Circuit, arcade, adapted 2048, classic board rules/AI/worker/renderer, restricted Crisp mini-game and cycle adapters, isolated GPL/WebGL game bridges, and Gridland save bridge |
 | `vendor/`              | Pinned imports, unchanged runtime, candidate and asset provenance                                                                                                               |

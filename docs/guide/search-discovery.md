@@ -7,6 +7,12 @@ read_when:
 
 # SEO and AI search operations
 
+## Existing entry-page improvements — 2026-10-18
+
+Improve existing entry pages before treating catalogue size as a growth mechanism. [ADR 0036](../adr/0036-game-learning-and-sharing.md) adds worked 2048 rules, Gomoku rule boundaries, a five-game same-device comparison and canonical-only sharing, with static links from home. Private analytics reports remain in their authorized reporting channel.
+
+Monitor the existing `/en/games/2048/`, `/ko/games/2048/`, `/en/games/gomoku/`, `/ko/games/gomoku/` and bilingual `/collections/classic-board/` URLs in subsequent reports. Use Search Console's latest completed seven-day window and previous seven-day comparison when available; track impressions, clicks, CTR, position and queries separately from consented GA4 users, sessions, views and source/medium. These measures distinguish discovery from measured visits. Page views do not prove play, and a shared URL does not prove that a recipient visited. Do not infer a trend from one or two users. No account changes or manual submissions are part of this release.
+
 ## Implemented surfaces
 
 - Complete catalogue: `/en/all/` and `/ko/all/`, with static 24-game numbered pages, exact registry coverage, explicit totals/ranges, native previous/next links, independent canonicals and visible-card CollectionPage/ItemList. Home previews and global All games links lead here.

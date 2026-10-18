@@ -1,0 +1,69 @@
+---
+import type { Locale } from "../lib/types";
+const { locale, url, title } = Astro.props as {
+  locale: Locale;
+  url: string;
+  title: string;
+};
+const ko = locale === "ko";
+---
+
+<div
+  class="share-link"
+  data-share-link
+  data-url={url}
+  data-title={title}
+  data-locale={locale}
+>
+  <button type="button" data-share-button hidden>
+    {ko ? "친구에게 게임 소개" : "Share with a friend"} ↗
+  </button>
+  <span role="status" aria-live="polite" data-share-status></span>
+  <details data-share-fallback>
+    <summary>{ko ? "공유할 링크 주소" : "Link address"}</summary>
+    <label>
+      <span>
+        {ko ? "이 링크를 복사해서 공유하세요" : "Copy this link to share"}
+      </span>
+      <input type="url" readonly value={url} data-share-url />
+    </label>
+  </details>
+</div>
+<script>
+  import "../scripts/share-link";
+</script>
+<style>
+  .share-link {
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  button {
+    min-height: 44px;
+  }
+  [role="status"] {
+    display: block;
+    margin-top: 6px;
+  }
+  details {
+    margin-top: 8px;
+  }
+  summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: list-item;
+    padding-block: 12px;
+  }
+  label span {
+    display: block;
+    margin-block: 8px;
+  }
+  input {
+    width: 100%;
+    min-width: 0;
+    font: inherit;
+    min-height: 44px;
+    padding: 8px;
+    border: 1px solid #c6cbbd;
+    border-radius: 6px;
+  }
+</style>

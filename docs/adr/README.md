@@ -45,3 +45,4 @@
 - [0033 — Free browser game listings](0033-free-browser-listings.md) — Accepted.
 - [0034 — Self-hosted Sokoban](0034-self-hosted-sokoban.md) — Accepted.
 - [0035 — Self-hosted Gridland](0035-self-hosted-gridland.md) — Accepted.
+- [0036 — Game learning and canonical sharing](0036-game-learning-and-sharing.md) — Accepted.

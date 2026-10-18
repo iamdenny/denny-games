@@ -34,7 +34,7 @@ export const collections: GameCollection[] = [
     ids: ["gomoku", "reversi", "four-in-a-row", "checkers", "dots-and-boxes"],
     text: {
       en: {
-        title: "Free classic board games with AI and local two-player",
+        title: "Free two-player board games on one device",
         intro:
           "Play Gomoku, Reversi, Four in a Row, English checkers and Dots and Boxes. Choose a browser AI or take turns with a friend on the same device, without an account or installation.",
         criteria:
@@ -44,7 +44,7 @@ export const collections: GameCollection[] = [
           "Yes. Choose Local two-player and take turns on one device. AI also runs locally. Changing mode or difficulty starts a new game. Progress stays in this browser; there are no online rooms or account sync.",
       },
       ko: {
-        title: "AI·같은 기기 2인으로 즐기는 무료 클래식 보드게임",
+        title: "같은 화면 2인용 무료 보드게임 · 오목·사목·리버시",
         intro:
           "오목·리버시·사목·영국식 체커·점 잇기를 즐기세요. 가입·설치 없이 브라우저 AI와 대전하거나 한 기기에서 친구와 번갈아 둘 수 있습니다.",
         criteria:
@@ -154,7 +154,7 @@ export const collections: GameCollection[] = [
           "Selected for a visible number, counting or arithmetic mechanic. Only 2048 is a directional tile-merging game; DIGI10 uses digits 1–9, while other titles use a button or pointer.",
         question: "Will my number puzzle continue after I leave?",
         answer:
-          "2048 restores its current round. Bounce Back keeps gems and unlocked progress in this browser, but starts a new run after leaving. Imported Crisp games save personal bests only. Clearing browser storage removes locally saved data.",
+          "2048 restores its current round in the same browser. The Crisp games in this collection save personal bests, not an unfinished round. Clearing browser storage removes locally saved data; records do not sync between devices.",
       },
       ko: {
         title: "무료 숫자 퍼즐·계산 웹게임",
@@ -164,7 +164,7 @@ export const collections: GameCollection[] = [
           "숫자·세기·계산 규칙을 기준으로 골랐습니다. 2048은 방향 조작으로 타일을 합치고, DIGI10은 숫자 1–9를 사용합니다. 나머지는 버튼이나 위치 조작을 사용합니다.",
         question: "나갔다 돌아와도 숫자 퍼즐을 이어 할 수 있나요?",
         answer:
-          "2048은 현재 판을 복원합니다. Bounce Back은 보석과 해제 상태를 이 브라우저에 저장하지만 페이지를 나가면 새 도전을 시작합니다. 가져온 Crisp 게임은 최고 점수만 저장합니다. 브라우저 저장 공간을 지우면 로컬 기록도 사라집니다.",
+          "2048은 같은 브라우저에서 현재 판을 복원합니다. 이 모음의 Crisp 게임은 진행 중인 판 대신 최고 점수만 저장합니다. 브라우저 저장 공간을 지우면 로컬 기록도 사라지며 다른 기기와 동기화되지 않습니다.",
       },
     },
   },

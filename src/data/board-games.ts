@@ -31,6 +31,7 @@ const descriptions: {
     color: "yellow",
     en: {
       title: "Gomoku",
+      searchTitle: "Free Gomoku · Freestyle Rules, AI and Local Two-player",
       subtitle: "Five stones. One winning line.",
       description:
         "Play free Gomoku against a browser AI or a friend on the same device. This 15×15 freestyle five-in-a-row game allows overlines, has no forbidden moves and saves your board locally.",
@@ -47,6 +48,7 @@ const descriptions: {
     },
     ko: {
       title: "오목",
+      searchTitle: "무료 오목 게임 · 하는 법과 AI·같은 화면 2인 대전",
       subtitle: "다섯 돌로 만드는 한 줄의 승리.",
       description:
         "15×15 바둑판에서 즐기는 무료 오목입니다. 브라우저 AI 또는 같은 기기의 친구와 대국하세요. 장목을 허용하고 금수가 없는 자유룰이며 진행 상태는 이 브라우저에 저장됩니다.",

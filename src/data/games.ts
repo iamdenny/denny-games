@@ -22,6 +22,7 @@ export const categories = [
 export type Category = (typeof categories)[number];
 export interface GameCopy {
   title: string;
+  searchTitle?: string;
   subtitle: string;
   description: string;
   rules: string[];
@@ -207,9 +208,10 @@ export const games: Game[] = [
     text: {
       en: {
         title: "2048",
+        searchTitle: "Play 2048 Online · Rules and Merge Examples",
         subtitle: "Small moves. Bigger numbers.",
         description:
-          "Slide matching numbers together and build toward 2048. This clean-asset adaptation credits Gabriele Cirulli’s MIT game and adds the shared Denny Games controls.",
+          "Play free 2048 on a 4×4 board without an account or installation. Swipe or use arrow keys, learn with merge examples, and continue your saved round in this browser. Adapted from Gabriele Cirulli’s MIT game.",
         rules: [
           "Slide the board in one direction. Equal adjacent numbers merge once per move.",
           "A valid move adds a new 2 or 4 tile. A move that changes nothing adds no tile.",
@@ -228,9 +230,10 @@ export const games: Game[] = [
       },
       ko: {
         title: "2048",
+        searchTitle: "2048 무료 게임 · 하는 법과 숫자 합치기 예시",
         subtitle: "작은 이동이 큰 숫자로.",
         description:
-          "같은 숫자를 밀어 합치고 2048을 향해 나아가세요. Gabriele Cirulli의 MIT 게임 규칙을 바탕으로 새 화면과 공통 조작을 적용했습니다.",
+          "가입·설치 없이 4×4 보드에서 즐기는 무료 2048 게임입니다. 스와이프·방향키로 숫자를 합치고, 예시로 규칙을 익히고, 같은 브라우저에서 이어 하세요. Gabriele Cirulli의 MIT 게임을 바탕으로 만들었습니다.",
         rules: [
           "한 방향으로 밀면 같은 숫자가 합쳐집니다. 한 타일은 한 번의 이동에서 한 번만 합쳐져요.",
           "보드가 바뀐 이동 뒤에는 2 또는 4가 생깁니다. 아무 변화가 없으면 새 타일도 생기지 않아요.",

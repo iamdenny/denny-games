@@ -1,0 +1,214 @@
+---
+import { mergeLine } from "../games/merge/rules";
+import type { Locale } from "../lib/types";
+const { locale, gameId } = Astro.props as { locale: Locale; gameId: string };
+const ko = locale === "ko";
+const examples = [
+  {
+    before: [2, 2, 2, 2],
+    en: "Two pairs merge separately: you earn 8 points.",
+    ko: "두 쌍이 각각 합쳐져 8점을 얻습니다.",
+  },
+  {
+    before: [2, 2, 4, 0],
+    en: "The new 4 cannot merge again in this move. You earn 4 points, not an 8 tile.",
+    ko: "방금 생긴 4는 같은 이동에서 다시 합쳐지지 않습니다. 8 타일이 아니라 4점을 얻습니다.",
+  },
+  {
+    before: [4, 0, 4, 8],
+    en: "Empty space closes before merging. The new 8 stays separate from the existing 8.",
+    ko: "빈칸을 당겨 채운 뒤 합칩니다. 새로 생긴 8과 원래 있던 8은 이번 이동에서 따로 남습니다.",
+  },
+].map((example) => ({ ...example, after: mergeLine(example.before).line }));
+---
+
+{gameId === "2048" && (
+  <section id="learn" class="game-learning" data-game-learning="2048">
+    <h2>
+      {ko
+        ? "2048 하는 법: 한 번 밀면 어떻게 합쳐질까요?"
+        : "How to play 2048: what happens in one move?"}
+    </h2>
+    <p>
+      {ko
+        ? "4×4 보드 전체를 한 방향으로 밀어 같은 숫자를 합칩니다. 아래는 왼쪽으로 미는 한 줄 예시입니다. 점은 빈칸이며, 새 2 또는 4가 무작위 빈칸에 생기기 전의 결과를 보여줍니다."
+        : "Slide the whole 4×4 board in one direction to merge equal numbers. These examples show a single row sliding left. A dot is an empty space; results are shown before a new 2 or 4 appears in a random empty cell."}
+    </p>
+    {examples.map((example) => (
+      <figure class="merge-example">
+        <div class="merge-step">
+          <span>{ko ? "밀기 전" : "Before"}</span>
+          <div
+            class="tile-row"
+            role="img"
+            aria-label={example.before
+              .map((n) => n || (ko ? "빈칸" : "empty"))
+              .join(", ")}
+          >
+            {example.before.map((n) => (
+              <span aria-hidden="true" class:list={{ empty: !n }}>
+                {n || "·"}
+              </span>
+            ))}
+          </div>
+        </div>
+        <span class="move-direction">← {ko ? "왼쪽으로" : "Slide left"}</span>
+        <div class="merge-step">
+          <span>{ko ? "합친 뒤" : "After"}</span>
+          <div
+            class="tile-row"
+            role="img"
+            aria-label={example.after
+              .map((n) => n || (ko ? "빈칸" : "empty"))
+              .join(", ")}
+          >
+            {example.after.map((n) => (
+              <span aria-hidden="true" class:list={{ empty: !n }}>
+                {n || "·"}
+              </span>
+            ))}
+          </div>
+        </div>
+        <figcaption>{ko ? example.ko : example.en}</figcaption>
+      </figure>
+    ))}
+    <h3>
+      {ko
+        ? "처음에는 빈칸과 큰 타일의 위치를 보세요"
+        : "Start by watching empty cells and your largest tile"}
+    </h3>
+    <p>
+      {ko
+        ? "가장 큰 타일을 한 모서리에 두고 그 옆에 큰 숫자부터 줄을 만들어 보세요. 합칠 수 있다고 바로 밀기보다, 다음 숫자가 들어올 빈칸이 남는지 확인하세요. 새 타일 위치가 달라지므로 이 방법이 승리를 보장하지는 않습니다."
+        : "Try keeping your largest tile in a corner and arranging descending values beside it. Before taking a merge, check whether you will leave space for the next tile. New tile positions vary, so this approach does not guarantee a win."}
+    </p>
+    <p>
+      {ko
+        ? "보드가 가득 차도 가로·세로 이웃에 같은 숫자가 있으면 계속 움직일 수 있습니다. 변화가 없는 방향으로 밀면 새 타일이 생기지 않습니다. 이 버전은 2048을 만들면 라운드가 끝나며, 진행 상태는 같은 브라우저에 저장됩니다."
+        : "A full board can still move when equal tiles touch horizontally or vertically. A direction that changes nothing adds no new tile. This version ends the round when you reach 2048 and saves your current round in this browser."}
+    </p>
+    <a class="button primary" href={`/${locale}/play/2048/`}>
+      {ko ? "규칙을 익혔다면 2048 시작" : "Try a round of 2048"} ↗
+    </a>
+  </section>
+)}
+{gameId === "gomoku" && (
+  <section id="learn" class="game-learning" data-game-learning="gomoku">
+    <h2>
+      {ko
+        ? "오목 하는 법: 다섯 돌과 자유룰"
+        : "How to play Gomoku: five stones and freestyle rules"}
+    </h2>
+    <p>
+      {ko
+        ? "15×15 교차점의 빈자리에 돌을 하나씩 번갈아 둡니다. 민트가 먼저 두며, 가로·세로·대각선 중 어느 방향이든 내 돌 다섯 개 이상을 끊김 없이 이으면 승리합니다. 돌 사이에 빈칸이나 상대 돌이 있으면 한 줄로 세지 않습니다."
+        : "Take turns placing one stone on an empty intersection of the 15×15 board. Mint goes first. Connect five or more of your stones horizontally, vertically or diagonally to win; an empty space or opposing stone breaks the line."}
+    </p>
+    <figure class="gomoku-example">
+      <div class="stone-row" aria-hidden="true">
+        · ● ● ● ● · ·
+      </div>
+      <figcaption>
+        {ko
+          ? "줄의 일부: 내 돌 네 개의 양끝이 비어 있으면 어느 쪽 끝에 놓아도 다섯 돌이 됩니다."
+          : "A row segment: four of your stones with both ends open can become five by extending either end."}
+      </figcaption>
+    </figure>
+    <h3>
+      {ko
+        ? "삼삼·사사·장목은 어떻게 처리하나요?"
+        : "Are double-threes and overlines allowed?"}
+    </h3>
+    <p>
+      {ko
+        ? "여기서는 금수가 없는 자유룰을 사용합니다. 삼삼·사사로 두는 자리를 막지 않으며, 여섯 개 이상 이어지는 장목도 승리입니다. 렌주나 ‘정확히 다섯 개만 승리’ 규칙과 다르므로 친구와 시작하기 전에 확인하세요."
+        : "Denny Games uses freestyle rules with no forbidden moves. Double-threes and double-fours are allowed; a line of six or more also wins. This differs from Renju and exact-five rules, so agree on the rule set before playing with a friend."}
+    </p>
+    <h3>
+      {ko
+        ? "친구와 한 화면에서 두려면?"
+        : "How do two people play on one screen?"}
+    </h3>
+    <p>
+      {ko
+        ? "시작 화면에서 ‘2인 플레이’를 선택한 뒤 같은 기기에서 번갈아 두세요. 온라인 방이나 다른 기기 연결은 필요하지 않습니다. 칸을 한 번 눌러 미리 보고, 같은 칸을 다시 누르거나 ‘수 두기’로 확정합니다. 방식·난이도 변경은 새 대국을 시작하므로 진행 중인 판을 마친 뒤 바꾸세요."
+        : "Choose two-player mode on the start screen, then take turns on the same device. There are no online rooms or second-device connections. Select a space to preview it, then select it again or use Confirm move. Changing mode or difficulty starts a new match, so finish your current board first."}
+    </p>
+    <p>
+      {ko
+        ? "내 줄을 늘리기 전에 상대가 다음 한 수로 다섯 개를 만들 수 있는지 확인하세요. 공격과 수비를 함께 할 수 있는 자리, 양끝에 여유가 있는 줄을 찾아보세요."
+        : "Before extending your own line, check whether your opponent can win on the next move. Look for spaces that defend while building your own line, with room at both ends."}
+    </p>
+    <a class="button primary" href={`/${locale}/play/gomoku/`}>
+      {ko ? "AI 또는 친구와 오목 시작" : "Play Gomoku with AI or a friend"} ↗
+    </a>
+    <p>
+      <a href={`/${locale}/collections/classic-board/#choose`}>
+        {ko
+          ? "오목·사목·리버시 중 골라보기"
+          : "Compare Gomoku, Four in a Row and Reversi"}{" "}
+        ↗
+      </a>
+    </p>
+  </section>
+)}
+
+<style>
+  .game-learning {
+    scroll-margin-top: 24px;
+  }
+  .merge-example,
+  .gomoku-example {
+    margin: 16px 0;
+    padding: 18px;
+    background: #e9eadf;
+    border: 1px solid #c6cbbd;
+    border-radius: 12px;
+  }
+  .merge-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .merge-step > span {
+    font-size: 13px;
+    min-width: 56px;
+  }
+  .tile-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: min(100%, 240px);
+    gap: 6px;
+  }
+  .tile-row span {
+    display: grid;
+    place-items: center;
+    min-height: 42px;
+    border-radius: 6px;
+    color: #17211d;
+    background: #d9ed68;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .tile-row .empty {
+    background: #d7dbcd;
+    color: #596558;
+  }
+  .move-direction {
+    display: block;
+    margin: 8px 0;
+    font-size: 13px;
+  }
+  figcaption {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .stone-row {
+    color: #206251;
+    white-space: nowrap;
+    font-size: clamp(20px, 5vw, 30px);
+    letter-spacing: 0.04em;
+  }
+</style>

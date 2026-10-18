@@ -3,6 +3,10 @@ import Base from "../../layouts/Base.astro";
 import GameCard from "../../components/GameCard.astro";
 import DailyChallenges from "../../components/DailyChallenges.astro";
 import QuickPlay from "../../components/QuickPlay.astro";
+import LearnToPlay from "../../components/LearnToPlay.astro";
+import GameLearning from "../../components/GameLearning.astro";
+import BoardChoices from "../../components/BoardChoices.astro";
+import ShareLink from "../../components/ShareLink.astro";
 import { editorialOrder } from "../../data/editorial";
 import CataloguePages from "../../components/CataloguePages.astro";
 import AdSlot from "../../components/AdSlot.astro";
@@ -22,7 +26,7 @@ import { locales, t } from "../../data/i18n";
 import { pagePaths, indexable } from "../../lib/routes";
 import { paginate, PAGE_SIZE } from "../../lib/catalogue";
 import { categoryCopy } from "../../data/discovery";
-import { discoverySchema } from "../../lib/seo";
+import { discoverySchema, pageUrl } from "../../lib/seo";
 import type { Category } from "../../data/games";
 import type { Locale } from "../../lib/types";
 export function getStaticPaths() {
@@ -70,7 +74,8 @@ const title = isHome
     ? "무료 웹게임을 찾아보세요"
     : "Free browser games to explore."
   : game
-    ? `${game.text[locale].title} · ${locale === "ko" ? "무료 웹게임" : "Play Free Online"}`
+    ? (!isPlay && game.text[locale].searchTitle) ||
+      `${game.text[locale].title} · ${locale === "ko" ? "무료 웹게임" : "Play Free Online"}`
     : (collectionCopy?.title ??
       article?.title ??
       {
@@ -176,6 +181,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       </section>
       <QuickPlay locale={locale} />
       <CollectionLinks locale={locale} />
+      <LearnToPlay locale={locale} />
       <section data-curated-preview-count={homeCuratedPreviewCount}>
         <div class="section-heading">
           <h2>{text.curated}</h2>
@@ -324,6 +330,11 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
               </span>
             ))}
           </div>
+          <ShareLink
+            locale={locale}
+            url={pageUrl(locale, path)}
+            title={`${game.text[locale].title} · Denny Games`}
+          />
         </div>
         <img
           src={game.artwork}
@@ -333,6 +344,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         />
       </section>
       <div class="prose">
+        <GameLearning locale={locale} gameId={game.id} />
         {game.screenshot && (
           <figure class="game-screenshot">
             <img
@@ -687,7 +699,15 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </span>
         <h1>{title}</h1>
         <p>{collectionCopy.intro}</p>
+        <ShareLink
+          locale={locale}
+          url={pageUrl(locale, path)}
+          title={`${collectionCopy.title} · Denny Games`}
+        />
       </div>
+      {gameCollection.id === "classic-board" && (
+        <BoardChoices locale={locale} />
+      )}
       <div class="game-grid">
         {collectionGames(gameCollection.id).map((game) => (
           <GameCard game={game} locale={locale} />
@@ -963,6 +983,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           )}
         </p>
       </div>
+      <LearnToPlay locale={locale} />
       <div class="notes-grid">
         {guidePaths.map((p, i) => (
           <article class="note-card">
