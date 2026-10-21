@@ -25,6 +25,11 @@ read_when:
 
 ## Release and search evidence
 
-This record must be updated after CI, merge, Pages deployment and public URL readback. Search Console metrics were unavailable when the market was chosen; no ranking or traffic improvement is claimed. After crawl time, compare exact query/page impressions, clicks, CTR and average position over consecutive completed 28-day windows. Search submission receipts remain separate from indexing and rankings.
+- PR [#67](https://github.com/iamdenny/denny-games/pull/67) merged on 2026-10-21 at `10:27:52Z` as `fcf8bba31855d71a8681ab0e17894afa94fc70d1`.
+- Pages workflow [39584770429](https://github.com/iamdenny/denny-games/actions/runs/39584770429) completed successfully. Its build, full Chromium suite, Pages deployment and IndexNow job passed.
+- At `2026-10-21T10:34:15Z`, `node scripts/verify-public.mjs --sha fcf8bba31855d71a8681ab0e17894afa94fc70d1` passed. Public `release.json` carried the same SHA; Pages reported `built` with HTTPS enforced.
+- Public EN and KO collection routes returned HTTP 200 with the expected localized heading and FAQ, five direct-play links each, and all ten localized play routes returned HTTP 200.
+- IndexNow returned HTTP 200 for 503 sitemap URLs. This is a submission receipt, not evidence of crawling or indexing.
+- Search Console metrics remain unavailable. No ranking or traffic improvement is claimed. After crawl time, compare exact query/page impressions, clicks, CTR and average position over consecutive completed 28-day windows.
 
 Browser screenshots and automation do not establish physical-phone or tablet testing, player popularity, revenue or search-engine ranking.
