@@ -719,7 +719,11 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       )}
       <div class="game-grid">
         {collectionGames(gameCollection.id).map((game) => (
-          <GameCard game={game} locale={locale} />
+          <GameCard
+            game={game}
+            locale={locale}
+            directPlay={gameCollection.id === "classic-board"}
+          />
         ))}
       </div>
       <div class="prose">

@@ -61,6 +61,7 @@ const pick = editorialPick(game.id);
       class="card-play-link"
       data-home-play-link={game.id}
       href={`/${locale}/play/${game.id}/`}
+      aria-label={`${text.play}: ${detail.title}`}
     >
       {text.play} <span aria-hidden="true">↗</span>
     </a>

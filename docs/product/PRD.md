@@ -44,6 +44,8 @@ Add Hextris as the 202nd playable title in arcade. Pin and hash the GPL-3.0-or-l
 
 See [다음 릴리스 PRD](NEXT-RELEASE.md) for play-style collections, combined search filters, local device checks, SEO/GEO acceptance and the explicit remaining game-supply targets.
 
+The first country experiment is South Korea, narrowed to Korean searches for free two-player games shared on one device. This is a low-cost product-fit test, not a proven competitive advantage. Keep the existing English and Korean routes; do not add thin country-only duplicates. See [market focus](MARKET-FOCUS.md) for competitor evidence, scope and measurement boundaries.
+
 Home discovery follows [홈 게임 탐색 개선 PRD](HOME-DISCOVERY.md) and [ADR 0041](../adr/0041-distinct-home-discovery-previews.md): editor picks are excluded from genre previews, and genre cards offer direct play.
 
 Multi-stage games show stage progress and a next-stage action after wins; daily challenge routes keep their existing next-challenge flow. See [ADR 0042](../adr/0042-visible-multi-stage-progression.md) and [player UX](PLAYER-UX.md).
