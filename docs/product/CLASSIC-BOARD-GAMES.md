@@ -27,6 +27,8 @@ Before a new match, show the AI and same-device two-player choices on the ready 
 
 Publish distinct Korean/English game descriptions, rule variants, controls, strategy tips and a comparison guide. Add a classic-board collection, category, contextual links, canonical/hreflang, sitemap entries and accurate VideoGame playMode. Publish llms.txt as a discovery aid with links to authoritative visible pages; it is not an indexing or AI-citation guarantee. No fabricated rankings or FAQ rich-result claims. Existing catalogue/detail ad positions remain; no ads inside repeated-input gameplay.
 
+The South Korea collection entry uses a natural Korean phrase for playing a free two-player board game with a friend. Every game card also links straight to its local player, with a game-specific accessible name. The route remains bilingual and describes the same five verified games; it does not imply online matchmaking.
+
 ## Delivery acceptance
 
 Rules fixtures cover captures, passes, gravity, wins/draws, jump continuation, crowning and box extra turns. Browser journeys cover all five engines, AI replies, local mode, reload, locale, pause and 320–430px overflow. Inspect actual desktop/mobile boards. Verify exact catalogue inventory and SEO locally and publicly after passing CI, PR merge and Pages deployment. Physical controller/Tesla proof and third-party search processing remain separate.

@@ -66,6 +66,8 @@ Reviewed 2026-10-15. Deployment and actual submission receipts belong in release
 
 Five game-detail pages per locale document the exact implemented variants, AI/local modes, selection controls and strategy tips. The Board category, classic-board collection and linked comparison guide provide distinct visible content and canonical/hreflang/sitemap coverage. VideoGame schema lists single-player and multiplayer for same-device two-player games without implying online rooms. `llms.txt` links to these authoritative HTML pages; publishing it does not establish crawler adoption, indexing, ranking or AI citations.
 
+The current Korean focus is the existing classic-board collection, with a direct-play link for each locally hosted game. Its wording is informed by visible Korean competitor categories, not measured query volume. See [market focus](../product/MARKET-FOCUS.md). Evaluate the exact `/ko/collections/classic-board/` page and its five game pages in Search Console using a completed 28-day window and the previous 28 days; report impressions, clicks, CTR, position and query separately. No live Search Console data was available when this focus was selected.
+
 ## Tesla browser-game keyword map
 
 The indexable `/en/tesla/` and `/ko/tesla/` articles target users looking for browser games in a Tesla and answer the compatibility question directly. The phrase inventory below groups spelling and wording variants by intent; it is not a claim of search volume or ranking opportunity. Use natural language in the page title, description, headings, visible copy and internal links. Do not paste the inventory into page copy, metadata keywords, image alt text or hidden content.

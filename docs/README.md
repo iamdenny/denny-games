@@ -25,12 +25,14 @@ The original research is retained locally outside this public repository. Produc
 - [Hextris open-source game release](releases/2026-10-14-hextris.md)
 
 - [다음 릴리스 PRD](product/NEXT-RELEASE.md)
+- [First market focus: South Korea](product/MARKET-FOCUS.md)
 - [Play-style release evidence](releases/2026-10-11-playstyle-discovery.md)
 
 ## Classic board release
 
 - [Five-game PRD](product/CLASSIC-BOARD-GAMES.md)
 - [Shared board engine decision](adr/0015-classic-board-games.md)
+- [South Korea local two-player entry](releases/2026-10-21-korea-local-board-entry.md)
 
 - [Player UX](product/PLAYER-UX.md): direct controls and browser viewport mode.
 
