@@ -44,6 +44,10 @@ Add Hextris as the 202nd playable title in arcade. Pin and hash the GPL-3.0-or-l
 
 See [다음 릴리스 PRD](NEXT-RELEASE.md) for play-style collections, combined search filters, local device checks, SEO/GEO acceptance and the explicit remaining game-supply targets.
 
+Home discovery follows [홈 게임 탐색 개선 PRD](HOME-DISCOVERY.md) and [ADR 0041](../adr/0041-distinct-home-discovery-previews.md): editor picks are excluded from genre previews, and genre cards offer direct play.
+
+Multi-stage games show stage progress and a next-stage action after wins; daily challenge routes keep their existing next-challenge flow. See [ADR 0042](../adr/0042-visible-multi-stage-progression.md) and [player UX](PLAYER-UX.md).
+
 ## Complete catalogue visibility — 2026-10-12
 
 The home page showed 21 preview cards while its “All games” navigation returned to that same preview. Provide `/en/all/` and `/ko/all/` as complete, static catalogues: 24 real games per page, every published registry entry exactly once across the sequence, total count and visible range, category counts, search/filter link, and previous/next/number links above and below the grid. Navigation must lead to these catalogues. Home distinguishes curated and category previews through their section headings and links explicitly to the complete catalogue in its compact search/action row. No game is added or removed by this change.

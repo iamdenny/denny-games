@@ -39,6 +39,8 @@ const host = el<HTMLDivElement>("game-host"),
 const pauseButton = el<HTMLButtonElement>("pause-button"),
   restart = el<HTMLButtonElement>("restart-button"),
   select = el<HTMLSelectElement>("stage-select");
+const nextStageButton = el<HTMLButtonElement>("next-stage");
+const stageProgress = el<HTMLElement>("stage-progress");
 const nextLink = el<HTMLAnchorElement>("next-game");
 const defaultNext = {
   href: nextLink.getAttribute("href")!,
@@ -64,6 +66,11 @@ let sound = read<boolean>("sound-enabled", false) === true,
   result: GameResult | undefined;
 document.body.dataset.game = id;
 select.value = String(stage);
+function updateStageProgress() {
+  stageProgress.hidden = count < 2;
+  stageProgress.textContent = `${text.stage} ${stage} / ${count}`;
+}
+updateStageProgress();
 const formatScore = (value: number) =>
   new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(value);
 const savedKey = () =>
@@ -112,6 +119,8 @@ function show(title: string, note = "", showSetup = false) {
   el("round-record").hidden = true;
   el("daily-result").hidden = true;
   el("next-game").hidden = true;
+  nextStageButton.hidden = true;
+  start.classList.add("primary");
   host.inert = true;
   el("game-controls").inert = true;
   const setup = el("game-mode-choice");
@@ -177,10 +186,10 @@ function end(value: GameResult) {
   }
   nextLink.href = defaultNext.href;
   nextLink.textContent = defaultNext.text;
-  if (
+  const dailyCompleted =
     dailyGames.some((item) => item.id === id) &&
-    recordDailyRound(id, Number(root.dataset.version), seed, stage, score)
-  ) {
+    recordDailyRound(id, Number(root.dataset.version), seed, stage, score);
+  if (dailyCompleted) {
     const completed = dailyRounds();
     const finished = dailyGames.filter(
       (item) => completed[item.id]?.version === item.version,
@@ -204,6 +213,16 @@ function end(value: GameResult) {
         : "All daily challenges complete! View records ↗";
   }
   nextLink.hidden = false;
+  if (value.won && count > 1 && query.get("daily") !== "1" && !dailyCompleted) {
+    nextStageButton.hidden = false;
+    nextStageButton.textContent =
+      stage < count
+        ? text.nextStageProgress
+            .replace("{current}", String(stage + 1))
+            .replace("{total}", String(count))
+        : text.restartStages;
+    start.classList.remove("primary");
+  }
   start.textContent = text.restart;
   share.hidden = false;
   pauseButton.disabled = true;
@@ -361,8 +380,19 @@ select.addEventListener("change", () => {
   if (!factory || state === "ad") return;
   save();
   stage = Number(select.value);
+  updateStageProgress();
   mount(true);
   write(`stage:${id}`, stage);
+});
+nextStageButton.addEventListener("click", () => {
+  if (state !== "ended" || !result?.won || count < 2) return;
+  stage = stage < count ? stage + 1 : 1;
+  select.value = String(stage);
+  updateStageProgress();
+  write(`stage:${id}`, stage);
+  mount(false);
+  save();
+  start.focus();
 });
 function syncSound() {
   const button = el<HTMLButtonElement>("sound-button");

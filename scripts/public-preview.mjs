@@ -7,6 +7,10 @@ export function inspectHomePreview(html, fullCatalogCount) {
   const curatedCardCount = curatedSection
     ? [...curatedSection[3].matchAll(/data-game-card=/g)].length
     : 0;
+  const cardIds = [...html.matchAll(/\bdata-game-card="([^"]+)"/g)].map(
+    (match) => match[1],
+  );
+  const uniqueCardCount = new Set(cardIds).size;
   const categorySections = [
     ...html.matchAll(
       /<section\b([^>]*\bclass="[^"]*\bcatalogue-section\b[^"]*"[^>]*)>([\s\S]*?)<\/section>/g,
@@ -17,11 +21,23 @@ export function inspectHomePreview(html, fullCatalogCount) {
     const total = Number(attrs.match(/\bdata-game-count="(\d+)"/)?.[1] ?? 0);
     const limit = Number(attrs.match(/\bdata-preview-limit="(\d+)"/)?.[1] ?? 0);
     const cardCount = [...match[2].matchAll(/data-game-card=/g)].length;
+    const gridCount = [...match[2].matchAll(/class="game-grid"/g)].length;
+    const previewCount = Number(
+      attrs.match(/\bdata-preview-count="(\d+)"/)?.[1] ?? -1,
+    );
     return {
       total,
       expected: Math.min(total, limit),
+      previewCount,
       cardCount,
-      valid: total > 0 && limit > 0 && cardCount === Math.min(total, limit),
+      gridCount,
+      valid:
+        total > 0 &&
+        limit > 0 &&
+        previewCount >= 0 &&
+        previewCount <= Math.min(total, limit) &&
+        cardCount === previewCount &&
+        gridCount === (previewCount === 0 ? 0 : 1),
     };
   });
   const maximumCardCount =
@@ -38,6 +54,8 @@ export function inspectHomePreview(html, fullCatalogCount) {
     );
   return {
     cardCount,
+    uniqueCardCount,
+    duplicateCardCount: cardCount - uniqueCardCount,
     curatedCardCount,
     curatedPreviewLimit,
     categorySectionCount: categorySections.length,
@@ -49,8 +67,9 @@ export function inspectHomePreview(html, fullCatalogCount) {
       curatedCardCount === curatedPreviewLimit &&
       categoryPreviewCounts.length > 0 &&
       categoryPreviewCounts.every((section) => section.valid) &&
+      cardCount === uniqueCardCount &&
       cardCount === containedCardCount &&
-      cardCount === maximumCardCount &&
+      cardCount <= maximumCardCount &&
       fullCatalogCount > cardCount,
   };
 }

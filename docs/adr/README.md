@@ -50,3 +50,5 @@
 - [0038 — Local-play-only public catalogue](0038-local-play-only-catalogue.md) — Accepted.
 - [0039 — Daily challenge sharing](0039-daily-challenge-sharing.md) — Accepted.
 - [0040 — Random home game spotlight](0040-random-home-game-spotlight.md) — Accepted.
+- [0041 — Distinct home discovery previews](0041-distinct-home-discovery-previews.md) — Accepted.
+- [0042 — Visible multi-stage progression](0042-visible-multi-stage-progression.md) — Accepted.

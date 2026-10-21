@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { editorPicks } from "../../src/data/editorial";
-import { gameById } from "../../src/data/games";
+import { categories, categoryGames, gameById } from "../../src/data/games";
 
 test("2048 remains playable with reduced motion and low effects", async ({
   page,
@@ -38,22 +38,54 @@ test("2048 remains playable with reduced motion and low effects", async ({
 test("editor picks stay consistent across home, full catalogue, categories and default search", async ({
   page,
 }) => {
-  await page.goto("/ko/");
-  const featuredId = await page
-    .locator("[data-quick-play]")
-    .getAttribute("data-quick-current");
-  expect(gameById(featuredId!)).toBeDefined();
-  await expect(page.locator("[data-quick-details]")).toHaveAttribute(
-    "href",
-    `/ko/games/${featuredId}/`,
-  );
-  expect(
-    await page
+  for (const locale of ["en", "ko"] as const) {
+    await page.goto(`/${locale}/`);
+    const featuredId = await page
+      .locator("[data-quick-play]")
+      .getAttribute("data-quick-current");
+    expect(gameById(featuredId!)).toBeDefined();
+    await expect(page.locator("[data-quick-details]")).toHaveAttribute(
+      "href",
+      `/${locale}/games/${featuredId}/`,
+    );
+    expect(
+      await page
+        .locator("[data-game-card]")
+        .evaluateAll((cards) =>
+          cards.slice(0, 6).map((card) => card.getAttribute("data-game-card")),
+        ),
+    ).toEqual(editorPicks.slice(0, 6).map((pick) => pick.id));
+    const homeCardIds = await page
       .locator("[data-game-card]")
       .evaluateAll((cards) =>
-        cards.slice(0, 6).map((card) => card.getAttribute("data-game-card")),
-      ),
-  ).toEqual(editorPicks.slice(0, 6).map((pick) => pick.id));
+        cards.map((card) => card.getAttribute("data-game-card")),
+      );
+    const curatedIds = new Set(editorPicks.slice(0, 6).map((pick) => pick.id));
+    const expectedCategoryIds = categories.flatMap((category) =>
+      categoryGames(category)
+        .filter((game) => !curatedIds.has(game.id))
+        .slice(0, 3)
+        .map((game) => game.id),
+    );
+    const categoryCardIds = await page
+      .locator(".catalogue-section [data-game-card]")
+      .evaluateAll((cards) =>
+        cards.map((card) => card.getAttribute("data-game-card")),
+      );
+    expect(categoryCardIds).toEqual(expectedCategoryIds);
+    expect(homeCardIds).toHaveLength(
+      curatedIds.size + expectedCategoryIds.length,
+    );
+    expect(new Set(homeCardIds).size).toBe(homeCardIds.length);
+    expect(categoryCardIds.every((id) => !curatedIds.has(id!))).toBe(true);
+    await expect(
+      page.locator(".catalogue-section [data-home-play-link]"),
+    ).toHaveCount(expectedCategoryIds.length);
+    await expect(
+      page.locator(".catalogue-section [data-home-play-link]").first(),
+    ).toHaveAttribute("href", new RegExp(`^/${locale}/play/`));
+  }
+
   const featuredCategories = await page
     .locator("[data-game-card]")
     .evaluateAll((cards) =>
@@ -102,4 +134,51 @@ test("editor picks stay consistent across home, full catalogue, categories and d
     "href",
     `/en/games/${editorPicks[0]!.id}/`,
   );
+});
+
+test("home genre cards fit phone, tablet and desktop widths with tappable play links", async ({
+  page,
+}) => {
+  const viewports = [
+    { width: 320, height: 568 },
+    { width: 360, height: 800 },
+    { width: 390, height: 844 },
+    { width: 430, height: 900 },
+    { width: 810, height: 1080 },
+    { width: 1080, height: 810 },
+    { width: 1440, height: 900 },
+  ];
+
+  for (const locale of ["en", "ko"] as const) {
+    for (const viewport of viewports) {
+      await page.setViewportSize(viewport);
+      await page.goto(`/${locale}/`);
+      const category = page.locator(".catalogue-section").first();
+      await category.scrollIntoViewIfNeeded();
+      const card = category.locator("[data-game-card]").first();
+      const gameId = await card.getAttribute("data-game-card");
+      const detailLink = card.locator(".game-card-link");
+      const playLink = card.locator("[data-home-play-link]");
+      await expect(playLink).toBeVisible();
+      await expect(playLink).toHaveAttribute(
+        "href",
+        `/${locale}/play/${gameId}/`,
+      );
+      expect(await detailLink.getAttribute("href")).toBe(
+        `/${locale}/games/${gameId}/`,
+      );
+      const playBounds = await playLink.boundingBox();
+      expect(playBounds).not.toBeNull();
+      expect(playBounds!.height).toBeGreaterThanOrEqual(48);
+      expect(playBounds!.x).toBeGreaterThanOrEqual(0);
+      expect(playBounds!.x + playBounds!.width).toBeLessThanOrEqual(
+        viewport.width,
+      );
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth,
+        ),
+      ).toBe(true);
+    }
+  }
 });

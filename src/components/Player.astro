@@ -74,6 +74,12 @@ const nextGame =
       ← {text.exit}
     </a>
     <h1>{game.text[locale].title}</h1>
+    <span
+      id="stage-progress"
+      class="stage-progress"
+      aria-live="polite"
+      hidden={game.stages < 2}
+    ></span>
     <nav class="locale-nav" aria-label={locale === "ko" ? "언어" : "Language"}>
       {(["en", "ko"] as const).map((lang) => (
         <a
@@ -102,6 +108,9 @@ const nextGame =
         <div id="game-mode-choice" hidden></div>
         <button id="start-button" type="button" class="button primary" disabled>
           {text.start} ↗
+        </button>
+        <button id="next-stage" type="button" class="button primary" hidden>
+          {text.nextStage}
         </button>
         <button id="share-button" type="button" class="button" hidden>
           {text.share}
