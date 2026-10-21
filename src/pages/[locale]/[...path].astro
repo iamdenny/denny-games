@@ -51,8 +51,16 @@ const category = parts[1];
 const page = Number((isAll ? parts[2] : parts[3]) ?? "1");
 const totalPages = Math.ceil(games.length / PAGE_SIZE);
 const recommended = editorialOrder(games);
-const homeCuratedPreviewCount = 6;
+const homeCuratedGames = recommended.slice(0, 6);
+const homeCuratedPreviewCount = homeCuratedGames.length;
 const homeCategoryPreviewCount = 3;
+const homeCuratedIds = new Set(homeCuratedGames.map((game) => game.id));
+const homeCategoryPreviews = categories.map((category) => ({
+  category,
+  games: categoryGames(category)
+    .filter((game) => !homeCuratedIds.has(game.id))
+    .slice(0, homeCategoryPreviewCount),
+}));
 const pageSuffix =
   page > 1 ? (locale === "ko" ? ` · ${page}페이지` : ` · Page ${page}`) : "";
 const gameCollection =
@@ -178,7 +186,12 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       <section data-curated-preview-count={homeCuratedPreviewCount}>
         <div class="section-heading">
           <h2>{text.curated}</h2>
-          <span class="count">{label("6 editor picks", "추천 게임 6개")}</span>
+          <span class="count">
+            {label(
+              `${homeCuratedPreviewCount} editor picks`,
+              `추천 게임 ${homeCuratedPreviewCount}개`,
+            )}
+          </span>
         </div>
         <p class="editorial-note">
           {label(
@@ -187,33 +200,36 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           )}
         </p>
         <div class="game-grid">
-          {recommended.slice(0, homeCuratedPreviewCount).map((game) => (
+          {homeCuratedGames.map((game) => (
             <GameCard game={game} locale={locale} directPlay />
           ))}
         </div>
       </section>
-      {categories.map((category) => (
+      {homeCategoryPreviews.map((preview) => (
         <section
           class="catalogue-section"
-          data-game-count={categoryGames(category).length}
+          data-game-count={categoryGames(preview.category).length}
           data-preview-limit={homeCategoryPreviewCount}
+          data-preview-count={preview.games.length}
         >
           <div class="section-heading">
             <h2>
-              {text[category]}{" "}
-              <span class="count">{categoryGames(category).length}</span>
+              {text[preview.category]}{" "}
+              <span class="count">
+                {categoryGames(preview.category).length}
+              </span>
             </h2>
-            <a class="button" href={`/${locale}/category/${category}/`}>
+            <a class="button" href={`/${locale}/category/${preview.category}/`}>
               {label("View all", "전체 보기")} ↗
             </a>
           </div>
-          <div class="game-grid">
-            {categoryGames(category)
-              .slice(0, homeCategoryPreviewCount)
-              .map((g) => (
-                <GameCard game={g} locale={locale} />
+          {preview.games.length > 0 && (
+            <div class="game-grid">
+              {preview.games.map((game) => (
+                <GameCard game={game} locale={locale} directPlay />
               ))}
-          </div>
+            </div>
+          )}
         </section>
       ))}
       <DailyChallenges locale={locale} compact />

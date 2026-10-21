@@ -1,4 +1,23 @@
-import { test, expect } from "@playwright/test";
+import { expect, test, type Frame, type Page } from "@playwright/test";
+
+async function waitForHextrisFrame(page: Page): Promise<Frame> {
+  await expect(page.locator("#game-host iframe")).toHaveAttribute(
+    "src",
+    /vendor\/hextris\/index\.html/,
+  );
+  await expect
+    .poll(() =>
+      page
+        .frames()
+        .some((frame) => frame.url().includes("/vendor/hextris/index.html")),
+    )
+    .toBe(true);
+  const frame = page
+    .frames()
+    .find((item) => item.url().includes("/vendor/hextris/index.html"));
+  if (!frame) throw new Error("Hextris iframe did not finish navigation");
+  return frame;
+}
 
 test("Hextris has bilingual instructions, source notices and clear mobile controls", async ({
   page,
@@ -57,10 +76,7 @@ test("Hextris has bilingual instructions, source notices and clear mobile contro
     expect(Math.abs(box!.width - box!.height)).toBeLessThanOrEqual(1);
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  let frame = page
-    .frames()
-    .find((item) => item.url().includes("/vendor/hextris/index.html"));
-  expect(frame).toBeDefined();
+  let frame = await waitForHextrisFrame(page);
   expect(
     await frame!.evaluate(() => {
       try {
@@ -136,10 +152,7 @@ test("Hextris has bilingual instructions, source notices and clear mobile contro
     "src",
     /vendor\/hextris\/index\.html/,
   );
-  const recoveredFrame = page
-    .frames()
-    .find((item) => item.url().includes("/vendor/hextris/index.html"));
-  expect(recoveredFrame).toBeDefined();
+  const recoveredFrame = await waitForHextrisFrame(page);
   await expect
     .poll(() =>
       recoveredFrame!.evaluate(
@@ -187,17 +200,7 @@ test("Hextris has bilingual instructions, source notices and clear mobile contro
     "src",
     /vendor\/hextris\/index\.html/,
   );
-  await expect
-    .poll(() =>
-      page
-        .frames()
-        .some((item) => item.url().includes("/vendor/hextris/index.html")),
-    )
-    .toBe(true);
-  const restored = page
-    .frames()
-    .find((item) => item.url().includes("/vendor/hextris/index.html"));
-  expect(restored).toBeDefined();
+  const restored = await waitForHextrisFrame(page);
   await expect
     .poll(() =>
       restored!.evaluate(
@@ -222,10 +225,7 @@ test("Hextris flushes the current board before switching language", async ({
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/ko/play/hextris/");
   await page.locator("#start-button").click();
-  let frame = page
-    .frames()
-    .find((item) => item.url().includes("/vendor/hextris/index.html"));
-  expect(frame).toBeDefined();
+  let frame = await waitForHextrisFrame(page);
   await expect
     .poll(() =>
       frame!.evaluate(
@@ -273,17 +273,7 @@ test("Hextris flushes the current board before switching language", async ({
     "src",
     /vendor\/hextris\/index\.html/,
   );
-  await expect
-    .poll(() =>
-      page
-        .frames()
-        .some((item) => item.url().includes("/vendor/hextris/index.html")),
-    )
-    .toBe(true);
-  frame = page
-    .frames()
-    .find((item) => item.url().includes("/vendor/hextris/index.html"));
-  expect(frame).toBeDefined();
+  frame = await waitForHextrisFrame(page);
   await expect
     .poll(() =>
       frame!.evaluate(
@@ -306,10 +296,7 @@ test("Hextris stays on the page when the save checkpoint is not acknowledged", a
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/ko/play/hextris/");
   await page.locator("#start-button").click();
-  const frame = page
-    .frames()
-    .find((item) => item.url().includes("/vendor/hextris/index.html"));
-  expect(frame).toBeDefined();
+  const frame = await waitForHextrisFrame(page);
   await expect
     .poll(() =>
       frame!.evaluate(
@@ -350,10 +337,7 @@ test("Hextris blocks locale navigation when browser storage rejects progress", a
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/ko/play/hextris/");
   await page.locator("#start-button").click();
-  const frame = page
-    .frames()
-    .find((item) => item.url().includes("/vendor/hextris/index.html"));
-  expect(frame).toBeDefined();
+  const frame = await waitForHextrisFrame(page);
   await expect
     .poll(() =>
       frame!.evaluate(

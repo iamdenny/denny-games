@@ -180,6 +180,44 @@ test("Circuit can finish, score hint and share fallback without clipboard", asyn
   );
 });
 
+test("Circuit exposes its 30-board campaign and advances after a solved board", async ({
+  page,
+}) => {
+  await page.goto("/ko/play/circuit-loop/?seed=campaign&stage=1");
+  await expect(page.locator("#stage-progress")).toHaveText("스테이지 1 / 30");
+  await page.locator("#start-button").click();
+  for (let i = 0; i < 36; i++) {
+    if (await page.locator("#game-overlay").isVisible()) break;
+    await page.locator(".game-hint").click();
+  }
+  await expect(page.locator("#overlay-title")).toHaveText("멋지게 해냈어요!");
+  await expect(page.locator("#next-stage")).toBeVisible();
+  await expect(page.locator("#next-stage")).toHaveText("다음 스테이지 2 / 30");
+  await page.locator("#next-stage").click();
+  await expect(page).toHaveURL(/stage=2/);
+  await expect(page.locator("#stage-progress")).toHaveText("스테이지 2 / 30");
+  await expect(page.locator("#game-overlay")).toBeVisible();
+  await expect(page.locator("#next-stage")).toBeHidden();
+});
+
+test("last multi-stage win offers a clear return to stage one", async ({
+  page,
+}) => {
+  await page.goto("/en/play/circuit-loop/?seed=campaign&stage=30");
+  await expect(page.locator("#stage-progress")).toHaveText("Stage 30 / 30");
+  await page.locator("#start-button").click();
+  for (let i = 0; i < 36; i++) {
+    if (await page.locator("#game-overlay").isVisible()) break;
+    await page.locator(".game-hint").click();
+  }
+  await expect(page.locator("#next-stage")).toHaveText(
+    "Start again from stage 1",
+  );
+  await page.locator("#next-stage").click();
+  await expect(page).toHaveURL(/stage=1/);
+  await expect(page.locator("#stage-progress")).toHaveText("Stage 1 / 30");
+});
+
 test("late puzzle stages retain touch targets and arcade drag aligns with the visible board", async ({
   page,
 }) => {

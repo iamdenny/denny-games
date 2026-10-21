@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { dailySeed } from "../../src/lib/random";
 const now = new Date("2026-10-15T06:00:00Z");
 for (const locale of ["en", "ko"]) {
   test(`${locale}: actual daily completion persists and leads to the next challenge`, async ({
@@ -31,6 +32,7 @@ for (const locale of ["en", "ko"]) {
       await page.locator(".game-hint").click();
     }
     await expect(page.locator("#daily-result")).toContainText("1 / 3");
+    await expect(page.locator("#next-stage")).toBeHidden();
     await expect(page.locator("#next-game")).toHaveAttribute(
       "href",
       `/${locale}/play/orbit-break/?daily=1&stage=1`,
@@ -55,6 +57,28 @@ for (const locale of ["en", "ko"]) {
     );
     await expect(page.locator("[data-daily-history-summary]")).toContainText(
       "1 / 21",
+    );
+  });
+}
+
+for (const locale of ["en", "ko"]) {
+  test(`${locale}: a shared daily seed keeps daily results when the daily flag is absent`, async ({
+    page,
+  }) => {
+    await page.clock.setFixedTime(now);
+    await page.goto(
+      `/${locale}/play/circuit-loop/?seed=${dailySeed("circuit-loop", now)}&stage=1`,
+    );
+    await page.locator("#start-button").click();
+    for (let i = 0; i < 36; i++) {
+      if (await page.locator("#game-overlay").isVisible()) break;
+      await page.locator(".game-hint").click();
+    }
+    await expect(page.locator("#daily-result")).toBeVisible();
+    await expect(page.locator("#next-stage")).toBeHidden();
+    await expect(page.locator("#next-game")).toHaveAttribute(
+      "href",
+      `/${locale}/play/orbit-break/?daily=1&stage=1`,
     );
   });
 }

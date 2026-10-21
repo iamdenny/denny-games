@@ -37,6 +37,15 @@
   font-size: 25px;
   margin: 0;
 }
+.stage-progress {
+  padding: 7px 11px;
+  border: 1px solid #526e78;
+  border-radius: 999px;
+  color: #a7f0e6;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
 .exit-link {
   font-size: 13px;
   min-height: 48px;
