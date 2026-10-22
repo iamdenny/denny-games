@@ -1,6 +1,7 @@
 import type { Locale } from "../lib/types";
 import crisp from "./crisp.json" with { type: "json" };
 import { crispCycleGames } from "./crisp-cycles";
+import { logicGames } from "./logic-games";
 import { boardGames } from "./board-games";
 import { openSourceGames } from "./open-source-games";
 import { editorialOrder } from "./editorial";
@@ -1405,6 +1406,7 @@ const externalBrowserGames: Game[] = [
   },
 ];
 gameCandidates.push(
+  ...logicGames,
   ...openSourceGames,
   ...externalBrowserGames,
   ...eraExternalGames,

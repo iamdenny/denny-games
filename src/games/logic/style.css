@@ -1,0 +1,63 @@
+.logic-board {
+  display: grid;
+  grid-template-columns: repeat(var(--size), minmax(0, 1fr));
+  width: min(100%, 100cqh);
+  aspect-ratio: 1;
+  gap: clamp(4px, 1.2vw, 10px);
+  padding: clamp(8px, 2vw, 18px);
+  border: 1px solid #526772;
+  border-radius: 20px;
+  background: #10242c;
+  margin: auto;
+  touch-action: manipulation;
+}
+.logic-board .logic-cell {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 2px solid #617581;
+  border-radius: 14px;
+  background: #233d47;
+  color: #b7cdd4;
+  font-size: clamp(20px, 5vw, 52px);
+  font-weight: 800;
+  box-shadow: inset 0 -4px #0003;
+  opacity: 1;
+}
+.logic-board .logic-cell.lit {
+  background: #f2ca67;
+  color: #352b17;
+  border-color: #ffe5a2;
+}
+.logic-board.number-trail .logic-cell {
+  background: #e5ece4;
+  color: #1c3d3e;
+}
+.logic-board.number-trail .logic-cell.movable {
+  background: #9ee0c3;
+  border-color: #d5ffe9;
+}
+.logic-board.number-trail .logic-cell.empty {
+  background: #142a32;
+  border: 2px dashed #647d87;
+  box-shadow: none;
+}
+.logic-board .logic-cell.selected {
+  outline: 3px solid #fff;
+  outline-offset: -6px;
+}
+.logic-board .logic-cell:focus-visible {
+  outline: 4px solid #fb8d60;
+  outline-offset: -5px;
+}
+.logic-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.logic-controls .board-note {
+  margin: 4px;
+  font-size: 13px;
+}

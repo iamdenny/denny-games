@@ -603,3 +603,7 @@ Google은 AI Overviews·AI Mode에도 기존 SEO 원칙이 적용되고 별도�
 기존 Everyday Tools 기록에서는 비공개 소스/공개 산출물 분리와 검색 제출·색인·노출의 구분만 참고했다. 기존 사이트의 현재 배포·승인·광고 운영 상태는 이 프로젝트의 확인된 사실로 사용하지 않았다.
 
 See [Player interaction and viewport](PLAYER-UX.md) for default in-page game presentation and direct board actions.
+
+## Original logic campaigns — 2026-10-22
+
+Add Lantern Grid and Number Trail as locally implemented bilingual puzzle games, bringing the public registry to 209 games. Each provides 24 solvable seeded stages, undo, local resume, keyboard and pointer controls, and visible next-stage progression. Original project-authored code and artwork use MIT; no third-party game assets are imported. Daily challenges remain the existing three games. See [ADR 0043](../adr/0043-original-logic-pack.md) for scope and validation boundaries.

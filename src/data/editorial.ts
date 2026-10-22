@@ -45,6 +45,20 @@ export const editorPicks = [
     },
   },
   {
+    id: "lantern-grid",
+    reason: {
+      en: "Switch off a glowing board across 24 solvable stages with undo and saved progress.",
+      ko: "불빛을 뒤집어 모두 끄는 24개 스테이지. 되돌리기와 이어하기로 차분하게 풀어요.",
+    },
+  },
+  {
+    id: "number-trail",
+    reason: {
+      en: "Slide numbers into order on 24 boards, growing from 3×3 to 4×4.",
+      ko: "3×3부터 4×4까지, 숫자를 밀어 맞추는 24개 보드에 도전하세요.",
+    },
+  },
+  {
     id: "hextris",
     reason: {
       en: "Match blocks on a six-sided board and rotate the whole playfield.",

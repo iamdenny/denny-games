@@ -7,7 +7,13 @@ read_when:
 
 # Open game inventory
 
-As of 2026-10-18, the public registry has 207 games and every title launches on Denny Games. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
+As of 2026-10-22, the public registry has 209 games and every title launches on Denny Games. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
+
+## Original classic-rule additions — 2026-10-22
+
+Lantern Grid and Number Trail use project-authored TypeScript, CSS and SVG under the repository MIT license. Their cross-toggle and sliding-number rules are implemented without copied branded art, levels, sound or code. Each has 24 solvable seeded stages. See [ADR 0043](../adr/0043-original-logic-pack.md).
+
+Further import candidates are research only: [Chogan](https://github.com/choganhq/chogan) and [wavde/games](https://github.com/wavde/games) require per-game source, dependency and asset license review before selection. Neither has been imported. [Komyo](https://github.com/N0zz/komyo.online) declares noncommercial restrictions and is excluded from commercial import selection. A public repository or free-to-play page is not redistribution approval. Prefer a small number of complete, tested games over counting research candidates as playable inventory.
 
 ## Archived external-host research — not public listings
 

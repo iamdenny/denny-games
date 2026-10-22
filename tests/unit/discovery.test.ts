@@ -70,6 +70,8 @@ describe("play-style discovery", () => {
       "crisp-chain-drift",
       "crisp-comet-slash",
       "crisp-volt-keeper",
+      "lantern-grid",
+      "number-trail",
       "gridland",
       "sokoban",
     ]);
