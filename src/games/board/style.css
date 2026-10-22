@@ -465,3 +465,28 @@
     text-align: center;
   }
 }
+
+.classic-board {
+  position: relative;
+}
+.board-flip-face,
+.board-capture {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--mint);
+  border: 1px solid #356e6480;
+  box-shadow:
+    inset 0 2px 2px #ffffff90,
+    inset 0 -3px 2px #0002,
+    0 2px 3px #14212b30;
+  pointer-events: none;
+  z-index: 3;
+}
+.board-flip-face {
+  inset: 12%;
+}
+.board-flip-face.side-2,
+.board-capture.side-2 {
+  background: var(--coral);
+  border-color: #9d503d80;
+}

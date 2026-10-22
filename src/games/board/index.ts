@@ -1,3 +1,5 @@
+import { createMotion } from "../../lib/motion";
+import { animateBoard } from "./motion";
 import type { GameFactory, Action } from "../../lib/types";
 import { read, write } from "../../lib/storage";
 import {
@@ -221,6 +223,9 @@ export const createMount =
     if (ctx.settingsHost) ctx.settingsHost.append(options);
     else shell.prepend(options);
     ctx.host.append(shell);
+    const motion = createMotion(ctx.host);
+    const resize = new ResizeObserver(() => motion.finish());
+    resize.observe(board);
     const human = () =>
       active && !position.winner && (mode === "local" || position.turn === 1);
     const sideName = (side: number) =>
@@ -251,6 +256,7 @@ export const createMount =
       schedule();
     }
     function render() {
+      motion.finish();
       const moves = legal(position),
         [w] = dimensions(kind);
       shell.dataset.turn = String(position.turn);
@@ -464,6 +470,13 @@ export const createMount =
                 : next.boxes.some((v, i) => v !== position.boxes[i])
                   ? "box"
                   : "line";
+      motion.finish();
+      const before = position;
+      const oldRects = new Map(
+        Array.from(board.querySelectorAll<HTMLElement>("[data-cell]")).map(
+          (cell) => [Number(cell.dataset.cell), cell.getBoundingClientRect()],
+        ),
+      );
       position = next;
       preview = undefined;
       source = position.forced;
@@ -471,6 +484,17 @@ export const createMount =
       ctx.sound(cue);
       ctx.onChange(position.moves);
       render();
+      animateBoard(
+        motion,
+        board,
+        kind,
+        before.cells,
+        position.cells,
+        move,
+        oldRects,
+        before.boxes,
+        position.boxes,
+      );
       if (position.winner) {
         active = false;
         ctx.onEnd({
@@ -589,6 +613,7 @@ export const createMount =
       start: run,
       resume: run,
       pause() {
+        motion.finish();
         active = false;
         stop();
       },
@@ -598,6 +623,8 @@ export const createMount =
         return { position, mode, level };
       },
       destroy() {
+        resize.disconnect();
+        motion.destroy();
         destroyed = true;
         active = false;
         stop();

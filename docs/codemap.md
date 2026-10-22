@@ -25,3 +25,5 @@
 - `src/lib/daily.ts`, `src/components/DailyChallenges.astro` and `src/scripts/daily.ts`: bounded seven-day local completion trail, UTC rollover, daily cards and home progress.
 
 - `src/games/logic/rules.ts`, `src/games/logic/index.ts`, `src/data/logic-games.ts`: original cross-toggle and sliding-number campaigns, validated move-history saves, bilingual registration and lazy DOM rendering.
+
+- `src/lib/motion/`: scoped GSAP timelines, disposable tile travel, and a dynamically loaded Three.js victory scene.

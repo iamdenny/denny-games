@@ -1,4 +1,5 @@
 import "../styles/player.css";
+import { createMotion, gsap } from "../lib/motion";
 import { GameAudio, type SoundCue } from "../lib/audio";
 import { t } from "../data/i18n";
 import { read, write, addRecent } from "../lib/storage";
@@ -100,6 +101,31 @@ function fitStage() {
   );
   if (sideScale > bottomScale + 1) root.dataset.controlsLayout = "side";
 }
+const overlayMotion = createMotion(root);
+const scoreMotion = createMotion(root);
+let stopVictory: (() => void) | undefined;
+let victoryToken = 0;
+function clearVictory() {
+  victoryToken++;
+  stopVictory?.();
+  stopVictory = undefined;
+}
+function celebrate() {
+  if (!overlayMotion.enabled()) return;
+  const token = ++victoryToken;
+  void import("../lib/motion/victory")
+    .then(({ victory }) => {
+      if (
+        token === victoryToken &&
+        state === "ended" &&
+        overlayMotion.enabled()
+      )
+        stopVictory = victory(root);
+    })
+    .catch(() => {
+      /* Optional graphics never block a result or replay. */
+    });
+}
 const stageObserver = new ResizeObserver(fitStage);
 stageObserver.observe(root);
 stageObserver.observe(root.querySelector(".player-top")!);
@@ -115,6 +141,8 @@ function best() {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }
 function show(title: string, note = "", showSetup = false) {
+  clearVictory();
+  overlayMotion.finish();
   overlay.hidden = false;
   el("round-record").hidden = true;
   el("daily-result").hidden = true;
@@ -127,6 +155,19 @@ function show(title: string, note = "", showSetup = false) {
   setup.hidden = !showSetup || setup.childElementCount === 0;
   el("overlay-title").textContent = title;
   el("overlay-note").textContent = note;
+  const card = overlay.firstElementChild!;
+  overlayMotion.run(
+    (timeline) => {
+      timeline.fromTo(
+        card,
+        { y: 10, scale: 0.98, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.22, ease: "power2.out" },
+      );
+    },
+    () => {
+      gsap.set(card, { clearProps: "transform,opacity" });
+    },
+  );
 }
 function focusGame() {
   (
@@ -171,6 +212,7 @@ function end(value: GameResult) {
         : text.lost,
     value.message ?? `${text.score}: ${formatScore(score)}`,
   );
+  if (value.won && !value.draw) celebrate();
   if (root.dataset.scoreRecord === "true" && score > 0) {
     const recordNote = el("round-record");
     const improved = score > previousBest;
@@ -247,8 +289,25 @@ function mount(saved: boolean) {
     stage,
     saved: saved ? read(savedKey(), undefined) : undefined,
     onChange: (value) => {
+      const increased = value > score && state === "running";
       score = value;
       el("score").textContent = formatScore(value);
+      if (increased) {
+        scoreMotion.finish();
+        const counter = el("score");
+        scoreMotion.run(
+          (timeline) => {
+            timeline.fromTo(
+              counter,
+              { scale: 1.14 },
+              { scale: 1, duration: 0.22, ease: "power2.out" },
+            );
+          },
+          () => {
+            gsap.set(counter, { clearProps: "transform" });
+          },
+        );
+      }
     },
     onEnd: end,
     sound: soundTick,
@@ -346,6 +405,8 @@ start.addEventListener("click", async () => {
     });
   const wasPaused = state === "paused";
   state = "running";
+  clearVictory();
+  overlayMotion.finish();
   overlay.hidden = true;
   host.inert = false;
   el("game-controls").inert = false;
@@ -582,6 +643,9 @@ window.addEventListener(
     clearInterval(autosave);
     window.removeEventListener("keydown", keyboard);
     game?.destroy();
+    clearVictory();
+    overlayMotion.destroy();
+    scoreMotion.destroy();
     void audio?.close();
   },
   { once: true },

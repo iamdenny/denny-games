@@ -607,3 +607,7 @@ See [Player interaction and viewport](PLAYER-UX.md) for default in-page game pre
 ## Original logic campaigns — 2026-10-22
 
 Add Lantern Grid and Number Trail as locally implemented bilingual puzzle games, bringing the public registry to 209 games. Each provides 24 solvable seeded stages, undo, local resume, keyboard and pointer controls, and visible next-stage progression. Original project-authored code and artwork use MIT; no third-party game assets are imported. Daily challenges remain the existing three games. See [ADR 0043](../adr/0043-original-logic-pack.md) for scope and validation boundaries.
+
+## Game motion polish — 2026-10-22
+
+Preserve immediate input, rules and saves while adding GSAP tile/stone movement to directly controlled games and shared score/result feedback across the catalogue. Load a bounded Three.js celebration only for eligible wins. Respect reduced motion and low effects, and clean up graphics on lifecycle changes. Scope and engine-by-engine coverage are recorded in [ADR 0044](../adr/0044-game-motion-system.md).
