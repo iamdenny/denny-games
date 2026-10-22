@@ -11,6 +11,7 @@ import ShareLink from "../../components/ShareLink.astro";
 import { editorialOrder } from "../../data/editorial";
 import CataloguePages from "../../components/CataloguePages.astro";
 import AdSlot from "../../components/AdSlot.astro";
+import AdsterraBanner from "../../components/AdsterraBanner.astro";
 import AffiliateCard from "../../components/AffiliateCard.astro";
 import CollectionLinks from "../../components/CollectionLinks.astro";
 import DeviceCheck from "../../components/DeviceCheck.astro";
@@ -236,6 +237,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       ))}
       <DailyChallenges locale={locale} compact />
       <AdSlot id="home-mid" locale={locale} />
+      <AdsterraBanner locale={locale} />
       <AffiliateCard locale={locale} />
       <section class="notes-grid">
         <article class="note-card">
@@ -538,6 +540,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           </p>
         </section>
         <AdSlot id="detail-body" locale={locale} />
+        <AdsterraBanner locale={locale} />
         <AffiliateCard locale={locale} />
       </div>
       <CollectionLinks locale={locale} gameId={game.id} />

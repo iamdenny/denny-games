@@ -366,6 +366,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "Advertising",
           paragraphs: [
             "Coupang affiliate cards, when enabled, are labeled as advertisements with a commission disclosure. They use ordinary external links without a Coupang script, image or iframe request on page load. Clicking opens Coupang, where its privacy and purchase terms apply. Purchases are optional and do not unlock game rewards.",
+            "Optional Adsterra banners on home and game information pages load only after a separate advertising choice. Adsterra and its advertising partners may process IP addresses, browser information and cookies. Your choice is saved in this browser until changed or cleared. Withdraw consent at any banner to remove it and stop future requests; this does not erase data already received by providers. No banners appear during gameplay. Provider privacy policy: https://adsterra.com/privacy-policy/",
             "Google display and in-game ads are inactive while approval and consent requirements are pending. An AdSense account verification meta tag and public seller record identify the publisher; these do not load an advertising script.",
           ],
         },
@@ -404,6 +405,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "광고",
           paragraphs: [
             "쿠팡 제휴 카드가 활성화되면 광고 표시와 수수료 안내를 함께 제공합니다. 페이지를 열 때 쿠팡 스크립트·이미지·iframe을 요청하지 않는 일반 외부 링크입니다. 클릭하면 쿠팡으로 이동하며 쿠팡의 개인정보·구매 정책이 적용됩니다. 구매는 선택 사항이며 게임 보상과 연결되지 않습니다.",
+            "홈·게임 소개의 선택형 Adsterra 배너는 분석과 별도로 광고를 허용해야 불러옵니다. Adsterra와 광고 파트너는 IP 주소·브라우저 정보·쿠키를 처리할 수 있습니다. 선택은 변경하거나 삭제할 때까지 이 브라우저에 저장됩니다. 배너에서 허용을 취소하면 광고를 제거하고 이후 요청을 중단하지만 이미 전달된 데이터는 삭제하지 않습니다. 플레이 중에는 배너가 없습니다. 제공사 개인정보 처리방침: https://adsterra.com/privacy-policy/",
             "Google 배너·게임 내 광고는 승인과 동의 요건을 갖출 때까지 비활성 상태입니다. AdSense 계정 확인 메타 태그와 공개 판매자 정보만 게시하며, 이 정보는 광고 스크립트를 불러오지 않습니다.",
           ],
         },

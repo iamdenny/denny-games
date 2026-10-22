@@ -619,3 +619,7 @@ The local catalogue includes the original Amber Trail, Starlight Apprentice and 
 ## Promotional banner kit — 2026-10-22
 
 Provide a footer-linked bilingual promotional download page with ten PNG sizes for desktop, mobile and social placements, exact dimensions, responsive previews and selectable embed HTML. Use original brand artwork without audience or advertising-approval claims. See [ADR 0046](../adr/0046-promotional-banners.md).
+
+## Optional Adsterra display integration — 2026-10-23
+
+The owner requested Adsterra activation. Use one consent-gated 300×250 banner on home and game details in each language, with no gameplay advertising. Google-specific approval/CMP gates remain unchanged; Adsterra has its own explicit choice and provider/filter readiness gates. See [ADR 0046](../adr/0046-adsterra-banners.md).

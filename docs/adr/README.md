@@ -59,3 +59,5 @@
 
 - [0045 — Classic arcade expansion](0045-classic-arcade-expansion.md) — Accepted.
 - [0046 — Promotional banner kit](0046-promotional-banners.md) — Accepted.
+
+- [0046 — Optional Adsterra banners](0046-adsterra-banners.md) — Accepted.
