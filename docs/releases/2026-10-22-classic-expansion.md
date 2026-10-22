@@ -31,3 +31,9 @@ PR, CI, merge and public deployment are separate gates. At this source checkpoin
 ## Remaining work
 
 Freedoom's emulated native build was stopped before a usable artifact existed. SuperTux's official web package includes a 326.7 MB data file; its full asset review and delivery architecture remain incomplete. OpenTTD, Pingus, Wesnoth and SuperTuxKart remain unimplemented ports. None are counted as published. No proprietary original assets or licensing agreements were acquired.
+
+## Follow-up verification
+
+Combined main browser validation exposed an inherited locale-link loading race (579/580 passed). With external scripts blocked, both current local output and public main `76008ab1f4512e23093bcfa3896ee296f275e06f` dropped `?ref=shared` on the same locale switch. The shared site script and header had no task changes. Header query preservation now runs inline before interaction; a blocked-script regression covers both directions.
+
+The remote combined run reached the 15-minute job limit before browser completion; two failure markers had no final details. CI now uses the line reporter to expose failures immediately. Workflow timeout changes were not pushed because the available GitHub credential lacks workflow scope.
