@@ -591,6 +591,14 @@ show(text.loading);
 start.disabled = true;
 try {
   const loaders: Record<string, () => Promise<{ mount: GameFactory }>> = {
+    "lantern-grid": () =>
+      import("../games/logic").then((m) => ({
+        mount: m.createMount("lantern-grid"),
+      })),
+    "number-trail": () =>
+      import("../games/logic").then((m) => ({
+        mount: m.createMount("number-trail"),
+      })),
     "circuit-loop": () => import("../games/circuit"),
     "orbit-break": () => import("../games/orbit"),
     "2048": () => import("../games/merge"),

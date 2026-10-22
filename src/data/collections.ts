@@ -83,6 +83,8 @@ export const collections: GameCollection[] = [
   {
     id: "point-and-play",
     ids: [
+      "lantern-grid",
+      "number-trail",
       "circuit-loop",
       "orbit-break",
       "crisp-attackchain",

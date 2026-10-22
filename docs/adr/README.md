@@ -52,3 +52,5 @@
 - [0040 — Random home game spotlight](0040-random-home-game-spotlight.md) — Accepted.
 - [0041 — Distinct home discovery previews](0041-distinct-home-discovery-previews.md) — Accepted.
 - [0042 — Visible multi-stage progression](0042-visible-multi-stage-progression.md) — Accepted.
+
+- [0043 — Original classic-rule logic games](0043-original-logic-pack.md) — Accepted.

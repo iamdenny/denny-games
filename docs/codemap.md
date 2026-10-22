@@ -4,7 +4,7 @@
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/data/`            | Registry, shared editorial picks/order, interaction metadata, curated collections, translations and editorial pages                                                             |
 | `src/layouts/`         | SEO shell, locale navigation and common chrome                                                                                                                                  |
-| `src/components/`      | Cards, static worked game examples and choice guides, canonical share controls, responsive viewport player/settings host, pagination, artwork and disclosed ad/affiliate slots |
+| `src/components/`      | Cards, static worked game examples and choice guides, canonical share controls, responsive viewport player/settings host, pagination, artwork and disclosed ad/affiliate slots  |
 | `src/pages/`           | Static bilingual route generation and discovery files                                                                                                                           |
 | `src/scripts/`         | Catalogue/search state, player shell, canonical URL sharing with manual recovery, diagnostics and local device report downloads                                                 |
 | `src/lib/`             | Storage, seed, input, filtered pagination, device report validation, advertisement contracts and registry-derived discovery schema                                              |
@@ -23,3 +23,5 @@
 - `src/data/quick-play.ts`, `src/components/QuickPlay.astro` and `src/scripts/quick-play.ts`: static-first mood picker, direct play and validated local recent links.
 
 - `src/lib/daily.ts`, `src/components/DailyChallenges.astro` and `src/scripts/daily.ts`: bounded seven-day local completion trail, UTC rollover, daily cards and home progress.
+
+- `src/games/logic/rules.ts`, `src/games/logic/index.ts`, `src/data/logic-games.ts`: original cross-toggle and sliding-number campaigns, validated move-history saves, bilingual registration and lazy DOM rendering.
