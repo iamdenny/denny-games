@@ -34,3 +34,5 @@
 - `scripts/build-neverball.mjs`: provenance validation and local no-network runtime generation.
 - `src/components/PromoKit.astro`: bilingual promotional previews, downloads and embed snippets at `/en/promote/` and `/ko/promote/`.
 - `scripts/generate-promo.mjs`, `public/promo/`: original promotional artwork generator and twenty committed PNG assets.
+
+- `src/games/yutnori/rules.ts`, `src/games/yutnori/index.ts`, `src/data/board-games.ts`: standalone Yutnori movement/capture rules, local save contract, bilingual registration and responsive 29-space board.

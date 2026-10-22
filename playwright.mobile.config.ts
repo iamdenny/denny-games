@@ -10,12 +10,13 @@ export default defineConfig({
     "daily-progress.spec.ts",
     "sokoban.spec.ts",
     "gridland.spec.ts",
+    "yutnori.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },
     {
       name: "webkit-ipad-touch",
-      testMatch: ["sokoban.spec.ts", "gridland.spec.ts"],
+      testMatch: ["sokoban.spec.ts", "gridland.spec.ts", "yutnori.spec.ts"],
       use: { ...devices["iPad Mini"] },
     },
   ],

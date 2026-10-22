@@ -26,7 +26,7 @@ The root page supplies an inline script through the Base layout's head slot to o
 
 ## Lifecycle
 
-A game module mounts into a host and receives seed, saved state, translations and result callbacks. It supports start/pause/resume/restart/serialize/destroy and normalized actions. The shell owns focus, page visibility, storage, sound preference, gamepad input, viewport presentation and the H5 ad boundary. Only an explicit user action resumes gameplay. Games never load advertisements themselves.
+A game module mounts into a host and receives seed, saved state, translations and result callbacks. It supports start/pause/resume/restart/serialize/destroy and normalized actions. Restored terminal results use the same result view without counting as a new completion. The shell owns focus, page visibility, storage, sound preference, gamepad input, viewport presentation and the H5 ad boundary. Only an explicit user action resumes gameplay. Games never load advertisements themselves.
 
 ## Persistence
 

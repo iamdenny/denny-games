@@ -12,6 +12,8 @@ export function GET() {
     `- [한국어 전체 게임](${base}/ko/all/)`,
     `- [Classic board guide](${base}/en/guides/classic-board-games/)`,
     `- [보드게임 규칙과 대전 안내](${base}/ko/guides/classic-board-games/)`,
+    `- [Yutnori rules and route guide](${base}/en/guides/yutnori-rules/)`,
+    `- [윷놀이 규칙과 말 이동 안내](${base}/ko/guides/yutnori-rules/)`,
     `- [Compatibility evidence](${base}/en/compatibility/)`,
     `- [Tesla browser games and compatibility](${base}/en/tesla/)`,
     `- [테슬라 브라우저 웹게임과 호환성 안내](${base}/ko/tesla/)`,
@@ -26,7 +28,7 @@ export function GET() {
     ),
     "",
     "## Interpretation",
-    "Every published game has an in-site player route. Detail pages describe the implemented rules, controls and local-save behavior, and link to original projects and license notices. Board games support local AI and same-device two-player play, not online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
+    "Every published game has an in-site player route. Detail pages describe the implemented rules, controls and local-save behavior, and link to original projects and license notices. Five classic board games offer local AI or same-device two-player play; Yutnori offers same-device play for two to four people without AI. None offers online matchmaking. AI levels are bounded search settings, not skill ratings. Physical phones, controllers and Tesla browsers require separate device verification. Advertising availability is not approval or serving evidence. This file is a navigation aid; visible canonical pages are the source of truth.",
     "",
   ];
   return new Response(lines.join("\n"), {

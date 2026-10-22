@@ -225,7 +225,17 @@ test("UNDERRUN WebGL runtime is isolated and handles pad, touch, pause and resta
 
   const oldFrame = frame;
   await page.locator("#restart-button").click();
-  await expect(page.locator("#start-button")).toBeEnabled();
+  await expect
+    .poll(() =>
+      page
+        .frames()
+        .some(
+          (item) =>
+            item !== oldFrame &&
+            item.url().includes("/vendor/underrun/index.html"),
+        ),
+    )
+    .toBe(true);
   frame = page
     .frames()
     .find((item) => item.url().includes("/vendor/underrun/index.html"));

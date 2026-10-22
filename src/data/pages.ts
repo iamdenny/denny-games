@@ -7,32 +7,142 @@ export interface Article {
   links?: { label: string; href: string }[];
 }
 export const articles: Record<string, Record<Locale, Article>> = {
+  "guides/yutnori-rules": {
+    en: {
+      title: "How to play Yutnori: throw results, shortcuts and stacking",
+      intro:
+        "Learn the Do, Gae, Geol, Yut and Mo results, follow the 29-space board and choose when to stack or capture. This Denny Games version is a free, local 2–4 player game; regional Yutnori rules can differ.",
+      sections: [
+        {
+          heading: "What do Do, Gae, Geol, Yut and Mo mean?",
+          paragraphs: [
+            "Throw four sticks. The number of flat faces pointing up sets the move: one is Do (1 space), two Gae (2), three Geol (3), and four Yut (4). If all four rounded faces point up, the result is Mo (5). Yut and Mo grant one more throw after you move.",
+            "This digital board models each stick as an even 50/50 random result. Physical sticks can have different shapes and balances, so the odds in a browser game should not be treated as a measurement of real sticks.",
+          ],
+        },
+        {
+          heading: "How does the 29-space board work?",
+          paragraphs: [
+            "A piece enters the outer course from the yard. At an in-run corner, choose the outer route or a diagonal shortcut. A piece that takes a diagonal follows it through the shared centre to the opposite corner; it does not turn onto the other diagonal at the centre. Choosing a route commits the move immediately.",
+            "A move that would pass over the finish is unavailable in this edition. Pieces must land on the finish exactly. This is a clearly stated Denny Games house rule because families and regions use different Yutnori conventions.",
+          ],
+        },
+        {
+          heading: "When do pieces stack or get captured?",
+          paragraphs: [
+            "You may bring a piece out of the yard or move a piece already on the board. When your piece lands on another of your pieces, they form one stack and move together. When it lands on an opponent's stack, the whole captured stack returns to its yard and you earn another throw.",
+            "Passing over another piece does not capture it; the capture happens only when the move ends on its space. Yut and Mo also grant an extra throw, so a player may move and throw again before the next player begins.",
+          ],
+        },
+        {
+          heading: "Is Back-do included?",
+          paragraphs: [
+            "No. This version uses the base Do–Mo results and does not include Back-do, the optional one-step-back result found in some modern house-rule sets. The National Folk Museum of Korea describes Back-do as a later variation. We leave it out so the route and stick rules stay explicit in this first release.",
+          ],
+        },
+        {
+          heading: "Can I play with a friend on one phone?",
+          paragraphs: [
+            "Yes. Choose two, three or four players before starting, then pass the same device after each turn. All four pieces and the current throw are saved in this browser. There is no AI, account, online room or connection to a second device.",
+            "The first player to bring all four pieces to the finish wins. Use the route-choice buttons for shortcuts, the yard for unstarted pieces and the highlighted stacks for pieces already in play.",
+          ],
+        },
+      ],
+      links: [
+        {
+          label: "Play Yutnori free in your browser",
+          href: "/en/play/yutnori/",
+        },
+        {
+          label: "Compare the board games",
+          href: "/en/collections/classic-board/",
+        },
+        {
+          label: "National Folk Museum of Korea · Yutnori",
+          href: "https://folkency.nfm.go.kr/kr/topic/detail/1595",
+        },
+      ],
+    },
+    ko: {
+      title: "윷놀이 하는 법: 도·개·걸·윷·모, 지름길과 말 업기",
+      intro:
+        "도·개·걸·윷·모 결과를 읽고 29밭 말판을 이동하며, 말을 업거나 잡는 방법을 알아보세요. 데니 게임즈 버전은 무료 2~4인 로컬 게임입니다. 지역과 모임에 따라 윷놀이 규칙은 달라질 수 있습니다.",
+      sections: [
+        {
+          heading: "도·개·걸·윷·모는 몇 칸인가요?",
+          paragraphs: [
+            "윷가락 네 개를 던져 평평한 면이 위를 향한 개수를 셉니다. 하나는 도 1칸, 둘은 개 2칸, 셋은 걸 3칸, 넷은 윷 4칸입니다. 네 개 모두 둥근 면이 위를 향하면 모 5칸입니다. 윷과 모는 이동한 뒤 한 번 더 던질 수 있습니다.",
+            "이 게임은 각 윷가락 결과를 50 대 50으로 생성합니다. 실제 윷가락은 모양과 무게 중심이 다를 수 있으므로 브라우저 결과 확률을 실물 윷의 측정값으로 보면 안 됩니다.",
+          ],
+        },
+        {
+          heading: "29밭 말판의 지름길은 어떻게 타나요?",
+          paragraphs: [
+            "말은 대기 자리에서 바깥길로 나옵니다. 말판의 안쪽 모서리에 도착하면 바깥길 또는 대각선 지름길을 고르세요. 지름길에 들어간 말은 중앙을 지나 반대쪽 모서리까지 같은 대각선으로 이동하며, 중앙에서 다른 대각선으로 꺾지 않습니다. 경로를 고르면 이동이 바로 확정됩니다.",
+            "이 버전에서는 도착점을 지나치는 이동은 선택할 수 없고, 정확한 수로 도착해야 합니다. 윷놀이는 지역·가족마다 규칙이 다르므로 이 규칙을 데니 게임즈의 적용 규칙으로 명시합니다.",
+          ],
+        },
+        {
+          heading: "말은 언제 업고 잡나요?",
+          paragraphs: [
+            "대기 중인 새 말을 출발시키거나 이미 말판에 나온 말을 움직일 수 있습니다. 내 말이 다른 내 말이 있는 밭에 도착하면 한 무리로 업혀 함께 이동합니다. 상대 말무리가 있는 밭에 도착하면 그 무리 전체를 대기 자리로 돌려보내고 한 번 더 던집니다.",
+            "상대 말을 지나치는 것만으로는 잡지 않습니다. 이동이 끝난 밭에 도착했을 때 잡습니다. 윷·모가 나와도 한 번 더 던질 수 있으므로 다음 플레이어가 시작하기 전에 이동과 던지기를 이어갈 수 있습니다.",
+          ],
+        },
+        {
+          heading: "빽도도 있나요?",
+          paragraphs: [
+            "없습니다. 이 버전은 도·개·걸·윷·모를 적용하고, 일부 현대 규칙에서 사용하는 한 칸 뒤로 가는 빽도는 제외했습니다. 국립민속박물관은 빽도를 후대에 추가된 변형으로 설명합니다. 첫 버전에서는 말 경로와 윷 결과를 분명하게 유지하기 위해 빼 두었습니다.",
+          ],
+        },
+        {
+          heading: "휴대폰 하나로 친구와 할 수 있나요?",
+          paragraphs: [
+            "네. 시작 전에 2·3·4명 중 고르고 같은 기기를 차례로 건네며 플레이하세요. 말 네 개와 던진 결과는 이 브라우저에 저장됩니다. AI·계정·온라인 방·다른 기기 연결은 없습니다.",
+            "네 말을 모두 도착시킨 플레이어가 승리합니다. 지름길은 경로 선택 버튼, 아직 출발하지 않은 말은 대기 영역, 말판의 강조된 무리는 진행 중인 말을 뜻합니다.",
+          ],
+        },
+      ],
+      links: [
+        { label: "무료 윷놀이 게임 시작", href: "/ko/play/yutnori/" },
+        {
+          label: "보드게임 모음에서 골라보기",
+          href: "/ko/collections/classic-board/",
+        },
+        {
+          label: "국립민속박물관 한국민속대백과사전 · 윷놀이",
+          href: "https://folkency.nfm.go.kr/kr/topic/detail/1595",
+        },
+      ],
+    },
+  },
   "guides/classic-board-games": {
     en: {
       title:
         "Which free board game should I play? AI and local two-player guide",
       intro:
-        "Start with Four in a Row for simple column selection, Gomoku for line building, Reversi for flipping strategy, checkers for capture chains or Dots and Boxes for scoring squares. All five run locally in your browser.",
+        "Start with Four in a Row for simple column selection, Gomoku for line building, Reversi for flipping strategy, checkers for capture chains, Dots and Boxes for scoring squares or Yutnori for a 2–4 player Korean board game. All six run locally in your browser.",
       sections: [
         {
           heading: "What rules do these games use?",
           paragraphs: [
             "Gomoku uses a 15×15 freestyle board: five or more stones wins, with no forbidden moves. Reversi uses an 8×8 board and automatic passes when no legal move exists. Four in a Row uses seven columns, six rows and gravity.",
             "Checkers uses English rules: forward-only men, mandatory captures, continued jumps and crowning that ends the turn. Kings move in either diagonal direction. Eighty non-capture king plies draw; repetition draws are not implemented. Dots and Boxes uses sixteen boxes; completing a box grants another turn.",
+            "Yutnori uses four sticks on a 29-space board. Do, Gae, Geol, Yut and Mo move one to five spaces; Yut and Mo grant another throw. Pieces stack on landing, captures return a whole opposing stack to its yard, and corner shortcuts pass through the centre. This edition requires an exact finish and leaves Back-do off; regional house rules vary.",
           ],
         },
         {
           heading: "How do AI and two-player modes work?",
           paragraphs: [
-            "Open Settings inside the game and select Against AI or Local two-player. Mint moves first; the AI plays Coral. Both players share one device in local mode. There is no online matchmaking or account. Changing mode or AI level starts a fresh game.",
+            "Five games offer browser AI or local two-player play. Open Settings in one of those games to choose a mode; Mint moves first and the AI plays Coral. Yutnori instead supports two to four people passing one device and has no AI. None offers online matchmaking or account sync.",
             "Easy, Normal and Hard use bounded local search. They describe search effort, not an Elo rating or guaranteed playing strength. AI calculations use a browser worker when available; the fallback uses a simpler one-step search.",
           ],
         },
         {
           heading: "How do I avoid accidental moves on a phone?",
           paragraphs: [
-            "Tap a space to preview it and read the selected coordinates. In Gomoku and Reversi, tap that same space again to place your stone; tapping another space moves the preview. Confirm move also works. Checkers first selects a piece and then a legal destination. In Dots and Boxes, select the same edge again to draw; in Four in a Row, select the same column again to drop. Checkers moves when you select the marked destination.",
-            "Arrow keys or the on-screen arrows move the cursor; Enter or Space previews and confirms. Standard gamepad actions share this selection mapping, but physical controller and Tesla testing remains pending.",
+            "Tap a space to preview it and read the selected coordinates. In Gomoku and Reversi, tap that same space again to place your stone; tapping another space moves the preview. Confirm move also works. Checkers first selects a piece and then a legal destination. In Dots and Boxes, select the same edge again to draw; in Four in a Row, select the same column again to drop. Yutnori uses buttons to select a piece and choose its route.",
+            "Arrow keys or on-screen arrows operate the five shared-engine games; Enter or Space previews and confirms. Yutnori uses standard Tab and Enter/Space button navigation and does not advertise gamepad support. Physical-device checks remain separate.",
           ],
         },
         {
@@ -45,7 +155,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "Are games saved, and where are the ads?",
           paragraphs: [
-            "Board, mode, difficulty and completed results are stored in this browser. Pause before leaving, and use the same browser profile to continue. Clearing site data removes progress. Games pause when the page loses visibility.",
+            "Board positions, Yutnori match state, modes, difficulty and completed results are stored in this browser. Pause before leaving, and use the same browser profile to continue. Clearing site data removes progress. Games pause when the page loses visibility.",
             "Catalogue and detail pages may contain clearly disclosed ad or affiliate positions. The board player has no display-ad slots. Advertising approval and serving are separate from a game being available.",
           ],
         },
@@ -55,33 +165,35 @@ export const articles: Record<string, Record<Locale, Article>> = {
           label: "Play the classic board collection",
           href: "/en/collections/classic-board/",
         },
+        { label: "Read the Yutnori rules", href: "/en/guides/yutnori-rules/" },
         { label: "Browse all board games", href: "/en/category/board/" },
       ],
     },
     ko: {
       title: "무료 보드게임 고르기: AI 대전·같은 기기 2인 플레이 안내",
       intro:
-        "간단한 열 선택은 사목, 줄 만들기는 오목, 뒤집기 전략은 리버시, 연속 잡기는 체커, 사각형 획득은 점 잇기로 시작하세요. 다섯 게임 모두 브라우저에서 로컬로 실행됩니다.",
+        "간단한 열 선택은 사목, 줄 만들기는 오목, 뒤집기 전략은 리버시, 연속 잡기는 체커, 사각형 획득은 점 잇기, 2~4인 전통 보드게임은 윷놀이로 시작하세요. 여섯 게임 모두 브라우저에서 로컬로 실행됩니다.",
       sections: [
         {
           heading: "어떤 규칙을 사용하나요?",
           paragraphs: [
             "오목은 15×15 자유룰로 다섯 개 이상 연결하면 승리하고 금수는 없습니다. 리버시는 8×8 판과 둘 곳이 없을 때 자동 패스를 사용합니다. 사목은 7열·6행에서 돌이 아래로 떨어집니다.",
             "체커는 일반 말의 전진 이동·전진 잡기, 강제 잡기, 연속 점프와 승급 시 차례 종료를 적용하는 영국식입니다. 킹은 대각선 앞뒤로 이동합니다. 잡기 없는 킹 이동 80수는 무승부이고 반복 국면 판정은 적용하지 않습니다. 점 잇기는 16개 사각형을 차지하며 완성하면 한 번 더 둡니다.",
+            "윷놀이는 네 윷가락 결과로 29밭에서 이동합니다. 도·개·걸·윷·모는 1~5칸이며 윷·모가 나오면 한 번 더 던집니다. 같은 편 말은 업고, 상대 말이 있는 밭에 도착하면 무리 전체를 잡아 대기 자리로 보냅니다. 모서리 지름길은 중앙을 지나 반대편으로 이어집니다. 이 버전은 정확한 수로 도착하고 빽도는 제외합니다. 지역 규칙은 다를 수 있습니다.",
           ],
         },
         {
           heading: "AI 대전과 2인 대전은 어떻게 하나요?",
           paragraphs: [
-            "게임 안의 설정을 열어 AI 대전 또는 같은 기기 2인을 선택하세요. 민트가 선공이고 AI는 코랄을 맡습니다. 2인 모드는 한 기기를 공유하며 온라인 매칭·계정은 없습니다. 방식·AI 난이도를 바꾸면 새 대국이 시작됩니다.",
+            "다섯 게임은 브라우저 AI 또는 같은 기기 2인을 지원합니다. 그중 하나에서 설정을 열어 방식을 고르세요. 민트가 선공이고 AI는 코랄을 맡습니다. 윷놀이는 AI 없이 2~4명이 한 기기를 함께 사용합니다. 온라인 매칭·계정 동기화는 없습니다.",
             "쉬움·보통·어려움은 로컬 탐색량이 다른 난이도입니다. Elo 등급이나 실력을 보장하는 표시는 아닙니다. AI 계산은 가능한 환경에서 브라우저 워커를 사용하며 대체 경로는 간단한 한 수 탐색을 사용합니다.",
           ],
         },
         {
           heading: "휴대폰에서 잘못 두는 것을 줄이려면?",
           paragraphs: [
-            "칸을 눌러 미리 보고 표시된 좌표를 확인하세요. 오목·리버시는 같은 자리를 한 번 더 누르면 돌을 놓고, 다른 칸을 누르면 미리보기가 이동합니다. 수 두기 버튼으로도 확정할 수 있습니다. 체커는 말부터 고르고 가능한 목적지를 선택합니다. 점 잇기는 같은 선을, 사목은 같은 열을 다시 누르면 둡니다. 체커는 표시된 목적지를 누르면 이동합니다.",
-            "키보드·화면 방향 버튼으로 커서를 옮기고 Enter·Space로 미리보기·확정할 수 있습니다. 표준 패드도 같은 선택 방식에 매핑했지만 실제 패드·테슬라 검증은 아직입니다.",
+            "칸을 눌러 미리 보고 표시된 좌표를 확인하세요. 오목·리버시는 같은 자리를 한 번 더 누르면 돌을 놓고, 다른 칸을 누르면 미리보기가 이동합니다. 수 두기 버튼으로도 확정할 수 있습니다. 체커는 말부터 고르고 가능한 목적지를 선택합니다. 점 잇기는 같은 선을, 사목은 같은 열을 다시 누르면 둡니다. 윷놀이는 말을 고르고 표시된 경로 버튼을 누릅니다.",
+            "방향키·화면 방향 버튼으로 공용 보드의 커서를 옮기고 Enter·Space로 확정할 수 있습니다. 윷놀이는 Tab·Enter·Space로 버튼을 조작하며 게임패드를 지원한다고 표시하지 않습니다. 실제 기기 검증은 별도입니다.",
           ],
         },
         {
@@ -94,7 +206,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "저장은 어디에 되고 광고는 어디에 있나요?",
           paragraphs: [
-            "게임판·방식·난이도·종료 결과를 이 브라우저에 저장합니다. 나가기 전에 정지하고 같은 브라우저 프로필로 돌아오세요. 사이트 데이터를 지우면 진행 상태도 삭제됩니다. 페이지가 숨겨지면 게임은 정지합니다.",
+            "게임판·윷놀이 대국·방식·난이도·종료 결과를 이 브라우저에 저장합니다. 나가기 전에 정지하고 같은 브라우저 프로필로 돌아오세요. 사이트 데이터를 지우면 진행 상태도 삭제됩니다. 페이지가 숨겨지면 게임은 정지합니다.",
             "목록·소개 페이지에는 표시된 광고·제휴 위치가 있을 수 있습니다. 보드게임 플레이어 안에는 디스플레이 광고 슬롯이 없습니다. 게임 공개와 광고 승인·노출은 별개입니다.",
           ],
         },
@@ -103,6 +215,10 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           label: "클래식 보드게임 모음",
           href: "/ko/collections/classic-board/",
+        },
+        {
+          label: "윷놀이 규칙과 말 이동 보기",
+          href: "/ko/guides/yutnori-rules/",
         },
         { label: "보드게임 전체 보기", href: "/ko/category/board/" },
       ],
@@ -155,13 +271,13 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "무엇부터 점검하나요?",
           paragraphs: [
-            "게임 상세에서 조작법을 읽고 라운드를 시작하세요. 실제로 게임 상태를 바꾸고 정지·재개·재시작을 시험합니다. 휴대폰은 세로·가로 화면을 확인하세요. 패드는 입력 진단을 먼저 확인한 뒤 플레이하고, 연결을 끊으면 자동 정지하는지 확인하세요.",
+            "게임 상세에서 조작법을 읽고 라운드를 시작하세요. 실제로 게임 상태를 바꾸고 정지·재개·재시작을 시험합니다. 휴대폰은 세로·가로 화면을 확인하세요. 게임패드를 지원한다고 표시된 게임은 입력 진단을 먼저 확인한 뒤 플레이하고, 연결을 끊으면 자동 정지하는지 확인하세요.",
           ],
         },
         {
           heading: "저장과 안정성은 어떻게 확인하나요?",
           paragraphs: [
-            "즐겨찾기를 저장하고 새로고침하세요. 서킷 루프·오빗 브레이크·2048과 클래식 보드게임은 로컬 진행 상태를 복원합니다. Bounce Back은 보석·해제 상태를 저장하지만 진행 중인 도전은 새로 시작하고, Crisp 게임은 최고 점수만 저장합니다. 장시간 점검은 실제로 20분 플레이한 뒤 성공으로 표시하세요. 짧게 로딩해본 것으로 성공을 추정하지 말고 충돌·입력 고착·지속적인 느려짐을 적으세요.",
+            "즐겨찾기를 저장하고 새로고침하세요. 서킷 루프·오빗 브레이크·2048·윷놀이와 클래식 보드게임은 로컬 진행 상태를 복원합니다. Bounce Back은 보석·해제 상태를 저장하지만 진행 중인 도전은 새로 시작하고, Crisp 게임은 최고 점수만 저장합니다. 장시간 점검은 실제로 20분 플레이한 뒤 성공으로 표시하세요. 짧게 로딩해본 것으로 성공을 추정하지 말고 충돌·입력 고착·지속적인 느려짐을 적으세요.",
           ],
         },
         {
@@ -192,7 +308,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "Denny Games offers " +
         games.length +
-        " browser-game titles in English and Korean. Every published title launches on Denny Games. The catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, two original games and five classic board games.",
+        " browser-game titles in English and Korean. Every published title launches on Denny Games. The catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, original games and six classic board games, including Yutnori.",
       sections: [
         {
           heading: "What can I play?",
@@ -244,7 +360,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "데니 게임즈는 한국어와 영어로 제공하는 웹게임 " +
         games.length +
-        "개 게임 페이지를 제공합니다. 공개된 게임은 모두 데니 게임즈 안에서 실행됩니다. MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임 2개와 클래식 보드게임 5개가 있습니다.",
+        "개 게임 페이지를 제공합니다. 공개된 게임은 모두 데니 게임즈 안에서 실행됩니다. MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임과 윷놀이를 포함한 클래식 보드게임 6종이 있습니다.",
       sections: [
         {
           heading: "어떤 게임을 할 수 있나요?",
@@ -261,13 +377,13 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "모바일·게임패드·테슬라에서 되나요?",
           paragraphs: [
-            "공개된 게임은 터치·키보드·표준 게임패드 매핑을 구현했습니다. Chromium 자동 검사로 좁은 화면과 가져온 게임의 로딩·입력·일시정지를 확인했습니다. 실제 휴대폰·패드·테슬라 브라우저는 별도 검증 전입니다. 차량에서는 주차 중에만 사용하세요.",
+            "게임 상세에 표시된 입력 배지를 확인하세요. 윷놀이는 터치·마우스와 키보드 버튼 탐색을 지원하며 게임패드를 표시하지 않습니다. Chromium 자동 검사로 좁은 화면과 일부 게임의 로딩·입력·일시정지를 확인했지만 실제 휴대폰·패드·테슬라 브라우저는 별도 검증 전입니다. 차량에서는 주차 중에만 사용하세요.",
           ],
         },
         {
           heading: "게임 기록은 저장되나요?",
           paragraphs: [
-            "데니 게임즈 게임의 최고 기록·즐겨찾기·최근 게임은 이 브라우저에 저장합니다. 서킷 루프·오빗 브레이크·2048·Hextris는 진행 중인 판을 복원합니다. Bounce Back은 보석·해제 상태를 남기지만 새로고침하면 새 도전을 시작하고, Crisp는 최고 점수만 저장합니다. 브라우저 저장 공간을 지우면 기기 내 기록도 사라집니다.",
+            "데니 게임즈 게임의 최고 기록·즐겨찾기·최근 게임은 이 브라우저에 저장합니다. 서킷 루프·오빗 브레이크·2048·Hextris·윷놀이는 진행 중인 판을 복원합니다. Bounce Back은 보석·해제 상태를 남기지만 새로고침하면 새 도전을 시작하고, Crisp는 최고 점수만 저장합니다. 브라우저 저장 공간을 지우면 기기 내 기록도 사라집니다.",
           ],
         },
       ],
@@ -299,14 +415,14 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "A curated beginning",
           paragraphs: [
-            "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation, 191 ABA Games Crisp mini-games, five classic board games, Hextris under GPL-3.0-or-later and Bounce Back under GPL-2.0-or-later. Every published game has its own rules, controls and pause/restart flow on this site.",
+            "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation, 191 ABA Games Crisp mini-games, six classic board games including Yutnori, Hextris under GPL-3.0-or-later and Bounce Back under GPL-2.0-or-later. Every published game has its own rules, controls and pause/restart flow on this site.",
             "Game candidates remain unpublished until their code, game data, artwork and dependencies are cleared for redistribution and adapted to run here. Free browser access alone is not a reuse license.",
           ],
         },
         {
           heading: "Clear about what works",
           paragraphs: [
-            "Touch, keyboard and standard gamepad mappings are implemented for published titles. Physical phones, controllers and vehicle browsers require separate tests; we publish those boundaries instead of a blanket compatibility promise.",
+            "Input varies by game. Yutnori supports touch, mouse and keyboard for two to four people taking turns on one device. Physical phones, controllers and vehicle browsers require separate tests; we publish those boundaries instead of a blanket compatibility promise.",
           ],
         },
       ],
@@ -319,7 +435,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "작지만 분명한 시작",
           paragraphs: [
-            "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games Crisp 미니게임 191개, 클래식 보드게임 5종, GPL-3.0-or-later Hextris와 GPL-2.0-or-later 액션 로그라이트 Bounce Back을 제공합니다. 모든 게임은 이 사이트에서 실행하며 게임별 규칙과 조작을 안내합니다.",
+            "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games Crisp 미니게임 191개, 윷놀이를 포함한 클래식 보드게임 6종, GPL-3.0-or-later Hextris와 GPL-2.0-or-later 액션 로그라이트 Bounce Back을 제공합니다. 게임별 조작은 다르며, 윷놀이는 한 기기에서 터치·마우스·키보드로 2~4명이 번갈아 플레이합니다.",
             "게임 후보는 코드·게임 데이터·그림·의존성의 재배포 권리와 사이트 내 실행 가능성을 확인한 뒤에만 공개합니다. 무료로 플레이할 수 있다는 사실만으로 재사용 권한이 생기지는 않습니다.",
           ],
         },
@@ -523,7 +639,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "Can two people play on one screen?",
           paragraphs: [
-            "Five classic board games—Gomoku, Reversi, Four in a Row, Checkers and Dots and Boxes—support local two-player mode, with friends taking turns on one device. They do not have online matchmaking or phone-as-controller play. The mode is tested in supported browsers, but not in a Tesla browser, so vehicle compatibility remains unverified. Only try it while parked.",
+            "Five tested classic board games—Gomoku, Reversi, Four in a Row, Checkers and Dots and Boxes—support local two-player mode, with friends taking turns on one device. They do not have online matchmaking or phone-as-controller play. Yutnori adds two-to-four player pass-and-play but does not advertise gamepad support and has not been tested in a Tesla browser. Vehicle compatibility remains unverified. Only try games while parked.",
           ],
         },
         {
@@ -560,8 +676,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           href: "/en/all/",
         },
         {
-          label:
-            "Explore five same-device two-player board games (Tesla unverified)",
+          label: "Explore six local board games (Tesla unverified)",
           href: "/en/collections/classic-board/",
         },
         { label: "Check browser gamepad input", href: "/en/gamepad-test/" },
@@ -604,7 +719,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "두 명이 한 화면에서 함께 할 수 있나요?",
           paragraphs: [
-            "오목·리버시·사목·체커·점 잇기 다섯 클래식 보드게임은 한 기기에서 친구와 번갈아 두는 로컬 2인 모드를 지원합니다. 온라인 매칭이나 휴대폰을 컨트롤러로 쓰는 기능은 없습니다. 지원 브라우저에서 모드를 시험했지만 Tesla 차량 브라우저 시험 결과는 없어 차량 호환성은 미검증입니다. 시도한다면 주차 상태에서만 하세요.",
+            "오목·리버시·사목·체커·점 잇기 다섯 게임은 한 기기에서 로컬 2인 모드를 지원합니다. 윷놀이는 별도의 2~4인 로컬 대전입니다. 온라인 매칭·휴대폰 컨트롤러 연결은 없고 차량 호환성은 미검증입니다. 게임은 주차 상태에서만 시도하세요.",
           ],
         },
         {
@@ -637,7 +752,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           href: "/ko/all/",
         },
         {
-          label: "같은 기기 2인 보드게임 다섯 개 보기 (테슬라 미검증)",
+          label: "같은 기기 로컬 보드게임 6종 보기 (테슬라 미검증)",
           href: "/ko/collections/classic-board/",
         },
         { label: "브라우저 게임패드 입력 확인", href: "/ko/gamepad-test/" },
@@ -744,7 +859,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     en: {
       title: "Pick up where you left off.",
       intro:
-        "Circuit Loop, Orbit Break, 2048 and classic board games save round progress in this browser. Bounce Back keeps gems and unlocks, but restarts the active run after reloading. Crisp mini-games save personal bests only. Records are not synced between devices.",
+        "Circuit Loop, Orbit Break, 2048, Yutnori and classic board games save round progress in this browser. Bounce Back keeps gems and unlocks, but restarts the active run after reloading. Crisp mini-games save personal bests only. Records are not synced between devices.",
       sections: [
         {
           heading: "What can erase a save",
@@ -758,7 +873,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
     ko: {
       title: "하던 곳에서 이어가세요.",
       intro:
-        "서킷 루프·오빗 브레이크·2048과 클래식 보드게임은 진행 상황을 이 브라우저에 저장합니다. Bounce Back은 보석·해제 상태를 남기지만 새로고침하면 진행 중인 도전을 새로 시작합니다. Crisp 미니게임은 최고 기록만 저장합니다. 다른 기기와는 동기화되지 않습니다.",
+        "서킷 루프·오빗 브레이크·2048·윷놀이와 클래식 보드게임은 진행 상황을 이 브라우저에 저장합니다. Bounce Back은 보석·해제 상태를 남기지만 새로고침하면 진행 중인 도전을 새로 시작합니다. Crisp 미니게임은 최고 기록만 저장합니다. 다른 기기와는 동기화되지 않습니다.",
       sections: [
         {
           heading: "기록이 사라지는 경우",
@@ -772,6 +887,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/yutnori-rules",
   "guides/classic-board-games",
   "guides/test-your-device",
   "guides/open-browser-games",

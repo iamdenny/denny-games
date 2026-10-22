@@ -193,9 +193,9 @@ function soundTick(cue: SoundCue = "tick") {
 
 function end(value: GameResult) {
   state = "ended";
-  track("end", id);
+  if (!value.restored) track("end", id);
   result = value;
-  rounds++;
+  if (!value.restored) rounds++;
   score = value.score;
   el("score").textContent = formatScore(score);
   const previousBest = best();
@@ -722,6 +722,10 @@ try {
     "dots-and-boxes": () =>
       import("../games/board").then((m) => ({
         mount: m.createMount("dots-and-boxes"),
+      })),
+    yutnori: () =>
+      import("../games/yutnori").then((module) => ({
+        mount: module.createMount,
       })),
   };
   const crispCycleIds = new Set([

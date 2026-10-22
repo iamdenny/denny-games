@@ -35,7 +35,7 @@ test("beginner links and worked examples are readable without JavaScript in both
     await page
       .locator(`#learn a[href='/${locale}/collections/classic-board/#choose']`)
       .click();
-    await expect(page.locator("#choose li")).toHaveCount(5);
+    await expect(page.locator("#choose li")).toHaveCount(6);
     await page
       .locator(`#choose a[href='/${locale}/games/four-in-a-row/']`)
       .click();

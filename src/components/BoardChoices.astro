@@ -44,6 +44,14 @@ const choices = [
       ? "선을 하나씩 이어 16개 상자를 나눠 가집니다. 상자의 마지막 선을 완성하면 점수와 한 번 더 둘 기회를 얻습니다."
       : "Take turns drawing edges around sixteen boxes. Closing a box scores it and grants another turn.",
   },
+  {
+    id: "yutnori",
+    en: "Race as a group and choose diagonal shortcuts",
+    ko: "도개걸윷모로 지름길을 고르는 윷놀이",
+    note: ko
+      ? "2~4명이 말 네 개씩 사용해요. 윷·모의 추가 던지기, 말 업기, 상대 말 잡기와 중앙 지름길이 있습니다. AI 없이 한 기기에서 플레이합니다."
+      : "Two to four players each move four pieces. Yut/Mo extra throws, stacking, captures and centre shortcuts create route choices. Pass one device; there is no AI.",
+  },
 ].flatMap((choice) => {
   const game = gameById(choice.id);
   return game?.classic ? [{ ...choice, game }] : [];
@@ -58,13 +66,13 @@ const choices = [
   >
     <h2 id="board-choice-heading">
       {ko
-        ? "둘이 할 게임, 무엇부터 고를까요?"
-        : "Which game should two people try first?"}
+        ? "함께 할 보드게임, 무엇부터 고를까요?"
+        : "Which board game should your group try first?"}
     </h2>
     <p>
       {ko
-        ? "다섯 게임 모두 가입·설치 없이 이 사이트에서 실행됩니다. 한 기기에서 차례를 주고받거나 로컬 AI를 고를 수 있어요. 온라인 매칭·방 만들기 방식은 아닙니다."
-        : "All five games run here without an account or installation. Take turns on one device or choose local AI. These are not online matchmaking or room-based games."}
+        ? "여섯 게임 모두 가입·설치 없이 이 사이트에서 실행됩니다. 다섯 게임은 로컬 AI·같은 기기 2인 대전을, 윷놀이는 AI 없는 같은 기기 2~4인 대전을 지원합니다. 온라인 매칭·방 만들기는 없습니다."
+        : "All six games run here without an account or installation. Five offer local AI or same-device two-player play; Yutnori supports two to four local players without AI. None has online matchmaking or rooms."}
     </p>
     <ol>
       {choices.map((choice) => (
@@ -78,17 +86,17 @@ const choices = [
         </li>
       ))}
     </ol>
-    <h3>{ko ? "2인 플레이 시작 순서" : "Start a two-player match"}</h3>
+    <h3>{ko ? "같은 기기 대전 시작 순서" : "Start a same-device match"}</h3>
     <p>
       {ko
-        ? "게임의 시작 화면에서 ‘2인 플레이’를 고른 뒤 시작하세요. 한 번 눌러 둘 자리를 미리 보고, 같은 자리를 다시 누르거나 ‘수 두기’로 확정하세요. 체커는 말을 고른 뒤 표시된 목적지를 누릅니다. 모드를 바꾸면 기존 대국 대신 새 판이 시작됩니다."
-        : "Choose two-player mode on the game's start screen, then start. Select a space to preview and select it again or use Confirm move. In checkers, choose a piece and then a marked destination. Changing mode starts a new match instead of continuing the old board."}
+        ? "다섯 게임은 시작 화면에서 ‘2인 플레이’를 고르세요. 칸·열을 미리 본 뒤 확정하고 체커는 말과 표시된 목적지를 차례로 누릅니다. 윷놀이는 2~4명을 고르고 윷을 던진 뒤 말과 경로를 선택합니다."
+        : "Choose two-player mode in one of the five AI games. Preview and confirm a space or column; in checkers, select a piece and marked destination. In Yutnori, choose 2–4 players, throw the sticks, then select a piece and route."}
     </p>
     <p>
       <a href={`/${locale}/guides/classic-board-games/`}>
         {ko
-          ? "AI 난이도·조작·저장 방식 더 알아보기"
-          : "Read about AI levels, controls and local saves"}{" "}
+          ? "AI 난이도·윷놀이 규칙·저장 방식 더 알아보기"
+          : "Read about AI levels, Yutnori rules and local saves"}{" "}
         ↗
       </a>
     </p>

@@ -53,6 +53,8 @@ Ready-screen two-player choices are visible in both locales across all five boar
 
 Classic board sound browser journeys observe real AudioContext creation/state and oscillator scheduling for all five move cues, pause, resume, mute and persisted preferences. These checks prove browser audio scheduling, not subjective loudspeaker quality or physical-device output.
 
+Yutnori has a separate rules engine and browser journey. Fixtures cover the reachable outer/diagonal paths, Do/Gae/Geol/Yut/Mo, exact finish, stacked movement, full-stack capture, bonus throws and malformed-save rejection. Browser checks cover 2/3/4-player setup, outer-versus-shortcut choice, extra throws, pause/reload, restored wins, saved next-match preferences, both locales and keyboard focus. Chromium checks include 320–1440px phone/tablet widths; iPad Mini touch checks exercise portrait and landscape throw/move flows. Review the captured actual board screenshot. These checks do not certify physical phones, gamepads, Tesla browsers or assistive technology.
+
 A fractional CYWALL result reproduces the prior mobile overflow deterministically through the authenticated iframe bridge. Display scores round to localized integers while saved scores retain precision. Audio readiness must not block a resumed game, including immediate mute after resume.
 
 Player viewport regressions cover desktop, mobile portrait and short landscape across eight original engines and a representative import. Assertions cover viewport bounds, essential controls, no Fullscreen API, DOM preservation on view toggles, settings, and direct board confirmation. Crisp loading/input regression covers all 191 games; Bounce Back has a separate journey above. This is not manual review or physical-device proof.

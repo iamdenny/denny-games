@@ -17,27 +17,34 @@ interface GameCollection {
 export const collections: GameCollection[] = [
   {
     id: "classic-board",
-    ids: ["gomoku", "reversi", "four-in-a-row", "checkers", "dots-and-boxes"],
+    ids: [
+      "gomoku",
+      "reversi",
+      "four-in-a-row",
+      "checkers",
+      "dots-and-boxes",
+      "yutnori",
+    ],
     text: {
       en: {
         title: "Free two-player board games to play with a friend",
         intro:
-          "Play Gomoku, Reversi, Four in a Row, English checkers and Dots and Boxes. Choose a browser AI or take turns with a friend on the same device, without an account or installation.",
+          "Play Gomoku, Reversi, Four in a Row, English checkers, Dots and Boxes or Yutnori. Five games offer browser AI or same-device two-player play; Yutnori supports 2–4 local players. No account or installation is needed.",
         criteria:
-          "Five original implementations with explicit rules, local progress and selection-before-confirmation controls. AI has three bounded search levels; this is not online matchmaking or a professional-strength engine.",
+          "Six original games with explicit rules and local progress. Five have a local AI or two-player mode; Yutnori is a 2–4 player pass-and-play game without AI. None offers online matchmaking.",
         question: "How do I play with a friend on one device?",
         answer:
-          "Choose Local two-player to take turns on one device. AI also runs locally. Changing mode or difficulty starts a new game. Progress stays in this browser; there are no online rooms or account sync.",
+          "Choose a local two-player mode to take turns on one device. Five games include browser AI; Yutnori supports 2–4 people sharing one device. Progress stays in this browser; there are no online rooms or account sync.",
       },
       ko: {
-        title: "친구랑 하는 2인용 무료 보드게임 · 오목·사목·리버시",
+        title: "친구와 하는 무료 보드게임 · 오목·사목·리버시·윷놀이",
         intro:
-          "오목·리버시·사목·영국식 체커·점 잇기를 즐기세요. 가입·설치 없이 브라우저 AI와 대전하거나 한 기기에서 친구와 번갈아 둘 수 있습니다.",
+          "오목·리버시·사목·영국식 체커·점 잇기·윷놀이를 즐기세요. 다섯 게임은 브라우저 AI 또는 한 기기 2인 대전을, 윷놀이는 한 기기 2~4인 대전을 지원합니다. 가입·설치가 필요 없습니다.",
         criteria:
-          "규칙을 명확히 안내하는 자체 구현 5종입니다. 로컬 저장과 선택 후 확정 조작을 지원합니다. AI는 탐색량이 제한된 세 난이도이며 온라인 매칭·전문 기사 수준의 엔진이 아닙니다.",
+          "규칙을 안내하는 자체 구현 6종입니다. 다섯 게임은 로컬 AI·2인 대전을 지원하고 윷놀이는 AI 없는 2~4인 로컬 플레이를 제공합니다. 온라인 매칭은 없습니다.",
         question: "친구랑 한 기기에서 어떻게 2인 플레이를 하나요?",
         answer:
-          "게임에서 같은 기기 2인 모드를 고르고 한 화면에서 번갈아 두세요. AI도 브라우저에서 실행됩니다. 방식·난이도를 바꾸면 새 대국이 시작됩니다. 진행 상태는 이 브라우저에 남고 온라인 매칭·방·계정 동기화는 없습니다.",
+          "게임에서 같은 기기 2인 모드를 고르고 한 화면에서 번갈아 두세요. 윷놀이는 2~4명이 함께 할 수 있고 AI는 제공하지 않습니다. 진행 상태는 이 브라우저에 남고 온라인 매칭·방·계정 동기화는 없습니다.",
       },
     },
   },
