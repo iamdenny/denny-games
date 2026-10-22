@@ -19,6 +19,8 @@ export function mergeLine(line: number[]): { line: number[]; score: number } {
 export function move(board: number[], direction: Direction) {
   const output = [...board];
   let score = 0;
+  const travels: { from: number; to: number; value: number }[] = [];
+  const merges: number[] = [];
   for (let i = 0; i < 4; i++) {
     const indices = Array.from({ length: 4 }, (_, n) =>
       direction === "left"
@@ -29,6 +31,21 @@ export function move(board: number[], direction: Direction) {
             ? n * 4 + i
             : (3 - n) * 4 + i,
     );
+    const occupied = indices.filter((index) => board[index]);
+    let destination = 0;
+    for (let source = 0; source < occupied.length; source++) {
+      const from = occupied[source]!,
+        to = indices[destination++]!;
+      travels.push({ from, to, value: board[from]! });
+      if (
+        source + 1 < occupied.length &&
+        board[from] === board[occupied[source + 1]!]
+      ) {
+        const other = occupied[++source]!;
+        travels.push({ from: other, to, value: board[other]! });
+        merges.push(to);
+      }
+    }
     const merged = mergeLine(indices.map((index) => board[index]!));
     score += merged.score;
     indices.forEach((index, n) => {
@@ -36,6 +53,8 @@ export function move(board: number[], direction: Direction) {
     });
   }
   return {
+    travels,
+    merges,
     board: output,
     score,
     changed: board.some((value, i) => value !== output[i]),

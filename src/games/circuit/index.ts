@@ -1,3 +1,4 @@
+import { createMotion, gsap } from "../../lib/motion";
 import type { GameFactory } from "../../lib/types";
 import {
   createBoard,
@@ -81,7 +82,9 @@ export const mount: GameFactory = (ctx) => {
   actions.append(hint, note);
   ctx.host.append(grid);
   (ctx.controlsHost ?? ctx.host).append(actions);
+  const motion = createMotion(ctx.host);
   function render() {
+    motion.finish();
     const live = connected(tiles, board.size);
     cells.forEach((button, index) => {
       button.classList.toggle("connected", live.has(index));
@@ -114,11 +117,25 @@ export const mount: GameFactory = (ctx) => {
   }
   function turn() {
     if (!active) return;
+    motion.finish();
     tiles[selected] = rotate(tiles[selected]!);
     moves++;
     ctx.sound();
     check();
     render();
+    const svg = cells[selected]!.querySelector("svg")!;
+    motion.run(
+      (timeline) => {
+        timeline.fromTo(
+          svg,
+          { rotation: -90, transformOrigin: "50% 50%" },
+          { rotation: 0, duration: 0.22, ease: "power2.out" },
+        );
+      },
+      () => {
+        gsap.set(svg, { clearProps: "transform,transformOrigin" });
+      },
+    );
   }
   const setActive = (value: boolean) => {
     active = value && !ended;
@@ -165,6 +182,7 @@ export const mount: GameFactory = (ctx) => {
     },
     serialize: () => ({ tiles, moves, hint: usedHint }),
     destroy() {
+      motion.destroy();
       hint.removeEventListener("click", hintClick);
       actions.remove();
       ctx.host.replaceChildren();

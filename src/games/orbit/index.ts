@@ -119,6 +119,15 @@ export const mount: GameFactory = (ctx) => {
   launch.addEventListener("click", serve);
   canvas.addEventListener("pointerdown", down);
   canvas.addEventListener("pointermove", pointer);
+  const sparks: {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    life: number;
+    color: string;
+  }[] = [];
+  const brickColors = ["#a7f0e6", "#ffad94", "#e1ed8b", "#d2dfff"];
   function render() {
     g.fillStyle = background;
     g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -139,6 +148,13 @@ export const mount: GameFactory = (ctx) => {
       rounded(brick.x + 6, brick.y + 3, 52, 3, 1.5);
       g.fill();
     }
+    if (effects())
+      for (const spark of sparks) {
+        g.globalAlpha = Math.max(0, spark.life / 0.45);
+        g.fillStyle = spark.color;
+        g.fillRect(spark.x - 3, spark.y - 3, 6, 6);
+      }
+    g.globalAlpha = 1;
     if (effects())
       trail.forEach((point, i) => {
         g.fillStyle = `rgba(167,240,230,${((i + 1) / trail.length) * 0.25})`;
@@ -200,7 +216,34 @@ export const mount: GameFactory = (ctx) => {
       frame = requestAnimationFrame(tick);
       return;
     }
+    const dt = Math.min(0.05, previous ? (now - previous) / 1000 : 0);
+    const alive = state.bricks.map((brick) => brick.alive);
     advance(state, previous ? (now - previous) / 1000 : 0);
+    if (effects()) {
+      state.bricks.forEach((brick, index) => {
+        if (alive[index] && !brick.alive)
+          for (let n = 0; n < 8; n++) {
+            const angle = (n * Math.PI) / 4;
+            sparks.push({
+              x: brick.x + 32,
+              y: brick.y + 12,
+              vx: Math.cos(angle) * 95,
+              vy: Math.sin(angle) * 95,
+              life: 0.45,
+              color: brickColors[brick.color]!,
+            });
+          }
+      });
+      if (sparks.length > 96) sparks.splice(0, sparks.length - 96);
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const spark = sparks[i]!;
+        spark.life -= dt;
+        spark.x += spark.vx * dt;
+        spark.y += spark.vy * dt;
+        spark.vy += 180 * dt;
+        if (spark.life <= 0) sparks.splice(i, 1);
+      }
+    } else sparks.length = 0;
     if (effects() && state.launched) {
       trail.push({ x: state.x, y: state.y });
       if (trail.length > 8) trail.shift();
@@ -227,6 +270,7 @@ export const mount: GameFactory = (ctx) => {
     active = false;
     previous = 0;
     cancelAnimationFrame(frame);
+    sparks.length = 0;
     trail.length = 0;
     render();
   }

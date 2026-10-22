@@ -25,12 +25,15 @@
     "test:mobile": "playwright test --config playwright.mobile.config.ts"
   },
   "dependencies": {
-    "astro": "7.3.8"
+    "astro": "7.3.8",
+    "gsap": "3.15.0",
+    "three": "0.186.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@playwright/test": "1.64.0",
     "@types/node": "22.19.15",
+    "@types/three": "0.186.0",
     "markdownlint": "0.41.1",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.1",

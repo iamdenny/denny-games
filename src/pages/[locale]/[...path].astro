@@ -1110,6 +1110,15 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           )}
         </p>
       </div>
+      <section>
+        <h2>{label("Animation libraries", "애니메이션 라이브러리")}</h2>
+        <p>
+          <a href="/licenses/gsap.txt">
+            GSAP 3.15.0 · standard no-charge license
+          </a>{" "}
+          · <a href="/licenses/three.txt">Three.js 0.186.1 · MIT</a>
+        </p>
+      </section>
       {games.map((g) => (
         <section>
           <h2>{g.text[locale].title}</h2>

@@ -1,3 +1,4 @@
+import { createMotion, gsap } from "../../lib/motion";
 import type { GameFactory, GameInstance } from "../../lib/types";
 import {
   deadSquares,
@@ -448,8 +449,10 @@ export const mount: GameFactory = (context) => {
       Math.min(54, (available - (level.width - 1) * 4) / level.width),
     );
     const cellSize = Math.max(22, cell) + "px";
-    if (boardElement.style.getPropertyValue("--sokoban-cell") !== cellSize)
+    if (boardElement.style.getPropertyValue("--sokoban-cell") !== cellSize) {
+      motion.finish();
       boardElement.style.setProperty("--sokoban-cell", cellSize);
+    }
   };
   const scheduleResize = () => {
     if (resizeFrame !== undefined) window.cancelAnimationFrame(resizeFrame);
@@ -465,7 +468,20 @@ export const mount: GameFactory = (context) => {
     context.onSave?.();
   };
 
+  const motion = createMotion(context.host);
+  let drawnPlayer = -1,
+    drawnBoxes: number[] = [],
+    drawnLevel = -1;
   const render = () => {
+    motion.finish();
+    const oldRects = new Map(
+      Array.from(
+        boardElement.querySelectorAll<HTMLElement>("[data-position]"),
+      ).map((cell) => [
+        Number(cell.dataset.position),
+        cell.getBoundingClientRect(),
+      ]),
+    );
     const dead = showDead ? deadSquares(level) : [];
     const boxSet = new Set(boxes);
     const floor = getFloorCells();
@@ -514,6 +530,7 @@ export const mount: GameFactory = (context) => {
           : isVoid
             ? "sokoban-cell sokoban-void"
             : "sokoban-cell sokoban-floor";
+        cell.dataset.position = String(index);
         cell.setAttribute("role", "gridcell");
         cell.setAttribute("aria-colindex", String(column + 1));
         if (level.goals[index] && !level.walls[index])
@@ -544,6 +561,60 @@ export const mount: GameFactory = (context) => {
       }
       boardElement.append(row);
     }
+    const animated: HTMLElement[] = [];
+    if (drawnLevel === currentLevel && drawnPlayer >= 0 && motion.enabled()) {
+      const routes: { from: number; to: number; selector: string }[] = [];
+      if (drawnPlayer !== player)
+        routes.push({
+          from: drawnPlayer,
+          to: player,
+          selector: ".sokoban-keeper",
+        });
+      const removed = drawnBoxes.filter((index) => !boxes.includes(index));
+      const added = boxes.filter((index) => !drawnBoxes.includes(index));
+      if (removed.length === 1 && added.length === 1)
+        routes.push({
+          from: removed[0]!,
+          to: added[0]!,
+          selector: ".sokoban-box",
+        });
+      if (routes.length)
+        motion.run(
+          (timeline) => {
+            for (const route of routes) {
+              const piece = boardElement.querySelector<HTMLElement>(
+                `[data-position="${route.to}"] ${route.selector}`,
+              );
+              const from = oldRects.get(route.from),
+                to = boardElement
+                  .querySelector<HTMLElement>(`[data-position="${route.to}"]`)
+                  ?.getBoundingClientRect();
+              if (!piece || !from || !to) continue;
+              animated.push(piece);
+              timeline.fromTo(
+                piece,
+                { x: from.left - to.left, y: from.top - to.top },
+                { x: 0, y: 0, duration: 0.16, ease: "power2.out" },
+                0,
+              );
+              if (route.selector === ".sokoban-box" && level.goals[route.to])
+                timeline.fromTo(
+                  piece,
+                  { scale: 1.12 },
+                  { scale: 1, duration: 0.16, ease: "back.out(1.5)" },
+                  0.16,
+                );
+            }
+          },
+          () => {
+            if (animated.length)
+              gsap.set(animated, { clearProps: "transform" });
+          },
+        );
+    }
+    drawnPlayer = player;
+    drawnBoxes = [...boxes];
+    drawnLevel = currentLevel;
     const won = isWon(level, boxes);
     undoButton.disabled =
       !active || history.length === 0 || animating || solving;
@@ -810,6 +881,7 @@ export const mount: GameFactory = (context) => {
       };
     },
     destroy() {
+      motion.destroy();
       destroyed = true;
       active = false;
       cancelAnimation();

@@ -1,3 +1,4 @@
+import { createMotion, travelTiles } from "../../lib/motion";
 import type { GameFactory } from "../../lib/types";
 import { random } from "../../lib/random";
 import { move, canMove, type Direction } from "./rules";
@@ -57,11 +58,16 @@ export const mount: GameFactory = (ctx) => {
   }
   ctx.host.append(grid);
   (ctx.settingsHost ?? ctx.host).append(buttons);
+  const motion = createMotion(ctx.host);
+  const resize = new ResizeObserver(() => motion.finish());
+  resize.observe(grid);
   function add() {
     const empty = board.map((v, i) => (v === 0 ? i : -1)).filter((i) => i >= 0);
     if (!empty.length) return;
     const rng = random(`${ctx.seed}:${counter++}`);
-    board[empty[Math.floor(rng() * empty.length)]!] = rng() < 0.9 ? 2 : 4;
+    const index = empty[Math.floor(rng() * empty.length)]!;
+    board[index] = rng() < 0.9 ? 2 : 4;
+    return index;
   }
   function render(previous?: number[]) {
     grid.replaceChildren(
@@ -87,14 +93,23 @@ export const mount: GameFactory = (ctx) => {
   }
   function slide(direction: Direction) {
     if (!active) return;
+    motion.finish();
     const next = move(board, direction);
     if (!next.changed) return;
     const previous = board;
     board = next.board;
     score += next.score;
-    add();
+    const spawned = add();
     ctx.sound();
     render(previous);
+    travelTiles(
+      motion,
+      grid,
+      Array.from(grid.children) as HTMLElement[],
+      next.travels,
+      next.merges,
+      spawned === undefined ? [] : [spawned],
+    );
     check();
   }
   let startX = 0,
@@ -140,6 +155,7 @@ export const mount: GameFactory = (ctx) => {
       check();
     },
     pause() {
+      motion.finish();
       swipePointer = undefined;
       active = false;
     },
@@ -147,6 +163,7 @@ export const mount: GameFactory = (ctx) => {
       active = !ended;
     },
     restart() {
+      motion.finish();
       board.fill(0);
       score = 0;
       counter = 0;
@@ -161,6 +178,8 @@ export const mount: GameFactory = (ctx) => {
     },
     serialize: () => ({ board, score, counter }),
     destroy() {
+      resize.disconnect();
+      motion.destroy();
       grid.removeEventListener("pointercancel", cancel);
       grid.removeEventListener("pointerdown", down);
       grid.removeEventListener("pointerup", up);

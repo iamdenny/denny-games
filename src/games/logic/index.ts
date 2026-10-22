@@ -1,3 +1,4 @@
+import { createMotion, gsap, travelTiles } from "../../lib/motion";
 import type { GameFactory } from "../../lib/types";
 import {
   createPuzzle,
@@ -73,6 +74,36 @@ export const createMount =
     controls.append(undo, note);
     ctx.host.append(grid);
     (ctx.controlsHost ?? ctx.host).append(controls);
+    const motion = createMotion(ctx.host);
+    const resize = new ResizeObserver(() => motion.finish());
+    resize.observe(grid);
+    function animate(previous: number[]) {
+      if (kind === "number-trail") {
+        const routes = cells.flatMap((value, to) =>
+          value ? [{ from: previous.indexOf(value), to, value }] : [],
+        );
+        travelTiles(motion, grid, buttons, routes);
+      } else {
+        const changed = buttons.filter((_, i) => cells[i] !== previous[i]);
+        motion.run(
+          (timeline) => {
+            timeline.fromTo(
+              changed,
+              { scale: 0.88 },
+              {
+                scale: 1,
+                duration: 0.24,
+                stagger: 0.018,
+                ease: "back.out(1.7)",
+              },
+            );
+          },
+          () => {
+            if (changed.length) gsap.set(changed, { clearProps: "transform" });
+          },
+        );
+      }
+    }
     const score = () => Math.max(0, 1000 - moves * 5);
     function render() {
       grid.dataset.moves = String(moves);
@@ -146,19 +177,25 @@ export const createMount =
           : "Only a number beside the gap can move.";
         return;
       }
+      motion.finish();
+      const previous = cells;
       cells = next;
       history.push(selected);
       moves++;
       ctx.sound();
       check();
       render();
+      animate(previous);
       ctx.onSave?.();
     }
     const undoMove = () => {
       if (!active || !history.length) return;
+      motion.finish();
+      const previous = cells;
       history.pop();
       cells = replay(puzzle, history)!;
       render();
+      animate(previous);
       ctx.onSave?.();
     };
     undo.addEventListener("click", undoMove);
@@ -173,12 +210,14 @@ export const createMount =
         activate(true);
       },
       pause() {
+        motion.finish();
         activate(false);
       },
       resume() {
         activate(true);
       },
       restart() {
+        motion.finish();
         cells = [...puzzle.initial];
         history = [];
         moves = 0;
@@ -213,6 +252,8 @@ export const createMount =
       },
       serialize: () => ({ identity, history: [...history], moves }),
       destroy() {
+        resize.disconnect();
+        motion.destroy();
         undo.removeEventListener("click", undoMove);
         controls.remove();
         grid.remove();

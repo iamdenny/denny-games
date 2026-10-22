@@ -54,3 +54,5 @@
 - [0042 — Visible multi-stage progression](0042-visible-multi-stage-progression.md) — Accepted.
 
 - [0043 — Original classic-rule logic games](0043-original-logic-pack.md) — Accepted.
+
+- [0044 — State-independent game motion](0044-game-motion-system.md) — Accepted.
