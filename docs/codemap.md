@@ -27,3 +27,6 @@
 - `src/games/logic/rules.ts`, `src/games/logic/index.ts`, `src/data/logic-games.ts`: original cross-toggle and sliding-number campaigns, validated move-history saves, bilingual registration and lazy DOM rendering.
 
 - `src/lib/motion/`: scoped GSAP timelines, disposable tile travel, and a dynamically loaded Three.js victory scene.
+
+- `src/components/PromoKit.astro`: bilingual promotional previews, downloads and embed snippets at `/en/promote/` and `/ko/promote/`.
+- `scripts/generate-promo.mjs`, `public/promo/`: original promotional artwork generator and twenty committed PNG assets.
