@@ -11,6 +11,7 @@ export function pagePaths(): string[] {
       (_, i) => `all${i ? "/page/" + (i + 1) : ""}`,
     ),
     "daily",
+    "promote",
     "collections",
     "device-check",
     ...collections.map((item) => `collections/${item.id}`),

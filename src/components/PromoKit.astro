@@ -1,0 +1,249 @@
+---
+import type { Locale } from "../lib/types";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const ko = locale === "ko";
+const sizes = [
+  [728, 90, "Leaderboard", "가로 배너"],
+  [970, 250, "Billboard", "대형 가로 배너"],
+  [300, 250, "Medium rectangle", "사각 배너"],
+  [336, 280, "Large rectangle", "대형 사각 배너"],
+  [160, 600, "Skyscraper", "슬림 세로 배너"],
+  [300, 600, "Half page", "세로 배너"],
+  [320, 50, "Mobile banner", "모바일 배너"],
+  [320, 100, "Large mobile banner", "대형 모바일 배너"],
+  [1080, 1080, "Social square", "SNS 정사각형"],
+  [1080, 1920, "Story", "스토리 세로형"],
+] as const;
+const destination = `https://games.iamdenny.com/${locale}/`;
+---
+
+<section class="promo-kit">
+  <header class="kit-header">
+    <p class="eyebrow">DENNY GAMES / PROMO KIT</p>
+    <h1>
+      {ko
+        ? "즐거운 한 판을, 더 많은 곳에."
+        : "A little play. A little more everywhere."}
+    </h1>
+    <p>
+      {ko
+        ? "블로그, 웹사이트, 모바일과 SNS에 데니 게임즈를 소개하세요. 공간에 맞게 디자인한 10가지 규격의 배너를 준비했습니다."
+        : "Bring Denny Games to your blog, website, mobile placement or social feed. Ten banner sizes, each designed for its space."}
+    </p>
+    <a class="button" href={ko ? "/en/promote/" : "/ko/promote/"}>
+      {ko ? "English banners →" : "한국어 배너 →"}
+    </a>
+  </header>
+  <aside class="kit-note">
+    <h2>
+      {ko
+        ? "다운로드하고, 링크만 연결하세요."
+        : "Download. Add a link. Share the fun."}
+    </h2>
+    <p>
+      {ko
+        ? "PNG 원본은 표시된 픽셀 크기입니다. 미리보기는 화면에 맞게 축소됩니다. 배너를 올린 뒤 아래 주소로 연결하세요."
+        : "PNG files use the exact pixel dimensions shown. Previews scale to your screen. Link your banner to this address:"}
+    </p>
+    <a href={destination}>{destination}</a>
+    <p>
+      {ko
+        ? "데니 게임즈 소개·홍보 용도로 사용할 수 있습니다. 로고와 문구를 왜곡하거나 공식 제휴를 암시하지 마세요. 매체별 파일 용량·규격 조건은 게시 전에 확인하세요."
+        : "Use these assets to promote Denny Games. Keep the branding intact and do not imply an official partnership. Check your publisher’s file-size and format requirements before submitting."}
+    </p>
+  </aside>
+  <div class="banner-grid">
+    {sizes.map(([width, height, en, name], i) => {
+      const src = `/promo/denny-games-${locale}-${width}x${height}.png`;
+      const alt = ko
+        ? `데니 게임즈 무료 웹게임 — ${name}`
+        : `Denny Games free browser games — ${en}`;
+      const code = `<a href="${destination}"><img src="https://games.iamdenny.com${src}" alt="${alt}" width="${width}" height="${height}" style="max-width:100%;height:auto" /></a>`;
+      return (
+        <article class:list={["banner-card", { wide: width > height * 3 }]}>
+          <div class="banner-meta">
+            <h2>{ko ? name : en}</h2>
+            <span>
+              {width} × {height} · PNG
+            </span>
+          </div>
+          <div class="banner-preview">
+            <img
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              loading={i === 0 ? "eager" : "lazy"}
+              fetchpriority={i === 0 ? "high" : "auto"}
+            />
+          </div>
+          <a class="button" href={src} download>
+            {ko ? "PNG 다운로드" : "Download PNG"}{" "}
+            <span class="sr-only">
+              {width} × {height}
+            </span>{" "}
+            ↓
+          </a>
+          <details>
+            <summary>{ko ? "게시용 HTML 코드" : "Embed HTML"}</summary>
+            <label>
+              {ko ? "코드를 선택해 복사하세요" : "Select and copy this code"}
+              <textarea
+                readonly
+                rows="5"
+                aria-label={`${width} × ${height} HTML`}
+              >{code}</textarea>
+            </label>
+          </details>
+        </article>
+      );
+    })}
+  </div>
+</section>
+<style>
+  .promo-kit {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: clamp(16px, 4vw, 48px);
+    min-width: 0;
+  }
+  .kit-header {
+    max-width: 760px;
+    margin-bottom: 32px;
+  }
+  .kit-header h1 {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    line-height: 1.12;
+    letter-spacing: -0.055em;
+    margin: 14px 0 24px;
+  }
+  .kit-header p {
+    line-height: 1.7;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+  .kit-note {
+    background: #a7f0e6;
+    padding: 24px;
+    border: 1px solid #17211d;
+    margin-bottom: 32px;
+  }
+  .kit-note h2 {
+    font-size: 1.25rem;
+  }
+  .kit-note p {
+    line-height: 1.7;
+  }
+  .kit-note a {
+    overflow-wrap: anywhere;
+  }
+  .banner-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .banner-card {
+    min-width: 0;
+    border: 1px solid #17211d;
+    padding: 20px;
+    background: #fffdf7;
+  }
+  .wide {
+    grid-column: 1/-1;
+  }
+  .banner-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .banner-meta h2 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .banner-meta span {
+    font-size: 0.8rem;
+    color: #606b61;
+  }
+  .banner-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e6dd;
+    padding: 16px;
+    min-height: 130px;
+    margin-bottom: 18px;
+  }
+  .banner-preview img {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 440px;
+    object-fit: contain;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 10px 18px;
+    border: 1px solid #17211d;
+    background: #d9ed68;
+    color: #17211d;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .banner-card details {
+    margin-top: 12px;
+  }
+  .banner-card summary {
+    cursor: pointer;
+    min-height: 48px;
+    display: list-item;
+    padding-top: 12px;
+  }
+  .banner-card label {
+    font-size: 0.85rem;
+  }
+  .banner-card textarea {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    resize: vertical;
+    font: 13px/1.5 monospace;
+    background: #f5f2e9;
+    color: #17211d;
+    border: 1px solid #606b61;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  @media (max-width: 650px) {
+    .banner-grid {
+      grid-template-columns: 1fr;
+    }
+    .banner-card {
+      padding: 14px;
+    }
+    .kit-note {
+      padding: 18px;
+    }
+    .banner-preview {
+      padding: 8px;
+    }
+  }
+</style>

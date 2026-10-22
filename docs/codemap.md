@@ -32,3 +32,5 @@
 - `src/games/neverball/`: parent lifecycle and bounded native-save adapter.
 - `vendor/neverball/`: pinned upstream source/runtime, notices and opaque-frame host integration.
 - `scripts/build-neverball.mjs`: provenance validation and local no-network runtime generation.
+- `src/components/PromoKit.astro`: bilingual promotional previews, downloads and embed snippets at `/en/promote/` and `/ko/promote/`.
+- `scripts/generate-promo.mjs`, `public/promo/`: original promotional artwork generator and twenty committed PNG assets.

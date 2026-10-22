@@ -58,3 +58,4 @@
 - [0044 — State-independent game motion](0044-game-motion-system.md) — Accepted.
 
 - [0045 — Classic arcade expansion](0045-classic-arcade-expansion.md) — Accepted.
+- [0046 — Promotional banner kit](0046-promotional-banners.md) — Accepted.
