@@ -127,8 +127,15 @@ test("amber trail continuous keyboard, pause, save and release", async ({
   await page.locator("#start-button").click();
   await page.locator(".wild-canvas").focus();
   await page.keyboard.down("ArrowRight");
-  await page.waitForTimeout(700);
-  await page.keyboard.up("ArrowRight");
+  try {
+    await expect
+      .poll(async () =>
+        Number(await page.locator(".wild-canvas").getAttribute("data-x")),
+      )
+      .toBeGreaterThan(130);
+  } finally {
+    await page.keyboard.up("ArrowRight");
+  }
   const x = Number(await page.locator(".wild-canvas").getAttribute("data-x"));
   expect(x).toBeGreaterThan(130);
   await page.waitForTimeout(200);
