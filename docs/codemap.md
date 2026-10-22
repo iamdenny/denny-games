@@ -30,3 +30,5 @@
 
 - `src/components/PromoKit.astro`: bilingual promotional previews, downloads and embed snippets at `/en/promote/` and `/ko/promote/`.
 - `scripts/generate-promo.mjs`, `public/promo/`: original promotional artwork generator and twenty committed PNG assets.
+
+- `src/components/HousePromos.astro`, `public/house-promos/`: static MODU TT and Everyday Tools promotions in existing content ad positions, with local original assets and provenance.

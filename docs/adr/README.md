@@ -58,3 +58,5 @@
 - [0044 — State-independent game motion](0044-game-motion-system.md) — Accepted.
 
 - [0046 — Promotional banner kit](0046-promotional-banners.md) — Accepted.
+
+- [0047 — Static cross-promotion banners](0047-static-cross-promotion.md) — Accepted.

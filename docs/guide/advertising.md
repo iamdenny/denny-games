@@ -33,3 +33,7 @@ The user completed Coupang MFA and authorized the compliance declaration. The ga
 The English/Korean contact pages also link to a structured public GitHub partnership inquiry for sponsorship, advertising placement and affiliate proposals. The form states that submissions and replies are public, requests no confidential business data, and makes any public contact channel optional. Do not publish audience figures, guaranteed reach, rates or campaign performance without evidence and approval.
 
 See [ADR 0011](../adr/0011-provider-verification-and-affiliate.md). Provider approval, real requests, impressions and revenue must be recorded separately. This release does not claim any of them.
+
+## Static cross-promotion — 2026-10-22
+
+Existing content advertisement positions also render labeled, static MODU TT and Everyday Tools banners. Both link directly to their respective home pages (`https://modutt.kr/` and `https://tools.iamdenny.com/`). Use the owner-requested official banner assets from their brand/promo pages, hosted locally with provenance hashes. Preserve each image without cropping, with phone-specific sources and localized link labels. These house promotions require no advertising SDK or tracking request and are separate from the hidden Google slots and their approval/CMP gates. Do not add them to gameplay, search, library or diagnostics. See [ADR 0047](../adr/0047-static-cross-promotion.md).

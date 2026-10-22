@@ -1,0 +1,30 @@
+{
+  "retrievedAt": "2026-10-22",
+  "authorization": "Site owner requested use of these official promotional banners on Denny Games, linking to each home page. No general redistribution license is claimed.",
+  "sources": [
+    "https://modutt.kr/brand/",
+    "https://tools.iamdenny.com/ko/promo/"
+  ],
+  "assets": [
+    {
+      "file": "public/house-promos/modutt-wide-light.png",
+      "sha256": "bbae9fc4254a4eb572d04844dd3afc2bbb1b331b8b5e73628015d2daae007a6a",
+      "source": "https://modutt.kr/brand/modutt-wide-light.png"
+    },
+    {
+      "file": "public/house-promos/everyday-tools-ko-landscape.png",
+      "sha256": "42414223f811c63abf72cbc3064dce8245a8bb605261446327e4b6fc38d4688e",
+      "source": "https://tools.iamdenny.com/promo-assets/2026-10/everyday-tools-ko-landscape-1200x628.png"
+    },
+    {
+      "file": "public/house-promos/modutt-mobile-light.png",
+      "sha256": "4fb48004fa2dfc4d2ecada39c6ee71fa0f3c9b00102401ed59d8349e609978a4",
+      "source": "https://modutt.kr/brand/modutt-mobile-light.png"
+    },
+    {
+      "file": "public/house-promos/everyday-tools-ko-banner.png",
+      "sha256": "195c02a14097e277a8684411bd1f5a6a5d8ff089f202bcc711872f56dfa48551",
+      "source": "https://tools.iamdenny.com/promo-assets/2026-10/everyday-tools-ko-banner-1500x500.png"
+    }
+  ]
+}

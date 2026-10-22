@@ -615,3 +615,7 @@ Preserve immediate input, rules and saves while adding GSAP tile/stone movement 
 ## Promotional banner kit — 2026-10-22
 
 Provide a footer-linked bilingual promotional download page with ten PNG sizes for desktop, mobile and social placements, exact dimensions, responsive previews and selectable embed HTML. Use original brand artwork without audience or advertising-approval claims. See [ADR 0046](../adr/0046-promotional-banners.md).
+
+## Static cross-promotion — 2026-10-22
+
+Show official MODU TT and Everyday Tools banners in existing content advertisement positions, with localized advertisement labels and links to each site's home. Keep them outside gameplay and preserve Google approval gates. See [ADR 0047](../adr/0047-static-cross-promotion.md).

@@ -1,0 +1,137 @@
+---
+import type { Locale } from "../lib/types";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const ko = locale === "ko";
+---
+
+<aside
+  class="house-promos"
+  data-house-promos
+  aria-label={ko ? "광고 · 함께 만든 서비스" : "Advertisement · More from us"}
+>
+  <small>
+    {ko ? "광고 · 함께 만든 서비스" : "Advertisement · More from us"}
+  </small>
+  <div class="house-promo-links">
+    <a
+      href="https://modutt.kr/"
+      rel="sponsored"
+      aria-label={
+        ko
+          ? "MODU TT 모두의핑퐁 홈으로 이동"
+          : "Visit the MODU TT table tennis home page"
+      }
+    >
+      <picture>
+        <source
+          media="(max-width: 600px)"
+          srcset="/house-promos/modutt-mobile-light.png"
+          width="640"
+          height="200"
+        />
+        <img
+          src="/house-promos/modutt-wide-light.png"
+          width="2400"
+          height="600"
+          alt={
+            ko
+              ? "MODU TT 모두의핑퐁 — 탁구 기록부터 대회까지"
+              : "MODU TT — table tennis records, tournaments and community"
+          }
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <span>
+        {ko ? "모두의핑퐁 홈으로" : "Visit MODU TT"}{" "}
+        <span aria-hidden="true">↗</span>
+      </span>
+    </a>
+    <a
+      href="https://tools.iamdenny.com/"
+      rel="sponsored"
+      aria-label={
+        ko ? "Everyday Tools 홈으로 이동" : "Visit the Everyday Tools home page"
+      }
+    >
+      <picture>
+        <source
+          media="(max-width: 600px)"
+          srcset="/house-promos/everyday-tools-ko-landscape.png"
+          width="1200"
+          height="628"
+        />
+        <img
+          src="/house-promos/everyday-tools-ko-banner.png"
+          width="1500"
+          height="500"
+          alt={
+            ko
+              ? "Everyday Tools — 계산·텍스트·사진·PDF 무료 도구"
+              : "Everyday Tools — free calculators, text, photo and PDF tools"
+          }
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <span>
+        {ko ? "Everyday Tools 홈으로" : "Visit Everyday Tools"}{" "}
+        <span aria-hidden="true">↗</span>
+      </span>
+    </a>
+  </div>
+</aside>
+<style>
+  .house-promos {
+    margin-block: 32px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    background: #ececdf;
+  }
+  small {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  .house-promo-links {
+    display: grid;
+    gap: 16px;
+  }
+  a {
+    display: block;
+    min-width: 0;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  picture,
+  img {
+    display: block;
+    width: 100%;
+  }
+  img {
+    height: auto;
+  }
+  a > span {
+    min-height: 48px;
+    padding: 12px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+  @media (min-width: 900px) {
+    .house-promo-links {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+  }
+</style>
