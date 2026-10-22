@@ -151,8 +151,22 @@ for (const stage of [1, 2, 3, 4, 5, 6])
     await page.locator(".wild-canvas").focus();
     await page.keyboard.down("ArrowRight");
     for (let i = 0; i < 135; i++) {
-      if (await page.locator("#start-button").isVisible()) break;
-      await page.keyboard.press("Space");
+      // Check and send the gameplay input in one browser task: completion
+      // focuses Restart, so a later global Space press can start a new round.
+      const playing = await page.locator(".wild-canvas").evaluate((canvas) => {
+        if (!document.querySelector<HTMLElement>("#game-overlay")?.hidden)
+          return false;
+        canvas.dispatchEvent(
+          new KeyboardEvent("keydown", {
+            key: " ",
+            code: "Space",
+            bubbles: true,
+            cancelable: true,
+          }),
+        );
+        return true;
+      });
+      if (!playing) break;
       await page.waitForTimeout(100);
     }
     await page.keyboard.up("ArrowRight");
