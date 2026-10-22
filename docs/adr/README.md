@@ -56,3 +56,5 @@
 - [0043 — Original classic-rule logic games](0043-original-logic-pack.md) — Accepted.
 
 - [0044 — State-independent game motion](0044-game-motion-system.md) — Accepted.
+
+- [0046 — Promotional banner kit](0046-promotional-banners.md) — Accepted.

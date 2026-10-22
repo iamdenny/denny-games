@@ -255,6 +255,9 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
         </a>
         <p>{text.footer}</p>
         <nav aria-label={locale === "ko" ? "운영 정보" : "Site information"}>
+          <a href={`/${locale}/promote/`}>
+            {locale === "ko" ? "홍보 배너" : "Promotional banners"}
+          </a>
           {(["about", "privacy", "terms", "contact", "licenses"] as const).map(
             (key) => (
               <a href={`/${locale}/${key}/`}>{text[key]}</a>

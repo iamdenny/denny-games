@@ -1,4 +1,5 @@
 ---
+import PromoKit from "../../components/PromoKit.astro";
 import Base from "../../layouts/Base.astro";
 import GameCard from "../../components/GameCard.astro";
 import DailyChallenges from "../../components/DailyChallenges.astro";
@@ -85,6 +86,7 @@ const title = isHome
     : (collectionCopy?.title ??
       article?.title ??
       {
+        promote: locale === "ko" ? "홍보 배너 다운로드" : "Promotional banners",
         all: `${text.all} · ${games.length}${locale === "ko" ? "개 무료 게임" : " free browser games"}${pageSuffix}`,
         category: `${text[category as Category]} ${locale === "ko" ? "무료 웹게임" : "Free Browser Games"}${page > 1 ? (locale === "ko" ? ` · ${page}페이지` : ` · Page ${page}`) : ""}`,
         collections:
@@ -1009,6 +1011,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       </div>
     </>
   )}
+  {path === "promote" && <PromoKit locale={locale} />}
   {article && (
     <article class="prose">
       <div class="page-heading">
