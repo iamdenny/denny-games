@@ -20,6 +20,10 @@ Three original games (Amber Trail, Starlight Apprentice, Beacon Quest) and two l
 - Graphify: refreshed local ignored AST graph, 6,393 nodes and 10,379 edges. Fourteen metadata/source files produced no nodes; graph output is not runtime evidence.
 - Read-only security, quality and architecture reviews produced three observations describing two defects: gamepad direction sticking and native restart erasing persistent records. Both were corrected; focused re-review found no remaining P0–P2 defect. No findings were silently omitted. The repository lacks the skill's optional CI review scripts; source review and repository-native checks were used.
 
+## Remote CI follow-up
+
+The first remote run passed 577/578 browser tests. Linux native pointer capture redirected a Neverputt host Pause click into the canvas. Native capture was disabled while retaining in-frame motion, and the test now explicitly asserts that the canvas does not hold pointer lock before using host controls. Subsequent CI status is recorded on the PR.
+
 ## Publication
 
 PR, CI, merge and public deployment are separate gates. At this source checkpoint local checks are complete; remote CI and public readback are pending. The final task response records the actual PR and deployed SHA after verification.

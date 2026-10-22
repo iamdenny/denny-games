@@ -10,9 +10,8 @@ window.DennyLocalRequest=class {
 const channel=new URLSearchParams(location.search).get('channel');
 let module,started=false,paused=true,pendingSnapshot=false;
 const canvas=document.getElementById('canvas');
-// Native mouse capture may be requested before a child-frame gesture. Fall back until the player clicks.
-const requestLock=canvas.requestPointerLock?.bind(canvas);
-if(requestLock)canvas.requestPointerLock=()=>{try{return Promise.resolve(requestLock()).catch(()=>{});}catch{return Promise.resolve();}};
+// Keep the surrounding Pause/Restart controls reachable; relative mouse events still work without capture.
+canvas.requestPointerLock=()=>Promise.resolve();
 const send=(type,payload={})=>parent.postMessage({channel,type,...payload},'*');
 // Audio deliberately omitted. Engine calls these native-browser bridge functions.
 window.Neverball={audioCanPlayOgg:true,audioInit(){},audioQuit(){},audioPlay(){},audioMusicFadeOut(){},audioMusicFadeIn(){},audioMusicFadeTo(){},audioMusicStop(){},audioVolume(){},quit(){send('exit');}};

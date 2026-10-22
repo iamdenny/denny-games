@@ -17,7 +17,7 @@
   "host_adaptations": [
     "Generated JS native add-on fetcher replaced at one checked anchor with no-network in-memory empty catalogue. All upstream snapshots remain unchanged.",
     "Opaque-origin iframe receives WASM/data/course buffers from parent; no runtime network permissions. Bounded validated user file snapshots bridge to existing local save storage.",
-    "Native Scores directory and root preferences are bounded and validated; replay blobs over 60 KB are omitted. Pointer lock requires child-frame user gesture and exits on host pause."
+    "Native Scores directory and root preferences are bounded and validated; replay blobs over 60 KB are omitted. Native pointer capture is disabled so host controls remain reachable; mouse/touch motion remains in-frame."
   ],
   "gl4es_source": "https://github.com/ptitSeb/gl4es/tree/c9895df34cd466c23bc60c2bd3db3d87e98fcbe7",
   "gl4es_packaging": {

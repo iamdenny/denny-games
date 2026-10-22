@@ -34,7 +34,7 @@ export const createMount =
       if (ready) ctx.onReady?.({ width, height });
     };
     frame.title = kind === "neverball" ? "Neverball" : "Neverputt";
-    frame.sandbox.add("allow-scripts", "allow-pointer-lock");
+    frame.sandbox.add("allow-scripts");
     frame.src = `/vendor/neverball/index.html?channel=${channel}`;
     const send = (type: string, payload: Record<string, unknown> = {}) =>
       frame.contentWindow?.postMessage({ type, channel, ...payload }, "*");

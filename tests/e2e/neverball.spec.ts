@@ -29,6 +29,9 @@ for (const id of ["neverball", "neverputt"]) {
     await page.keyboard.press("Space");
     await page.waitForTimeout(700);
     expect(Buffer.compare(before, await canvas.screenshot())).not.toBe(0);
+    expect(
+      await canvas.evaluate(() => document.pointerLockElement === null),
+    ).toBe(true);
     await page.locator("#pause-button").click();
     await expect(page.locator("#start-button")).toBeVisible();
     await page.waitForTimeout(250);
