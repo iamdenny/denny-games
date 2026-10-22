@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test("GA4 stays unloaded until the visitor allows it and strips URL details", async ({
   page,
 }) => {

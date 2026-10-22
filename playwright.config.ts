@@ -10,7 +10,23 @@ export default defineConfig({
   fullyParallel: true,
   reporter: process.env.CI ? "line" : "list",
   workers: 4,
-  use: { baseURL, trace: "retain-on-failure" },
+  use: {
+    baseURL,
+    trace: "retain-on-failure",
+    // Ordinary game scenarios represent a visitor who declined analytics.
+    // Consent suites override this with an empty, first-visit context.
+    storageState: {
+      cookies: [],
+      origins: [
+        {
+          origin: baseURL,
+          localStorage: [
+            { name: "denny-games.analytics-consent", value: "denied" },
+          ],
+        },
+      ],
+    },
+  },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
     command: `npx astro preview --host 127.0.0.1 --port ${port} --ignore-lock`,

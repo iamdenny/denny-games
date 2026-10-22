@@ -1094,3 +1094,22 @@
   background: #142a32;
   border-radius: 14px;
 }
+
+/* Keep the consent choice reachable without shrinking or covering gameplay. */
+.player-immersive:has(> .analytics-consent:not([hidden])) {
+  overflow: auto;
+}
+.player-immersive > .analytics-consent:not([hidden]) {
+  position: relative;
+  width: 100%;
+}
+.player-immersive:has(> .analytics-consent:not([hidden])) > .play-layout {
+  width: 100%;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0;
+}
+.player-immersive:has(> .analytics-consent:not([hidden]))
+  #player[data-immersive="true"] {
+  position: relative;
+}
