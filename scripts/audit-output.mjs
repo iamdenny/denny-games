@@ -14,7 +14,11 @@ let bytes = 0;
 for (const file of files) {
   const size = fs.statSync(file).size;
   bytes += size;
-  assert(size < 5 * 1024 * 1024, `Oversized file: ${file}`);
+  assert(
+    size <
+      (file === "dist/vendor/neverball/neverball.data" ? 28 : 5) * 1024 * 1024,
+    `Oversized file: ${file}`,
+  );
   assert(
     !/\.(map|ts|astro|md)$|\.env|COMMERCIAL-GAMES|fixture-/i.test(file),
     `Private/source/fixture file: ${file}`,

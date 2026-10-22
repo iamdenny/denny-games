@@ -23,7 +23,7 @@ const externalResearch = JSON.parse(
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(209);
+    expect(games).toHaveLength(214);
     expect(games.filter((game) => game.externalPlay)).toHaveLength(0);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
@@ -46,7 +46,9 @@ describe("import admission and catalogue", () => {
     const publishedIds = new Set(games.map((game) => game.id));
     expect(games.every((game) => !game.externalPlay)).toBe(true);
     for (const candidate of externalResearch.entries) {
-      expect(publishedIds.has(candidate.id), candidate.id).toBe(false);
+      expect(publishedIds.has(candidate.id), candidate.id).toBe(
+        candidate.id === "neverball",
+      );
       const archivedArtwork = candidate.archivedArtwork.replace(
         "vendor/external-listing-art/",
         "",
@@ -55,9 +57,16 @@ describe("import admission and catalogue", () => {
         /^vendor\/external-listing-art\//,
       );
       expect(existsSync(candidate.archivedArtwork), candidate.id).toBe(true);
-      expect(existsSync(`public/art/${archivedArtwork}`), candidate.id).toBe(
-        false,
-      );
+      if (candidate.id === "neverball") {
+        expect(readFileSync(`public/art/${archivedArtwork}`, "utf8")).not.toBe(
+          readFileSync(candidate.archivedArtwork, "utf8"),
+        );
+        expect(existsSync("vendor/neverball/provenance.json")).toBe(true);
+      } else {
+        expect(existsSync(`public/art/${archivedArtwork}`), candidate.id).toBe(
+          false,
+        );
+      }
     }
   });
   it("keeps public discovery copy and search filters local-play only", () => {
@@ -190,7 +199,7 @@ describe("import admission and catalogue", () => {
       review.entries.filter(
         (g: { status: string }) => g.status === "integrated",
       ),
-    ).toHaveLength(200);
+    ).toHaveLength(201);
     expect(
       review.entries.filter(
         (g: { status: string }) => g.status === "rights-or-integration-review",

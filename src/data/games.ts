@@ -1,6 +1,8 @@
 import type { Locale } from "../lib/types";
 import crisp from "./crisp.json" with { type: "json" };
 import { crispCycleGames } from "./crisp-cycles";
+import { retroImports } from "./retro-imports";
+import { heritageGames } from "./heritage-games";
 import { logicGames } from "./logic-games";
 import { boardGames } from "./board-games";
 import { openSourceGames } from "./open-source-games";
@@ -27,6 +29,8 @@ export const categories: readonly Category[] = [
   "shooting",
   "racing",
   "sports",
+  "strategy",
+  "simulation",
 ];
 export interface GameCopy {
   title: string;
@@ -1407,6 +1411,8 @@ const externalBrowserGames: Game[] = [
 ];
 gameCandidates.push(
   ...logicGames,
+  ...heritageGames,
+  ...retroImports,
   ...openSourceGames,
   ...externalBrowserGames,
   ...eraExternalGames,

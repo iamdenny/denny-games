@@ -337,7 +337,11 @@ function mount(saved: boolean) {
     true,
   );
   start.textContent = text.start;
-  start.disabled = id.startsWith("crisp-") || id === "gridland";
+  start.disabled =
+    id.startsWith("crisp-") ||
+    id === "gridland" ||
+    id === "neverball" ||
+    id === "neverputt";
   restart.disabled = false;
   pauseButton.disabled = true;
   fitStage();
@@ -351,10 +355,17 @@ function mount(saved: boolean) {
     });
 }
 async function restartRound() {
-  if (!game || state === "ad") return;
+  if (!game || state === "ad" || restart.disabled) return;
   if (id === "hextris") game.restart();
   pause();
   save();
+  const nativeRecords = id === "neverball" || id === "neverputt";
+  if (nativeRecords) {
+    restart.disabled = true;
+    start.disabled = true;
+    await game.flush?.();
+    save();
+  }
   const consent =
     window.dennyCmp?.certified === true && window.dennyCmp.canRequestAds();
   const vehicle =
@@ -387,7 +398,12 @@ async function restartRound() {
     select.disabled = false; // Never resume gameplay in an SDK callback.
   }
   track("restart", id);
-  mount(id === "bounce-back" || id === "hextris" || id === "sokoban");
+  mount(
+    id === "bounce-back" ||
+      id === "hextris" ||
+      id === "sokoban" ||
+      nativeRecords,
+  );
   save();
   start.focus();
 }
@@ -663,6 +679,19 @@ try {
       import("../games/logic").then((m) => ({
         mount: m.createMount("number-trail"),
       })),
+    neverball: () =>
+      import("../games/neverball").then((m) => ({
+        mount: m.createMount("neverball"),
+      })),
+    neverputt: () =>
+      import("../games/neverball").then((m) => ({
+        mount: m.createMount("neverputt"),
+      })),
+    "amber-trail": () => import("../games/heritage/platform"),
+    "starlight-apprentice": () =>
+      import("../games/heritage").then((m) => ({ mount: m.mountAcademy })),
+    "beacon-quest": () =>
+      import("../games/heritage").then((m) => ({ mount: m.mountQuest })),
     "circuit-loop": () => import("../games/circuit"),
     "orbit-break": () => import("../games/orbit"),
     "2048": () => import("../games/merge"),

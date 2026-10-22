@@ -27,3 +27,8 @@
 - `src/games/logic/rules.ts`, `src/games/logic/index.ts`, `src/data/logic-games.ts`: original cross-toggle and sliding-number campaigns, validated move-history saves, bilingual registration and lazy DOM rendering.
 
 - `src/lib/motion/`: scoped GSAP timelines, disposable tile travel, and a dynamically loaded Three.js victory scene.
+
+- `src/games/heritage/`: original platform, raising-simulation and RPG rules/renderers.
+- `src/games/neverball/`: parent lifecycle and bounded native-save adapter.
+- `vendor/neverball/`: pinned upstream source/runtime, notices and opaque-frame host integration.
+- `scripts/build-neverball.mjs`: provenance validation and local no-network runtime generation.

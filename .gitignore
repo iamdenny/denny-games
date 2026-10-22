@@ -10,3 +10,6 @@ playwright-report/
 test-results/
 graphify-out/
 .scale-fixture/
+
+# Reproduced from pinned native payloads during build.
+public/vendor/neverball/

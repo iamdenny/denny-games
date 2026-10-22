@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "node scripts/build-crisp.mjs && node scripts/build-crisp-cycles.mjs && node scripts/build-bounceback.mjs && node scripts/build-underrun.mjs && node scripts/build-hextris.mjs && node scripts/build-sokoban.mjs && node scripts/build-gridland.mjs && astro build && node scripts/audit-output.mjs && node scripts/check-seo.mjs",
+    "build": "node scripts/build-crisp.mjs && node scripts/build-crisp-cycles.mjs && node scripts/build-bounceback.mjs && node scripts/build-underrun.mjs && node scripts/build-hextris.mjs && node scripts/build-sokoban.mjs && node scripts/build-gridland.mjs && node scripts/build-neverball.mjs && astro build && node scripts/audit-output.mjs && node scripts/check-seo.mjs",
     "preview": "astro preview --host 127.0.0.1 --port 4321",
     "check": "astro check",
     "test": "vitest run",
@@ -22,7 +22,8 @@
     "test:imports": "node scripts/check-imports.mjs",
     "seo:check": "node scripts/check-seo.mjs",
     "indexnow:notify": "node scripts/notify-indexnow.mjs",
-    "test:mobile": "playwright test --config playwright.mobile.config.ts"
+    "test:mobile": "playwright test --config playwright.mobile.config.ts",
+    "predev": "node scripts/build-neverball.mjs"
   },
   "dependencies": {
     "astro": "7.3.8",

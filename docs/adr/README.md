@@ -56,3 +56,5 @@
 - [0043 — Original classic-rule logic games](0043-original-logic-pack.md) — Accepted.
 
 - [0044 — State-independent game motion](0044-game-motion-system.md) — Accepted.
+
+- [0045 — Classic arcade expansion](0045-classic-arcade-expansion.md) — Accepted.
