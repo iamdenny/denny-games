@@ -25,7 +25,7 @@ Send the default page-view event only. Override page location with the origin an
 
 New and returning visitors who have not opted in are absent from GA4. Static full-page navigation supplies page views. Client-side catalogue filters do not count as separate pages. Query strings, fragments, search terms, form values, account identifiers, game inputs, scores and game events are excluded from the tag.
 
-The site displays an English/Korean consent choice without blocking play. Advertising consent remains separate and the advertising script stays behind its existing certified-CMP and approval gates.
+The site displays an English/Korean consent choice without requiring acceptance to play. In immersive gameplay, the consent panel sits in normal flow above the full-height player and page scrolling remains available until a choice is made, so both allow and decline stay reachable on direct entry. Advertising consent remains separate and the advertising script stays behind its existing certified-CMP and approval gates.
 
 ## Verification
 
