@@ -72,6 +72,11 @@ describe("play-style discovery", () => {
       "crisp-volt-keeper",
       "lantern-grid",
       "number-trail",
+      "amber-trail",
+      "starlight-apprentice",
+      "beacon-quest",
+      "neverball",
+      "neverputt",
       "gridland",
       "sokoban",
     ]);

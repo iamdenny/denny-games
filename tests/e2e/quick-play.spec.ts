@@ -63,7 +63,7 @@ for (const locale of ["en", "ko"]) {
     await expect(page.locator("[data-quick-controls]")).toBeHidden();
     await expect(page.locator("[data-quick-next]")).toBeHidden();
     await expect(page.locator("[data-quick-toggle]")).toBeHidden();
-    await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(7);
+    await expect(page.locator(".home-genres [data-home-genre]")).toHaveCount(9);
     await page.locator('[data-home-genre="puzzle"]').click();
     await expect(page).toHaveURL(`/${locale}/category/puzzle/`);
     await page.goto(`/${locale}/`);

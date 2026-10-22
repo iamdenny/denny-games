@@ -1,0 +1,28 @@
+{
+  "source": "https://github.com/Neverball/neverball",
+  "source_commit": "b1a383a7cfc739ea165ce77fdd41268cd37ca5e5",
+  "retrieved": "2026-10-22",
+  "binary_source": "https://play.neverball.org/",
+  "license": "GPL-2.0-or-later; GPL-3.0 easing; see notices",
+  "review": "Base data contains basic-ball only, no Octocat. Fonts retain separate notices. Only official easy set (25 maps) and putt course included. No add-on catalogue, remote fetch, service worker, account or telemetry. Original runtime source archive includes engine, data and build instructions; gl4es pinned by upstream build workflow. All runtime payloads copied unchanged; host adapter authored separately. Full upstream audio omitted from playback.",
+  "upstream_files": {
+    "neverball.js": "0c6681a06b0c8948df2d12d11b9b404b3db8d33f1ca8d26d528c32c4cf43f792",
+    "neverball.wasm": "2d8e5b8a1386645d28334eae895204cdb7c3836f61e0678e408faa39921c4002",
+    "neverball.data": "0ccbcd01c05be01970e45228f9414ffc5c37e19d6eaf6ec458ef28fc77f98d00",
+    "neverball-source.zip": "c5548db8c6d4e1529eab0a9ebcf19d02ed7b23db12fd1fbd0b4b887a2293766a",
+    "set-easy.zip": "b4d96e879410353a3e6ace19b8568429d40f0963728be8ab0e7fa80501bf9bdc",
+    "course-putt.zip": "cc409ab6e9fd716c6eec699c0b6d44f679aad573a74fdf3e16a50107f5113b0e",
+    "gl4es-source.zip": "0eb7417812d7476cc70c509fa9812bd4ab313836687145d979681599be325337"
+  },
+  "host_adaptations": [
+    "Generated JS native add-on fetcher replaced at one checked anchor with no-network in-memory empty catalogue. All upstream snapshots remain unchanged.",
+    "Opaque-origin iframe receives WASM/data/course buffers from parent; no runtime network permissions. Bounded validated user file snapshots bridge to existing local save storage.",
+    "Native Scores directory and root preferences are bounded and validated; replay blobs over 60 KB are omitted. Native pointer capture is disabled so host controls remain reachable; mouse/touch motion remains in-frame."
+  ],
+  "gl4es_source": "https://github.com/ptitSeb/gl4es/tree/c9895df34cd466c23bc60c2bd3db3d87e98fcbe7",
+  "gl4es_packaging": {
+    "download_sha256": "4add28687b623ef6e5c4b497cf950b5406895f235cdc0f40c03160d638639ee7",
+    "excluded": "traces/ contains runtime captures not required for building; omitted because captured game assets are outside this license review",
+    "retained": "All other source, headers, build files and license entries with original content"
+  }
+}

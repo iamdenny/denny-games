@@ -612,6 +612,10 @@ Add Lantern Grid and Number Trail as locally implemented bilingual puzzle games,
 
 Preserve immediate input, rules and saves while adding GSAP tile/stone movement to directly controlled games and shared score/result feedback across the catalogue. Load a bounded Three.js celebration only for eligible wins. Respect reduced motion and low effects, and clean up graphics on lifecycle changes. Scope and engine-by-engine coverage are recorded in [ADR 0044](../adr/0044-game-motion-system.md).
 
+## Classic campaign expansion
+
+The local catalogue includes the original Amber Trail, Starlight Apprentice and Beacon Quest campaigns, plus the reviewed Neverball easy set and Neverputt original course. Scope and remaining requested ports are tracked in [classic expansion](../guide/classic-expansion.md). Original campaigns must not be marketed as licensed remakes. Native data downloads are disclosed before play; native record persistence is distinct from mid-attempt saving.
+
 ## Promotional banner kit — 2026-10-22
 
 Provide a footer-linked bilingual promotional download page with ten PNG sizes for desktop, mobile and social placements, exact dimensions, responsive previews and selectable embed HTML. Use original brand artwork without audience or advertising-approval claims. See [ADR 0046](../adr/0046-promotional-banners.md).

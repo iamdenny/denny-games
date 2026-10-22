@@ -44,3 +44,7 @@ The original research is retained locally outside this public repository. Produc
 - [Original classic-rule logic games (ADR 0043)](adr/0043-original-logic-pack.md): Lantern Grid and Number Trail, with 24 stages each.
 
 - [Game motion system (ADR 0044)](adr/0044-game-motion-system.md): GSAP piece travel and optional Three.js win effects.
+
+- [Classic game expansion tracking](guide/classic-expansion.md)
+
+- [Classic expansion release evidence](releases/2026-10-22-classic-expansion.md)

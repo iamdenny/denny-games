@@ -85,3 +85,15 @@ test("root keeps bilingual links and verification metadata without JavaScript", 
   await expect(page.locator("html")).toHaveAttribute("lang", "ko");
   await context.close();
 });
+
+// Header links must work before the deferred site bundle finishes loading.
+test("locale links preserve queries without external scripts", async ({
+  page,
+}) => {
+  await page.route("**/*.js", (route) => route.abort());
+  await page.goto("/en/games/2048/?ref=shared#main");
+  await page.locator('[data-locale-link][lang="ko"]').click();
+  await expect(page).toHaveURL("/ko/games/2048/?ref=shared");
+  await page.locator('[data-locale-link][lang="en"]').click();
+  await expect(page).toHaveURL("/en/games/2048/?ref=shared");
+});

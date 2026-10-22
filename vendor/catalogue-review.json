@@ -413,8 +413,8 @@
       "category": "공 굴리기 / 골프",
       "researchTier": "B",
       "runtime": "P",
-      "status": "port-required",
-      "reason": "Octocat 디자인 특별 허가 범위를 확인하거나 해당 스킨 제외. 두 게임 포함 모음을 한 행으로 집계. 글꼴 별도 / Octocat 특별 허가",
+      "status": "integrated",
+      "reason": "2026-10-22: official easy set and Neverputt course locally imported; basic-ball only, no Octocat. Matching source archive and font notices retained in vendor/neverball. See docs/guide/classic-expansion.md.",
       "source": "https://github.com/neverball/neverball"
     },
     {

@@ -14,6 +14,8 @@ const publishedCategories = [
   "shooting",
   "racing",
   "sports",
+  "strategy",
+  "simulation",
 ];
 
 test("public descriptions and search controls promise on-site play", async ({
@@ -92,7 +94,7 @@ for (const locale of ["en", "ko"] as const) {
         externalPlayUrl?: string;
       }[];
     }, locale);
-    expect(searchIndex).toHaveLength(209);
+    expect(searchIndex).toHaveLength(214);
     expect(
       searchIndex.every(
         (entry) => !entry.externalHost && !entry.externalPlayUrl,
