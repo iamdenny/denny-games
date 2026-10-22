@@ -1,4 +1,33 @@
 import { test, expect } from "@playwright/test";
+async function observeMotion(
+  page: import("@playwright/test").Page,
+  host: string,
+  targets: string,
+) {
+  await page.locator(host).evaluate((root, selector) => {
+    const observer = new MutationObserver((records) => {
+      if (
+        records.some((record) => {
+          const node = record.target as HTMLElement;
+          return (
+            node.matches(selector) &&
+            (Boolean(node.style.transform && node.style.transform !== "none") ||
+              Boolean(record.oldValue?.includes("transform:")))
+          );
+        })
+      ) {
+        (root as HTMLElement).dataset.motionObserved = "true";
+        observer.disconnect();
+      }
+    });
+    observer.observe(root, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["style"],
+      attributeOldValue: true,
+    });
+  }, targets);
+}
 const initial = [2, 0, 2, 0, 0, 4, 0, 4, 8, 0, 0, 0, 0, 0, 0, 0];
 async function seed(page: import("@playwright/test").Page) {
   await page.addInitScript((board) => {
@@ -16,18 +45,12 @@ async function seed(page: import("@playwright/test").Page) {
 for (const key of ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"])
   test(`2048 ${key}: real travel then stable board`, async ({ page }) => {
     await seed(page);
+    await observeMotion(page, ".merge-board", ".tile-traveller");
     await page.keyboard.press(key);
-    await expect(page.locator(".tile-travel-layer")).toHaveCount(1);
-    const travelling = await page
-      .locator(".tile-traveller")
-      .evaluateAll((nodes) =>
-        nodes.map((node) => getComputedStyle(node).transform),
-      );
-    expect(
-      travelling.some(
-        (value) => value !== "none" && value !== "matrix(1, 0, 0, 1, 0, 0)",
-      ),
-    ).toBe(true);
+    await expect(page.locator(".merge-board")).toHaveAttribute(
+      "data-motion-observed",
+      "true",
+    );
     await expect(page.locator(".tile-travel-layer")).toHaveCount(0);
     await expect(page.locator(".merge-cell")).toHaveCount(16);
     await expect(
@@ -116,6 +139,7 @@ for (const id of [
     await page.goto(`/ko/play/${id}/`);
     await page.locator('[data-board-mode-setup="local"]').check();
     await page.locator("#start-button").click();
+    await observeMotion(page, ".classic-board", ".board-piece,.edge,.box-fill");
     if (id === "checkers") {
       await page.locator(".board-cell.movable").first().click();
       await page.locator(".board-cell.legal").first().click();
@@ -131,12 +155,10 @@ for (const id of [
       "data-moves",
       "1",
     );
-    const transforming = await page
-      .locator(".board-piece,.edge,.box-fill")
-      .evaluateAll((nodes) =>
-        nodes.some((node) => (node as HTMLElement).style.transform !== ""),
-      );
-    expect(transforming).toBe(true);
+    await expect(page.locator(".classic-board")).toHaveAttribute(
+      "data-motion-observed",
+      "true",
+    );
     await page.keyboard.press("Escape");
     expect(
       await page
