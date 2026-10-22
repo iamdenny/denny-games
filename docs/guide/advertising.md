@@ -33,3 +33,9 @@ The user completed Coupang MFA and authorized the compliance declaration. The ga
 The English/Korean contact pages also link to a structured public GitHub partnership inquiry for sponsorship, advertising placement and affiliate proposals. The form states that submissions and replies are public, requests no confidential business data, and makes any public contact channel optional. Do not publish audience figures, guaranteed reach, rates or campaign performance without evidence and approval.
 
 See [ADR 0011](../adr/0011-provider-verification-and-affiliate.md). Provider approval, real requests, impressions and revenue must be recorded separately. This release does not claim any of them.
+
+## Adsterra — 2026-10-23
+
+See [ADR 0046](../adr/0046-adsterra-banners.md) for the provider-specific amendment to the earlier Google-only gates. Games site 6142646 and banner 31868961 are approved/active in the dashboard. The issued public code is in `src/data/adsterra.ts`. Adult ads were disabled on registration. Support confirmed completion of the owner-authorized Games-specific gambling/betting/casino/adult filter request, identifying site 6142646 and banner 31868961; `filtersConfirmed` is true. Support also confirmed the separately authorized account-wide gambling block completed; adult/erotic restrictions are website-level, not an account-wide adult filter. This is separate from approval and serving.
+
+The adapter offers separate optional advertising consent on home and game details only, with immediate removal on withdrawal. Google consent/approval and the existing static Coupang cards are unchanged. The banner may remain empty on no-fill or blocking; requests are not counted as rendered creatives. No seller line was supplied in the issued code dialog, so existing ads.txt records are preserved.

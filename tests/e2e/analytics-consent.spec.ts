@@ -57,7 +57,7 @@ test("visitors can decline or withdraw analytics from the privacy page", async (
   page,
 }) => {
   await page.goto("/en/");
-  await page.getByRole("button", { name: "Decline" }).click();
+  await page.getByRole("button", { name: "Decline", exact: true }).click();
   await expect(page.locator("[data-analytics-consent]")).toBeHidden();
   expect(
     await page.evaluate(() =>
@@ -78,7 +78,7 @@ test("visitors can decline or withdraw analytics from the privacy page", async (
   await expect(page.locator("[data-analytics-consent]")).toBeHidden();
 
   await page.getByRole("button", { name: "Manage analytics choice" }).click();
-  await page.getByRole("button", { name: "Decline" }).click();
+  await page.getByRole("button", { name: "Decline", exact: true }).click();
   expect(
     await page.evaluate(
       () =>
@@ -118,7 +118,7 @@ test("consent choices synchronize across open tabs", async ({ context }) => {
   await firstTab
     .getByRole("button", { name: "Manage analytics choice" })
     .click();
-  await firstTab.getByRole("button", { name: "Decline" }).click();
+  await firstTab.getByRole("button", { name: "Decline", exact: true }).click();
   await expect(secondTab.locator("[data-analytics-consent]")).toBeHidden();
   expect(
     await secondTab.evaluate(
