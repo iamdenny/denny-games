@@ -41,6 +41,9 @@ export function initAdsterra(): void {
     observer.observe(
       banner.querySelector<HTMLElement>("[data-adsterra-surface]")!,
     );
+  const eligibilityObserver = new MutationObserver((entries) => {
+    if (entries.some((entry) => entry.attributeName === "hidden")) render();
+  });
   let allowed = false;
   let denied = false;
   try {
@@ -63,11 +66,12 @@ export function initAdsterra(): void {
       const revoke = banner.querySelector<HTMLElement>(
         "[data-adsterra-revoke]",
       )!;
+      const eligible = !banner.hidden;
       choice.hidden = allowed;
       banner.querySelector<HTMLElement>("[data-adsterra-declined]")!.hidden =
         !denied;
-      surface.hidden = status.hidden = revoke.hidden = !allowed;
-      if (!allowed) {
+      surface.hidden = status.hidden = revoke.hidden = !allowed || !eligible;
+      if (!allowed || !eligible) {
         surface.replaceChildren();
         continue;
       }
@@ -105,6 +109,11 @@ export function initAdsterra(): void {
     render();
   }
   for (const banner of banners) {
+    if (banner.hasAttribute("data-adsterra-category"))
+      eligibilityObserver.observe(banner, {
+        attributes: true,
+        attributeFilter: ["hidden"],
+      });
     banner
       .querySelector("[data-adsterra-allow]")
       ?.addEventListener("click", () => setChoice(true));

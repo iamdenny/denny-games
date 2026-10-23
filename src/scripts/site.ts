@@ -80,6 +80,15 @@ if (grid) {
   const input = document.querySelector<HTMLSelectElement>(
     "[data-input-filter]",
   )!;
+  const categoryAd = document.querySelector<HTMLElement>(
+    "[data-adsterra-category]",
+  );
+  const initialQuery = new URL(location.href).searchParams;
+  const hasInitialFilter = ["sort", "input", "page"].some((key) =>
+    initialQuery.has(key),
+  );
+  if (categoryAd)
+    categoryAd.hidden = hasInitialFilter || grid.children.length < 8;
   let generation = 0;
   const render = async (page = 1) => {
     const token = ++generation;
@@ -94,11 +103,9 @@ if (grid) {
         items.sort((a, b) => a.title.localeCompare(b.title, locale));
       if (sort.value === "newest")
         items.sort((a, b) => b.added.localeCompare(a.added));
-      grid.replaceChildren(
-        ...items
-          .slice((page - 1) * 24, page * 24)
-          .map((item) => makeCard(item, locale)),
-      );
+      const pageItems = items.slice((page - 1) * 24, page * 24);
+      grid.replaceChildren(...pageItems.map((item) => makeCard(item, locale)));
+      if (categoryAd) categoryAd.hidden = pageItems.length < 8;
       refreshFavorites(false);
       let nav = document.querySelector<HTMLElement>("[data-pagination]");
       if (!nav) {
@@ -134,6 +141,7 @@ if (grid) {
       const count = document.querySelector<HTMLElement>(".toolbar .count");
       if (count) count.textContent = `${items.length} ${text.available}`;
     } catch {
+      if (categoryAd) categoryAd.hidden = true;
       const p = document.createElement("p");
       p.textContent =
         locale === "ko"

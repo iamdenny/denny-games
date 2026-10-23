@@ -3,8 +3,9 @@ import { adsterra } from "../data/adsterra";
 import type { Locale } from "../lib/types";
 interface Props {
   locale: Locale;
+  categoryEligibility?: boolean;
 }
-const { locale } = Astro.props;
+const { locale, categoryEligibility = false } = Astro.props;
 const ko = locale === "ko";
 ---
 
@@ -12,6 +13,8 @@ const ko = locale === "ko";
   <aside
     class="adsterra-banner"
     data-adsterra
+    data-adsterra-category={categoryEligibility ? "" : undefined}
+    hidden={categoryEligibility}
     aria-label={ko ? "광고 · Adsterra" : "Advertisement · Adsterra"}
   >
     <small>{ko ? "광고 · Adsterra" : "Advertisement · Adsterra"}</small>

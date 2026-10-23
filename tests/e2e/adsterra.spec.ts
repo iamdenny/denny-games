@@ -69,6 +69,72 @@ test.describe("Adsterra banner", () => {
     await page.goto("/ko/play/2048/");
     await expect(page.locator("[data-adsterra]")).toHaveCount(0);
   });
+  test("pre-consented sparse category results keep the banner and request hidden", async ({
+    page,
+  }) => {
+    let requests = 0;
+    await page.route("https://bauval.org/**", (route) => {
+      requests++;
+      return route.fulfill({
+        contentType: "application/javascript",
+        body: "document.body.append('Test advertisement');",
+      });
+    });
+    await page.addInitScript(
+      ({ storageKey }) => localStorage.setItem(storageKey, "allowed"),
+      { storageKey: key },
+    );
+    await page.goto("/en/category/arcade/?input=mouse");
+    const banner = page.locator("[data-adsterra-category]");
+    await expect(banner).toBeHidden();
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(0);
+    expect(requests).toBe(0);
+    await expect(banner.locator("iframe")).toHaveCount(0);
+  });
+  test("a sparse category filter removes an already-loaded banner", async ({
+    page,
+  }) => {
+    let requests = 0;
+    await page.route("https://bauval.org/**", (route) => {
+      requests++;
+      return route.fulfill({ contentType: "application/javascript", body: "" });
+    });
+    await page.addInitScript(
+      ({ storageKey }) => localStorage.setItem(storageKey, "allowed"),
+      { storageKey: key },
+    );
+    await page.goto("/en/category/arcade/");
+    const banner = page.locator("[data-adsterra-category]");
+    await expect(banner).toBeVisible();
+    await expect(banner.locator("iframe")).toHaveCount(1);
+    await page.locator("[data-input-filter]").selectOption("mouse");
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(0);
+    await expect(banner).toBeHidden();
+    await expect(banner.locator("iframe")).toHaveCount(0);
+    expect(requests).toBe(1);
+  });
+  test("catalogue errors hide category ads and stop the existing frame", async ({
+    page,
+  }) => {
+    await page.route("https://bauval.org/**", (route) =>
+      route.fulfill({ contentType: "application/javascript", body: "" }),
+    );
+    await page.route("**/search-index.json", (route) => route.abort());
+    await page.addInitScript(
+      ({ storageKey }) => localStorage.setItem(storageKey, "allowed"),
+      { storageKey: key },
+    );
+    await page.goto("/en/category/arcade/");
+    const banner = page.locator("[data-adsterra-category]");
+    await expect(banner).toBeVisible();
+    await expect(banner.locator("iframe")).toHaveCount(1);
+    await page.locator("[data-input-filter]").selectOption("mouse");
+    await expect(page.locator(".game-grid")).toContainText(
+      "Could not load games",
+    );
+    await expect(banner).toBeHidden();
+    await expect(banner.locator("iframe")).toHaveCount(0);
+  });
   test("storage failures keep an in-page choice usable", async ({ page }) => {
     await page.route("https://bauval.org/**", (route) =>
       route.fulfill({ contentType: "application/javascript", body: "" }),
