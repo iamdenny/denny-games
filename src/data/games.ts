@@ -11,7 +11,7 @@ import { openSourceGames } from "./open-source-games";
 import { editorialOrder } from "./editorial";
 import { eraExternalGames } from "./external-browser-additions";
 import { worldOpenGames } from "./world-open-games";
-import type { ControlStyle } from "./play-styles";
+import type { ControlStyle, PlayMode } from "./play-styles";
 export type Category =
   | "board"
   | "puzzle"
@@ -67,7 +67,7 @@ export interface Game {
   author: string;
   source: string;
   sourceLabel?: Record<Locale, string>;
-  playModes?: ("single-player" | "multi-player")[];
+  playModes?: PlayMode[];
   guide?: { path: string; label: Record<Locale, string> };
   externalPlay?: {
     url: string;

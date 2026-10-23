@@ -1,5 +1,6 @@
 import { t } from "../data/i18n";
 import type { Locale } from "./types";
+import type { PlayMode } from "../data/play-styles";
 export interface CatalogueItem {
   id: string;
   title: string;
@@ -7,6 +8,7 @@ export interface CatalogueItem {
   tags: string[];
   category: string;
   controlStyle: string;
+  playModes: PlayMode[];
   categoryName: string;
   subtitle: string;
   artwork: string;

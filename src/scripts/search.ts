@@ -6,7 +6,11 @@ import {
   PAGE_SIZE,
 } from "../lib/catalogue";
 import { loadCatalogue, type CatalogueItem } from "../lib/cards";
-import { controlLabels } from "../data/play-styles";
+import {
+  controlLabels,
+  playModeLabels,
+  playModesFor,
+} from "../data/play-styles";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
 const locale = document.documentElement.lang as Locale,
@@ -16,6 +20,7 @@ const input = form.querySelector<HTMLInputElement>("#search-query")!;
 const category = form.querySelector<HTMLSelectElement>("[name=category]")!;
 const control = form.querySelector<HTMLSelectElement>("[name=control]")!;
 const length = form.querySelector<HTMLSelectElement>("[name=length]")!;
+const mode = form.querySelector<HTMLSelectElement>("[name=mode]")!;
 const results = document.querySelector<HTMLUListElement>("#search-results")!;
 const count = document.querySelector<HTMLElement>("#result-count")!;
 const empty = document.querySelector<HTMLElement>("#search-empty")!;
@@ -67,6 +72,12 @@ function resultCard(item: CatalogueItem): HTMLLIElement {
     controlLabels[item.controlStyle as keyof typeof controlLabels]?.[locale] ??
     text.filter;
   metadata.append(duration, playStyle);
+  const players = document.createElement("span");
+  players.dataset.searchModes = "";
+  players.textContent = playModesFor(item)
+    .map((mode) => playModeLabels[mode][locale])
+    .join(" · ");
+  metadata.append(players);
   if (item.externalHost) {
     const host = document.createElement("span");
     host.textContent = text.externalLabel;
@@ -112,6 +123,7 @@ function render(requested: string | null = "1", push = false) {
       category: category.value,
       control: control.value,
       length: length.value,
+      mode: mode.value,
     }),
     query,
   );
@@ -127,6 +139,7 @@ function render(requested: string | null = "1", push = false) {
     category: category.value,
     control: control.value,
     length: length.value,
+    mode: mode.value,
   }))
     if (value) url.searchParams.set(key, value);
   if (page > 1) url.searchParams.set("page", String(page));
@@ -151,7 +164,7 @@ function render(requested: string | null = "1", push = false) {
 function restore() {
   const params = new URL(location.href).searchParams;
   input.value = params.get("q")?.slice(0, 120) ?? "";
-  for (const select of [category, control, length]) {
+  for (const select of [category, control, length, mode]) {
     const value = params.get(select.name) ?? "";
     select.value = [...select.options].some((option) => option.value === value)
       ? value
@@ -163,7 +176,7 @@ input.addEventListener("input", () => {
   clearTimeout(timer);
   timer = setTimeout(() => render(), 120);
 });
-for (const select of [category, control, length])
+for (const select of [category, control, length, mode])
   select.addEventListener("change", () => {
     clearTimeout(timer);
     render("1", true);
@@ -177,7 +190,7 @@ form.addEventListener("reset", () => {
   clearTimeout(timer);
   queueMicrotask(() => {
     input.value = "";
-    category.value = control.value = length.value = "";
+    category.value = control.value = length.value = mode.value = "";
     render("1", true);
   });
 });
