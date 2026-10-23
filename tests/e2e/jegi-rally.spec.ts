@@ -161,7 +161,9 @@ test("keyboard and reduced-motion play remain usable across phone, tablet and de
   await expect(canvas).toHaveAttribute("data-selected", "back");
   await page.keyboard.press("ArrowLeft");
   await expect(canvas).toHaveAttribute("data-selected", "left");
-  await page.clock.runFor(450);
+  // Browser time continues between protocol commands, so wait on the live
+  // timing indicator after keyboard selection before sending the kick.
+  await expect(canvas).toHaveAttribute("data-window", "true");
   await page.keyboard.press("Space");
   await expect(canvas).toHaveAttribute("data-hits", "1");
 
