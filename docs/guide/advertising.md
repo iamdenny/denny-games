@@ -44,4 +44,4 @@ The adapter offers separate optional advertising consent on home, game details, 
 
 ## Outside-player display and original house banners
 
-[ADR 0052](../adr/0052-ad-placements-and-house-banners.md) permits a separate display placement below the full-viewport player and moves home/catalogue placements into visible content. It supersedes the earlier route-level exclusion; no advertisement covers game controls. The one-code-per-page rule and consent/provider gates remain. Existing original MODU TT and Tools images are served locally for random first-party promotion without third-party scripts.
+[ADR 0053](../adr/0053-ad-placements-and-house-banners.md) permits a separate display placement below the full-viewport player and moves home/catalogue placements into visible content. It supersedes the earlier route-level exclusion; no advertisement covers game controls. The one-code-per-page rule and consent/provider gates remain. Existing original MODU TT and Tools images are served locally for random first-party promotion without third-party scripts.

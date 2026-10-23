@@ -42,4 +42,4 @@
 
 ## Owned-service promotion
 
-`src/components/HouseBanner.astro` selects a local original banner once per page placement. `public/house-banners/` holds owner-authorized originals; provenance and placement rules are in ADR 0052.
+`src/components/HouseBanner.astro` selects a local original banner once per page placement. `public/house-banners/` holds owner-authorized originals; provenance and placement rules are in ADR 0053.

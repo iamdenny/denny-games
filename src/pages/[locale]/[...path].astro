@@ -850,6 +850,20 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         <fieldset>
           <legend>{label("Narrow your search", "조건으로 찾기")}</legend>
           <label>
+            {label("Players", "플레이 인원")}
+            <select name="mode">
+              <option value="">
+                {label("Solo or together", "혼자 또는 함께")}
+              </option>
+              <option value="single-player">
+                {label("Solo", "혼자 플레이")}
+              </option>
+              <option value="multi-player">
+                {label("Together on one device", "같은 기기에서 함께")}
+              </option>
+            </select>
+          </label>
+          <label>
             {label("Category", "장르")}
             <select name="category">
               <option value="">{label("All categories", "전체 장르")}</option>
@@ -884,8 +898,8 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </fieldset>
         <p class="notice">
           {label(
-            "Round lengths are estimates. Play style describes controls, not verified device support.",
-            "한 판 길이는 예상치입니다. 플레이 방식은 조작 구분이며 기기 호환성 인증이 아닙니다.",
+            "Together means sharing one device, without online matchmaking. Round lengths are estimates. Play style describes controls, not verified device support.",
+            "함께 플레이는 한 기기를 나눠 쓰는 방식이며 온라인 매칭은 제공하지 않습니다. 한 판 길이는 예상치이며, 플레이 방식은 기기 호환성 인증이 아닙니다.",
           )}
         </p>
         <div class="detail-actions">

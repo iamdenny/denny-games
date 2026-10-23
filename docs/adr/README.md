@@ -66,4 +66,5 @@
 - [0050 — Consented game lifecycle analytics](0050-consented-game-analytics.md) — Accepted.
 - [0051 — Eight original arcade games](0051-original-retro-eight.md) — Accepted.
 
-- [0052 — Ad placements and house banners](0052-ad-placements-and-house-banners.md) — Accepted.
+- [0053 — Ad placements and house banners](0053-ad-placements-and-house-banners.md) — Accepted.
+- [0052 — Solo and same-device search](0052-player-mode-search.md) — Accepted.

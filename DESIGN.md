@@ -58,4 +58,4 @@ Use a pale green progress panel on home and daily, with an explicit UTC date and
 
 ## Owned-service banner placements
 
-Original MODU TT and Tools images sit in labeled, reserved, uncropped image areas. Selection happens once on page initialization, without motion. Player-route promotions remain below the full-height game; paid requests retain separate consent. See [ADR 0052](docs/adr/0052-ad-placements-and-house-banners.md).
+Original MODU TT and Tools images sit in labeled, reserved, uncropped image areas. Selection happens once on page initialization, without motion. Player-route promotions remain below the full-height game; paid requests retain separate consent. See [ADR 0053](docs/adr/0053-ad-placements-and-house-banners.md).

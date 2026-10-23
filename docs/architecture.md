@@ -46,6 +46,8 @@ See [ADR 0009](adr/0009-imported-games.md). The catalogue never imports the engi
 
 ## Play-style discovery and local reports
 
+Resolved solo and same-device modes are serialized into the locale search indexes using the small `play-styles.ts` resolver. Search displays those modes and composes a `mode` URL parameter with its existing filters; no game engines are loaded. See [ADR 0052](adr/0052-player-mode-search.md).
+
 The registry carries interaction metadata separately from input/device evidence. `src/data/collections.ts` owns curated IDs and bilingual editorial copy; routes and JSON-LD derive from those entries. Search indexes include control style and estimated duration, and `src/lib/catalogue.ts` filters and bounds pagination. Device checks use a shared list/report validator and a local form/download script; they do not change the public compatibility table or send reports to a backend.
 
 ## Classic board games
@@ -58,7 +60,7 @@ Shared player audio uses original synthesized event cues in `src/lib/audio.ts`. 
 
 Gameplay transitions run independently of asynchronous audio resume. Mute can cancel audio immediately without leaving a paused overlay behind. Score presentation uses localized whole numbers and wrapping; stored scores keep their original precision.
 
-The player defaults to a full dynamic-viewport stage in normal document flow above the separate promotion section (ADR 0052) and toggles standard layout without remounting the engine. Locale controls live inside the player; secondary settings use a native disclosure. See ADR 0016.
+The player defaults to a full dynamic-viewport stage in normal document flow above the separate promotion section (ADR 0053) and toggles standard layout without remounting the engine. Locale controls live inside the player; secondary settings use a native disclosure. See ADR 0016.
 
 GameContext may provide a setupHost in the ready overlay, a settingsHost owned by the player disclosure and a controlsHost owned by the player tools area. Classic boards show AI/local mode choices before starting, retain mode and difficulty in settings, and mount turn/coordinates/confirm in the controls host. Setup choices appear only while ready; pause and result overlays hide them. Without these hosts they retain inline controls. Engine destroy removes stage, tools, settings and setup nodes. All immersive games compare side and bottom tools from 600px (ADR 0021) and use compact bottom tools on narrower phones, leaving the stage for the surface. Focus changes use preventScroll so starting a compact game does not reposition the stage.
 
