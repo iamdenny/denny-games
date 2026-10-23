@@ -43,3 +43,10 @@
 ## Owned-service promotion
 
 `src/components/HouseBanner.astro` selects a local original banner once per page placement. `public/house-banners/` holds owner-authorized originals; provenance and placement rules are in ADR 0053.
+
+## Cooking and table tennis
+
+- `src/games/snack-street/`: cooking economy, checkpoint validation, DOM counter and lifecycle.
+- `src/games/pocket-pingpong/`: rally physics, AI league, checkpoint validation and perspective canvas.
+- `src/data/arcade-trio.ts`: typed metadata without engine imports.
+- `src/data/arcade-trio-guides.ts`: bilingual cooking and table-tennis guides.

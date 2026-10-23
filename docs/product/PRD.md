@@ -644,3 +644,7 @@ Use one consented Adsterra slot after home picks, inside the all-games list, and
 ## Solo and same-device search — 2026-10-23
 
 Search offers a bilingual player filter for solo or together on one device. Derive membership from the registry's explicit play modes and existing classic-board default; Yutnori is multiplayer-only. Show supported modes on each result and combine the filter with query, genre, controls and length. Preserve it through pagination, reload, browser history and language changes, and clear invalid values. Explain that together means sharing one device without online matchmaking. Search stays noindex with static collection fallbacks. See [ADR 0052](../adr/0052-player-mode-search.md).
+
+## Cooking and table tennis — 2026-10-23
+
+Add original Snack Street and Pocket Table Tennis solo campaigns, and improve the existing Ember Maze movement and explosions. Snack Street has five days, forty customers and upgrades; Pocket Table Tennis has three AI opponents with simplified first-to-five scoring. Preserve validated browser-local saves, English/Korean controls, pause and reduced motion. Provide truthful discovery pages and shared consented analytics. See [ADR 0054](../adr/0054-cooking-and-table-tennis.md).

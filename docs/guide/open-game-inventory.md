@@ -76,3 +76,7 @@ The latest 2026-10-17 wave adds Bloxd.io, Lichess, Pokémon Showdown, City Guess
 ## Classic expansion
 
 Three original short campaigns and the locally hosted Neverball/Neverputt pair add five playable games. Rights, source archives, scoped native data budget and remaining port work are recorded in [classic expansion tracking](classic-expansion.md) and [ADR 0045](../adr/0045-classic-arcade-expansion.md). No proprietary classic game files are imported.
+
+## Original cooking and sports additions — 2026-10-23
+
+Snack Street and Pocket Table Tennis add two locally implemented solo games. Their rules, renderers, covers and bilingual copy are original MIT work. Ember Maze receives visual improvements without creating another catalogue entry. The registry remains the authoritative current count; earlier dated counts above are historical. See [ADR 0054](../adr/0054-cooking-and-table-tennis.md).
