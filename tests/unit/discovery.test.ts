@@ -9,8 +9,16 @@ import {
   searchPage,
 } from "../../src/lib/catalogue";
 import { deviceChecks, makeDeviceReport } from "../../src/lib/device-check";
+import { pagePaths } from "../../src/lib/routes";
 
 describe("play-style discovery", () => {
+  it("includes a listed guide route for every game detail link", () => {
+    const paths = pagePaths();
+    for (const game of games) {
+      if (game.guide) expect(paths).toContain(game.guide.path);
+    }
+  });
+
   it("curated lists have real unique games and honest selection boundaries", () => {
     for (const collection of collections) {
       expect(collectionGames(collection.id).length).toBe(collection.ids.length);
@@ -73,6 +81,7 @@ describe("play-style discovery", () => {
       "crisp-volt-keeper",
       "lantern-grid",
       "number-trail",
+      "gonggi",
       "amber-trail",
       "starlight-apprentice",
       "beacon-quest",

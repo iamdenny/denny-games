@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { collections } from "../../src/data/collections";
 
 for (const locale of ["en", "ko"] as const) {
   test(`${locale}: collection previews show real member artwork without JavaScript`, async ({
@@ -12,7 +13,9 @@ for (const locale of ["en", "ko"] as const) {
     for (const route of ["", "collections/", "games/gomoku/"]) {
       await page.goto(`/${locale}/${route}`);
       const cards = page.locator("[data-collection-card]");
-      await expect(cards).toHaveCount(route.includes("gomoku") ? 1 : 5);
+      await expect(cards).toHaveCount(
+        route.includes("gomoku") ? 1 : collections.length,
+      );
       const firstId = await cards.first().getAttribute("data-collection-card");
       for (const card of await cards.all()) {
         const id = await card.getAttribute("data-collection-card");
@@ -27,7 +30,9 @@ for (const locale of ["en", "ko"] as const) {
         await expect(card.locator(".eyebrow")).toContainText(
           String(memberIds.length),
         );
-        await expect(card.locator("img")).toHaveCount(3);
+        await expect(card.locator("img")).toHaveCount(
+          Math.min(3, memberIds.length),
+        );
         await expect(card.locator("a")).toHaveAccessibleName(
           (await card.locator("h3").innerText()).replace("↗", "").trim(),
         );
@@ -69,7 +74,7 @@ for (const width of [320, 360, 390, 430, 1440]) {
       const first = page.locator("[data-collection-card]").first();
       await first.scrollIntoViewIfNeeded();
       const images = first.locator("img");
-      await expect(images).toHaveCount(3);
+      await expect(images).toHaveCount(Math.min(3, collections[0]!.ids.length));
       for (const image of await images.all()) {
         const box = await image.boundingBox();
         expect(box).not.toBeNull();

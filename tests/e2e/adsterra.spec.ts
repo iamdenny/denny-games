@@ -87,7 +87,10 @@ test.describe("Adsterra banner", () => {
     await page.goto("/en/category/arcade/?input=mouse");
     const banner = page.locator("[data-adsterra-category]");
     await expect(banner).toBeHidden();
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(0);
+    await expect(
+      page.locator('.game-grid [data-game-card="gonggi"]'),
+    ).toHaveCount(1);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(1);
     expect(requests).toBe(0);
     await expect(banner.locator("iframe")).toHaveCount(0);
   });
@@ -108,7 +111,10 @@ test.describe("Adsterra banner", () => {
     await expect(banner).toBeVisible();
     await expect(banner.locator("iframe")).toHaveCount(1);
     await page.locator("[data-input-filter]").selectOption("mouse");
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(0);
+    await expect(
+      page.locator('.game-grid [data-game-card="gonggi"]'),
+    ).toHaveCount(1);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(1);
     await expect(banner).toBeHidden();
     await expect(banner.locator("iframe")).toHaveCount(0);
     expect(requests).toBe(1);

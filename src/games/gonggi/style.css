@@ -1,0 +1,341 @@
+.gonggi-game {
+  --gonggi-ink: #152a2c;
+  --gonggi-muted: #57716e;
+  --gonggi-mat: #0d2326;
+  --gonggi-mat-edge: #31585a;
+  --gonggi-mint: #a8eee0;
+  --gonggi-gold: #e6f36d;
+  --gonggi-stone-size: clamp(68px, 16vw, 92px);
+  box-sizing: border-box;
+  display: grid;
+  align-content: center;
+  gap: clamp(12px, 2.6vh, 20px);
+  width: 100%;
+  min-height: 100%;
+  padding: clamp(14px, 3vw, 24px);
+  color: #f9f7ed;
+  background:
+    radial-gradient(ellipse at 50% 44%, rgb(57 106 103 / 42%), transparent 62%),
+    linear-gradient(145deg, #183538, #0e2529 74%);
+  border: 1px solid #527578;
+  border-radius: 24px;
+  font-family: inherit;
+}
+
+.gonggi-board-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: min(100%, 410px);
+  margin-inline: auto;
+}
+
+.gonggi-stage-name,
+.gonggi-lives,
+.gonggi-status,
+.gonggi-flight-hint,
+.gonggi-catch-note {
+  margin: 0;
+}
+
+.gonggi-stage-name {
+  color: var(--gonggi-mint);
+  font-size: clamp(0.86rem, 2.4vw, 1rem);
+  font-weight: 750;
+}
+
+.gonggi-lives {
+  color: var(--gonggi-gold);
+  font-size: 0.86rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.gonggi-field {
+  display: grid;
+  grid-template-columns: repeat(2, var(--gonggi-stone-size));
+  align-content: center;
+  justify-content: center;
+  gap: clamp(16px, 5vw, 32px);
+  width: min(100%, 380px);
+  min-height: min(42vh, 310px);
+  margin-inline: auto;
+  padding: clamp(18px, 4vw, 32px);
+  background:
+    radial-gradient(ellipse at 52% 42%, rgb(55 96 91 / 48%), transparent 64%),
+    linear-gradient(145deg, #173438, var(--gonggi-mat));
+  border: 1px solid var(--gonggi-mat-edge);
+  border-radius: 28px;
+  box-shadow:
+    inset 0 1px 0 rgb(202 249 226 / 10%),
+    0 16px 36px rgb(0 0 0 / 18%);
+}
+
+.gonggi-field[data-stones="5"] {
+  grid-template-columns: repeat(3, var(--gonggi-stone-size));
+  gap: clamp(10px, 3.5vw, 24px);
+}
+
+.gonggi-stone {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--gonggi-stone-size);
+  min-width: 48px;
+  height: var(--gonggi-stone-size);
+  min-height: 48px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    transform 160ms ease,
+    opacity 180ms ease,
+    filter 180ms ease;
+}
+
+.gonggi-stone::before {
+  position: absolute;
+  inset: 8%;
+  content: "";
+  background:
+    radial-gradient(
+      ellipse at 32% 24%,
+      rgb(255 255 255 / 78%),
+      transparent 23%
+    ),
+    radial-gradient(ellipse at 68% 80%, rgb(0 0 0 / 24%), transparent 46%),
+    linear-gradient(145deg, var(--stone-light), var(--stone-dark));
+  border: 1px solid rgb(255 255 255 / 44%);
+  border-radius: 43% 57% 48% 52% / 54% 42% 58% 46%;
+  box-shadow:
+    inset -5px -6px 12px rgb(0 0 0 / 16%),
+    inset 3px 3px 9px rgb(255 255 255 / 40%),
+    0 8px 15px rgb(0 0 0 / 26%);
+  transform: rotate(-8deg);
+}
+
+.gonggi-stone:nth-child(1) {
+  --stone-light: #f2ca6c;
+  --stone-dark: #bc754b;
+}
+
+.gonggi-stone:nth-child(2) {
+  --stone-light: #a4e9d9;
+  --stone-dark: #508d82;
+}
+
+.gonggi-stone:nth-child(3) {
+  --stone-light: #e9a8a5;
+  --stone-dark: #a55470;
+}
+
+.gonggi-stone:nth-child(4) {
+  --stone-light: #b2b0ee;
+  --stone-dark: #6159a2;
+}
+
+.gonggi-stone:nth-child(5) {
+  --stone-light: #ebedab;
+  --stone-dark: #85904c;
+}
+
+.gonggi-stone:nth-child(2)::before {
+  transform: rotate(7deg);
+}
+
+.gonggi-stone:nth-child(3)::before {
+  transform: rotate(-3deg);
+}
+
+.gonggi-stone:nth-child(4)::before {
+  transform: rotate(11deg);
+}
+
+.gonggi-stone:nth-child(5)::before {
+  transform: rotate(-6deg);
+}
+
+.gonggi-stone-shine {
+  z-index: 1;
+  width: 15%;
+  height: 15%;
+  background: rgb(255 255 255 / 65%);
+  border-radius: 50%;
+  transform: translate(-8px, -12px);
+  pointer-events: none;
+}
+
+.gonggi-stone:is(:hover, .is-selected):not(:disabled) {
+  transform: translateY(-5px) scale(1.04);
+}
+
+.gonggi-stone.is-selected::before {
+  outline: 3px solid var(--gonggi-gold);
+  outline-offset: 5px;
+  filter: brightness(1.12);
+}
+
+.gonggi-stone.is-collected {
+  opacity: 0.16;
+  transform: scale(0.72);
+}
+
+.gonggi-stone:disabled {
+  cursor: default;
+}
+
+.gonggi-stone:focus-visible,
+.gonggi-action:focus-visible {
+  outline: 3px solid var(--gonggi-gold);
+  outline-offset: 5px;
+}
+
+.gonggi-flight {
+  position: relative;
+  width: min(100%, 400px);
+  margin-inline: auto;
+  padding-top: 28px;
+}
+
+.gonggi-flight[hidden],
+.gonggi-controls [hidden] {
+  display: none;
+}
+
+.gonggi-keeper {
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(145deg, #fff6b4, #d6d953 75%);
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: 45% 55% 48% 52%;
+  box-shadow: 0 0 15px rgb(232 243 117 / 68%);
+  transform: translateX(-50%) rotate(-12deg);
+}
+
+.gonggi-flight-track {
+  position: relative;
+  height: 16px;
+  overflow: hidden;
+  background: #07191b;
+  border: 1px solid #587c78;
+  border-radius: 999px;
+}
+
+.gonggi-target-band {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 58.33%;
+  width: 27.78%;
+  background: rgb(230 243 109 / 42%);
+  border-inline: 1px solid var(--gonggi-gold);
+}
+
+.gonggi-flight-progress {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background: linear-gradient(90deg, #55b8aa, #a8eee0);
+  border-radius: inherit;
+}
+
+.gonggi-flight-hint {
+  margin-top: 8px;
+  color: #b5d0ca;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.gonggi-status {
+  min-height: 1.5em;
+  color: #f5f3df;
+  font-size: clamp(0.86rem, 2.4vw, 1rem);
+  font-weight: 650;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.gonggi-controls {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: min(100%, 400px);
+  margin: 0 auto;
+}
+
+.gonggi-action {
+  width: 100%;
+  min-height: 56px;
+  font-weight: 800;
+  touch-action: manipulation;
+}
+
+.gonggi-controls .gonggi-action.gonggi-catch:not(:disabled) {
+  color: #152a2c;
+  background: #d5e35d;
+  border-color: #f1f7a2;
+}
+
+.gonggi-controls .gonggi-action.gonggi-catch.in-window:not(:disabled) {
+  background: #f4f69c;
+  box-shadow: 0 0 0 4px rgb(230 243 109 / 28%);
+}
+
+.gonggi-action:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.gonggi-catch-note {
+  color: #b5d0ca;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+@media (max-width: 380px) {
+  .gonggi-game {
+    --gonggi-stone-size: clamp(58px, 18vw, 74px);
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .gonggi-field {
+    min-height: min(37vh, 250px);
+    padding: 14px;
+  }
+
+  .gonggi-board-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gonggi-stone {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .gonggi-stone:focus-visible,
+  .gonggi-action:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .gonggi-target-band {
+    border-color: Highlight;
+    background: Highlight;
+  }
+}

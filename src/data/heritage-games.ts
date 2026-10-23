@@ -10,6 +10,92 @@ const shared = {
 };
 export const heritageGames: Game[] = [
   {
+    version: 1,
+    license: "MIT",
+    licenseDescription: {
+      en: "Original TypeScript rules, interface and vector artwork by Denny Games.",
+      ko: "규칙·화면·벡터 그림은 데니 게임즈가 직접 만들었으며 MIT 라이선스로 공개합니다.",
+    },
+    licenseUrl: "https://github.com/iamdenny/denny-games/blob/main/LICENSE",
+    licenseAppliesToGame: true,
+    author: "Denny Games",
+    source:
+      "https://github.com/iamdenny/denny-games/tree/main/src/games/gonggi",
+    added: "2026-10-23",
+    playModes: ["single-player"],
+    id: "gonggi",
+    category: "arcade",
+    controlStyle: "pointer",
+    color: "mint",
+    duration: "2–6",
+    stages: 5,
+    inputs: ["touch", "mouse", "keyboard"],
+    artwork: "/art/gonggi.svg",
+    screenshot: "/art/screenshots/gonggi.png",
+    guide: {
+      path: "guides/gonggi-rules",
+      label: {
+        en: "Learn the five Gonggi stages",
+        ko: "공기놀이 다섯 단계를 알아보기",
+      },
+    },
+    tags: [
+      "gonggi",
+      "korean traditional game",
+      "five stones",
+      "dexterity",
+      "공기놀이",
+      "전통놀이",
+      "손기술",
+    ],
+    text: {
+      en: {
+        title: "Gonggi",
+        searchTitle: "Free Gonggi Game — Five Stones, Five Stages",
+        subtitle: "Five stones. One clean catch.",
+        description:
+          "Play an original, five-stage browser take on Gonggi, the Korean five-stones game. Gather the stones one at a time, then in pairs, triples and fours before trying the final Kkeokgi timing challenge. Touch, mouse and keyboard controls are built in.",
+        rules: [
+          "A toss lifts the keeper stone. During its flight, select the requested group from the stones on the mat, then catch the keeper when it reaches the marked window.",
+          "Clear stage 1 by picking one stone four times; stage 2 uses pairs, stage 3 uses three and then one, and stage 4 gathers all four at once.",
+          "Stage 5 is a digital Kkeokgi variation: time a catch on the back-of-hand pass, flick the stones again, then time the final catch. Three mistakes end the stage.",
+        ],
+        controls: [
+          "Touch or mouse: tap the stones to pick them, then tap Catch inside the amber timing window.",
+          "Keyboard: Tab to a stone and press Enter or Space to pick it. Focus Catch and press Enter or Space when the marker enters the amber window.",
+          "Pause from the player controls. Completed throws and personal bests save in this browser; an in-flight toss restarts when you reload.",
+        ],
+        tips: [
+          "Read the target count before you toss; a picked stone can be tapped again to put it back.",
+          "The amber band shows when the keeper is falling. Catch near its centre for more points.",
+          "In Kkeokgi, the first catch sets how many stones you need to recover on the final toss.",
+        ],
+      },
+      ko: {
+        title: "공기놀이",
+        searchTitle: "무료 공기놀이 게임 · 다섯 단계를 플레이",
+        subtitle: "공깃돌 다섯 알, 깔끔한 한 번의 캐치.",
+        description:
+          "한국 전통놀이 공기를 브라우저에 맞춰 직접 만든 다섯 단계 게임이에요. 한 알씩, 두 알씩, 세 알과 한 알, 네 알을 차례로 집고 마지막 꺾기 타이밍에 도전하세요. 터치·마우스·키보드로 플레이할 수 있어요.",
+        rules: [
+          "공깃돌을 던지면 기준돌이 떠올라요. 기준돌이 날아가는 동안 바닥의 공깃돌을 정해진 수만큼 고르고, 표시된 타이밍 구간에 기준돌을 받아요.",
+          "1단은 한 알씩 네 번, 2단은 두 알씩 두 번, 3단은 세 알과 한 알, 4단은 네 알을 한 번에 집어요.",
+          "5단은 디지털 꺾기 변형이에요. 손등 받기 타이밍을 맞춘 뒤 다시 띄워 잡아요. 세 번 실수하면 해당 단계를 다시 시작해요.",
+        ],
+        controls: [
+          "터치·마우스: 공깃돌을 눌러 집고, 황금색 타이밍 구간에 ‘받기’를 누르세요.",
+          "키보드: Tab으로 공깃돌을 고르고 Enter·Space로 집어요. ‘받기’에 포커스를 옮겨 표시가 황금색 구간에 들어올 때 누르세요.",
+          "플레이어 조작에서 일시정지할 수 있어요. 끝낸 동작과 최고 기록은 이 브라우저에 저장되고, 진행 중인 던지기는 새로고침하면 다시 시작해요.",
+        ],
+        tips: [
+          "던지기 전에 목표 개수를 확인하세요. 고른 공깃돌을 다시 누르면 내려놓을 수 있어요.",
+          "황금색 띠에 기준돌이 들어오면 받을 때예요. 가운데에 가까울수록 점수가 높아요.",
+          "꺾기에서는 첫 번째 받기에서 건진 수만큼 마지막 던지기에서 다시 잡아야 해요.",
+        ],
+      },
+    },
+  },
+  {
     ...shared,
     playModes: [...shared.playModes],
     id: "amber-trail",

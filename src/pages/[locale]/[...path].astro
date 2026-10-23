@@ -383,6 +383,14 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
             ))}
           </ol>
         </section>
+        {game.guide && (
+          <section>
+            <h2>{label("Learn the rules", "규칙 더 알아보기")}</h2>
+            <a href={`/${locale}/${game.guide.path}/`}>
+              {game.guide.label[locale]} ↗
+            </a>
+          </section>
+        )}
         {game.classic && (
           <section>
             <h2>
@@ -747,7 +755,10 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           <GameCard
             game={game}
             locale={locale}
-            directPlay={gameCollection.id === "classic-board"}
+            directPlay={
+              gameCollection.id === "classic-board" ||
+              gameCollection.id === "traditional-games"
+            }
           />
         ))}
       </div>

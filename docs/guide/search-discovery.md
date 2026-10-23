@@ -13,6 +13,12 @@ Improve existing entry pages before treating catalogue size as a growth mechanis
 
 Monitor the existing `/en/games/2048/`, `/ko/games/2048/`, `/en/games/gomoku/`, `/ko/games/gomoku/` and bilingual `/collections/classic-board/` URLs in subsequent reports. Use Search Console's latest completed seven-day window and previous seven-day comparison when available; track impressions, clicks, CTR, position and queries separately from consented GA4 users, sessions, views and source/medium. These measures distinguish discovery from measured visits. Page views do not prove play, and a shared URL does not prove that a recipient visited. Do not infer a trend from one or two users. No account changes or manual submissions are part of this release.
 
+## Korean Gonggi entry — 2026-10-23
+
+Add a locally playable five-stage Gonggi adaptation and bilingual rules guide, plus `/en/collections/traditional-games/` and `/ko/collections/traditional-games/` pairing it with Yutnori. The National Folk Museum of Korea provides the cited common rules; group-specific physical variations and the browser timing/scoring rules are described separately. The collection distinguishes solo practice from Yutnori pass-and-play and says that neither offers online matchmaking.
+
+Search phrases such as `공기놀이 게임`, `공기놀이 하는 법`, `무료 공깃돌 게임` and `Gonggi game` are measurement hypotheses, not volume-backed keywords. A public result sample on 2026-10-23 surfaced instructions and physical-play references without a clear dedicated browser game; this does not prove that no competitor exists. After crawl time, inspect authenticated Search Console query/page data by country, device, completed period, impressions, clicks, CTR and position. Do not claim rank, traffic or demand from the implementation or search sample.
+
 ## Implemented surfaces
 
 - Complete catalogue: `/en/all/` and `/ko/all/`, with static 24-game numbered pages, exact registry coverage, explicit totals/ranges, native previous/next links, independent canonicals and visible-card CollectionPage/ItemList. Home previews and global All games links lead here.

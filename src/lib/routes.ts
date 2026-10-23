@@ -1,9 +1,21 @@
 import { games, categories, categoryGames } from "../data/games";
 import { collections } from "../data/collections";
-import { articles } from "../data/pages";
+import { articles, guidePaths } from "../data/pages";
 import { locales } from "../data/i18n";
 import { PAGE_SIZE } from "./catalogue";
 export function pagePaths(): string[] {
+  for (const game of games) {
+    const guidePath = game.guide?.path;
+    if (
+      guidePath &&
+      (!Object.hasOwn(articles, guidePath) || !guidePaths.includes(guidePath))
+    ) {
+      throw new Error(
+        `Game "${game.id}" points to an unlisted guide: ${guidePath}`,
+      );
+    }
+  }
+
   return [
     "",
     ...Array.from(

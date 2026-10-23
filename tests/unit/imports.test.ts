@@ -23,7 +23,7 @@ const externalResearch = JSON.parse(
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(215);
+    expect(games).toHaveLength(216);
     expect(games.filter((game) => game.externalPlay)).toHaveLength(0);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);

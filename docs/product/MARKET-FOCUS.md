@@ -38,6 +38,12 @@ The selected niche uses existing verified content:
 
 The collection already exists at `/ko/collections/classic-board/`; this release improves that destination rather than adding a near-duplicate URL. Its title now describes playing a free two-player board game with a friend, and each game card links directly to its local player. The same truthful content remains available in English.
 
+## Adjacent entry: Gonggi
+
+On 2026-10-23, a public search sample for `공기놀이 온라인 게임` and `공기놀이 브라우저 게임` surfaced instructional content and physical-play references, but no clearly dedicated browser game. Treat that as a limited result sample, not evidence of search volume, an empty market or first-page potential.
+
+Add an original, single-player browser adaptation at `/ko/games/gonggi/`, a bilingual rules guide at `/ko/guides/gonggi-rules/`, and a narrow `/ko/collections/traditional-games/` page that pairs Gonggi with Yutnori. This is an adjacent Korean-language content experiment; it does not change the primary same-device board-game focus or claim online multiplayer. The National Folk Museum of Korea is the rules reference. The timing challenge is explicitly labeled as a digital variation.
+
 ## Search intent to watch
 
 Use these as query groups for measurement, not as a volume-backed keyword list:
@@ -51,11 +57,14 @@ Use these as query groups for measurement, not as a volume-backed keyword list:
 - `윷놀이 규칙`
 - `도개걸윷모`
 - `2~4인 윷놀이`
+- `공기놀이 게임`
+- `공기놀이 하는 법`
+- `무료 공깃돌 게임`
 
 Do not repeat phrases unnaturally in hidden text, image alt text or metadata. Keep game rules and differences visible because they help a visitor choose a game.
 
 ## Evaluation
 
-Search Console data was not available during this decision or the Yutnori addition. After the localized collection, game and guide pages have had time to be crawled, compare their latest completed 28-day window with the preceding 28 days. Report the exact country, query, page, device, clicks, impressions, CTR and average position. Keep indexing and submission receipts separate from ranking and visits. Consented GA4 page views do not prove that a game was played; this site does not send gameplay events.
+Search Console data was not available during this decision or the Yutnori addition. After the localized collection, game and guide pages have had time to be crawled, compare their latest completed 28-day window with the preceding 28 days. Report the exact country, query, page, device, clicks, impressions, CTR and average position. Keep indexing and submission receipts separate from ranking and visits. Consented GA4 page views do not prove that a game was played; this site does not send gameplay events. The Gonggi query group is a hypothesis until authenticated query/page measurements are available.
 
 Revisit the country focus only after those observations or an explicit product-scope change. A stronger country comparison needs repeatable, location-specific SERP captures for the same intent groups and Search Console query/page data; do not add Portuguese localization based only on market size or competitor pages.

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <linearGradient id="mat" x2="1" y2="1">
+      <stop stop-color="#234749"/>
+      <stop offset="1" stop-color="#10272b"/>
+    </linearGradient>
+    <radialGradient id="gold" cx="28%" cy="20%">
+      <stop stop-color="#fff8c3"/>
+      <stop offset=".45" stop-color="#f1cd76"/>
+      <stop offset="1" stop-color="#a35d49"/>
+    </radialGradient>
+    <radialGradient id="mint" cx="28%" cy="20%">
+      <stop stop-color="#e3fff2"/>
+      <stop offset=".48" stop-color="#9fe8d2"/>
+      <stop offset="1" stop-color="#427b76"/>
+    </radialGradient>
+    <radialGradient id="rose" cx="28%" cy="20%">
+      <stop stop-color="#ffe0cd"/>
+      <stop offset=".5" stop-color="#e897a2"/>
+      <stop offset="1" stop-color="#89445d"/>
+    </radialGradient>
+    <radialGradient id="violet" cx="28%" cy="20%">
+      <stop stop-color="#f3e5ff"/>
+      <stop offset=".5" stop-color="#b6a9ee"/>
+      <stop offset="1" stop-color="#5b518e"/>
+    </radialGradient>
+    <radialGradient id="lime" cx="28%" cy="20%">
+      <stop stop-color="#ffffd5"/>
+      <stop offset=".5" stop-color="#e4e9a2"/>
+      <stop offset="1" stop-color="#707b48"/>
+    </radialGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="url(#mat)"/>
+  <path d="M38 312Q320 358 602 312" fill="none" stroke="#4c7775" stroke-width="2" opacity=".55"/>
+  <path d="M98 230C165 93 253 79 327 174" fill="none" stroke="#a6ece0" stroke-width="3" stroke-dasharray="7 11" opacity=".72"/>
+  <circle cx="325" cy="151" r="54" fill="none" stroke="#dfe96d" stroke-width="3" opacity=".85"/>
+  <circle cx="325" cy="151" r="72" fill="none" stroke="#dfe96d" stroke-width="1.5" opacity=".4"/>
+  <g fill="#000" opacity=".35" filter="url(#shadow)">
+    <ellipse cx="168" cy="278" rx="42" ry="18"/>
+    <ellipse cx="276" cy="296" rx="38" ry="17"/>
+    <ellipse cx="384" cy="281" rx="43" ry="18"/>
+    <ellipse cx="482" cy="294" rx="38" ry="16"/>
+    <ellipse cx="322" cy="164" rx="33" ry="15"/>
+  </g>
+  <g stroke="#fff" stroke-opacity=".52" stroke-width="2">
+    <path d="M128 256c5-32 32-49 58-34 24 14 27 44 9 61-19 18-59 11-67-27Z" fill="url(#gold)"/>
+    <path d="M239 274c5-29 29-43 52-30 22 13 25 40 8 56-16 15-52 10-60-26Z" fill="url(#mint)"/>
+    <path d="M344 257c5-34 34-46 58-31 23 15 27 42 8 59-18 17-58 11-66-28Z" fill="url(#rose)"/>
+    <path d="M448 271c4-29 29-43 52-29 21 13 24 39 7 55-15 15-50 10-59-26Z" fill="url(#violet)"/>
+    <path d="M294 139c3-23 23-35 42-24 17 10 19 30 6 43-13 12-40 8-48-19Z" fill="url(#lime)"/>
+  </g>
+  <g fill="#fff" opacity=".7">
+    <ellipse cx="151" cy="238" rx="11" ry="5" transform="rotate(-32 151 238)"/>
+    <ellipse cx="257" cy="261" rx="10" ry="4.5" transform="rotate(-32 257 261)"/>
+    <ellipse cx="363" cy="239" rx="11" ry="5" transform="rotate(-32 363 239)"/>
+    <ellipse cx="466" cy="259" rx="10" ry="4.5" transform="rotate(-32 466 259)"/>
+  </g>
+  <text x="38" y="54" fill="#e9f7e8" font-family="system-ui,sans-serif" font-size="22" font-weight="800" letter-spacing="4">GONGGI</text>
+  <text x="602" y="54" fill="#acdcd2" font-family="system-ui,sans-serif" font-size="16" font-weight="700" text-anchor="end">공기놀이</text>
+  <text x="320" y="364" fill="#dfe96d" font-family="system-ui,sans-serif" font-size="17" font-weight="750" text-anchor="middle" letter-spacing="2">FIVE STONES · FIVE STAGES</text>
+</svg>

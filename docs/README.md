@@ -3,6 +3,7 @@
 Read [current PRD](product/PRD.md), [architecture](architecture.md), and [accepted ADRs](adr/README.md) first.
 
 - [홈 게임 탐색 개선 PRD](product/HOME-DISCOVERY.md): 추천·장르 미리보기 중복 제거와 바로 플레이 흐름.
+- [Gonggi browser game PRD](product/GONGGI-GAME.md): five-stage Korean five-stones game and its evidence boundaries.
 - [Visible multi-stage progression (ADR 0042)](adr/0042-visible-multi-stage-progression.md): expose stage counts and a next-stage action.
 
 - [Commands and setup](commands.md)
