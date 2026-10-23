@@ -74,3 +74,5 @@
 - [0056 — Original pinball and falling gems](0056-pinball-and-falling-gems.md)
 
 - [0057 — Six original browser games](0057-six-original-games.md) — Accepted.
+
+- [0058 — One hundred additional arcade games](0058-century-arcade.md) — Accepted.

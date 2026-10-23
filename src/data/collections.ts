@@ -1,4 +1,6 @@
 import { retroIds } from "./retro-discovery";
+import centuryCrisp from "./century-crisp.json" with { type: "json" };
+import { agenticGames } from "./agentic-games";
 import { games, type Game } from "./games";
 import type { Locale } from "../lib/types";
 export { controlLabels, controlStyles } from "./play-styles";
@@ -16,6 +18,32 @@ interface GameCollection {
   text: Record<Locale, CollectionCopy>;
 }
 export const collections: GameCollection[] = [
+  {
+    id: "arcade-century",
+    ids: [...centuryCrisp, ...agenticGames].map((game) => game.id),
+    text: {
+      en: {
+        title: "100 more arcade challenges",
+        intro:
+          "Hop between barges, reverse a baseball runner, slash enemies or steer through a radar scope. Explore ninety-nine distinct games from ABA Games plus the original Signal Crossing.",
+        criteria:
+          "One hundred locally hosted MIT-licensed additions, with original source credits and individual rules. Each starts a fresh round when you leave; browser-local best scores are retained.",
+        question: "How do these games differ?",
+        answer:
+          "Each title has its own timing, obstacles and scoring rules. Open its instructions before playing: a tap may jump, change direction or attack, while holding can charge, descend or move. These are separate games rather than difficulty levels of one game.",
+      },
+      ko: {
+        title: "새로운 아케이드 도전 100가지",
+        intro:
+          "바지선을 건너고, 야구 주자의 방향을 바꾸고, 적을 베거나 레이더 조준경을 움직이세요. ABA Games의 서로 다른 게임 99개와 자체 제작 신호 교차로를 모았습니다.",
+        criteria:
+          "MIT 라이선스로 직접 호스팅하는 추가 게임 100개입니다. 게임별 원본 출처와 규칙을 안내합니다. 페이지를 떠나면 새 판으로 시작하고 최고 기록은 브라우저에 남습니다.",
+        question: "게임마다 무엇이 다른가요?",
+        answer:
+          "타이밍과 장애물, 점수를 얻는 규칙이 각각 다릅니다. 누르기가 점프·방향 전환·공격이 되기도 하고, 길게 누르면 충전·하강·이동하기도 하므로 시작 전에 조작법을 확인하세요. 한 게임의 난이도 단계가 아닌 별개의 게임들입니다.",
+      },
+    },
+  },
   {
     id: "logic-detectives",
     ids: ["minefield-watch", "mosaic-mystery", "traffic-escape"],

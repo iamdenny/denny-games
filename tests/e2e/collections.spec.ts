@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs/promises";
+import { games } from "../../src/data/games";
 
 test("curated collections and device instructions are readable without JavaScript", async ({
   browser,
@@ -75,7 +76,9 @@ test("search composes filters, preserves URL and language, handles history and r
   await expect(page.locator("#search-empty")).toBeVisible();
   await page.goBack();
   await expect(page.locator('[name="control"]')).toHaveValue("");
-  await expect(page.locator("#search-results li")).toHaveCount(12);
+  await expect(page.locator("#search-results li")).toHaveCount(
+    Math.min(24, games.filter((game) => game.category === "sports").length),
+  );
   await expect(
     page.locator('[data-search-result="pocket-bowling"]'),
   ).toHaveCount(1);

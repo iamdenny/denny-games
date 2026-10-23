@@ -5,7 +5,7 @@ export const mount: GameFactory = (context) => {
   context.onChange(0);
   const frame = document.createElement("iframe");
   const channel = crypto.randomUUID();
-  frame.title = `${id} · ABA Games`;
+  frame.title = `${id} · ${slug === "signal-crossing" ? "Denny Games" : "ABA Games"}`;
   frame.className = "crisp-frame";
   frame.sandbox.add("allow-scripts");
   frame.referrerPolicy = "same-origin";

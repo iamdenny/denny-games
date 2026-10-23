@@ -1,0 +1,1880 @@
+[
+  {
+    "id": "crisp-barge-hop",
+    "slug": "barge-hop",
+    "title": "Barge Hop",
+    "category": "action",
+    "controls": ["Tap: Jump", "Hold: Reduce gravity"],
+    "controlsKo": ["누르기: 점프", "길게 누르기: 중력 감소"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/barge-hop/main.js",
+    "summary": "Jump across moving barges and reach the right dock before the round timer expires.",
+    "summaryKo": "움직이는 바지선을 뛰어넘어 제한 시간이 끝나기 전에 오른쪽 부두에 도착하세요.",
+    "rules": [
+      "Jump across moving barges and reach the right dock before the round timer expires.",
+      "Reaching the right dock earns a time bonus; running out of time ends the round."
+    ],
+    "rulesKo": [
+      "움직이는 바지선을 뛰어넘어 제한 시간이 끝나기 전에 오른쪽 부두에 도착하세요.",
+      "오른쪽 부두에 닿으면 시간 보너스를 얻고 제한 시간이 소진되면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-baserunnerdash",
+    "slug": "baserunnerdash",
+    "title": "BASERUNNER DASH",
+    "category": "arcade",
+    "controls": ["Hold: Run forward", "Release: Run back"],
+    "controlsKo": ["길게 누르기: 앞으로 달리기", "놓기: 뒤로 달리기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/baserunnerdash/main.js",
+    "summary": "Run between bases while reversing direction to avoid the moving baseball.",
+    "summaryKo": "야구공을 피하며 베이스 사이를 달리고 버튼을 놓아 뒤로 물러나세요.",
+    "rules": [
+      "Run between bases while reversing direction to avoid the moving baseball.",
+      "Completing a base run adds points; touching the dangerous ball ends the round."
+    ],
+    "rulesKo": [
+      "야구공을 피하며 베이스 사이를 달리고 버튼을 놓아 뒤로 물러나세요.",
+      "베이스 달리기를 마치면 점수를 얻고 위험한 공에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-bladedancer",
+    "slug": "bladedancer",
+    "title": "BLADE DANCER",
+    "category": "action",
+    "controls": ["Tap: Jump & Slash"],
+    "controlsKo": ["누르기: 점프와 베기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/bladedancer/main.js",
+    "summary": "Jump over gaps and swing an extending blade through approaching enemies.",
+    "summaryKo": "틈을 뛰어넘고 뻗어 나가는 검으로 다가오는 적을 베세요.",
+    "rules": [
+      "Jump over gaps and swing an extending blade through approaching enemies.",
+      "Sword hits earn multiplied points; an enemy touching your body or landing over a gap ends the round."
+    ],
+    "rulesKo": [
+      "틈을 뛰어넘고 뻗어 나가는 검으로 다가오는 적을 베세요.",
+      "검으로 적을 맞히면 배수 점수를 얻고 몸이 적에 닿거나 틈에 착지하면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-blast-buoy",
+    "slug": "blast-buoy",
+    "title": "BLAST BUOY",
+    "category": "action",
+    "controls": ["Hold: Sink", "Release: Float"],
+    "controlsKo": ["길게 누르기: 잠수", "놓기: 떠오르기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/blast-buoy/main.js",
+    "summary": "Sink and surface a buoy to trigger explosive attacks and build blast combos.",
+    "summaryKo": "부표를 가라앉히고 떠오르게 하며 폭발 공격과 연속 보너스를 노리세요.",
+    "rules": [
+      "Sink and surface a buoy to trigger explosive attacks and build blast combos.",
+      "Blast catches award combo points; an unprotected collision with a threat ends the round."
+    ],
+    "rulesKo": [
+      "부표를 가라앉히고 떠오르게 하며 폭발 공격과 연속 보너스를 노리세요.",
+      "폭발로 맞힌 적은 연속 점수를 주며 보호되지 않은 상태로 위험에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-blaze-thrust",
+    "slug": "blaze-thrust",
+    "title": "Blaze Thrust",
+    "category": "arcade",
+    "controls": ["Hold: Thrust upward"],
+    "controlsKo": ["길게 누르기: 위로 추진"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/blaze-thrust/main.js",
+    "summary": "Guide a shrinking flame through wind currents and gather oxygen bubbles to keep it alive.",
+    "summaryKo": "바람을 타고 올라가는 불꽃이 꺼지지 않도록 산소 방울을 모으세요.",
+    "rules": [
+      "Guide a shrinking flame through wind currents and gather oxygen bubbles to keep it alive.",
+      "Oxygen bubbles restore flame size and increase the multiplier; a flame that shrinks too far goes out."
+    ],
+    "rulesKo": [
+      "바람을 타고 올라가는 불꽃이 꺼지지 않도록 산소 방울을 모으세요.",
+      "산소 방울은 불꽃을 키우고 배수를 높이며 너무 작아진 불꽃은 꺼집니다."
+    ]
+  },
+  {
+    "id": "crisp-blockstacker",
+    "slug": "blockstacker",
+    "title": "BLOCK STACKER",
+    "category": "puzzle",
+    "controls": ["Tap: Release block"],
+    "controlsKo": ["누르기: 블록 놓기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/blockstacker/main.js",
+    "summary": "Release swinging blocks onto a growing stack without dropping them off the tower.",
+    "summaryKo": "흔들리는 블록을 타이밍에 맞춰 놓아 탑 밖으로 떨어뜨리지 않고 쌓으세요.",
+    "rules": [
+      "Release swinging blocks onto a growing stack without dropping them off the tower.",
+      "A successful placement adds a point; a falling block missing the stack ends the round."
+    ],
+    "rulesKo": [
+      "흔들리는 블록을 타이밍에 맞춰 놓아 탑 밖으로 떨어뜨리지 않고 쌓으세요.",
+      "블록을 잘 얹으면 점수를 얻고 놓은 블록이 탑을 빗나가 아래로 떨어지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-bola-thread",
+    "slug": "bola-thread",
+    "title": "BOLA THREAD",
+    "category": "arcade",
+    "controls": ["Hold: Contract", "Release: Expand"],
+    "controlsKo": ["길게 누르기: 궤도 축소", "놓기: 궤도 확대"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/bola-thread/main.js",
+    "summary": "Contract and expand two orbiting balls to thread wall gaps and collect beacons.",
+    "summaryKo": "회전하는 두 공의 궤도를 줄이거나 늘려 벽의 틈을 통과하고 표식을 모으세요.",
+    "rules": [
+      "Contract and expand two orbiting balls to thread wall gaps and collect beacons.",
+      "Passing walls and catching beacons earns points; either orbiting ball hitting a wall ends the round."
+    ],
+    "rulesKo": [
+      "회전하는 두 공의 궤도를 줄이거나 늘려 벽의 틈을 통과하고 표식을 모으세요.",
+      "벽 통과와 표식 수집으로 점수를 얻고 회전하는 공이 벽에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-bore-comet",
+    "slug": "bore-comet",
+    "title": "BORE COMET",
+    "category": "action",
+    "controls": ["Hold: Drill thrust", "Release: Fall"],
+    "controlsKo": ["길게 누르기: 드릴 추진", "놓기: 낙하"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/bore-comet/main.js",
+    "summary": "Drill through rocks and burst out to destroy nearby enemies above the deadly sea.",
+    "summaryKo": "바위 속을 뚫고 나와 주변 적을 폭발로 제거하고 아래 바다로 떨어지지 마세요.",
+    "rules": [
+      "Drill through rocks and burst out to destroy nearby enemies above the deadly sea.",
+      "Drilling and destroying rocks or enemies scores; contact with rock without drilling, an exposed enemy or the sea ends the round."
+    ],
+    "rulesKo": [
+      "바위 속을 뚫고 나와 주변 적을 폭발로 제거하고 아래 바다로 떨어지지 마세요.",
+      "드릴과 바위·적 파괴로 점수를 얻고 드릴 없이 바위에 닿거나 노출된 적·바다와 충돌하면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-bridgecross",
+    "slug": "bridgecross",
+    "title": "BRIDGE CROSS",
+    "category": "action",
+    "controls": ["Hold: Jump"],
+    "controlsKo": ["길게 누르기: 점프"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/bridgecross/main.js",
+    "summary": "Jump onto raised bridge segments and stay on top to build a multiplier.",
+    "summaryKo": "높은 다리 구간으로 뛰어올라 다리 위에 머무르며 배수를 쌓으세요.",
+    "rules": [
+      "Jump onto raised bridge segments and stay on top to build a multiplier.",
+      "Staying on the bridge adds multiplied points; meeting a raised segment while grounded below it ends the round."
+    ],
+    "rulesKo": [
+      "높은 다리 구간으로 뛰어올라 다리 위에 머무르며 배수를 쌓으세요.",
+      "다리 위에 있으면 배수 점수를 얻고 낮은 곳에 선 채 높은 구간에 부딪히면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-catchingwheel",
+    "slug": "catchingwheel",
+    "title": "CATCHING WHEEL",
+    "category": "arcade",
+    "controls": ["Hold: Rotate wheel"],
+    "controlsKo": ["길게 누르기: 바퀴 회전"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/catchingwheel/main.js",
+    "summary": "Rotate a wheel of baskets to catch falling people before they disappear below the screen.",
+    "summaryKo": "바구니가 달린 바퀴를 돌려 화면 아래로 떨어지는 사람들을 받아내세요.",
+    "rules": [
+      "Rotate a wheel of baskets to catch falling people before they disappear below the screen.",
+      "Catches restore a basket and increase the multiplier; missed people destroy baskets, and losing every basket ends the round."
+    ],
+    "rulesKo": [
+      "바구니가 달린 바퀴를 돌려 화면 아래로 떨어지는 사람들을 받아내세요.",
+      "사람을 받으면 바구니가 복구되고 배수가 오릅니다. 놓치면 바구니가 파괴되고 모두 잃으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-chalkboard",
+    "slug": "chalkboard",
+    "title": "Chalkboard",
+    "category": "arcade",
+    "controls": ["Hold: Write", "Release: Save Overwriting costs a lot"],
+    "controlsKo": ["길게 누르기: 쓰기", "놓기: 잉크 아끼기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/chalkboard/main.js",
+    "summary": "Write with an automatically turning chalk nib, gaining energy on fresh strokes but losing it when overwriting.",
+    "summaryKo": "자동으로 방향을 바꾸는 분필로 새 선을 그려 에너지를 얻고 이미 그은 선을 덧쓰지 마세요.",
+    "rules": [
+      "Write with an automatically turning chalk nib, gaining energy on fresh strokes but losing it when overwriting.",
+      "Fresh writing adds score and energy; overwriting drains energy sharply and zero energy ends the round."
+    ],
+    "rulesKo": [
+      "자동으로 방향을 바꾸는 분필로 새 선을 그려 에너지를 얻고 이미 그은 선을 덧쓰지 마세요.",
+      "새 선을 쓰면 점수와 에너지가 생기고 덧쓰면 에너지가 크게 줄며 0이 되면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-cleaner",
+    "slug": "cleaner",
+    "title": "CLEANER",
+    "category": "arcade",
+    "controls": ["Hold: Sweep"],
+    "controlsKo": ["길게 누르기: 쓸기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/cleaner/main.js",
+    "summary": "Sweep up scattered dirt and build a cleaning multiplier while avoiding danger.",
+    "summaryKo": "흩어진 먼지를 쓸어 모아 청소 배수를 올리고 위험을 피하세요.",
+    "rules": [
+      "Sweep up scattered dirt and build a cleaning multiplier while avoiding danger.",
+      "Dirt collection awards multiplied points; touching a red obstacle ends the round."
+    ],
+    "rulesKo": [
+      "흩어진 먼지를 쓸어 모아 청소 배수를 올리고 위험을 피하세요.",
+      "먼지를 모으면 배수 점수를 얻고 빨간 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-cling-hop",
+    "slug": "cling-hop",
+    "title": "CLING HOP",
+    "category": "action",
+    "controls": ["Tap: Flap"],
+    "controlsKo": ["누르기: 날갯짓"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/cling-hop/main.js",
+    "summary": "Hop between moving platforms, cling on landing and dodge bouncing obstacles.",
+    "summaryKo": "움직이는 발판 사이를 뛰고 착지해 매달리며 튀어 다니는 장애물을 피하세요.",
+    "rules": [
+      "Hop between moving platforms, cling on landing and dodge bouncing obstacles.",
+      "Platform progress and obstacle clearing score; falling below the screen or hitting an obstacle ends the round."
+    ],
+    "rulesKo": [
+      "움직이는 발판 사이를 뛰고 착지해 매달리며 튀어 다니는 장애물을 피하세요.",
+      "발판 진행과 장애물 제거로 점수를 얻고 화면 아래로 떨어지거나 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-cue-crumb",
+    "slug": "cue-crumb",
+    "title": "CUE CRUMB",
+    "category": "action",
+    "controls": ["Tap: Thrust forward"],
+    "controlsKo": ["누르기: 전방 추진"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/cue-crumb/main.js",
+    "summary": "Ram rocks to split them into fragments, collect settled crumbs and avoid hot shrapnel.",
+    "summaryKo": "바위를 들이받아 조각내고 식은 파편을 모으되 뜨거운 파편은 피하세요.",
+    "rules": [
+      "Ram rocks to split them into fragments, collect settled crumbs and avoid hot shrapnel.",
+      "Breaking rocks and collecting cooled crumbs score; contact with hot shrapnel ends the round."
+    ],
+    "rulesKo": [
+      "바위를 들이받아 조각내고 식은 파편을 모으되 뜨거운 파편은 피하세요.",
+      "바위를 부수거나 식은 조각을 모으면 점수를 얻고 뜨거운 파편에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-dark-sort",
+    "slug": "dark-sort",
+    "title": "DARK SORT",
+    "category": "arcade",
+    "controls": ["Hold: Light gate"],
+    "controlsKo": ["길게 누르기: 밝은 문 전환"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/dark_sort/main.js",
+    "summary": "Time the light gate to sort incoming objects and maintain a scoring combo.",
+    "summaryKo": "다가오는 물체에 맞춰 밝은 문을 제어하고 분류 연속 보너스를 이어가세요.",
+    "rules": [
+      "Time the light gate to sort incoming objects and maintain a scoring combo.",
+      "Correctly sorted arrivals build a combo; a sorting mistake ends the round."
+    ],
+    "rulesKo": [
+      "다가오는 물체에 맞춰 밝은 문을 제어하고 분류 연속 보너스를 이어가세요.",
+      "물체를 올바르게 분류하면 연속 보너스가 쌓이고 잘못 분류하면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-echo-bridge",
+    "slug": "echo-bridge",
+    "title": "Echo Bridge",
+    "category": "puzzle",
+    "controls": ["Press: Create bridge"],
+    "controlsKo": ["누르기: 다리 만들기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/echo-bridge/main.js",
+    "summary": "Align a rotating guide with an island, spend bridge material and cross before scrolling carries you away.",
+    "summaryKo": "회전하는 안내선을 섬에 맞추고 재료로 다리를 만들어 화면 아래로 밀리기 전에 건너세요.",
+    "rules": [
+      "Align a rotating guide with an island, spend bridge material and cross before scrolling carries you away.",
+      "Finishing a crossing recovers materials and awards points; reaching the bottom edge ends the round."
+    ],
+    "rulesKo": [
+      "회전하는 안내선을 섬에 맞추고 재료로 다리를 만들어 화면 아래로 밀리기 전에 건너세요.",
+      "건너기를 마치면 재료와 점수를 얻고 화면 아래 끝에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-elastichero",
+    "slug": "elastichero",
+    "title": "ELASTIC HERO",
+    "category": "action",
+    "controls": ["Hold: Stretch & Aim", "Release: Launch"],
+    "controlsKo": ["길게 누르기: 늘리며 조준", "놓기: 발사"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/elastichero/main.js",
+    "summary": "Stretch an elastic hero, launch toward platforms and stay ahead of the rising water.",
+    "summaryKo": "탄력 있는 영웅을 늘렸다가 발판으로 발사하고 차오르는 물을 피하세요.",
+    "rules": [
+      "Stretch an elastic hero, launch toward platforms and stay ahead of the rising water.",
+      "Progress earns points as the water changes; allowing the water to rise beyond the top ends the round."
+    ],
+    "rulesKo": [
+      "탄력 있는 영웅을 늘렸다가 발판으로 발사하고 차오르는 물을 피하세요.",
+      "물의 변화에 따라 진행 점수를 얻고 물이 화면 위까지 차오르면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-fallbounce",
+    "slug": "fallbounce",
+    "title": "FALL BOUNCE",
+    "category": "arcade",
+    "controls": ["Hold: Fall & Bounce"],
+    "controlsKo": ["길게 누르기: 낙하와 반동"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/fallbounce/main.js",
+    "summary": "Drop a whale into bouncing encounters and use its rebounds to keep the round going.",
+    "summaryKo": "고래를 떨어뜨려 반동을 만들고 튀어 오르는 움직임으로 한 판을 이어가세요.",
+    "rules": [
+      "Drop a whale into bouncing encounters and use its rebounds to keep the round going.",
+      "Bouncing encounters award height-related points; falling below the screen ends the round."
+    ],
+    "rulesKo": [
+      "고래를 떨어뜨려 반동을 만들고 튀어 오르는 움직임으로 한 판을 이어가세요.",
+      "튀어 오르는 만남에서 높이에 따른 점수를 얻고 화면 아래로 떨어지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-feedingfrenzy",
+    "slug": "feedingfrenzy",
+    "title": "FEEDING FRENZY",
+    "category": "action",
+    "controls": ["Hold: Dart and Turn"],
+    "controlsKo": ["길게 누르기: 돌진과 방향 전환"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/feedingfrenzy/main.js",
+    "summary": "Dart and turn a circling shark to eat fish before any fish escapes the screen.",
+    "summaryKo": "원을 그리며 헤엄치는 상어를 돌진시키고 방향을 바꿔 물고기가 화면 밖으로 달아나기 전에 먹으세요.",
+    "rules": [
+      "Dart and turn a circling shark to eat fish before any fish escapes the screen.",
+      "Eating fish builds a multiplier; any fish escaping the screen ends the round."
+    ],
+    "rulesKo": [
+      "원을 그리며 헤엄치는 상어를 돌진시키고 방향을 바꿔 물고기가 화면 밖으로 달아나기 전에 먹으세요.",
+      "물고기를 먹으면 배수가 쌓이고 물고기가 화면 밖으로 달아나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-fishgrill",
+    "slug": "fishgrill",
+    "title": "FISH GRILL",
+    "category": "arcade",
+    "controls": ["Hold: Burn up"],
+    "controlsKo": ["길게 누르기: 상승 기류 만들기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/fishgrill/main.js",
+    "summary": "Lift a glowing ember with updrafts to grill fish while managing its remaining energy.",
+    "summaryKo": "상승 기류로 불씨를 띄워 물고기를 굽고 남은 에너지가 꺼지지 않도록 조절하세요.",
+    "rules": [
+      "Lift a glowing ember with updrafts to grill fish while managing its remaining energy.",
+      "Grilling fish earns energy-related points; touching purple danger or leaving the vertical play area ends the round."
+    ],
+    "rulesKo": [
+      "상승 기류로 불씨를 띄워 물고기를 굽고 남은 에너지가 꺼지지 않도록 조절하세요.",
+      "물고기를 구우면 에너지에 따른 점수를 얻고 보라색 위험이나 세로 화면 밖에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-fracave",
+    "slug": "fracave",
+    "title": "FRACAVE",
+    "category": "arcade",
+    "controls": ["Hold: Accelerate"],
+    "controlsKo": ["길게 누르기: 가속"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/fracave/main.js",
+    "summary": "Accelerate through a twisting cave while avoiding the generated walls.",
+    "summaryKo": "구불구불 생성되는 동굴 벽을 피하면서 가속해 통과하세요.",
+    "rules": [
+      "Accelerate through a twisting cave while avoiding the generated walls.",
+      "Passing cave sections adds points; leaving the play area ends the round."
+    ],
+    "rulesKo": [
+      "구불구불 생성되는 동굴 벽을 피하면서 가속해 통과하세요.",
+      "동굴 구간을 통과하면 점수를 얻고 플레이 영역 밖으로 벗어나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-geoerase",
+    "slug": "geoerase",
+    "title": "GEOERASE",
+    "category": "shooting",
+    "controls": ["Hold: Mark", "Release: Erase"],
+    "controlsKo": ["길게 누르기: 표식 남기기", "놓기: 표식 제거 공격"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/geoerase/main.js",
+    "summary": "Mark geometric enemies with a rotating beam, then release to erase them in a combo.",
+    "summaryKo": "회전하는 광선으로 도형 적에게 표식을 남기고 버튼을 놓아 연속으로 제거하세요.",
+    "rules": [
+      "Mark geometric enemies with a rotating beam, then release to erase them in a combo.",
+      "Erasing marked enemies awards combo points; an enemy reaching the player ends the round."
+    ],
+    "rulesKo": [
+      "회전하는 광선으로 도형 적에게 표식을 남기고 버튼을 놓아 연속으로 제거하세요.",
+      "표식이 있는 적을 지우면 연속 점수를 얻고 적이 플레이어에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-geyser-hop",
+    "slug": "geyser-hop",
+    "title": "GEYSER HOP",
+    "category": "action",
+    "controls": ["Hold: Rise Stomp geysers!"],
+    "controlsKo": ["길게 누르기: 상승"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/geyser-hop/main.js",
+    "summary": "Rise above geysers and stomp their yellow tops without hitting their bodies or the ceiling.",
+    "summaryKo": "간헐천 위로 올라가 노란 꼭대기를 밟고 몸통과 천장에는 닿지 마세요.",
+    "rules": [
+      "Rise above geysers and stomp their yellow tops without hitting their bodies or the ceiling.",
+      "Landing correctly on a geyser's top earns a multiplier; ceiling, ground or unsafe geyser contact ends the round."
+    ],
+    "rulesKo": [
+      "간헐천 위로 올라가 노란 꼭대기를 밟고 몸통과 천장에는 닿지 마세요.",
+      "간헐천 꼭대기를 제대로 밟으면 배수가 생기고 천장·바닥·위험한 간헐천 접촉은 종료로 이어집니다."
+    ]
+  },
+  {
+    "id": "crisp-ghost-hop",
+    "slug": "ghost-hop",
+    "title": "GHOST HOP",
+    "category": "arcade",
+    "controls": ["Tap: Hop"],
+    "controlsKo": ["누르기: 다음 목표로 뛰기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/ghost_hop/main.js",
+    "summary": "Hop between drifting targets while dodging bullets crossing your route.",
+    "summaryKo": "천천히 움직이는 목표 사이를 뛰어다니며 이동 경로를 가로지르는 탄환을 피하세요.",
+    "rules": [
+      "Hop between drifting targets while dodging bullets crossing your route.",
+      "Landing on the next target earns multiplied points; a bullet hit ends the round."
+    ],
+    "rulesKo": [
+      "천천히 움직이는 목표 사이를 뛰어다니며 이동 경로를 가로지르는 탄환을 피하세요.",
+      "다음 목표에 착지하면 배수 점수를 얻고 탄환에 맞으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-grapplingh",
+    "slug": "grapplingh",
+    "title": "GRAPPLING H",
+    "category": "action",
+    "controls": ["Tap: Release hook Hold anchor"],
+    "controlsKo": ["누르기: 갈고리 놓기와 붙잡기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/grapplingh/main.js",
+    "summary": "Release a swinging hook and catch another anchor to travel without falling away.",
+    "summaryKo": "흔들리는 갈고리를 놓고 다음 고정점을 붙잡아 떨어지지 않고 이동하세요.",
+    "rules": [
+      "Release a swinging hook and catch another anchor to travel without falling away.",
+      "Catching anchors scores according to travel; dropping below the course ends the round."
+    ],
+    "rulesKo": [
+      "흔들리는 갈고리를 놓고 다음 고정점을 붙잡아 떨어지지 않고 이동하세요.",
+      "고정점을 잡으면 이동에 따른 점수를 얻고 경로 아래로 떨어지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-gravity-bubble",
+    "slug": "gravity-bubble",
+    "title": "GRAVITY BUBBLE",
+    "category": "arcade",
+    "controls": ["Hold & Release: Place anti-gravity bubbles"],
+    "controlsKo": ["길게 눌렀다 놓기: 반중력 방울 배치"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/gravity-bubble/main.js",
+    "summary": "Preview and place anti-gravity bubbles to lift a bouncing traveler past walls and enemies.",
+    "summaryKo": "반중력 방울의 위치를 미리 보고 배치해 튀어 다니는 여행자를 벽과 적 사이로 올려 보내세요.",
+    "rules": [
+      "Preview and place anti-gravity bubbles to lift a bouncing traveler past walls and enemies.",
+      "Climbing higher and bouncing off enemies adds points; falling fully below the screen ends the round."
+    ],
+    "rulesKo": [
+      "반중력 방울의 위치를 미리 보고 배치해 튀어 다니는 여행자를 벽과 적 사이로 올려 보내세요.",
+      "더 높이 오르거나 적을 밟으면 점수를 얻고 화면 아래로 완전히 떨어지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-gravity-drift",
+    "slug": "gravity-drift",
+    "title": "GRAVITY DRIFT",
+    "category": "arcade",
+    "controls": ["Hold: Thrust up"],
+    "controlsKo": ["길게 누르기: 위로 추진"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/gravity-drift/main.js",
+    "summary": "Balance upward thrust against falling gravity while drifting through hazards.",
+    "summaryKo": "떠밀리는 길의 위험을 피하며 위로 미는 추진력과 중력 사이의 균형을 맞추세요.",
+    "rules": [
+      "Balance upward thrust against falling gravity while drifting through hazards.",
+      "Survival adds points; leaving the vertical play area or hitting an obstacle ends the round."
+    ],
+    "rulesKo": [
+      "떠밀리는 길의 위험을 피하며 위로 미는 추진력과 중력 사이의 균형을 맞추세요.",
+      "버티며 점수를 얻고 세로 영역을 벗어나거나 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-gravitywell",
+    "slug": "gravitywell",
+    "title": "GRAVITY WELL",
+    "category": "arcade",
+    "controls": ["Tap: Anti Gravity Pulse"],
+    "controlsKo": ["누르기: 반중력 파동"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/gravitywell/main.js",
+    "summary": "Push back gravitational pull with pulses and steer a growing planet away from black holes.",
+    "summaryKo": "반중력 파동으로 끌어당기는 힘에 맞서며 커지는 행성이 블랙홀에 닿지 않도록 하세요.",
+    "rules": [
+      "Push back gravitational pull with pulses and steer a growing planet away from black holes.",
+      "A larger planet earns more points; black-hole contact shrinks it until it can disappear."
+    ],
+    "rulesKo": [
+      "반중력 파동으로 끌어당기는 힘에 맞서며 커지는 행성이 블랙홀에 닿지 않도록 하세요.",
+      "행성이 클수록 점수를 더 얻고 블랙홀에 닿으면 줄어들어 결국 사라질 수 있습니다."
+    ]
+  },
+  {
+    "id": "crisp-hoardspout",
+    "slug": "hoardspout",
+    "title": "HOARD SPOUT",
+    "category": "arcade",
+    "controls": ["Hold: Thrust"],
+    "controlsKo": ["길게 누르기: 추진", "놓기: 색 변경"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/hoardspout/main.js",
+    "summary": "Thrust toward sparks matching your current color to grow, and avoid sparks of the other color.",
+    "summaryKo": "현재 색과 같은 불꽃을 향해 추진해 몸을 키우고 다른 색 불꽃은 피하세요.",
+    "rules": [
+      "Thrust toward sparks matching your current color to grow, and avoid sparks of the other color.",
+      "Matching sparks score and grow the player; shrinkage below the minimum size ends the round."
+    ],
+    "rulesKo": [
+      "현재 색과 같은 불꽃을 향해 추진해 몸을 키우고 다른 색 불꽃은 피하세요.",
+      "같은 색 불꽃은 점수와 크기를 늘리고 최소 크기보다 작아지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-hoppinhazards",
+    "slug": "hoppinhazards",
+    "title": "HOPPIN",
+    "category": "arcade",
+    "controls": ["Hold: Hop"],
+    "controlsKo": ["길게 누르기: 부풀며 상승", "놓기: 줄어들며 하강"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/hoppinhazards/main.js",
+    "summary": "Inflate and raise a frog for points, then shrink and descend to avoid crossing hazards.",
+    "summaryKo": "개구리를 부풀려 올리며 점수를 얻고 장애물이 다가오면 줄어들며 내려오세요.",
+    "rules": [
+      "Inflate and raise a frog for points, then shrink and descend to avoid crossing hazards.",
+      "A larger frog earns more points over time; touching a crossing hazard ends the round."
+    ],
+    "rulesKo": [
+      "개구리를 부풀려 올리며 점수를 얻고 장애물이 다가오면 줄어들며 내려오세요.",
+      "개구리가 클수록 시간에 따른 점수가 커지고 가로지르는 위험에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-inkinh",
+    "slug": "inkinh",
+    "title": "INKINH",
+    "category": "arcade",
+    "controls": ["Hold: Thrust & Inhale"],
+    "controlsKo": ["길게 누르기: 추진과 흡입"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/inkinh/main.js",
+    "summary": "Thrust and inhale nearby orbs while avoiding rotating geometric obstacles.",
+    "summaryKo": "앞으로 추진하며 가까운 구슬을 빨아들이고 회전하는 도형 장애물을 피하세요.",
+    "rules": [
+      "Thrust and inhale nearby orbs while avoiding rotating geometric obstacles.",
+      "Inhaled orbs build combo points; touching a geometric obstacle ends the round."
+    ],
+    "rulesKo": [
+      "앞으로 추진하며 가까운 구슬을 빨아들이고 회전하는 도형 장애물을 피하세요.",
+      "구슬을 흡입하면 연속 점수를 얻고 도형 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-jet-stream",
+    "slug": "jet-stream",
+    "title": "Jet Stream",
+    "category": "arcade",
+    "controls": ["Tap: Cycle Lanes"],
+    "controlsKo": ["누르기: 기류 차선 변경"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/jet-stream/main.js",
+    "summary": "Switch between opposing air streams and use your wake to break wind barriers.",
+    "summaryKo": "방향이 다른 기류 차선을 오가며 뒤에 남긴 흔적으로 바람 장벽을 부수세요.",
+    "rules": [
+      "Switch between opposing air streams and use your wake to break wind barriers.",
+      "Wake hits on barriers build a multiplier; drifting beyond either side of the screen ends the round."
+    ],
+    "rulesKo": [
+      "방향이 다른 기류 차선을 오가며 뒤에 남긴 흔적으로 바람 장벽을 부수세요.",
+      "흔적으로 장벽을 맞히면 배수가 올라가고 화면 좌우 밖으로 밀려나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-jpaddle",
+    "slug": "jpaddle",
+    "title": "JPADDLE",
+    "category": "sports",
+    "controls": ["Tap: Jump/Turn", "Hold: Move"],
+    "controlsKo": ["누르기: 점프와 방향 전환", "길게 누르기: 이동"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/jpaddle/main.js",
+    "summary": "Move and jump a slanted paddle to return falling balls before they leave the screen.",
+    "summaryKo": "기울어진 패들을 움직이고 점프해 화면 밖으로 떨어지기 전에 공을 받아내세요.",
+    "rules": [
+      "Move and jump a slanted paddle to return falling balls before they leave the screen.",
+      "Returning balls higher earns more points; the paddle falling below the bottom ends the round."
+    ],
+    "rulesKo": [
+      "기울어진 패들을 움직이고 점프해 화면 밖으로 떨어지기 전에 공을 받아내세요.",
+      "높은 곳에서 공을 받아칠수록 점수가 커지고 패들이 아래로 떨어지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-jugglingact",
+    "slug": "jugglingact",
+    "title": "JUGGLING ACT",
+    "category": "arcade",
+    "controls": ["Hold: Throw ball back", "Release: Move"],
+    "controlsKo": ["길게 누르기: 공 받아 던지기", "놓기: 이동"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/jugglingact/main.js",
+    "summary": "Move toward falling balls and raise your hands to juggle them without losing the entire set.",
+    "summaryKo": "떨어지는 공 쪽으로 이동하고 손을 들어 다시 던지며 모든 공을 잃지 않도록 하세요.",
+    "rules": [
+      "Move toward falling balls and raise your hands to juggle them without losing the entire set.",
+      "Returned balls score according to the number in play; losing every ball ends the round."
+    ],
+    "rulesKo": [
+      "떨어지는 공 쪽으로 이동하고 손을 들어 다시 던지며 모든 공을 잃지 않도록 하세요.",
+      "공을 다시 던지면 남은 공 수에 따른 점수를 얻고 모든 공을 잃으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-kelpclimber",
+    "slug": "kelpclimber",
+    "title": "KELP CLIMBER",
+    "category": "action",
+    "controls": ["Tap: Grab kelp"],
+    "controlsKo": ["누르기: 다시마 붙잡기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/kelpclimber/main.js",
+    "summary": "Grab nearby kelp strands to pull an otter upward past underwater obstacles.",
+    "summaryKo": "가까운 다시마 줄기를 붙잡아 수달을 물속 장애물 사이로 올려 보내세요.",
+    "rules": [
+      "Grab nearby kelp strands to pull an otter upward past underwater obstacles.",
+      "A longer reach to kelp earns more points; touching a red obstacle ends the round."
+    ],
+    "rulesKo": [
+      "가까운 다시마 줄기를 붙잡아 수달을 물속 장애물 사이로 올려 보내세요.",
+      "멀리 있는 다시마를 잡을수록 점수가 커지고 빨간 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-kite-master",
+    "slug": "kite-master",
+    "title": "KITE MASTER",
+    "category": "arcade",
+    "controls": ["Hold: Pull string Catch clouds with kite"],
+    "controlsKo": ["길게 누르기: 연줄 당기기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/kite-master/main.js",
+    "summary": "Pull a kite through changing winds to catch clouds before they fall out of reach.",
+    "summaryKo": "변하는 바람 속에서 연줄을 당겨 구름이 아래로 사라지기 전에 붙잡으세요.",
+    "rules": [
+      "Pull a kite through changing winds to catch clouds before they fall out of reach.",
+      "Catching a cloud high above the ground earns more; a missed cloud or grounded kite ends the round."
+    ],
+    "rulesKo": [
+      "변하는 바람 속에서 연줄을 당겨 구름이 아래로 사라지기 전에 붙잡으세요.",
+      "높은 구름을 잡을수록 점수가 커지고 구름을 놓치거나 연이 지면에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-knightvspawns",
+    "slug": "knightvspawns",
+    "title": "KNIGHT VS. PAWNS",
+    "category": "arcade",
+    "controls": ["Tap: Move knight"],
+    "controlsKo": ["누르기: 나이트 이동"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/knightvspawns/main.js",
+    "summary": "Move a knight through a scrolling chessboard and avoid descending pawns.",
+    "summaryKo": "스크롤되는 체스판에서 나이트를 움직여 내려오는 폰과 부딪히지 않게 하세요.",
+    "rules": [
+      "Move a knight through a scrolling chessboard and avoid descending pawns.",
+      "Knight moves earn points; occupying the same square as a pawn ends the round."
+    ],
+    "rulesKo": [
+      "스크롤되는 체스판에서 나이트를 움직여 내려오는 폰과 부딪히지 않게 하세요.",
+      "나이트 이동으로 점수를 얻고 폰과 같은 칸에 서면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-levitation",
+    "slug": "levitation",
+    "title": "LEVITATION",
+    "category": "arcade",
+    "controls": ["Tap: Levitate / Fall"],
+    "controlsKo": ["누르기: 부양과 낙하 전환"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/levitation/main.js",
+    "summary": "Switch a caterpillar between floating and falling as it seeks cocoons along the scrolling route.",
+    "summaryKo": "애벌레의 부양과 낙하를 바꾸며 스크롤되는 길에서 고치를 찾아가세요.",
+    "rules": [
+      "Switch a caterpillar between floating and falling as it seeks cocoons along the scrolling route.",
+      "Reaching a cocoon awards multiplied points; drifting outside the course ends the round."
+    ],
+    "rulesKo": [
+      "애벌레의 부양과 낙하를 바꾸며 스크롤되는 길에서 고치를 찾아가세요.",
+      "고치에 도달하면 배수 점수를 얻고 경로 밖으로 벗어나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-marble-bounce",
+    "slug": "marble-bounce",
+    "title": "Marble Bounce",
+    "category": "arcade",
+    "controls": ["Tap: Bounce higher"],
+    "controlsKo": ["누르기: 더 높이 튀기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/marble-bounce/main.js",
+    "summary": "Bounce a marble into pins and strike the flashing target before its warning timer expires.",
+    "summaryKo": "구슬을 튀겨 핀에 맞히고 경고 시간이 끝나기 전에 깜박이는 목표 핀을 부수세요.",
+    "rules": [
+      "Bounce a marble into pins and strike the flashing target before its warning timer expires.",
+      "Ordinary pins award points and target pins give a larger bonus; a target exploding ends the round."
+    ],
+    "rulesKo": [
+      "구슬을 튀겨 핀에 맞히고 경고 시간이 끝나기 전에 깜박이는 목표 핀을 부수세요.",
+      "일반 핀은 점수를, 목표 핀은 큰 보너스를 주며 목표가 폭발하면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-microbial-focus",
+    "slug": "microbial-focus",
+    "title": "MICROBIAL FOCUS",
+    "category": "arcade",
+    "controls": ["Hold: Adjust focus depth"],
+    "controlsKo": ["길게 누르기: 초점 깊이 조절"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/microbial-focus/main.js",
+    "summary": "Focus on drifting microbes to send them away before their anger builds too far.",
+    "summaryKo": "떠다니는 미생물에 초점을 맞춰 화가 너무 커지기 전에 화면 밖으로 보내세요.",
+    "rules": [
+      "Focus on drifting microbes to send them away before their anger builds too far.",
+      "Sending focused microbes out of the screen earns points; an overly angry microbe ends the round."
+    ],
+    "rulesKo": [
+      "떠다니는 미생물에 초점을 맞춰 화가 너무 커지기 전에 화면 밖으로 보내세요.",
+      "초점이 맞은 미생물을 화면 밖으로 보내면 점수를 얻고 분노가 한계를 넘으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-missile-guide",
+    "slug": "missile-guide",
+    "title": "MISSILE GUIDE",
+    "category": "shooting",
+    "controls": ["Hold: Freeze"],
+    "controlsKo": ["길게 누르기: 움직임 멈추기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/missile_guide/main.js",
+    "summary": "Freeze a guided missile at the right moments to reach outposts before fuel runs out.",
+    "summaryKo": "유도 미사일을 적절한 순간에 멈춰 연료가 떨어지기 전에 전초기지에 도달하세요.",
+    "rules": [
+      "Freeze a guided missile at the right moments to reach outposts before fuel runs out.",
+      "Reaching outposts builds a combo; fuel exhaustion or a dangerous collision ends the round."
+    ],
+    "rulesKo": [
+      "유도 미사일을 적절한 순간에 멈춰 연료가 떨어지기 전에 전초기지에 도달하세요.",
+      "전초기지에 도달하면 연속 보너스가 쌓이고 연료가 떨어지거나 위험에 충돌하면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-monkeyt",
+    "slug": "monkeyt",
+    "title": "MONKEY T",
+    "category": "arcade",
+    "controls": ["Hold: Compress", "Release: Launch"],
+    "controlsKo": ["길게 누르기: 트램펄린 압축", "놓기: 발사"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/monkeyt/main.js",
+    "summary": "Compress a trampoline and launch a monkey toward bananas while avoiding flying hazards.",
+    "summaryKo": "트램펄린을 눌렀다 놓아 원숭이를 바나나 쪽으로 날리고 날아오는 위험을 피하세요.",
+    "rules": [
+      "Compress a trampoline and launch a monkey toward bananas while avoiding flying hazards.",
+      "Collectibles award multiplied points; a flying hazard touching the monkey ends the round."
+    ],
+    "rulesKo": [
+      "트램펄린을 눌렀다 놓아 원숭이를 바나나 쪽으로 날리고 날아오는 위험을 피하세요.",
+      "수집물을 얻으면 배수 점수가 생기고 날아오는 위험이 원숭이에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-neonpollinator",
+    "slug": "neonpollinator",
+    "title": "NEON POLLINATOR",
+    "category": "arcade",
+    "controls": ["Hold: Glow & Rise"],
+    "controlsKo": ["길게 누르기: 빛내며 상승"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/neonpollinator/main.js",
+    "summary": "Raise a glowing pollinator to visit flowers and keep the luminous route alive.",
+    "summaryKo": "빛나는 꽃가루 운반자를 올려 꽃을 방문하고 환한 이동 경로를 이어가세요.",
+    "rules": [
+      "Raise a glowing pollinator to visit flowers and keep the luminous route alive.",
+      "Visiting flowers awards multiplied points; leaving the screen vertically ends the round."
+    ],
+    "rulesKo": [
+      "빛나는 꽃가루 운반자를 올려 꽃을 방문하고 환한 이동 경로를 이어가세요.",
+      "꽃을 방문하면 배수 점수를 얻고 화면 위나 아래로 벗어나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-orbit-grazer",
+    "slug": "orbit-grazer",
+    "title": "ORBIT GRAZER",
+    "category": "arcade",
+    "controls": ["Tap: Reverse orbit"],
+    "controlsKo": ["누르기: 공전 방향 반전"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/orbit-grazer/main.js",
+    "summary": "Reverse your orbit to narrowly graze passing asteroids without colliding.",
+    "summaryKo": "공전 방향을 뒤집어 지나가는 소행성에 부딪히지 않고 아슬아슬하게 스쳐 지나가세요.",
+    "rules": [
+      "Reverse your orbit to narrowly graze passing asteroids without colliding.",
+      "Near misses with asteroids score; direct contact ends the round."
+    ],
+    "rulesKo": [
+      "공전 방향을 뒤집어 지나가는 소행성에 부딪히지 않고 아슬아슬하게 스쳐 지나가세요.",
+      "소행성을 가까이 스치면 점수를 얻고 직접 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-outpostpatrol",
+    "slug": "outpostpatrol",
+    "title": "OUTPOST PATROL",
+    "category": "action",
+    "controls": ["Tap: Jump"],
+    "controlsKo": ["누르기: 점프"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/outpostpatrol/main.js",
+    "summary": "Patrol a looping outpost track and jump over obstacles and falling bombs.",
+    "summaryKo": "전초기지의 순환 경로를 순찰하며 장애물과 떨어지는 폭탄을 뛰어넘으세요.",
+    "rules": [
+      "Patrol a looping outpost track and jump over obstacles and falling bombs.",
+      "Patrolling earns points; meeting a hazard while not jumping ends the round."
+    ],
+    "rulesKo": [
+      "전초기지의 순환 경로를 순찰하며 장애물과 떨어지는 폭탄을 뛰어넘으세요.",
+      "순찰하며 점수를 얻고 점프하지 않은 상태로 위험과 만나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-periscopeping",
+    "slug": "periscopeping",
+    "title": "PERISCOPE PING",
+    "category": "shooting",
+    "controls": ["Hold: Ping", "Tap: Fire & Turn"],
+    "controlsKo": ["길게 누르기: 탐지", "누르기: 발사와 회전"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/periscopeping/main.js",
+    "summary": "Ping to locate threats, then turn and fire before approaching objects reach the central tower.",
+    "summaryKo": "탐지로 위협을 찾고 중앙 탑에 도달하기 전에 방향을 돌려 발사하세요.",
+    "rules": [
+      "Ping to locate threats, then turn and fire before approaching objects reach the central tower.",
+      "Distant hits earn more points; dangerous contact near the central defense ends the round."
+    ],
+    "rulesKo": [
+      "탐지로 위협을 찾고 중앙 탑에 도달하기 전에 방향을 돌려 발사하세요.",
+      "먼 곳을 맞힐수록 점수가 커지고 중앙 방어선 근처에서 위험하게 접촉하면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-phaserun",
+    "slug": "phaserun",
+    "title": "PHASERUN",
+    "category": "arcade",
+    "controls": ["Tap: Phase", "Hold: Grow"],
+    "controlsKo": ["누르기: 실체 전환", "길게 누르기: 성장"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/phaserun/main.js",
+    "summary": "Phase through obstacles as a ghost, then become solid to collect coins and grow.",
+    "summaryKo": "유령 상태로 장애물을 통과한 뒤 실체를 되찾아 동전을 모으고 몸을 키우세요.",
+    "rules": [
+      "Phase through obstacles as a ghost, then become solid to collect coins and grow.",
+      "Coins can be collected only while solid; obstacles are fatal only in the solid phase."
+    ],
+    "rulesKo": [
+      "유령 상태로 장애물을 통과한 뒤 실체를 되찾아 동전을 모으고 몸을 키우세요.",
+      "동전은 실체 상태에서만 얻을 수 있으며 장애물도 실체 상태에서만 치명적입니다."
+    ]
+  },
+  {
+    "id": "crisp-plasmasplitter",
+    "slug": "plasmasplitter",
+    "title": "PLASMA SPLITTER",
+    "category": "arcade",
+    "controls": ["Hold: Stop"],
+    "controlsKo": ["길게 누르기: 멈추기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/plasmasplitter/main.js",
+    "summary": "Stop and resume a plasma mover to line up with gaps in scrolling walls.",
+    "summaryKo": "플라스마의 움직임을 멈췄다가 재개해 스크롤되는 벽의 틈에 맞추세요.",
+    "rules": [
+      "Stop and resume a plasma mover to line up with gaps in scrolling walls.",
+      "Passing through gaps adds score; the plasma touching a wall ends the round."
+    ],
+    "rulesKo": [
+      "플라스마의 움직임을 멈췄다가 재개해 스크롤되는 벽의 틈에 맞추세요.",
+      "틈을 통과하면 점수를 얻고 플라스마가 벽에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-pod-migration",
+    "slug": "pod-migration",
+    "title": "Pod Migration",
+    "category": "arcade",
+    "controls": ["Tap: Change direction"],
+    "controlsKo": ["누르기: 방향 변경"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/pod-migration/main.js",
+    "summary": "Lead a following whale pod around ice floes and keep the migrating group together.",
+    "summaryKo": "뒤따르는 고래 무리를 이끌어 얼음 사이를 지나며 이동 대열을 지키세요.",
+    "rules": [
+      "Lead a following whale pod around ice floes and keep the migrating group together.",
+      "Pod whales breaking ice award points; losing all following whales ends the round."
+    ],
+    "rulesKo": [
+      "뒤따르는 고래 무리를 이끌어 얼음 사이를 지나며 이동 대열을 지키세요.",
+      "뒤따르는 고래가 얼음을 부수면 점수를 얻고 뒤따르는 고래를 모두 잃으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-pressbound",
+    "slug": "pressbound",
+    "title": "PRESSBOUND",
+    "category": "arcade",
+    "controls": ["Hold: Narrow", "Release: Release"],
+    "controlsKo": ["길게 누르기: 좁히기", "놓기: 풀기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/pressbound/main.js",
+    "summary": "Hold to freeze balls while walls close in; release a charged batch for points before any ball is crushed.",
+    "summaryKo": "벽이 좁혀오는 동안 공을 멈춰 충전하고 공이 찌그러지기 전에 놓아 점수를 얻으세요.",
+    "rules": [
+      "Hold to freeze balls while walls close in; release a charged batch for points before any ball is crushed.",
+      "Longer holds and more balls raise the release score; a crushed frozen ball or fully closed walls end the round."
+    ],
+    "rulesKo": [
+      "벽이 좁혀오는 동안 공을 멈춰 충전하고 공이 찌그러지기 전에 놓아 점수를 얻으세요.",
+      "오래 누르고 공이 많을수록 방출 점수가 커지며 멈춘 공이 눌리거나 벽이 완전히 닫히면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-pulse-stream",
+    "slug": "pulse-stream",
+    "title": "Pulse Stream",
+    "category": "arcade",
+    "controls": ["Tap: Push back drifting objects. Don't lose 3 lanes!"],
+    "controlsKo": ["누르기: 표류 물체 밀기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/pulse-stream/main.js",
+    "summary": "Send pulses down drifting lanes to push objects back before three lanes are lost.",
+    "summaryKo": "차선을 따라 표류하는 물체를 파동으로 밀어내고 세 차선을 모두 잃지 않도록 하세요.",
+    "rules": [
+      "Send pulses down drifting lanes to push objects back before three lanes are lost.",
+      "Timed pushes score, and pushing objects off the right earns a bonus; three disabled lanes end the round."
+    ],
+    "rulesKo": [
+      "차선을 따라 표류하는 물체를 파동으로 밀어내고 세 차선을 모두 잃지 않도록 하세요.",
+      "타이밍에 맞춘 밀기와 오른쪽으로 밀어낸 물체는 점수를 주고 세 차선이 막히면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-pulsepiper",
+    "slug": "pulsepiper",
+    "title": "PULSE PIPER",
+    "category": "arcade",
+    "controls": ["Hold: Charge"],
+    "controlsKo": ["길게 누르기: 충전"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/pulsepiper/main.js",
+    "summary": "Charge a moving pulse to widen its gap, then release beside red targets while avoiding purple walls.",
+    "summaryKo": "움직이는 파동을 충전해 간격을 넓히고 보라색 벽을 피하며 빨간 목표 옆에서 방출하세요.",
+    "rules": [
+      "Charge a moving pulse to widen its gap, then release beside red targets while avoiding purple walls.",
+      "Releasing beside red dots awards charged points; a yellow pulse striking a purple wall ends the round."
+    ],
+    "rulesKo": [
+      "움직이는 파동을 충전해 간격을 넓히고 보라색 벽을 피하며 빨간 목표 옆에서 방출하세요.",
+      "빨간 점 옆에서 방출하면 충전 점수를 얻고 노란 파동이 보라색 벽에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-quantumleaper",
+    "slug": "quantumleaper",
+    "title": "QUANTUM LEAPER",
+    "category": "arcade",
+    "controls": ["Tap: Change lane"],
+    "controlsKo": ["누르기: 차선 변경"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/quantumleaper/main.js",
+    "summary": "Leap between lanes to avoid incoming obstacles and extend your run.",
+    "summaryKo": "차선 사이를 뛰어다니며 다가오는 장애물을 피하고 달리기를 이어가세요.",
+    "rules": [
+      "Leap between lanes to avoid incoming obstacles and extend your run.",
+      "Collecting lane rewards builds a multiplier; touching a purple obstacle ends the round."
+    ],
+    "rulesKo": [
+      "차선 사이를 뛰어다니며 다가오는 장애물을 피하고 달리기를 이어가세요.",
+      "차선의 보상을 모으면 배수가 쌓이고 보라색 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-recoil-radar",
+    "slug": "recoil-radar",
+    "title": "RECOIL RADAR",
+    "category": "shooting",
+    "controls": ["Hold: Charge Scan", "Release: Fire + Recoil"],
+    "controlsKo": ["길게 누르기: 탐지 충전", "놓기: 발사와 반동"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/recoil-radar/main.js",
+    "summary": "Charge a radar scan and release a shot whose recoil changes your position.",
+    "summaryKo": "레이더 탐지를 충전한 뒤 반동으로 위치가 바뀌는 탄환을 발사하세요.",
+    "rules": [
+      "Charge a radar scan and release a shot whose recoil changes your position.",
+      "A sufficiently charged shot can score on its target; a rock hitting the ship ends the round."
+    ],
+    "rulesKo": [
+      "레이더 탐지를 충전한 뒤 반동으로 위치가 바뀌는 탄환을 발사하세요.",
+      "충분히 충전한 탄환을 목표에 맞히면 점수를 얻고 바위가 기체에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-rocket-trail",
+    "slug": "rocket-trail",
+    "title": "Rocket Trail",
+    "category": "shooting",
+    "controls": ["Hold: Thrust & Destroy"],
+    "controlsKo": ["길게 누르기: 추진과 파괴"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/rocket-trail/main.js",
+    "summary": "Thrust a rocket and use its destructive trail to clear threats along the route.",
+    "summaryKo": "로켓을 추진하고 파괴적인 흔적을 이용해 이동 경로의 위협을 제거하세요.",
+    "rules": [
+      "Thrust a rocket and use its destructive trail to clear threats along the route.",
+      "The flame trail destroys asteroids for multiplied points; leaving the vertical play area ends the round."
+    ],
+    "rulesKo": [
+      "로켓을 추진하고 파괴적인 흔적을 이용해 이동 경로의 위협을 제거하세요.",
+      "불꽃 흔적이 소행성을 파괴하면 배수 점수를 얻고 세로 화면 밖으로 벗어나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-rope-corral",
+    "slug": "rope-corral",
+    "title": "ROPE CORRAL",
+    "category": "action",
+    "controls": ["Hold: Anchor & swing", "Release: Roll on"],
+    "controlsKo": ["길게 누르기: 고정점 잡고 회전", "놓기: 굴러가기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/rope-corral/main.js",
+    "summary": "Swing a full circle to corral creatures and spikes, then release to roll; touching a spike directly ends the round.",
+    "summaryKo": "한 바퀴 회전해 생물과 가시를 둘러잡고 놓아서 굴러가세요. 가시에 직접 닿으면 종료됩니다.",
+    "rules": [
+      "Swing a full circle to corral creatures and spikes, then release to roll; touching a spike directly ends the round.",
+      "Full-circle captures award a squared group bonus; touching a spike directly ends the round."
+    ],
+    "rulesKo": [
+      "한 바퀴 회전해 생물과 가시를 둘러잡고 놓아서 굴러가세요. 가시에 직접 닿으면 종료됩니다.",
+      "한 바퀴로 무리를 잡으면 제곱 보너스를 얻고 가시에 직접 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-rotatingtunnel",
+    "slug": "rotatingtunnel",
+    "title": "ROTATING TUNNEL",
+    "category": "arcade",
+    "controls": ["Hold: Move outward", "Release: Move inward"],
+    "controlsKo": ["길게 누르기: 바깥쪽 이동", "놓기: 안쪽 이동"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/rotatingtunnel/main.js",
+    "summary": "Shift inward and outward inside a rotating tunnel to thread approaching gaps.",
+    "summaryKo": "회전 터널의 안쪽과 바깥쪽을 오가며 다가오는 틈을 통과하세요.",
+    "rules": [
+      "Shift inward and outward inside a rotating tunnel to thread approaching gaps.",
+      "Threading safe openings earns multiplied points; an unsafe obstacle encounter ends the round."
+    ],
+    "rulesKo": [
+      "회전 터널의 안쪽과 바깥쪽을 오가며 다가오는 틈을 통과하세요.",
+      "안전한 틈을 지나면 배수 점수를 얻고 장애물과 위험하게 만나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-rotationrod",
+    "slug": "rotationrod",
+    "title": "ROTATION ROD",
+    "category": "arcade",
+    "controls": ["Tap: Turn", "Hold: Pause rotation"],
+    "controlsKo": ["누르기: 회전 방향 변경", "길게 누르기: 회전 멈추기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/rotationrod/main.js",
+    "summary": "Turn a rotating rod at carefully chosen moments to navigate its obstacles.",
+    "summaryKo": "막대가 회전하는 타이밍을 보고 방향을 바꿔 장애물을 통과하세요.",
+    "rules": [
+      "Turn a rotating rod at carefully chosen moments to navigate its obstacles.",
+      "Yellow collectibles raise the score; a red obstacle striking the rod ends the round."
+    ],
+    "rulesKo": [
+      "막대가 회전하는 타이밍을 보고 방향을 바꿔 장애물을 통과하세요.",
+      "노란 수집물은 점수를 올리고 빨간 장애물이 막대에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-skyraftsman",
+    "slug": "skyraftsman",
+    "title": "SKY RAFTSMAN",
+    "category": "action",
+    "controls": ["Tap: Jump"],
+    "controlsKo": ["누르기: 점프"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/skyraftsman/main.js",
+    "summary": "Jump between sky rafts and stay on the moving route above the drop.",
+    "summaryKo": "하늘의 뗏목 사이를 뛰며 떨어지지 않고 움직이는 경로를 따라가세요.",
+    "rules": [
+      "Jump between sky rafts and stay on the moving route above the drop.",
+      "Landing on rafts earns points; falling below the screen ends the round."
+    ],
+    "rulesKo": [
+      "하늘의 뗏목 사이를 뛰며 떨어지지 않고 움직이는 경로를 따라가세요.",
+      "뗏목에 착지하면 점수를 얻고 화면 아래로 떨어지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-slimestretcher",
+    "slug": "slimestretcher",
+    "title": "SLIME STRETCHER",
+    "category": "arcade",
+    "controls": ["Hold: Stretch", "Release: Contract"],
+    "controlsKo": ["길게 누르기: 늘리기", "놓기: 줄이기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/slimestretcher/main.js",
+    "summary": "Stretch and contract a slime to fit through changing spaces.",
+    "summaryKo": "슬라임을 늘리거나 줄여 변화하는 공간의 틈에 맞추세요.",
+    "rules": [
+      "Stretch and contract a slime to fit through changing spaces.",
+      "Collectibles build a multiplier; being pushed off the left side ends the round."
+    ],
+    "rulesKo": [
+      "슬라임을 늘리거나 줄여 변화하는 공간의 틈에 맞추세요.",
+      "수집물로 배수를 쌓고 화면 왼쪽 밖으로 밀려나면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-spin-cell",
+    "slug": "spin-cell",
+    "title": "SPIN CELL",
+    "category": "puzzle",
+    "controls": ["Tap: Rotate the cell"],
+    "controlsKo": ["누르기: 방 회전"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/spin-cell/main.js",
+    "summary": "Rotate the cell perimeter to move spikes and gems around a bouncing ball.",
+    "summaryKo": "방의 테두리를 회전시켜 튀는 공 주변의 가시와 보석 위치를 바꾸세요.",
+    "rules": [
+      "Rotate the cell perimeter to move spikes and gems around a bouncing ball.",
+      "Gems score more as the spike count rises; spike contact starts the round-ending fall."
+    ],
+    "rulesKo": [
+      "방의 테두리를 회전시켜 튀는 공 주변의 가시와 보석 위치를 바꾸세요.",
+      "가시가 많을수록 보석 점수가 커지고 가시에 닿으면 종료되는 추락이 시작됩니다."
+    ]
+  },
+  {
+    "id": "crisp-splitzig",
+    "slug": "splitzig",
+    "title": "SPLITZIG",
+    "category": "arcade",
+    "controls": ["Tap: Turn"],
+    "controlsKo": ["누르기: 방향 전환"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/splitzig/main.js",
+    "summary": "Turn an auto-firing runner to break bouncing blocks before the rising stack or a block catches you.",
+    "summaryKo": "자동으로 발사하는 주자의 방향을 바꿔 튀는 블록을 부수고 쌓여 올라오는 바닥과 충돌을 피하세요.",
+    "rules": [
+      "Turn an auto-firing runner to break bouncing blocks before the rising stack or a block catches you.",
+      "Shots break blocks for points; a block collision or a stack reaching the ceiling ends the round."
+    ],
+    "rulesKo": [
+      "자동으로 발사하는 주자의 방향을 바꿔 튀는 블록을 부수고 쌓여 올라오는 바닥과 충돌을 피하세요.",
+      "탄환으로 블록을 부수면 점수를 얻고 블록 충돌이나 천장에 닿은 쌓임은 종료로 이어집니다."
+    ]
+  },
+  {
+    "id": "crisp-stageseparation",
+    "slug": "stageseparation",
+    "title": "STAGE SEPARATION",
+    "category": "arcade",
+    "controls": ["Tap: Staging"],
+    "controlsKo": ["누르기: 로켓 단 분리"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/stageseparation/main.js",
+    "summary": "Separate rocket stages at the right time to keep climbing.",
+    "summaryKo": "적절한 순간에 로켓의 단을 분리해 계속 상승하세요.",
+    "rules": [
+      "Separate rocket stages at the right time to keep climbing.",
+      "Upward rocket travel adds score; falling behind or colliding with debris ends the round."
+    ],
+    "rulesKo": [
+      "적절한 순간에 로켓의 단을 분리해 계속 상승하세요.",
+      "로켓의 상승은 점수를 주고 뒤로 처지거나 잔해에 부딪히면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-star-eater",
+    "slug": "star-eater",
+    "title": "STAR EATER",
+    "category": "shooting",
+    "controls": ["Hold: Charge", "Release: Blast"],
+    "controlsKo": ["길게 누르기: 충전", "놓기: 폭발"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/star-eater/main.js",
+    "summary": "Charge a larger blast to destroy groups of asteroids, accepting a bigger collision target while charging.",
+    "summaryKo": "충전 중 커지는 충돌 범위를 감수하며 큰 폭발로 소행성 무리를 한꺼번에 제거하세요.",
+    "rules": [
+      "Charge a larger blast to destroy groups of asteroids, accepting a bigger collision target while charging.",
+      "Destroying several asteroids in a blast increases the combo reward; direct asteroid contact ends the round."
+    ],
+    "rulesKo": [
+      "충전 중 커지는 충돌 범위를 감수하며 큰 폭발로 소행성 무리를 한꺼번에 제거하세요.",
+      "한 폭발로 여러 소행성을 없애면 연속 보상이 커지고 소행성에 직접 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-stillfire-choir",
+    "slug": "stillfire-choir",
+    "title": "STILLFIRE CHOIR",
+    "category": "shooting",
+    "controls": ["Hold: Fix choir Auto-ray on pulse"],
+    "controlsKo": ["길게 누르기: 합창단 고정"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/stillfire-choir/main.js",
+    "summary": "Fix a moving choir in place and align its automatic pulse rays with targets.",
+    "summaryKo": "움직이는 합창단을 제자리에 고정해 자동으로 나가는 파동 광선을 목표에 맞추세요.",
+    "rules": [
+      "Fix a moving choir in place and align its automatic pulse rays with targets.",
+      "Gathering voices and hitting enemies adds points; an enemy touching the choir ends the round."
+    ],
+    "rulesKo": [
+      "움직이는 합창단을 제자리에 고정해 자동으로 나가는 파동 광선을 목표에 맞추세요.",
+      "목소리를 모으거나 적을 맞히면 점수를 얻고 적이 합창단에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-stompingbubbles",
+    "slug": "stompingbubbles",
+    "title": "STOMPING BUBBLES",
+    "category": "arcade",
+    "controls": ["Hold: Stomp"],
+    "controlsKo": ["길게 누르기: 내려찍기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/stompingbubbles/main.js",
+    "summary": "Stomp downward onto bubbles and use their rebounds to continue bouncing.",
+    "summaryKo": "방울 위를 아래로 찍고 튀어 오르는 반동으로 움직임을 이어가세요.",
+    "rules": [
+      "Stomp downward onto bubbles and use their rebounds to continue bouncing.",
+      "Burst bubbles can trigger scoring chains; falling below the screen ends the round."
+    ],
+    "rulesKo": [
+      "방울 위를 아래로 찍고 튀어 오르는 반동으로 움직임을 이어가세요.",
+      "터진 방울은 점수 연쇄를 만들 수 있으며 화면 아래로 떨어지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-stompshelter",
+    "slug": "stompshelter",
+    "title": "STOMPSHELTER",
+    "category": "action",
+    "controls": ["Tap: Double Jump", "Hold: Slide"],
+    "controlsKo": ["누르기: 이단 점프", "길게 누르기: 슬라이딩"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/stompshelter/main.js",
+    "summary": "Double-jump above rising lava, stomp enemies and slide past falling debris.",
+    "summaryKo": "차오르는 용암 위에서 이단 점프하고 적을 밟으며 떨어지는 파편은 슬라이딩으로 피하세요.",
+    "rules": [
+      "Double-jump above rising lava, stomp enemies and slide past falling debris.",
+      "Upward progress and enemy stomps score; lava, enemy side contact or falling debris ends the round."
+    ],
+    "rulesKo": [
+      "차오르는 용암 위에서 이단 점프하고 적을 밟으며 떨어지는 파편은 슬라이딩으로 피하세요.",
+      "위로 전진하거나 적을 밟으면 점수를 얻고 용암·적의 옆면·낙하 파편에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-stormveil",
+    "slug": "stormveil",
+    "title": "STORMVEIL",
+    "category": "arcade",
+    "controls": ["Tap: Switch Lane"],
+    "controlsKo": ["누르기: 차선 변경"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/stormveil/main.js",
+    "summary": "Cycle between three lanes to collect coins in the safe lane of each incoming obstacle row.",
+    "summaryKo": "세 차선을 차례로 바꿔 다가오는 장애물 줄의 안전한 차선에서 동전을 모으세요.",
+    "rules": [
+      "Cycle between three lanes to collect coins in the safe lane of each incoming obstacle row.",
+      "Coins increase the multiplier; hitting an obstacle ends the round."
+    ],
+    "rulesKo": [
+      "세 차선을 차례로 바꿔 다가오는 장애물 줄의 안전한 차선에서 동전을 모으세요.",
+      "동전은 배수를 높이고 장애물에 부딪히면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-sunflowersway",
+    "slug": "sunflowersway",
+    "title": "SUNFLOWER SWAY",
+    "category": "arcade",
+    "controls": ["Hold: Sunny"],
+    "controlsKo": ["길게 누르기: 햇빛 비추기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/sunflowersway/main.js",
+    "summary": "Control sunny intervals to guide a swaying sunflower through its growth challenge.",
+    "summaryKo": "햇빛을 비추는 시간을 조절하며 흔들리는 해바라기의 성장 도전을 이어가세요.",
+    "rules": [
+      "Control sunny intervals to guide a swaying sunflower through its growth challenge.",
+      "Catching dewdrops scores according to flower height; shrinking below the minimum height ends the round."
+    ],
+    "rulesKo": [
+      "햇빛을 비추는 시간을 조절하며 흔들리는 해바라기의 성장 도전을 이어가세요.",
+      "이슬을 받으면 꽃 높이에 따른 점수를 얻고 최소 높이보다 작아지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-switchboard",
+    "slug": "switchboard",
+    "title": "SWITCHBOARD",
+    "category": "puzzle",
+    "controls": ["Hold: Connect calls"],
+    "controlsKo": ["길게 누르기: 전화 연결"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/switchboard/main.js",
+    "summary": "Connect requested numbered plugs before calls time out and contracts are lost.",
+    "summaryKo": "요청된 번호의 플러그를 연결해 통화 시간이 초과되어 계약을 잃기 전에 처리하세요.",
+    "rules": [
+      "Connect requested numbered plugs before calls time out and contracts are lost.",
+      "Correct connections earn multiplied points; losing three contracts through timeout or wrong connections ends the round."
+    ],
+    "rulesKo": [
+      "요청된 번호의 플러그를 연결해 통화 시간이 초과되어 계약을 잃기 전에 처리하세요.",
+      "올바른 연결은 배수 점수를 주고 시간 초과나 오접속으로 계약 세 개를 잃으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-tectonic-tether",
+    "slug": "tectonic-tether",
+    "title": "Tectonic Tether",
+    "category": "action",
+    "controls": ["Hold: Charge & Retract", "Release: Extend"],
+    "controlsKo": ["길게 누르기: 충전과 회수", "놓기: 늘리기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/tectonic-tether/main.js",
+    "summary": "Shorten and charge a swinging tether, then extend it to smash asteroids and gather geodes before absorption power runs out.",
+    "summaryKo": "회전하는 연결선을 줄여 충전한 뒤 늘려 소행성을 부수고 흡수력이 소진되기 전에 정동석을 모으세요.",
+    "rules": [
+      "Shorten and charge a swinging tether, then extend it to smash asteroids and gather geodes before absorption power runs out.",
+      "Collect geodes to refill absorption power and smash asteroids for bonuses; depleted absorption power ends the round."
+    ],
+    "rulesKo": [
+      "회전하는 연결선을 줄여 충전한 뒤 늘려 소행성을 부수고 흡수력이 소진되기 전에 정동석을 모으세요.",
+      "정동석으로 흡수력을 채우고 소행성을 부숴 보너스를 얻으며 흡수력이 소진되면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-tongue-hunter",
+    "slug": "tongue-hunter",
+    "title": "TONGUE HUNTER",
+    "category": "action",
+    "controls": ["Hold: Extend tongue"],
+    "controlsKo": ["길게 누르기: 혀 늘리기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/tongue-hunter/main.js",
+    "summary": "Extend a tongue to hunt targets while timing its reach around danger.",
+    "summaryKo": "혀를 늘려 목표를 사냥하고 위험에 맞춰 뻗는 길이와 시간을 조절하세요.",
+    "rules": [
+      "Extend a tongue to hunt targets while timing its reach around danger.",
+      "Longer successful catches build a combo; the tongue touching a hazard ends the round."
+    ],
+    "rulesKo": [
+      "혀를 늘려 목표를 사냥하고 위험에 맞춰 뻗는 길이와 시간을 조절하세요.",
+      "길게 뻗어 성공한 사냥은 연속 보너스를 쌓고 혀가 위험에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-tornadotwister",
+    "slug": "tornadotwister",
+    "title": "TORNADO TWISTER",
+    "category": "arcade",
+    "controls": ["Tap: Change direction", "Hold: Shrink & slow down"],
+    "controlsKo": ["누르기: 방향 변경", "길게 누르기: 축소와 감속"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/tornadotwister/main.js",
+    "summary": "Reverse a tornado or shrink and slow it to weave through obstacles.",
+    "summaryKo": "회오리의 방향을 뒤집거나 크기와 속도를 줄여 장애물 사이를 지나가세요.",
+    "rules": [
+      "Reverse a tornado or shrink and slow it to weave through obstacles.",
+      "Sucked-in objects score according to size; the tornado touching an obstacle ends the round."
+    ],
+    "rulesKo": [
+      "회오리의 방향을 뒤집거나 크기와 속도를 줄여 장애물 사이를 지나가세요.",
+      "빨아들인 물체는 크기에 따른 점수를 주고 회오리가 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-trojan-defense",
+    "slug": "trojan-defense",
+    "title": "TROJAN DEFENSE",
+    "category": "action",
+    "controls": ["Tap: Change Direction", "Hold: Extend Shield"],
+    "controlsKo": ["누르기: 방향 변경", "길게 누르기: 방패 펼치기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/trojan-defense/main.js",
+    "summary": "Turn a defender and extend its shield to stop incoming attacks.",
+    "summaryKo": "수비자의 방향을 바꾸고 방패를 펼쳐 다가오는 공격을 막으세요.",
+    "rules": [
+      "Turn a defender and extend its shield to stop incoming attacks.",
+      "Reflected projectiles defeat enemies for points; a projectile reaching the protected horse ends the round."
+    ],
+    "rulesKo": [
+      "수비자의 방향을 바꾸고 방패를 펼쳐 다가오는 공격을 막으세요.",
+      "반사한 탄환으로 적을 쓰러뜨리면 점수를 얻고 탄환이 보호하는 목마에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-turbotunnel",
+    "slug": "turbotunnel",
+    "title": "TURBO TUNNEL",
+    "category": "arcade",
+    "controls": ["Tap: Turn"],
+    "controlsKo": ["누르기: 방향 전환"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/turbotunnel/main.js",
+    "summary": "Turn through a fast tunnel and keep away from its closing hazards.",
+    "summaryKo": "빠른 터널에서 방향을 바꾸며 다가오는 위험을 피해 나가세요.",
+    "rules": [
+      "Turn through a fast tunnel and keep away from its closing hazards.",
+      "Successful obstacle clears earn multiplied points; hitting an uncleared danger ends the round."
+    ],
+    "rulesKo": [
+      "빠른 터널에서 방향을 바꾸며 다가오는 위험을 피해 나가세요.",
+      "장애물을 잘 처리하면 배수 점수를 얻고 처리하지 못한 위험에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-turtletide",
+    "slug": "turtletide",
+    "title": "TURTLE TIDE",
+    "category": "arcade",
+    "controls": ["Hold: Dive & Speed up"],
+    "controlsKo": ["길게 누르기: 잠수와 가속"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/turtletide/main.js",
+    "summary": "Dive and speed up a turtle to travel safely through the moving tide.",
+    "summaryKo": "거북이를 잠수시키고 가속해 움직이는 조류 속을 안전하게 이동하세요.",
+    "rules": [
+      "Dive and speed up a turtle to travel safely through the moving tide.",
+      "Forward travel earns points; touching either an underwater or surface obstacle ends the round."
+    ],
+    "rulesKo": [
+      "거북이를 잠수시키고 가속해 움직이는 조류 속을 안전하게 이동하세요.",
+      "앞으로 이동하면 점수를 얻고 물속이나 수면 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-twinjumpers",
+    "slug": "twinjumpers",
+    "title": "TWIN JUMPERS",
+    "category": "action",
+    "controls": ["Tap: Jump"],
+    "controlsKo": ["누르기: 점프"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/twinjumpers/main.js",
+    "summary": "Time shared jumps for two travelers and keep both clear of hazards.",
+    "summaryKo": "두 여행자의 점프 시점을 맞춰 둘 다 위험에 닿지 않게 하세요.",
+    "rules": [
+      "Time shared jumps for two travelers and keep both clear of hazards.",
+      "Scrolling progress earns points; either jumper falling below the screen ends the round."
+    ],
+    "rulesKo": [
+      "두 여행자의 점프 시점을 맞춰 둘 다 위험에 닿지 않게 하세요.",
+      "스크롤 진행은 점수를 주고 두 캐릭터 중 하나라도 화면 아래로 떨어지면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-vineclimber",
+    "slug": "vineclimber",
+    "title": "VINE CLIMBER",
+    "category": "action",
+    "controls": ["Hold: Climb", "Release: Slide"],
+    "controlsKo": ["길게 누르기: 오르기", "놓기: 미끄러지기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/vineclimber/main.js",
+    "summary": "Climb a vine or slide back down to thread gaps between approaching hazards.",
+    "summaryKo": "덩굴을 오르거나 미끄러져 내려오며 다가오는 위험 사이의 틈을 통과하세요.",
+    "rules": [
+      "Climb a vine or slide back down to thread gaps between approaching hazards.",
+      "Coins award multiplied points; touching the enemy character ends the round."
+    ],
+    "rulesKo": [
+      "덩굴을 오르거나 미끄러져 내려오며 다가오는 위험 사이의 틈을 통과하세요.",
+      "동전은 배수 점수를 주고 적 캐릭터에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-wavybird",
+    "slug": "wavybird",
+    "title": "WAVY BIRD",
+    "category": "arcade",
+    "controls": ["Tap: Flap"],
+    "controlsKo": ["누르기: 날갯짓"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/wavybird/main.js",
+    "summary": "Flap to launch shockwaves and guide a bird between scrolling pillars.",
+    "summaryKo": "날갯짓으로 충격파를 만들며 스크롤되는 기둥 사이로 새를 이끄세요.",
+    "rules": [
+      "Flap to launch shockwaves and guide a bird between scrolling pillars.",
+      "Passing pillars builds multiplied points; pillar contact or leaving the vertical area ends the round."
+    ],
+    "rulesKo": [
+      "날갯짓으로 충격파를 만들며 스크롤되는 기둥 사이로 새를 이끄세요.",
+      "기둥을 지나면 배수 점수를 얻고 기둥 충돌이나 세로 영역 이탈은 종료로 이어집니다."
+    ]
+  },
+  {
+    "id": "crisp-windowwasher",
+    "slug": "windowwasher",
+    "title": "WINDOW WASHER",
+    "category": "arcade",
+    "controls": ["Hold: Ascend", "Release: Descend Clean windows!"],
+    "controlsKo": ["길게 누르기: 상승", "놓기: 하강"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/windowwasher/main.js",
+    "summary": "Raise and lower a window washer to clean the building while managing the route.",
+    "summaryKo": "창문 청소부를 올리거나 내려 건물의 창문을 닦으며 경로를 관리하세요.",
+    "rules": [
+      "Raise and lower a window washer to clean the building while managing the route.",
+      "Cleaning windows awards multiplied points; touching a bird or obstacle ends the round."
+    ],
+    "rulesKo": [
+      "창문 청소부를 올리거나 내려 건물의 창문을 닦으며 경로를 관리하세요.",
+      "창문을 닦으면 배수 점수를 얻고 새나 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-windpower",
+    "slug": "windpower",
+    "title": "WIND POWER",
+    "category": "arcade",
+    "controls": ["Hold: Blow air"],
+    "controlsKo": ["길게 누르기: 바람 불기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/windpower/main.js",
+    "summary": "Blow air to spin a windmill for points, but keep falling obstacles away from its blades.",
+    "summaryKo": "바람을 불어 풍차를 돌려 점수를 얻고 떨어지는 장애물이 날개에 닿지 않게 하세요.",
+    "rules": [
+      "Blow air to spin a windmill for points, but keep falling obstacles away from its blades.",
+      "A faster windmill scores more; a falling obstacle striking its blades ends the round."
+    ],
+    "rulesKo": [
+      "바람을 불어 풍차를 돌려 점수를 얻고 떨어지는 장애물이 날개에 닿지 않게 하세요.",
+      "풍차가 빠를수록 점수가 커지고 떨어지는 장애물이 날개에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-wipe-blade",
+    "slug": "wipe-blade",
+    "title": "WIPE BLADE",
+    "category": "action",
+    "controls": ["Tap: Wipe attack"],
+    "controlsKo": ["누르기: 쓸어 베기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/-revised/wipe-blade/main.js",
+    "summary": "Sweep a blade across the field to cut approaching threats at the right moment.",
+    "summaryKo": "칼날로 공간을 쓸어 베며 다가오는 위협에 맞춰 공격하세요.",
+    "rules": [
+      "Sweep a blade across the field to cut approaching threats at the right moment.",
+      "Catching several enemies in a sweep builds a combo; an enemy reaching the central core ends the round."
+    ],
+    "rulesKo": [
+      "칼날로 공간을 쓸어 베며 다가오는 위협에 맞춰 공격하세요.",
+      "한 번에 여러 적을 베면 연속 보너스가 쌓이고 적이 중앙 핵에 도달하면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-zipfall",
+    "slug": "zipfall",
+    "title": "ZIP FALL",
+    "category": "arcade",
+    "controls": ["Tap: Fall"],
+    "controlsKo": ["누르기: 낙하"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/claude-one-button-game-creation/blob/d81f02a0928b35d9c979e9918aa9dc3c2770821b/docs/zipfall/main.js",
+    "summary": "Drop between rising zip-lines at the right moment to collect items and dodge hazards.",
+    "summaryKo": "올라가는 집라인 사이에서 알맞은 순간에 내려와 아이템을 모으고 위험을 피하세요.",
+    "rules": [
+      "Drop between rising zip-lines at the right moment to collect items and dodge hazards.",
+      "Collectibles award multiplied points; touching hazards or being carried above the top ends the round."
+    ],
+    "rulesKo": [
+      "올라가는 집라인 사이에서 알맞은 순간에 내려와 아이템을 모으고 위험을 피하세요.",
+      "수집물은 배수 점수를 주고 위험에 닿거나 화면 위로 떠밀려 올라가면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-bubblebounce",
+    "slug": "bubblebounce",
+    "title": "BUBBLE BOUNCE",
+    "category": "arcade",
+    "controls": ["Hold: Turn Collect Stars Avoid Spikes"],
+    "controlsKo": ["길게 누르기: 회전"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/one-button-game-builder/blob/082e5c92d44433fa0287b210ad23b7466699d503/docs/bubblebounce/main.js",
+    "summary": "Turn a bouncing bubble to collect stars while avoiding spikes.",
+    "summaryKo": "튀어 다니는 방울의 방향을 바꿔 별을 모으고 가시를 피하세요.",
+    "rules": [
+      "Turn a bouncing bubble to collect stars while avoiding spikes.",
+      "Each star awards ten points; touching a spike ends the round."
+    ],
+    "rulesKo": [
+      "튀어 다니는 방울의 방향을 바꿔 별을 모으고 가시를 피하세요.",
+      "별 하나는 10점을 주고 가시에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-laserdeflection",
+    "slug": "laserdeflection",
+    "title": "Laser Deflection",
+    "category": "action",
+    "controls": ["Hold: Rotate Shield"],
+    "controlsKo": ["길게 누르기: 방패 회전"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/one-button-game-builder/blob/082e5c92d44433fa0287b210ad23b7466699d503/docs/laserdeflection/main.js",
+    "summary": "Rotate a shield to deflect incoming lasers before they strike you.",
+    "summaryKo": "방패를 돌려 다가오는 레이저가 몸에 닿기 전에 튕겨내세요.",
+    "rules": [
+      "Rotate a shield to deflect incoming lasers before they strike you.",
+      "Successful laser deflections add points; a laser reaching the core ends the round."
+    ],
+    "rulesKo": [
+      "방패를 돌려 다가오는 레이저가 몸에 닿기 전에 튕겨내세요.",
+      "레이저를 잘 튕기면 점수를 얻고 레이저가 핵에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-laststand",
+    "slug": "laststand",
+    "title": "LAST STAND",
+    "category": "action",
+    "controls": ["Tap: Turn", "Hold: Defense"],
+    "controlsKo": ["누르기: 방향 전환", "길게 누르기: 방어"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/one-button-game-builder/blob/082e5c92d44433fa0287b210ad23b7466699d503/docs/laststand/main.js",
+    "summary": "Turn toward incoming threats and hold your defense for a last stand.",
+    "summaryKo": "다가오는 위협을 향해 방향을 바꾸고 방어를 유지해 끝까지 버티세요.",
+    "rules": [
+      "Turn toward incoming threats and hold your defense for a last stand.",
+      "Hits and defeated enemies score; enemy or projectile contact with the player ends the round."
+    ],
+    "rulesKo": [
+      "다가오는 위협을 향해 방향을 바꾸고 방어를 유지해 끝까지 버티세요.",
+      "공격과 적 처치로 점수를 얻고 적이나 탄환이 플레이어에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-timetravelrun",
+    "slug": "timetravelrun",
+    "title": "TIME TRAVEL RUN",
+    "category": "arcade",
+    "controls": ["Hold: Slow time"],
+    "controlsKo": ["길게 누르기: 시간 늦추기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/one-button-game-builder/blob/082e5c92d44433fa0287b210ad23b7466699d503/docs/timetravelrun/main.js",
+    "summary": "Slow time to judge obstacles and guide a runner through the course.",
+    "summaryKo": "시간을 늦춰 장애물을 판단하고 주자를 경로 끝까지 이끄세요.",
+    "rules": [
+      "Slow time to judge obstacles and guide a runner through the course.",
+      "Passing obstacles and collecting coins scores; obstacle contact ends the round."
+    ],
+    "rulesKo": [
+      "시간을 늦춰 장애물을 판단하고 주자를 경로 끝까지 이끄세요.",
+      "장애물 통과와 동전 수집으로 점수를 얻고 장애물에 닿으면 종료됩니다."
+    ]
+  },
+  {
+    "id": "crisp-towerclimb",
+    "slug": "towerclimb",
+    "title": "TOWER CLIMB",
+    "category": "action",
+    "controls": ["Hold: Stretch Tower"],
+    "controlsKo": ["길게 누르기: 탑 늘리기"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/abagames/one-button-game-builder/blob/082e5c92d44433fa0287b210ad23b7466699d503/docs/towerclimb/main.js",
+    "summary": "Stretch a tower to shape the next step of an upward climb.",
+    "summaryKo": "탑을 늘려 위로 올라갈 다음 발판을 만드세요.",
+    "rules": [
+      "Stretch a tower to shape the next step of an upward climb.",
+      "Meeting obstacles with the tower earns height-sensitive points; player contact or reaching the ceiling ends the round."
+    ],
+    "rulesKo": [
+      "탑을 늘려 위로 올라갈 다음 발판을 만드세요.",
+      "탑으로 장애물을 받으면 높이에 따른 점수를 얻고 캐릭터 충돌이나 천장 도달은 종료로 이어집니다."
+    ]
+  },
+  {
+    "id": "crisp-signal-crossing",
+    "slug": "signal-crossing",
+    "title": "Signal Crossing",
+    "category": "arcade",
+    "controls": ["Tap: Switch the green road"],
+    "controlsKo": ["누르기: 초록 신호 도로 전환"],
+    "pointer": false,
+    "digits": false,
+    "source": "https://github.com/iamdenny/denny-games/blob/main/public/vendor/crisp/games/signal-crossing/main.js",
+    "author": "Denny Games",
+    "original": true,
+    "notice": "/licenses/crisp/signal-crossing.txt",
+    "summary": "Balance two crossing traffic queues by switching green lights only after committed cars have cleared the intersection.",
+    "summaryKo": "교차로에 진입한 자동차가 빠져나가는 시간을 살피며 두 도로의 초록 신호를 번갈아 켜세요.",
+    "rules": [
+      "Tap to switch the green road immediately; cars beyond the white stop line keep moving even when their light turns red.",
+      "Each car leaving safely earns one point. Crossing collisions, an overflowing entrance or a car waiting thirteen seconds end the round as arrivals gradually accelerate."
+    ],
+    "rulesKo": [
+      "누르면 초록 신호 도로가 즉시 바뀝니다. 흰 정지선을 지난 자동차는 빨간 신호로 바뀌어도 계속 움직입니다.",
+      "자동차가 안전하게 빠져나가면 1점을 얻습니다. 교차로 충돌, 입구 대기열 넘침 또는 13초 대기로 종료되며 자동차 유입은 점차 빨라집니다."
+    ],
+    "tips": [
+      "Wait until both crossing lanes are clear before switching. A red car or QUEUE warning means the other road needs attention."
+    ],
+    "tipsKo": [
+      "교차로 안의 두 차로가 비었을 때 전환하세요. 빨갛게 변한 자동차나 QUEUE 표시는 대기 중인 도로를 살펴야 한다는 뜻입니다."
+    ]
+  }
+]

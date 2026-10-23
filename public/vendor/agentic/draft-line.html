@@ -1,0 +1,4731 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>draft-line · ABA Games</title><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://games.iamdenny.com/en/games/agentic-draft-line/"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; media-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'"><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c13;display:grid;place-items:center}canvas{margin:0!important;width:100%!important;height:100%!important;max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;touch-action:none;display:block}</style></head><body><canvas width="300" height="150" id="screen"></canvas><script>/* Denny Games lifecycle adapter; upstream sources remain unmodified. */
+(()=>{
+ const channel=new URLSearchParams(location.search).get('channel');
+ const parentOrigin=document.referrer?new URL(document.referrer).origin:location.origin;
+ const post=(type,data={})=>parent.postMessage({channel,type,...data},parentOrigin);
+ const nativeRAF=window.requestAnimationFrame.bind(window);
+ let now=performance.now(),next=1,queue=new Map(),running=false,ended=false,hook,started=false,ticks=0,lastScore=-1,sound=false;
+ Object.defineProperty(performance,'now',{value:()=>now});
+ window.requestAnimationFrame=cb=>{const id=next++;queue.set(id,cb);return id;};
+ window.cancelAnimationFrame=id=>queue.delete(id);
+ const timers=new Map();
+ window.setTimeout=(fn,delay=0,...args)=>{const id=next++;timers.set(id,{fn,args,at:now+Math.max(1,Number(delay)||0),period:0});return id;};
+ window.setInterval=(fn,delay=0,...args)=>{const id=next++,period=Math.max(1,Number(delay)||0);timers.set(id,{fn,args,at:now+period,period});return id;};
+ window.clearTimeout=window.clearInterval=id=>timers.delete(id);
+ const contexts=[], gains=new WeakMap();let volume=1;
+ const connect=window.AudioNode?.prototype.connect;
+ if(connect)window.AudioNode.prototype.connect=function(destination,...args){return connect.call(this,gains.get(destination)||destination,...args);};
+ const NativeAudio=window.AudioContext||window.webkitAudioContext;
+ if(NativeAudio){window.AudioContext=new Proxy(NativeAudio,{construct(Target,args){const c=new Target(...args),resume=c.resume.bind(c);contexts.push(c);const master=c.createGain();master.gain.value=volume;connect.call(master,c.destination);gains.set(c.destination,master);c.resume=()=>running&&sound?resume():Promise.resolve();if(!running||!sound)c.suspend().catch(()=>{});else resume().catch(()=>{});return c;}});window.webkitAudioContext=window.AudioContext;}
+ const syncAudio=()=>contexts.forEach(c=>{(running&&sound?c.resume():c.suspend()).catch(()=>{});});
+ // Imported leaderboards are session-local; shell owns persistent personal bests.
+ const memory=new Map();
+ try{Object.defineProperty(window,'localStorage',{value:{getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,String(v)),removeItem:k=>memory.delete(k),clear:()=>memory.clear()}});}catch{}
+ // Shared shell owns visibility/focus pause. Clear all held keys before freezing.
+ window.addEventListener('blur',e=>e.stopImmediatePropagation(),true);
+ document.addEventListener('visibilitychange',e=>{if(document.hidden&&running)post('pause');e.stopImmediatePropagation();},true);
+ const held=new Set(),physicalKeys=new Set(),pointers=new Set(),touches=new Map();
+ window.addEventListener('keydown',e=>{if(running)physicalKeys.add(e.code);},true);
+ window.addEventListener('keyup',e=>physicalKeys.delete(e.code),true);
+ window.addEventListener('pointerdown',e=>{if(running)pointers.add(e.pointerId);},true);
+ for(const type of ['pointerup','pointercancel'])window.addEventListener(type,e=>pointers.delete(e.pointerId),true);
+ window.addEventListener('touchstart',e=>{if(running)for(const t of e.changedTouches)touches.set(t.identifier,t);},true);
+ for(const type of ['touchend','touchcancel'])window.addEventListener(type,e=>{for(const t of e.changedTouches||[])touches.delete(t.identifier);},true);
+ function key(code,down){if(down===held.has(code))return;if(down)held.add(code);else held.delete(code);window.dispatchEvent(new KeyboardEvent(down?'keydown':'keyup',{code,key:code==='Space'?' ':code,bubbles:true}));}
+ const clear=()=>{const c=document.querySelector('canvas');if(c){for(const pointerId of [...pointers])c.dispatchEvent(new PointerEvent('pointercancel',{bubbles:true,pointerId}));c.dispatchEvent(new MouseEvent('mouseup',{bubbles:true}));const event=new Event('touchcancel',{bubbles:true});Object.defineProperty(event,'changedTouches',{value:[...touches.values()]});c.dispatchEvent(event);}for(const k of [...held])key(k,false);for(const k of new Set([...physicalKeys,'ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space']))window.dispatchEvent(new KeyboardEvent('keyup',{code:k,key:k==='Space'?' ':k,bubbles:true}));};
+ for(const name of ['keydown','keyup'])window.addEventListener(name,e=>{if(running&&e.type==='keydown'&&['KeyP','Escape'].includes(e.code)){post('pause');clear();running=false;syncAudio();}if((!running||['KeyP','KeyM','Escape','Enter'].includes(e.code))&&!e.__release){if(!running&&e.type==='keyup')return;e.preventDefault();e.stopImmediatePropagation();}},true);
+ for(const name of ['pointerdown','pointerup','pointermove','touchstart','touchmove','touchend','mousedown','mouseup'])window.addEventListener(name,e=>{if(!running){e.preventDefault();e.stopImmediatePropagation();}}, {capture:true,passive:false});
+ window.addEventListener('message',e=>{if(e.source!==parent||e.origin!==parentOrigin||e.data?.channel!==channel)return;const d=e.data;
+ if(d.type==='run'){if(!d.running)clear();running=d.running===true&&!ended;syncAudio();}
+ if(d.type==='sound'){sound=d.enabled===true;syncAudio();}
+ if(d.type==='volume'&&Number.isFinite(d.volume)){volume=Math.min(1,Math.max(0,d.volume));contexts.forEach(c=>{gains.get(c.destination).gain.value=volume;});}
+ if(d.type==='key'&&running&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space'].includes(d.code))key(d.code,d.down===true);
+ if(d.type==='input'&&running){key('ArrowLeft',d.x<0);key('ArrowRight',d.x>0);key('ArrowUp',d.y<0);key('ArrowDown',d.y>0);key('Space',d.pressed===true);}
+ });
+ window.__agenticSetup=h=>{hook=h;h.start();started=true;const c=document.querySelector('canvas');const callbacks=[...queue.values()];queue.clear();callbacks.forEach(f=>f(now));post('ready',{width:c.width,height:c.height});document.body.dataset.phase='ready';};
+ let previous;
+ function pump(real){const dt=previous===undefined?0:Math.min(33,real-previous);previous=real;
+ if(running&&started){now+=dt;ticks++;for(const [id,t] of [...timers])if(now>=t.at){if(t.period)t.at=now+t.period;else timers.delete(id);if(typeof t.fn==='function')t.fn(...t.args);}const callbacks=[...queue.values()];queue.clear();try{callbacks.forEach(f=>f(now));const s=hook.read();document.body.dataset.ticks=String(ticks);document.body.dataset.phase=String(s.phase);if(Number.isFinite(s.score)&&s.score!==lastScore){lastScore=s.score;post('score',{score:s.score});}if(s.ended&&!ended){ended=true;running=false;clear();syncAudio();post('end',{score:Number.isFinite(s.score)?s.score:0,won:s.won});}}catch(error){running=false;syncAudio();post('error');}}
+ nativeRAF(pump);
+ }nativeRAF(pump);
+ window.addEventListener('error',()=>{running=false;syncAudio();post('error');});
+ window.addEventListener('unhandledrejection',()=>{running=false;syncAudio();post('error');});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden&&running)post('pause');},true);
+})();
+
+;
+(function() {
+	const CAMERA_HEIGHT = 2.8;
+	const CAMERA_DEPTH = 1 / Math.tan(30 * Math.PI / 180);
+	const CURVE_ACCUM = .6;
+	const OFFROAD_FACTOR = .55;
+	const CAR_LEN = 4.4;
+	const CAR_WIDTH = 2.3;
+	const STEER_RATE = 1.9;
+	const CENTRIFUGAL = 85e-6;
+	const CURVE_FLAT_MAX = STEER_RATE / (1e4 * CENTRIFUGAL);
+	const BRAKE_CORNER = {
+		curve: 2.6,
+		phi: .84,
+		perLeg: 1,
+		firstLeg: 2,
+		holdM: [48, 72],
+		timeCost: .45
+	};
+	function brakeCornerEntrySpeed(absCurve, steerMul = 1, gMul = 1) {
+		if (!(absCurve > 2.2352941176470584)) return Infinity;
+		const k = absCurve * CENTRIFUGAL * gMul;
+		const base = BRAKE_CORNER.phi * STEER_RATE * steerMul;
+		const a = base * .35;
+		const b = base * .65 / 100;
+		return (b + Math.sqrt(b * b + 4 * k * a)) / (2 * k);
+	}
+	const COAST_DRAG_HOLD_SPEED = brakeCornerEntrySpeed(BRAKE_CORNER.curve, 1 / BRAKE_CORNER.phi);
+	const coastDragCeiling = (telegraphM) => (1e4 - COAST_DRAG_HOLD_SPEED * COAST_DRAG_HOLD_SPEED) / (2 * telegraphM);
+	coastDragCeiling(68);
+	const DEEP = {
+		dzMin: .8,
+		dzMax: 3.8,
+		dxMax: .28,
+		charge: 85,
+		chargeFloor: .45,
+		drag: .62,
+		steer: .85,
+		gFactor: 1.35
+	};
+	const SHALLOW = {
+		dzMin: 3.8,
+		dzMax: 6.6,
+		dxMax: .36,
+		charge: 8,
+		drag: .82,
+		steer: .95,
+		gFactor: 1.12
+	};
+	const BOOST = {
+		baseDur: .5,
+		durPerCharge: 2.5,
+		baseGain: .01,
+		gainPerCharge2: .36,
+		gainExp: 3,
+		slingDur: 1.4,
+		slingGain: 1.4,
+		assistTime: .25,
+		assistSteer: 1.25,
+		minCharge: 25,
+		rearm: .6,
+		slingGrace: .25,
+		impulse: .6,
+		accel: 260,
+		falloff: .35
+	};
+	const HIT = {
+		dxMax: .18,
+		dzMax: .78,
+		spinDv: .2,
+		bumpPush: .25,
+		bumpChargeMul: .5,
+		bumpStun: .3,
+		spinTime: .9,
+		spinSpeedMul: .5,
+		shoulderSoft: 1,
+		shoulderSpin: 1.35
+	};
+	const OVERTAKE_PAN = Object.freeze({
+		max: .75,
+		fullScaleDx: Math.max(CAR_WIDTH / 5, 2 * HIT.dxMax)
+	});
+	const overtakePan = (relativeDx) => {
+		const dx = Number.isFinite(relativeDx) ? relativeDx : 0;
+		return Math.max(-OVERTAKE_PAN.max, Math.min(OVERTAKE_PAN.max, dx / OVERTAKE_PAN.fullScaleDx * OVERTAKE_PAN.max));
+	};
+	const legDistance = (leg) => 1600 + 120 * leg;
+	const legExtension = (leg) => 34 - 1.226 * leg + BRAKE_CORNER.timeCost;
+	const maxCurvature = (leg) => Math.min(1.1, .5 + .07 * leg);
+	const trafficDensity = (leg) => 1.5 + .5 * leg;
+	const rivalSpeed = (leg) => (.93 + .004 * leg) * 100;
+	const rivalWobble = (leg) => .1 + .015 * leg;
+	const DEEP_CAP = 100 * (1 + (1 - DEEP.drag) * .16);
+	(() => {
+		const dv = DEEP_CAP - rivalSpeed(1);
+		return dv * dv / (2 * (DEEP.dzMax - DEEP.dzMin) * CAR_LEN);
+	})();
+	const RIVAL_SLOWDOWN_WARN = .4;
+	const PACK_GAP = {
+		min: .3,
+		max: .55
+	};
+	const RIVAL_DRIFT_RATE = .18;
+	const RIVAL_AVOID = {
+		lookahead: 3.2,
+		dx: DEEP.dxMax + HIT.dxMax,
+		offset: DEEP.dxMax + HIT.dxMax + .14,
+		rate: .55,
+		laneMax: .66
+	};
+	const SCORE = {
+		perMetre: 1,
+		deepMetreBonus: 3,
+		checkpoint: 100,
+		slingshotRival: 500,
+		slingshotTraffic: 200,
+		chainLink: 250,
+		chainLinkCap: 3,
+		finishTime: 1e3
+	};
+	const SPIN_VIS = {
+		turns: 1,
+		scrubStep: .02,
+		scrubLife: .28,
+		scrubFrac: .16,
+		puffs: 10,
+		puffRiseM: 1.6,
+		puffLife: .5,
+		roofWidFrac: .56,
+		roofLenFrac: .45,
+		trackFrac: .86,
+		wheelbaseFrac: .62,
+		wheelM: .42,
+		lampUFrac: .76,
+		groundSquash: .35,
+		lampOff: .3,
+		lampFade: .2
+	};
+	const PX_PER_CURVE_METRE = 160 * CAMERA_DEPTH * CURVE_ACCUM / 64;
+	const BG_SCROLL = {
+		yawFrac: .5,
+		tau: .55,
+		maxPx: 93,
+		nearRankFrac: .6
+	};
+	function bgScrollStep(off, curve, speed, dt) {
+		const rate = -BG_SCROLL.yawFrac * PX_PER_CURVE_METRE * curve * speed;
+		const next = off * Math.exp(-dt / BG_SCROLL.tau) + rate * dt;
+		return next < -BG_SCROLL.maxPx ? -BG_SCROLL.maxPx : next > BG_SCROLL.maxPx ? BG_SCROLL.maxPx : next;
+	}
+	const COAST = {
+		scroll: {
+			farHill: 3,
+			headland: 7,
+			foreland: 16,
+			surf: 22
+		},
+		sky: {
+			topFrac: .42,
+			midFrac: .3,
+			glowPx: 5
+		},
+		sun: {
+			xFrac: .2,
+			r: 13,
+			y0: 4,
+			y1: -18,
+			riseS: 18
+		},
+		shoreFrac: .62,
+		glitter: {
+			wTop: 5,
+			wBottom: 26,
+			dashPx: 2,
+			rate: 1.7,
+			gate: .18,
+			wobble: 1,
+			weldFrac: .18
+		},
+		foreland: {
+			amp: 4,
+			surfPx: 1
+		},
+		hills: {
+			farAmp: 26,
+			nearAmp: 15,
+			k1: 3,
+			k2: 1.7
+		}
+	};
+	const PAL = {
+		skyTop: "#101c48",
+		skyMid: "#2c4a8c",
+		skyLow: "#6d84c4",
+		sun: "#ffd76b",
+		hill: "#1b3a2e",
+		hillLit: "#2a5442",
+		distantTower: "#314866",
+		distantTowerLit: "#496382",
+		overpassDeck: "#414955",
+		overpassEdge: "#596370",
+		overpassPier: "#343d48",
+		overpassUnderside: "#252c35",
+		road1: "#4a4a52",
+		road2: "#42424a",
+		crossRoad: "#383a43",
+		crossRoadSeam: "#626570",
+		rumble1: "#d8d8e0",
+		rumble2: "#b02830",
+		grass1: "#1d5a2c",
+		grass2: "#19502a",
+		lane: "#d8d8e0",
+		hudBg: "#000000",
+		hudText: "#e8e8f0",
+		hudDim: "#7a7a8c",
+		timeWarn: "#ff4040",
+		chargeLow: "#3c78d8",
+		chargeHigh: "#ffd76b",
+		gate: "#e0e0e8",
+		gateGlow: "#ffd76b",
+		dawnSkyTop: "#241a46",
+		dawnSkyMid: "#4a3260",
+		dawnSkyLow: "#8c4a48",
+		dawnGlow: "#d4784a",
+		dawnSeaFar: "#131530",
+		dawnSeaMid: "#0e1026",
+		dawnSeaNear: "#090a1a",
+		dawnSurf: "#b8a8c0",
+		dawnLandFar: "#1e1a38",
+		dawnLandNear: "#131028",
+		dawnForeland: "#050409",
+		trafficBody: "#3c7cc8",
+		trafficRoof: "#68a8e8",
+		rivalBody: "#c83c3c",
+		rivalRoof: "#e86868",
+		rivalLamp: "#ff3020",
+		playerBody: "#d8489c",
+		playerShade: "#8c2864",
+		playerRoof: "#f090c8"
+	};
+	const READY_OVERLAY = Object.freeze({
+		ready: Object.freeze({
+			y: 88,
+			scale: 4,
+			colorRole: "hudText"
+		}),
+		countdown: Object.freeze({
+			y: 118,
+			scale: 5,
+			colorRole: "chargeHigh"
+		}),
+		instruction: Object.freeze({
+			text: "HOLD TOW   PRESS BOOST",
+			y: 150,
+			scale: 1,
+			colorRole: "hudText",
+			plateRole: "hudBg",
+			plateAlpha: .72,
+			padX: 6,
+			padY: 5
+		})
+	});
+	const DISTANT_TOWER = Object.freeze({
+		xFrac: .27,
+		heightPx: 38,
+		mastWidthPx: 5,
+		deckWidthPx: 13,
+		deckHeightPx: 4,
+		spireHeightPx: 6,
+		approachM: 12e3,
+		scaleFar: 1,
+		scaleNear: 1.8,
+		outwardFrac: .1,
+		baseDropPx: 7,
+		curveParallaxNear: 1.35,
+		paletteRoles: Object.freeze({
+			body: "distantTower",
+			litEdge: "distantTowerLit"
+		})
+	});
+	const CROSS_ROAD = Object.freeze({
+		positionsM: Object.freeze([
+			960,
+			2240,
+			3520,
+			4800,
+			6080,
+			7360,
+			8640,
+			9920,
+			11200,
+			12480,
+			13760,
+			15040,
+			16320
+		]),
+		lengthM: 40,
+		seamM: 6,
+		halfWidthM: 240,
+		edgeOverscanPx: 24,
+		visibleFarM: 1080,
+		fadeInM: 260,
+		paletteRoles: Object.freeze({
+			pavement: "crossRoad",
+			seam: "crossRoadSeam"
+		}),
+		layerOrder: Object.freeze([
+			"distanceBands",
+			"mainRoad",
+			"crossRoad",
+			"centerLine",
+			"distanceFog",
+			"roadsideProps",
+			"cars"
+		])
+	});
+	const DISTANT_OVERPASS = Object.freeze({
+		positionsM: Object.freeze([
+			1800,
+			5e3,
+			8200,
+			11400,
+			14600
+		]),
+		visibleFarM: 950,
+		fadeInM: 140,
+		visibleNearM: 350,
+		fadeOutM: 80,
+		overheadFarM: 430,
+		overheadFadeM: 80,
+		overheadNearPlaneM: 8,
+		overheadSlices: 16,
+		heightM: 9,
+		halfSpanM: 105,
+		halfDepthM: 150,
+		deckThicknessM: 2.2,
+		edgeHeightM: .8,
+		pierInsetM: 63,
+		pierWidthM: 3,
+		paletteRoles: Object.freeze({
+			deck: "overpassDeck",
+			edge: "overpassEdge",
+			pier: "overpassPier",
+			underside: "overpassUnderside"
+		}),
+		layerOrder: Object.freeze([
+			"sky",
+			"distantHills",
+			"distantOverpass",
+			"terrain/mainRoad",
+			"overheadUnderside",
+			"roadsideProps/warnings",
+			"checkpointGate",
+			"cars"
+		])
+	});
+	Object.freeze({
+		sfx: Object.freeze([
+			"bump",
+			"spin",
+			"release",
+			"boostOut",
+			"chargeFull",
+			"overtake",
+			"chainBonus",
+			"timeLow"
+		]),
+		jingle: Object.freeze([
+			"checkpoint",
+			"finish",
+			"gameover",
+			"entry"
+		])
+	});
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/rng.js
+	function makeRng(seed) {
+		let a = seed >>> 0;
+		const next = () => {
+			a = a + 1831565813 >>> 0;
+			let t = a;
+			t = Math.imul(t ^ t >>> 15, t | 1);
+			t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+			return ((t ^ t >>> 14) >>> 0) / 4294967296;
+		};
+		return {
+			next,
+			range: (lo, hi) => lo + next() * (hi - lo),
+			int: (lo, hi) => Math.floor(lo + next() * (hi - lo + 1)),
+			pick: (arr) => arr[Math.floor(next() * arr.length)]
+		};
+	}
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/sim.js
+	const CL$1 = CAR_LEN;
+	function emptyEvents() {
+		return {
+			bump: false,
+			spin: false,
+			release: null,
+			chargeFull: false,
+			slingReady: false,
+			overtake: 0,
+			checkpoint: false,
+			finish: false,
+			timeout: false,
+			gameover: false,
+			boostEnd: false,
+			passes: [],
+			chainEnd: null
+		};
+	}
+	var Sim = class {
+		constructor(course, seed = 1) {
+			this.course = course;
+			this.rng = makeRng(seed ^ 24301);
+			this.reset();
+		}
+		reset() {
+			this.leg = 1;
+			this.score = 0;
+			this.timer = 45;
+			this.chain = 0;
+			this.finished = false;
+			this.gameOver = false;
+			this.lastCheckpoint = null;
+			this.legStartZ = 0;
+			this._resetRun(0);
+		}
+		_resetRun(z) {
+			this.z = z;
+			this.x = 0;
+			this.speed = 45;
+			this.charge = 0;
+			this.boost = {
+				active: false,
+				t: 0,
+				dur: 0,
+				gain: 0,
+				sling: false,
+				pending: 0,
+				ending: false
+			};
+			this._chainSession = null;
+			this._nextPassId = 1;
+			this.assist = 0;
+			this.rearm = 0;
+			this.spin = 0;
+			this.stun = 0;
+			this.zone = null;
+			this.slingGrace = 0;
+			this.zoneLevel = 0;
+			this.zoneDepth = 0;
+			this.rivals = [];
+			this.traffic = [];
+			this._trafficCursor = 0;
+			this._advanceTrafficCursor();
+			this._chargeWasFull = false;
+			this._slingReadyWas = false;
+			this.deepMetres = 0;
+			this.stats = {
+				deepMetres: 0,
+				maxChain: 0,
+				bumps: 0,
+				spins: 0,
+				overtakes: 0,
+				spinShoulder: 0,
+				spinRear: 0,
+				offroadTime: 0,
+				boostTime: 0,
+				releases: 0,
+				chainPasses: 0,
+				rivalPasses: 0,
+				trafficPasses: 0,
+				chainBaseScore: 0,
+				chainBonusScore: 0,
+				trafficPassesByLeg: Array(8).fill(0),
+				trafficScoreByLeg: Array(8).fill(0)
+			};
+		}
+		_newPassId(kind) {
+			return `${kind}:${this._nextPassId++}`;
+		}
+		_primeTarget(o, kind) {
+			if (o.passId === void 0) o.passId = this._newPassId(kind);
+			if (o._passPrevRelZ === void 0) o._passPrevRelZ = o.z - this.z;
+			return o;
+		}
+		_clearBoost() {
+			this.boost = {
+				active: false,
+				t: 0,
+				dur: 0,
+				gain: 0,
+				sling: false,
+				pending: 0,
+				ending: false
+			};
+		}
+		_startChainSession() {
+			this.chain = 0;
+			this._chainSession = {
+				seen: /* @__PURE__ */ new Set(),
+				settled: false
+			};
+		}
+		_endChainSession(ev, reason, awardBonus) {
+			const session = this._chainSession;
+			if (!session || session.settled) return;
+			session.settled = true;
+			const chain = this.chain;
+			const links = Math.min(Math.max(chain - 1, 0), SCORE.chainLinkCap);
+			const bonus = awardBonus ? SCORE.chainLink * links : 0;
+			if (bonus > 0) {
+				this.score += bonus;
+				this.stats.chainBonusScore += bonus;
+			}
+			ev.chainEnd = {
+				chain,
+				bonus,
+				reason,
+				awarded: !!awardBonus
+			};
+			this._chainSession = null;
+			this.chain = 0;
+		}
+		_advanceTrafficCursor() {
+			const all = this.course.traffic;
+			let i = 0;
+			while (i < all.length && all[i].z < this.z) i++;
+			this._trafficCursor = i;
+		}
+		get legTarget() {
+			const cp = this.course.checkpoints[this.leg - 1];
+			return cp ? cp.z : this.course.totalLength;
+		}
+		get distanceToCheckpoint() {
+			return Math.max(0, this.legTarget - this.z);
+		}
+		_packGap() {
+			const c = 1;
+			const reach = (BOOST.baseDur + BOOST.durPerCharge * c) * BOOST.slingDur * (100 * (1 + (BOOST.baseGain + BOOST.gainPerCharge2 * Math.pow(c, BOOST.gainExp)) * BOOST.slingGain) - rivalSpeed(this.leg));
+			return {
+				min: reach * PACK_GAP.min,
+				max: reach * PACK_GAP.max
+			};
+		}
+		_spawnRival() {
+			const base = rivalSpeed(this.leg);
+			let front = null;
+			for (const r of this.rivals) if (r.z > this.z && (front === null || r.z > front)) front = r.z;
+			const gap = this._packGap();
+			const z = front === null ? this.z + this.rng.range(45, 80) : front + this.rng.range(gap.min, gap.max);
+			this.rivals.push(this._primeTarget({
+				z,
+				x: this.rng.range(-.45, .45),
+				targetX: this.rng.range(-.5, .5),
+				speed: base,
+				baseSpeed: base,
+				brakeTimer: this.rng.range(2, 5),
+				lamp: 0,
+				braking: 0,
+				overtaken: false
+			}, "rival"));
+		}
+		_updateRivals(dt) {
+			let ahead = 0;
+			for (const r of this.rivals) if (r.z > this.z) ahead++;
+			while (ahead < 3) {
+				this._spawnRival();
+				ahead++;
+			}
+			const wob = rivalWobble(this.leg);
+			for (const r of this.rivals) {
+				r.brakeTimer -= dt;
+				if (r.brakeTimer <= 0 && r.lamp <= 0 && r.braking <= 0) {
+					r.lamp = RIVAL_SLOWDOWN_WARN;
+					r.brakeTimer = this.rng.range(2.2, 5);
+				}
+				if (r.lamp > 0) {
+					r.lamp -= dt;
+					if (r.lamp <= 0) r.braking = 1;
+				} else if (r.braking > 0) r.braking -= dt;
+				const target = Math.min(r.braking > 0 ? r.baseSpeed * (1 - wob) : r.baseSpeed, this._cornerSpeedCap(r.z, r.speed));
+				r.speed += (target - r.speed) * Math.min(1, dt * 3);
+				const threat = this._rivalThreat(r);
+				let rate = RIVAL_DRIFT_RATE;
+				if (threat) {
+					const side = threat.x > 0 ? -1 : 1;
+					const lm = RIVAL_AVOID.laneMax;
+					r.targetX = Math.max(-lm, Math.min(lm, threat.x + side * RIVAL_AVOID.offset));
+					rate = RIVAL_AVOID.rate;
+				} else if (Math.abs(r.x - r.targetX) < .03) r.targetX = this.rng.range(-.55, .55);
+				r.x += Math.sign(r.targetX - r.x) * Math.min(Math.abs(r.targetX - r.x), rate * dt);
+				r.z += r.speed * dt;
+			}
+			this.rivals = this.rivals.filter((r) => r.z > this.z - 80);
+		}
+		_cornerSpeedCap(z, v) {
+			const horizon = Math.max(60, 2 * v);
+			let cap = Infinity;
+			for (let i = 0; i <= 6; i++) {
+				const d = i / 6 * horizon;
+				const entry = brakeCornerEntrySpeed(Math.abs(this.course.curveAt(z + d)));
+				if (entry === Infinity) continue;
+				const allowed = Math.sqrt(entry * entry + 93 * d);
+				if (allowed < cap) cap = allowed;
+			}
+			return cap;
+		}
+		_rivalThreat(r) {
+			let best = null;
+			let bestDz = Infinity;
+			for (const t of this.traffic) {
+				const dz = t.z - r.z;
+				if (dz <= 0) continue;
+				const dv = r.speed - t.speed;
+				if (dv <= 0) continue;
+				if (dz > dv * RIVAL_AVOID.lookahead) continue;
+				if (Math.abs(t.x - r.x) > RIVAL_AVOID.dx) continue;
+				if (dz < bestDz) {
+					bestDz = dz;
+					best = t;
+				}
+			}
+			return best;
+		}
+		_updateTraffic(dt) {
+			const horizon = this.z + 1120;
+			const all = this.course.traffic;
+			while (this._trafficCursor < all.length && all[this._trafficCursor].z < horizon) {
+				const t = all[this._trafficCursor++];
+				this.traffic.push(this._primeTarget({
+					z: t.z,
+					x: t.x,
+					speed: t.speedFactor * 100,
+					overtaken: false
+				}, "traffic"));
+			}
+			for (const t of this.traffic) t.z += t.speed * dt;
+			this.traffic = this.traffic.filter((t) => t.z > this.z - 60);
+		}
+		_resolveZone() {
+			let best = null;
+			this.zoneDepth = 0;
+			for (const r of this.rivals) {
+				const dz = (r.z - this.z) / CL$1;
+				const dx = Math.abs(r.x - this.x);
+				if (dz >= DEEP.dzMin && dz <= DEEP.dzMax && dx < DEEP.dxMax) {
+					const span = DEEP.dzMax - DEEP.dzMin;
+					this.zoneDepth = span > 0 ? Math.max(0, Math.min(1, (DEEP.dzMax - dz) / span)) : 1;
+					return "deep";
+				}
+				if (dz > SHALLOW.dzMin && dz <= SHALLOW.dzMax && dx < SHALLOW.dxMax) best = "shallow";
+			}
+			return best;
+		}
+		_chargeRate() {
+			const zp = this._zoneParams();
+			if (this.zone !== "deep") return zp.charge;
+			const f = DEEP.chargeFloor;
+			return zp.charge * (f + (1 - f) * (this.zoneDepth || 0));
+		}
+		_zoneParams() {
+			if (this.zone === "deep") return DEEP;
+			if (this.zone === "shallow") return SHALLOW;
+			return {
+				charge: 0,
+				drag: 1,
+				steer: 1,
+				gFactor: 1
+			};
+		}
+		get slingArmed() {
+			return this.zone === "deep" || this.slingGrace > 0;
+		}
+		get slingReady() {
+			return this.charge >= 100 && this.slingArmed && !this.boost.active;
+		}
+		_release(ev) {
+			if (this.charge < BOOST.minCharge || this.boost.active) return;
+			const c = this.charge / 100;
+			const sling = this.slingReady;
+			let dur = BOOST.baseDur + BOOST.durPerCharge * c;
+			let gain = 100 * (BOOST.baseGain + BOOST.gainPerCharge2 * Math.pow(c, BOOST.gainExp));
+			if (sling) {
+				dur *= BOOST.slingDur;
+				gain *= BOOST.slingGain;
+			}
+			this.boost = {
+				active: true,
+				t: dur,
+				dur,
+				gain,
+				sling,
+				pending: gain * BOOST.impulse,
+				ending: false
+			};
+			this.assist = dur + BOOST.assistTime;
+			this.charge = 0;
+			this.rearm = BOOST.rearm;
+			this._chargeWasFull = false;
+			this.stats.releases++;
+			if (sling) this._startChainSession();
+			ev.release = {
+				charge: c,
+				sling
+			};
+		}
+		step(dt, input) {
+			const ev = emptyEvents();
+			if (this.gameOver || this.finished) return ev;
+			dt = Math.min(dt, 1 / 30);
+			this._updateRivals(dt);
+			this._updateTraffic(dt);
+			const spinning = this.spin > 0;
+			this.zone = spinning ? null : this._resolveZone();
+			this.zoneLevel = this.zone === "deep" ? 1 : this.zone === "shallow" ? .5 : 0;
+			const zp = this._zoneParams();
+			if (this.zone === "deep") this.slingGrace = BOOST.slingGrace;
+			else if (this.slingGrace > 0) this.slingGrace = Math.max(0, this.slingGrace - dt);
+			if (!spinning) {
+				if (this.rearm > 0) this.rearm -= dt;
+				const canCharge = this.rearm <= 0;
+				if (this.zone === "deep" && canCharge) this.charge = Math.min(100, this.charge + this._chargeRate() * dt);
+				else if (this.slingGrace > 0) {} else if (this.zone === "shallow") {
+					if (this.charge > 80) this.charge = Math.max(80, this.charge - 60 * dt);
+					else if (canCharge) this.charge = Math.min(80, this.charge + this._chargeRate() * dt);
+				} else this.charge = Math.max(0, this.charge - 6 * dt);
+				if (this.charge >= 100 && !this._chargeWasFull) {
+					this._chargeWasFull = true;
+					ev.chargeFull = true;
+				} else if (this.charge < 100) this._chargeWasFull = false;
+				if (input.boost) this._release(ev);
+			}
+			{
+				const ready = this.slingReady;
+				if (ready && !this._slingReadyWas) ev.slingReady = true;
+				this._slingReadyWas = ready;
+			}
+			let boostExpires = false;
+			if (this.boost.active) {
+				this.stats.boostTime += dt;
+				this.boost.t -= dt;
+				this.boost.ending = this.boost.t > 0 && this.boost.t < BOOST.falloff;
+				if (this.boost.t <= 0) {
+					this.boost.t = 0;
+					boostExpires = true;
+				}
+			}
+			if (this.assist > 0) this.assist -= dt;
+			if (this.stun > 0) this.stun -= dt;
+			const offroad = Math.abs(this.x) > HIT.shoulderSoft;
+			let cap = 100 * (1 + (1 - zp.drag) * .16);
+			let boostGain = 0;
+			if (this.boost.active) {
+				boostGain = this.boost.gain * (this.boost.t < BOOST.falloff ? Math.max(0, this.boost.t) / BOOST.falloff : 1);
+				cap += boostGain;
+			}
+			if (offroad) cap *= OFFROAD_FACTOR;
+			this.boostGain = boostGain;
+			if (spinning) {
+				this.spin -= dt;
+				this.speed += (100 * HIT.spinSpeedMul - this.speed) * Math.min(1, dt * 4);
+			} else {
+				const th = input.throttle;
+				if (this.boost.pending > 0) {
+					this.speed = Math.min(this.speed + this.boost.pending, Math.max(cap, this.speed));
+					this.boost.pending = 0;
+				}
+				const acc = this.boost.active ? BOOST.accel : 34;
+				if (th > 0) this.speed = Math.min(this.speed + acc * th * dt, Math.max(cap, this.speed));
+				else if (th < 0) this.speed += 62 * th * dt;
+				else this.speed -= 9 * dt;
+				if (this.speed > cap) this.speed += (cap - this.speed) * Math.min(1, dt * 6);
+				this.speed = Math.max(0, this.speed);
+			}
+			const curve = this.course.curveAt(this.z);
+			const gMul = this.assist > 0 ? 1 : zp.gFactor;
+			const steerMul = this.assist > 0 ? BOOST.assistSteer : zp.steer;
+			if (!spinning && this.stun <= 0) {
+				const authority = .35 + .65 * Math.min(1, this.speed / 100);
+				this.x += input.steer * STEER_RATE * authority * steerMul * dt;
+			}
+			this.x -= curve * this.speed * this.speed * CENTRIFUGAL * gMul * dt;
+			this.x = Math.max(-1.9, Math.min(1.9, this.x));
+			if (offroad && !spinning) {
+				this.stats.offroadTime += dt;
+				if (Math.abs(this.x) > HIT.shoulderSpin) this._doSpin(ev, "shoulder");
+			}
+			const before = this.z;
+			this.z += this.speed * dt;
+			const travelled = this.z - before;
+			this.score += travelled * SCORE.perMetre;
+			if (this.zone === "deep") {
+				this.deepMetres += travelled;
+				this.stats.deepMetres += travelled;
+				this.score += travelled * SCORE.deepMetreBonus;
+			}
+			const collided = this._collide(ev);
+			this._overtakes(ev, collided);
+			this._progress(dt, ev);
+			if (boostExpires && this.boost.active) {
+				this._endChainSession(ev, "natural", true);
+				this._clearBoost();
+				ev.boostEnd = true;
+			}
+			return ev;
+		}
+		_doSpin(ev, cause = "rear") {
+			this.spin = HIT.spinTime;
+			if (cause === "shoulder") this.stats.spinShoulder++;
+			else this.stats.spinRear++;
+			this.charge = 0;
+			this.slingGrace = 0;
+			this._slingReadyWas = false;
+			this._endChainSession(ev, "spin", false);
+			this._clearBoost();
+			this.x = Math.max(-1, Math.min(1, this.x));
+			this.stats.spins++;
+			ev.spin = true;
+		}
+		_doBump(ev, otherX) {
+			this.x += Math.sign(this.x - otherX || 1) * HIT.bumpPush;
+			this.charge *= HIT.bumpChargeMul;
+			this.stun = HIT.bumpStun;
+			this.stats.bumps++;
+			ev.bump = true;
+		}
+		_collide(ev) {
+			const collided = /* @__PURE__ */ new Set();
+			if (this.spin > 0) return collided;
+			const check = (o, kind) => {
+				this._primeTarget(o, kind);
+				const dz = o.z - this.z;
+				if (!(o._passPrevRelZ > 0 && dz <= 0) && (dz <= 0 || dz > HIT.dzMax * CL$1)) return false;
+				if (Math.abs(o.x - this.x) >= HIT.dxMax) return false;
+				collided.add(o.passId);
+				if (this._chainSession) this._chainSession.seen.add(o.passId);
+				if ((this.speed - o.speed) / 100 >= HIT.spinDv) this._doSpin(ev);
+				else this._doBump(ev, o.x);
+				return true;
+			};
+			for (const r of this.rivals) if (check(r, "rival")) return collided;
+			for (const t of this.traffic) if (check(t, "traffic")) return collided;
+			return collided;
+		}
+		_overtakes(ev, collided = /* @__PURE__ */ new Set()) {
+			const targets = [...this.rivals.map((o) => ({
+				o,
+				kind: "rival",
+				points: SCORE.slingshotRival
+			})), ...this.traffic.map((o) => ({
+				o,
+				kind: "traffic",
+				points: SCORE.slingshotTraffic
+			}))];
+			let closestPassDx = Infinity;
+			for (const { o, kind, points } of targets) {
+				this._primeTarget(o, kind);
+				const relZ = o.z - this.z;
+				if (o._passPrevRelZ > 0 && relZ <= 0 && !o.overtaken) {
+					o.overtaken = true;
+					if (!collided.has(o.passId)) {
+						this.stats.overtakes++;
+						ev.overtake++;
+						const relativeDx = o.x - this.x;
+						const absDx = Math.abs(relativeDx);
+						if (absDx < closestPassDx) {
+							closestPassDx = absDx;
+							ev.overtakePan = overtakePan(relativeDx);
+						}
+						const session = this._chainSession;
+						if (this.boost.active && this.boost.sling && session && !session.seen.has(o.passId)) {
+							session.seen.add(o.passId);
+							this.chain++;
+							this.score += points;
+							this.stats.chainPasses++;
+							this.stats.chainBaseScore += points;
+							if (kind === "rival") this.stats.rivalPasses++;
+							else {
+								this.stats.trafficPasses++;
+								this.stats.trafficPassesByLeg[this.leg - 1]++;
+								this.stats.trafficScoreByLeg[this.leg - 1] += points;
+							}
+							this.stats.maxChain = Math.max(this.stats.maxChain, this.chain);
+							ev.passes.push({
+								kind,
+								passId: o.passId,
+								points,
+								chain: this.chain
+							});
+						}
+					}
+				}
+				o._passPrevRelZ = relZ;
+			}
+		}
+		_progress(dt, ev) {
+			this.timer -= dt;
+			const cp = this.course.checkpoints[this.leg - 1];
+			if (cp && this.z >= cp.z) {
+				if (this.leg >= 8) {
+					this._endChainSession(ev, "finish", true);
+					this._clearBoost();
+					this.score += Math.max(0, this.timer) * SCORE.finishTime;
+					this.finished = true;
+					ev.finish = true;
+					return;
+				}
+				const remaining = Math.max(0, this.timer);
+				const bonusScore = remaining * SCORE.checkpoint;
+				const timeSet = legExtension(this.leg);
+				this.score += bonusScore;
+				this.timer = timeSet;
+				this.lastCheckpoint = {
+					checkpoint: this.leg,
+					remaining,
+					timeSet,
+					bonusScore
+				};
+				this.legStartZ = cp.z;
+				this.leg++;
+				ev.checkpoint = true;
+			}
+			if (this.timer <= 0) {
+				this.timer = 0;
+				this._endChainSession(ev, "timeout", false);
+				this._clearBoost();
+				ev.timeout = true;
+				this.gameOver = true;
+				ev.gameover = true;
+			}
+		}
+		requiredAverage(leg = this.leg) {
+			return legDistance(leg) / legExtension(leg);
+		}
+	};
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/course.js
+	const CURVE_STEP = .25;
+	const CURVE_RAMP_RATE = .16;
+	const CURVE_SNAP = .02;
+	const CURVE_FEATURES = {
+		STRAIGHT: {
+			mag: [0, 0],
+			hold: [150, 420]
+		},
+		KINK: {
+			mag: [.34, .44],
+			hold: [40, 90]
+		},
+		SWEEPER: {
+			mag: [.55, .78],
+			hold: [180, 380]
+		},
+		ESS: {
+			mag: [.5, .7],
+			hold: [110, 190]
+		},
+		HAIRPIN: {
+			mag: [.95, 1],
+			hold: [56, 112]
+		}
+	};
+	const HAIRPIN_RUNUP_M = 220;
+	const BRAKE_AT_FRAC = [.3, .6];
+	const BRAKE_RUNUP_M = 260;
+	const CURVE_MIX = {
+		fast: {
+			STRAIGHT: .5,
+			SWEEPER: .34,
+			KINK: .16,
+			ESS: 0,
+			HAIRPIN: 0
+		},
+		flowing: {
+			STRAIGHT: .18,
+			SWEEPER: .42,
+			KINK: .1,
+			ESS: .3,
+			HAIRPIN: 0
+		},
+		technical: {
+			STRAIGHT: .3,
+			SWEEPER: .2,
+			KINK: .22,
+			ESS: 0,
+			HAIRPIN: .28
+		}
+	};
+	const ELEV_GRADE_MAX = .05;
+	const ELEV_RAMP_CREST_M = 32;
+	const ELEV_RAMP_NORMAL_M = 160;
+	const ELEV_Y_MAX = 90;
+	const ELEV_Y_SOFT = 55;
+	const ELEV_FEATURES = {
+		FLAT: {
+			grade: [0, 0],
+			hold: [120, 320]
+		},
+		CLIMB: {
+			grade: [.03, .05],
+			hold: [180, 460]
+		},
+		DESCENT: {
+			grade: [.03, .05],
+			hold: [180, 460]
+		},
+		CREST: {
+			grade: [.03, .05],
+			hold: [40, 130]
+		},
+		DIP: {
+			grade: [.03, .05],
+			hold: [40, 130]
+		}
+	};
+	const ELEV_MIX = {
+		flat: {
+			FLAT: .55,
+			CLIMB: .16,
+			DESCENT: .16,
+			CREST: .09,
+			DIP: .04
+		},
+		rolling: {
+			FLAT: .16,
+			CLIMB: .14,
+			DESCENT: .14,
+			CREST: .34,
+			DIP: .22
+		},
+		mountain: {
+			FLAT: .06,
+			CLIMB: .24,
+			DESCENT: .24,
+			CREST: .3,
+			DIP: .16
+		}
+	};
+	const RUNOFF_M = 400;
+	const BLIND_CURVE$1 = .4;
+	const BLIND_SEGS$1 = 2;
+	const CHECKPOINT_CLEAR_M = 40;
+	const REACTION_S = .3;
+	const TRAFFIC_X_MAX = .72;
+	const TRAFFIC_SPEED_MIN = .42;
+	const TRAFFIC_SPEED_MAX = .78;
+	const TRAFFIC_PLACE_TRIES = 40;
+	const clamp$2 = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
+	const smoothstep = (t) => t * t * (3 - 2 * t);
+	var Course = class {
+		constructor(seed) {
+			this.seed = seed >>> 0;
+			const rng = makeRng(seed >>> 0);
+			this.legs = [];
+			let acc = 0;
+			for (let leg = 1; leg <= 8; leg++) {
+				const len = legDistance(leg);
+				this.legs.push({
+					leg,
+					startZ: acc,
+					endZ: acc + len,
+					length: len
+				});
+				acc += len;
+			}
+			this.raceLength = acc;
+			this.totalLength = acc + RUNOFF_M;
+			this.checkpoints = this.legs.map((l) => ({
+				leg: l.leg,
+				z: l.endZ
+			}));
+			const nSeg = Math.ceil(this.totalLength / 8);
+			this.segments = new Array(nSeg);
+			for (let i = 0; i < nSeg; i++) {
+				const z = i * 8;
+				this.segments[i] = {
+					index: i,
+					z,
+					curve: 0,
+					y: 0,
+					grade: 0,
+					leg: z < this.raceLength ? this.legOf(z) : 8
+				};
+			}
+			this.legCharacter = this._assignCharacters(rng);
+			this.brakeCorners = [];
+			this._brakeFlatWindows = [];
+			this._buildCurvature(rng);
+			this._buildElevation(rng);
+			this.blindCrestExclusionM = this._sightExclusionM();
+			this.traffic = [];
+			for (const l of this.legs) {
+				const count = Math.round(trafficDensity(l.leg) * l.length / 1e3);
+				for (let k = 0; k < count; k++) {
+					let placed = null;
+					for (let t = 0; t < TRAFFIC_PLACE_TRIES; t++) {
+						const z = rng.range(l.startZ, l.endZ);
+						if (!this._trafficAllowed(z)) continue;
+						placed = z;
+						break;
+					}
+					if (placed === null) continue;
+					this.traffic.push({
+						z: placed,
+						x: rng.range(-.72, TRAFFIC_X_MAX),
+						speedFactor: rng.range(TRAFFIC_SPEED_MIN, TRAFFIC_SPEED_MAX),
+						leg: l.leg
+					});
+				}
+			}
+			this.traffic.sort((a, b) => a.z - b.z);
+			this._selfCheck();
+		}
+		_assignCharacters(rng) {
+			const shuffle = (arr) => {
+				const a = arr.slice();
+				for (let i = a.length - 1; i > 0; i--) {
+					const j = Math.floor(rng.range(0, i + 1)) % (i + 1);
+					[a[i], a[j]] = [a[j], a[i]];
+				}
+				return a;
+			};
+			const cur = [
+				"fast",
+				...shuffle(["fast", "flowing"]),
+				...shuffle(["flowing", "technical"]),
+				...shuffle([
+					"flowing",
+					"technical",
+					"technical"
+				])
+			];
+			const elev = [
+				"flat",
+				...shuffle(["flat", "rolling"]),
+				...shuffle(["rolling", "mountain"]),
+				...shuffle([
+					"rolling",
+					"mountain",
+					"mountain"
+				])
+			];
+			const out = [];
+			for (let i = 0; i < 8; i++) out.push({
+				leg: i + 1,
+				curve: cur[i],
+				elev: elev[i]
+			});
+			return out;
+		}
+		_pickWeighted(rng, mix) {
+			let total = 0;
+			for (const k in mix) total += mix[k];
+			let r = rng.range(0, total);
+			for (const k in mix) {
+				r -= mix[k];
+				if (r <= 0) return k;
+			}
+			return Object.keys(mix)[0];
+		}
+		_emit(state, key, value, holdSegs, snap) {
+			const n = this.segments.length;
+			const target = Math.abs(value) < snap ? 0 : value;
+			const d = target - state.cur;
+			const rampSegs = Math.max(2, Math.ceil(Math.abs(d) / state.rampRate));
+			for (let k = 1; k <= rampSegs && state.i < n; k++, state.i++) this.segments[state.i][key] = state.cur + d * smoothstep(k / rampSegs);
+			state.cur = target;
+			for (let k = 0; k < holdSegs && state.i < n; k++, state.i++) this.segments[state.i][key] = state.cur;
+		}
+		_buildCurvature(rng) {
+			const n = this.segments.length;
+			const st = {
+				i: 0,
+				cur: 0,
+				rampRate: CURVE_RAMP_RATE
+			};
+			let sign = rng.range(-1, 1) < 0 ? -1 : 1;
+			let straightM = 0;
+			for (const l of this.legs) {
+				const endI = Math.min(n, Math.round(l.endZ / 8));
+				const mix = CURVE_MIX[this.legCharacter[l.leg - 1].curve];
+				const cmax = maxCurvature(l.leg);
+				const brakeFrac = rng.range(BRAKE_AT_FRAC[0], BRAKE_AT_FRAC[1]);
+				const brakeHoldSegs = Math.max(3, Math.round(rng.range(BRAKE_CORNER.holdM[0], BRAKE_CORNER.holdM[1]) / 8));
+				let brakeLeft = l.leg >= BRAKE_CORNER.firstLeg ? BRAKE_CORNER.perLeg : 0;
+				const brakeZ = l.startZ + l.length * brakeFrac;
+				while (st.i < endI) {
+					if (brakeLeft > 0 && st.i * 8 >= brakeZ) {
+						brakeLeft--;
+						straightM = this._emitBrakeCorner(st, sign, brakeHoldSegs, straightM, l.leg);
+						sign = -sign;
+						continue;
+					}
+					let kind = this._pickWeighted(rng, mix);
+					if (kind === "STRAIGHT" && straightM >= CURVE_FEATURES.STRAIGHT.hold[1]) kind = this._pickWeighted(rng, {
+						...mix,
+						STRAIGHT: 0
+					});
+					if (kind === "HAIRPIN" && straightM < HAIRPIN_RUNUP_M) {
+						const need = Math.max(4, Math.round((HAIRPIN_RUNUP_M - straightM) / 8));
+						this._emit(st, "curve", 0, need, CURVE_SNAP);
+						straightM += need * 8;
+						if (st.i >= endI) break;
+					}
+					const f = CURVE_FEATURES[kind];
+					const holdSegs = Math.max(3, Math.round(rng.range(f.hold[0], f.hold[1]) / 8));
+					const mag = rng.range(f.mag[0], f.mag[1]) * cmax;
+					if (kind === "STRAIGHT") {
+						this._emit(st, "curve", 0, holdSegs, CURVE_SNAP);
+						straightM += holdSegs * 8;
+					} else if (kind === "ESS") {
+						this._emit(st, "curve", sign * mag, holdSegs, CURVE_SNAP);
+						this._emit(st, "curve", -sign * mag, holdSegs, CURVE_SNAP);
+						sign = -sign;
+						straightM = 0;
+					} else {
+						this._emit(st, "curve", sign * mag, holdSegs, CURVE_SNAP);
+						if (rng.range(0, 1) < .65) sign = -sign;
+						straightM = 0;
+					}
+				}
+			}
+			this._emit(st, "curve", 0, n, CURVE_SNAP);
+			for (; st.i < n; st.i++) this.segments[st.i].curve = 0;
+		}
+		_emitBrakeCorner(st, sign, holdSegs, straightM, leg) {
+			if (straightM < BRAKE_RUNUP_M) {
+				const need = Math.max(4, Math.round((BRAKE_RUNUP_M - straightM) / 8));
+				this._emit(st, "curve", 0, need, CURVE_SNAP);
+				straightM += need * 8;
+			}
+			const i0 = st.i;
+			this._emit(st, "curve", sign * BRAKE_CORNER.curve, holdSegs, CURVE_SNAP);
+			this._emit(st, "curve", 0, 8, CURVE_SNAP);
+			const i1 = Math.min(st.i, this.segments.length);
+			this._brakeFlatWindows.push({
+				z0: i0 * 8 - BRAKE_RUNUP_M,
+				z1: i1 * 8
+			});
+			let entryI = -1, apexI = i0;
+			for (let i = i0; i < i1; i++) {
+				this.segments[i].brakeCorner = true;
+				const a = Math.abs(this.segments[i].curve);
+				if (entryI < 0 && a > 2.2352941176470584) entryI = i;
+				if (a > Math.abs(this.segments[apexI].curve)) apexI = i;
+			}
+			if (entryI >= 0) {
+				const mag = Math.abs(this.segments[apexI].curve);
+				this.brakeCorners.push({
+					z: entryI * 8,
+					dir: sign,
+					severity: Math.max(0, Math.min(1, (mag - CURVE_FLAT_MAX) / CURVE_FLAT_MAX)),
+					leg,
+					apexZ: apexI * 8,
+					exitZ: i1 * 8,
+					entryV: brakeCornerEntrySpeed(mag)
+				});
+			}
+			return 0;
+		}
+		_buildElevation(rng) {
+			const n = this.segments.length;
+			const rampCrest = 2 * ELEV_GRADE_MAX / (ELEV_RAMP_CREST_M / 8);
+			const rampNormal = 2 * ELEV_GRADE_MAX / (ELEV_RAMP_NORMAL_M / 8);
+			const st = {
+				i: 0,
+				cur: 0,
+				rampRate: rampNormal
+			};
+			let y = 0;
+			for (const l of this.legs) {
+				const endI = Math.min(n, Math.round(l.endZ / 8));
+				const mix = ELEV_MIX[this.legCharacter[l.leg - 1].elev];
+				while (st.i < endI) {
+					const z = st.i * 8;
+					const win = this._brakeFlatWindows.find((w) => z >= w.z0 - ELEV_RAMP_NORMAL_M / 2 && z < w.z1);
+					if (win) {
+						this._emit(st, "grade", 0, Math.max(3, Math.ceil((win.z1 - z) / 8)), 0);
+						continue;
+					}
+					let kind = this._pickWeighted(rng, mix);
+					if (y > ELEV_Y_SOFT && kind === "CLIMB") kind = "DESCENT";
+					if (y < -55 && kind === "DESCENT") kind = "CLIMB";
+					const f = ELEV_FEATURES[kind];
+					const holdSegs = Math.max(3, Math.round(rng.range(f.hold[0], f.hold[1]) / 8));
+					const g = rng.range(f.grade[0], f.grade[1]);
+					const s = kind === "DESCENT" || kind === "DIP" ? -1 : 1;
+					if (kind === "FLAT") this._emit(st, "grade", 0, holdSegs, 0);
+					else if (kind === "CREST" || kind === "DIP") {
+						this._emit(st, "grade", s * g, holdSegs, 0);
+						st.rampRate = rampCrest;
+						this._emit(st, "grade", -s * g, holdSegs, 0);
+						st.rampRate = rampNormal;
+					} else {
+						this._emit(st, "grade", s * g, holdSegs, 0);
+						y += s * g * holdSegs * 8;
+					}
+					y = clamp$2(y, -90, ELEV_Y_MAX);
+				}
+			}
+			st.rampRate = rampNormal;
+			this._emit(st, "grade", 0, n, 0);
+			for (; st.i < n; st.i++) this.segments[st.i].grade = 0;
+			let yy = 0;
+			for (const seg of this.segments) {
+				yy = clamp$2(yy + seg.grade * 8, -90, ELEV_Y_MAX);
+				seg.y = yy;
+			}
+		}
+		_visibleFrom(zEye, zTarget) {
+			const i0 = clamp$2(Math.round(zEye / 8), 0, this.segments.length - 1);
+			const i1 = clamp$2(Math.round(zTarget / 8), 0, this.segments.length - 1);
+			if (i1 <= i0) return true;
+			const eyeY = this.segments[i0].y + CAMERA_HEIGHT;
+			let worst = -Infinity;
+			for (let i = i0 + 1; i < i1; i++) {
+				const s = (this.segments[i].y - eyeY) / ((i - i0) * 8);
+				if (s > worst) worst = s;
+			}
+			return (this.segments[i1].y - eyeY) / ((i1 - i0) * 8) >= worst;
+		}
+		_sightExclusionM() {
+			const peakCap = 100 * (1 + BOOST.slingGain * (BOOST.baseGain + BOOST.gainPerCharge2));
+			const vClose = peakCap - TRAFFIC_SPEED_MIN * 100;
+			const authority = STEER_RATE * 1 * BOOST.assistSteer;
+			const drift = BLIND_CURVE$1 * peakCap * peakCap * CENTRIFUGAL;
+			const net = Math.max(.2, authority - drift);
+			const tSteer = HIT.dxMax / net;
+			return vClose * (REACTION_S + tSteer);
+		}
+		legOf(z) {
+			for (const l of this.legs) if (z < l.endZ) return l.leg;
+			return 8;
+		}
+		segmentAt(z) {
+			const n = this.segments.length;
+			let i = Math.floor(z / 8);
+			if (i < 0) i = 0;
+			if (i >= n) i = n - 1;
+			return this.segments[i];
+		}
+		curveAt(z) {
+			return this._lerpField(z, "curve");
+		}
+		elevationAt(z) {
+			return this._lerpField(z, "y");
+		}
+		_lerpField(z, key) {
+			const n = this.segments.length;
+			const f = z / 8;
+			let i = Math.floor(f);
+			if (i < 0) return this.segments[0][key];
+			if (i >= n - 1) return this.segments[n - 1][key];
+			const t = f - i;
+			const a = this.segments[i][key];
+			return a + (this.segments[i + 1][key] - a) * t;
+		}
+		_trafficAllowed(z) {
+			const i = Math.floor(z / 8);
+			for (let k = 1; k <= BLIND_SEGS$1; k++) {
+				const s = this.segments[i - k];
+				if (s && Math.abs(s.curve) > BLIND_CURVE$1) return false;
+			}
+			const own = this.segments[i];
+			if (own && Math.abs(own.curve) > BLIND_CURVE$1) return false;
+			for (const cp of this.checkpoints) if (Math.abs(z - cp.z) < CHECKPOINT_CLEAR_M) return false;
+			if (!this._crestFair(z)) return false;
+			return true;
+		}
+		_crestFair(z) {
+			const D = this.blindCrestExclusionM;
+			const step = 8;
+			for (let d = step; d <= D; d += step) if (!this._visibleFrom(z - d, z)) return false;
+			return true;
+		}
+		_selfCheck() {
+			if (this.checkpoints.length !== 8) throw new Error(`Course: expected 8 checkpoints, got ${this.checkpoints.length}`);
+			for (let i = 1; i < this.segments.length; i++) {
+				const d = Math.abs(this.segments[i].curve - this.segments[i - 1].curve);
+				if (d > .250000001) throw new Error(`Course: curvature step ${d.toFixed(4)} at segment ${i} exceeds ${CURVE_STEP}`);
+			}
+			for (const s of this.segments) {
+				if (s.brakeCorner) continue;
+				const cm = maxCurvature(s.leg);
+				if (Math.abs(s.curve) > cm + 1e-9) throw new Error(`Course: |curve| ${Math.abs(s.curve).toFixed(3)} at segment ${s.index} exceeds maxCurvature(${s.leg})=${cm}`);
+			}
+			for (const s of this.segments) {
+				if (!s.brakeCorner) continue;
+				if (Math.abs(s.curve) > BRAKE_CORNER.curve + 1e-9) throw new Error(`Course: brake-corner |curve| ${Math.abs(s.curve).toFixed(3)} at segment ${s.index} exceeds BRAKE_CORNER.curve=${BRAKE_CORNER.curve}`);
+			}
+			const expectBrake = this.legs.filter((l) => l.leg >= BRAKE_CORNER.firstLeg).length * BRAKE_CORNER.perLeg;
+			if (this.brakeCorners.length !== expectBrake) throw new Error(`Course: expected ${expectBrake} brake corners, got ${this.brakeCorners.length}`);
+			for (const bc of this.brakeCorners) {
+				const apex = Math.abs(this.segmentAt(bc.apexZ).curve);
+				if (apex <= 2.2352941176470584) throw new Error(`Course: brake corner at z=${bc.z.toFixed(0)} peaks at ${apex.toFixed(3)}, which is takeable flat (<= ${CURVE_FLAT_MAX.toFixed(3)})`);
+			}
+			for (const car of this.traffic) {
+				const i = Math.floor(car.z / 8);
+				for (let k = 1; k <= BLIND_SEGS$1; k++) {
+					const s = this.segments[i - k];
+					if (s && Math.abs(s.curve) > BLIND_CURVE$1) throw new Error(`Course: traffic at z=${car.z.toFixed(1)} violates the blind-corner rule (segment ${s.index} curve=${s.curve.toFixed(3)})`);
+				}
+				for (const cp of this.checkpoints) if (Math.abs(car.z - cp.z) < CHECKPOINT_CLEAR_M) throw new Error(`Course: traffic at z=${car.z.toFixed(1)} is within ${CHECKPOINT_CLEAR_M} m of checkpoint ${cp.leg} (z=${cp.z})`);
+				if (!this._crestFair(car.z)) throw new Error(`Course: traffic at z=${car.z.toFixed(1)} is hidden behind a crest inside the ${this.blindCrestExclusionM.toFixed(1)} m avoidance distance`);
+			}
+			if (this.traffic.length === 0) throw new Error("Course: no traffic could be placed");
+		}
+	};
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/props.js
+	const PROP_STREAM_SALT = 2654435769;
+	const VERGE_MIN = 1.3;
+	const NEAR_BAND = [1.3, 2.05];
+	const FAR_BAND = [2.05, 4.2];
+	const LARGE_X_MIN = 2.1;
+	const HALF_W_M = 5;
+	const PROP_KINDS = {
+		POST: {
+			h: 1.2,
+			w: .1,
+			occluder: false
+		},
+		TREE: {
+			h: 7.5,
+			w: 1.8,
+			occluder: false
+		},
+		PINE: {
+			h: 11,
+			w: 1.3,
+			occluder: false
+		},
+		ROCK: {
+			h: 2.2,
+			w: 2,
+			occluder: false
+		},
+		PYLON: {
+			h: 16,
+			w: 3,
+			occluder: false
+		},
+		BILLBOARD: {
+			h: 6,
+			w: 4,
+			occluder: true
+		},
+		BUILDING: {
+			h: 8,
+			w: 6,
+			occluder: true
+		},
+		WARN: {
+			h: 2.6,
+			w: 1.1,
+			occluder: false
+		}
+	};
+	const CURVE_PROFILE = {
+		fast: {
+			spacing: 34,
+			nearFrac: .6,
+			big: .3
+		},
+		flowing: {
+			spacing: 26,
+			nearFrac: .76,
+			big: .14
+		},
+		technical: {
+			spacing: 20,
+			nearFrac: .86,
+			big: .08
+		}
+	};
+	const ELEV_PALETTE = {
+		flat: {
+			POST: .42,
+			TREE: .34,
+			PINE: .04,
+			ROCK: .04,
+			PYLON: .16
+		},
+		rolling: {
+			POST: .3,
+			TREE: .46,
+			PINE: .14,
+			ROCK: .06,
+			PYLON: .04
+		},
+		mountain: {
+			POST: .26,
+			TREE: .08,
+			PINE: .44,
+			ROCK: .22,
+			PYLON: 0
+		}
+	};
+	const ELEV_LARGE = {
+		flat: {
+			BILLBOARD: .62,
+			BUILDING: .38
+		},
+		rolling: {
+			BILLBOARD: .55,
+			BUILDING: .45
+		},
+		mountain: {
+			BILLBOARD: .3,
+			BUILDING: .7
+		}
+	};
+	const BLIND_CURVE = .4;
+	const BLIND_SEGS = 2;
+	function pickWeighted(rng, mix) {
+		let total = 0;
+		for (const k in mix) total += mix[k];
+		let r = rng.range(0, total);
+		for (const k in mix) {
+			r -= mix[k];
+			if (r <= 0) return k;
+		}
+		return Object.keys(mix)[0];
+	}
+	function largePropAllowed(course, z, D, trafficZ) {
+		const i = Math.floor(z / 8);
+		for (let k = -2; k <= BLIND_SEGS; k++) {
+			const s = course.segments[i + k];
+			if (s && Math.abs(s.curve) > BLIND_CURVE) return false;
+		}
+		if (!course._crestFair(z)) return false;
+		for (let t = 0; t < trafficZ.length; t++) {
+			const cz = trafficZ[t];
+			if (cz < z - 12) continue;
+			if (cz > z + D) break;
+			return false;
+		}
+		return true;
+	}
+	function buildProps(course) {
+		if (!Array.isArray(course.legs) || !Array.isArray(course.legCharacter)) return [];
+		const rng = makeRng((course.seed >>> 0 ^ PROP_STREAM_SALT) >>> 0);
+		const D = course.blindCrestExclusionM || 0;
+		const trafficZ = (course.traffic || []).map((c) => c.z);
+		const out = [];
+		for (const l of course.legs) {
+			const ch = course.legCharacter[l.leg - 1];
+			const prof = CURVE_PROFILE[ch.curve] || CURVE_PROFILE.flowing;
+			const smallMix = ELEV_PALETTE[ch.elev] || ELEV_PALETTE.rolling;
+			const largeMix = ELEV_LARGE[ch.elev] || ELEV_LARGE.rolling;
+			for (const side of [-1, 1]) {
+				let z = l.startZ + rng.range(0, prof.spacing);
+				while (z < l.endZ) {
+					const big = rng.next() < prof.big;
+					let kind = big ? pickWeighted(rng, largeMix) : pickWeighted(rng, smallMix);
+					const jitter = rng.range(.82, 1.24);
+					let x;
+					if (big) {
+						if (!largePropAllowed(course, z, D, trafficZ)) {
+							kind = pickWeighted(rng, smallMix);
+							x = rng.range(NEAR_BAND[0], NEAR_BAND[1]);
+						} else {
+							const edgeMin = VERGE_MIN + PROP_KINDS[kind].w * jitter / HALF_W_M;
+							const lo = Math.max(LARGE_X_MIN, edgeMin);
+							x = rng.range(lo, lo + 1.6);
+						}
+					} else if (kind === "PYLON") x = rng.range(FAR_BAND[0] + 1.4, FAR_BAND[1]);
+					else {
+						const band = rng.next() < prof.nearFrac ? NEAR_BAND : FAR_BAND;
+						x = rng.range(band[0], band[1]);
+					}
+					out.push({
+						z,
+						x: side * Math.max(VERGE_MIN, x),
+						kind,
+						side,
+						scale: jitter,
+						seedHue: rng.next(),
+						warnFor: null
+					});
+					z += prof.spacing * rng.range(.55, 1.5);
+				}
+			}
+		}
+		placeWarnings(course, out, D);
+		out.sort((a, b) => a.z - b.z);
+		return out;
+	}
+	function placeWarnings(course, out, D) {
+		const corners = course.brakeCorners;
+		if (!Array.isArray(corners)) return;
+		for (const c of corners) {
+			const z = Math.max(0, c.z - D * 1.5);
+			if (z <= 0) continue;
+			out.push({
+				z,
+				x: (c.dir > 0 ? -1 : 1) * 1.55,
+				kind: "WARN",
+				side: c.dir > 0 ? -1 : 1,
+				scale: 1,
+				seedHue: 0,
+				warnFor: c
+			});
+		}
+	}
+	const CACHE$1 = /* @__PURE__ */ new WeakMap();
+	function propsFor(course) {
+		let p = CACHE$1.get(course);
+		if (!p) {
+			p = buildProps(course);
+			CACHE$1.set(course, p);
+		}
+		return p;
+	}
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/render.js
+	const HALF_W = 5;
+	const SCREEN_HALF = 160;
+	const LANE_FRAC = .028;
+	const BAND_LEN = 8;
+	const LANE_LEN = 8;
+	const LANE_ON_LEN = 4;
+	const SLICE_PX = 2;
+	const BAND_MIN_PX = 3;
+	const lateralLimit = (sc) => SCREEN_HALF + 32 * sc;
+	const FOG_START = .55;
+	const FOG_MAX = .92;
+	const HILL_COUNT = 7;
+	const HILL_MAX_H = 24;
+	const SUN_X = .68;
+	const SUN_R = 9;
+	const PROP_PAL = {
+		postA: "#d8d8e0",
+		postB: "#b02830",
+		trunk: "#4a3320",
+		foliage1: "#1f6b34",
+		foliage2: "#154f27",
+		pine1: "#17532c",
+		pine2: "#0f3d20",
+		rock1: "#6a6a70",
+		rock2: "#4a4a52",
+		pylon: "#3a4560",
+		boardFace: "#e8e4d8",
+		boardFrame: "#8c6a3c",
+		boardInkA: "#c83c3c",
+		boardInkB: "#3c7cc8",
+		boardShadow: "#123c1e",
+		wall: "#c8b08c",
+		wallShade: "#8c7458",
+		roof: "#7a3830",
+		window: "#2c4a8c",
+		doorway: "#3a2a1c",
+		warnFace: "#ffd76b",
+		warnEdge: "#1a1a20"
+	};
+	const clamp$1 = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
+	const WORLD_DEPTH_CM = 100;
+	const WORLD_KIND_ORDER = {
+		gate: -1,
+		prop: 0,
+		traffic: 1,
+		rival: 2
+	};
+	function sortWorldSprites(items) {
+		return [...items].sort((a, b) => {
+			const depth = Math.round(b.z * WORLD_DEPTH_CM) - Math.round(a.z * WORLD_DEPTH_CM);
+			if (depth) return depth;
+			const kindA = a.category === "prop" ? "prop" : a.kind;
+			const kindB = b.category === "prop" ? "prop" : b.kind;
+			const kind = (WORLD_KIND_ORDER[kindA] ?? 0) - (WORLD_KIND_ORDER[kindB] ?? 0);
+			if (kind) return kind;
+			const lateral = (a.x || 0) - (b.x || 0);
+			if (lateral) return lateral;
+			return String(a.kind || "").localeCompare(String(b.kind || ""));
+		});
+	}
+	function crossRoadStyleAt(z, camZ) {
+		const half = CROSS_ROAD.lengthM / 2;
+		for (const crossingZ of CROSS_ROAD.positionsM) {
+			const d = Math.abs(z - crossingZ);
+			if (d <= half) {
+				const approach = crossingZ - camZ;
+				const fade = clamp$1((CROSS_ROAD.visibleFarM - approach) / CROSS_ROAD.fadeInM, 0, 1);
+				const alpha = fade * fade * (3 - 2 * fade);
+				return {
+					colour: d >= half - CROSS_ROAD.seamM ? PAL.crossRoadSeam : PAL.crossRoad,
+					alpha
+				};
+			}
+			if (crossingZ > z + half) break;
+		}
+		return null;
+	}
+	function cameraSetback(depth = CAMERA_DEPTH, height = CAMERA_HEIGHT) {
+		return height * depth * SCREEN_HALF / 110;
+	}
+	var Renderer = class {
+		constructor(ctx) {
+			this.ctx = ctx;
+			const N = 142;
+			this._n = 0;
+			this._z = new Float64Array(N);
+			this._sx = new Float64Array(N);
+			this._sy = new Float64Array(N);
+			this._sc = new Float64Array(N);
+			this._clip = new Float64Array(N);
+			this._cx = new Float64Array(N);
+			this._cxd = new Float64Array(N);
+			this._cxc = new Float64Array(N);
+			this._segY = new Float64Array(N);
+			this._camZ = 0;
+			this._camXm = 0;
+			this._camY = CAMERA_HEIGHT;
+			this._horizon = 80;
+			this._ready = false;
+		}
+		beginFrame() {
+			const ctx = this.ctx;
+			ctx.save();
+			ctx.beginPath();
+			ctx.rect(0, 40, 320, 160);
+			ctx.clip();
+			this._ready = false;
+		}
+		endFrame() {
+			this.ctx.restore();
+		}
+		renderRoad(course, cam) {
+			const ctx = this.ctx;
+			const camZ = cam.z;
+			const camXm = (cam.x || 0) * HALF_W;
+			const camY = course.elevationAt(camZ) + (cam.height != null ? cam.height : CAMERA_HEIGHT);
+			this._camZ = camZ;
+			this._camXm = camXm;
+			this._camY = camY;
+			const camDepth = cam.depth != null && cam.depth > .05 ? cam.depth : CAMERA_DEPTH;
+			this._camDepth = camDepth;
+			const baseIndex = Math.floor(camZ / 8);
+			this._baseZ = baseIndex * 8;
+			const horizon = 80;
+			this._horizon = horizon;
+			this._drawSky(cam.bgOffset || 0, camZ);
+			ctx.fillStyle = PAL.skyLow;
+			ctx.fillRect(0, horizon, 320, 120);
+			let cx = 0;
+			let dcx = 0;
+			const nRings = 141;
+			const segs = course.segments;
+			const camAbove = Math.max(.2, camY - course.elevationAt(camZ));
+			this._camAbove = camAbove;
+			const nearZ = Math.max(.5, camDepth * SCREEN_HALF * camAbove / 144);
+			this._nearZ = nearZ;
+			{
+				const u = (camZ - baseIndex * 8) / 8;
+				const c0 = segs[baseIndex < 0 ? 0 : Math.min(baseIndex, segs.length - 1)].curve * CURVE_ACCUM;
+				cx = .5 * c0 * u * u;
+				dcx = -c0 * u;
+			}
+			for (let n = 0; n < nRings; n++) {
+				const si = baseIndex + n;
+				const seg = segs[si < 0 ? 0 : si < segs.length ? si : segs.length - 1];
+				const c = seg.curve * CURVE_ACCUM;
+				this._cx[n] = cx;
+				this._cxd[n] = dcx;
+				this._cxc[n] = c;
+				this._segY[n] = seg.y;
+				cx += dcx + .5 * c;
+				dcx += c;
+			}
+			for (let n = 0; n < nRings; n++) {
+				const z = (baseIndex + n) * 8;
+				const sc = camDepth / Math.max(z - camZ, nearZ) * SCREEN_HALF;
+				const lateral = this._cx[n] * sc;
+				const sx = SCREEN_HALF + lateral - camXm * sc;
+				const sy = horizon - (this._segY[n] - camY) * sc;
+				this._z[n] = z;
+				this._sx[n] = sx;
+				this._sy[n] = sy;
+				this._sc[n] = sc;
+			}
+			this._drawDistantOverpasses(camZ);
+			let maxy = 200;
+			for (let n = 0; n < 140; n++) {
+				this._clip[n] = maxy;
+				const yNear = this._sy[n];
+				const yFar = this._sy[n + 1];
+				if (yFar >= maxy) continue;
+				if (yFar >= 200) continue;
+				if (yNear <= 40 && yFar <= 40) {
+					maxy = Math.min(maxy, yFar);
+					continue;
+				}
+				const si2 = baseIndex + n;
+				const seg = segs[si2 < 0 ? 0 : Math.min(si2, segs.length - 1)];
+				const y1 = clamp$1(yNear, 40, 200);
+				const y2 = clamp$1(yFar, 40, 200);
+				const clipBottom = Math.min(y1, maxy);
+				if (y2 >= clipBottom) {
+					maxy = Math.min(maxy, yFar);
+					continue;
+				}
+				const widthCap = 640;
+				const x1 = this._sx[n], w1 = this._sc[n] * HALF_W;
+				const x2 = this._sx[n + 1], w2 = this._sc[n + 1] * HALF_W;
+				const dy = yNear - yFar;
+				const segAbove = camY - seg.y;
+				for (let yb = clipBottom; yb > y2; yb -= SLICE_PX) {
+					const yt = Math.max(y2, yb - SLICE_PX);
+					const dyh = (yb + yt) / 2 - horizon;
+					const zMid = dyh > .001 ? camZ + camDepth * SCREEN_HALF * segAbove / dyh : camZ + 1120;
+					const K = camDepth * SCREEN_HALF;
+					const bandPx = dyh > .001 ? dyh * dyh * BAND_LEN / Math.max(.2, segAbove * K) : 0;
+					const flat = bandPx < BAND_MIN_PX;
+					const band = Math.floor(zMid / BAND_LEN) % 2 === 0;
+					const lanePx = bandPx * (LANE_ON_LEN / BAND_LEN);
+					const cGrass = flat ? PAL.grass2 : band ? PAL.grass1 : PAL.grass2;
+					const cRumble = flat ? PAL.rumble2 : band ? PAL.rumble1 : PAL.rumble2;
+					const cRoad = flat ? PAL.road2 : band ? PAL.road1 : PAL.road2;
+					const tb = dy > 1e-4 ? clamp$1((yb - yFar) / dy, 0, 1) : 1;
+					const tt = dy > 1e-4 ? clamp$1((yt - yFar) / dy, 0, 1) : 1;
+					const xb = x2 + (x1 - x2) * tb, wb = Math.min(w2 + (w1 - w2) * tb, widthCap);
+					const xt = x2 + (x1 - x2) * tt, wt = Math.min(w2 + (w1 - w2) * tt, widthCap);
+					ctx.fillStyle = cGrass;
+					ctx.fillRect(0, yt, 320, yb - yt);
+					const r = 1.1400000000000001;
+					if (Math.max(xb + wb * r, xt + wt * r) < 0) continue;
+					if (Math.min(xb - wb * r, xt - wt * r) > 320) continue;
+					this._slab(xb, wb * r, yb, xt, wt * r, yt, cRumble);
+					this._slab(xb, wb, yb, xt, wt, yt, cRoad);
+					const crossStyle = crossRoadStyleAt(zMid, camZ);
+					if (crossStyle && crossStyle.alpha > 0) {
+						const authoredScale = CROSS_ROAD.halfWidthM / HALF_W;
+						const edgeWidth = (x, overscan) => Math.max(x + overscan, 320 - x + overscan);
+						const crossWb = Math.max(wb * authoredScale, edgeWidth(xb, CROSS_ROAD.edgeOverscanPx));
+						const crossWt = Math.max(wt * authoredScale, edgeWidth(xt, CROSS_ROAD.edgeOverscanPx));
+						ctx.globalAlpha = crossStyle.alpha;
+						this._slab(xb, crossWb, yb, xt, crossWt, yt, crossStyle.colour);
+						ctx.globalAlpha = 1;
+					}
+					if (lanePx >= BAND_MIN_PX && zMid % LANE_LEN < LANE_ON_LEN) this._slab(xb, wb * LANE_FRAC, yb, xt, wt * LANE_FRAC, yt, PAL.lane);
+				}
+				const t = n / 140;
+				if (t > FOG_START) {
+					const a = FOG_MAX * ((t - FOG_START) / .44999999999999996) ** 1.6;
+					ctx.globalAlpha = clamp$1(a, 0, 1);
+					ctx.fillStyle = PAL.skyLow;
+					ctx.fillRect(0, y2, 320, clipBottom - y2);
+					ctx.globalAlpha = 1;
+				}
+				maxy = Math.min(maxy, yFar);
+			}
+			this._clip[140] = maxy;
+			this._n = 140;
+			this._baseIndex = baseIndex;
+			this._baseZ = baseIndex * 8;
+			this._ready = true;
+			this._drawOverheadOverpasses(camZ);
+		}
+		visibleProps(course) {
+			const props = propsFor(course);
+			const zNear = this._camZ + (this._nearZ || 0);
+			const zFar = this._camZ + 352;
+			let lo = 0, hi = props.length;
+			while (lo < hi) {
+				const m = lo + hi >> 1;
+				if (props[m].z < zNear) lo = m + 1;
+				else hi = m;
+			}
+			let end = lo;
+			while (end < props.length && props[end].z <= zFar) end++;
+			return props.slice(lo, end);
+		}
+		drawProp(p) {
+			return this.drawSprite(p.z, p.x, (ctx, sx, sy, scale) => this._drawProp(ctx, p, sx, sy, scale));
+		}
+		_drawProp(ctx, p, sx, sy, scale) {
+			const g = PROP_KINDS[p.kind];
+			if (!g) return;
+			const h = g.h * p.scale * scale;
+			const w = g.w * p.scale * scale;
+			if (h < 1 || w < .4) {
+				ctx.fillStyle = PROP_PAL.foliage2;
+				ctx.fillRect(Math.round(sx), Math.round(sy) - 1, 1, 1);
+				return;
+			}
+			const x = Math.round(sx), y = Math.round(sy);
+			const iw = Math.max(1, Math.round(w));
+			const ih = Math.max(1, Math.round(h));
+			switch (p.kind) {
+				case "POST":
+					ctx.fillStyle = p.seedHue < .5 ? PROP_PAL.postA : PROP_PAL.postB;
+					ctx.fillRect(x - iw, y - ih, Math.max(1, iw * 2), ih);
+					ctx.fillStyle = PROP_PAL.postA;
+					ctx.fillRect(x - iw, y - ih, Math.max(1, iw * 2), Math.max(1, Math.round(ih * .25)));
+					break;
+				case "TREE": {
+					const th = Math.round(ih * .34);
+					ctx.fillStyle = PROP_PAL.trunk;
+					ctx.fillRect(x - Math.max(1, Math.round(iw * .16)), y - th, Math.max(1, Math.round(iw * .32)), th);
+					ctx.fillStyle = p.seedHue < .45 ? PROP_PAL.foliage1 : PROP_PAL.foliage2;
+					ctx.beginPath();
+					ctx.arc(x, y - ih + ih * .3, Math.max(1, ih * .32), 0, Math.PI * 2);
+					ctx.fill();
+					break;
+				}
+				case "PINE":
+					ctx.fillStyle = PROP_PAL.trunk;
+					ctx.fillRect(x - 1, y - Math.round(ih * .2), 2, Math.round(ih * .2));
+					ctx.fillStyle = p.seedHue < .5 ? PROP_PAL.pine1 : PROP_PAL.pine2;
+					for (let k = 0; k < 3; k++) {
+						const top = y - ih + ih * .28 * k;
+						const base = top + ih * .42;
+						const ww = iw * (.55 + .22 * k);
+						ctx.beginPath();
+						ctx.moveTo(x, top);
+						ctx.lineTo(x + ww, base);
+						ctx.lineTo(x - ww, base);
+						ctx.closePath();
+						ctx.fill();
+					}
+					break;
+				case "ROCK":
+					ctx.fillStyle = PROP_PAL.rock2;
+					ctx.beginPath();
+					ctx.moveTo(x - iw, y);
+					ctx.lineTo(x - iw * .5, y - ih);
+					ctx.lineTo(x + iw * .4, y - ih * .8);
+					ctx.lineTo(x + iw, y);
+					ctx.closePath();
+					ctx.fill();
+					ctx.fillStyle = PROP_PAL.rock1;
+					ctx.fillRect(x - Math.round(iw * .5), y - ih, Math.max(1, Math.round(iw * .5)), Math.max(1, Math.round(ih * .4)));
+					break;
+				case "PYLON": {
+					ctx.fillStyle = PROP_PAL.pylon;
+					const t = Math.max(1, Math.round(iw * .12));
+					ctx.fillRect(x - iw * .5, y - ih, t, ih);
+					ctx.fillRect(x + iw * .5 - t, y - ih, t, ih);
+					ctx.fillRect(x - iw, y - ih, iw * 2, Math.max(1, Math.round(ih * .06)));
+					ctx.fillRect(x - iw * .6, y - ih * .55, iw * 1.2, Math.max(1, Math.round(ih * .05)));
+					break;
+				}
+				case "BILLBOARD": {
+					const legH = Math.max(1, Math.round(ih * .36));
+					const bh = ih - legH;
+					const fr = Math.max(1, Math.round(Math.min(iw, bh) * .11));
+					const postW = Math.max(1, Math.round(iw * .13));
+					ctx.fillStyle = PROP_PAL.boardShadow;
+					ctx.fillRect(x - Math.round(iw * .62), y - Math.max(1, Math.round(ih * .02)), Math.max(2, Math.round(iw * 1.24)), Math.max(1, Math.round(ih * .035)));
+					ctx.fillStyle = PROP_PAL.boardFrame;
+					ctx.fillRect(x - Math.round(iw * .52), y - legH, postW, legH);
+					ctx.fillRect(x + Math.round(iw * .52) - postW, y - legH, postW, legH);
+					if (legH > 6) ctx.fillRect(x - Math.round(iw * .52), y - Math.round(legH * .45), Math.max(2, Math.round(iw * 1.04)), Math.max(1, Math.round(legH * .1)));
+					ctx.fillStyle = PROP_PAL.boardFrame;
+					ctx.fillRect(x - iw, y - ih, iw * 2, bh);
+					ctx.fillStyle = PROP_PAL.boardFace;
+					ctx.fillRect(x - iw + fr, y - ih + fr, Math.max(1, iw * 2 - fr * 2), Math.max(1, bh - fr * 2));
+					ctx.fillStyle = p.seedHue < .5 ? PROP_PAL.boardInkA : PROP_PAL.boardInkB;
+					ctx.fillRect(x - iw * .68, y - ih + bh * .26, iw * 1.36, Math.max(1, bh * .18));
+					ctx.fillRect(x - iw * .68, y - ih + bh * .58, iw * .88, Math.max(1, bh * .14));
+					break;
+				}
+				case "BUILDING": {
+					const wallH = Math.round(ih * .66);
+					ctx.fillStyle = PROP_PAL.boardShadow;
+					ctx.fillRect(x - Math.round(iw * 1.05), y - Math.max(1, Math.round(ih * .02)), Math.max(2, Math.round(iw * 2.1)), Math.max(1, Math.round(ih * .035)));
+					ctx.fillStyle = PROP_PAL.wall;
+					ctx.fillRect(x - iw, y - wallH, iw * 2, wallH);
+					ctx.fillStyle = PROP_PAL.wallShade;
+					ctx.fillRect(x + iw * .35, y - wallH, iw * .65, wallH);
+					ctx.fillStyle = PROP_PAL.roof;
+					ctx.beginPath();
+					ctx.moveTo(x - iw * 1.1, y - wallH);
+					ctx.lineTo(x, y - ih);
+					ctx.lineTo(x + iw * 1.1, y - wallH);
+					ctx.closePath();
+					ctx.fill();
+					const winW = Math.round(iw * .26), winH = Math.round(wallH * .22);
+					if (winW >= 2 && winH >= 2) {
+						ctx.fillStyle = PROP_PAL.window;
+						ctx.fillRect(x - Math.round(iw * .66), y - wallH + Math.round(wallH * .18), winW, winH);
+						ctx.fillRect(x - Math.round(iw * .14), y - wallH + Math.round(wallH * .18), winW, winH);
+						ctx.fillStyle = PROP_PAL.doorway;
+						ctx.fillRect(x - Math.round(iw * .4), y - Math.round(wallH * .42), Math.max(2, Math.round(iw * .28)), Math.round(wallH * .42));
+					}
+					break;
+				}
+				case "WARN": {
+					const postH = Math.round(ih * .45);
+					ctx.fillStyle = PROP_PAL.warnEdge;
+					ctx.fillRect(x - 1, y - postH, 2, postH);
+					const d = Math.max(2, (ih - postH) * .5);
+					ctx.fillStyle = PROP_PAL.warnEdge;
+					ctx.beginPath();
+					ctx.moveTo(x, y - ih - 1);
+					ctx.lineTo(x + d + 1, y - postH - d);
+					ctx.lineTo(x, y - postH + 1);
+					ctx.lineTo(x - d - 1, y - postH - d);
+					ctx.closePath();
+					ctx.fill();
+					ctx.fillStyle = PROP_PAL.warnFace;
+					ctx.beginPath();
+					ctx.moveTo(x, y - ih + 1);
+					ctx.lineTo(x + d - 1, y - postH - d);
+					ctx.lineTo(x, y - postH - 1);
+					ctx.lineTo(x - d + 1, y - postH - d);
+					ctx.closePath();
+					ctx.fill();
+					break;
+				}
+			}
+		}
+		_slab(xb, wb, yb, xt, wt, yt, colour) {
+			const ctx = this.ctx;
+			ctx.fillStyle = colour;
+			ctx.beginPath();
+			ctx.moveTo(xb - wb, yb);
+			ctx.lineTo(xb + wb, yb);
+			ctx.lineTo(xt + wt, yt);
+			ctx.lineTo(xt - wt, yt);
+			ctx.closePath();
+			ctx.fill();
+		}
+		_drawSky(bgOffset, travelledM = 0) {
+			const ctx = this.ctx;
+			const horizon = 80;
+			const top = 40;
+			const h = 40;
+			ctx.fillStyle = PAL.skyTop;
+			ctx.fillRect(0, top, 320, Math.ceil(h * .45));
+			ctx.fillStyle = PAL.skyMid;
+			ctx.fillRect(0, top + Math.ceil(h * .45), 320, Math.ceil(h * .33));
+			ctx.fillStyle = PAL.skyLow;
+			ctx.fillRect(0, top + Math.ceil(h * .78), 320, h - Math.ceil(h * .78));
+			ctx.fillStyle = PAL.sun;
+			ctx.beginPath();
+			ctx.arc(320 * SUN_X + bgOffset, 52, SUN_R, 0, Math.PI * 2);
+			ctx.fill();
+			for (let pass = 0; pass < 2; pass++) {
+				ctx.fillStyle = pass === 0 ? PAL.hill : PAL.hillLit;
+				ctx.beginPath();
+				ctx.moveTo(-320, horizon);
+				const phase = pass === 0 ? 0 : 1.7;
+				const amp = pass === 0 ? HILL_MAX_H : HILL_MAX_H * .62;
+				const off = bgOffset * (pass === 0 ? 1 : BG_SCROLL.nearRankFrac);
+				for (let px = -320; px <= 640; px += 4) {
+					const u = (px - off) / 320;
+					const yy = horizon - amp * (.5 + .5 * Math.sin(u * HILL_COUNT + phase)) * (.6 + .4 * Math.sin(u * 2.3 + phase));
+					ctx.lineTo(px, yy);
+				}
+				ctx.lineTo(640, horizon);
+				ctx.closePath();
+				ctx.fill();
+				if (pass === 0) this._drawDistantTower(bgOffset, horizon, travelledM);
+			}
+		}
+		_drawDistantTower(bgOffset, horizon, travelledM = 0) {
+			const ctx = this.ctx;
+			const t = DISTANT_TOWER;
+			const u0 = clamp$1(travelledM / t.approachM, 0, 1);
+			const u = u0 * u0 * (3 - 2 * u0);
+			const scale = t.scaleFar + (t.scaleNear - t.scaleFar) * u;
+			const curveParallax = 1 + (t.curveParallaxNear - 1) * u;
+			const x = Math.round(320 * (t.xFrac - t.outwardFrac * u) + bgOffset * curveParallax);
+			const baseY = Math.round(horizon + 2 + t.baseDropPx * u);
+			const height = Math.round(t.heightPx * scale);
+			const mastW = Math.max(3, Math.round(t.mastWidthPx * scale));
+			const deckW = Math.max(7, Math.round(t.deckWidthPx * scale));
+			const deckH = Math.max(3, Math.round(t.deckHeightPx * scale));
+			const spireH = Math.max(4, Math.round(t.spireHeightPx * scale));
+			const topY = baseY - height;
+			const mastTop = topY + spireH;
+			const deckY = mastTop + Math.round(5 * scale);
+			const mastX = Math.round(x - mastW / 2);
+			ctx.fillStyle = PAL[t.paletteRoles.body];
+			ctx.fillRect(x, topY, Math.max(1, Math.round(scale)), spireH);
+			ctx.fillRect(mastX, mastTop, mastW, baseY - mastTop);
+			ctx.fillRect(Math.round(x - deckW / 2), deckY, deckW, deckH);
+			ctx.fillStyle = PAL[t.paletteRoles.litEdge];
+			ctx.fillRect(mastX + mastW - 1, mastTop + 1, 1, baseY - mastTop - 2);
+			ctx.fillRect(Math.round(x - deckW / 2) + 1, deckY + 1, deckW - 2, 1);
+		}
+		_drawDistantOverpasses(camZ) {
+			const ctx = this.ctx;
+			const o = DISTANT_OVERPASS;
+			const smooth = (v) => {
+				const u = clamp$1(v, 0, 1);
+				return u * u * (3 - 2 * u);
+			};
+			for (const z of o.positionsM) {
+				const dz = z - camZ;
+				if (dz <= o.visibleNearM || dz >= o.visibleFarM) continue;
+				const farAlpha = smooth((o.visibleFarM - dz) / o.fadeInM);
+				const nearAlpha = smooth((dz - o.visibleNearM) / o.fadeOutM);
+				const alpha = Math.min(farAlpha, nearAlpha);
+				if (alpha <= 0) continue;
+				const a = this._projectScenery(z - o.halfDepthM, -o.halfSpanM, o.heightM);
+				const b = this._projectScenery(z + o.halfDepthM, o.halfSpanM, o.heightM);
+				const au = this._projectScenery(z - o.halfDepthM, -o.halfSpanM, o.heightM + o.edgeHeightM);
+				const bu = this._projectScenery(z + o.halfDepthM, o.halfSpanM, o.heightM + o.edgeHeightM);
+				const ad = this._projectScenery(z - o.halfDepthM, -o.halfSpanM, o.heightM - o.deckThicknessM);
+				const bd = this._projectScenery(z + o.halfDepthM, o.halfSpanM, o.heightM - o.deckThicknessM);
+				if (![
+					a,
+					b,
+					au,
+					bu,
+					ad,
+					bd
+				].every(Boolean)) continue;
+				ctx.save();
+				ctx.globalAlpha = alpha * .82;
+				this._quad(a, b, bd, ad, PAL[o.paletteRoles.deck]);
+				this._quad(au, bu, b, a, PAL[o.paletteRoles.edge]);
+				for (const s of [-1, 1]) {
+					const t = (s * o.pierInsetM + o.halfSpanM) / (2 * o.halfSpanM);
+					const pz = z - o.halfDepthM + 2 * o.halfDepthM * t;
+					const px = s * o.pierInsetM;
+					const top = this._projectScenery(pz, px, o.heightM - o.deckThicknessM);
+					const foot = this._projectScenery(pz, px, 0);
+					if (!top || !foot) continue;
+					const hw = Math.max(1, o.pierWidthM * top.scale * .5);
+					this._quad({
+						sx: top.sx - hw,
+						sy: top.sy
+					}, {
+						sx: top.sx + hw,
+						sy: top.sy
+					}, {
+						sx: foot.sx + hw,
+						sy: foot.sy
+					}, {
+						sx: foot.sx - hw,
+						sy: foot.sy
+					}, PAL[o.paletteRoles.pier]);
+				}
+				ctx.restore();
+			}
+		}
+		_drawOverheadOverpasses(camZ) {
+			const ctx = this.ctx;
+			const o = DISTANT_OVERPASS;
+			const smooth = (v) => {
+				const u = clamp$1(v, 0, 1);
+				return u * u * (3 - 2 * u);
+			};
+			for (const z of o.positionsM) {
+				const dz = z - camZ;
+				if (dz >= o.overheadFarM || dz <= -o.halfDepthM + o.overheadNearPlaneM) continue;
+				const alpha = smooth((o.overheadFarM - dz) / o.overheadFadeM);
+				if (alpha <= 0) continue;
+				const z0 = z - o.halfDepthM;
+				const spanZ = 2 * o.halfDepthM;
+				const tMin = clamp$1((camZ + o.overheadNearPlaneM - z0) / spanZ, 0, 1);
+				if (tMin >= 1) continue;
+				const slices = o.overheadSlices;
+				const firstSlice = Math.min(slices - 1, Math.floor(tMin * slices));
+				ctx.save();
+				ctx.globalAlpha = alpha;
+				for (let i = slices - 1; i >= firstSlice; i--) {
+					const ta = i === firstSlice ? tMin : i / slices;
+					const tb = (i + 1) / slices;
+					const point = (t, h) => this._projectScenery(z0 + spanZ * t, -o.halfSpanM + 2 * o.halfSpanM * t, h);
+					const at = point(ta, o.heightM);
+					const bt = point(tb, o.heightM);
+					const ab = point(ta, o.heightM - o.deckThicknessM);
+					const bb = point(tb, o.heightM - o.deckThicknessM);
+					if (![
+						at,
+						bt,
+						ab,
+						bb
+					].every(Boolean)) continue;
+					this._quad(at, bt, bb, ab, PAL[o.paletteRoles.underside]);
+					const ae = point(ta, o.heightM + o.edgeHeightM);
+					const be = point(tb, o.heightM + o.edgeHeightM);
+					if (ae && be) this._quad(ae, be, bt, at, PAL[o.paletteRoles.edge]);
+				}
+				for (const s of [-1, 1]) {
+					const pz = z0 + spanZ * ((s * o.pierInsetM + o.halfSpanM) / (2 * o.halfSpanM));
+					if (pz - camZ <= o.overheadNearPlaneM) continue;
+					const top = this._projectScenery(pz, s * o.pierInsetM, o.heightM - o.deckThicknessM);
+					const foot = this._projectScenery(pz, s * o.pierInsetM, 0);
+					if (!top || !foot) continue;
+					const hw = Math.max(1, o.pierWidthM * top.scale * .5);
+					this._quad({
+						sx: top.sx - hw,
+						sy: top.sy
+					}, {
+						sx: top.sx + hw,
+						sy: top.sy
+					}, {
+						sx: foot.sx + hw,
+						sy: foot.sy
+					}, {
+						sx: foot.sx - hw,
+						sy: foot.sy
+					}, PAL[o.paletteRoles.pier]);
+				}
+				ctx.restore();
+			}
+		}
+		_projectScenery(z, xM, heightM) {
+			const f = (z - this._baseZ) / 8;
+			const n = Math.floor(f);
+			if (n < 0 || n >= 140) return null;
+			const t = clamp$1(f - n, 0, 1);
+			const sx = this._sx[n] + (this._sx[n + 1] - this._sx[n]) * t;
+			const sy = this._sy[n] + (this._sy[n + 1] - this._sy[n]) * t;
+			const sc = this._sc[n] + (this._sc[n + 1] - this._sc[n]) * t;
+			return {
+				sx: sx + xM * sc,
+				sy: sy - heightM * sc,
+				scale: sc
+			};
+		}
+		_quad(a, b, c, d, colour) {
+			const ctx = this.ctx;
+			ctx.fillStyle = colour;
+			ctx.beginPath();
+			ctx.moveTo(a.sx, a.sy);
+			ctx.lineTo(b.sx, b.sy);
+			ctx.lineTo(c.sx, c.sy);
+			ctx.lineTo(d.sx, d.sy);
+			ctx.closePath();
+			ctx.fill();
+		}
+		renderCoast(t) {
+			const ctx = this.ctx;
+			const horizon = 80;
+			const top = 40;
+			const h = 40;
+			const shoreY = Math.round(horizon + 120 * COAST.shoreFrac);
+			this._ready = false;
+			this._horizon = horizon;
+			const hTop = Math.ceil(h * COAST.sky.topFrac);
+			const hMid = Math.ceil(h * COAST.sky.midFrac);
+			ctx.fillStyle = PAL.dawnSkyTop;
+			ctx.fillRect(0, top, 320, hTop);
+			ctx.fillStyle = PAL.dawnSkyMid;
+			ctx.fillRect(0, top + hTop, 320, hMid);
+			ctx.fillStyle = PAL.dawnSkyLow;
+			ctx.fillRect(0, top + hTop + hMid, 320, h - hTop - hMid);
+			ctx.fillStyle = PAL.dawnGlow;
+			ctx.fillRect(0, horizon - COAST.sky.glowPx, 320, COAST.sky.glowPx);
+			const rise = clamp$1(t / COAST.sun.riseS, 0, 1);
+			const sunX = 320 * COAST.sun.xFrac;
+			const sunY = horizon + COAST.sun.y0 + (COAST.sun.y1 - COAST.sun.y0) * rise;
+			ctx.fillStyle = PAL.sun;
+			ctx.beginPath();
+			ctx.arc(sunX, sunY, COAST.sun.r, 0, Math.PI * 2);
+			ctx.fill();
+			const seaSplit = [
+				.3,
+				.62,
+				1
+			];
+			const seaCols = [
+				PAL.dawnSeaFar,
+				PAL.dawnSeaMid,
+				PAL.dawnSeaNear
+			];
+			let yPrev = horizon;
+			for (let i = 0; i < 3; i++) {
+				const yNext = i === 2 ? shoreY : Math.round(horizon + (shoreY - horizon) * seaSplit[i]);
+				ctx.fillStyle = seaCols[i];
+				ctx.fillRect(0, yPrev, 320, yNext - yPrev);
+				yPrev = yNext;
+			}
+			this._coastRidge(t * COAST.scroll.farHill, horizon, COAST.hills.farAmp, COAST.hills.k1, 0, PAL.dawnLandFar);
+			this._coastRidge(t * COAST.scroll.headland, horizon, COAST.hills.nearAmp, COAST.hills.k2, 2.1, PAL.dawnLandNear);
+			const g = COAST.glitter;
+			for (let y = 81; y < shoreY; y += g.dashPx) {
+				const u = (y - horizon) / (shoreY - horizon);
+				const w = g.wTop + (g.wBottom - g.wTop) * u;
+				const ph = Math.sin(u * 9.1 + t * g.rate) * .5 + .5;
+				if (ph < g.gate && u > g.weldFrac) continue;
+				const dw = Math.max(1, Math.round(w * (.25 + .5 * ph)));
+				ctx.fillStyle = ph > .8 ? PAL.sun : PAL.dawnGlow;
+				ctx.fillRect(Math.round(sunX - dw / 2 + Math.sin(u * 5.3 + t) * g.wobble), y, dw, Math.max(1, g.dashPx - 1));
+			}
+			const off = t * COAST.scroll.foreland;
+			const surfOff = t * COAST.scroll.surf;
+			ctx.fillStyle = PAL.dawnForeland;
+			ctx.beginPath();
+			ctx.moveTo(0, 200);
+			for (let px = 0; px <= 320; px += 2) ctx.lineTo(px, this._forelandY(px + off, shoreY));
+			ctx.lineTo(320, 200);
+			ctx.closePath();
+			ctx.fill();
+			ctx.fillStyle = PAL.dawnSurf;
+			for (let px = 0; px < 320; px += 2) {
+				if (Math.sin((px + surfOff) * .11) + Math.sin((px + surfOff) * .041) < .15) continue;
+				const y = Math.round(this._forelandY(px + off, shoreY));
+				ctx.fillRect(px, y - COAST.foreland.surfPx, 2, COAST.foreland.surfPx);
+			}
+		}
+		_forelandY(x, shoreY) {
+			const u = x / 320 * Math.PI * 2;
+			return shoreY + COAST.foreland.amp * (Math.sin(u * 2) * .6 + Math.sin(u * 3 + 1.1) * .4);
+		}
+		_coastRidge(offset, baseY, amp, k, phase, colour) {
+			const ctx = this.ctx;
+			ctx.fillStyle = colour;
+			ctx.beginPath();
+			ctx.moveTo(0, baseY);
+			for (let px = 0; px <= 320; px += 4) {
+				const u = (px + offset) / 320 * Math.PI * 2;
+				const y = baseY - amp * (.5 + .5 * Math.sin(u * k + phase)) * (.55 + .45 * Math.sin(u * 2 + phase * 1.7));
+				ctx.lineTo(px, y);
+			}
+			ctx.lineTo(320, baseY);
+			ctx.closePath();
+			ctx.fill();
+		}
+		metresToPixelsAtY(y) {
+			return Math.max(1, y - (this._horizon != null ? this._horizon : 80)) / Math.max(.2, this._camAbove != null ? this._camAbove : CAMERA_HEIGHT);
+		}
+		roadHalfWidthAtY(y) {
+			return HALF_W * this.metresToPixelsAtY(y);
+		}
+		project(z, x, yOffset) {
+			const miss = {
+				sx: 0,
+				sy: 0,
+				scale: 0,
+				visible: false
+			};
+			if (!this._ready) return miss;
+			if (z < this._camZ) return miss;
+			const f = (z - this._baseZ) / 8;
+			const n = Math.floor(f);
+			if (n >= this._n) return miss;
+			const t = f - n;
+			const dz = Math.max(z - this._camZ, .001);
+			const sc = (this._camDepth || CAMERA_DEPTH) / dz * SCREEN_HALF;
+			const cxm = this._cx[n] + t * (this._cxd[n] + .5 * this._cxc[n] * t);
+			const segY = this._segY[n] + (this._segY[n + 1] - this._segY[n]) * t;
+			const lim = lateralLimit(sc);
+			const lateral = clamp$1(cxm * sc, -lim, lim);
+			const cy = this._horizon - (segY - this._camY) * sc;
+			const sx = SCREEN_HALF + lateral - this._camXm * sc + (x || 0) * HALF_W * sc;
+			const sy = cy - (yOffset || 0) * sc;
+			const clip = Math.min(this._clip[n], 200);
+			return {
+				sx,
+				sy,
+				scale: sc,
+				visible: sy > 40 && sy < 200 + sc * 8,
+				clip
+			};
+		}
+		drawSprite(z, x, drawFn) {
+			const p = this.project(z, x, 0);
+			if (!p.visible) return p;
+			const ctx = this.ctx;
+			ctx.save();
+			ctx.beginPath();
+			ctx.rect(0, 40, 320, Math.max(0, this._clipAt(z) - 40));
+			ctx.clip();
+			drawFn(ctx, p.sx, p.sy, p.scale);
+			ctx.restore();
+			return p;
+		}
+		_clipAt(z) {
+			const f = (z - this._baseZ) / 8;
+			const n = clamp$1(Math.floor(f), 0, this._n);
+			return Math.min(this._clip[n], 200);
+		}
+	};
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/audio.js
+	const clamp01 = (v) => Number.isFinite(v) ? v < 0 ? 0 : v > 1 ? 1 : v : 0;
+	const clampPan = (v) => Number.isFinite(v) ? v < -1 ? -1 : v > 1 ? 1 : v : 0;
+	const A4 = 440;
+	const semi = (n) => A4 * Math.pow(2, n / 12);
+	const N = {
+		C3: semi(-21),
+		E3: semi(-17),
+		G3: semi(-14),
+		A3: semi(-12),
+		B3: semi(-10),
+		C4: semi(-9),
+		D4: semi(-7),
+		E4: semi(-5),
+		F4: semi(-4),
+		G4: semi(-2),
+		A4: semi(0),
+		B4: semi(2),
+		C5: semi(3),
+		D5: semi(5),
+		E5: semi(7),
+		G5: semi(10),
+		C6: semi(15),
+		F2: semi(-28),
+		G2: semi(-26),
+		A2: semi(-24),
+		C2: semi(-33),
+		E2: semi(-29),
+		D3: semi(-19),
+		F3: semi(-16)
+	};
+	const MUSIC = { attract: {
+		bpm: 96,
+		stepsPerBeat: 4,
+		bass: [
+			N.C2,
+			0,
+			0,
+			0,
+			N.C2,
+			0,
+			0,
+			0,
+			N.F2,
+			0,
+			0,
+			0,
+			N.G2,
+			0,
+			0,
+			0
+		],
+		arp: [
+			N.C4,
+			0,
+			N.E4,
+			0,
+			N.G4,
+			0,
+			N.E4,
+			0,
+			N.F4,
+			0,
+			N.A4,
+			0,
+			N.G4,
+			0,
+			N.D4,
+			0
+		],
+		arpGain: .07,
+		bassGain: .11,
+		drive: 0
+	} };
+	const MOTIF = [
+		N.C5,
+		N.E5,
+		N.G5
+	];
+	var Sound = class {
+		constructor() {
+			this.ctx = null;
+			this.ready = false;
+			this.muted = false;
+			this._pageVisible = true;
+			this._draft = 0;
+			this._engine = {
+				speed01: 0,
+				boosting: false
+			};
+			this._engineOn = true;
+			this._musicName = null;
+			this._timer = null;
+			this._windTimer = null;
+			this._activeSources = /* @__PURE__ */ new Set();
+			this._nextStepTime = 0;
+			this._step = 0;
+			this._windBase = 0;
+		}
+		async unlock() {
+			if (this.ready) {
+				try {
+					if (this._pageVisible && this.ctx && this.ctx.state === "suspended") await this.ctx.resume();
+				} catch (e) {}
+				return;
+			}
+			const AC = typeof window !== "undefined" && (window.AudioContext || window.webkitAudioContext) || null;
+			if (!AC) return;
+			try {
+				this.ctx = new AC();
+				this._build();
+				this.ready = true;
+				if (!this._pageVisible && this.ctx.state !== "suspended") await this.ctx.suspend();
+				else if (this._pageVisible && this.ctx.state === "suspended") await this.ctx.resume();
+				this.setMuted(this.muted);
+				this.setEngineRunning(this._engineOn);
+				this.setEngine(this._engine);
+				this.setDraft(this._draft);
+				if (this._musicName) this.music(this._musicName);
+			} catch (e) {
+				this.ctx = null;
+				this.ready = false;
+			}
+		}
+		_build() {
+			const ctx = this.ctx;
+			const t = ctx.currentTime;
+			this.master = ctx.createGain();
+			this.master.gain.setValueAtTime(this.muted ? 0 : .75, t);
+			this.tone = ctx.createBiquadFilter();
+			this.tone.type = "lowpass";
+			this.tone.frequency.setValueAtTime(7200, t);
+			this.tone.Q.setValueAtTime(.4, t);
+			this.hp = ctx.createBiquadFilter();
+			this.hp.type = "highpass";
+			this.hp.frequency.setValueAtTime(45, t);
+			this.clip = ctx.createWaveShaper();
+			this.clip.curve = softClipCurve();
+			this.clip.oversample = "2x";
+			this.master.connect(this.tone);
+			this.tone.connect(this.hp);
+			this.hp.connect(this.clip);
+			this.clip.connect(ctx.destination);
+			this.busEngine = ctx.createGain();
+			this.busEngine.gain.value = .55;
+			this.busWind = ctx.createGain();
+			this.busWind.gain.value = .9;
+			this.busSfx = ctx.createGain();
+			this.busSfx.gain.value = .9;
+			this.busMusic = ctx.createGain();
+			this.busMusic.gain.value = .55;
+			this.duckEngine = ctx.createGain();
+			this.duckEngine.gain.value = 1;
+			this.duckWind = ctx.createGain();
+			this.duckWind.gain.value = 1;
+			this.busEngine.connect(this.duckEngine);
+			this.duckEngine.connect(this.master);
+			this.busWind.connect(this.duckWind);
+			this.duckWind.connect(this.master);
+			this.busSfx.connect(this.master);
+			this.busMusic.connect(this.master);
+			this.noiseBuf = makeNoise(ctx, 2);
+			this.engFilter = ctx.createBiquadFilter();
+			this.engFilter.type = "lowpass";
+			this.engFilter.frequency.setValueAtTime(400, t);
+			this.engFilter.Q.setValueAtTime(6, t);
+			this.engOsc = [];
+			const mk = (type, detune, gain) => {
+				const o = ctx.createOscillator();
+				o.type = type;
+				o.detune.value = detune;
+				const g = ctx.createGain();
+				g.gain.value = gain;
+				o.connect(g);
+				g.connect(this.engFilter);
+				o.start(t);
+				this.engOsc.push({
+					o,
+					g,
+					mul: 1
+				});
+				return {
+					o,
+					g
+				};
+			};
+			const a = mk("sawtooth", -7, .2);
+			a.mul = 1;
+			mk("sawtooth", 9, .2);
+			mk("square", 0, .16);
+			this.engOsc[0].mul = 1;
+			this.engOsc[1].mul = 1.005;
+			this.engOsc[2].mul = .5;
+			mk("square", 4, 0);
+			this.engOsc[3].mul = 2;
+			this.engBoostGain = this.engOsc[3].g;
+			this.engLevel = ctx.createGain();
+			this.engLevel.gain.setValueAtTime(this._engineOn ? 1 : 0, t);
+			this.engFilter.connect(this.engLevel);
+			this.engLevel.connect(this.busEngine);
+			this.windSrc = ctx.createBufferSource();
+			this.windSrc.buffer = this.noiseBuf;
+			this.windSrc.loop = true;
+			this.windBand = ctx.createBiquadFilter();
+			this.windBand.type = "lowpass";
+			this.windBand.frequency.setValueAtTime(5e3, t);
+			this.windBand.Q.setValueAtTime(.9, t);
+			this.windGain = ctx.createGain();
+			this.windGain.gain.setValueAtTime(0, t);
+			this.boomBand = ctx.createBiquadFilter();
+			this.boomBand.type = "lowpass";
+			this.boomBand.frequency.setValueAtTime(120, t);
+			this.boomBand.Q.setValueAtTime(2.2, t);
+			this.boomGain = ctx.createGain();
+			this.boomGain.gain.setValueAtTime(0, t);
+			this.windSrc.connect(this.windBand);
+			this.windBand.connect(this.windGain);
+			this.windGain.connect(this.busWind);
+			this.windSrc.connect(this.boomBand);
+			this.boomBand.connect(this.boomGain);
+			this.boomGain.connect(this.busWind);
+			this.windSrc.start(t);
+			this.musBassFilt = ctx.createBiquadFilter();
+			this.musBassFilt.type = "lowpass";
+			this.musBassFilt.frequency.value = 900;
+			this.musBassFilt.connect(this.busMusic);
+		}
+		_ok() {
+			return !!(this.ctx && this.ready);
+		}
+		async setPageVisible(visible) {
+			this._pageVisible = !!visible;
+			if (!this._ok()) return;
+			try {
+				if (!this._pageVisible && this.ctx.state !== "suspended") {
+					await this.ctx.suspend();
+					if (this._pageVisible && this.ctx.state === "suspended") await this.ctx.resume();
+				} else if (this._pageVisible && this.ctx.state === "suspended") {
+					await this.ctx.resume();
+					if (!this._pageVisible && this.ctx.state !== "suspended") await this.ctx.suspend();
+				}
+			} catch (e) {}
+		}
+		setMuted(b) {
+			this.muted = !!b;
+			if (!this._ok()) return;
+			const t = this.ctx.currentTime;
+			this.master.gain.cancelScheduledValues(t);
+			this.master.gain.setTargetAtTime(this.muted ? 0 : .75, t, .02);
+		}
+		stopAll() {
+			this.music(null);
+			if (this._windTimer) {
+				clearTimeout(this._windTimer);
+				this._windTimer = null;
+			}
+			this._windBase = 0;
+			for (const source of this._activeSources) try {
+				source.stop(this.ctx ? this.ctx.currentTime : 0);
+			} catch {}
+			this._activeSources.clear();
+			this._engineOn = false;
+			this._engineApplied = false;
+			if (!this._ok()) return;
+			const t = this.ctx.currentTime;
+			for (const p of [
+				this.engLevel.gain,
+				this.windGain.gain,
+				this.boomGain.gain
+			]) {
+				p.cancelScheduledValues(t);
+				p.setValueAtTime(0, t);
+			}
+			for (const p of [this.duckEngine?.gain, this.duckWind?.gain]) {
+				if (!p) continue;
+				p.cancelScheduledValues(t);
+				p.setValueAtTime(1, t);
+			}
+		}
+		_trackSource(source) {
+			this._activeSources.add(source);
+			const prior = source.onended;
+			source.onended = (...args) => {
+				this._activeSources.delete(source);
+				if (typeof prior === "function") prior.apply(source, args);
+			};
+			return source;
+		}
+		setEngineRunning(on) {
+			const b = !!on;
+			const applied = this._engineApplied;
+			this._engineOn = b;
+			if (!this._ok()) return;
+			if (applied === b) return;
+			this._engineApplied = b;
+			const t = this.ctx.currentTime;
+			this.engLevel.gain.cancelScheduledValues(t);
+			this.engLevel.gain.setTargetAtTime(b ? 1 : 0, t, .12);
+			this._applyWind();
+		}
+		setEngine(opts) {
+			const o = opts || {};
+			const speed01 = clamp01(o.speed01);
+			const boosting = !!o.boosting;
+			this._engine = {
+				speed01,
+				boosting
+			};
+			if (!this._ok()) return;
+			const t = this.ctx.currentTime;
+			const TAU = .06;
+			const f = 48 + 182 * Math.pow(speed01, .85) + (boosting ? 26 : 0);
+			for (const v of this.engOsc) v.o.frequency.setTargetAtTime(f * v.mul, t, TAU);
+			const cut = 260 + 2600 * Math.pow(speed01, .8) + (boosting ? 1800 : 0);
+			this.engFilter.frequency.setTargetAtTime(cut, t, TAU);
+			this.engFilter.Q.setTargetAtTime(boosting ? 9 : 6, t, TAU);
+			this.engBoostGain.gain.setTargetAtTime(boosting ? .13 : 0, t, .05);
+			this._applyWind();
+		}
+		setDraft(level01) {
+			this._draft = clamp01(level01);
+			if (!this._ok()) return;
+			this._applyWind();
+		}
+		_applyWind() {
+			if (!this._ok()) return;
+			const t = this.ctx.currentTime;
+			const d = this._draft;
+			const on = this._engineOn ? 1 : 0;
+			const sp = this._engine.speed01;
+			const TAU = .1;
+			const gate = Math.pow(1 - d, 1.9);
+			const rush = ((.00625 + .0275 * Math.pow(sp, 1.3)) * gate + this._windBase) * on;
+			this.windGain.gain.setTargetAtTime(rush, t, TAU);
+			this.windBand.frequency.setTargetAtTime(500 + 4500 * gate, t, TAU);
+			const boom = (.012 + .085 * Math.pow(sp, 1.2)) * Math.pow(d, 1.4) * on;
+			this.boomGain.gain.setTargetAtTime(boom, t, TAU);
+			this.boomBand.frequency.setTargetAtTime(95 + 70 * d, t, TAU);
+		}
+		sfx(name, options = void 0) {
+			if (!this._ok() || this.muted) return;
+			const fn = this._SFX[name];
+			if (fn) try {
+				fn.call(this, this.ctx.currentTime + .001, options);
+			} catch (e) {}
+		}
+		jingle(name) {
+			if (!this._ok() || this.muted) return;
+			const fn = this._JINGLE[name];
+			if (fn) try {
+				fn.call(this, this.ctx.currentTime + .02);
+			} catch (e) {}
+		}
+		_tone(t0, { type = "square", f0, f1, dur, gain = .2, atk = .005, dest = null, detune = 0, curve = "exp" }) {
+			const ctx = this.ctx;
+			const o = ctx.createOscillator();
+			o.type = type;
+			o.detune.value = detune;
+			const g = ctx.createGain();
+			const f_0 = Math.max(20, f0);
+			o.frequency.setValueAtTime(f_0, t0);
+			if (Number.isFinite(f1) && f1 !== f0) {
+				const f_1 = Math.max(20, f1);
+				if (curve === "lin") o.frequency.linearRampToValueAtTime(f_1, t0 + dur);
+				else o.frequency.exponentialRampToValueAtTime(f_1, t0 + dur);
+			}
+			g.gain.setValueAtTime(1e-4, t0);
+			g.gain.linearRampToValueAtTime(gain, t0 + atk);
+			g.gain.exponentialRampToValueAtTime(1e-4, t0 + dur);
+			o.connect(g);
+			g.connect(dest || this.busSfx);
+			this._trackSource(o);
+			o.start(t0);
+			o.stop(t0 + dur + .02);
+			return {
+				o,
+				g
+			};
+		}
+		_noise(t0, { dur, gain = .2, type = "lowpass", f0 = 1200, f1 = 200, q = 1, dest = null, atk = .004 }) {
+			const ctx = this.ctx;
+			const s = ctx.createBufferSource();
+			s.buffer = this.noiseBuf;
+			s.loop = true;
+			const bp = ctx.createBiquadFilter();
+			bp.type = type;
+			bp.Q.value = q;
+			bp.frequency.setValueAtTime(Math.max(30, f0), t0);
+			bp.frequency.exponentialRampToValueAtTime(Math.max(30, f1), t0 + dur);
+			const g = ctx.createGain();
+			g.gain.setValueAtTime(1e-4, t0);
+			g.gain.linearRampToValueAtTime(gain, t0 + atk);
+			g.gain.exponentialRampToValueAtTime(1e-4, t0 + dur);
+			s.connect(bp);
+			bp.connect(g);
+			g.connect(dest || this.busSfx);
+			this._trackSource(s);
+			s.start(t0);
+			s.stop(t0 + dur + .02);
+			return {
+				s,
+				g
+			};
+		}
+		_overtakeDestination(pan, t) {
+			const ctx = this.ctx;
+			if (!ctx || typeof ctx.createStereoPanner !== "function") return this.busSfx;
+			try {
+				const panner = ctx.createStereoPanner();
+				if (!panner || !panner.pan || typeof panner.connect !== "function") return this.busSfx;
+				const value = clampPan(pan);
+				if (typeof panner.pan.setValueAtTime === "function") panner.pan.setValueAtTime(value, t);
+				else panner.pan.value = value;
+				panner.connect(this.busSfx);
+				return panner;
+			} catch (e) {
+				return this.busSfx;
+			}
+		}
+		_overtakeBodyDestination(dest, t, dur = .48) {
+			const downstream = dest || this.busSfx;
+			const ctx = this.ctx;
+			if (!ctx || typeof ctx.createBiquadFilter !== "function") return downstream;
+			try {
+				const filter = ctx.createBiquadFilter();
+				if (!filter || !filter.frequency || !filter.Q || typeof filter.connect !== "function") return downstream;
+				filter.type = "lowpass";
+				if (typeof filter.frequency.setValueAtTime === "function") {
+					filter.frequency.setValueAtTime(2600, t);
+					if (typeof filter.frequency.exponentialRampToValueAtTime === "function") filter.frequency.exponentialRampToValueAtTime(1100, t + dur);
+					else filter.frequency.value = 1100;
+				} else filter.frequency.value = 2600;
+				if (typeof filter.Q.setValueAtTime === "function") filter.Q.setValueAtTime(1.2, t);
+				else filter.Q.value = 1.2;
+				filter.connect(downstream);
+				return filter;
+			} catch (e) {
+				return downstream;
+			}
+		}
+		_duckOvertakeBeds(t) {
+			const automate = (node, floor) => {
+				const p = node && node.gain;
+				if (!p || typeof p.cancelScheduledValues !== "function") return;
+				if (typeof p.cancelAndHoldAtTime === "function") p.cancelAndHoldAtTime(t);
+				else {
+					p.cancelScheduledValues(t);
+					if (typeof p.setValueAtTime === "function") p.setValueAtTime(p.value, t);
+				}
+				if (typeof p.linearRampToValueAtTime !== "function" || typeof p.setValueAtTime !== "function") {
+					p.value = 1;
+					return;
+				}
+				p.linearRampToValueAtTime(floor, t + .012);
+				p.setValueAtTime(floor, t + .12);
+				p.linearRampToValueAtTime(1, t + .4);
+			};
+			automate(this.duckEngine, .55);
+			automate(this.duckWind, .4);
+		}
+	};
+	Sound.prototype._SFX = {
+		bump(t) {
+			this._tone(t, {
+				type: "triangle",
+				f0: 170,
+				f1: 55,
+				dur: .16,
+				gain: .3
+			});
+			this._noise(t, {
+				dur: .11,
+				gain: .16,
+				f0: 1400,
+				f1: 220,
+				q: .8
+			});
+		},
+		spin(t) {
+			this._tone(t, {
+				type: "square",
+				f0: 420,
+				f1: 70,
+				dur: .55,
+				gain: .2
+			});
+			this._tone(t, {
+				type: "square",
+				f0: 424,
+				f1: 66,
+				dur: .55,
+				gain: .14,
+				detune: 12
+			});
+			this._noise(t, {
+				dur: .55,
+				gain: .14,
+				type: "bandpass",
+				f0: 2400,
+				f1: 700,
+				q: 3
+			});
+		},
+		release(t) {
+			const D = .58;
+			this._tone(t, {
+				type: "sawtooth",
+				f0: 110,
+				f1: 1500,
+				dur: D,
+				gain: .2
+			});
+			this._tone(t, {
+				type: "sawtooth",
+				f0: 112,
+				f1: 1460,
+				dur: D,
+				gain: .16,
+				detune: -14
+			});
+			this._tone(t, {
+				type: "square",
+				f0: 220,
+				f1: 880,
+				dur: .22,
+				gain: .13
+			});
+			[
+				N.C5,
+				N.E5,
+				N.G5,
+				N.C6
+			].forEach((f, i) => {
+				this._tone(t + i * .04, {
+					type: "square",
+					f0: f,
+					dur: .1,
+					gain: .15
+				});
+				this._tone(t + i * .04, {
+					type: "square",
+					f0: f * 2,
+					dur: .07,
+					gain: .06,
+					detune: 8
+				});
+			});
+			this._noise(t, {
+				dur: D,
+				gain: .3,
+				type: "lowpass",
+				f0: 200,
+				f1: 9e3,
+				q: 1.1,
+				atk: .02
+			});
+			const now = this.ctx.currentTime;
+			this._windBase = .16;
+			this._applyWind();
+			this.windGain.gain.cancelScheduledValues(now);
+			this.windGain.gain.setValueAtTime(this.windGain.gain.value, now);
+			this.windGain.gain.linearRampToValueAtTime(.22, now + .16);
+			this._windBase = 0;
+			this.windGain.gain.setTargetAtTime(.03, now + .18, .35);
+			if (this._windTimer) clearTimeout(this._windTimer);
+			this._windTimer = setTimeout(() => {
+				this._windTimer = null;
+				this._applyWind();
+			}, 700);
+		},
+		boostOut(t) {
+			this._tone(t, {
+				type: "square",
+				f0: N.G5,
+				f1: N.C5,
+				dur: .16,
+				gain: .13
+			});
+			this._tone(t + .05, {
+				type: "sawtooth",
+				f0: 700,
+				f1: 150,
+				dur: .24,
+				gain: .11,
+				detune: -10
+			});
+			this._noise(t, {
+				dur: .22,
+				gain: .13,
+				type: "lowpass",
+				f0: 5200,
+				f1: 400,
+				q: 1
+			});
+		},
+		chargeFull(t) {
+			this._tone(t, {
+				type: "square",
+				f0: N.E5,
+				dur: .09,
+				gain: .16
+			});
+			this._tone(t + .09, {
+				type: "square",
+				f0: N.C6,
+				dur: .16,
+				gain: .16
+			});
+		},
+		overtake(t, { pan } = {}) {
+			if (typeof this._duckOvertakeBeds === "function") this._duckOvertakeBeds(t);
+			const panDest = typeof this._overtakeDestination === "function" ? this._overtakeDestination(pan, t) : null;
+			const bodyDest = typeof this._overtakeBodyDestination === "function" ? this._overtakeBodyDestination(panDest, t, .48) : panDest;
+			this._tone(t, {
+				type: "sawtooth",
+				f0: 330,
+				f1: 185,
+				dur: .48,
+				gain: .16,
+				atk: .007,
+				detune: -7,
+				dest: bodyDest
+			});
+			this._tone(t, {
+				type: "sawtooth",
+				f0: 336,
+				f1: 189,
+				dur: .47,
+				gain: .13,
+				atk: .009,
+				detune: 9,
+				dest: bodyDest
+			});
+			this._tone(t, {
+				type: "triangle",
+				f0: 165,
+				f1: 92,
+				dur: .44,
+				gain: .1,
+				atk: .01,
+				detune: 4,
+				dest: bodyDest
+			});
+			this._noise(t, {
+				dur: .48,
+				gain: .22,
+				type: "bandpass",
+				f0: 4200,
+				f1: 850,
+				q: .75,
+				atk: .012,
+				dest: panDest
+			});
+		},
+		chainBonus(t) {
+			[
+				N.C5,
+				N.G5,
+				N.C6
+			].forEach((f, i) => {
+				this._tone(t + i * .055, {
+					type: "square",
+					f0: f,
+					dur: .13,
+					gain: .12
+				});
+			});
+		},
+		timeLow(t) {
+			this._tone(t, {
+				type: "triangle",
+				f0: 96,
+				f1: 58,
+				dur: .11,
+				gain: .34,
+				atk: .004,
+				curve: "lin"
+			});
+			this._tone(t + .15, {
+				type: "triangle",
+				f0: 80,
+				f1: 48,
+				dur: .14,
+				gain: .24,
+				atk: .004,
+				curve: "lin"
+			});
+		}
+	};
+	Sound.prototype._JINGLE = {
+		checkpoint(t) {
+			const step = .11;
+			MOTIF.forEach((f, i) => {
+				this._tone(t + i * step, {
+					type: "square",
+					f0: f,
+					dur: .16,
+					gain: .17
+				});
+				this._tone(t + i * step, {
+					type: "square",
+					f0: f / 2,
+					dur: .16,
+					gain: .09,
+					detune: 6
+				});
+			});
+			this._tone(t + 3 * step, {
+				type: "square",
+				f0: MOTIF[2] * 2,
+				dur: .26,
+				gain: .15
+			});
+		},
+		finish(t) {
+			const s = .125;
+			const line = [
+				N.C5,
+				N.E5,
+				N.G5,
+				N.F4 * 2,
+				N.A4 * 2,
+				N.C5 * 2,
+				N.E5,
+				N.C5,
+				N.G5,
+				N.G5,
+				N.B4 * 2,
+				N.D5 * 2
+			];
+			line.forEach((f, i) => {
+				this._tone(t + i * s, {
+					type: "square",
+					f0: f,
+					dur: .17,
+					gain: .16
+				});
+			});
+			[
+				N.C3,
+				N.C3,
+				N.F3,
+				N.G3
+			].forEach((f, i) => {
+				this._tone(t + i * 3 * s, {
+					type: "triangle",
+					f0: f,
+					dur: .34,
+					gain: .22
+				});
+			});
+			const tEnd = t + line.length * s;
+			[
+				N.C5,
+				N.E5,
+				N.G5,
+				N.C4
+			].forEach((f, i) => {
+				this._tone(tEnd, {
+					type: "square",
+					f0: f,
+					dur: .5,
+					gain: .13,
+					detune: i * 4
+				});
+			});
+		},
+		gameover(t) {
+			const s = .18;
+			const line = [
+				N.G5,
+				N.E5,
+				N.C5,
+				semi(-10),
+				semi(-13),
+				semi(-17)
+			];
+			line.forEach((f, i) => {
+				this._tone(t + i * s, {
+					type: "square",
+					f0: f,
+					dur: .24,
+					gain: .16
+				});
+			});
+			this._tone(t + line.length * s, {
+				type: "triangle",
+				f0: N.C3,
+				f1: N.C3 / 2,
+				dur: .9,
+				gain: .24
+			});
+		},
+		entry(t) {
+			this._tone(t, {
+				type: "square",
+				f0: N.C5,
+				dur: .08,
+				gain: .15
+			});
+			this._tone(t + .08, {
+				type: "square",
+				f0: N.G5,
+				dur: .2,
+				gain: .15
+			});
+		}
+	};
+	Sound.prototype.music = function music(name) {
+		const valid = name === "attract";
+		this._musicName = valid ? name : null;
+		if (this._timer) {
+			clearTimeout(this._timer);
+			this._timer = null;
+		}
+		if (!this._ok()) return;
+		if (!this._musicName) return;
+		this._step = 0;
+		this._nextStepTime = this.ctx.currentTime + .08;
+		this._tick();
+	};
+	Sound.prototype._tick = function _tick() {
+		if (!this._ok() || !this._musicName) return;
+		const cfg = MUSIC[this._musicName];
+		if (!cfg) return;
+		const spb = 60 / cfg.bpm / cfg.stepsPerBeat;
+		const lookahead = .18;
+		const now = this.ctx.currentTime;
+		while (this._nextStepTime < now + lookahead) {
+			if (this._nextStepTime < now) this._nextStepTime = now + .01;
+			this._scheduleStep(this._step % 16, this._nextStepTime, cfg, spb);
+			this._step++;
+			this._nextStepTime += spb;
+		}
+		this._timer = setTimeout(() => {
+			this._timer = null;
+			this._tick();
+		}, 40);
+	};
+	Sound.prototype._scheduleStep = function _scheduleStep(i, t, cfg, spb) {
+		if (this.muted) return;
+		const bass = cfg.bass[i];
+		if (bass) this._tone(t, {
+			type: "square",
+			f0: bass,
+			dur: Math.min(.22, spb * 1.6),
+			gain: cfg.bassGain,
+			dest: this.musBassFilt,
+			atk: .004
+		});
+		const arp = cfg.arp[i];
+		if (arp) this._tone(t, {
+			type: cfg.drive ? "sawtooth" : "square",
+			f0: arp,
+			dur: Math.min(.16, spb * 1.2),
+			gain: cfg.arpGain,
+			dest: this.busMusic,
+			atk: .003,
+			detune: cfg.drive ? 6 : 0
+		});
+		if (cfg.drive ? i % 2 === 0 : i % 4 === 0) this._noise(t, {
+			dur: .05,
+			gain: .05,
+			type: "highpass",
+			f0: 5e3,
+			f1: 4e3,
+			q: .7,
+			dest: this.busMusic
+		});
+		if (i === 0 || i === 8) this._tone(t, {
+			type: "triangle",
+			f0: 110,
+			f1: 45,
+			dur: .1,
+			gain: .22,
+			dest: this.busMusic,
+			curve: "lin"
+		});
+	};
+	function makeNoise(ctx, seconds) {
+		const len = Math.max(1, Math.floor(ctx.sampleRate * seconds));
+		const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+		const d = buf.getChannelData(0);
+		let s = 22222;
+		for (let i = 0; i < len; i++) {
+			s = s * 1664525 + 1013904223 >>> 0;
+			d[i] = s / 4294967296 * 2 - 1;
+		}
+		return buf;
+	}
+	function softClipCurve() {
+		const n = 1024;
+		const c = new Float32Array(n);
+		for (let i = 0; i < n; i++) {
+			const x = i / 1023 * 2 - 1;
+			c[i] = Math.tanh(x * 1.4) / Math.tanh(1.4);
+		}
+		return c;
+	}
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/font.js
+	const G = {
+		"0": "111,101,101,101,111",
+		"1": "010,110,010,010,111",
+		"2": "111,001,111,100,111",
+		"3": "111,001,111,001,111",
+		"4": "101,101,111,001,001",
+		"5": "111,100,111,001,111",
+		"6": "111,100,111,101,111",
+		"7": "111,001,001,001,001",
+		"8": "111,101,111,101,111",
+		"9": "111,101,111,001,111",
+		A: "111,101,111,101,101",
+		B: "110,101,110,101,110",
+		C: "111,100,100,100,111",
+		D: "110,101,101,101,110",
+		E: "111,100,111,100,111",
+		F: "111,100,111,100,100",
+		G: "111,100,101,101,111",
+		H: "101,101,111,101,101",
+		I: "111,010,010,010,111",
+		J: "001,001,001,101,111",
+		K: "101,101,110,101,101",
+		L: "100,100,100,100,111",
+		M: "101,111,111,101,101",
+		N: "110,101,101,101,101",
+		O: "111,101,101,101,111",
+		P: "111,101,111,100,100",
+		Q: "111,101,101,111,011",
+		R: "111,101,110,101,101",
+		S: "111,100,111,001,111",
+		T: "111,010,010,010,010",
+		U: "101,101,101,101,111",
+		V: "101,101,101,101,010",
+		W: "101,101,111,111,101",
+		X: "101,101,010,101,101",
+		Y: "101,101,111,010,010",
+		Z: "111,001,010,100,111",
+		" ": "000,000,000,000,000",
+		".": "000,000,000,000,010",
+		":": "000,010,000,010,000",
+		"/": "001,001,010,100,100",
+		"-": "000,000,111,000,000",
+		"!": "010,010,010,000,010",
+		"*": "101,010,111,010,101",
+		"<": "001,010,100,010,001",
+		">": "100,010,001,010,100",
+		"+": "000,010,111,010,000"
+	};
+	const TOFU = "111,111,111,111,111";
+	const MISSING = /* @__PURE__ */ new Set();
+	const CACHE = {};
+	function rows(ch) {
+		if (!CACHE[ch]) {
+			if (!G[ch]) MISSING.add(ch);
+			CACHE[ch] = (G[ch] || TOFU).split(",");
+		}
+		return CACHE[ch];
+	}
+	const textWidth = (s, px = 1) => s.length * 4 * px - px;
+	function drawText(ctx, s, x, y, px = 1, color = "#fff") {
+		ctx.fillStyle = color;
+		const up = String(s).toUpperCase();
+		for (let i = 0; i < up.length; i++) {
+			const r = rows(up[i]);
+			const ox = x + i * 4 * px;
+			for (let ry = 0; ry < 5; ry++) {
+				const line = r[ry];
+				for (let rx = 0; rx < 3; rx++) if (line[rx] === "1") ctx.fillRect(ox + rx * px, y + ry * px, px, px);
+			}
+		}
+	}
+	function drawTextCentered(ctx, s, cx, y, px = 1, color = "#fff") {
+		drawText(ctx, s, Math.round(cx - textWidth(s, px) / 2), y, px, color);
+	}
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/driver.js
+	const CL = CAR_LEN;
+	const clamp = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
+	const K_GAP = 1.05;
+	const K_SPEED = .3;
+	const K_STEER = 4.2;
+	const CLOSE_MAX = HIT.spinDv * 100 * .75;
+	const DZ_TARGET = DEEP.dzMin + .55 * (DEEP.dzMax - DEEP.dzMin);
+	const TOW_SEEK_M = 140;
+	const APPROACH_M = 3;
+	const LANE_MAX = .86;
+	const SWERVE_T = 5;
+	const DRAFT_SWERVE_T = RIVAL_AVOID.lookahead * .5;
+	const SWERVE_MIN_M = 45;
+	const BRAKE_T = 1.6;
+	const ESCAPE_T = .9;
+	const SAFE_T = 5;
+	const RELEASE_CLEAR_T = 3.5;
+	const RELEASE_CURVE = .75;
+	const RELEASE_PATIENCE = 3;
+	const LAST_DT = 1 / 60;
+	const GOVERN_MARGIN = 2;
+	const LAT_MARGIN = .9;
+	const FLAT_OUT = 160;
+	const CURVE_PHI = .7;
+	const CURVE_LOOK_T = 2;
+	const CURVE_VMIN = 70;
+	const PAD_K = .3;
+	function curveSpeedTarget(sim, absCurve) {
+		if (absCurve <= 1e-6) return Infinity;
+		const zp = sim.zone === "deep" ? DEEP : sim.zone === "shallow" ? SHALLOW : null;
+		const steerMul = sim.assist > 0 ? BOOST.assistSteer : zp ? zp.steer : 1;
+		const gMul = sim.assist > 0 ? 1 : zp ? zp.gFactor : 1;
+		const hard = brakeCornerEntrySpeed(absCurve, steerMul, gMul);
+		if (hard !== Infinity) return hard;
+		const k = absCurve * CENTRIFUGAL * gMul;
+		let v = 100;
+		for (let i = 0; i < 3; i++) {
+			const authority = .35 + .65 * Math.min(1, v / 100);
+			v = Math.sqrt(CURVE_PHI * STEER_RATE * authority * steerMul / k);
+		}
+		return Math.max(CURVE_VMIN, v);
+	}
+	const BRAKE_USE = .75;
+	function curveBrakePoint(sim, course) {
+		let limit = Infinity;
+		const horizon = Math.max(60, CURVE_LOOK_T * sim.speed);
+		const N = 12;
+		for (let i = 0; i <= N; i++) {
+			const d = i / N * horizon;
+			const target = curveSpeedTarget(sim, Math.abs(course.curveAt(sim.z + d)));
+			if (target === Infinity) continue;
+			const allowed = Math.sqrt(target * target + 124 * BRAKE_USE * d);
+			if (allowed < limit) limit = allowed;
+		}
+		return limit;
+	}
+	function lateralModel(sim, curve) {
+		const zp = sim.zone === "deep" ? DEEP : sim.zone === "shallow" ? SHALLOW : null;
+		const steerMul = sim.assist > 0 ? BOOST.assistSteer : zp ? zp.steer : 1;
+		const gMul = sim.assist > 0 ? 1 : zp ? zp.gFactor : 1;
+		const authority = .35 + .65 * Math.min(1, sim.speed / 100);
+		const drift = curve * sim.speed * sim.speed * CENTRIFUGAL * gMul;
+		const rate = STEER_RATE * authority * steerMul;
+		const latRate = Math.max(.15, (rate - Math.abs(drift)) * LAT_MARGIN);
+		return {
+			driftSteer: rate > 0 ? drift / rate : 0,
+			latRate
+		};
+	}
+	function pickTow(sim) {
+		let tow = null;
+		for (const r of sim.rivals) {
+			const dzm = r.z - sim.z;
+			if (dzm <= .5 * CL || dzm > TOW_SEEK_M) continue;
+			if (!tow || r.z < tow.z) tow = r;
+		}
+		return tow;
+	}
+	function planLane(sim, tow, preferred, prevLane, LAT_RATE) {
+		const willBe = (o) => o.lamp > 0 ? o.speed * (1 - rivalWobble(sim.leg)) : o.speed;
+		const obs = [];
+		for (const t of sim.traffic) obs.push([t, "traffic"]);
+		for (const r of sim.rivals) if (r !== tow) obs.push([r, "rival"]);
+		const horizonT = tow ? DRAFT_SWERVE_T : SWERVE_T;
+		const clearBy = HIT.dxMax * 1.3;
+		const pad = (kind, tc) => kind === "rival" ? Math.min(RIVAL_AVOID.offset, RIVAL_AVOID.rate * tc) * PAD_K : 0;
+		const clearance = (cx) => {
+			let worst = Infinity;
+			let cause = null;
+			const moveT = Math.abs(cx - sim.x) / LAT_RATE;
+			for (const [o, kind] of obs) {
+				const dzm = o.z - sim.z;
+				if (dzm <= 0) continue;
+				const dv = sim.speed - o.speed;
+				if (dv <= 0) continue;
+				if (dzm > Math.max(SWERVE_MIN_M, dv * horizonT)) continue;
+				const tc = dzm / dv;
+				const cb = clearBy + pad(kind, tc);
+				if (Math.abs(cx - o.x) >= cb && moveT < tc * .7) continue;
+				if (Math.abs(cx - o.x) >= cb && Math.abs(sim.x - o.x) >= cb) continue;
+				if (tc < worst) {
+					worst = tc;
+					cause = {
+						kind,
+						o,
+						dzm,
+						dv
+					};
+				}
+			}
+			return {
+				worst,
+				cause
+			};
+		};
+		const search = (span) => {
+			const cands = [];
+			const push = (v) => {
+				const c = clamp(v, -.86, LANE_MAX);
+				if (!cands.includes(c)) cands.push(c);
+			};
+			push(preferred);
+			if (prevLane !== null) push(prevLane);
+			for (let i = 1; i <= 6; i++) {
+				push(preferred + i / 6 * span);
+				push(preferred - i / 6 * span);
+			}
+			let best = cands[0];
+			let bestScore = -Infinity;
+			let bestCause = null;
+			let bestClear = 0;
+			for (const cx of cands) {
+				const { worst, cause } = clearance(cx);
+				const score = Math.min(worst, SAFE_T) * 10 - Math.abs(cx - preferred) - (prevLane === null ? 0 : .35 * Math.abs(cx - prevLane));
+				if (score > bestScore) {
+					bestScore = score;
+					best = cx;
+					bestClear = worst;
+					bestCause = worst === Infinity ? null : cause;
+				}
+			}
+			return {
+				best,
+				bestCause,
+				bestClear
+			};
+		};
+		let { best, bestCause, bestClear } = search(tow ? DEEP.dxMax * .7 : LANE_MAX);
+		if (tow && bestClear < ESCAPE_T) ({best, bestCause, bestClear} = search(LANE_MAX));
+		let speedLimit = Infinity;
+		for (const [o, kind] of obs) {
+			const dzm = o.z - sim.z;
+			if (dzm <= 0) continue;
+			const dv = sim.speed - willBe(o);
+			if (dv <= 0) continue;
+			const tContact = dzm / dv;
+			const clearBy = HIT.dxMax * 1.3 + pad(kind, tContact);
+			const need = Math.max(0, clearBy - Math.abs(best - o.x));
+			if ((Math.abs(o.x - sim.x) < clearBy || Math.abs(o.x - best) < clearBy) && tContact < BRAKE_T && need / LAT_RATE > tContact * .8) speedLimit = Math.min(speedLimit, willBe(o));
+			const safeV = willBe(o) + HIT.spinDv * 100 * .5;
+			const excess = sim.speed - safeV;
+			if (excess > 0 && Math.abs(o.x - sim.x) < clearBy) {
+				const tBrake = excess / 62;
+				const tClear = Math.max(0, clearBy - Math.abs(best - o.x)) / LAT_RATE + Math.abs(best - sim.x) / LAT_RATE;
+				const blocked = bestCause !== null && bestCause.o === o;
+				if (tContact < tBrake * GOVERN_MARGIN + .25 && (blocked || tClear > tContact * .5)) speedLimit = Math.min(speedLimit, safeV);
+			}
+		}
+		return {
+			laneX: best,
+			speedLimit,
+			cause: bestCause,
+			clear: bestClear
+		};
+	}
+	/**
+	* @param {object} opts
+	*   useTow  {boolean} chase and hold the draft zone (false = clean-air racing line)
+	*   release {'none'|'asap'|'expert'} boost policy
+	* @returns {(sim, course) => {steer, throttle, boost}}
+	*/
+	function makeDriver(opts = {}) {
+		const useTow = opts.useTow !== false;
+		const release = opts.release || (useTow ? "expert" : "none");
+		const MASH_AT = 12;
+		let prevLane = null;
+		let fullFor = 0;
+		return function drive(sim, course) {
+			const curve = course.curveAt(sim.z);
+			let worstCurve = Math.abs(curve);
+			for (let i = 1; i <= 8; i++) {
+				const c = Math.abs(course.curveAt(sim.z + i * .25 * sim.speed));
+				if (c > worstCurve) worstCurve = c;
+			}
+			const boosting = sim.boost.active;
+			const tow = useTow && !boosting && sim.spin <= 0 ? pickTow(sim) : null;
+			const { driftSteer } = lateralModel(sim, curve);
+			const { latRate } = lateralModel(sim, worstCurve);
+			const haz = planLane(sim, tow, clamp(tow ? tow.x : 0, -.86, LANE_MAX), prevLane, latRate);
+			const laneX = haz.laneX;
+			prevLane = laneX;
+			const steer = clamp(driftSteer + (laneX - sim.x) * K_STEER, -1, 1);
+			let desired = FLAT_OUT;
+			let gapErr = null;
+			if (tow) {
+				gapErr = tow.z - sim.z - DZ_TARGET * CL;
+				const close = clamp(K_GAP * gapErr, -CLOSE_MAX, CLOSE_MAX);
+				desired = tow.speed + close;
+				if (gapErr > APPROACH_M) desired = FLAT_OUT;
+				if (tow.lamp > 0) desired = Math.min(desired, tow.speed);
+			}
+			const curveLimit = curveBrakePoint(sim, course);
+			desired = Math.min(desired, haz.speedLimit, curveLimit);
+			let throttle = clamp((desired - sim.speed) * K_SPEED, -1, 1);
+			if (gapErr !== null && gapErr > CLOSE_MAX && haz.speedLimit === Infinity && sim.speed <= curveLimit) throttle = Math.max(throttle, 0);
+			let boost = false;
+			if (release === "asap") boost = sim.charge > MASH_AT;
+			else if (release === "expert") {
+				let bendAhead = 0;
+				const reach = (BOOST.baseDur + BOOST.durPerCharge) * BOOST.slingDur * sim.speed;
+				let brakeAheadM = Infinity;
+				for (let i = 0; i <= 10; i++) {
+					const d = i / 10 * reach;
+					const c = Math.abs(course.curveAt(sim.z + d));
+					if (c > bendAhead) bendAhead = c;
+					if (c > 2.2352941176470584 && d < brakeAheadM) brakeAheadM = d;
+				}
+				const ready = sim.charge >= 99.5 && sim.zone === "deep";
+				fullFor = ready ? fullFor + LAST_DT : 0;
+				const vPeak = sim.speed * (1 + (BOOST.baseGain + BOOST.gainPerCharge2) * BOOST.slingGain);
+				const vEnter = brakeCornerEntrySpeed(BRAKE_CORNER.curve);
+				const shedM = 1.5 * Math.max(0, vPeak * vPeak - vEnter * vEnter) / (124 * BRAKE_USE);
+				boost = ready && !(brakeAheadM < shedM) && (haz.clear >= RELEASE_CLEAR_T && bendAhead <= RELEASE_CURVE || fullFor > RELEASE_PATIENCE);
+			}
+			drive.last = {
+				tow,
+				laneX,
+				cause: haz.cause,
+				driftSteer,
+				desired
+			};
+			return {
+				steer,
+				throttle,
+				boost
+			};
+		};
+	}
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/game.js
+	const P = PAL;
+	const MODE = {
+		ATTRACT: "attract",
+		READY: "ready",
+		RACE: "race",
+		FINISH: "finish",
+		GAMEOVER: "gameover",
+		ENTRY: "entry"
+	};
+	const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.-! ";
+	const HI_KEY = "draftline.hi";
+	const DEFAULT_HI = Object.freeze([
+		Object.freeze({
+			name: "ACE",
+			score: 5e4
+		}),
+		Object.freeze({
+			name: "TOW",
+			score: 3e4
+		}),
+		Object.freeze({
+			name: "AIR",
+			score: 25e3
+		})
+	]);
+	const ACTION_CODES = Object.freeze([
+		"KeyZ",
+		"KeyX",
+		"KeyJ",
+		"KeyK",
+		"Space"
+	]);
+	const ACTION_CODE_SET = new Set(ACTION_CODES);
+	const isActionCode = (code) => ACTION_CODE_SET.has(code);
+	const isConfirmCode = (code) => code === "Enter" || isActionCode(code);
+	const defaultHi = () => DEFAULT_HI.map((entry) => ({ ...entry }));
+	function normalizeHiName(name) {
+		const chars = [];
+		for (const ch of name) {
+			if (ch >= "A" && ch <= "Z") chars.push(ch);
+			else if (ch >= "a" && ch <= "z") chars.push(ch.toUpperCase());
+			else if (ch === " " || ch === "." || ch === "-" || ch === "!") chars.push(ch);
+			else chars.push(" ");
+			if (chars.length === 3) break;
+		}
+		return chars.join("").padEnd(3, " ");
+	}
+	function canonicalHi(value) {
+		if (!Array.isArray(value) || value.length === 0) return defaultHi();
+		const valid = [];
+		value.forEach((entry, index) => {
+			if (!entry || typeof entry !== "object" || Array.isArray(entry)) return;
+			if (typeof entry.name !== "string") return;
+			if (!Number.isSafeInteger(entry.score) || entry.score < 0 || entry.score > 9999999) return;
+			valid.push({
+				name: normalizeHiName(entry.name),
+				score: entry.score,
+				index
+			});
+		});
+		if (!valid.length) return defaultHi();
+		valid.sort((a, b) => b.score - a.score || a.index - b.index);
+		return valid.slice(0, 5).map(({ name, score }) => ({
+			name,
+			score
+		}));
+	}
+	function isCanonicalHi(value, canonical) {
+		if (!Array.isArray(value) || value.length !== canonical.length || value.length < 1 || value.length > 5) return false;
+		return value.every((entry, i) => {
+			if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+			const keys = Object.keys(entry).sort();
+			return keys.length === 2 && keys[0] === "name" && keys[1] === "score" && entry.name === canonical[i].name && entry.score === canonical[i].score;
+		});
+	}
+	const ATTRACT_VIEW = Object.freeze({
+		titleS: 9,
+		rankingS: 7,
+		fadeS: .6
+	});
+	const ATTRACT_CONTROLS = Object.freeze([
+		"UP/W ACCEL   DOWN/S BRAKE",
+		"STEER LEFT/RIGHT",
+		"BOOST Z/X/J/K/SPACE   M MUTE"
+	]);
+	var Game = class {
+		constructor(ctx) {
+			this.ctx = ctx;
+			this.sound = new Sound();
+			this.renderer = new Renderer(ctx);
+			this.hi = this._loadHi();
+			this.keys = /* @__PURE__ */ new Set();
+			this.blockedKeys = /* @__PURE__ */ new Set();
+			this.pageVisible = true;
+			this.windowFocused = true;
+			this.active = true;
+			this.boostEdge = false;
+			this.t = 0;
+			this.cpFlash = 0;
+			this.checkpointAward = null;
+			this.releaseFlash = 0;
+			this.chainFlash = 0;
+			this.passReadouts = [];
+			this.chainEndReadout = null;
+			this.shake = 0;
+			this.boostKick = 0;
+			this.boostEnv = 0;
+			this.boostOutFlash = 0;
+			this.bgOffset = 0;
+			this.scrub = [];
+			this._scrubT = 0;
+			this._puffT = 0;
+			this._puffN = 0;
+			this.timeLowTick = 0;
+			this._boostPunch = 0;
+			this._gameOverJinglePlayed = false;
+			this.entry = {
+				name: [
+					"A",
+					"A",
+					"A"
+				],
+				pos: 0,
+				cool: 0
+			};
+			this._enterAttract();
+		}
+		_loadHi() {
+			let raw;
+			try {
+				raw = localStorage.getItem(HI_KEY);
+			} catch {
+				return defaultHi();
+			}
+			if (raw === null) return defaultHi();
+			let parsed;
+			try {
+				parsed = JSON.parse(raw);
+			} catch {
+				parsed = null;
+			}
+			const hi = canonicalHi(parsed);
+			if (!isCanonicalHi(parsed, hi)) try {
+				localStorage.setItem(HI_KEY, JSON.stringify(hi));
+			} catch {}
+			return hi;
+		}
+		_saveHi() {
+			try {
+				localStorage.setItem(HI_KEY, JSON.stringify(this.hi.slice(0, 5)));
+			} catch {}
+		}
+		get hiScore() {
+			return this.hi.length ? this.hi[0].score : 0;
+		}
+		_newSim(seed) {
+			this.seed = seed;
+			this.course = new Course(seed);
+			this.sim = new Sim(this.course, seed);
+		}
+		_enterAttract() {
+			this.mode = MODE.ATTRACT;
+			this.modeT = 0;
+			this.ceremony = false;
+			this._newSim(1e3 + Math.floor(Math.random() * 9e3));
+			this._demoDriver = makeDriver({
+				useTow: true,
+				release: "expert"
+			});
+			const WARMUP_DT = 1 / 60;
+			const WARMUP_MAX_STEPS = 1200;
+			let prevZone = this.sim.zone;
+			for (let i = 0; i < WARMUP_MAX_STEPS; i++) {
+				if (this.sim.zone === "deep" && prevZone !== "deep") break;
+				prevZone = this.sim.zone;
+				const input = this._demoDriver(this.sim, this.course);
+				this.sim.step(WARMUP_DT, input);
+			}
+			this.attractWindowStart = {
+				deep: this.sim.stats.deepMetres,
+				releases: this.sim.stats.releases
+			};
+			this.sound.stopAll();
+		}
+		startRun() {
+			this.mode = MODE.READY;
+			this.modeT = 0;
+			this.ceremony = false;
+			this._newSim(1e3 + Math.floor(Math.random() * 9e3));
+			this._resetRunTransients();
+			this.sound.stopAll();
+		}
+		_resetRunTransients() {
+			this.cpFlash = 0;
+			this.checkpointAward = null;
+			this.releaseFlash = 0;
+			this.chainFlash = 0;
+			this.passReadouts = [];
+			this.chainEndReadout = null;
+			this.shake = 0;
+			this.boostKick = 0;
+			this.boostEnv = 0;
+			this.boostOutFlash = 0;
+			this._boostPunch = 0;
+			this.bgOffset = 0;
+			this.scrub = [];
+			this._scrubT = 0;
+			this._puffT = 0;
+			this._puffN = 0;
+			this.timeLowTick = 0;
+			this.boostEdge = false;
+			this._gameOverJinglePlayed = false;
+		}
+		_enterRace() {
+			this.mode = MODE.RACE;
+			this.modeT = 0;
+		}
+		_enterFinish() {
+			this.mode = MODE.FINISH;
+			this.modeT = 0;
+			this.ceremony = true;
+			this.ceremonyT = 0;
+			this.finishBonus = 0;
+			this.finishTarget = Math.max(0, this.sim.timer) * SCORE.finishTime;
+			this.sound.music(null);
+			this.sound.jingle("finish");
+		}
+		_enterGameOver() {
+			if (this._gameOverJinglePlayed) return;
+			this._gameOverJinglePlayed = true;
+			this.mode = MODE.GAMEOVER;
+			this.modeT = 0;
+			this.ceremony = false;
+			this.sound.music(null);
+			this.sound.jingle("gameover");
+		}
+		_enterEntryOrAttract() {
+			const score = Math.floor(this.sim.score);
+			if (this.hi.length < 5 || score > this.hi[this.hi.length - 1].score) {
+				this.mode = MODE.ENTRY;
+				this.modeT = 0;
+				this.entry = {
+					name: [
+						"A",
+						"A",
+						"A"
+					],
+					pos: 0,
+					cool: 0
+				};
+				this.sound.jingle("entry");
+			} else this._enterAttract();
+		}
+		onKeyDown(code) {
+			if (!this.active) {
+				this.blockedKeys.add(code);
+				return;
+			}
+			if (this.blockedKeys.has(code)) return;
+			const pressed = !this.keys.has(code);
+			if (pressed) {
+				if (isActionCode(code)) this.boostEdge = true;
+				if (code === "KeyM") this.sound.setMuted(this.muted = !this.muted);
+				if (this.mode === MODE.ENTRY) {
+					if (code === "ArrowLeft" || code === "KeyA") this.entry.pos = Math.max(0, this.entry.pos - 1);
+					else if (code === "ArrowRight" || code === "KeyD") this.entry.pos = Math.min(2, this.entry.pos + 1);
+				}
+			}
+			this.keys.add(code);
+			this.sound.unlock();
+			if (pressed && isConfirmCode(code)) this._confirm();
+		}
+		onKeyUp(code) {
+			this.keys.delete(code);
+			this.blockedKeys.delete(code);
+		}
+		setPageVisible(visible) {
+			this.pageVisible = !!visible;
+			this.sound.setPageVisible(this.pageVisible);
+			this._syncActive();
+		}
+		setWindowFocused(focused) {
+			this.windowFocused = !!focused;
+			this._syncActive();
+		}
+		_syncActive() {
+			const next = this.pageVisible && this.windowFocused;
+			if (next === this.active) return;
+			if (!next) {
+				for (const code of this.keys) this.blockedKeys.add(code);
+				this.keys.clear();
+				this.boostEdge = false;
+			}
+			this.active = next;
+		}
+		get pausedOverlayVisible() {
+			return !this.active && (this.mode === MODE.READY || this.mode === MODE.RACE);
+		}
+		_confirm() {
+			if (this.mode === MODE.ATTRACT) this.startRun();
+			else if (this.mode === MODE.GAMEOVER && this.modeT > 1.5) this._enterEntryOrAttract();
+			else if (this.mode === MODE.FINISH && this.modeT > 14) this._enterEntryOrAttract();
+			else if (this.mode === MODE.ENTRY) {
+				if (this.entry.pos < 2) this.entry.pos++;
+				else {
+					this.hi.push({
+						name: this.entry.name.join(""),
+						score: Math.floor(this.sim.score)
+					});
+					this.hi.sort((a, b) => b.score - a.score);
+					this.hi = this.hi.slice(0, 5);
+					this._saveHi();
+					this._enterAttract();
+				}
+			}
+		}
+		_playerInput() {
+			const k = this.keys;
+			const left = k.has("ArrowLeft") || k.has("KeyA");
+			const right = k.has("ArrowRight") || k.has("KeyD");
+			const up = k.has("ArrowUp") || k.has("KeyW");
+			const down = k.has("ArrowDown") || k.has("KeyS");
+			const boost = this.boostEdge;
+			this.boostEdge = false;
+			return {
+				steer: (right ? 1 : 0) - (left ? 1 : 0),
+				throttle: down ? -1 : up ? 1 : 0,
+				boost
+			};
+		}
+		_demoInput() {
+			return this._demoDriver(this.sim, this.course);
+		}
+		update(dt) {
+			if (!this.active) return;
+			this.t += dt;
+			this.modeT += dt;
+			if (this.ceremony) this.ceremonyT += dt;
+			this.cpFlash = Math.max(0, this.cpFlash - dt);
+			this.releaseFlash = Math.max(0, this.releaseFlash - dt);
+			this.chainFlash = Math.max(0, this.chainFlash - dt);
+			for (const r of this.passReadouts) r.life -= dt;
+			this.passReadouts = this.passReadouts.filter((r) => r.life > 0);
+			if (this.chainEndReadout) {
+				this.chainEndReadout.life -= dt;
+				if (this.chainEndReadout.life <= 0) this.chainEndReadout = null;
+			}
+			this.shake = Math.max(0, this.shake - dt * 3);
+			this.boostKick = Math.max(0, this.boostKick - dt * 4);
+			this.boostOutFlash = Math.max(0, this.boostOutFlash - dt * 5);
+			{
+				const b = this.sim.boost;
+				this.boostEnv = b.active && b.gain > 0 ? Math.max(0, Math.min(1, (this.sim.boostGain || 0) / b.gain)) : 0;
+			}
+			{
+				const s = this.sim;
+				const frozen = !(this.mode === MODE.RACE || this.mode === MODE.ATTRACT);
+				const curve = frozen ? 0 : this.course.segmentAt(s.z).curve;
+				this.bgOffset = bgScrollStep(this.bgOffset, curve, frozen ? 0 : s.speed, dt);
+			}
+			{
+				const s = this.sim;
+				const V = SPIN_VIS;
+				if (this.scrub.length) {
+					for (const m of this.scrub) m.age += dt;
+					this.scrub = this.scrub.filter((m) => m.age < (m.puff ? V.puffLife : V.scrubLife));
+				}
+				if (s.spin > 0 && (this.mode === MODE.RACE || this.mode === MODE.ATTRACT)) {
+					const psi = this.spinYaw();
+					const cs = Math.cos(psi), sn = Math.sin(psi);
+					const hw = CAR_WIDTH / 2, hl = CAR_LEN / 2, xScale = 2 / 10;
+					this._scrubT += dt;
+					while (this._scrubT >= V.scrubStep) {
+						this._scrubT -= V.scrubStep;
+						for (const side of [-1, 1]) for (const end of [-1, 1]) {
+							const lx = side * hw * cs + end * hl * sn;
+							const lz = -side * hw * sn + end * hl * cs;
+							this.scrub.push({
+								z: s.z + lz,
+								x: s.x + lx * xScale,
+								age: 0,
+								puff: false
+							});
+						}
+					}
+					this._puffT += dt;
+					const puffStep = HIT.spinTime / V.puffs;
+					while (this._puffT >= puffStep) {
+						this._puffT -= puffStep;
+						const pside = this._puffN++ % 2 ? -1 : 1;
+						this.scrub.push({
+							z: s.z + hl * .9,
+							x: s.x + pside * hw * .8 * xScale,
+							age: 0,
+							puff: true
+						});
+					}
+				} else {
+					this._scrubT = 0;
+					this._puffT = 0;
+				}
+			}
+			if (this.entry.cool > 0) this.entry.cool -= dt;
+			if (this.mode === MODE.READY && this.modeT >= 2) this._enterRace();
+			if (this.mode === MODE.RACE || this.mode === MODE.ATTRACT) {
+				const input = this.mode === MODE.ATTRACT ? this._demoInput() : this._playerInput();
+				const ev = this.sim.step(dt, input);
+				if (this.mode === MODE.RACE && (ev.gameover || this.sim.gameOver)) {
+					this._enterGameOver();
+					this._reactTo(ev, { silent: true });
+				} else if (this.mode !== MODE.ATTRACT) this._reactTo(ev);
+			} else this.boostEdge = false;
+			if (this.mode === MODE.RACE) {
+				if (this.sim.finished) this._enterFinish();
+				else if (this.sim.gameOver) this._enterGameOver();
+				if (this.sim.timer < 10) {
+					this.timeLowTick -= dt;
+					if (this.timeLowTick <= 0) {
+						this.sound.sfx("timeLow");
+						this.timeLowTick = .5 + this.sim.timer * .05;
+					}
+				} else this.timeLowTick = 0;
+			}
+			if (this.mode === MODE.ATTRACT && (this.sim.finished || this.modeT > 60)) this._enterAttract();
+			if (this.mode === MODE.FINISH) {
+				this.finishBonus = Math.min(this.finishTarget, this.finishBonus + this.finishTarget * dt * .6);
+				if (this.modeT > 18) this._enterEntryOrAttract();
+			}
+			if (this.mode === MODE.GAMEOVER && this.modeT > 6) this._enterEntryOrAttract();
+			if (this.mode === MODE.ENTRY) this._updateEntry(dt);
+			const s = this.sim;
+			const engineOn = this.mode === MODE.RACE || this.mode === MODE.READY;
+			this.sound.setEngineRunning(engineOn);
+			this.sound.setEngine({
+				speed01: Math.min(1, s.speed / 100),
+				boosting: s.boost.active
+			});
+			const depth01 = s.zone === "deep" ? s.zoneDepth || 0 : 0;
+			this.sound.setDraft(s.zoneLevel * (.7 + .3 * depth01));
+		}
+		_updateEntry(dt) {
+			if (this.entry.cool > 0) return;
+			const k = this.keys;
+			const i = LETTERS.indexOf(this.entry.name[this.entry.pos]);
+			if (k.has("ArrowUp") || k.has("KeyW")) {
+				this.entry.name[this.entry.pos] = LETTERS[(i + 1) % 30];
+				this.entry.cool = .14;
+			} else if (k.has("ArrowDown") || k.has("KeyS")) {
+				this.entry.name[this.entry.pos] = LETTERS[(i - 1 + 30) % 30];
+				this.entry.cool = .14;
+			}
+		}
+		_reactTo(ev, { silent = false } = {}) {
+			if (ev.bump) {
+				if (!silent) this.sound.sfx("bump");
+				this.shake = .35;
+			}
+			if (ev.spin) {
+				if (!silent) this.sound.sfx("spin");
+				this.shake = 1;
+			}
+			if (ev.slingReady && !silent) this.sound.sfx("chargeFull");
+			if (ev.release) {
+				if (!silent) this.sound.sfx("release");
+				this.releaseFlash = .4;
+				const power = ev.release.sling ? 1 : .55 + .45 * ev.release.charge;
+				this.boostKick = power;
+				this.shake = Math.max(this.shake, .55 * power);
+			}
+			if (ev.boostEnd) {
+				if (!silent) this.sound.sfx("boostOut");
+				this.boostOutFlash = 1;
+			}
+			if (ev.overtake && !silent) this.sound.sfx("overtake", { pan: ev.overtakePan });
+			if (ev.passes && ev.passes.length) {
+				this.chainFlash = .8;
+				this.passReadouts = ev.passes.map((p) => ({
+					text: `${p.kind === "rival" ? "RIVAL" : "TRAFFIC"} +${p.points}`,
+					chain: p.chain,
+					life: 1
+				}));
+			}
+			if (ev.chainEnd && ev.chainEnd.chain > 0) {
+				if (ev.chainEnd.awarded) {
+					this.chainEndReadout = {
+						text: `CHAIN X${ev.chainEnd.chain} BONUS +${ev.chainEnd.bonus}`,
+						life: 1.25
+					};
+					if (ev.chainEnd.bonus > 0 && !silent) this.sound.sfx("chainBonus");
+				} else if (ev.chainEnd.reason === "spin") this.chainEndReadout = {
+					text: "CHAIN LOST",
+					life: .75
+				};
+			}
+			if (ev.checkpoint) {
+				if (!silent) this.sound.jingle("checkpoint");
+				this.cpFlash = 1.2;
+				this.checkpointAward = this.sim.lastCheckpoint;
+			}
+			if (ev.timeout && !silent) this.sound.sfx("spin");
+		}
+		attractPanel() {
+			const cycleS = ATTRACT_VIEW.titleS + ATTRACT_VIEW.rankingS;
+			const t = (this.modeT % cycleS + cycleS) % cycleS;
+			const title = t < ATTRACT_VIEW.titleS;
+			const localT = title ? t : t - ATTRACT_VIEW.titleS;
+			const duration = title ? ATTRACT_VIEW.titleS : ATTRACT_VIEW.rankingS;
+			const edgeS = Math.min(localT, duration - localT);
+			return {
+				phase: title ? "title" : "ranking",
+				alpha: Math.max(0, Math.min(1, edgeS / ATTRACT_VIEW.fadeS))
+			};
+		}
+		attractRanking() {
+			return this.hi.slice(0, 5).map((entry, index) => ({
+				rank: index + 1,
+				name: entry.name,
+				score: entry.score
+			}));
+		}
+		checkpointReadout() {
+			const award = this.checkpointAward || this.sim.lastCheckpoint;
+			const timeSet = award ? award.timeSet : legExtension(Math.max(1, this.sim.leg - 1));
+			const bonusScore = award ? award.bonusScore : 0;
+			return {
+				timeText: `${timeSet.toFixed(1)} SEC`,
+				bonusText: `TIME LEFT BONUS +${String(Math.floor(bonusScore)).padStart(6, "0")} SCORE`
+			};
+		}
+		render() {
+			const ctx = this.ctx;
+			ctx.save();
+			if (this.shake > 0) {
+				const m = this.shake * 3;
+				ctx.translate(Math.round((Math.random() - .5) * m), Math.round((Math.random() - .5) * m));
+			}
+			this._renderWorld();
+			ctx.restore();
+			this._renderHud();
+			this._renderOverlays();
+		}
+		_renderWorld() {
+			const ctx = this.ctx;
+			const s = this.sim;
+			const r = this.renderer;
+			if (this.ceremony) {
+				r.beginFrame();
+				r.renderCoast(this.ceremonyT);
+				r.endFrame();
+				return;
+			}
+			r.beginFrame();
+			const punch = Math.min(1, this.boostEnv * .55 + this.boostKick * .85);
+			const camDepth = CAMERA_DEPTH * (1 - .2 * punch);
+			r.renderRoad(this.course, {
+				z: s.z - cameraSetback(camDepth, CAMERA_HEIGHT),
+				x: s.x,
+				height: CAMERA_HEIGHT,
+				depth: camDepth,
+				bgOffset: this.bgOffset
+			});
+			this._boostPunch = punch;
+			if (this._boostPunch > .02) this._drawSpeedLines(ctx, this._boostPunch);
+			this._drawScrub(ctx);
+			const sprites = r.visibleProps(this.course).map((p) => ({
+				z: p.z,
+				x: p.x,
+				category: "prop",
+				kind: p.kind,
+				o: p
+			}));
+			for (const c of s.traffic) sprites.push({
+				z: c.z,
+				x: c.x,
+				category: "car",
+				kind: "traffic",
+				o: c
+			});
+			for (const c of s.rivals) sprites.push({
+				z: c.z,
+				x: c.x,
+				category: "car",
+				kind: "rival",
+				o: c
+			});
+			const cp = this.course.checkpoints[s.leg - 1];
+			if (cp) sprites.push({
+				z: cp.z,
+				x: 0,
+				category: "gate",
+				kind: "gate",
+				isFinish: s.leg >= 8
+			});
+			for (const p of sortWorldSprites(sprites)) if (p.category === "gate") this._drawGate(p.z, p.isFinish);
+			else if (p.category === "prop") r.drawProp(p.o);
+			else r.drawSprite(p.z, p.x, (c, sx, sy, scale) => {
+				this._drawCar(c, {
+					sx,
+					sy,
+					scale
+				}, p.kind, p.o);
+			});
+			if (this.mode !== MODE.ATTRACT) this._drawPlayer(ctx);
+			r.endFrame();
+		}
+		_drawSpeedLines(ctx, p) {
+			const cx = 160;
+			const cy = 80;
+			const n = Math.round(10 + 12 * p);
+			ctx.save();
+			ctx.beginPath();
+			ctx.rect(0, 40, 320, 160);
+			ctx.clip();
+			for (let i = 0; i < n; i++) {
+				const a = i * 2.39996 % (Math.PI * 2);
+				const dx = Math.cos(a), dy = Math.sin(a) * .55;
+				const ph = (this.t * (2.2 + 1.8 * p) + i * .137) % 1;
+				const r0 = 14 + ph * 190;
+				const len = (8 + 34 * p) * (.35 + ph);
+				const x0 = cx + dx * r0, y0 = cy + dy * r0;
+				const x1 = cx + dx * (r0 + len), y1 = cy + dy * (r0 + len);
+				if (y0 > 200 && y1 > 200) continue;
+				ctx.globalAlpha = Math.min(1, p * (.25 + .75 * ph));
+				ctx.fillStyle = i % 3 === 0 ? P.chargeHigh : "#ffffff";
+				const steps = Math.max(1, Math.round(Math.hypot(x1 - x0, y1 - y0) / 2));
+				for (let k = 0; k <= steps; k++) {
+					const t = k / steps;
+					ctx.fillRect(Math.round(x0 + (x1 - x0) * t), Math.round(y0 + (y1 - y0) * t), p > .6 ? 2 : 1, p > .6 ? 2 : 1);
+				}
+			}
+			ctx.globalAlpha = 1;
+			ctx.restore();
+		}
+		_drawGate(z, isFinish) {
+			const ctx = this.ctx;
+			const a = this.renderer.project(z, -1.25, 0);
+			const b = this.renderer.project(z, 1.25, 0);
+			if (!a || !b || !a.visible || !b.visible) return;
+			const h = Math.max(6, 7 * a.scale);
+			const w = Math.max(2, .5 * a.scale);
+			ctx.save();
+			ctx.beginPath();
+			ctx.rect(0, 40, 320, Math.max(0, a.clip - 40));
+			ctx.clip();
+			ctx.fillStyle = isFinish ? P.gateGlow : P.gate;
+			ctx.fillRect(Math.round(a.sx - w / 2), Math.round(a.sy - h), Math.max(1, Math.round(w)), Math.round(h));
+			ctx.fillRect(Math.round(b.sx - w / 2), Math.round(b.sy - h), Math.max(1, Math.round(w)), Math.round(h));
+			const beamH = Math.max(2, h * .16);
+			ctx.fillRect(Math.round(a.sx), Math.round(a.sy - h), Math.round(b.sx - a.sx), Math.round(beamH));
+			if (a.scale > 3) {
+				const label = isFinish ? "FINISH" : "CHECK";
+				const px = Math.max(1, Math.round(a.scale * .35));
+				drawTextCentered(ctx, label, (a.sx + b.sx) / 2, Math.round(a.sy - h + beamH + px), px, P.hudBg);
+			}
+			ctx.restore();
+		}
+		_drawCar(ctx, pr, kind, o) {
+			const w = Math.max(2, Math.round(CAR_WIDTH * pr.scale));
+			const h = Math.max(2, Math.round(CAR_WIDTH * .61 * pr.scale));
+			const x = Math.round(pr.sx - w / 2);
+			const y = Math.round(pr.sy - h);
+			const body = kind === "rival" ? P.rivalBody : P.trafficBody;
+			const roof = kind === "rival" ? P.rivalRoof : P.trafficRoof;
+			ctx.fillStyle = "#101018";
+			ctx.fillRect(x, y + h - Math.max(1, h * .18), w, Math.max(1, Math.round(h * .18)));
+			ctx.fillStyle = body;
+			ctx.fillRect(x, y + Math.round(h * .3), w, Math.round(h * .55));
+			ctx.fillStyle = roof;
+			ctx.fillRect(x + Math.round(w * .22), y, Math.round(w * .56), Math.round(h * .42));
+			if (kind === "rival" && o && o.lamp > 0) {
+				ctx.fillStyle = P.rivalLamp;
+				const lw = Math.max(1, Math.round(w * .18));
+				const lh = Math.max(1, Math.round(h * .22));
+				ctx.fillRect(x + 1, y + Math.round(h * .34), lw, lh);
+				ctx.fillRect(x + w - 1 - lw, y + Math.round(h * .34), lw, lh);
+			}
+		}
+		spinYaw() {
+			const s = this.sim;
+			if (s.spin <= 0) return 0;
+			return (1 - s.spin / HIT.spinTime) * Math.PI * 2 * SPIN_VIS.turns;
+		}
+		_drawScrub(ctx) {
+			if (!this.scrub.length) return;
+			const V = SPIN_VIS;
+			for (const m of this.scrub) {
+				const p = this.renderer.project(m.z, m.x, 0);
+				if (!p || !p.visible || !(p.scale > 0)) continue;
+				if (m.puff) {
+					const a = m.age / V.puffLife;
+					const rM = .3 + .5 * a;
+					const rw = Math.max(1, Math.round(rM * p.scale));
+					const rh = Math.max(1, Math.round(rM * .55 * p.scale));
+					const rise = V.puffRiseM * a * p.scale;
+					ctx.globalAlpha = .34 * (1 - a);
+					ctx.fillStyle = "#d8d8e4";
+					ctx.fillRect(Math.round(p.sx - rw), Math.round(p.sy - rise - rh), rw * 2, rh * 2);
+				} else {
+					const a = m.age / V.scrubLife;
+					const mw = Math.max(1, Math.round(V.scrubFrac * CAR_WIDTH * p.scale));
+					const mh = Math.max(1, Math.round(.25 * p.scale));
+					ctx.globalAlpha = .55 * (1 - a);
+					ctx.fillStyle = "#1a1a22";
+					ctx.fillRect(Math.round(p.sx - mw / 2), Math.round(p.sy - mh), mw, mh);
+				}
+			}
+			ctx.globalAlpha = 1;
+		}
+		_drawPlayer(ctx) {
+			const s = this.sim;
+			const p = this.renderer.project(s.z, s.x, 0);
+			const pxPerM = p.scale;
+			const cx = p.sx;
+			const bob = Math.sin(this.t * 22) * (s.speed / 100) * .9;
+			const w = Math.max(8, Math.round(CAR_WIDTH * pxPerM));
+			const h = Math.max(4, Math.round(CAR_WIDTH * .61 * pxPerM));
+			const y = Math.round(p.sy - h + bob + (s.boost.active ? 1.5 : 0));
+			const x = Math.round(cx - w / 2);
+			if (s.zoneLevel > 0) {
+				const depth = s.zone === "deep" ? s.zoneDepth || 0 : 0;
+				ctx.globalAlpha = .1 + .16 * s.zoneLevel + .2 * depth;
+				ctx.fillStyle = "#d0e0ff";
+				const bands = 5 + Math.round(3 * depth);
+				for (let i = 0; i < bands; i++) {
+					const yy = y - 26 - i * 5 + Math.sin(this.t * (9 + 6 * depth) + i) * 2;
+					ctx.fillRect(x - 8 + Math.sin(this.t * 6 + i * 1.7) * 4, yy, w + 16, 2);
+				}
+				ctx.globalAlpha = 1;
+			}
+			if (s.boost.active || this.boostKick > 0) {
+				const e = Math.max(this.boostEnv, this.boostKick);
+				const n = Math.round(7 + 7 * e);
+				for (let i = 0; i < n; i++) {
+					const t = i / n;
+					const sw = Math.round(w * (1 - t) * (.8 + .7 * e));
+					ctx.fillStyle = t < .35 ? "#ffffff" : s.boost.sling ? P.chargeHigh : "#ff8840";
+					ctx.globalAlpha = (.55 + .45 * e) * (1 - t);
+					ctx.fillRect(Math.round(cx - sw / 2), y + h - 2 + i * 3, sw, 2);
+				}
+				ctx.globalAlpha = 1;
+			}
+			if (s.spin > 0) {
+				const V = SPIN_VIS;
+				const psi = this.spinYaw();
+				const cs = Math.cos(psi), sn = Math.sin(psi);
+				const acs = Math.abs(cs), asn = Math.abs(sn);
+				const hw = CAR_WIDTH / 2, hl = CAR_LEN / 2;
+				const px = (f) => Math.round(w * f);
+				const py = (f) => Math.round(h * f);
+				const tyre = Math.max(2, py(.24));
+				const sill = y + h - tyre;
+				const den = Math.max(1e-6, hw * acs + hl * asn);
+				const nrm = (u, v) => (u * cs + v * sn) / den;
+				const dep = (u, v) => -u * sn + v * cs;
+				const place = (u, v, fw) => Math.min(x + w - fw, Math.max(x, Math.round(cx + nrm(u, v) * (w - fw) / 2 - fw / 2)));
+				const pFar = this.renderer.project(s.z + .5, s.x, 0);
+				const pNear = this.renderer.project(s.z - .5, s.x, 0);
+				const gpm = (pFar && pNear ? Math.max(.5, pNear.sy - pFar.sy) : pxPerM * .4) * V.groundSquash;
+				const dM = acs * CAR_LEN + asn * CAR_WIDTH;
+				const footPx = Math.max(2, Math.round(dM * gpm));
+				ctx.globalAlpha = .5;
+				ctx.fillStyle = "#000008";
+				ctx.fillRect(x - px(.04), sill + tyre - footPx, w + px(.08), footPx);
+				ctx.globalAlpha = 1;
+				const hu = V.trackFrac * hw;
+				const hv = V.wheelbaseFrac * hl;
+				const wpx = Math.max(2, Math.round(V.wheelM * pxPerM));
+				const wpy = Math.max(1, Math.round(V.wheelM * gpm));
+				const wheels = [];
+				for (const u of [-hu, hu]) for (const v of [-hv, hv]) wheels.push({
+					sx: place(u, v, wpx),
+					dz: dep(u, v)
+				});
+				wheels.sort((a, b) => b.dz - a.dz);
+				const drawWheel = (wl) => {
+					ctx.fillStyle = wl.dz > 0 ? "#7a8296" : "#eef0f6";
+					ctx.fillRect(wl.sx, Math.round(sill + tyre - footPx / 2 - wpy / 2 - wl.dz * gpm), wpx, wpy);
+				};
+				for (const wl of wheels) if (wl.dz > 0) drawWheel(wl);
+				const bodyTop = y + py(.26);
+				ctx.fillStyle = P.playerBody;
+				ctx.fillRect(x, bodyTop, w, sill - bodyTop);
+				ctx.fillStyle = P.playerShade;
+				ctx.fillRect(x, sill - Math.max(1, py(.12)), w, Math.max(1, py(.12)));
+				const cabV = -.5 * CAR_LEN * (1 - V.roofLenFrac);
+				const roofW = Math.max(3, Math.round(V.roofWidFrac * CAR_WIDTH * pxPerM));
+				const roofX = place(0, cabV, roofW);
+				ctx.fillStyle = P.playerBody;
+				ctx.fillRect(roofX, bodyTop, roofW, sill - bodyTop);
+				ctx.fillStyle = P.playerRoof;
+				ctx.fillRect(roofX, y, roofW, py(.32));
+				const glassW = Math.max(2, roofW - Math.max(2, px(.06)));
+				ctx.fillStyle = cs < -.35 ? "#203048" : "#101018";
+				ctx.fillRect(roofX + Math.round((roofW - glassW) / 2), y + Math.max(1, py(.06)), glassW, Math.max(1, py(.18)));
+				const lampA = Math.min(1, Math.max(0, (acs - V.lampOff) / V.lampFade));
+				if (lampA > .02) {
+					const lampV = cs > 0 ? -2.2 : hl;
+					const lw = Math.max(1, px(.16));
+					ctx.globalAlpha = lampA;
+					ctx.fillStyle = cs > 0 ? "#e84030" : "#fff0c0";
+					for (const side of [-1, 1]) ctx.fillRect(place(side * V.lampUFrac * hw, lampV, lw), y + py(.4), lw, py(.16));
+					ctx.globalAlpha = 1;
+				}
+				for (const wl of wheels) if (wl.dz <= 0) drawWheel(wl);
+				return;
+			}
+			const px = (f) => Math.round(w * f);
+			const py = (f) => Math.round(h * f);
+			const tyre = Math.max(2, py(.24));
+			const sill = y + h - tyre;
+			ctx.fillStyle = "#101018";
+			ctx.fillRect(x - px(.05), sill, w + px(.1), tyre);
+			ctx.fillStyle = "#e0e0e8";
+			ctx.fillRect(x - px(.05), sill, px(.16), tyre);
+			ctx.fillRect(x + w - px(.11), sill, px(.16), tyre);
+			ctx.fillStyle = P.playerBody;
+			ctx.fillRect(x, y + py(.26), w, h - py(.26) - tyre);
+			ctx.fillStyle = P.playerShade;
+			ctx.fillRect(x, sill - Math.max(1, py(.12)), w, Math.max(1, py(.12)));
+			ctx.fillStyle = P.playerRoof;
+			ctx.fillRect(x + px(.22), y, px(.56), py(.32));
+			ctx.fillStyle = "#101018";
+			ctx.fillRect(x + px(.26), y + Math.max(1, py(.05)), px(.48), py(.2));
+			ctx.fillStyle = "#e84030";
+			ctx.fillRect(x + px(.04), y + py(.4), px(.16), py(.16));
+			ctx.fillRect(x + w - px(.2), y + py(.4), px(.16), py(.16));
+			if (this.releaseFlash > 0) {
+				ctx.globalAlpha = this.releaseFlash / .4;
+				ctx.fillStyle = P.chargeHigh;
+				const b = 2;
+				ctx.fillRect(x - b, y - b, w + 4, b);
+				ctx.fillRect(x - b, y + h, w + 4, b);
+				ctx.fillRect(x - b, y - b, b, h + 4);
+				ctx.fillRect(x + w, y - b, b, h + 4);
+				ctx.globalAlpha = 1;
+			}
+		}
+		_renderHud() {
+			const ctx = this.ctx;
+			const s = this.sim;
+			ctx.fillStyle = P.hudBg;
+			ctx.fillRect(0, 0, 320, 40);
+			ctx.fillRect(0, 200, 320, 24);
+			const full = s.charge >= 100 && s.slingReady;
+			const cw = Math.round(s.charge / 100 * 320);
+			ctx.fillStyle = "#1a1a24";
+			ctx.fillRect(0, 0, 320, 8);
+			if (cw > 0) {
+				const blink = full && Math.floor(this.t * 8) % 2 === 0;
+				ctx.fillStyle = full ? blink ? "#ffffff" : P.chargeHigh : P.chargeLow;
+				ctx.fillRect(0, 0, cw, 8);
+			}
+			for (let x = 0; x < 320; x += 32) {
+				ctx.fillStyle = "#00000060";
+				ctx.fillRect(x, 0, 1, 8);
+			}
+			drawText(ctx, "SCORE", 4, 12, 1, P.hudDim);
+			drawText(ctx, String(Math.floor(s.score)).padStart(7, "0"), 4, 22, 2, P.hudText);
+			const hiStr = String(Math.max(this.hiScore, Math.floor(s.score))).padStart(7, "0");
+			drawText(ctx, "HI", 316 - textWidth("HI", 1), 12, 1, P.hudDim);
+			drawText(ctx, hiStr, 316 - textWidth(hiStr, 1), 22, 1, P.hudDim);
+			const tCol = s.timer < 10 && Math.floor(this.t * 6) % 2 === 0 ? P.timeWarn : P.hudText;
+			const tStr = s.timer >= 10 ? s.timer.toFixed(1) : s.timer.toFixed(2);
+			drawTextCentered(ctx, "TIME", 160, 11, 1, P.hudDim);
+			drawTextCentered(ctx, tStr, 160, 19, 3, tCol);
+			const legStr = `LEG ${s.leg}/8`;
+			drawText(ctx, legStr, 4, 213, 1, P.hudDim);
+			const dotsX = 4 + textWidth(legStr, 1) + 5;
+			for (let i = 0; i < 8; i++) {
+				const done = i < s.leg - 1;
+				const cur = i === s.leg - 1;
+				ctx.fillStyle = done ? P.chargeHigh : cur ? P.hudText : "#33333f";
+				ctx.fillRect(dotsX + i * 5, 214, 3, 3);
+			}
+			const total = legDistance(s.leg);
+			const frac = Math.max(0, Math.min(1, 1 - s.distanceToCheckpoint / total));
+			const barX = 150, barW = 110;
+			ctx.fillStyle = "#22222c";
+			ctx.fillRect(barX, 205, barW, 4);
+			ctx.fillStyle = s.leg === 8 ? P.gateGlow : P.hudText;
+			ctx.fillRect(barX, 205, Math.round(barW * frac), 4);
+			drawText(ctx, `${Math.round(s.distanceToCheckpoint)}M`, barX, 213, 1, P.hudDim);
+			const spStr = `${Math.round(s.speed * 3.6)}`;
+			const spCol = this.boostKick > .2 && Math.floor(this.t * 16) % 2 === 0 ? "#ffffff" : s.boost.active ? P.chargeHigh : P.hudText;
+			drawText(ctx, spStr, 316 - textWidth(spStr, 2) - 14, 207, 2, spCol);
+			drawText(ctx, "KMH", 316 - textWidth("KMH", 1), 213, 1, P.hudDim);
+			if (this.boostEnv > 0 || this.boostKick > 0) {
+				const e = Math.max(this.boostEnv, this.boostKick);
+				const bw = Math.round(320 * e);
+				ctx.fillStyle = s.boost.sling ? P.chargeHigh : "#ffffff";
+				ctx.fillRect(Math.round((320 - bw) / 2), 201, bw, 1);
+				if (this.boostKick > .25 && Math.floor(this.t * 12) % 2 === 0) drawTextCentered(ctx, s.boost.sling ? "SLINGSHOT" : "BOOST", 160, 48, 3, P.chargeHigh);
+			}
+			if (this.passReadouts.length) {
+				this.passReadouts.slice(0, 3).forEach((r, i) => {
+					drawTextCentered(ctx, r.text, 160, 138 - i * 10, 1, P.hudText);
+				});
+				const chain = Math.max(...this.passReadouts.map((r) => r.chain));
+				if (chain >= 2) drawTextCentered(ctx, `CHAIN X${chain}`, 160, 158, 2, P.chargeHigh);
+			} else if (this.chainFlash > 0 && s.chain >= 2) drawTextCentered(ctx, `CHAIN X${s.chain}`, 160, 158, 2, P.chargeHigh);
+			if (this.chainEndReadout) drawTextCentered(ctx, this.chainEndReadout.text, 160, 158, 1, this.chainEndReadout.text === "CHAIN LOST" ? P.timeWarn : P.chargeHigh);
+		}
+		_renderOverlays() {
+			const ctx = this.ctx;
+			this.sim;
+			if (this.cpFlash > 0) {
+				ctx.globalAlpha = this.cpFlash / 1.2 * .35;
+				ctx.fillStyle = "#ffffff";
+				ctx.fillRect(0, 40, 320, 160);
+				ctx.globalAlpha = 1;
+				drawTextCentered(ctx, "CHECKPOINT", 160, 96, 3, P.hudText);
+				const checkpoint = this.checkpointReadout();
+				const bw = Math.max(textWidth(checkpoint.timeText, 2), textWidth(checkpoint.bonusText, 1)) + 12;
+				ctx.fillStyle = P.hudBg;
+				ctx.globalAlpha = .62;
+				ctx.fillRect(Math.round((320 - bw) / 2), 110, bw, 43);
+				ctx.globalAlpha = 1;
+				drawTextCentered(ctx, "TIME SET", 160, 114, 1, P.hudText);
+				drawTextCentered(ctx, checkpoint.timeText, 160, 124, 2, P.chargeHigh);
+				drawTextCentered(ctx, checkpoint.bonusText, 160, 142, 1, P.hudText);
+			}
+			switch (this.mode) {
+				case MODE.ATTRACT:
+					this._overlayAttract();
+					break;
+				case MODE.READY:
+					this._overlayReady();
+					break;
+				case MODE.FINISH:
+					this._overlayFinish();
+					break;
+				case MODE.GAMEOVER:
+					drawTextCentered(ctx, "GAME OVER", 160, 100, 4, P.timeWarn);
+					drawTextCentered(ctx, `REACHED LEG ${this.sim.leg} OF 8`, 160, 130, 1, P.hudText);
+					break;
+				case MODE.ENTRY: this._overlayEntry();
+			}
+			if (this.pausedOverlayVisible) {
+				ctx.fillStyle = "#000000a0";
+				ctx.fillRect(0, 40, 320, 160);
+				drawTextCentered(ctx, "PAUSED", 160, 102, 4, P.hudText);
+			}
+		}
+		_overlayAttract() {
+			const ctx = this.ctx;
+			ctx.fillStyle = "#00000060";
+			ctx.fillRect(0, 40, 320, 160);
+			const panel = this.attractPanel();
+			ctx.globalAlpha = panel.alpha;
+			if (panel.phase === "title") {
+				drawTextCentered(ctx, "DRAFT LINE", 160, 68, 5, P.chargeHigh);
+				drawTextCentered(ctx, "TUCK IN. CHARGE. SLINGSHOT.", 160, 100, 1, P.hudText);
+				drawTextCentered(ctx, `8 CHECKPOINTS TO THE COAST`, 160, 110, 1, P.hudDim);
+				if (Math.floor(this.t * 2) % 2 === 0) drawTextCentered(ctx, "PRESS BOOST BUTTON TO START", 160, 138, 2, P.hudText);
+				drawTextCentered(ctx, ATTRACT_CONTROLS[0], 160, 166, 1, P.hudDim);
+				drawTextCentered(ctx, ATTRACT_CONTROLS[1], 160, 174, 1, P.hudDim);
+				drawTextCentered(ctx, ATTRACT_CONTROLS[2], 160, 182, 1, P.hudDim);
+			} else {
+				drawTextCentered(ctx, "BEST SCORES", 160, 54, 2, P.chargeHigh);
+				this.attractRanking().forEach((entry, index) => {
+					drawTextCentered(ctx, `${entry.rank}  ${entry.name}  ${String(entry.score).padStart(7, "0")}`, 160, 78 + index * 16, 2, P.hudText);
+				});
+				if (Math.floor(this.t * 2) % 2 === 0) drawTextCentered(ctx, "PRESS BOOST BUTTON TO START", 160, 170, 1, P.hudDim);
+			}
+			ctx.globalAlpha = 1;
+		}
+		_overlayReady() {
+			const ctx = this.ctx;
+			const n = Math.max(1, 3 - Math.floor(this.modeT * 1.5));
+			const { ready, countdown, instruction } = READY_OVERLAY;
+			const plateW = textWidth(instruction.text, instruction.scale) + instruction.padX * 2;
+			const plateH = instruction.scale * 5 + instruction.padY * 2;
+			ctx.fillStyle = P[instruction.plateRole];
+			ctx.globalAlpha = instruction.plateAlpha;
+			ctx.fillRect(Math.round((320 - plateW) / 2), instruction.y - instruction.padY, plateW, plateH);
+			ctx.globalAlpha = 1;
+			drawTextCentered(ctx, "READY", 160, ready.y, ready.scale, P[ready.colorRole]);
+			drawTextCentered(ctx, String(n), 160, countdown.y, countdown.scale, P[countdown.colorRole]);
+			drawTextCentered(ctx, instruction.text, 160, instruction.y, instruction.scale, P[instruction.colorRole]);
+		}
+		_overlayFinish() {
+			const ctx = this.ctx;
+			const m = this.modeT;
+			if (m < .9) {
+				ctx.globalAlpha = 1 - m / .9;
+				ctx.fillStyle = "#ffffff";
+				ctx.fillRect(0, 0, 320, 224);
+				ctx.globalAlpha = 1;
+				return;
+			}
+			ctx.fillStyle = "#00000080";
+			ctx.fillRect(0, 40, 320, 160);
+			drawTextCentered(ctx, "GOAL", 160, 62, 5, P.chargeHigh);
+			drawTextCentered(ctx, "TIME BONUS", 160, 92, 1, P.hudDim);
+			drawTextCentered(ctx, String(Math.floor(this.finishBonus)).padStart(7, "0"), 160, 102, 3, P.hudText);
+			if (m > 4) {
+				drawTextCentered(ctx, `MAX SLINGSHOT CHAIN  ${this.sim.stats.maxChain}`, 160, 128, 1, P.hudText);
+				drawTextCentered(ctx, `METRES IN THE TOW  ${Math.round(this.sim.stats.deepMetres)}`, 160, 140, 1, P.hudText);
+			}
+			if (m > 8) drawTextCentered(ctx, `FINAL SCORE  ${Math.floor(this.sim.score)}`, 160, 156, 2, P.chargeHigh);
+			if (m > 14 && Math.floor(this.t * 2) % 2 === 0) drawTextCentered(ctx, "PRESS BOOST", 160, 176, 1, P.hudDim);
+		}
+		_overlayEntry() {
+			const ctx = this.ctx;
+			ctx.fillStyle = "#000000d0";
+			ctx.fillRect(0, 40, 320, 150);
+			drawTextCentered(ctx, "ENTER YOUR INITIALS", 160, 52, 2, P.hudText);
+			const px = 5;
+			const x0 = 100;
+			for (let i = 0; i < 3; i++) {
+				const sel = i === this.entry.pos;
+				const col = sel && Math.floor(this.t * 6) % 2 === 0 ? P.chargeHigh : P.hudText;
+				const x = Math.round(x0 + i * 4 * px * 2);
+				drawText(ctx, this.entry.name[i], x, 76, px, col);
+				if (sel) {
+					ctx.fillStyle = P.chargeHigh;
+					ctx.fillRect(x, 112, 15, 2);
+				}
+			}
+			drawTextCentered(ctx, "LEFT/RIGHT MOVE   UP/DOWN CHANGE", 160, 120, 1, P.hudDim);
+			drawTextCentered(ctx, "BOOST ENTER AT RIGHT", 160, 130, 1, P.hudDim);
+			drawTextCentered(ctx, "BEST SCORES", 160, 144, 1, P.hudDim);
+			this.hi.slice(0, 4).forEach((h, i) => {
+				drawTextCentered(ctx, `${h.name}  ${String(h.score).padStart(7, "0")}`, 160, 156 + i * 8, 1, P.hudText);
+			});
+		}
+	};
+	//#endregion
+	//#region vendor/agentic/sources/draft-line/src/main.js
+	const canvas = document.getElementById("screen");
+	canvas.width = 320;
+	canvas.height = 224;
+	const ctx = canvas.getContext("2d", { alpha: false });
+	ctx.imageSmoothingEnabled = false;
+	const game = new Game(ctx);
+	window.__game = game;
+	function fit() {
+		const scale = Math.max(1, Math.floor(Math.min(window.innerWidth / 320, window.innerHeight / 224)));
+		canvas.style.width = `${320 * scale}px`;
+		canvas.style.height = `${224 * scale}px`;
+	}
+	window.addEventListener("resize", fit);
+	fit();
+	const HELD = /* @__PURE__ */ new Set([
+		"ArrowLeft",
+		"ArrowRight",
+		"ArrowUp",
+		"ArrowDown",
+		"Space"
+	]);
+	window.addEventListener("keydown", (e) => {
+		if (HELD.has(e.code)) e.preventDefault();
+		game.onKeyDown(e.code);
+	});
+	window.addEventListener("keyup", (e) => game.onKeyUp(e.code));
+	document.addEventListener("visibilitychange", () => {
+		game.setPageVisible(!document.hidden);
+	});
+	window.addEventListener("blur", () => game.setWindowFocused(false));
+	window.addEventListener("focus", () => game.setWindowFocused(true));
+	game.setPageVisible(!document.hidden);
+	game.setWindowFocused(document.hasFocus());
+	let last = performance.now();
+	function frame(now) {
+		const dt = Math.min(.05, (now - last) / 1e3);
+		last = now;
+		game.update(dt);
+		game.render();
+		requestAnimationFrame(frame);
+	}
+	requestAnimationFrame(frame);
+	//#endregion
+})();
+
+window.__agenticSetup({start(){__game.startRun(); __game.setPageVisible(true); __game.setWindowFocused(true)},read(){const s=__game.sim; return {score:s?.score??0,ended:!!(s&&(s.finished || s.gameOver)),won:!!(s&&(s.finished)),phase:s?.phase??s?.mode??'playing'};}});</script></body></html>

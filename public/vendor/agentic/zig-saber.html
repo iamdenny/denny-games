@@ -1,0 +1,1377 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>zig-saber · ABA Games</title><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://games.iamdenny.com/en/games/agentic-zig-saber/"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; media-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'"><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c13;display:grid;place-items:center}canvas{margin:0!important;width:100%!important;height:100%!important;max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;touch-action:none;display:block}</style></head><body><canvas width="300" height="150" id="screen"></canvas><script>/* Denny Games lifecycle adapter; upstream sources remain unmodified. */
+(()=>{
+ const channel=new URLSearchParams(location.search).get('channel');
+ const parentOrigin=document.referrer?new URL(document.referrer).origin:location.origin;
+ const post=(type,data={})=>parent.postMessage({channel,type,...data},parentOrigin);
+ const nativeRAF=window.requestAnimationFrame.bind(window);
+ let now=performance.now(),next=1,queue=new Map(),running=false,ended=false,hook,started=false,ticks=0,lastScore=-1,sound=false;
+ Object.defineProperty(performance,'now',{value:()=>now});
+ window.requestAnimationFrame=cb=>{const id=next++;queue.set(id,cb);return id;};
+ window.cancelAnimationFrame=id=>queue.delete(id);
+ const timers=new Map();
+ window.setTimeout=(fn,delay=0,...args)=>{const id=next++;timers.set(id,{fn,args,at:now+Math.max(1,Number(delay)||0),period:0});return id;};
+ window.setInterval=(fn,delay=0,...args)=>{const id=next++,period=Math.max(1,Number(delay)||0);timers.set(id,{fn,args,at:now+period,period});return id;};
+ window.clearTimeout=window.clearInterval=id=>timers.delete(id);
+ const contexts=[], gains=new WeakMap();let volume=1;
+ const connect=window.AudioNode?.prototype.connect;
+ if(connect)window.AudioNode.prototype.connect=function(destination,...args){return connect.call(this,gains.get(destination)||destination,...args);};
+ const NativeAudio=window.AudioContext||window.webkitAudioContext;
+ if(NativeAudio){window.AudioContext=new Proxy(NativeAudio,{construct(Target,args){const c=new Target(...args),resume=c.resume.bind(c);contexts.push(c);const master=c.createGain();master.gain.value=volume;connect.call(master,c.destination);gains.set(c.destination,master);c.resume=()=>running&&sound?resume():Promise.resolve();if(!running||!sound)c.suspend().catch(()=>{});else resume().catch(()=>{});return c;}});window.webkitAudioContext=window.AudioContext;}
+ const syncAudio=()=>contexts.forEach(c=>{(running&&sound?c.resume():c.suspend()).catch(()=>{});});
+ // Imported leaderboards are session-local; shell owns persistent personal bests.
+ const memory=new Map();
+ try{Object.defineProperty(window,'localStorage',{value:{getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,String(v)),removeItem:k=>memory.delete(k),clear:()=>memory.clear()}});}catch{}
+ // Shared shell owns visibility/focus pause. Clear all held keys before freezing.
+ window.addEventListener('blur',e=>e.stopImmediatePropagation(),true);
+ document.addEventListener('visibilitychange',e=>{if(document.hidden&&running)post('pause');e.stopImmediatePropagation();},true);
+ const held=new Set(),physicalKeys=new Set(),pointers=new Set(),touches=new Map();
+ window.addEventListener('keydown',e=>{if(running)physicalKeys.add(e.code);},true);
+ window.addEventListener('keyup',e=>physicalKeys.delete(e.code),true);
+ window.addEventListener('pointerdown',e=>{if(running)pointers.add(e.pointerId);},true);
+ for(const type of ['pointerup','pointercancel'])window.addEventListener(type,e=>pointers.delete(e.pointerId),true);
+ window.addEventListener('touchstart',e=>{if(running)for(const t of e.changedTouches)touches.set(t.identifier,t);},true);
+ for(const type of ['touchend','touchcancel'])window.addEventListener(type,e=>{for(const t of e.changedTouches||[])touches.delete(t.identifier);},true);
+ function key(code,down){if(down===held.has(code))return;if(down)held.add(code);else held.delete(code);window.dispatchEvent(new KeyboardEvent(down?'keydown':'keyup',{code,key:code==='Space'?' ':code,bubbles:true}));}
+ const clear=()=>{const c=document.querySelector('canvas');if(c){for(const pointerId of [...pointers])c.dispatchEvent(new PointerEvent('pointercancel',{bubbles:true,pointerId}));c.dispatchEvent(new MouseEvent('mouseup',{bubbles:true}));const event=new Event('touchcancel',{bubbles:true});Object.defineProperty(event,'changedTouches',{value:[...touches.values()]});c.dispatchEvent(event);}for(const k of [...held])key(k,false);for(const k of new Set([...physicalKeys,'ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space']))window.dispatchEvent(new KeyboardEvent('keyup',{code:k,key:k==='Space'?' ':k,bubbles:true}));};
+ for(const name of ['keydown','keyup'])window.addEventListener(name,e=>{if(running&&e.type==='keydown'&&['KeyP','Escape'].includes(e.code)){post('pause');clear();running=false;syncAudio();}if((!running||['KeyP','KeyM','Escape','Enter'].includes(e.code))&&!e.__release){if(!running&&e.type==='keyup')return;e.preventDefault();e.stopImmediatePropagation();}},true);
+ for(const name of ['pointerdown','pointerup','pointermove','touchstart','touchmove','touchend','mousedown','mouseup'])window.addEventListener(name,e=>{if(!running){e.preventDefault();e.stopImmediatePropagation();}}, {capture:true,passive:false});
+ window.addEventListener('message',e=>{if(e.source!==parent||e.origin!==parentOrigin||e.data?.channel!==channel)return;const d=e.data;
+ if(d.type==='run'){if(!d.running)clear();running=d.running===true&&!ended;syncAudio();}
+ if(d.type==='sound'){sound=d.enabled===true;syncAudio();}
+ if(d.type==='volume'&&Number.isFinite(d.volume)){volume=Math.min(1,Math.max(0,d.volume));contexts.forEach(c=>{gains.get(c.destination).gain.value=volume;});}
+ if(d.type==='key'&&running&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space'].includes(d.code))key(d.code,d.down===true);
+ if(d.type==='input'&&running){key('ArrowLeft',d.x<0);key('ArrowRight',d.x>0);key('ArrowUp',d.y<0);key('ArrowDown',d.y>0);key('Space',d.pressed===true);}
+ });
+ window.__agenticSetup=h=>{hook=h;h.start();started=true;const c=document.querySelector('canvas');const callbacks=[...queue.values()];queue.clear();callbacks.forEach(f=>f(now));post('ready',{width:c.width,height:c.height});document.body.dataset.phase='ready';};
+ let previous;
+ function pump(real){const dt=previous===undefined?0:Math.min(33,real-previous);previous=real;
+ if(running&&started){now+=dt;ticks++;for(const [id,t] of [...timers])if(now>=t.at){if(t.period)t.at=now+t.period;else timers.delete(id);if(typeof t.fn==='function')t.fn(...t.args);}const callbacks=[...queue.values()];queue.clear();try{callbacks.forEach(f=>f(now));const s=hook.read();document.body.dataset.ticks=String(ticks);document.body.dataset.phase=String(s.phase);if(Number.isFinite(s.score)&&s.score!==lastScore){lastScore=s.score;post('score',{score:s.score});}if(s.ended&&!ended){ended=true;running=false;clear();syncAudio();post('end',{score:Number.isFinite(s.score)?s.score:0,won:s.won});}}catch(error){running=false;syncAudio();post('error');}}
+ nativeRAF(pump);
+ }nativeRAF(pump);
+ window.addEventListener('error',()=>{running=false;syncAudio();post('error');});
+ window.addEventListener('unhandledrejection',()=>{running=false;syncAudio();post('error');});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden&&running)post('pause');},true);
+})();
+
+;
+// ZIG SABER — rules core (browser global ZS / Node module). Deterministic, 60 ticks per second, no rendering.
+// One button: every press flips the ship's vertical direction AND fires along its row.
+(function (root) {
+  'use strict';
+  const C = {
+    W: 256, H: 224, HUD: 16, T: 8, ROWS: 26,
+    SHIP_X: 44, NOSE: 8,          // ship centre x on screen, nose offset
+    VY: 1.6, SCROLL: 1.2,         // px per tick
+    SHOT_V: 14,       // wave speed, blade reach in front of the nose
+    AHEAD: 30, BACK: 6, MID: 12,  // the swing covers the side the ship was heading for: 30 px ahead of its row, 6 behind
+    LASER_MAX: 3, DECAY: [0, 900, 600, 420], // laser level 0-3: a capsule adds one; a level lasts 15 / 10 / 7 s, the higher the shorter
+    REACH: [64, 96, 128, 160],    // blade reach in front of the nose by laser level
+    CHAIN_MAX: 4, CHAIN_T: [0, 150, 120, 90, 60], // cutting swings raise the cut multiplier up to x5; without a cut it drops a step after 2.5 / 2 / 1.5 / 1 s, the higher the sooner
+      // stock limit, shots per capsule
+    MARK: 40, GUARD: 30,          // ticks an entry is announced at the right edge; ticks a spent laser charge shields the ship
+    READY: 110, READY_BACK: 60, BACKUP: 144, DEAD: 80, CLEAR: 200, // BACKUP: px of scroll a lost ship is set back (2 s)
+    LIVES: 3, EXTEND: [200000, 600000, 1400000, 3000000], EXTEND_EVERY: Infinity, // four extra ships at most; the gap doubles each time
+    NO_MISS: 5, GEM_PERFECT: 100000, GATE_SEC: 5000, // zone bonus x5 without losing a ship in it; every gem of a zone; per second left on the gate
+    HEAT: 0.08, CLOSE: 24,        // heat: every chain step makes new enemies 8 % faster and adds aimed drones; a cut within 24 px of the nose pays double
+    LOOPS: 2, SHIP_BONUS: 50000,  // the game is two loops long; clearing it pays for every ship left
+    GEM_CAP: 8, ZONE_BONUS: 10000, LOOP_BONUS: 20000, BOSS_BONUS: 20000,
+    // the gate at the end of the loop: five core rows behind five steel plates
+    BOSS: { FACE: 208, ROWS: 5, Y0: 50, DY: 35, HP: 24, HPR: 0, PLATE_V: 1.2, PLATES: 2, OPEN: 270, ARM: 30, LAUNCH: 70, EMIT: 100, ESCORT: 3, TIME: 4500, AWAY: 100, AWAY_V: 0.7 },
+  };
+  const KIND = {
+    drone: { w: 12, h: 10, v: 2.4, far: 100, cut: 300 },
+    train: { w: 12, h: 10, v: 2.0, far: 100, cut: 300 },
+    shell: { w: 14, h: 12, v: 1.6, far: 0, cut: 500, armor: true },
+    plate: { w: 10, h: 30, v: 2.0, far: 0, cut: 500, armor: true }, // a plate thrown by the gate: cut it and its row of the core lies open
+    plug: { w: 8, h: 56, v: 1.2, far: 0, cut: 500, armor: true },   // a seal across a side lane: part of the rock, opened only by the blade
+    rusher: { w: 14, h: 8, v: 5.6, far: 200, cut: 600, warn: 20 },
+  };
+  const TRAIN_GAP = 18, trainLen = loop => 3 + (loop >= 1 ? 1 : 0) + (loop >= 3 ? 1 : 0); // one swing can take three; longer trains need two, or the laser
+
+  function mulberry(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+  // ---------- course: terrain columns (8 px), enemy script, gems. Same every run (fixed course, learnable). ----------
+  const courses = {};
+  function buildCourse(loop) {
+    if (courses[loop]) return courses[loop];
+    const R = C.ROWS, ceil = [], flo = [], i0 = [], i1 = [], zones = [], cps = [], gems = [], events = [], forced = [];
+    const rnd = mulberry(8128), ri = (a, b) => a + Math.floor(rnd() * (b - a + 1));
+    const push = (c, f, a, b) => { ceil.push(c); flo.push(f); i0.push(a || 0); i1.push(b || 0); };
+    const flat = n => { for (let k = 0; k < n; k++) push(2, 2); };
+    const ease = (c1, f1) => { // walk both surfaces to (c1, f1) one tile per column
+      let c = ceil[ceil.length - 1], f = flo[flo.length - 1];
+      while (c !== c1 || f !== f1) { c += Math.sign(c1 - c); f += Math.sign(f1 - f); push(c, f); }
+    };
+    const cp = () => cps.push(ceil.length + 2);
+    flat(44); // lead-in: a full open screen
+
+    // zone 1 CANYON: wide, rolling floor and hanging rock; gap >= 13 tiles
+    let z0 = ceil.length; cp();
+    {
+      const MING = 13; let c = 2, f = 2, ct = 2, ft = 2, ch = 6, fh = 3;
+      for (let n = 0; n < 400; n++) {
+        if (n === 200) { ct = 2; ft = 2; ch = fh = 44; }
+        if (n === 216) cp();
+        if (c === ct && --ch <= 0) { ct = ri(1, Math.min(13, R - MING - Math.max(f, ft))); if (rnd() < 0.35) ct = ri(1, 2); ch = ri(4, 14); }
+        if (f === ft && --fh <= 0) { ft = ri(1, Math.min(13, R - MING - Math.max(c, ct))); if (rnd() < 0.3) ft = ri(1, 2); fh = ri(4, 14); }
+        c += Math.sign(ct - c); f += Math.sign(ft - f); push(c, f);
+      }
+      ease(2, 2); flat(10);
+    }
+    zones.push({ name: 'CANYON', c0: 0, c1: ceil.length });
+
+    // zone 2 CAVERN: a winding tube, 9-12 tiles wide, 45-degree bends
+    z0 = ceil.length; cp();
+    {
+      let g = 14, m = 13, mt = 13, hold = 4, slow = 0;
+      for (let n = 0; n < 400; n++) {
+        if (n === 194) { mt = 13; hold = 34; }
+        if (n === 212) cp();
+        const narrow = n > 24 && !(n > 186 && n < 236);
+        if (m === mt && --hold <= 0) { g = narrow ? ri(11, 13) : 14; const h = Math.ceil(g / 2); mt = ri(h + 1, R - h - 1); hold = ri(4, 12); slow = rnd() < 0.3 ? 1 : 0; }
+        if (!slow || n % 2) m += Math.sign(mt - m);
+        const h = g / 2, c = Math.max(1, Math.round(m - h)), f = Math.max(1, R - Math.round(m + h));
+        const pc = ceil[ceil.length - 1], pf = flo[flo.length - 1]; // never steeper than one tile per column
+        push(pc + Math.max(-1, Math.min(1, c - pc)), pf + Math.max(-1, Math.min(1, f - pf)));
+      }
+      ease(2, 2); flat(10);
+    }
+    zones.push({ name: 'CAVERN', c0: z0, c1: ceil.length });
+
+    // zone 3 FORTRESS: rectilinear gates, teeth and islands that split the way in two
+    z0 = ceil.length; cp();
+    {
+      let open = 9, n = 0, mid = false, loose = true; // loose: the ship may be anywhere, so the next gate stays central and far
+      const gate = () => { const far = loose ? ri(14, 18) : ri(9, 14), sw = Math.floor(far * 0.6); flat(far); const a = Math.max(4, Math.min(R - 13, (loose ? 8 : open) + ri(-(loose ? 3 : sw), loose ? 3 : sw))); for (let k = 0; k < 3; k++) push(a, R - a - 9); gems.push({ wx: (ceil.length - 2) * 8 + 4, y: C.HUD + (a + 4.5) * 8, zone: 2 }); open = a; n += far + 3; loose = false; }; // a gem in the middle of every gate
+      // teeth: a gem 24 px off the tip of every tooth
+      const teeth = () => { const up = rnd() < 0.5; for (let k = 0; k < 3; k++) { flat(13); const h = ri(9, 11); const cei = (k % 2 === 0) === up; for (let j = 0; j < 4; j++) cei ? push(h, 2) : push(2, h); gems.push({ wx: (ceil.length - 2) * 8, y: C.HUD + (cei ? h + 3 : R - h - 3) * 8, zone: 2 }); } flat(3); n += 54; loose = true; };
+      const island = () => { // splits the way into a wide lane and a sealed 7-tile lane that holds gems and a capsule
+        flat(13); const top = rnd() < 0.5, a = top ? 9 : 13, len = ri(22, 30), c0 = ceil.length, y = C.HUD + (top ? 5.5 : 20.5) * 8;
+        for (let k = 0; k < len; k++) push(2, 2, a, a + 4);
+        forced.push({ wx: (c0 + 1) * 8 + 4, type: 'plug', y });
+        for (let k = 0; k < 4; k++) gems.push({ wx: (c0 + 6 + k * 4) * 8, y, zone: 2 }); // on the lane's centre line
+        forced.push({ wx: (c0 + len - 3) * 8, type: 'capitem', y });
+        flat(3); n += 16 + len; loose = true;
+      };
+      const feats = [gate, gate, teeth, island];
+      while (n < 400) {
+        if (!mid && n > 195) { flat(20); n += 20; cps.push(ceil.length - 16); mid = true; loose = true; }
+        feats[ri(0, feats.length - 1)]();
+      }
+      flat(12);
+    }
+    zones.push({ name: 'FORTRESS', c0: z0, c1: ceil.length });
+    const end = ceil.length; flat(760); // the gate's corridor: flat, and long enough for the whole fight
+
+    const course = { loop, n: ceil.length, ceil, flo, i0, i1, zones, cps, gems, events, end };
+
+    // gems: fixed bonus points hugging the rock, alternating sides so a full chain is a route
+    {
+      const g = mulberry(77); let side = 1, x = 50;
+      while (x < zones[2].c0 - 4) { // canyon and cavern: hugging the rock; the fortress places its own, on the flight line
+        const y = side > 0 ? C.HUD + (R - flo[x]) * 8 - 12 : C.HUD + ceil[x] * 8 + 12;
+        const zi = zones.findIndex(z => x < z.c1);
+        if (clearRow(course, x * 8 - 20, x * 8 + 28, y, 7) && !i1[x] && Math.abs(flo[x + 1] - flo[x - 1]) + Math.abs(ceil[x + 1] - ceil[x - 1]) <= 2) { gems.push({ wx: x * 8 + 4, y, zone: zi }); side = g() < 0.7 ? -side : side; x += 22 + Math.floor(g() * 14); } else x += 2;
+      }
+    }
+
+    // enemy script: world column at which each wave enters at the right edge
+    {
+      const e = mulberry(4242 + loop * 131), rank = Math.min(loop, 6), spd = 1 + 0.1 * rank;
+      const MIX = [ // weights per zone: drone, train, shell, aimed drone, rusher, convoy, pincer, chaser
+        [5, 3, 1, 2 + rank, rank, loop ? 1 : 0, loop ? 1 : 0, 0], [4, 3, 2, 2 + rank, rank, 2, 2, 1], [3, 3, 3, 2 + rank, 1 + rank, 2, 2, 2]];
+      const GAP = [[loop ? 9 : 12, loop ? 16 : 20], [10, 18], [9, 16]];
+      let col = 60, trainNo = 0; // only every fourth train (convoys included) is a red carrier with a capsule
+      while (col < end - 30) {
+        const wx = col * 8, zi = Math.max(0, zones.findIndex(z => col < z.c1));
+        const w = MIX[zi], tot = w.reduce((a, b) => a + b, 0); let r = e() * tot, k = 0; while (r >= w[k]) r -= w[k++];
+        const type = ['drone', 'train', 'shell', 'aimed', 'rusher', 'convoy', 'pincer', 'chaser'][k];
+        const dens = 1 / (1 + 0.18 * rank), ga = GAP[zi];
+        if (type === 'aimed' || type === 'rusher') events.push({ wx, type, spd, n: type === 'aimed' ? Math.min(4, 1 + rank) : 1 }); // later loops: aimed drones come in volleys
+        else {
+          // compound waves are made of the same pieces: convoy = a shell leading a train in one row (the wave cannot
+          // reach the train until the shell is cut), pincer = two trains at once, far apart, chaser = a train, then a rusher
+          const base = type === 'drone' || type === 'shell' ? type : 'train';
+          const K = KIND[base], v = K.v * spd, tn = trainLen(loop), extra = base === 'train' ? (tn - 1) * TRAIN_GAP + (type === 'convoy' ? 26 : 0) : 0;
+          const span = (C.W + 24 + extra) * (v - C.SCROLL) / v; // world distance flown while on screen
+          const rows = []; for (let y = C.HUD + 12; y <= C.H - 12; y += 4) if (clearRow(course, wx - span - 8, wx + extra + 16, y, 9)) rows.push(y);
+          if (rows.length) {
+            const y = rows[Math.floor(e() * rows.length)];
+            events.push({ wx, type: type === 'convoy' ? 'convoy' : base, spd, n: tn, y, carrier: base === 'train' && trainNo++ % 4 === 0 });
+            if (type === 'pincer') { const far = rows.filter(q => Math.abs(q - y) >= 64); if (far.length) events.push({ wx, type: 'train', spd, n: tn, y: far[Math.floor(e() * far.length)], carrier: false }); }
+            if (type === 'chaser') events.push({ wx: wx + 40, type: 'rusher', spd, n: 1 });
+          }
+        }
+        col += Math.max(5, Math.round((ga[0] + e() * (ga[1] - ga[0])) * dens)) + (type === 'train' ? 5 : 0);
+      }
+    }
+    for (const f of forced) events.push(f);
+    events.sort((a, b) => a.wx - b.wx); gems.sort((a, b) => a.wx - b.wx);
+    courses[loop] = course; return course;
+  }
+  function solidCol(co, col, row) {
+    if (row < 0 || row >= C.ROWS) return true;
+    if (col < 0 || col >= co.n) return row < 2 || row >= C.ROWS - 2;
+    return row < co.ceil[col] || row >= C.ROWS - co.flo[col] || (row >= co.i0[col] && row < co.i1[col]);
+  }
+  function solid(co, wx, y) { return solidCol(co, Math.floor(wx / 8), Math.floor((y - C.HUD) / 8)); }
+  function clearRow(co, wx0, wx1, y, half) {
+    const r0 = Math.floor((y - half - C.HUD) / 8), r1 = Math.floor((y + half - C.HUD) / 8);
+    for (let col = Math.floor(wx0 / 8); col <= Math.floor(wx1 / 8); col++) for (let r = r0; r <= r1; r++) if (solidCol(co, col, r)) return false;
+    return true;
+  }
+  // free distance along row y, from screen x to the first rock (or the right edge)
+  function reach(st, x, y, max) {
+    const co = st.course; let d = 0;
+    while (d < max && x + d < C.W) { if (solid(co, st.camX + x + d, y)) break; d += 2; }
+    return Math.min(d, max);
+  }
+  // the hull is smaller than the sprite: nose, tail and two points on the body
+  function hitsRock(co, wx, y, m) { return solid(co, wx + 5 + m, y) || solid(co, wx - 4 - m, y - 2 - m) || solid(co, wx - 4 - m, y + 2 + m) || solid(co, wx + 1, y - 2 - m) || solid(co, wx + 1, y + 2 + m); }
+  function gapMid(co, col) { return C.HUD + (co.ceil[col] + C.ROWS - co.flo[col]) * 4; }
+
+  // ---------- state ----------
+  function newGame(opts) {
+    opts = opts || {};
+    const st = {
+      loop: opts.loop || 0, course: null, camX: 0, t: 0, phase: 'ready', phaseT: C.READY,
+      ship: { y: 120, dir: -1 }, shot: null, laser: 0, zoneLost: 0, boss: null, enemies: [], items: [], pending: [], marks: [], guardT: 0, chain: 0, chainT: 0, laserT: 0, trains: {}, trainSeq: 0,
+      nextEv: 0, gemTaken: null, gemChain: 0, nextGem: 0, zone: 0, cp: 0,
+      score: 0, lives: C.LIVES, nextExtend: C.EXTEND[0], extends: 0, events: [],
+      stats: { heatDrones: 0, closeCuts: 0, noMiss: 0, gemPerfect: 0, gateSec: 0, bossHits: 0, bossKills: 0, plates: 0, chainDrops: 0, rams: 0, guards: 0, maxChain: 0, decays: 0, longCuts: 0, presses: 0, dry: 0, far: 0, cut: 0, beam: 0, beamKills: 0, multi: 0, pings: 0, caps: 0, capDrops: 0, gems: 0, deaths: 0, deathBy: {}, zones: 0, loops: 0, maxCut: 0 },
+    };
+    setCourse(st, st.loop); placeAt(st, opts.cp || 0);
+    if (opts.zone) placeAt(st, st.course.cps.findIndex(c => c >= st.course.zones[opts.zone].c0));
+    return st;
+  }
+  function setCourse(st, loop) { st.loop = loop; st.course = buildCourse(loop); st.gemTaken = new Uint8Array(st.course.gems.length); }
+  // tallest open run of tiles in a column: [height in px, centre y]
+  function openRun(co, col) {
+    let best = 0, mid = 120, r0 = -1;
+    for (let r = 0; r <= C.ROWS; r++) { const open = r < C.ROWS && !solidCol(co, col, r); if (open && r0 < 0) r0 = r; if (!open && r0 >= 0) { if (r - r0 > best) { best = r - r0; mid = C.HUD + (r0 + r) * 4; } r0 = -1; } }
+    return [best * 8, mid];
+  }
+  // A lost ship comes back a little before the place it was lost (about 2 s of flight), not at the start of the zone:
+  // the nearest spot behind where the ship has 36 px of room above and below for the whole first second.
+  function rewind(st) {
+    const co = st.course, first = st.boss ? (co.end + 4) * 8 - C.SHIP_X : co.cps[0] * 8 - C.SHIP_X - 8; let cam = Math.max(first, Math.round((st.camX - C.BACKUP) / 8) * 8);
+    const roomy = c => { const wx = c + C.SHIP_X, [h, y] = openRun(co, Math.floor(wx / 8)); return h >= 80 && clearRow(co, wx - 12, wx + 80, y, 36); }; // 36 px clear above and below, for the first second
+    while (cam > first && !roomy(cam)) cam -= 8;
+    if (st.boss) for (const p of st.boss.plates) if (p.s !== 'open') { p.s = 'on'; p.t = 0; }
+    const z = st.zone; placeCam(st, cam); st.zone = Math.max(z, st.zone); // a zone bonus is paid once, even if the ship is set back across the line
+  }
+  function placeAt(st, cpi) { st.cp = cpi; placeCam(st, Math.max(0, st.course.cps[cpi] * 8 - C.SHIP_X - 8)); }
+  function placeCam(st, cam) {
+    const co = st.course;
+    st.camX = cam;
+    st.ship.y = openRun(co, Math.floor((st.camX + C.SHIP_X) / 8))[1]; st.ship.dir = -1;
+    st.shot = null; st.laser = 0; st.enemies = []; st.items = []; st.pending = []; st.marks = []; st.guardT = 0; st.chain = 0; st.chainT = 0; st.laserT = 0; st.trains = {}; st.gemChain = 0;
+    st.nextEv = co.events.findIndex(e => e.wx - C.MARK * C.SCROLL >= st.camX + C.W); if (st.nextEv < 0) st.nextEv = co.events.length;
+    st.nextGem = co.gems.findIndex(g => g.wx >= st.camX + C.SHIP_X - 8); if (st.nextGem < 0) st.nextGem = co.gems.length;
+    st.zone = zoneOf(st);
+  }
+  function zoneOf(st) { const col = (st.camX + C.SHIP_X) / 8, z = st.course.zones; for (let i = 0; i < z.length; i++) if (col < z[i].c1) return i; return z.length - 1; }
+  function clone(st) {
+    const s = Object.assign({}, st);
+    s.ship = { y: st.ship.y, dir: st.ship.dir }; s.shot = st.shot ? { x: st.shot.x, y: st.shot.y, d: st.shot.d } : null;
+    s.enemies = st.enemies.map(e => Object.assign({}, e)); s.pending = st.pending.slice(); s.marks = st.marks.slice(); if (st.boss) s.boss = Object.assign({}, st.boss, { plates: st.boss.plates.map(p => ({ s: p.s, t: p.t })) }); s.items = st.items.map(e => Object.assign({}, e));
+    s.trains = {}; for (const k in st.trains) s.trains[k] = Object.assign({}, st.trains[k]);
+    s.gemTaken = st.gemTaken.slice(); s.events = []; s.stats = Object.assign({}, st.stats, { deathBy: Object.assign({}, st.stats.deathBy) });
+    return s;
+  }
+
+  function add(st, pts) {
+    st.score += pts;
+    while (st.score >= st.nextExtend) { st.lives++; st.extends++; st.nextExtend = st.extends < C.EXTEND.length ? C.EXTEND[st.extends] : st.nextExtend + C.EXTEND_EVERY; st.events.push({ type: 'extend' }); }
+  }
+  const heat = st => 1 + C.HEAT * st.chain;
+  function spawn(st, type, y, spd, train, len, lag) {
+    const K = KIND[type], n = train ? len : 1;
+    for (let k = 0; k < n; k++) st.enemies.push({ type, x: C.W + 8 + (lag || 0) + k * TRAIN_GAP, y, v: K.v * spd * heat(st), w: K.w, h: K.h, train: train || 0, warn: K.warn || 0, age: 0 });
+  }
+  // nearest row to y that a new enemy can fly along from the right edge to the left
+  function aimRow(st, y, type, spd) {
+    const K = KIND[type], v = K.v * spd, wx = st.camX + C.W + 8, span = (C.W + 24) * (v - C.SCROLL) / v;
+    for (let d = 0; d <= 48; d += 4) for (const s of d ? [1, -1] : [1]) { const yy = Math.round(y) + s * d; if (yy > C.HUD + 10 && yy < C.H - 10 && clearRow(st.course, wx - span - 8, wx + 8, yy, K.h / 2 + 3)) return yy; }
+    return -1;
+  }
+  function kill(st, e, how, k, mult, near) {
+    const K = KIND[e.type], close = how === 'cut';
+    const base = close ? K.cut : (K.far || 200), pts = e.gate ? base : base * Math.min(8, 1 << k) * (close ? mult || 1 : 1) * (near ? 2 : 1); // the gate's own plates and drones pay plain value: the fight is not for milking
+    e.dead = true; add(st, pts);
+    if (e.type === 'plate' && st.boss) { const p = st.boss.plates[e.plate]; p.s = 'open'; p.t = C.BOSS.OPEN; st.stats.plates++; st.events.push({ type: 'opened', y: e.y }); }
+    if (how === 'cut') st.stats.cut++; else if (how === 'far') st.stats.far++;
+    st.events.push({ type: 'kill', x: e.x, y: e.y, kind: e.plain ? 'plain' : e.type, how, k, pts, near: !!near });
+    if (e.train) {
+      const tr = st.trains[e.train]; tr.killed++;
+      if (tr.killed === tr.n && !tr.escaped && tr.carrier !== false) { st.items.push({ type: 'cap', x: e.x, y: e.y }); st.stats.capDrops++; st.events.push({ type: 'capdrop', x: e.x, y: e.y }); }
+    }
+  }
+  // ---------- the gate (boss). It throws its own plates; nothing it sends out is a bullet, everything can be destroyed. ----------
+  const rowY = i => C.BOSS.Y0 + i * C.BOSS.DY;
+  function newBoss(st) { const B = C.BOSS, rank = Math.min(st.loop, 6); return { x: C.W + 60, t: 0, hp: B.HP + B.HPR * rank, hp0: B.HP + B.HPR * rank, plates: Array.from({ length: B.ROWS }, () => ({ s: 'on', t: 0 })), launchT: 60, emitT: B.EMIT, emitN: 0, left: B.TIME, flash: 0 }; }
+  const bossIn = st => st.boss && !st.boss.dead && !st.boss.leaving && st.boss.x <= C.BOSS.FACE;
+  // core rows covered by a swing or wave made at row y while heading d
+  function coreRows(y, d) { const out = []; for (let i = 0; i < C.BOSS.ROWS; i++) { const t = (rowY(i) - y) * d; if (t >= -(C.BACK + 16) && t <= C.AHEAD + 16) out.push(i); } return out; }
+  function hurtBoss(st, dmg, how) {
+    const b = st.boss; b.hp -= dmg; b.flash = 8; st.stats.bossHits++;
+    const rows = Math.max(1, b.plates.filter(p => p.s === 'open').length), pts = 200 * rows; add(st, pts); // only the wave reaches the core; the blade's part is the plates
+    st.events.push({ type: 'bosshit', how, x: C.BOSS.FACE, pts, rows, hp: Math.max(0, b.hp) });
+    if (b.hp <= 0) { b.dead = true; st.stats.bossKills++; st.enemies = []; st.pending = []; st.shot = null; const sec = Math.floor(b.left / 60), pts = (C.BOSS_BONUS + sec * C.GATE_SEC) * (st.loop + 1); st.stats.gateSec += sec; add(st, pts); st.events.push({ type: 'bossdead', pts, sec }); endLoop(st, true); }
+  }
+  function endLoop(st, won) {
+    st.phase = 'clear'; st.phaseT = C.CLEAR; st.stats.zones++; st.stats.loops++; st.enemies = []; st.pending = []; st.marks = []; st.shot = null; st.won = !!won;
+    const pts = won ? C.LOOP_BONUS * (st.loop + 1) : 0; add(st, pts); st.events.push({ type: 'loop', loop: st.loop, pts, won: !!won });
+    if (st.loop + 1 >= C.LOOPS) { st.final = true; st.cleared = !!won; if (won) { st.tally = st.lives; st.tallied = 0; st.events.push({ type: 'allclear', ships: st.lives }); } } // the ships are paid out one by one after the clear screen
+  }
+  function stepBoss(st) {
+    const b = st.boss, B = C.BOSS, rank = Math.min(st.loop, 6), spd = 1 + 0.1 * rank; b.t++; if (b.flash > 0) b.flash--;
+    if (b.x > B.FACE && !b.leaving) { b.x -= 2; return; }
+    // it does not wait for ever. At zero it shuts every plate, calls its plates back and pulls away to the right;
+    // nothing can hurt it any more, and when it is off the screen the loop ends with no bonus
+    if (b.leaving) { b.x += B.AWAY_V; if (--b.leaving <= 0) { b.dead = true; endLoop(st, false); } return; }
+    if (--b.left <= 0) {
+      b.leaving = B.AWAY; for (const p of b.plates) { p.s = 'on'; p.t = 0; }
+      for (const e of st.enemies) if (e.type === 'plate') e.dead = true;
+      st.enemies = st.enemies.filter(e => !e.dead); st.events.push({ type: 'bossaway' }); return;
+    }
+    for (let i = 0; i < B.ROWS; i++) {
+      const p = b.plates[i];
+      if (p.s === 'arm' && --p.t <= 0) { const K = KIND.plate; p.s = 'fly'; st.enemies.push({ type: 'plate', x: B.FACE - 4, y: rowY(i), v: K.v * spd * (B.PLATE_V || 1) * heat(st), w: K.w, h: K.h, train: 0, warn: 0, age: 99, plate: i, gate: true }); st.events.push({ type: 'launch', y: rowY(i) });
+        if (b.escortAt === b.t) continue; b.escortAt = b.t; // one escort per launch: a short file of drones out of another row
+        let j = -1; for (let q = 0; q < B.ROWS; q++) if (q !== i && (j < 0 || Math.abs(rowY(q) - st.ship.y) < Math.abs(rowY(j) - st.ship.y))) j = q; // the next row nearest the ship
+        const D = KIND.drone;
+        for (let k = 0; k < B.ESCORT + Math.min(2, rank) + (b.over ? 1 : 0); k++) st.enemies.push({ type: 'drone', x: B.FACE + 10 + k * TRAIN_GAP, y: rowY(j), v: D.v * spd * heat(st), w: D.w, h: D.h, train: 0, warn: 0, age: 99, gate: true }); }
+      else if (p.s === 'open' && --p.t <= 0) { p.s = 'on'; st.events.push({ type: 'regrow', y: rowY(i) }); }
+    }
+    // two plates at a time, the ones nearest the ship's row; below half strength the gate goes into overdrive
+    const over = b.hp * 2 <= b.hp0; if (over && !b.over) { b.over = true; st.events.push({ type: 'overdrive' }); }
+    if (!b.plates.some(p => p.s === 'arm' || p.s === 'fly') && --b.launchT <= 0) {
+      const on = []; for (let i = 0; i < B.ROWS; i++) if (b.plates[i].s === 'on') on.push(i);
+      on.sort((p, q) => Math.abs(rowY(p) - st.ship.y) - Math.abs(rowY(q) - st.ship.y));
+      for (const i of on.slice(0, B.PLATES)) { b.plates[i].s = 'arm'; b.plates[i].t = B.ARM; }
+      b.launchT = Math.max(40, Math.round(B.LAUNCH / spd * (over ? 0.6 : 1)));
+    }
+    // open rows let drones out, a short file at a time
+    const open = []; for (let i = 0; i < B.ROWS; i++) if (b.plates[i].s === 'open') open.push(i);
+    if (open.length && --b.emitT <= 0) {
+      const i = open[b.emitN++ % open.length], K = KIND.drone, n = 2 + Math.min(2, rank);
+      for (let k = 0; k < n; k++) st.enemies.push({ type: 'drone', x: B.FACE + k * TRAIN_GAP, y: rowY(i), v: K.v * spd, w: K.w, h: K.h, train: 0, warn: 0, age: 99, gate: true });
+      b.emitT = Math.max(50, Math.round(B.EMIT / spd)); st.events.push({ type: 'emit', y: rowY(i) });
+    }
+  }
+  const plateBack = (st, e) => { if (e.type === 'plate' && st.boss) st.boss.plates[e.plate].s = 'on'; };
+
+  // The swing is not a line: it covers the side the ship was heading for, from BACK px behind its row to AHEAD px
+  // beyond it. You strike what you are flying towards, and the same press turns you away from it.
+  function inSwing(e, y, d, pad) { if (e.type === 'plug') return !e.dead && Math.abs(e.y - y) <= e.h / 2; const t = (e.y - y) * d; return !e.warn && !e.dead && t >= -(C.BACK + e.h / 2 + (pad || 0)) && t <= C.AHEAD + e.h / 2 + (pad || 0); }
+  function press(st) {
+    const sh = st.ship, nose = C.SHIP_X + C.NOSE, d = sh.dir, ym = sh.y + d * C.MID; sh.dir = -sh.dir; st.stats.presses++;
+    if (st.shot) { st.stats.dry++; st.events.push({ type: 'turn' }); return; } // the one wave is still out: turn only
+    // The laser is not a second weapon: each level makes the blade longer. Everything inside it is cut.
+    const max = Math.min(C.REACH[st.laser], C.W - nose), len = reach(st, nose, ym, max);
+    const cut = st.enemies.filter(e => inSwing(e, sh.y, d) && e.x + e.w / 2 >= nose - 4 && e.x - e.w / 2 <= nose + len).sort((a, b) => a.x - b.x);
+    if (cut.length) { // the blade bites: everything inside it is cut, and the energy is back at once
+      const nearN = cut.filter(e => e.x - e.w / 2 <= nose + C.CLOSE).length; st.stats.closeCuts += nearN;
+      cut.forEach((e, k) => kill(st, e, 'cut', k, 1 + st.chain, e.x - e.w / 2 <= nose + C.CLOSE));
+      st.chain = Math.min(C.CHAIN_MAX, st.chain + 1); st.chainT = Math.round(C.CHAIN_T[st.chain] * (nearN ? 1.5 : 1)); st.stats.maxChain = Math.max(st.stats.maxChain, st.chain);
+      if (cut.length > 1) st.stats.multi++; st.stats.maxCut = Math.max(st.stats.maxCut, cut.length);
+      if (cut.length && cut[cut.length - 1].x - cut[0].w / 2 > nose + C.REACH[0]) st.stats.longCuts++;
+      st.events.push({ type: 'slash', y: sh.y, d, len, lv: st.laser, n: cut.length, chain: st.chain, near: nearN });
+    } else if (nose + len >= C.W) st.events.push({ type: 'swing', y: sh.y, d, len, lv: st.laser }); // full reach: nothing left for a wave to do
+    else { // rock stops the blade but not the wave: it leaves from the blade's tip and flies through
+      if (len < max) st.events.push({ type: 'spark', x: nose + len, y: ym, own: true });
+      st.shot = { x: nose + len, y: sh.y, d }; st.events.push({ type: 'shot', y: sh.y, d, len, lv: st.laser });
+    }
+  }
+  // leaving a zone: 10000, five times that if no ship was lost in it, and 100000 more for every one of its gems
+  function zonePay(st, zi) {
+    const co = st.course, noMiss = st.zoneLost === 0; let all = true, any = false;
+    for (let i = 0; i < co.gems.length; i++) if (co.gems[i].zone === zi) { any = true; if (!st.gemTaken[i]) all = false; }
+    const perfect = any && all, pts = C.ZONE_BONUS * (noMiss ? C.NO_MISS : 1) + (perfect ? C.GEM_PERFECT : 0);
+    add(st, pts); st.zoneLost = 0; if (noMiss) st.stats.noMiss++; if (perfect) st.stats.gemPerfect++;
+    return { pts, noMiss, perfect };
+  }
+  function die(st, cause) {
+    st.phase = 'dead'; st.phaseT = C.DEAD; st.lives--; st.zoneLost++; st.stats.deaths++; st.stats.deathBy[cause] = (st.stats.deathBy[cause] || 0) + 1;
+    st.events.push({ type: 'death', cause, x: C.SHIP_X, y: st.ship.y });
+  }
+
+  function step(st, pressed) {
+    st.events.length = 0; st.t++;
+    const co = st.course, sh = st.ship;
+    if (st.phase === 'over') return st;
+    if (st.phase === 'ready') {
+      if (--st.phaseT <= 0) {
+        st.phase = 'play';
+        // every start and restart opens with one red carrier train, a little off the ship's row: the capsule is on offer from the first second
+        if (!st.boss) st.pending.push({ at: st.t + 20, stage: 0, type: 'train', spd: 1 + 0.1 * Math.min(st.loop, 6), n: trainLen(st.loop), carrier: true, aim: true, off: st.ship.y > 120 ? -40 : 40, gift: true });
+      }
+      return st;
+    }
+    if (st.phase === 'dead') {
+      if (--st.phaseT <= 0) { if (st.lives <= 0) { st.phase = 'over'; st.events.push({ type: 'over' }); } else { rewind(st); st.phase = 'ready'; st.phaseT = C.READY_BACK; st.events.push({ type: 'ready' }); } }
+      return st;
+    }
+    if (st.phase === 'clear') {
+      if (--st.phaseT <= 0 && st.final) {
+        // ALL CLEAR: every ship left is counted off for 50000, one at a time (no extends are earned by this)
+        if (st.tally > 0) { st.tally--; st.lives--; st.tallied++; st.score += C.SHIP_BONUS; st.phaseT = 26; st.events.push({ type: 'shipbonus', pts: C.SHIP_BONUS, n: st.tallied, left: st.tally }); return st; }
+        if (st.cleared && !st.tallyEnd) { st.tallyEnd = true; st.phaseT = 110; return st; }
+        st.phase = 'over'; st.events.push({ type: 'over', cleared: !!st.cleared }); return st;
+      }
+      if (st.phaseT <= 0) { st.boss = null; setCourse(st, st.loop + 1); placeAt(st, 0); st.phase = 'ready'; st.phaseT = C.READY; st.events.push({ type: 'ready' }); }
+      return st;
+    }
+    if (pressed) press(st);
+    sh.y += sh.dir * C.VY; st.camX += C.SCROLL;
+
+    // scripted entries: every entry is announced by a marker on its row at the right edge, MARK ticks before it flies in
+    while (st.nextEv < co.events.length && co.events[st.nextEv].wx - C.MARK * C.SCROLL <= st.camX + C.W) {
+      const ev = co.events[st.nextEv++];
+      if (ev.type === 'plug') { const K = KIND.plug; st.enemies.push({ type: 'plug', x: ev.wx - st.camX, y: ev.y, v: C.SCROLL, w: K.w, h: K.h, train: 0, warn: 0, age: 99 }); continue; }
+      if (ev.type === 'capitem') { st.items.push({ type: 'cap', x: ev.wx - st.camX, y: ev.y, big: true }); continue; }
+      if (ev.type === 'aimed' || ev.type === 'rusher') for (let k = 0; k < ev.n; k++) st.pending.push({ at: st.t + k * 12, stage: 0, type: ev.type === 'aimed' ? 'drone' : 'rusher', spd: ev.spd, aim: true });
+      else st.pending.push({ at: st.t, stage: 0, type: ev.type, spd: ev.spd, y: ev.y, n: ev.n, carrier: ev.carrier });
+      for (let k = 0; k < (st.chain >> 1); k++) { st.pending.push({ at: st.t + 14 + k * 12, stage: 0, type: 'drone', spd: ev.spd, aim: true }); st.stats.heatDrones++; } // heat: a hot chain draws aimed drones
+    }
+    if (st.pending.some(p => p.at <= st.t)) {
+      const due = st.pending.filter(p => p.at <= st.t); st.pending = st.pending.filter(p => p.at > st.t);
+      for (const p of due) {
+        if (p.stage === 0) { // aimed entries take the ship's row at the moment they are announced
+          const y = p.aim ? aimRow(st, sh.y + (p.off || 0), p.type, p.spd) : p.y; if (y < 0) continue;
+          st.marks.push({ y, until: st.t + C.MARK, type: p.type === 'convoy' ? 'shell' : p.type === 'train' && !p.carrier ? 'drone' : p.type }); st.pending.push(Object.assign({}, p, { at: st.t + C.MARK, stage: 1, y }));
+          if (p.type === 'rusher') st.events.push({ type: 'warn', y });
+        } else {
+          if (p.aim && Math.abs(aimRow(st, p.y, p.type, p.spd) - p.y) > 8) continue;
+          if (p.type === 'convoy') { const id = ++st.trainSeq; st.trains[id] = { killed: 0, escaped: false, n: p.n, carrier: !!p.carrier }; spawn(st, 'shell', p.y, p.spd * KIND.train.v / KIND.shell.v); spawn(st, 'train', p.y, p.spd, id, p.n, 26); if (!p.carrier) for (const e of st.enemies) if (e.train === id) e.plain = true; }
+          else if (p.type === 'train') { const id = ++st.trainSeq; st.trains[id] = { killed: 0, escaped: false, n: p.n, carrier: !!p.carrier }; spawn(st, 'train', p.y, p.spd, id, p.n); if (!p.carrier) for (const e of st.enemies) if (e.train === id) e.plain = true; } else spawn(st, p.type, p.y, p.spd);
+        }
+      }
+    }
+    if (st.marks.length && st.marks[0].until <= st.t) st.marks = st.marks.filter(m => m.until > st.t);
+    if (st.guardT > 0) st.guardT--;
+    if (st.boss && !st.boss.dead) { stepBoss(st); if (st.phase !== 'play') return st; }
+    if (st.chain > 0 && --st.chainT <= 0) { st.chain--; st.chainT = C.CHAIN_T[st.chain]; st.stats.chainDrops++; st.events.push({ type: 'chaindown', chain: st.chain }); }
+    if (st.laser > 0 && --st.laserT <= 0) { st.laser--; st.laserT = C.DECAY[st.laser]; st.stats.decays++; st.events.push({ type: 'decay' }); }
+    // enemies fly straight left; a rusher waits at the edge, blinking, before it goes
+    for (const e of st.enemies) {
+      e.age++;
+      if (e.warn > 0) { e.warn--; e.x = C.W - 6; continue; }
+      e.x -= e.v;
+      if (e.x < -12) { e.dead = true; e.gone = true; plateBack(st, e); if (e.train) st.trains[e.train].escaped = true; }
+      else if (solid(co, st.camX + e.x - e.w / 2, e.y)) { e.dead = true; e.gone = true; if (e.train) st.trains[e.train].escaped = true; st.events.push({ type: 'spark', x: e.x, y: e.y }); }
+    }
+    // the single wave: it passes through rock; only armour and the gate's closed plates stop it
+    if (st.shot) {
+      const s = st.shot, x0 = s.x; s.x += C.SHOT_V; let hit = null;
+      for (const e of st.enemies) if (inSwing(e, s.y, s.d) && e.x + e.w / 2 >= x0 && e.x - e.w / 2 <= s.x && (!hit || e.x < hit.x)) hit = e;
+      if (hit) {
+        st.shot = null;
+        if (KIND[hit.type].armor) { st.stats.pings++; st.events.push({ type: 'ping', x: hit.x - hit.w / 2, y: s.y }); } else kill(st, hit, 'far', 0); // the wave neither feeds nor breaks the chain
+      } else if (bossIn(st) && s.x >= C.BOSS.FACE) {
+        const rows = coreRows(s.y, s.d), open = rows.filter(i => st.boss.plates[i].s === 'open'); st.shot = null;
+        if (open.length) hurtBoss(st, 1, 'wave'); else { st.stats.pings++; st.events.push({ type: 'ping', x: C.BOSS.FACE, y: s.y + s.d * C.MID }); }
+      } else if (s.x > C.W + 4) st.shot = null;
+    }
+    if (st.enemies.some(e => e.dead)) st.enemies = st.enemies.filter(e => !e.dead);
+    // capsules drift with the rock; flying through one loads the laser
+    for (const it of st.items) {
+      it.x -= C.SCROLL;
+      if (Math.abs(it.x - C.SHIP_X) < 14 && Math.abs(it.y - sh.y) < 13) {
+        it.dead = true; st.stats.caps++; const full = st.laser >= C.LASER_MAX;
+        st.laser = it.big ? C.LASER_MAX : Math.min(C.LASER_MAX, st.laser + 1); st.laserT = C.DECAY[st.laser]; if (it.big) { st.chain = C.CHAIN_MAX; st.chainT = C.CHAIN_T[st.chain]; } // the sealed lane's capsule: top level and a full chain at once
+        add(st, full || it.big ? 1000 : 300);
+        st.events.push({ type: 'cap', x: it.x, y: it.y, lv: st.laser, big: !!it.big, pts: full || it.big ? 1000 : 300 });
+      } else if (it.x < -10) it.dead = true;
+    }
+    if (st.items.some(e => e.dead)) st.items = st.items.filter(e => !e.dead);
+    // gems
+    while (st.nextGem < co.gems.length && co.gems[st.nextGem].wx < st.camX - 8) { if (!st.gemTaken[st.nextGem]) st.gemChain = 0; st.nextGem++; }
+    for (let i = st.nextGem; i < co.gems.length; i++) {
+      const g = co.gems[i], gx = g.wx - st.camX; if (gx > C.SHIP_X + 14) break;
+      if (!st.gemTaken[i] && Math.abs(gx - C.SHIP_X) < 12 && Math.abs(g.y - sh.y) < 11) {
+        st.gemTaken[i] = 1; st.gemChain = Math.min(C.GEM_CAP, st.gemChain + 1); st.stats.gems++; const pts = 100 * st.gemChain * (1 + st.chain); add(st, pts);
+        if (st.laser > 0) st.laserT = C.DECAY[st.laser]; // a gem winds the laser clock back up
+        st.events.push({ type: 'gem', x: gx, y: g.y, chain: st.gemChain, pts, wound: st.laser > 0 });
+      }
+    }
+    // ship against rock and enemies
+    const wx = st.camX + C.SHIP_X;
+    if (hitsRock(co, wx, sh.y, 0)) { die(st, 'rock'); return st; }
+    const pad = st.pad || 0; // only a simulated player's imagined copy sets this: the berth it wants around enemies
+    for (const e of st.enemies) if (!e.warn && !e.dead && Math.abs(e.x - C.SHIP_X) < e.w / 2 + 3 + pad * 2 && Math.abs(e.y - sh.y) < e.h / 2 + 1 + pad) {
+      // the laser is also armour, at a price: touching an enemy burns every level, and for a moment the ship rams through
+      if (st.guardT <= 0 && st.laser > 0 && !pad) { st.laser = 0; st.guardT = C.GUARD; st.stats.guards++; st.events.push({ type: 'guard', x: C.SHIP_X, y: sh.y }); }
+      if (st.guardT > 0 && !pad) { st.stats.rams++; kill(st, e, 'ram', 0); continue; }
+      die(st, e.type); return st;
+    }
+    if (st.enemies.some(e => e.dead)) st.enemies = st.enemies.filter(e => !e.dead);
+    // progress: zones, checkpoints, the end of the course
+    const col = wx / 8;
+    while (st.cp + 1 < co.cps.length && col >= co.cps[st.cp + 1]) st.cp++;
+    const z = zoneOf(st);
+    if (z > st.zone) { const pts = zonePay(st, st.zone); st.zone = z; st.stats.zones++; st.events.push(Object.assign({ type: 'zone', zone: z }, pts)); }
+    if (!st.boss && col >= co.end + 6) { const pts = zonePay(st, st.zone); st.events.push(Object.assign({ type: 'zone', zone: co.zones.length }, pts)); st.boss = newBoss(st); st.events.push({ type: 'boss' }); } // past the fortress: the gate
+    return st;
+  }
+
+  const api = { rowY, newBoss, coreRows, openRun, rewind, inSwing, hitsRock, C, KIND, trainLen, TRAIN_GAP, mulberry, buildCourse, solid, solidCol, clearRow, reach, gapMid, newGame, placeAt, setCourse, zoneOf, clone, step, aimRow };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.ZS = api;
+})(this);
+
+;
+// ZIG SABER — simulated players (browser global ZSBots / Node module).
+// Ladder: idle / mash / survivor (rock only) / shooter (fires at anything in its row)
+//         <  human-limited planner  <  precise planner (visible state)  <  oracle planner (knows the entry script).
+(function (root) {
+  'use strict';
+  const ZS = root.ZS || (typeof require !== 'undefined' ? require('./core.js') : null);
+  const { C } = ZS;
+  function gauss(r) { return (r() + r() + r() + r() - 2) * 1.7; }
+
+  // ---------- rock table: from which (scroll step, height, heading) can the ship still reach the end of the course,
+  // if two presses are at least G ticks apart and the hull keeps `margin` px off the rock? Enemies are not in it. ----------
+  const Q = 0.4, NY = Math.round(C.H / Q) + 1, DQ = Math.round(C.VY / Q);
+  const kOf = st => Math.round(st.camX / C.SCROLL), yOf = y => Math.round(y / Q);
+  function table(co, G, margin) {
+    const key = 'tab' + G + '_' + margin; if (co[key]) return co[key];
+    const K = Math.round(co.n * 8 / C.SCROLL) - Math.round((C.SHIP_X + 16) / C.SCROLL), free = new Uint8Array((K + 1) * NY), m = margin;
+    for (let k = 0; k <= K; k++) {
+      const wx = k * C.SCROLL + C.SHIP_X;
+      for (let q = 0; q < NY; q++) { const y = q * Q; free[k * NY + q] = (y > C.HUD + 3 && y < C.H - 3 && !ZS.hitsRock(co, wx, y, m) && !(m && (ZS.solid(co, wx + 5 + m, y - 2 - m) || ZS.solid(co, wx + 5 + m, y + 2 + m)))) ? 1 : 0; }
+    }
+    const A = [new Uint8Array((K + 1) * NY), new Uint8Array((K + 1) * NY)]; // [heading up, heading down]
+    for (let q = 0; q < NY; q++) A[0][K * NY + q] = A[1][K * NY + q] = free[K * NY + q];
+    for (let k = K - 1; k >= 0; k--) for (let d = 0; d < 2; d++) {
+      const dq = d ? DQ : -DQ, row = k * NY;
+      for (let q = 0; q < NY; q++) {
+        if (!free[row + q]) continue;
+        const q1 = q + dq; let ok = q1 >= 0 && q1 < NY && A[d][row + NY + q1];
+        if (!ok) { // press now: fly G ticks the other way, then be alive there
+          ok = 1; let j = 1;
+          for (; j <= G && k + j <= K; j++) { const qq = q - dq * j; if (qq < 0 || qq >= NY || !free[(k + j) * NY + qq]) { ok = 0; break; } }
+          if (ok) { j--; ok = A[1 - d][(k + j) * NY + q - dq * j]; }
+        }
+        A[d][row + q] = ok ? 1 : 0;
+      }
+    }
+    return (co[key] = { A, free, K, G });
+  }
+  function alive(tab, k, q, dir) { if (k >= tab.K) return 1; if (q < 0 || q >= NY) return 0; return tab.A[dir > 0 ? 1 : 0][k * NY + q]; }
+  // would a press now still leave a way through the rock?
+  function pressAlive(st, tab) {
+    const k = kOf(st), q = yOf(st.ship.y), dq = st.ship.dir * DQ; let j = 1;
+    for (; j <= tab.G && k + j <= tab.K; j++) { const qq = q - dq * j; if (qq < 0 || qq >= NY || !tab.free[(k + j) * NY + qq]) return false; }
+    j--; return !!alive(tab, k + j, q - dq * j, -st.ship.dir);
+  }
+  // does the rock ask for a press now? True when flying straight for `look` more ticks leaves the alive set
+  // and turning here is itself safe (otherwise the turn has to wait).
+  function mustTurn(st, tab, look) {
+    const k = kOf(st), q = yOf(st.ship.y), dq = st.ship.dir * DQ;
+    for (let j = 1; j <= look; j++) if (!alive(tab, k + j, q + dq * j, st.ship.dir)) return j === 1 || pressAlive(st, tab);
+    return false;
+  }
+  const doomed = (st, tab) => !alive(tab, kOf(st), yOf(st.ship.y), st.ship.dir);
+
+  // Roll out "press after d1, then after d2 more, then only when the rock demands it" and value it.
+  function rollout(st0, d1, d2, H, tab, look, fear) {
+    const st = ZS.clone(st0), s0 = st.score; let p1 = d1, p2 = -1, last = -99;
+    for (let t = 0; t < H; t++) {
+      if (st.phase !== 'play') break;
+      let pr = false;
+      if (p1 >= 0) { if (t === p1) { pr = true; p1 = -1; p2 = d2 < 0 ? -2 : t + d2; } }
+      else if (p2 >= 0) { if (t === p2) { pr = true; p2 = -2; } }
+      else if (t - last >= tab.G && mustTurn(st, tab, look)) pr = true;
+      if (pr) last = t;
+      ZS.step(st, pr);
+      if (st.phase === 'dead') return st.score - s0 - (fear || 6000) + t * 12;
+    }
+    return st.score - s0 + st.laser * 60 + (st.laser ? st.laserT * 0.15 : 0) - (st.phase === 'play' && doomed(st, tab) ? 4000 : 0);
+  }
+  const D1 = [0, 3, 6, 9, 12, 16, 20, 25, 30, 36, 44, -1], D2 = [6, 12, 20, 32, -1];
+  // slack > 0: a plan is worth only what it still yields when its presses land `slack` ticks early or late
+  function plan(st, H, tab, look, minFirst, fear, slack) {
+    let best = -1e9, bd = -1;
+    for (const d1 of D1) {
+      if (d1 >= 0 && d1 < minFirst) continue;
+      for (const d2 of d1 < 0 ? [-1] : D2) {
+        if (d2 >= 0 && d2 < tab.G) continue;
+        let v = rollout(st, d1, d2, H, tab, look, fear) - (d1 < 0 ? 0 : 1);
+        if (slack && d1 >= 0 && v > best) v = Math.min(v, rollout(st, d1 + slack, d2, H, tab, look, fear), rollout(st, Math.max(minFirst, d1 - slack), d2 < 0 ? d2 : d2 + slack, H, tab, look, fear));
+        if (v > best) { best = v; bd = d1; }
+      }
+    }
+    return { d: bd, v: best };
+  }
+
+  const simple = {
+    idle: () => () => false,
+    mash: n => { let k = 0; return () => (++k % n) === 0; },
+    // rock only, turning as late as is safe
+    survivor: () => { let last = -99; return st => { const tab = table(st.course, 6, 1); if (st.t - last >= 6 && mustTurn(st, tab, 3)) { last = st.t; return true; } return false; }; },
+    // survivor that also fires as soon as anything shootable is in its row: never waits for the blade
+    shooter: () => {
+      let last = -99; return st => {
+        const tab = table(st.course, 6, 1); if (st.t - last < 6) return false;
+        const y = st.ship.y, tgt = !st.shot && st.enemies.some(e => ZS.inSwing(e, y, st.ship.dir) && e.x > C.SHIP_X + 10 && e.type !== 'shell');
+        const k = kOf(st), q = yOf(y), ok = alive(tab, k + 1, q - st.ship.dir * DQ, -st.ship.dir);
+        if (mustTurn(st, tab, 3) || (tgt && ok)) { last = st.t; return true; } return false;
+      };
+    },
+  };
+  // what is on screen: enemies, and the entries already announced by a marker (seen `react` ticks after it lights)
+  function blind(st, react) { const v = ZS.clone(st); v.nextEv = v.course.events.length; v.pending = v.pending.filter(p => p.stage === 1 && p.at - ZS.C.MARK <= st.t - (react || 0)); return v; }
+  // precise: visible state only (no knowledge of entries still off screen), perfect timing, presses >= 4 ticks apart
+  function precise(o) {
+    o = o || {}; const every = o.every || 3, G = o.G || 4; let at = -1, last = -99;
+    return st => {
+      const tab = table(st.course, G, 0);
+      if (st.t % every === 0) { const p = plan(o.oracle ? st : blind(st), o.H || 90, tab, 1, Math.max(0, G - (st.t - last))); at = p.d < 0 ? -1 : st.t + p.d; }
+      if (st.t - last >= G && (at >= 0 ? st.t >= at : mustTurn(st, tab, 1))) { at = -1; last = st.t; return true; }
+      return false;
+    };
+  }
+  const oracle = o => precise(Object.assign({ oracle: true }, o));
+
+  // human-limited: sees an enemy only `react` ticks after it enters, misreads positions (a target's height against its own by about 7 px), replans a few times a second,
+  // cannot retract a press that is about to happen, presses with timing error, keeps presses >= minGap ticks apart,
+  // turns from rock `look` ticks early, and sometimes watches only the rock for a while.
+  function human(seed, o) {
+    o = Object.assign({ react: 16, every: 9, commit: 7, jitter: 4, xErr: 8, yErr: 7, minGap: 9, lapse: 0.05, lapseLen: 45, look: 14, margin: 2, fear: 6000, berth: 2, slack: 5 }, o || {});
+    const r = ZS.mulberry(seed * 7919 + 13); let at = -1, last = -99, lapseTo = -1, phase = '', turnAt = -1;
+    return st => {
+      if (st.phase !== phase) { phase = st.phase; at = -1; turnAt = -1; }
+      if (st.phase !== 'play') return false;
+      const tab = table(st.course, o.minGap, o.margin);
+      if (st.t % 60 === 0 && r() < o.lapse * 4) lapseTo = st.t + o.lapseLen;
+      if (st.t % o.every === 0 && !(at >= 0 && at - st.t < o.commit)) {
+        const v = blind(st, o.react), lapse = st.t < lapseTo;
+        if (lapse) v.pending = [];
+        v.enemies = lapse ? [] : v.enemies.filter(e => e.age >= o.react || e.warn);
+        if (lapse) v.items = [];
+        v.pad = o.berth;
+        for (const e of v.enemies) { e.x += gauss(r) * o.xErr; e.y += gauss(r) * o.yErr; } // people judge the height of a target against their own badly
+        const p = plan(v, 90, tab, o.look, Math.max(0, o.minGap - (st.t - last)), o.fear, o.slack);
+        at = p.d < 0 ? -1 : st.t + Math.max(0, Math.round(p.d + gauss(r) * o.jitter));
+      }
+      // the rock turn is also a timed press: decided `look` ticks ahead, executed with the same timing error
+      if (at < 0 && turnAt < 0 && mustTurn(st, tab, o.look)) turnAt = st.t + Math.max(0, Math.round(o.look * 0.25 + gauss(r) * o.jitter));
+      if (st.t - last >= o.minGap && (at >= 0 ? st.t >= at : turnAt >= 0 && st.t >= turnAt)) { at = -1; turnAt = -1; last = st.t; return true; }
+      return false;
+    };
+  }
+
+  // expert: the same limits, practised: quicker to notice, steadier hands, no lapses. Same press rate and planning cadence.
+  const expert = (seed, o) => human(seed, Object.assign({ react: 10, jitter: 2, xErr: 4, yErr: 4, lapse: 0, slack: 3 }, o || {}));
+
+  function run(bot, opts) {
+    opts = opts || {};
+    const st = ZS.newGame(opts), max = opts.maxFrames || 60 * 60 * 12, gaps = []; let lastP = -1; const loopAt = [];
+    while (st.phase !== 'over' && st.t < max) {
+      const pr = st.phase === 'play' && !!bot(st);
+      if (pr) { if (lastP >= 0) gaps.push(st.t - lastP); lastP = st.t; }
+      ZS.step(st, pr);
+      for (const e of st.events) if (e.type === 'loop') loopAt.push(st.t);
+      if (opts.loops && st.stats.loops >= opts.loops) break;
+    }
+    gaps.sort((a, b) => a - b);
+    return { cleared: !!st.cleared, gates: st.stats.bossKills, score: st.score, t: st.t, loop: st.loop, zone: st.zone, zones: st.stats.zones, stats: st.stats, lives: st.lives, loopAt, minGap: gaps[0] || 0, p10Gap: gaps[Math.floor(gaps.length * 0.1)] || 0, perSec: st.stats.presses / (st.t / 60) };
+  }
+
+  const api = { expert, pressAlive, simple, precise, oracle, human, run, table, alive, mustTurn, doomed, kOf, yOf, plan, rollout, NY, Q };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.ZSBots = api;
+})(this);
+
+;
+// ZIG SABER — sound hardware model. Era-inspired, hardware-modelled: two SN76489A PSGs (three square voices and one
+// noise voice each) driven by a 60 Hz sound driver, as on early-80s boards such as Sega System 1.
+// Chip A plays the BGM, chip B the effects and jingles. Chip behaviour follows MAME sn76496.cpp for the SN76489A:
+// f = clock / (32 N), 10-bit N, 2 dB volume steps (15 = off), 17-bit noise LFSR. Not a copy of any one game's driver.
+// The whole file is one self-contained factory so the browser can run it inside an AudioWorklet.
+(function (root) {
+  function ZSSoundFactory() {
+    'use strict';
+    const FPS = 60;
+    const VOL = []; { let v = 1; for (let i = 0; i < 15; i++) { VOL.push(v); v /= 1.258925412; } VOL.push(0); }
+
+    class PSG {
+      constructor(clock) {
+        this.clock = clock; this.tickRate = clock / 16;
+        this.period = [0x400, 0x400, 0x400, 32]; this.count = [1, 1, 1, 1]; this.out = [0, 0, 0, 0];
+        this.att = [15, 15, 15, 15]; this.noiseReg = 0; this.rng = 0x10000; this.acc = 0;
+      }
+      nOf(f) { return Math.max(1, Math.min(1023, Math.round(this.clock / (32 * f)))); } // the only pitches the chip can make
+      tone(ch, n) { n &= 0x3ff; this.period[ch] = n === 0 ? 0x400 : n; if (ch === 2 && (this.noiseReg & 3) === 3) this.period[3] = this.period[2] * 2; }
+      vol(ch, a) { this.att[ch] = Math.max(0, Math.min(15, a | 0)); }
+      noise(mode) { // writing the noise register resets the shift register, as on the chip
+        this.noiseReg = mode & 7; this.rng = 0x10000; const n = mode & 3;
+        this.period[3] = n === 3 ? this.period[2] * 2 : (1 << (5 + n));
+      }
+      tick() {
+        for (let i = 0; i < 3; i++) if (--this.count[i] <= 0) { this.out[i] ^= 1; this.count[i] = this.period[i]; }
+        if (--this.count[3] <= 0) {
+          this.count[3] = this.period[3];
+          const white = (this.noiseReg & 4) !== 0;
+          if (((this.rng & 0x04) !== 0) !== (((this.rng & 0x08) !== 0) && white)) { this.rng >>= 1; this.rng |= 0x10000; } else this.rng >>= 1;
+          this.out[3] = this.rng & 1;
+        }
+      }
+      level() { let s = 0; for (let i = 0; i < 4; i++) s += (this.out[i] ? VOL[this.att[i]] : -VOL[this.att[i]]); return s / 4; }
+      // average of all chip ticks that fall inside one output sample (a box filter against aliasing)
+      sample(sr) {
+        this.acc += this.tickRate / sr; let s = 0, n = 0;
+        while (this.acc >= 1) { this.acc -= 1; this.tick(); s += this.level(); n++; }
+        return n ? s / n : this.level();
+      }
+    }
+    const midiHz = m => 440 * Math.pow(2, (m - 69) / 12);
+
+    // ---------- BGM (chip A): an 8-bar march in E minor, 16ths; Em Em C D | Em Em C B ----------
+    // ch0 = lead, ch1 = quiet chord arpeggio, ch2 = octave-jumping 8th bass, noise = hat / snare.
+    // The zone changes key and arrangement, the loop changes tempo: canyon full, cavern a fourth down without the
+    // arpeggio (emptier, darker), fortress a minor third up with 16th hats.
+    const _ = -1;
+    const LEAD = [
+      76, _, _, _, 71, _, _, _, 76, _, 78, _, 79, _, _, _,
+      78, _, _, _, 76, _, _, _, 71, _, _, _, _, _, 0, _,
+      72, _, _, _, 76, _, _, _, 79, _, _, _, 76, _, 79, _,
+      81, _, _, _, 78, _, _, _, 74, _, _, _, 78, _, 81, _,
+      83, _, _, _, 79, _, _, _, 76, _, 79, _, 83, _, _, _,
+      81, _, 79, _, 78, _, _, _, 76, _, _, _, _, _, 0, _,
+      79, _, _, _, 76, _, _, _, 72, _, _, _, 76, _, 79, _,
+      78, _, _, _, 75, _, 78, _, 75, _, _, _, 71, _, 75, _];
+    const ROOT = [52, 52, 48, 50, 52, 52, 48, 47]; // the chip cannot go below A2 (110 Hz) at this clock
+    const CHORD = [[64, 67, 71], [64, 67, 71], [60, 64, 67], [62, 66, 69], [64, 67, 71], [64, 67, 71], [60, 64, 67], [59, 63, 66]];
+    const BASS = [0, 12, 0, 12, 0, 12, 7, 12], ARP = [0, 1, 2, 1];
+    const KEY = [0, -5, 3], TEMPO = [5, 5, 4, 4];
+    const STEPS = 128;
+    // ---------- gate BGM (zone 3): a 4-bar pedal riff in 16ths, E E C B, with a chromatic fall; no arpeggio, the
+    // bass does the driving. Entering the gate restarts the music on this cue; overdrive (hot) plays it a frame faster.
+    const B_BASS = [
+      52, 52, 64, 52, 52, 52, 63, 52, 52, 52, 62, 52, 52, 52, 58, 59,
+      52, 52, 64, 52, 52, 52, 63, 52, 52, 52, 62, 52, 52, 52, 58, 59,
+      48, 48, 60, 48, 48, 48, 59, 48, 48, 48, 58, 48, 48, 48, 55, 57,
+      47, 47, 59, 47, 47, 47, 58, 47, 47, 47, 59, 47, 59, 58, 57, 54];
+    const B_LEAD = [
+      76, _, _, 0, _, _, 79, _, _, _, 0, _, 78, _, 76, _,
+      75, _, _, 0, _, _, 76, _, _, _, 0, _, 71, _, _, _,
+      72, _, _, 0, _, _, 76, _, _, _, 0, _, 79, _, 78, _,
+      83, _, _, _, 82, _, _, _, 81, _, _, _, 80, _, 78, _];
+    const B_STEPS = 64, GATE = 3;
+    function stepEvents(step, zone, loop, hot) {
+      if ((zone | 0) === GATE) {
+        const q = step % B_STEPS, s = q & 15, bar = q >> 4;
+        return { lead: B_LEAD[q], bass: B_BASS[q], arp: 0, drum: s === 4 || s === 12 || (bar === 3 && s >= 8 && s % 2 === 0) ? 'snare' : s % 2 === 1 ? 'tick' : s % 4 === 2 ? 'hat' : null, frames: hot ? 3 : 4 };
+      }
+      zone = Math.max(0, Math.min(2, zone | 0)); const bar = step >> 4, s = step & 15, k = KEY[zone];
+      const l = LEAD[step];
+      return {
+        lead: l > 0 ? l + k : l, bass: s % 2 === 0 ? ROOT[bar] + BASS[s >> 1] + k + (zone === 1 ? 12 : 0) : 0,
+        arp: zone === 1 ? 0 : CHORD[bar][ARP[s & 3]] + k,
+        drum: s === 4 || s === 12 ? 'snare' : s % 4 === 2 ? 'hat' : zone === 2 && s % 2 === 1 ? 'tick' : null,
+        frames: TEMPO[Math.max(0, Math.min(3, loop | 0))],
+      };
+    }
+    function leadLen(step, zone) { const L = (zone | 0) === GATE ? B_LEAD : LEAD, N = L.length; let n = 1; while (n < 16 && L[(step + n) % N] === _) n++; return n; }
+    const DRUM = { hat: [4, 9, 2, 3], tick: [4, 11, 1, 4], snare: [5, 5, 5, 2] }; // [noise mode, first attenuation, frames, decay per frame]
+
+    class Music {
+      constructor(p) { this.p = p; this.on = false; this.zone = 0; this.loop = 0; this.hot = false; this.step = 0; this.fi = 0; this.v = [null, null, null, null]; this.noiseMode = -1; }
+      set(on, zone, loop, hot) { if ((on && !this.on) || ((zone | 0) === GATE) !== (this.zone === GATE)) { this.step = 0; this.fi = 0; } this.on = !!on; this.zone = zone | 0; this.loop = loop | 0; this.hot = !!hot; } // the gate cue starts from its first bar
+      frame() {
+        const p = this.p;
+        if (!this.on) { for (let c = 0; c < 4; c++) p.vol(c, 15); this.v = [null, null, null, null]; return; }
+        const spf = stepEvents(this.step, this.zone, this.loop, this.hot).frames;
+        if (this.fi === 0) this.startStep(spf);
+        const L = this.v[0]; // lead: firm attack, vibrato on held notes, slow decay
+        if (L) { const k = L.t++; const n = L.n + (k > 10 ? ((k >> 2) & 1 ? 1 : -1) * Math.max(1, Math.round(L.n * 0.005)) : 0); p.tone(0, n); p.vol(0, Math.min(11, 5 + (k >> 3))); if (--L.g <= 0) this.v[0] = null; } else p.vol(0, 15);
+        const A = this.v[1];
+        if (A) { const k = A.t++; p.tone(1, A.n); p.vol(1, Math.min(15, 10 + k)); if (--A.g <= 0) this.v[1] = null; } else p.vol(1, 15);
+        const B = this.v[2];
+        if (B) { const k = B.t++; p.tone(2, B.n); p.vol(2, Math.min(13, 5 + (k >> 1))); if (--B.g <= 0) this.v[2] = null; } else p.vol(2, 15);
+        const D = this.v[3];
+        if (D) { const [mode, a0, len, dec] = DRUM[D.kind]; if (mode !== this.noiseMode) { p.noise(mode); this.noiseMode = mode; } p.vol(3, Math.min(15, a0 + D.t * dec)); if (++D.t >= len) this.v[3] = null; } else p.vol(3, 15);
+        if (++this.fi >= spf) { this.fi = 0; this.step = (this.step + 1) % STEPS; }
+      }
+      startStep(spf) {
+        const e = stepEvents(this.step, this.zone, this.loop, this.hot), p = this.p;
+        if (e.lead > 0) this.v[0] = { n: p.nOf(midiHz(e.lead)), t: 0, g: leadLen(this.step, this.zone) * spf - 1 }; else if (e.lead === 0) this.v[0] = null;
+        if (e.arp) this.v[1] = { n: p.nOf(midiHz(e.arp)), t: 0, g: spf - 1 };
+        if (e.bass) this.v[2] = { n: p.nOf(midiHz(e.bass)), t: 0, g: this.zone === GATE ? spf - 1 : spf * 2 - 2 };
+        if (e.drum) this.v[3] = { kind: e.drum, t: 0 };
+      }
+    }
+
+    // ---------- SE programs (chip B): per-frame [Hz, attenuation] for tone voices, [mode, attenuation] for noise ----------
+    const tn = (f, n, a0, a1) => Array.from({ length: n }, (_, i) => [f, Math.round(a0 + ((a1 == null ? a0 : a1) - a0) * i / Math.max(1, n - 1))]);
+    const sweep = (f0, f1, n, a0, a1) => Array.from({ length: n }, (_, i) => [f0 * Math.pow(f1 / f0, i / Math.max(1, n - 1)), Math.round(a0 + (a1 - a0) * i / Math.max(1, n - 1))]);
+    const seq = (fs, lens, a, decay) => fs.flatMap((f, i) => { const n = Array.isArray(lens) ? lens[i] : lens; return tn(f, n, a, a + (decay || 0)); });
+    const nz = (mode, n, a0, a1) => Array.from({ length: n }, (_, i) => [mode, Math.round(a0 + (a1 - a0) * i / Math.max(1, n - 1))]);
+    const low = (fs, k) => fs.map(f => f * k);
+    const EM = [659, 740, 784, 988, 1175, 1319, 1480, 1568, 1976]; // E minor, for everything that rewards
+    const JINGLE = 4;
+    const PROGRAMS = {
+      turn: () => ({ prio: 0, tones: [tn(294, 3, 6, 10)] }),                                   // the shot is still out: a dull click, no fire
+      shot: () => ({ prio: 1, tones: [sweep(1500, 620, 6, 3, 9)] }),                          // dry narrow zap
+      spark: () => ({ prio: 0, noise: nz(4, 3, 6, 12) }),                                      // shot or blade on rock
+      far: () => ({ prio: 2, noise: nz(5, 7, 4, 13), tones: [sweep(520, 180, 6, 5, 10)] }),    // small distant pop
+      // blade cut: a hard noise chop with a rising ring; every further enemy in the same swing rings a step higher
+      cut: k => { const b = EM[Math.min(8, (k | 0) * 2)]; return { prio: 3, noise: nz(4, 5, 0, 9), tones: [seq([b, b * 1.5, b * 2], [2, 2, 5], 2, 3)] }; },
+      heavy: () => ({ prio: 3, noise: nz(6, 12, 0, 12), tones: [sweep(330, 110, 12, 2, 9), seq([988, 1480], [3, 6], 3, 3)] }), // armour splitting
+      ping: () => ({ prio: 2, tones: [seq([2637, 2093, 2637], [2, 2, 3], 5, 4)] }),              // deflected by a shell
+      beam: n => ({ prio: 3, tones: [sweep(2600, 300, 16, 2, 9), sweep(2640, 310, 16, 5, 11)], noise: (n | 0) > 0 ? nz(5, 14, 1, 13) : null }),
+      capdrop: () => ({ prio: 2, tones: [seq([988, 1319, 1976], [3, 3, 5], 5, 2)] }),
+      cap: () => ({ prio: 3, tones: [seq([659, 988, 1319, 1976, 2637], [3, 3, 3, 3, 8], 3, 2), seq([330, 494, 659, 988, 1319], [3, 3, 3, 3, 8], 7, 2)] }),
+      gem: c => ({ prio: 1, tones: [seq([EM[Math.min(8, Math.max(1, c | 0))], EM[Math.min(8, Math.max(1, c | 0))] * 2], [2, 4], 6, 3)] }),
+      guard: () => ({ prio: 3, noise: nz(6, 10, 1, 12), tones: [seq([1976, 988, 1976, 2637], [2, 2, 2, 6], 3, 3)] }),                 // a laser charge burnt as armour
+      warn: () => ({ prio: 2, tones: [seq([1319, 0, 1319, 0, 1319, 0, 1319], 3, 4)] }),
+      death: () => ({ prio: 5, tones: [sweep(420, 55, 44, 2, 12)], noise: nz(6, 60, 0, 15) }),
+      start: () => { const m = [330, 494, 659, 494, 659, 784, 988], l = [7, 7, 7, 7, 7, 7, 26]; return { prio: JINGLE, tones: [seq(m, l, 3, 2), seq(low(m, 0.5), l, 7, 2)] }; },
+      zone: () => { const m = [784, 988, 1175, 1568], l = [5, 5, 5, 16]; return { prio: JINGLE, tones: [seq(m, l, 3, 2), seq(low(m, 0.75), l, 7, 2)] }; },
+      loop: () => { const m = [659, 784, 988, 1319, 988, 1319, 1568, 1976], l = [6, 6, 6, 6, 6, 6, 6, 30]; return { prio: JINGLE, tones: [seq(m, l, 2, 2), seq(low(m, 0.5), l, 6, 2)] }; },
+      extend: () => ({ prio: JINGLE, tones: [seq([1568, 1976, 1568, 1976, 1568, 1976, 2637], [4, 4, 4, 4, 4, 4, 12], 2), seq([784, 988, 784, 988, 784, 988, 1319], [4, 4, 4, 4, 4, 4, 12], 6)] }),
+      gameover: () => { const m = [659, 622, 587, 494, 392, 330], l = [10, 10, 10, 10, 10, 32]; return { prio: 5, tones: [seq(m, l, 3, 3), seq(low(m, 0.5), l, 7, 3)] }; },
+      entry: () => { const m = [494, 659, 784, 988, 784, 988, 1319], l = [6, 6, 6, 6, 6, 6, 20]; return { prio: JINGLE, tones: [seq(m, l, 3, 2), seq(low(m, 0.5), l, 7, 2)] }; },
+    };
+    const REPEAT_CAP = { turn: 3, spark: 3, gem: 2 }; // frames between two starts of the same program
+
+    class SE {
+      constructor(p) { this.p = p; this.slot = [null, null]; this.nslot = null; this.queue = []; this.noiseMode = -1; this.log = []; this.lastAt = {}; this.frameNo = 0; }
+      request(name, arg) {
+        const mk = PROGRAMS[name]; if (!mk) return false;
+        if (REPEAT_CAP[name] && this.frameNo - (this.lastAt[name] == null ? -99 : this.lastAt[name]) < REPEAT_CAP[name]) return false;
+        this.lastAt[name] = this.frameNo;
+        const prog = mk(arg); prog.name = name; this.queue.push(prog); return true;
+      }
+      // allocate everything requested in this frame at once, highest priority first; losers are dropped
+      allocate() {
+        if (!this.queue.length) return;
+        const reqs = this.queue.sort((a, b) => b.prio - a.prio); this.queue = [];
+        for (const prog of reqs) {
+          const got = [];
+          for (const v of prog.tones || []) {
+            let best = -1;
+            for (let c = 0; c < 2; c++) { if (got.includes(c)) continue; const s = this.slot[c]; if (!s) { best = c; break; } if (s.prio <= prog.prio && s.fresh !== this.frameNo && (best < 0 || s.prio < this.slot[best].prio)) best = c; }
+            if (best < 0) break;
+            got.push(best); this.slot[best] = { prio: prog.prio, data: v, i: 0, name: prog.name, fresh: this.frameNo };
+          }
+          let noiseOk = false;
+          if (prog.noise && (!this.nslot || (this.nslot.prio <= prog.prio && this.nslot.fresh !== this.frameNo))) { this.nslot = { prio: prog.prio, data: prog.noise, i: 0, name: prog.name, fresh: this.frameNo }; noiseOk = true; }
+          this.log.push({ f: this.frameNo, name: prog.name, voices: got.length, wanted: (prog.tones || []).length, noise: noiseOk });
+          if (this.log.length > 400) this.log.shift();
+        }
+      }
+      frame() {
+        const p = this.p; this.allocate();
+        for (let c = 0; c < 2; c++) {
+          const s = this.slot[c];
+          if (!s) { p.vol(c, 15); continue; }
+          const [f, a] = s.data[s.i];
+          if (f > 0) { p.tone(c, p.nOf(f)); p.vol(c, a); } else p.vol(c, 15);
+          if (++s.i >= s.data.length) this.slot[c] = null;
+        }
+        const n = this.nslot;
+        if (n) { const [mode, a] = n.data[n.i]; if (mode !== this.noiseMode) { p.noise(mode); this.noiseMode = mode; } p.vol(3, a); if (++n.i >= n.data.length) this.nslot = null; } else p.vol(3, 15);
+        p.vol(2, 15);
+        this.frameNo++;
+      }
+      busy() { return this.slot.filter(Boolean).length + (this.nslot ? 1 : 0); }
+      jingle() { return this.slot.some(s => s && s.prio >= JINGLE); }
+    }
+
+    class Sound {
+      constructor(sr) { this.sr = sr; this.A = new PSG(3579545); this.B = new PSG(3579545); this.music = new Music(this.A); this.se = new SE(this.B); this.spf = sr / FPS; this.fAcc = 0; this.muted = false; this.gain = 2.0; }
+      command(m) {
+        if (m.t === 'se') this.se.request(m.name, m.arg);
+        else if (m.t === 'music') this.music.set(m.on, m.zone, m.loop, m.hot);
+        else if (m.t === 'mute') this.muted = !!m.muted;
+      }
+      render(out) {
+        for (let i = 0; i < out.length; i++) {
+          if (this.fAcc <= 0) { this.music.frame(); this.se.frame(); this.fAcc += this.spf; }
+          this.fAcc--;
+          const v = (0.42 * this.A.sample(this.sr) + 0.58 * this.B.sample(this.sr)) * this.gain;
+          out[i] = this.muted ? 0 : v;
+        }
+      }
+    }
+    return { GATE, B_STEPS, Sound, PSG, Music, SE, PROGRAMS, REPEAT_CAP, VOL, TEMPO, KEY, STEPS, stepEvents, midiHz, FPS, JINGLE };
+  }
+  const api = ZSSoundFactory();
+  api.factorySource = '(' + ZSSoundFactory.toString() + ')()';
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.ZSSound = api;
+})(this);
+
+;
+// ZIG SABER — audio adapter. Game code calls play / music; everything is rendered by the
+// two-SN76489A model in psg.js (era-inspired two-PSG sound board), inside an AudioWorklet when available,
+// otherwise in a ScriptProcessorNode running the same code.
+(function (root) {
+  'use strict';
+  let ctx = null, node = null, local = null, muted = false, hidden = false, starting = false, pending = null;
+  const last = {};
+  function send(m) { if (local) local.command(m); else if (node) node.port.postMessage(m); }
+  function sendIfChanged(key, m) { const s = JSON.stringify(m); if (last[key] === s) return; last[key] = s; send(m); }
+
+  async function start() {
+    const AC = root.AudioContext || root.webkitAudioContext; if (!AC) return;
+    ctx = new AC();
+    try {
+      if (!ctx.audioWorklet) throw new Error('no worklet');
+      const src = 'const ZSS = ' + root.ZSSound.factorySource + ';\n' +
+        'class ZSPsg extends AudioWorkletProcessor {\n' +
+        '  constructor() { super(); this.s = new ZSS.Sound(sampleRate); this.port.onmessage = e => this.s.command(e.data); }\n' +
+        '  process(i, o) { const ch = o[0]; this.s.render(ch[0]); for (let c = 1; c < ch.length; c++) ch[c].set(ch[0]); return true; }\n' +
+        '}\nregisterProcessor("zs-psg", ZSPsg);';
+      const url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url);
+      node = new AudioWorkletNode(ctx, 'zs-psg', { outputChannelCount: [1] });
+    } catch (e) {
+      // fallback: the same chip model on the main thread
+      local = new root.ZSSound.Sound(ctx.sampleRate);
+      node = ctx.createScriptProcessor(1024, 0, 1);
+      node.onaudioprocess = ev => local.render(ev.outputBuffer.getChannelData(0));
+    }
+    node.connect(ctx.destination);
+    for (const k in last) send(JSON.parse(last[k]));
+    send({ t: 'mute', muted });
+    // the key press that unlocks audio is also the one that starts the game: play its jingle once the chips exist
+    if (pending && performance.now() - pending.at < 500 && !muted && !hidden) send(pending.m);
+    pending = null;
+  }
+
+  const A = {
+    init() {
+      if (ctx) { if (ctx.state === 'suspended' && !hidden) ctx.resume(); return; }
+      if (starting) return; starting = true; start();
+    },
+    get muted() { return muted; },
+    get state() { return ctx ? ctx.state : 'none'; },
+    get backend() { return local ? 'script' : node ? 'worklet' : 'none'; },
+    toggleMute() { muted = !muted; send({ t: 'mute', muted }); return muted; },
+    play(name, arg) {
+      if (muted || hidden) return;
+      if (!node) { pending = { m: { t: 'se', name, arg }, at: performance.now() }; return; }
+      send({ t: 'se', name, arg });
+    },
+    // continuous state, sent only when it changes
+    music(on, zone, loop, hot) { sendIfChanged("music", { t: "music", on: !!on && !hidden, zone: zone | 0, loop: loop | 0, hot: !!hot }); },
+    // host visibility: hidden pages suspend output; visible resumes only what the game still requests
+    setHidden(h) { hidden = h; if (!ctx) return; if (h) ctx.suspend(); else ctx.resume(); },
+    SE_NAMES: () => Object.keys(root.ZSSound.PROGRAMS),
+  };
+  root.ZSAudio = A;
+  if (typeof module !== 'undefined' && module.exports) module.exports = A;
+})(this);
+
+;
+// ZIG SABER — presentation, input and cabinet flow. Rules live in core.js; this file never decides an outcome.
+(function () {
+  'use strict';
+  const { C } = ZS, W = C.W, H = C.H, HUD = C.HUD;
+  const cv = document.getElementById('screen'), g = cv.getContext('2d'); cv.width = W; cv.height = H;
+  const params = new URLSearchParams(location.search);
+
+  // palette roles: cyan = the player's energy, red/orange = things to shoot, steel = things only the blade opens,
+  // pink = bonus, yellow = laser. Rock takes one hue per zone and nothing else uses it at full brightness.
+  const COL = {
+    bg: '#000', text: '#fcfcfc', hudRed: '#f83800', ship: '#fcfcfc', shipDark: '#a4a4b4', canopy: '#3cbcfc', flame: '#fca044', flame2: '#f83800',
+    energy: '#3cbcfc', energyHot: '#fcfcfc', laser: '#fce4a0', laserHot: '#fcfcfc',
+    drone: '#fca044', droneLit: '#fce4a0', train: '#f83800', trainLit: '#fca044', shell: '#6888fc', shellDark: '#2038ec', shield: '#fcfcfc', rusher: '#f878f8', rusherLit: '#fcfcfc',
+    cap: '#f83800', capLit: '#fce4a0', gem: '#f878f8', gemLit: '#fcfcfc',
+    rock: [['#a81000', '#fca044', '#58100c'], ['#007800', '#58f898', '#003800'], ['#2038ec', '#3cbcfc', '#10188c']],
+    star: ['#6888fc', '#fcfcfc', '#fca044', '#58f898'],
+  };
+
+  // ---------- 5x7 arcade bitmap font, 6 px advance ----------
+  const FONT = {
+    A: '.###.#...##...#######...##...##...#', B: '####.#...##...#####.#...##...#####.', C: '.###.#...##....#....#....#...#.###.',
+    D: '####.#...##...##...##...##...#####.', E: '######....#....####.#....#....#####', F: '######....#....####.#....#....#....',
+    G: '.###.#...##....#.####...##...#.####', H: '#...##...##...#######...##...##...#', I: '.###...#....#....#....#....#...###.',
+    J: '..###...#....#....#.#..#.#..#..##..', K: '#...##..#.#.#..##...#.#..#..#.#...#', L: '#....#....#....#....#....#....#####',
+    M: '#...###.###.#.##.#.##...##...##...#', N: '#...###..##.#.##..###...##...##...#', O: '.###.#...##...##...##...##...#.###.',
+    P: '####.#...##...#####.#....#....#....', Q: '.###.#...##...##...##.#.##..#..##.#', R: '####.#...##...#####.#.#..#..#.#...#',
+    S: '.###.#...##.....###.....##...#.###.', T: '#####..#....#....#....#....#....#..', U: '#...##...##...##...##...##...#.###.',
+    V: '#...##...##...##...##...#.#.#...#..', W: '#...##...##...##.#.##.#.###.###...#', X: '#...##...#.#.#...#...#.#.#...##...#',
+    Y: '#...##...#.#.#...#....#....#....#..', Z: '#####....#...#...#...#...#....#####',
+    0: '.###.#..###.#.##.#.##.#.###..#.###.', 1: '..#...##....#....#....#....#...###.', 2: '.###.#...#....#..##..#...#....#####',
+    3: '.###.#...#....#..##.....##...#.###.', 4: '...#...##..#.#.#..#.#####...#....#.', 5: '######....####.....#....##...#.###.',
+    6: '..##..#...#....####.#...##...#.###.', 7: '#####....#...#...#...#....#....#...', 8: '.###.#...##...#.###.#...##...#.###.',
+    9: '.###.#...##...#.####....#...#..##..', ':': '.......#....#.........#....#.......', '-': '...............#####...............',
+    '!': '..#....#....#....#....#.........#..', '.': '................................#..', '+': '.......#....#..#####..#....#.......',
+    '=': '..........#####.....#####..........', '_': '..............................#####',
+  };
+  function text(s, x, y, col, sc) {
+    sc = sc || 1; g.fillStyle = col || COL.text; s = String(s).toUpperCase();
+    for (let c = 0; c < s.length; c++) { const gl = FONT[s[c]]; if (gl) for (let i = 0; i < 35; i++) if (gl[i] === '#') g.fillRect(x + (c * 6 + i % 5) * sc, y + ((i / 5) | 0) * sc, sc, sc); }
+  }
+  const tw = (s, sc) => (String(s).length * 6 - 1) * (sc || 1);
+  const ctext = (s, y, col, sc) => text(s, Math.round((W - tw(s, sc)) / 2), y, col, sc);
+  const pad6 = n => String(n).padStart(7, '0');
+
+  // ---------- sprites: rows of palette keys ----------
+  const SPR = {
+    ship: ['..ww............', '..wwww..........', 'r.wwwwwwcc......', 'frwwwwwwcccwww..', 'r.wwwddwwwwwwwwe', '..wwwwrr........', '..ww............'],
+    drone: ['....aaaa....', '..aaaaaaaa..', '.aabbaaaaaa.', 'aabwwbaaaaaa', 'aabwwbaaaaaa', '.aabbaaaaaa.', '..aaaaaaaa..', '....aaaa....'],
+    drone2: ['...aaaaaa...', '..aaaaaaaa..', '.aabbaaaaaa.', 'aabwwbaaaaa.', 'aabwwbaaaaa.', '.aabbaaaaaa.', '..aaaaaaaa..', '...aaaaaa...'],
+    shell: ['...wwaaaaa....', '..wwaaaaaaaa..', '.wwaaaaaaaaaa.', 'wwaaabbaaaaaaa', 'wwaabbbbaaaaaa', 'wwaabbbbaaaaaa', 'wwaaabbaaaaaaa', '.wwaaaaaaaaaa.', '..wwaaaaaaaa..', '...wwaaaaa....'],
+    rusher: ['......aaaaaa..', '...aaaaaaaaaab', 'aaaaaaaaaaaabb', '...aaaaaaaaaab', '......aaaaaa..'],
+    cap: ['.aaaaaaaaaa.', 'aaaaaaaaaaaa', 'aabaaaaaaaaa', 'aabaaaaaaaaa', 'aabaaaaaaaaa', 'aabaaaaaaaaa', 'aabbbbbaaaaa', 'aaaaaaaaaaaa', '.aaaaaaaaaa.'],
+    gem: ['...a...', '..aba..', '.abbba.', 'abbwbba', '.abbba.', '..aba..', '...a...'],
+    life: ['.ww.....', 'rwwwcc..', 'rwwwwwww', '.ww.....'],
+  };
+  const PX = {}; for (const k in SPR) { const a = []; SPR[k].forEach((r, y) => { for (let x = 0; x < r.length; x++) if (r[x] !== '.') a.push([x, y, r[x]]); }); PX[k] = { a, w: SPR[k][0].length, h: SPR[k].length }; }
+  function spr(name, cx, cy, pal, shear) {
+    const s = PX[name], x0 = Math.round(cx - s.w / 2), y0 = Math.round(cy - s.h / 2);
+    for (const [x, y, k] of s.a) { const c = pal[k]; if (!c) continue; g.fillStyle = c; g.fillRect(x0 + x, y0 + y + (shear ? Math.round((x - s.w / 2) * shear) : 0), 1, 1); }
+  }
+  const PAL = {
+    drone: { a: COL.drone, b: COL.droneLit, w: '#000' }, train: { a: COL.train, b: COL.trainLit, w: '#000' },
+    shell: { a: COL.shell, b: COL.shellDark, w: COL.shield }, rusher: { a: COL.rusher, b: COL.rusherLit },
+    cap: { a: COL.cap, b: COL.capLit }, cap2: { a: COL.capLit, b: COL.cap }, capBig: { a: '#fcfcfc', b: COL.cap }, gem: { a: COL.gem, b: COL.gemLit, w: '#fff' }, gem2: { a: COL.gemLit, b: COL.gem, w: '#fff' },
+    life: { w: COL.ship, r: COL.hudRed, c: COL.canopy }, white: { a: '#fff', b: '#fff', w: '#fff', r: '#fff', c: '#fff', d: '#fff', e: '#fff', f: '#fff' },
+  };
+
+  // ---------- ranking: top five, defaults merged at read time and never written ----------
+  // default table: the bottom places are low on purpose, so a first game can get on it (bots score far above people here)
+  const DEF = [['ZIG', 500000], ['SAB', 200000], ['ERR', 80000], ['CUT', 30000], ['ONE', 10000]], RANK_KEY = 'zig-saber-rank';
+  function savedRank() { try { const a = JSON.parse(localStorage.getItem(RANK_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function readRank() { return savedRank().concat(DEF.map(([n, s]) => ({ n, s, def: true }))).sort((a, b) => b.s - a.s || (b.t || 0) - (a.t || 0)).slice(0, 5); }
+  const rankOf = sc => { const t = readRank(); let i = 0; while (i < t.length && t[i].s > sc) i++; return i; };
+  function saveRank(n, s) { const a = savedRank(); a.push({ n, s, t: Date.now() }); a.sort((x, y) => y.s - x.s || y.t - x.t); try { localStorage.setItem(RANK_KEY, JSON.stringify(a.slice(0, 5))); } catch (e) { } }
+
+  // ---------- state ----------
+  let mode = 'title', st = null, demo = null, demoBot = null, frame = 0, titleT = 0, overT = 0, paused = false, pressQ = 0, edgeStart = false, freeze = 0, hi = readRank()[0].s;
+  const entry = { name: '', rank: -1 }; // the pilot's three letters are dealt at the start of each game; there is no name entry
+  const fx = { gate: null, chainBreak: 0, parts: [], pops: [], blade: null, beam: null, trail: [], shake: 0, banner: null, flashShip: 0, extendT: 0, hudLaser: 0, rings: [] };
+  const ATTRACT = [480, 1500, 1920]; // title page, demo, best five
+  const attract = () => titleT < ATTRACT[0] ? 'title' : titleT < ATTRACT[1] ? 'demo' : 'best';
+  function resetFx() { fx.parts.length = 0; fx.pops.length = 0; fx.trail.length = 0; fx.rings.length = 0; fx.blade = fx.beam = fx.banner = null; fx.shake = 0; freeze = 0; }
+  function newGame() { st = ZS.newGame({ zone: +params.get('zone') || 0, loop: +params.get('loop') || 0 }); resetFx(); mode = 'play'; pressQ = 0; hi = readRank()[0].s; entry.name = dealName(); entry.rank = -1; ZSAudio.play('start'); }
+  function newDemo() { demo = ZS.newGame({ zone: (Math.random() * 3) | 0 }); demoBot = ZSBots.human(((Math.random() * 1e6) | 0) + 1); resetFx(); }
+
+  // ---------- input: one button ----------
+  const BTN = { Space: 1, KeyZ: 1, KeyX: 1, Enter: 1, ArrowUp: 1, ArrowDown: 1 };
+  function button() { ZSAudio.init(); if (paused) { paused = false; return; } edgeStart = true; if (mode === 'play' && st.phase === 'play') pressQ = Math.min(3, pressQ + 1); }
+  addEventListener('keydown', e => {
+    if (BTN[e.code]) e.preventDefault();
+    if (e.repeat) return;
+
+    if (BTN[e.code]) button();
+    else if (e.code === 'KeyP' || e.code === 'Escape') { if (mode === 'play') paused = !paused; }
+    else if (e.code === 'KeyM') ZSAudio.toggleMute();
+  });
+  addEventListener('pointerdown', e => { e.preventDefault(); button(); }, { passive: false });
+  addEventListener('touchstart', e => e.preventDefault(), { passive: false });
+  addEventListener('blur', () => { if (mode === 'play') paused = true; });
+  document.addEventListener('visibilitychange', () => { ZSAudio.setHidden(document.hidden); if (document.hidden && mode === 'play') paused = true; });
+
+  // ---------- events -> feedback. Strongest feedback goes to the multi-cut; a far kill is deliberately small. ----------
+  const KCOL = { plate: [COL.shell, COL.shield, COL.shellDark], plain: [COL.drone, COL.droneLit], plug: [COL.shell, COL.shield, COL.shellDark], drone: [COL.drone, COL.droneLit], train: [COL.train, COL.trainLit], shell: [COL.shell, COL.shield], rusher: [COL.rusher, COL.rusherLit] };
+  function burst(x, y, n, cols, sp, life) { for (let i = 0; i < n; i++) { const a = Math.random() * 6.283, v = sp * (0.4 + Math.random()); fx.parts.push({ x, y, vx: Math.cos(a) * v - C.SCROLL, vy: Math.sin(a) * v, t: (life || 18) * (0.6 + Math.random() * 0.6), c: cols[i % cols.length], s: i % 3 === 0 ? 2 : 1 }); } if (fx.parts.length > 260) fx.parts.splice(0, fx.parts.length - 260); }
+  function pop(x, y, txt, col, big) { fx.pops.push({ x: Math.max(2, Math.min(W - tw(txt) - 2, x - tw(txt) / 2)), y: y - 10, txt: String(txt), col, t: 0, big }); if (fx.pops.length > 14) fx.pops.shift(); }
+  function consume(s, sound) {
+    const play = (n, a) => { if (sound) ZSAudio.play(n, a); };
+    for (const e of s.events) {
+      switch (e.type) {
+        case 'chaindown': if (e.chain === 0) fx.chainBreak = 30; break;
+        case 'turn': play('turn'); burst(C.SHIP_X - 6, s.ship.y, 2, [COL.shipDark], 0.7, 6); break;
+        case 'shot': case 'swing': if (e.type === 'swing') play('beam', 0); else play('shot'); fx.blade = { y: e.y, d: e.d, len: e.len || 18, lv: e.lv || 0, n: 0, t: 0 }; break;
+        case 'slash': fx.blade = { y: e.y, d: e.d, len: e.len, lv: e.lv, n: e.n, near: e.near, t: 0 }; play('cut', e.n - 1 + e.chain - 1); if (e.lv > 0) play('beam', 1); freeze = Math.min(10, 2 + e.n * 2 + (e.near ? 2 : 0)); if (e.n >= 3 || e.near) fx.shake = 6; break;
+        case 'kill': {
+          const cut = e.how === 'cut';
+          burst(e.x, e.y, e.kind === 'plug' ? 30 : cut ? 16 : 7, KCOL[e.kind], cut ? 2.4 : 1.2, cut ? 22 : 12);
+          if (cut) { fx.rings.push({ x: e.x, y: e.y, t: 0 }); pop(Math.min(e.x, C.SHIP_X + 60), s.ship.y - e.k * 9, e.near ? e.pts + ' X2' : e.pts, e.near ? COL.hudRed : e.k > 0 ? COL.laser : COL.text, true); if (e.near) burst(e.x, e.y, 8, [COL.text, COL.hudRed], 3, 14); } else pop(e.x, e.y, e.pts, COL.shipDark);
+          if (e.how === 'far' || e.how === 'ram') play('far'); else if ((e.kind === 'shell' || e.kind === 'plug') && e.how === 'cut') play('heavy');
+          break;
+        }
+        case 'ping': play('ping'); burst(e.x, e.y, 5, [COL.shield, COL.shell], 1.6, 8); break;
+        case 'decay': fx.hudLaser = 20; break;
+        case 'spark': play('spark'); burst(e.x, e.y, 3, [COL.energy, COL.text], 1, 6); break;
+        case 'capdrop': play('capdrop'); fx.rings.push({ x: e.x, y: e.y, t: 0, c: COL.capLit }); break;
+        case 'cap': play('cap'); pop(e.x, e.y, e.big ? 'MAX' : e.pts === 1000 ? '1000' : 'LASER ' + e.lv, COL.laser, true); if (e.big) { fx.shake = 4; fx.rings.push({ x: C.SHIP_X, y: s.ship.y, t: 0, c: COL.laserHot }); } fx.flashShip = 20; fx.hudLaser = 40; break;
+        case 'gem': play('gem', e.chain); pop(e.x, e.y, e.pts, COL.gem); if (e.wound) fx.hudLaser = 16; burst(e.x, e.y, 5, [COL.gem, COL.gemLit], 1.2, 10); break;
+        case 'warn': play('warn'); break;
+        case 'boss': play('warn'); fx.banner = { a: 'GATE', b: 'CUT THE PLATE - FIRE INTO THE GAP', t: 0 }; break;
+        case 'overdrive': play('warn'); fx.shake = 8; break;
+        case 'bossaway': play('warn'); fx.shake = 10; fx.banner = { a: 'THE GATE IS LEAVING', b: '', t: 0 }; break;
+        case 'opened': fx.rings.push({ x: C.BOSS.FACE, y: e.y, t: 0, c: COL.capLit }); break;
+        case 'bosshit': play('heavy'); burst(e.x, s.ship.y, e.how === 'cut' ? 20 : 8, [COL.cap, COL.capLit, COL.text], 2.2, 16); if (e.how === 'cut') { pop(e.x - 20, s.ship.y - 18, e.pts, COL.laser, true); fx.shake = 5; } else if (e.rows > 1) pop(e.x - 24, s.ship.y - 14, 'X' + e.rows, COL.laser); break;
+        case 'bossdead': play('death'); for (let i = 0; i < C.BOSS.ROWS; i++) burst(C.BOSS.FACE + 14, ZS.rowY(i), 30, [COL.cap, COL.capLit, COL.shell, COL.text], 3.2, 46); pop(150, 110, e.pts, COL.laser, true); fx.gate = { pts: e.pts, sec: e.sec }; fx.shake = 24; freeze = 10; break;
+        case 'guard': play('guard'); fx.flashShip = C.GUARD; fx.rings.push({ x: e.x, y: e.y, t: 0, c: COL.laser }); fx.shake = 3; freeze = 3; fx.hudLaser = 30; break;
+        case 'death': play('death'); burst(e.x, e.y, 46, [COL.ship, COL.flame, COL.flame2, COL.canopy], 3, 40); fx.shake = 16; freeze = 6; break;
+        case 'zone': { play('zone'); const zn = s.course.zones[e.zone - 1].name, tag = (e.noMiss ? ' NO MISS' : '') + (e.perfect ? ' ALL GEMS' : ''); if (e.zone >= s.course.zones.length) pop(128, 44, zn + ' ' + e.pts + tag, COL.laser, true); else fx.banner = { a: zn + ' CLEAR' + tag, b: String(e.pts), t: 0 }; break; }
+        case 'loop': if (e.won) play('loop'); else play('gameover'); break;
+        case 'shipbonus': play('capdrop'); fx.extendT = 14; pop(W - 40, 60, '+' + e.pts, COL.laser, true); break;
+        case 'extend': play('extend'); fx.extendT = 120; break;
+        case 'ready': play('start'); fx.trail.length = 0; fx.parts.length = 0; break;
+        case 'over': if (!e.cleared) play('gameover'); break;
+      }
+    }
+    if (s.phase === 'play' && s.t % 2 === 0) { fx.trail.push({ wx: s.camX + C.SHIP_X - 7, y: s.ship.y }); if (fx.trail.length > 22) fx.trail.shift(); }
+  }
+  function stepFx() {
+    for (const p of fx.parts) { p.x += p.vx; p.y += p.vy; p.t--; } fx.parts = fx.parts.filter(p => p.t > 0);
+    for (const p of fx.pops) p.t++; fx.pops = fx.pops.filter(p => p.t < (p.big ? 50 : 30));
+    for (const r of fx.rings) r.t++; fx.rings = fx.rings.filter(r => r.t < 10);
+    if (fx.blade && ++fx.blade.t > 7) fx.blade = null;
+    
+    if (fx.banner && ++fx.banner.t > 130) fx.banner = null;
+    if (fx.chainBreak > 0) fx.chainBreak--; if (fx.shake > 0) fx.shake--; if (fx.flashShip > 0) fx.flashShip--; if (fx.extendT > 0) fx.extendT--; if (fx.hudLaser > 0) fx.hudLaser--;
+  }
+
+  // ---------- pilot name: one of a fixed roster of call signs, drawn at the start of each game ----------
+  const NAMES = ('ACE ARC AXE BOW COG DOT EDG FIN FOX GUN HEX INK ION JAM JET KIT LUX MAX NEO NOV ORB PIX RAM RAY REX SKY SOL TAU VEX VIC WIZ ZAG ZAP ZED ' +
+    'ASH BAY COL DAX ELM FAY GUS HAL IVY JOE KAI LEO MIA NED OTT PAM').split(' ');
+  function dealName() { return NAMES[(Math.random() * NAMES.length) | 0]; }
+
+  function tick() {
+    frame++;
+    if (paused) { edgeStart = false; return; }
+    stepFx();
+    if (mode === 'title') {
+      titleT = (titleT + 1) % ATTRACT[2];
+      if (titleT === ATTRACT[0]) newDemo();
+      if (attract() === 'demo') { ZS.step(demo, demo.phase === 'play' && demoBot(demo)); consume(demo, false); if (demo.phase === 'over') titleT = ATTRACT[1]; }
+      ZSAudio.music(false, 0, 0);
+      if (edgeStart) newGame();
+    } else if (mode === 'play') {
+      if (freeze > 0) freeze--;
+      else {
+        const pilot = window.__game.pilot, pr = st.phase === 'play' && (pilot ? !!pilot(st) : pressQ > 0);
+        if (st.phase !== 'play') pressQ = 0; else if (pr && pressQ > 0) pressQ--;
+        ZS.step(st, pr); consume(st, true);
+      }
+      { const b = st.boss, gate = b && !b.dead && b.x <= C.BOSS.FACE; ZSAudio.music(st.phase === 'play', gate ? 3 : st.zone, st.loop, gate && b.over); } // the gate has its own cue; overdrive speeds it up
+      if (st.score > hi) hi = st.score;
+      if (st.phase === 'over') { mode = 'over'; overT = 0; }
+    } else if (mode === 'over') {
+      ZSAudio.music(false, 0, 0);
+      if (++overT > 170 || (overT > 60 && edgeStart)) {
+        entry.rank = st.score > 0 ? rankOf(st.score) : 5; mode = 'table'; overT = 0;
+        if (entry.rank < 5) { saveRank(entry.name, st.score); hi = readRank()[0].s; ZSAudio.play('entry'); } else entry.rank = -1; // a ranking score is written down under the dealt name
+      }
+    } else if (mode === 'table') {
+      if (++overT > 60 * 7 || (overT > 40 && edgeStart)) { mode = 'title'; titleT = 0; entry.rank = -1; resetFx(); }
+    }
+    edgeStart = false;
+  }
+
+  // ---------- drawing ----------
+  const STARS = []; { const r = ZS.mulberry(5); for (let i = 0; i < 44; i++) STARS.push({ x: r() * W, y: HUD + r() * (H - HUD), v: [0.12, 0.2, 0.34][i % 3], c: i % 4, ph: (r() * 96) | 0 }); }
+  const hash = (a, b) => { let h = (a * 374761393 + b * 668265263) | 0; h = (h ^ (h >> 13)) * 1274126177; return (h ^ (h >> 16)) >>> 0; };
+  function zoneOfCol(co, col) { for (let i = 0; i < co.zones.length; i++) if (col < co.zones[i].c1) return i; return co.zones.length - 1; }
+  function drawWorld(s) {
+    const co = s.course, cam = Math.floor(s.camX), c0 = Math.floor(cam / 8), ox = -(cam - c0 * 8);
+    for (const t of STARS) { if ((frame + t.ph) % 96 < 70) { g.fillStyle = COL.star[t.c]; g.fillRect(((t.x - cam * t.v) % W + W) % W | 0, t.y | 0, 1, 1); } }
+    for (let i = 0; i <= 32; i++) {
+      const col = c0 + i, x = ox + i * 8, [base, edge, dark] = COL.rock[zoneOfCol(co, col)], fort = zoneOfCol(co, col) === 2;
+      for (let r = 0; r < C.ROWS; r++) {
+        if (!ZS.solidCol(co, col, r)) continue;
+        const y = HUD + r * 8; g.fillStyle = base; g.fillRect(x, y, 8, 8);
+        const h = hash(col, r);
+        g.fillStyle = dark;
+        if (fort) { g.fillRect(x, y + 7, 8, 1); g.fillRect(x + ((r & 1) ? 3 : 7), y, 1, 7); } else { if (h % 3 === 0) g.fillRect(x + (h >> 4) % 6, y + (h >> 8) % 6, 2, 2); if (h % 5 === 0) g.fillRect(x + (h >> 12) % 7, y + (h >> 16) % 7, 1, 1); }
+        g.fillStyle = edge;
+        if (!ZS.solidCol(co, col, r - 1)) g.fillRect(x, y, 8, 2);
+        if (!ZS.solidCol(co, col, r + 1)) g.fillRect(x, y + 6, 8, 2);
+        if (!ZS.solidCol(co, col - 1, r)) g.fillRect(x, y, 2, 8);
+        if (!ZS.solidCol(co, col + 1, r)) g.fillRect(x + 6, y, 2, 8);
+      }
+    }
+    // gems
+    for (let i = s.nextGem; i < co.gems.length; i++) { const gm = co.gems[i], x = gm.wx - cam; if (x > W + 8) break; if (!s.gemTaken[i]) spr('gem', x, gm.y, (frame >> 3) % 4 === 0 ? PAL.gem2 : PAL.gem); }
+  }
+  function drawShip(s) {
+    const sh = s.ship, x = C.SHIP_X, y = Math.round(sh.y);
+    if (s.phase === 'dead' || s.phase === 'over') return;
+    if (s.phase === 'ready' && (frame >> 2) % 2) return;
+    for (let i = 0; i < fx.trail.length; i++) { const t = fx.trail[i], tx = t.wx - Math.floor(s.camX); if (tx < 0) continue; g.fillStyle = s.chain > 0 ? (i > 14 ? COL.energyHot : COL.energy) : i > 14 ? COL.flame : COL.flame2; g.fillRect(tx | 0, t.y | 0, s.chain >= C.CHAIN_MAX ? 2 : 1, 1); }
+    const loaded = s.laser > 0, home = !s.shot;
+    const pal = fx.flashShip > 0 && (frame >> 1) % 2 ? PAL.white : {
+      w: COL.ship, d: COL.shipDark, c: COL.canopy, r: COL.hudRed, f: (frame >> 1) % 2 ? COL.flame : null,
+      e: loaded ? ((frame >> 2) % 2 ? COL.laser : COL.laserHot) : home ? COL.energy : COL.shipDark, // nose light: the energy is home
+    };
+    spr('ship', x, y, pal, 0.2 * sh.dir);
+    if (s.phase === 'play' && !s.shot) { const cx = x + C.NOSE + C.CLOSE, cy = y + sh.dir * C.MID; g.fillStyle = COL.hudRed; g.fillRect(cx - 1, Math.round(cy - 18), 3, 1); g.fillRect(cx - 1, Math.round(cy + 18), 3, 1); g.fillRect(cx, Math.round(cy - 17), 1, 2); g.fillRect(cx, Math.round(cy + 16), 1, 2); } // point-blank marks: cut inside these for double
+    if (s.phase === 'play' && !s.shot) { const rx = x + C.NOSE + C.REACH[s.laser], by = y + sh.dir * C.MID; if (rx < W - 2) { g.fillStyle = loaded ? COL.laser : COL.energy; for (const q of [-17, -15, 15, 17]) g.fillRect(rx, Math.round(by + q), 1, 1); g.fillRect(rx - 1, Math.round(by - 18), 3, 1); g.fillRect(rx - 1, Math.round(by + 18), 3, 1); } } // reach marks: the blade ends here
+    if (loaded) { g.fillStyle = (frame >> 2) % 2 ? COL.laser : COL.laserHot; for (let a = -6; a <= 6; a++) g.fillRect(x + 12 - ((a * a) >> 3), y + a, 1, 1); } // armour: a loaded laser bows in front of the nose
+  }
+  const MARKCOL = { drone: COL.drone, train: COL.train, shell: COL.shell, rusher: COL.rusher };
+  function mark(y, c) { g.fillStyle = c; g.fillRect(W - 7, y - 4, 5, 2); g.fillRect(W - 7, y + 3, 5, 2); g.fillRect(W - 3, y - 1, 2, 3); g.fillRect(W - 10, y, 3, 1); }
+  // the swing band of a press made at row y while heading d
+  const band = (y, d) => { const a = y - d * C.BACK, b = y + d * C.AHEAD; return [Math.min(a, b), Math.max(a, b)]; };
+  // the gate: five plates over five core rows. Plate on = steel, arming = blinking, thrown = dark shutter, cut = glowing core
+  function drawBoss(s) {
+    const b = s.boss, B = C.BOSS; if (!b || b.dead) return;
+    const x = Math.round(b.x), leaving = (b.left < 300 || b.leaving) && (frame >> 2) % 2;
+    if (b.leaving) { // pulling away: the wall shudders and throws sparks off its face
+      if (frame % 2 === 0) burst(x + 4, HUD + 20 + Math.random() * (H - HUD - 40), 2, [COL.flame, COL.text, COL.shell], 2.2, 12);
+      if (frame % 12 === 0 && mode === 'play') ZSAudio.play('spark');
+    }
+    g.fillStyle = COL.rock[2][2]; g.fillRect(x + 12, HUD, W - x - 12, H - HUD);
+    g.fillStyle = leaving ? COL.hudRed : COL.rock[2][0]; g.fillRect(x + 6, HUD + 16, 8, H - HUD - 32);
+    for (let i = 0; i < B.ROWS; i++) {
+      const p = b.plates[i], y = ZS.rowY(i) - 15;
+      if (p.s === 'open') { g.fillStyle = b.flash > 0 ? COL.text : (frame >> 2) % 2 ? COL.cap : COL.capLit; g.fillRect(x + 2, y + 3, 10, 24); g.fillStyle = COL.text; g.fillRect(x + 5, y + 11, 4, 8); if (p.t < 60 && (frame >> 1) % 2) { g.fillStyle = COL.shell; g.fillRect(x - 4, y, 10, 30 - Math.round(p.t / 2)); } }
+      else if (p.s === 'fly') { g.fillStyle = COL.shellDark; g.fillRect(x + 2, y, 8, 30); }
+      else { g.fillStyle = p.s === 'arm' && (frame >> 1) % 2 ? COL.text : COL.shell; g.fillRect(x - 4, y, 10, 30); g.fillStyle = COL.shield; g.fillRect(x - 4, y, 2, 30); }
+    }
+    if (b.over && (frame >> 1) % 2) { g.fillStyle = COL.hudRed; g.fillRect(x + 6, HUD + 16, 2, H - HUD - 32); } // overdrive: the wall's edge burns
+    // what is left of the core, on the gate itself
+    const hp = Math.max(0, b.hp) / b.hp0; g.fillStyle = '#30303c'; g.fillRect(x + 18, HUD + 24, 4, H - HUD - 48); g.fillStyle = b.flash > 0 ? COL.text : COL.cap; g.fillRect(x + 18, HUD + 24 + Math.round((H - HUD - 48) * (1 - hp)), 4, Math.round((H - HUD - 48) * hp));
+  }
+  function drawThings(s) {
+    for (const m of s.marks) if ((frame >> 2) % 2 || m.until - s.t < 12) mark(m.y, MARKCOL[m.type]);
+    for (const it of s.items) { spr('cap', it.x, it.y, it.big ? ((frame >> 1) % 2 ? PAL.capBig : PAL.cap2) : (frame >> 2) % 2 ? PAL.cap : PAL.cap2); if (it.big) { g.fillStyle = COL.laserHot; const r = 9 + ((frame >> 2) % 3); for (let a = 0; a < 8; a++) g.fillRect(Math.round(it.x + Math.cos(a * 0.785) * r), Math.round(it.y + Math.sin(a * 0.785) * r), 1, 1); } }
+    for (const e of s.enemies) {
+      if (e.warn > 0) { if ((frame >> 1) % 2) mark(e.y, COL.rusher); continue; }
+      if (e.type === 'plug' || e.type === 'plate') { // a seal or a thrown plate: steel like the shell, because only the blade opens it
+        const x = Math.round(e.x - e.w / 2), y = Math.round(e.y - e.h / 2); g.fillStyle = COL.shell; g.fillRect(x, y, e.w, e.h); g.fillStyle = COL.shield; g.fillRect(x, y, 2, e.h); g.fillStyle = COL.shellDark; for (let q = 6; q < e.h; q += 8) g.fillRect(x + 2, y + q, e.w - 2, 1);
+        continue;
+      }
+      const name = e.type === 'train' ? 'drone' : e.type;
+      spr(name === 'drone' && ((frame + (e.x | 0)) >> 3) % 2 ? 'drone2' : name, e.x, e.y, e.plain ? PAL.drone : PAL[e.type]); // only a red train carries a capsule
+      if (e.type === 'rusher' && frame % 2) { g.fillStyle = COL.flame; g.fillRect(e.x + 8, e.y - 1, 4, 1); }
+    }
+    if (s.shot) { // the wave: a tall crescent as high as the swing
+      const [y0, y1] = band(s.shot.y, s.shot.d), ym = (y0 + y1) / 2, hf = (y1 - y0) / 2;
+      for (let yy = Math.round(y0); yy <= y1; yy++) { const k = (yy - ym) / hf, xx = Math.round(s.shot.x - 9 * k * k); g.fillStyle = COL.energyHot; g.fillRect(xx - 2, yy, 3, 1); g.fillStyle = COL.energy; g.fillRect(xx - 5, yy, 3, 1); }
+    }
+  }
+  function drawFx(s) {
+    const nose = C.SHIP_X + C.NOSE;
+    if (fx.blade) { // the stroke is as tall as the swing band and as long as the blade; cream when the laser lengthens it
+      const b = fx.blade, t = b.t, live = b.n > 0, f = live ? [1, 1, 0.8, 0.6, 0.4, 0.25, 0.12, 0.06][t] : [0.5, 0.35, 0.2, 0.1, 0, 0, 0, 0][t];
+      if (f) {
+        const [y0, y1] = band(b.y, b.d), ym = (y0 + y1) / 2, hf = (y1 - y0) / 2 * f, hot = b.lv > 0 ? COL.laserHot : COL.energyHot, cool = b.lv > 0 ? COL.laser : COL.energy;
+        g.fillStyle = t < 3 ? hot : cool;
+        for (let dx = 0; dx < b.len; dx++) { const k = dx / b.len, hh = Math.max(1, Math.round(hf * Math.sin(Math.PI * Math.min(1, 0.15 + k * 0.85)))); if (live && t < 2 && dx % 3 === 0) g.fillRect(nose + dx, Math.round(ym - hh), 1, hh * 2); else if (live || dx % 2 === 0) { g.fillRect(nose + dx, Math.round(ym - hh), 1, 2); g.fillRect(nose + dx, Math.round(ym + hh) - 2, 1, 2); } }
+        // the first 24 px are the point-blank zone: the root of every stroke is red, filled when it actually bit there
+        g.fillStyle = t < 3 ? COL.text : COL.hudRed;
+        for (let dx = 0; dx < Math.min(C.CLOSE, b.len); dx++) { const k = dx / b.len, hh = Math.max(1, Math.round(hf * Math.sin(Math.PI * Math.min(1, 0.15 + k * 0.85)))); g.fillStyle = b.near && t < 5 ? (dx % 2 ? COL.text : COL.hudRed) : COL.hudRed; if (b.near && t < 5) g.fillRect(nose + dx, Math.round(ym - hh), 1, hh * 2); else if (live || dx % 2 === 0) { g.fillRect(nose + dx, Math.round(ym - hh), 1, 2); g.fillRect(nose + dx, Math.round(ym + hh) - 2, 1, 2); } }
+        if (b.near && t < 6) { g.fillStyle = t < 3 ? COL.text : COL.hudRed; for (let yy = Math.round(y0); yy <= y1; yy++) { const k = (yy - ym) / ((y1 - y0) / 2); g.fillRect(Math.round(nose + C.CLOSE + 6 + t * 2 - 7 * k * k), yy, 3, 1); } }
+        if (live && t < 4 && nose + b.len < W - 8) { g.fillStyle = cool; for (let yy = Math.round(y0); yy <= y1; yy++) { const k = (yy - ym) / ((y1 - y0) / 2); g.fillRect(Math.round(nose + b.len + 4 - 9 * k * k), yy, 2, 1); } }
+      }
+    }
+    for (const r of fx.rings) { const rad = 3 + r.t * 1.6; g.fillStyle = r.c || COL.energyHot; for (let a = 0; a < 12; a++) g.fillRect(Math.round(r.x + Math.cos(a * 0.5236) * rad), Math.round(r.y + Math.sin(a * 0.5236) * rad), 1, 1); }
+    for (const p of fx.parts) { g.fillStyle = p.c; g.fillRect(p.x | 0, p.y | 0, p.s, p.s); }
+    for (const p of fx.pops) { if (p.t > 30 && (p.t >> 1) % 2) continue; text(p.txt, Math.round(p.x), Math.round(p.y - Math.min(p.t, 16) * 0.6), p.col); }
+  }
+  // the gate's clock: ordinary-size digits on a black plate set into the corridor ceiling, with a bar that runs down; red and blinking for the last 10 s
+  let lastGateSec = -1;
+  function drawGateTime(s) {
+    const b = s.boss; if (!b || b.dead || b.leaving || b.x > C.BOSS.FACE || s.phase === 'clear') return;
+    const sec = Math.ceil(b.left / 60), low = sec <= 10, col = low ? ((frame >> 2) % 2 ? COL.hudRed : COL.text) : COL.laser, label = 'TIME ' + String(sec).padStart(2, '0');
+    const w = tw(label) + 12, x = Math.round((W - w) / 2) - 20;
+    g.fillStyle = '#000'; g.fillRect(x, HUD + 2, w, 13); // inside the ceiling band: it covers no flying space
+    text(label, x + 6, HUD + 4, col);
+    g.fillStyle = '#30303c'; g.fillRect(x + 3, HUD + 13, w - 6, 1); g.fillStyle = col; g.fillRect(x + 3, HUD + 13, Math.round((w - 6) * b.left / C.BOSS.TIME), 1);
+    if (low && sec !== lastGateSec && mode === 'play') ZSAudio.play('turn'); // a tick for each of the last ten seconds
+    lastGateSec = sec;
+  }
+  function drawHud(s) {
+    g.fillStyle = '#000'; g.fillRect(0, 0, W, HUD);
+    text(mode === 'title' || !entry.name ? '1UP' : entry.name, 4, 1, COL.hudRed); text(pad6(s.score), 26, 1); text('HI', 88, 1, COL.hudRed); text(pad6(Math.max(hi, s.score)), 104, 1);
+    const lives = Math.max(0, s.lives - (s.phase === 'dead' || s.phase === 'over' || (s.phase === 'clear' && s.cleared) ? 0 : 1)); // at ALL CLEAR every ship is shown, and counted off
+    for (let i = 0; i < Math.min(6, lives); i++) if (!(fx.extendT > 0 && i === lives - 1 && (frame >> 2) % 2)) spr('life', W - 10 - i * 10, 5, PAL.life);
+    // laser stock
+    for (let i = 0; i < C.LASER_MAX; i++) { const on = i < s.laser, fading = i === s.laser - 1 && s.laserT < 120 && (frame >> 2) % 2; g.fillStyle = on && !fading ? ((fx.hudLaser > 0 && (frame >> 2) % 2) ? COL.laserHot : COL.laser) : '#30303c'; g.fillRect(4 + i * 16, 10, 14, on ? 4 : 1); if (!on) g.fillRect(4 + i * 16, 13, 14, 1); }
+    if (s.laser > 0) { g.fillStyle = s.laserT < 120 && (frame >> 2) % 2 ? COL.hudRed : COL.laser; g.fillRect(4, 15, Math.ceil(46 * s.laserT / C.DECAY[s.laser]), 1); } // time left on the last charge
+    // cut chain gauge: one segment per level, the multiplier beside it; red blink when it has just run out
+    const broke = s.chain === 0 && fx.chainBreak > 0 && (frame >> 2) % 2, top = s.chain >= C.CHAIN_MAX && (frame >> 2) % 2;
+    for (let i = 0; i < C.CHAIN_MAX; i++) { const on = i < s.chain; g.fillStyle = broke ? COL.hudRed : on ? (top ? COL.energyHot : COL.energy) : '#30303c'; g.fillRect(58 + i * 6, on || broke ? 10 : 12, 5, on || broke ? 5 : 1); }
+    if (s.chain > 0) { g.fillStyle = s.chainT < 30 && (frame >> 1) % 2 ? COL.hudRed : COL.energy; g.fillRect(58, 15, Math.ceil(23 * s.chainT / C.CHAIN_T[s.chain]), 1); } // time left before the multiplier drops a step
+    text('X' + (s.chain + 1), 84, 9, broke ? COL.hudRed : s.chain > 0 ? (top ? COL.energyHot : COL.energy) : '#50505c');
+    // course map: one box per zone, the one being flown blinks; then the loop count
+    for (let i = 0; i < 3; i++) { const done = i < s.zone, cur = i === s.zone; g.fillStyle = COL.rock[i][done || (cur && (frame >> 4) % 2) ? 1 : 0]; g.fillRect(104 + i * 10, 10, 8, 5); }
+    if (s.loop > 0) text('L' + (s.loop + 1), 138, 9, COL.laser);
+    drawGateTime(s);
+  }
+  function render() {
+    const page = mode === 'title' ? attract() : mode, s = mode === 'title' ? demo : st;
+    g.fillStyle = COL.bg; g.fillRect(0, 0, W, H);
+    if (page === 'table' || page === 'best') { drawRank(page); return; }
+    if (page === 'title') { drawTitle(); return; }
+    g.save();
+    if (fx.shake > 0) g.translate(Math.round((Math.random() - 0.5) * Math.min(4, fx.shake / 2)), Math.round((Math.random() - 0.5) * Math.min(4, fx.shake / 2)));
+    drawWorld(s); drawBoss(s); drawThings(s); drawShip(s); drawFx(s);
+    g.restore();
+    drawHud(s);
+    if (page === 'demo') { if ((frame >> 5) % 2) ctext('PUSH BUTTON', 104, COL.text); ctext('GAME OVER', 60, COL.hudRed); return; }
+    if (s.phase === 'ready') { ctext(s.course.zones[s.zone].name, 84, COL.rock[s.zone][1]); ctext(page === 'demo' ? 'READY' : 'READY ' + entry.name, 100, COL.text); }
+    if (s.phase === 'clear' && s.cleared && s.tallied !== undefined && (s.tallied > 0 || s.tallyEnd)) { ctext('ALL CLEAR', 76, COL.laser); ctext('SHIP BONUS', 96, COL.text); ctext(C.SHIP_BONUS + ' X ' + s.tallied, 110, COL.laser); if (s.tallyEnd) ctext('= ' + C.SHIP_BONUS * s.tallied, 124, (frame >> 2) % 2 ? COL.text : COL.laser); }
+    else if (s.phase === 'clear') { ctext(s.won ? 'LOOP ' + (s.loop + 1) + ' CLEAR' : 'THE GATE GOT AWAY', 84, s.won ? COL.laser : COL.hudRed); if (s.phaseT < C.CLEAR - 50) ctext(s.won && fx.gate ? 'GATE ' + fx.gate.pts + '  ' + fx.gate.sec + ' SEC LEFT' : 'NO BONUS', 100, COL.text); if (s.won && s.phaseT < C.CLEAR - 90) ctext('LOOP BONUS ' + C.LOOP_BONUS * (s.loop + 1), 114, COL.text); }
+    if (fx.banner && s.phase === 'play') { const b = fx.banner; if (b.t < 100 || (b.t >> 2) % 2) { ctext(b.a, 28, COL.text); if (b.t > 20) ctext(b.b, 40, COL.laser); } }
+    if (mode === 'over') { if (st.cleared) { ctext('ALL CLEAR', 84, COL.laser); ctext('SHIP BONUS ' + C.SHIP_BONUS * st.tallied, 100, COL.text); } else ctext('GAME OVER', 100, COL.hudRed); }
+    if (paused) { g.fillStyle = '#000'; g.fillRect(96, 96, 64, 15); ctext('PAUSE', 100, COL.text); }
+  }
+  function drawTitle() {
+    for (const t of STARS) { if ((frame + t.ph) % 96 < 70) { g.fillStyle = COL.star[t.c]; g.fillRect(((t.x - frame * t.v) % W + W) % W | 0, t.y | 0, 1, 1); } }
+    text('1UP', 4, 1, COL.hudRed); text(pad6(st ? st.score : 0), 26, 1); text('HI', 88, 1, COL.hudRed); text(pad6(hi), 104, 1);
+    // logo. ZIG: the three letters stand on a zigzag, in the ship's cyan. SABER: cut in two by a slash, the lower half
+    // slipped aside, in the laser's cream. Both carry the banded colouring and hard drop shadow of an early-80s marquee.
+    const SC = 4, k = Math.min(1, titleT / 36), slashY = px => 62 - (px - 100) * 0.27; // the cut runs up to the right
+    const glyph = (ch, x, y, bands, cut) => {
+      const gl = FONT[ch]; if (!gl) return;
+      for (let pass = 0; pass < 2; pass++) for (let i = 0; i < 35; i++) if (gl[i] === '#') {
+        const row = (i / 5) | 0; let px = x + (i % 5) * SC, py = y + row * SC;
+        if (cut && py + SC / 2 > slashY(px + SC / 2)) { px += 3; py += 2; }
+        g.fillStyle = pass ? bands[row] : '#58100c'; g.fillRect(px + (pass ? 0 : 2), py + (pass ? 0 : 2), SC, SC);
+      }
+    };
+    const ZB = ['#fcfcfc', '#fcfcfc', COL.energy, COL.energy, COL.energy, '#2038ec', '#2038ec'], SB = ['#fcfcfc', '#fcfcfc', COL.laser, COL.laser, COL.flame, COL.flame, COL.hudRed];
+    'ZIG'.split('').forEach((ch, n) => glyph(ch, 24 + n * 24, 24 + (n === 1 ? 10 : 0), ZB, false));
+    'SABER'.split('').forEach((ch, n) => glyph(ch, 108 + n * 24, 28, SB, k >= 1));
+    // the slash itself: it crosses once, leaves the cut, and the exhaust of the ship that made it zigzags under ZIG
+    const x0 = 100, x1 = 100 + Math.round(138 * k);
+    if (k < 1 || (frame >> 3) % 8 === 0) { g.fillStyle = COL.energyHot; for (let px = x0; px < x1; px++) g.fillRect(px, Math.round(slashY(px)), 1, k < 1 ? 3 : 1); }
+    for (let n = 0; n < 34; n++) { const zx = 20 + n * 2.4, zy = 66 + Math.abs(((n + 6) % 24) - 12) * 0.9; if (zx < 20 + 80 * Math.min(1, titleT / 24)) { g.fillStyle = n > 26 ? COL.flame : COL.flame2; g.fillRect(Math.round(zx), Math.round(zy), 1, 1); } }
+    spr('ship', k < 1 ? x1 + 4 : 238, k < 1 ? slashY(x1) : slashY(238), { w: COL.ship, d: COL.shipDark, c: COL.canopy, r: COL.hudRed, f: frame % 2 ? COL.flame : null, e: COL.energy }, -0.2);
+    ctext('ONE BUTTON = TURN + FIRE', 82, COL.shipDark);
+    const y0 = 98, row = (i, name, pal, a, b, colB) => { spr(name, 56, y0 + i * 18 + 3, pal); text(a, 76, y0 + i * 18, COL.text); if (b) text(b, 142, y0 + i * 18, colB || COL.energy); };
+    row(0, 'drone', PAL.drone, 'FAR 100', 'CUT 300');
+    for (let k = 0; k < 3; k++) spr(k === 1 ? 'drone2' : 'drone', 56 + k * 16, y0 + 21, PAL.train);
+    text('ALL', 106, y0 + 18, COL.text); text('= LASER', 142, y0 + 18, COL.laser);
+    ctext('LASER = LONGER BLADE + ARMOR', y0 + 74, COL.laser); spr('cap', 196, y0 + 21, (frame >> 2) % 2 ? PAL.cap : PAL.cap2);
+    row(2, 'shell', PAL.shell, 'FAR ---', 'CUT 500');
+    row(3, 'gem', PAL.gem, '100 - 800');
+    if ((frame >> 5) % 2) ctext('PUSH BUTTON', 186, COL.text);
+    ctext('1ST BONUS ' + C.EXTEND[0] + ' PTS', 204, COL.hudRed);
+  }
+  function drawRank(page) {
+    const t = readRank();
+    ctext('BEST 5', 30, COL.hudRed);
+    if (page === 'table' && st) ctext(entry.name + '  ' + st.score, 46, entry.rank >= 0 ? COL.laser : COL.shipDark);
+    const y0 = 70;
+    for (let i = 0; i < t.length; i++) {
+      const mine = page !== 'best' && st && !t[i].def && t[i].s === st.score && i === entry.rank;
+      const col = mine && (frame >> 3) % 2 ? COL.laser : [COL.hudRed, COL.text, COL.text, COL.shipDark, COL.shipDark][i];
+      text((i + 1) + ['ST', 'ND', 'RD', 'TH', 'TH'][i], 56, y0 + i * 16, col); text(pad6(t[i].s), 96, y0 + i * 16, col); text(t[i].n, 164, y0 + i * 16, col);
+    }
+  }
+
+  let acc = 0, lastT = performance.now();
+  function loop(now) {
+    acc += Math.min(100, now - lastT); lastT = now;
+    while (acc >= 1000 / 60) { tick(); acc -= 1000 / 60; }
+    render(); requestAnimationFrame(loop);
+  }
+  function fit() {
+    const m = Math.min(innerWidth / W, innerHeight / H), sc = m < 1 ? m : Math.floor(m);
+    cv.style.width = W * sc + 'px'; cv.style.height = H * sc + 'px';
+  }
+  addEventListener('resize', fit); fit();
+  newDemo();
+
+  window.__game = {
+    get state() { return st; }, get demo() { return demo; }, get mode() { return mode; }, get paused() { return paused; }, get attract() { return mode === 'title' ? attract() : null; },
+    get fx() { return fx; }, get freeze() { return freeze; }, get frame() { return frame; }, get pressQ() { return pressQ; }, entry, names: NAMES, readRank, newGame, tick, render, button,
+    setTitleT(v) { titleT = v; if (attract() !== 'title' && !demo) newDemo(); }, setState(s) { st = s; }, setOverT(v) { overT = v; }, pilot: null, audio: ZSAudio,
+    visual: { palette: COL, hud: { score: [26, 1], high: [120, 1], laser: [4, 10], zones: [104, 10] }, sprite: { ship: [16, 7], font: [5, 7, 6] } },
+  };
+  requestAnimationFrame(loop);
+})();
+
+window.__agenticSetup({start(){__game.newGame()},read(){const s=__game.state; return {score:s?.score??0,ended:!!(s&&(s.phase === "over")),won:!!(s&&(s.cleared)),phase:s?.phase??s?.mode??'playing'};}});</script></body></html>

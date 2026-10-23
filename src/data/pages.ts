@@ -450,7 +450,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "Denny Games offers " +
         games.length +
-        " browser-game titles in English and Korean. Every published title launches on Denny Games. The catalogue includes 191 MIT-licensed ABA Games Crisp mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, original games and six classic board games, including Yutnori.",
+        " browser-game titles in English and Korean. Every published title launches on Denny Games. The catalogue includes MIT-licensed ABA Games mini-games, Hextris under GPL-3.0-or-later, Bounce Back under GPL-2.0-or-later, an adapted 2048, original games and six classic board games, including Yutnori.",
       sections: [
         {
           heading: "What can I play?",
@@ -461,7 +461,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "Are free games also open source?",
           paragraphs: [
-            "Free-to-play and permission to redistribute are separate questions. The 191 ABA Games imports retain their MIT notices; Hextris and Bounce Back keep their GPL licenses and corresponding source. Hextris also publishes its bundled dependency notices. Research candidates stay out of the public catalogue until code, game data, artwork and dependencies have clear redistribution rights and pass local integration review. The catalogue does not include commercial console ROM collections. Authors retain their credits, and listing a game does not imply endorsement.",
+            "Free-to-play and permission to redistribute are separate questions. The ABA Games imports retain their MIT notices; Hextris and Bounce Back keep their GPL licenses and corresponding source. Hextris also publishes its bundled dependency notices. Research candidates stay out of the public catalogue until code, game data, artwork and dependencies have clear redistribution rights and pass local integration review. The catalogue does not include commercial console ROM collections. Authors retain their credits, and listing a game does not imply endorsement.",
           ],
         },
         {
@@ -502,7 +502,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
       intro:
         "데니 게임즈는 한국어와 영어로 제공하는 웹게임 " +
         games.length +
-        "개 게임 페이지를 제공합니다. 공개된 게임은 모두 데니 게임즈 안에서 실행됩니다. MIT 라이선스 ABA Games Crisp 미니게임 191개, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임과 윷놀이를 포함한 클래식 보드게임 6종이 있습니다.",
+        "개 게임 페이지를 제공합니다. 공개된 게임은 모두 데니 게임즈 안에서 실행됩니다. MIT 라이선스 ABA Games 미니게임, GPL-3.0-or-later Hextris, GPL-2.0-or-later Bounce Back, 2048 수정판, 자체 게임과 윷놀이를 포함한 클래식 보드게임 6종이 있습니다.",
       sections: [
         {
           heading: "어떤 게임을 할 수 있나요?",
@@ -513,7 +513,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "무료 게임이면 소스도 가져올 수 있나요?",
           paragraphs: [
-            "무료 플레이와 재배포 허용은 별개입니다. ABA Games 191개는 MIT 고지를, Hextris와 Bounce Back은 각 GPL 라이선스와 대응 소스를 제공합니다. Hextris 의존성 고지도 공개합니다. 코드·게임 데이터·그림·의존성의 재배포 권리를 확인하고 사이트 안에서 실행되도록 검토한 뒤에만 게임을 공개합니다. 권리가 불분명한 후보는 공개 카탈로그에 올리지 않습니다. 상용 콘솔 ROM 모음은 제공하지 않으며, 목록 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
+            "무료 플레이와 재배포 허용은 별개입니다. ABA Games 게임은 MIT 고지를, Hextris와 Bounce Back은 각 GPL 라이선스와 대응 소스를 제공합니다. Hextris 의존성 고지도 공개합니다. 코드·게임 데이터·그림·의존성의 재배포 권리를 확인하고 사이트 안에서 실행되도록 검토한 뒤에만 게임을 공개합니다. 권리가 불분명한 후보는 공개 카탈로그에 올리지 않습니다. 상용 콘솔 ROM 모음은 제공하지 않으며, 목록 등록이 원작자의 제휴·보증을 뜻하지 않습니다.",
           ],
         },
         {
@@ -557,7 +557,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "A curated beginning",
           paragraphs: [
-            "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation, 191 ABA Games Crisp mini-games, six classic board games including Yutnori, Hextris under GPL-3.0-or-later and Bounce Back under GPL-2.0-or-later. Every published game has its own rules, controls and pause/restart flow on this site.",
+            "Explore original Circuit Loop and Orbit Break, an MIT-based 2048 adaptation, ABA Games mini-games, six classic board games including Yutnori, Hextris under GPL-3.0-or-later and Bounce Back under GPL-2.0-or-later. Every published game has its own rules, controls and pause/restart flow on this site.",
             "Game candidates remain unpublished until their code, game data, artwork and dependencies are cleared for redistribution and adapted to run here. Free browser access alone is not a reuse license.",
           ],
         },
@@ -577,7 +577,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
         {
           heading: "작지만 분명한 시작",
           paragraphs: [
-            "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games Crisp 미니게임 191개, 윷놀이를 포함한 클래식 보드게임 6종, GPL-3.0-or-later Hextris와 GPL-2.0-or-later 액션 로그라이트 Bounce Back을 제공합니다. 게임별 조작은 다르며, 윷놀이는 한 기기에서 터치·마우스·키보드로 2~4명이 번갈아 플레이합니다.",
+            "자체 제작 서킷 루프·오빗 브레이크, MIT 기반 2048, ABA Games 미니게임, 윷놀이를 포함한 클래식 보드게임 6종, GPL-3.0-or-later Hextris와 GPL-2.0-or-later 액션 로그라이트 Bounce Back을 제공합니다. 게임별 조작은 다르며, 윷놀이는 한 기기에서 터치·마우스·키보드로 2~4명이 번갈아 플레이합니다.",
             "게임 후보는 코드·게임 데이터·그림·의존성의 재배포 권리와 사이트 내 실행 가능성을 확인한 뒤에만 공개합니다. 무료로 플레이할 수 있다는 사실만으로 재사용 권한이 생기지는 않습니다.",
           ],
         },

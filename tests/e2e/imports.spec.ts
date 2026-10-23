@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 import crisp from "../../src/data/crisp.json" with { type: "json" };
+import centuryCrisp from "../../src/data/century-crisp.json" with { type: "json" };
 import { games } from "../../src/data/games";
-for (const item of crisp)
+for (const item of [...crisp, ...centuryCrisp])
   test(`${item.id}: isolated mobile load, input and pause`, async ({
     page,
   }, testInfo) => {
@@ -23,6 +24,27 @@ for (const item of crisp)
       )
         external.push(r.url());
     });
+    // Observe only authenticated terminal messages from the actual sandbox frame.
+    await page.addInitScript(() => {
+      if (window !== window.top) return;
+      Object.assign(window, { __importEnded: false });
+      window.addEventListener("message", (event) => {
+        const frame = document.querySelector("iframe");
+        if (
+          !frame ||
+          event.source !== frame.contentWindow ||
+          event.origin !== "null"
+        )
+          return;
+        const channel = new URL(frame.src).searchParams.get("channel");
+        if (
+          channel &&
+          event.data?.channel === channel &&
+          event.data?.type === "end"
+        )
+          Object.assign(window, { __importEnded: true });
+      });
+    });
     await page.goto(`/ko/play/${item.id}/`);
     await expect(page.locator("#start-button")).toBeEnabled();
     await expect(page.locator("iframe")).toHaveAttribute(
@@ -40,9 +62,18 @@ for (const item of crisp)
       await canvas.dispatchEvent("mouseup", {});
       await expect(page.locator("#score")).not.toHaveText("0");
     } else {
-      await frame.waitForFunction(
-        () => Number(document.body.dataset.ticks) > 5,
-      );
+      await expect
+        .poll(async () => {
+          const advanced = await frame.evaluate(
+            () => Number(document.body.dataset.ticks) > 5,
+          );
+          const ended = await page.evaluate(
+            () =>
+              (window as unknown as { __importEnded: boolean }).__importEnded,
+          );
+          return advanced || ended;
+        })
+        .toBe(true);
       await canvas.dispatchEvent("mousedown", { clientX: 100, clientY: 100 });
       await page.waitForTimeout(80);
       await canvas.dispatchEvent("mouseup", {});

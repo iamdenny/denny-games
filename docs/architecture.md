@@ -58,7 +58,7 @@ Five original traditional rule implementations share `src/games/board/rules.ts`,
 
 Gonggi is a separate lazy-loaded DOM game in `src/games/gonggi/`. Pure stage, catch timing, score and save validation live in `rules.ts`; the renderer uses native buttons and the shared player lifecycle. It has no external runtime or network service. See [ADR 0049](adr/0049-original-gonggi.md).
 
-Shared player audio uses original synthesized event cues in `src/lib/audio.ts`. Audio starts after a user gesture, with persisted mute/volume preferences and cancellation on pause/background. Board engines report semantic cues through the existing lifecycle sound callback; imported game sound events retain the default cue.
+Shared player audio uses original synthesized event cues in `src/lib/audio.ts`. Audio starts after a user gesture, with persisted mute/volume preferences and cancellation on pause/background. Board engines report semantic cues through the existing lifecycle sound callback; shared Crisp sound events retain the default cue. Independent Agentic games retain original synthesized audio behind their isolated sound adapter.
 
 Gameplay transitions run independently of asynchronous audio resume. Mute can cancel audio immediately without leaving a paused overlay behind. Score presentation uses localized whole numbers and wrapping; stored scores keep their original precision.
 
@@ -81,3 +81,13 @@ Daily challenge shares point directly to the local player with `daily=1&stage=1`
 ## Six-game runtime extension
 
 The six new engines remain lazy player imports. `six-puzzles.ts`, `six-movement.ts` and `six-action.ts` contribute typed metadata; matching guide modules contribute localized editorial routes. Minefield Watch and Mosaic Mystery reuse `minefield-watch/board.ts` for dense-board selection, controls and decorative feedback, with independent pure rule engines. Shared player consent, stage persistence and completion reporting remain authoritative. See ADR 0057.
+
+## Century arcade extension
+
+The release candidate adds exactly 100 distinct games to the 234-game baseline: 88 imported shared-runtime titles from two ABA Games repositories, 11 independent Canvas titles from a third ABA repository, and the original Signal Crossing. `src/data/century-crisp.json` supplies the 89 shared-runtime entries; `src/data/agentic-games.ts` supplies the 11 independent entries. The `arcade-century` collection contains exactly these IDs. Counts, static bilingual routes, search metadata and structured data still derive from the typed registry. See [ADR 0058](adr/0058-century-arcade.md).
+
+`build-crisp.mjs` retains the original source bytes and disables optional external audio declarations through checked adaptations. `scripts/build-agentic.mjs` validates every retained source and artwork hash before bundling local modules into per-game HTML. The existing locked Rolldown package performs module bundling. No runtime network dependency is introduced. Original procedural artwork, fonts and synthesized sound remain local; catalogue PNGs are captures of actual gameplay. The Agentic provenance retains the repository MIT grant and the inconsistent Twin Vector README ISC reference without rewriting either notice.
+
+`src/games/agentic/index.ts` loads only the selected independent game in an opaque-origin iframe. Parent and child check the peer window, origin and random channel. The frame CSP blocks network connections and external media. Explicit per-game hooks start normal gameplay, read the actual score and recognize genuine terminal state. The bridge owns virtual RAF time and timers, clears held keyboard/pointer/touch input on pause, freezes sound contexts and emits completion once. Shared controls include native 48px actions, mute and volume. Restart loads a fresh frame document; leaving retains only the shell personal best, with no mid-round save claim. Destroy removes the frame, externally mounted controls, listeners and load timeout.
+
+The century release raises only the total static artifact ceiling from 100 MiB to 120 MiB because 100 additions generate 400 bilingual detail/player pages. The 5 MiB per-file limit and 28 MiB Neverball runtime allowance remain unchanged. This is a build-size budget, not a measured first-play download or performance result; engines remain lazy. See ADR 0058.

@@ -87,22 +87,22 @@ test.describe("Adsterra banner", () => {
       ({ storageKey }) => localStorage.setItem(storageKey, "allowed"),
       { storageKey: key },
     );
-    await page.goto("/en/category/arcade/?input=mouse");
+    await page.goto("/en/category/sports/?input=mouse");
     const banner = page.locator("[data-adsterra-category]");
     await expect(banner).toBeHidden();
     await expect(
-      page.locator('.game-grid [data-game-card="gonggi"]'),
+      page.locator('.game-grid [data-game-card="pocket-pingpong"]'),
     ).toHaveCount(1);
     await expect(
-      page.locator('.game-grid [data-game-card="star-pinball"]'),
+      page.locator('.game-grid [data-game-card="pocket-bowling"]'),
     ).toHaveCount(1);
     await expect(
-      page.locator('.game-grid [data-game-card="river-hop"]'),
+      page.locator('.game-grid [data-game-card="neverball"]'),
     ).toHaveCount(1);
     await expect(
-      page.locator('.game-grid [data-game-card="meteor-guard"]'),
+      page.locator('.game-grid [data-game-card="neverputt"]'),
     ).toHaveCount(1);
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(5);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(4);
     expect(requests).toBe(0);
     await expect(banner.locator("iframe")).toHaveCount(0);
   });
@@ -118,24 +118,24 @@ test.describe("Adsterra banner", () => {
       ({ storageKey }) => localStorage.setItem(storageKey, "allowed"),
       { storageKey: key },
     );
-    await page.goto("/en/category/arcade/");
+    await page.goto("/en/category/sports/");
     const banner = page.locator("[data-adsterra-category]");
     await expect(banner).toBeVisible();
     await expect(banner.locator("iframe")).toHaveCount(1);
     await page.locator("[data-input-filter]").selectOption("mouse");
     await expect(
-      page.locator('.game-grid [data-game-card="gonggi"]'),
+      page.locator('.game-grid [data-game-card="pocket-pingpong"]'),
     ).toHaveCount(1);
     await expect(
-      page.locator('.game-grid [data-game-card="star-pinball"]'),
+      page.locator('.game-grid [data-game-card="pocket-bowling"]'),
     ).toHaveCount(1);
     await expect(
-      page.locator('.game-grid [data-game-card="river-hop"]'),
+      page.locator('.game-grid [data-game-card="neverball"]'),
     ).toHaveCount(1);
     await expect(
-      page.locator('.game-grid [data-game-card="meteor-guard"]'),
+      page.locator('.game-grid [data-game-card="neverputt"]'),
     ).toHaveCount(1);
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(5);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(4);
     await expect(banner).toBeHidden();
     await expect(banner.locator("iframe")).toHaveCount(0);
     expect(requests).toBe(1);

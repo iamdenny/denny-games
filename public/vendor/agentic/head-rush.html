@@ -1,0 +1,1900 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>head-rush · ABA Games</title><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://games.iamdenny.com/en/games/agentic-head-rush/"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; media-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'"><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c13;display:grid;place-items:center}canvas{margin:0!important;width:100%!important;height:100%!important;max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;touch-action:none;display:block}</style></head><body><canvas width="300" height="150" id="screen"></canvas><script>/* Denny Games lifecycle adapter; upstream sources remain unmodified. */
+(()=>{
+ const channel=new URLSearchParams(location.search).get('channel');
+ const parentOrigin=document.referrer?new URL(document.referrer).origin:location.origin;
+ const post=(type,data={})=>parent.postMessage({channel,type,...data},parentOrigin);
+ const nativeRAF=window.requestAnimationFrame.bind(window);
+ let now=performance.now(),next=1,queue=new Map(),running=false,ended=false,hook,started=false,ticks=0,lastScore=-1,sound=false;
+ Object.defineProperty(performance,'now',{value:()=>now});
+ window.requestAnimationFrame=cb=>{const id=next++;queue.set(id,cb);return id;};
+ window.cancelAnimationFrame=id=>queue.delete(id);
+ const timers=new Map();
+ window.setTimeout=(fn,delay=0,...args)=>{const id=next++;timers.set(id,{fn,args,at:now+Math.max(1,Number(delay)||0),period:0});return id;};
+ window.setInterval=(fn,delay=0,...args)=>{const id=next++,period=Math.max(1,Number(delay)||0);timers.set(id,{fn,args,at:now+period,period});return id;};
+ window.clearTimeout=window.clearInterval=id=>timers.delete(id);
+ const contexts=[], gains=new WeakMap();let volume=1;
+ const connect=window.AudioNode?.prototype.connect;
+ if(connect)window.AudioNode.prototype.connect=function(destination,...args){return connect.call(this,gains.get(destination)||destination,...args);};
+ const NativeAudio=window.AudioContext||window.webkitAudioContext;
+ if(NativeAudio){window.AudioContext=new Proxy(NativeAudio,{construct(Target,args){const c=new Target(...args),resume=c.resume.bind(c);contexts.push(c);const master=c.createGain();master.gain.value=volume;connect.call(master,c.destination);gains.set(c.destination,master);c.resume=()=>running&&sound?resume():Promise.resolve();if(!running||!sound)c.suspend().catch(()=>{});else resume().catch(()=>{});return c;}});window.webkitAudioContext=window.AudioContext;}
+ const syncAudio=()=>contexts.forEach(c=>{(running&&sound?c.resume():c.suspend()).catch(()=>{});});
+ // Imported leaderboards are session-local; shell owns persistent personal bests.
+ const memory=new Map();
+ try{Object.defineProperty(window,'localStorage',{value:{getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,String(v)),removeItem:k=>memory.delete(k),clear:()=>memory.clear()}});}catch{}
+ // Shared shell owns visibility/focus pause. Clear all held keys before freezing.
+ window.addEventListener('blur',e=>e.stopImmediatePropagation(),true);
+ document.addEventListener('visibilitychange',e=>{if(document.hidden&&running)post('pause');e.stopImmediatePropagation();},true);
+ const held=new Set(),physicalKeys=new Set(),pointers=new Set(),touches=new Map();
+ window.addEventListener('keydown',e=>{if(running)physicalKeys.add(e.code);},true);
+ window.addEventListener('keyup',e=>physicalKeys.delete(e.code),true);
+ window.addEventListener('pointerdown',e=>{if(running)pointers.add(e.pointerId);},true);
+ for(const type of ['pointerup','pointercancel'])window.addEventListener(type,e=>pointers.delete(e.pointerId),true);
+ window.addEventListener('touchstart',e=>{if(running)for(const t of e.changedTouches)touches.set(t.identifier,t);},true);
+ for(const type of ['touchend','touchcancel'])window.addEventListener(type,e=>{for(const t of e.changedTouches||[])touches.delete(t.identifier);},true);
+ function key(code,down){if(down===held.has(code))return;if(down)held.add(code);else held.delete(code);window.dispatchEvent(new KeyboardEvent(down?'keydown':'keyup',{code,key:code==='Space'?' ':code,bubbles:true}));}
+ const clear=()=>{const c=document.querySelector('canvas');if(c){for(const pointerId of [...pointers])c.dispatchEvent(new PointerEvent('pointercancel',{bubbles:true,pointerId}));c.dispatchEvent(new MouseEvent('mouseup',{bubbles:true}));const event=new Event('touchcancel',{bubbles:true});Object.defineProperty(event,'changedTouches',{value:[...touches.values()]});c.dispatchEvent(event);}for(const k of [...held])key(k,false);for(const k of new Set([...physicalKeys,'ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space']))window.dispatchEvent(new KeyboardEvent('keyup',{code:k,key:k==='Space'?' ':k,bubbles:true}));};
+ for(const name of ['keydown','keyup'])window.addEventListener(name,e=>{if(running&&e.type==='keydown'&&['KeyP','Escape'].includes(e.code)){post('pause');clear();running=false;syncAudio();}if((!running||['KeyP','KeyM','Escape','Enter'].includes(e.code))&&!e.__release){if(!running&&e.type==='keyup')return;e.preventDefault();e.stopImmediatePropagation();}},true);
+ for(const name of ['pointerdown','pointerup','pointermove','touchstart','touchmove','touchend','mousedown','mouseup'])window.addEventListener(name,e=>{if(!running){e.preventDefault();e.stopImmediatePropagation();}}, {capture:true,passive:false});
+ window.addEventListener('message',e=>{if(e.source!==parent||e.origin!==parentOrigin||e.data?.channel!==channel)return;const d=e.data;
+ if(d.type==='run'){if(!d.running)clear();running=d.running===true&&!ended;syncAudio();}
+ if(d.type==='sound'){sound=d.enabled===true;syncAudio();}
+ if(d.type==='volume'&&Number.isFinite(d.volume)){volume=Math.min(1,Math.max(0,d.volume));contexts.forEach(c=>{gains.get(c.destination).gain.value=volume;});}
+ if(d.type==='key'&&running&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space'].includes(d.code))key(d.code,d.down===true);
+ if(d.type==='input'&&running){key('ArrowLeft',d.x<0);key('ArrowRight',d.x>0);key('ArrowUp',d.y<0);key('ArrowDown',d.y>0);key('Space',d.pressed===true);}
+ });
+ window.__agenticSetup=h=>{hook=h;h.start();started=true;const c=document.querySelector('canvas');const callbacks=[...queue.values()];queue.clear();callbacks.forEach(f=>f(now));post('ready',{width:c.width,height:c.height});document.body.dataset.phase='ready';};
+ let previous;
+ function pump(real){const dt=previous===undefined?0:Math.min(33,real-previous);previous=real;
+ if(running&&started){now+=dt;ticks++;for(const [id,t] of [...timers])if(now>=t.at){if(t.period)t.at=now+t.period;else timers.delete(id);if(typeof t.fn==='function')t.fn(...t.args);}const callbacks=[...queue.values()];queue.clear();try{callbacks.forEach(f=>f(now));const s=hook.read();document.body.dataset.ticks=String(ticks);document.body.dataset.phase=String(s.phase);if(Number.isFinite(s.score)&&s.score!==lastScore){lastScore=s.score;post('score',{score:s.score});}if(s.ended&&!ended){ended=true;running=false;clear();syncAudio();post('end',{score:Number.isFinite(s.score)?s.score:0,won:s.won});}}catch(error){running=false;syncAudio();post('error');}}
+ nativeRAF(pump);
+ }nativeRAF(pump);
+ window.addEventListener('error',()=>{running=false;syncAudio();post('error');});
+ window.addEventListener('unhandledrejection',()=>{running=false;syncAudio();post('error');});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden&&running)post('pause');},true);
+})();
+
+;
+// HEAD RUSH — deterministic simulation core (browser global HR / Node module).
+(function (root) {
+  'use strict';
+  const W = 240, H = 272, CX = 120, CY = 144;
+  const NR = 5; // lanes, 0 = outer
+  const TPS = 60, DT = 1 / TPS, SUB = 2;
+  const C = {
+    GAPW: 10,            // half-width of a crossover zone
+    SLIDE: 8,            // ticks of visual lateral slide
+    SPEED0: 115, STEP: 0.11, TIER_MAX: 7, BOOST: 1.6,
+    RIVAL: 0.75, RIVAL_STEP: 0.01, FRIGHT_SPD: 0.72, SPAWN_BEHIND: 1, SPAWN_MIN: 70, SPAWN_LATE: 2.5, FRIGHT0: 5.2, FRIGHT_STEP: 0.12, FRIGHT_MIN: 4.0, EAT_GRACE: 50, SAFE_D: 110, SAFE_AHEAD: 200, WARM: 45,
+    HIT: 8, DOT_R: 6, LOCK: 60, AGG0: 0.3, AGG_STEP: 0.05, DOT_GAP: 14, DOT_CLEAR: 16 /* dots stay clear of the 12 px wall opening around each gap */, CRASH_DROP: 0, BOOST_LOCK: 1, MULTI: 1, CROSS: 6, CROSS_STEP: 0.3, BOOST_LANES: 1, MAX_LANES: 2, HOLD_MIN: 12,
+    FOLLOW: 14,
+    MAX_CARS: 8, START_CARS: 4,
+    TIME: 180 * TPS,
+    READY0: 90, CRASH: 45, READY: 30, // the clock keeps running through a crash, so keep that gap short
+    HITSTOP: 5, RETURN: 150, LEADER_DELAY: 50,
+    FLY: 22,
+    CRUISE: 1, TRUCK_CHAIN: 1, TRUCK_MAX: 99, MULT_MAX: 64, CHAIN_LINEAR: 0, CRUISE_T1: 3, CRUISE_T2: 6, CRUISE_SPD: 0.8, CRUISE_BACK: 300,
+    LIVES: 3, EXTEND_FIRST: 3000, EXTEND_EVERY: 5000, MAX_LIVES: 6,
+    MORPH: 1, FEAST: 1, FEAST_FIRST: 3, FEAST_EVERY: 4, FEAST_T: 0.5,
+  };
+  // every tuning constant must be a finite number (catches a value lost to a bad edit or override)
+  const REQUIRED = ['GAPW', 'SLIDE', 'SPEED0', 'STEP', 'TIER_MAX', 'BOOST', 'RIVAL', 'RIVAL_STEP', 'SPAWN_BEHIND', 'SPAWN_MIN', 'SPAWN_LATE', 'FRIGHT0', 'FRIGHT_STEP', 'FRIGHT_MIN', 'EAT_GRACE', 'SAFE_D', 'SAFE_AHEAD', 'WARM', 'FRIGHT_SPD', 'HIT', 'DOT_R', 'LOCK', 'AGG0', 'AGG_STEP', 'DOT_GAP', 'DOT_CLEAR',
+    'CRASH_DROP', 'BOOST_LOCK', 'MULTI', 'CROSS', 'CROSS_STEP', 'BOOST_LANES', 'MAX_LANES', 'HOLD_MIN', 'FOLLOW', 'MAX_CARS', 'START_CARS', 'TIME', 'READY0', 'CRASH', 'READY', 'HITSTOP',
+    'RETURN', 'LEADER_DELAY', 'FLY', 'CRUISE', 'TRUCK_CHAIN', 'TRUCK_MAX', 'MULT_MAX', 'CHAIN_LINEAR', 'CRUISE_T1', 'CRUISE_T2', 'CRUISE_SPD', 'CRUISE_BACK', 'LIVES', 'EXTEND_FIRST', 'EXTEND_EVERY', 'MAX_LIVES', 'MORPH', 'FEAST', 'FEAST_FIRST', 'FEAST_EVERY', 'FEAST_T'];
+  function checkC() { const bad = REQUIRED.filter(k => !Number.isFinite(C[k])); if (bad.length) throw new Error('HEAD RUSH: invalid tuning constants ' + bad.join(', ')); }
+  // tuning override for Node sweeps only
+  if (typeof process !== 'undefined' && process.env && process.env.HR_C) Object.assign(C, JSON.parse(process.env.HR_C));
+
+  // ---------- courses: data only ----------
+  // gap: side 0 top / 1 left / 2 bottom / 3 right, off = lateral px from the side's centre (x for top/bottom, y for left/right),
+  // lo..hi = the lanes it joins (a car on lane r may go in if lo <= r < hi), dir 0 both / 1 inward only / -1 outward only.
+  const SQ = [108, 88, 68, 48, 28];
+  // A layout is two half-patterns. A pattern lists the left half's gaps, including the top-centre gap where the
+  // player (counter-clockwise) enters the left half; on the right half the same pattern is rotated 180 degrees.
+  // power = [lane, corner] on the left (corner 0 top-left / 1 bottom-left); rpower overrides it on the right.
+  const HALVES = [
+    { name: 'CLASSIC', gaps: [{ side: 0, off: 0, lo: 0, hi: 4 }, { side: 1, off: 0, lo: 0, hi: 4 }], power: [1, 0], rpower: [3, 2] },
+    { name: 'TWIN GATES', gaps: [{ side: 0, off: -36, lo: 0, hi: 3 }, { side: 1, off: 0, lo: 0, hi: 4 }, { side: 2, off: -36, lo: 0, hi: 3 }], power: [2, 1] },
+    // one-way entrance (dive in only), two-way side: keeps the flow without trapping the car
+    { name: 'UNDERTOW', gaps: [{ side: 0, off: 0, lo: 0, hi: 4, dir: 1 }, { side: 1, off: 0, lo: 0, hi: 4 }], power: [1, 0], rpower: [3, 2] },
+    // side gap for every lane, plus an entrance gap for the inner three lanes only
+    { name: 'LONG STRAIGHT', gaps: [{ side: 1, off: 0, lo: 0, hi: 4 }, { side: 0, off: 0, lo: 2, hi: 4 }], power: [1, 1], rpower: [3, 3] },
+    // bonus half: a power pellet on every lane corner, sparse dots, short stacking power (see C.FEAST_*)
+    { name: 'FEAST', feast: true, gaps: [{ side: 0, off: 0, lo: 0, hi: 4 }, { side: 1, off: 0, lo: 0, hi: 4 }], power: [0, 0],
+      powers: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1], [3, 0], [3, 1], [4, 0], [4, 1]] },
+    { name: 'LADDER', gaps: [{ side: 0, off: 0, lo: 0, hi: 4 }, { side: 1, off: -30, lo: 0, hi: 3 }, { side: 1, off: 30, lo: 0, hi: 3 }], power: [3, 0] },
+  ];
+  const rot = q => Object.assign({}, q, { side: (q.side + 2) % 4, off: -q.off });
+  // selectable starting layouts (both halves the same pattern)
+  const COURSES = HALVES.slice(0, 4).map((h, i) => ({ name: h.name, l: i, r: i }));
+  const PARK = [0, 2, 4];
+  // order the halves change into, easiest first (human-limited bot crashes/min: CLASSIC 2.0, TWIN 3.0, UNDERTOW 3.0, LONG 3.9, LADDER 4.1)
+  const SEQUENCE = [0, 1, 2, 3, 5];
+  const GEO = [];
+  let G = null; // geometry of the course currently simulated / drawn
+  function perOf(g, r) { return 4 * g.hw[r] + 4 * g.hh[r]; }
+  // arc position of a point on a side of lane r
+  function sideS(g, r, side, off) {
+    const w = g.hw[r], h = g.hh[r];
+    if (side === 0) return -off;
+    if (side === 1) return w + h + off;
+    if (side === 2) return 2 * w + 2 * h + off;
+    return 3 * w + 3 * h - off;
+  }
+  function cornerS(g, r, c) { const w = g.hw[r], h = g.hh[r]; return [w, w + 2 * h, 3 * w + 2 * h, 3 * w + 4 * h][c]; }
+  function canUse(gp, r, d) {
+    if (d > 0) return r + 1 < NR && gp.lo <= r && r < gp.hi && gp.dir !== -1;
+    if (d < 0) return r - 1 >= 0 && gp.lo <= r - 1 && r - 1 < gp.hi && gp.dir !== 1;
+    return false;
+  }
+  function build(pl, pr) {
+    const L = HALVES[pl], R = HALVES[pr];
+    const rp = q => [q[0], (q[1] + 2) % 4];
+    const c = { power: (L.powers || [L.power]).concat(R.powers ? R.powers.map(rp) : [R.rpower || rp(R.power)]), park: PARK };
+    const feast = [!!L.feast, !!R.feast];
+    const g = { id: pl * 10 + pr, pl, pr, hw: SQ, hh: SQ, ring: [],
+      gaps: L.gaps.map(q => Object.assign({ dir: 0, half: 0 }, q)).concat(R.gaps.map(q => Object.assign({ dir: 0, half: 1 }, rot(q)))) };
+    for (let r = 0; r < NR; r++) {
+      const P = perOf(g, r), lim = (q) => (q.side & 1 ? g.hh[r] : g.hw[r]) - 6;
+      g.ring[r] = g.gaps.map((q, gi) => ({ gi, s: ((sideS(g, r, q.side, q.off) % P) + P) % P, q }))
+        .filter(e => Math.abs(e.q.off) < lim(e.q) && (canUse(e.q, r, 1) || canUse(e.q, r, -1)))
+        .sort((a, b) => a.s - b.s);
+    }
+    G = g;
+    // dots: evenly spaced between gap exclusions; the half boundary (top and bottom centre) always splits a run,
+    // so each half's dots depend only on its own pattern. Power pellets snap to their corner.
+    const dots = [], byRing = [];
+    for (let r = 0; r < NR; r++) {
+      const P = perOf(g, r);
+      const pts = g.ring[r].map(e => ({ s: e.s, c: C.DOT_CLEAR }));
+      // same clearance with or without a gap there, so one half's pattern never moves the other half's dots
+      for (const b of [0, 2 * g.hw[r] + 2 * g.hh[r]]) if (!pts.some(q => Math.abs(q.s - b) < 1)) pts.push({ s: b, c: C.DOT_CLEAR });
+      pts.sort((x, y) => x.s - y.s);
+      byRing[r] = [];
+      const segs = [];
+      for (let i = 0; i < pts.length; i++) { const nx = i + 1 < pts.length ? pts[i + 1] : { s: pts[0].s + P, c: pts[0].c }; const a = pts[i].s + pts[i].c, b = nx.s - nx.c; if (b > a) segs.push([a, b]); }
+      for (const [a, b] of segs) {
+        const [mx] = pos(r, (a + b) / 2), dg = feast[mx < CX ? 0 : 1] ? C.DOT_GAP * 2 : C.DOT_GAP; // a feast half has sparse dots
+        const L = b - a, n = Math.max(1, 2 * Math.round(L / (2 * dg)) + 1);
+        for (let i = 0; i < n; i++) {
+          const s0 = n === 1 ? a + L / 2 : a + i * L / (n - 1);
+          byRing[r].push(dots.length); dots.push({ r, s: s0, power: false });
+        }
+      }
+    }
+    for (const [r, cn] of c.power) {
+      const cs = cornerS(g, r, cn); let best = -1, bd = 1e9;
+      for (const i of byRing[r]) { const P = perOf(g, r); let d = Math.abs(dots[i].s - cs); d = Math.min(d, P - d); if (d < bd) { bd = d; best = i; } }
+      if (best >= 0) { dots[best].s = cs; dots[best].power = true; }
+    }
+    for (const d of dots) { const [x, y] = pos(d.r, d.s); d.x = x; d.y = y; d.half = x < CX - 0.5 ? 0 : x > CX + 0.5 ? 1 : (y < CY ? 1 : 0); d.alive = true; }
+    g.dots = dots; g.byRing = byRing;
+    // parking spots at the quarter points of the park lanes, clear of gaps
+    g.spots = [];
+    for (const r of c.park) for (let side = 0; side < 4; side++) {
+      const half = (side & 1 ? g.hh[r] : g.hw[r]) / 2;
+      for (const off of [-half, half]) {
+        const sp = ((sideS(g, r, side, off) % perOf(g, r)) + perOf(g, r)) % perOf(g, r);
+        if (g.ring[r].some(e => { let d = Math.abs(e.s - sp); d = Math.min(d, perOf(g, r) - d); return d < C.GAPW + 2; })) continue;
+        g.spots.push({ r, s: sp });
+      }
+    }
+    g.spots.sort((a, b) => c.park.indexOf(a.r) - c.park.indexOf(b.r) || a.s - b.s);
+    const n = g.spots.length; g.startSpots = [4, 13, 22].map(f => Math.round(n * f / 24));
+    return g;
+  }
+  function geoLR(pl, pr) { const k = pl * 10 + pr; return GEO[k] || (GEO[k] = build(pl, pr)); }
+  function geo(ci) { return geoLR(COURSES[ci].l, COURSES[ci].r); }
+  function use(st) { const pl = st && st.pl != null ? st.pl : 0, pr = st && st.pr != null ? st.pr : 0; if (!G || G.id !== pl * 10 + pr) G = geoLR(pl, pr); return G; }
+
+  function mulberry(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function rnd(st) { const f = mulberry(st.seed); const v = f(); st.seed = (st.seed + 0x6D2B79F5) | 0; return v; }
+
+  const per = r => perOf(G, r);
+  function wrap(s, r) { const p = per(r); s %= p; return s < 0 ? s + p : s; }
+  function pos(r, s) {
+    const w = G.hw[r], h = G.hh[r], u = wrap(s, r);
+    if (u < w) return [CX - u, CY - h];
+    if (u < w + 2 * h) return [CX - w, CY - h + (u - w)];
+    if (u < 3 * w + 2 * h) return [CX - w + (u - w - 2 * h), CY + h];
+    if (u < 3 * w + 4 * h) return [CX + w, CY + h - (u - 3 * w - 2 * h)];
+    return [CX + w - (u - 3 * w - 4 * h), CY - h];
+  }
+  // unit tangent in +s (counter-clockwise) direction
+  function tan(r, s) {
+    const w = G.hw[r], h = G.hh[r], u = wrap(s, r);
+    if (u < w) return [-1, 0];
+    if (u < w + 2 * h) return [0, 1];
+    if (u < 3 * w + 2 * h) return [1, 0];
+    if (u < 3 * w + 4 * h) return [0, -1];
+    return [-1, 0];
+  }
+  // nearest gap on lane r: k = gap index, o = signed offset along +s
+  function gapOf(r, s) {
+    const P = per(r), u = wrap(s, r); let best = { k: -1, o: 1e9 };
+    for (const e of G.ring[r]) { let o = u - e.s; if (o > P / 2) o -= P; if (o < -P / 2) o += P; if (Math.abs(o) < Math.abs(best.o)) best = { k: e.gi, o }; }
+    return best;
+  }
+  // distance to the next gap centre travelling in direction dir (+1 ccw, -1 cw)
+  function distToGap(r, s, dir) {
+    const P = per(r), u = wrap(s, r); let best = Infinity;
+    for (const e of G.ring[r]) { let d = dir > 0 ? e.s - u : u - e.s; d = ((d % P) + P) % P; if (d === 0) d = P; if (d < best) best = d; }
+    return best;
+  }
+  function nextGapK(r, s, dir) {
+    const inz = gapOf(r, s);
+    if (Math.abs(inz.o) < C.GAPW) return inz.k;
+    const P = per(r), u = wrap(s, r); let best = Infinity, k = -1;
+    for (const e of G.ring[r]) { let d = dir > 0 ? e.s - u : u - e.s; d = ((d % P) + P) % P; if (d === 0) d = P; if (d < best) { best = d; k = e.gi; } }
+    return k;
+  }
+  function gapS(r, k) { const q = G.gaps[k]; return wrap(sideS(G, r, q.side, q.off), r); }
+  function gapSide(k) { return k >= 0 ? G.gaps[k].side : -1; }
+  function canShift(r, k, d) { return k >= 0 && canUse(G.gaps[k], r, d); }
+  function spotPos(i) { return G.spots[i]; }
+
+  function speed(st) { return C.SPEED0 * (1 + C.STEP * st.tier); }
+  // rivals start clearly slower than the player and close the gap as the race speeds up
+  function rivalSpeed(st) { return speed(st) * Math.min(1, C.RIVAL + C.RIVAL_STEP * st.tier); }
+  // power lasts FRIGHT0 seconds, shrinking by FRIGHT_STEP per speed tier down to FRIGHT_MIN
+  function frightTicks(tier) { return Math.round(TPS * Math.max(C.FRIGHT_MIN, C.FRIGHT0 - C.FRIGHT_STEP * tier)); }
+
+  function create(seed, opts) {
+    opts = opts || {};
+    const course = opts.course || 0; G = geo(course);
+    const pl = COURSES[course].l, pr = COURSES[course].r;
+    const st = {
+      course, pl, pr, hold: false, morphs: 0, feastDue: false, seqIdx: 0, base: 0,
+      lives: opts.lives != null ? opts.lives : C.LIVES, nextExtend: C.EXTEND_FIRST, overReason: null,
+      seed: seed | 0 || 1, tick: 0, phase: 'ready', phaseT: C.READY0, first: true,
+      timeLeft: opts.time || C.TIME, tier: 0, grace: 0, score: 0, stop: 0,
+      convoyOn: opts.convoy !== false, powerOn: opts.power !== false,
+      player: null, leader: null, cruisers: [], cruiseWait: 0, trail: [], trailD: 0, followers: [], flying: [], dormant: [], returning: [],
+      carsTotal: C.START_CARS, fright: 0, chain: 0, leaderWait: 0,
+      dots: G.dots.map(() => true), items: [], halfDone: [false, false],
+      events: [], stats: { dots: 0, eats: 0, maxChain: 0, crashes: 0, refills: 0, wakes: 0, powers: 0, wasted: 0, chainScore: 0 },
+      nextId: 1,
+    };
+    resetActors(st, true);
+    return st;
+  }
+
+  function newCar(st) { return st.nextId++; }
+  function spawnPlayer(st) {
+    st.player = { r: 0, s: 2 * G.hw[0] + 2 * G.hh[0] + 14, zk: -1, can: false, req: 0, reqN: 0, reqT: 0, zinT: 0, nShift: 0, lastShiftT: 0, holdDir: 0, holdT: 0, slT: 0, slx: 0, sly: 0, boost: false };
+  }
+  function prefillTrail(st, r, s) {
+    st.trail = []; st.trailD = 0;
+    for (let i = 20; i >= 0; i--) {
+      const ss = s + i * 8; const [x, y] = pos(r, ss);
+      st.trail.push({ d: -i * 8, x, y, r, s: ss });
+    }
+  }
+  function makeLeader(st, r, s, id, slx, sly) {
+    st.leader = { id, r, s, zk: gapOf(r, s).o < C.GAPW ? -2 : -1, can: false, slT: slx || sly ? C.SLIDE : 0, slx: slx || 0, sly: sly || 0, intent: 0 };
+    const g = gapOf(r, s); st.leader.zk = Math.abs(g.o) < C.GAPW ? g.k : -1;
+  }
+  function resetActors(st, initial) {
+    spawnPlayer(st);
+    if (st.cruisers) st.cruisers = st.cruisers.map(c => placeCruiser(st, c.id));
+    st.followers = []; st.flying = []; st.returning = []; st.fright = 0; st.chain = 0;
+    const used = new Set(); st.dormant = [];
+    if (initial) {
+      makeLeader(st, 2, wrap(-14, 2), newCar(st));
+      prefillTrail(st, 2, st.leader.s);
+      if (st.convoyOn) for (let i = 0; i < st.carsTotal - 1; i++) { st.dormant.push({ id: newCar(st), spot: G.startSpots[i % 3] + (i >= 3 ? 1 : 0) }); }
+      return;
+    }
+    // all rival cars park; farthest parked car becomes leader
+    const ids = [];
+    for (let i = 0; i < st.carsTotal; i++) ids.push(newCar(st));
+    const [px, py] = carXY(st.player);
+    const spots = G.spots.map((_, i) => i).filter(i => { const p = spotPos(i), [x, y] = pos(p.r, p.s); return Math.hypot(x - px, y - py) > 70 && p.r !== st.player.r; });
+    shuffle(st, spots);
+    let far = -1, fd = -1;
+    for (const i of spots) { const p = spotPos(i), [x, y] = pos(p.r, p.s); const d = Math.hypot(x - px, y - py); if (d > fd) { fd = d; far = i; } }
+    const lp = spotPos(far); makeLeader(st, lp.r, lp.s, ids[0]); prefillTrail(st, lp.r, lp.s); used.add(far);
+    if (st.convoyOn) {
+      let j = 1;
+      for (const i of spots) { if (j >= ids.length) break; if (used.has(i)) continue; st.dormant.push({ id: ids[j++], spot: i }); used.add(i); }
+    }
+  }
+  // cruiser: a lane-keeping truck, placed on the far side in a lane other than the player's
+  function placeCruiser(st, id) {
+    const p = st.player, taken = new Set((st.cruisers || []).map(c => c.r));
+    let lanes = []; for (let r = 0; r < NR; r++) if (r !== p.r && !taken.has(r)) lanes.push(r);
+    if (!lanes.length) lanes = [(p.r + 2) % NR];
+    const r = lanes[Math.floor(rnd(st) * lanes.length)];
+    const [px, py] = carXY(p); let best = 0, bd = -1;
+    for (let i = 0; i < 16; i++) { const s = per(r) * i / 16, [x, y] = pos(r, s), d = Math.hypot(x - px, y - py); if (d > bd) { bd = d; best = s; } }
+    return { id, r, s: best };
+  }
+  function shuffle(st, a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd(st) * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } }
+
+  function carXY(e) { const [x, y] = pos(e.r, e.s); const f = e.slT / C.SLIDE; return [x + e.slx * f, y + e.sly * f]; }
+
+  function sampleAt(st, d) {
+    const t = st.trail; if (!t.length) return null;
+    if (d <= t[0].d) return t[0];
+    if (d >= t[t.length - 1].d) return t[t.length - 1];
+    let lo = 0, hi = t.length - 1;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (t[m].d <= d) lo = m; else hi = m; }
+    const a = t[lo], b = t[hi], f = (d - a.d) / ((b.d - a.d) || 1);
+    return { d, x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f, r: f < 0.5 ? a.r : b.r, s: f < 0.5 ? a.s : b.s, dx: b.x - a.x, dy: b.y - a.y };
+  }
+  function followerXY(st, f) { const p = sampleAt(st, st.trailD - f.lag); return p ? [p.x, p.y] : [0, 0]; }
+  function tailLag(st) { return C.FOLLOW * (st.followers.length + 1 + st.flying.length); }
+
+  function shiftEnt(e, d, g) {
+    const [ox, oy] = carXY(e);
+    const nr = e.r + d;
+    e.r = nr; e.s = wrap(gapS(nr, g.k) + g.o, nr);
+    const [nx, ny] = pos(e.r, e.s);
+    e.slx = ox - nx; e.sly = oy - ny; e.slT = C.SLIDE; e.can = false;
+  }
+  function zoneStep(e) {
+    const g = gapOf(e.r, e.s);
+    if (Math.abs(g.o) < C.GAPW) { if (e.zk !== g.k) { e.zk = g.k; e.can = true; } return g; }
+    e.zk = -1; e.can = false; return null;
+  }
+  function leaderWant(st, L) {
+    const p = st.player; if (!p || st.phase !== 'play') return 0;
+    const pr = p.r;
+    if (st.fright > 0) {
+      if (L.r === pr) return L.r < 2 ? 1 : -1;
+      if (L.r < pr) return L.r > 0 ? -1 : 0;
+      return L.r < NR - 1 ? 1 : 0;
+    }
+    return Math.sign(pr - L.r);
+  }
+
+  // aggression rises with speed tier; a skipped turn shows no blinker
+  function lockTurn(st, L, k) {
+    L.locked = true; L.intent = st.aiBlind ? 0 : leaderWant(st, L); // aiBlind: a planning copy that does not foresee the rival's next turns
+    if (L.intent && !canShift(L.r, k, L.intent)) L.intent = 0; // one-way or partial gaps limit the rival too
+    if (L.intent && rnd(st) > Math.min(1, C.AGG0 + C.AGG_STEP * st.tier)) L.intent = 0;
+  }
+  // a tap queues one lane (repeat taps do not stack); holding the key keeps crossing
+  function queueTurn(st, p, d) { p.req = d; p.reqN = 1; p.reqT = st.tick; }
+  function ev(st, type, o) { const e = Object.assign({ type }, o || {}); st.events.push(e); return e; }
+
+  function step(st, inp) {
+    use(st);
+    st.events.length = 0;
+    inp = inp || {};
+    if (st.phase === 'over') return st;
+    if (st.stop > 0) { st.stop--; return st; }
+    st.tick++;
+    if ((!st.first && !st.hold) || st.phase === 'play') { if (st.timeLeft > 0) st.timeLeft--; }
+    // extends: one more car at EXTEND_FIRST points, then every EXTEND_EVERY points (up to MAX_LIVES)
+    while (C.EXTEND_FIRST > 0 && st.score >= st.nextExtend) { if (st.lives < C.MAX_LIVES) { st.lives++; ev(st, 'extend', { lives: st.lives }); } st.nextExtend += C.EXTEND_EVERY; }
+    if (st.timeLeft <= 0 && st.phase !== 'over') { st.phase = 'over'; st.overReason = 'time'; ev(st, 'timeover'); return st; }
+    if (st.timeLeft % TPS === 0 && st.timeLeft <= 10 * TPS && st.timeLeft > 0) ev(st, 'count', { n: st.timeLeft / TPS });
+    const p = st.player;
+    if (st.phase === 'ready') {
+      if (inp.in) queueTurn(st, p, 1); if (inp.out) queueTurn(st, p, -1);
+      if (--st.phaseT <= 0) { const first = st.first; st.phase = 'play'; st.first = false; st.hold = false; ev(st, 'go', { first }); }
+      return st;
+    }
+    if (st.phase === 'crash') {
+      if (--st.phaseT <= 0) {
+        if (st.lives <= 0) { st.phase = 'over'; st.overReason = 'lives'; ev(st, 'gameover'); return st; } // out of cars
+        resetActors(st, false); st.phase = 'ready'; st.phaseT = C.READY;
+      }
+      return st;
+    }
+    // --- play ---
+    // a tapped turn stays queued until the next gap; a gap passed without using it discards it
+    if (inp.in) queueTurn(st, p, 1); else if (inp.out) queueTurn(st, p, -1);
+    p.boost = !!inp.boost;
+    // how long the current direction has been held: a short press only ever moves one lane
+    const hd = inp.inHeld ? 1 : inp.outHeld ? -1 : 0;
+    if (hd && hd === p.holdDir) p.holdT++; else { p.holdDir = hd; p.holdT = hd ? 1 : 0; }
+    const pv = speed(st) * (p.boost ? C.BOOST : 1) * DT / SUB;
+    const rv = rivalSpeed(st) * (st.fright > 0 ? C.FRIGHT_SPD : 1) * DT / SUB;
+    if (st.grace > 0) st.grace--;
+    for (let sub = 0; sub < SUB; sub++) {
+      // player
+      p.s = wrap(p.s + pv, p.r); if (sub === 0 && p.slT > 0) p.slT--;
+      const wasZ = p.zk;
+      let g = zoneStep(p);
+      if (g && wasZ === -1) { p.zinT = st.tick; p.nShift = 0; }
+      if (!g && wasZ !== -1 && p.req && p.reqT <= p.zinT) { p.req = 0; p.reqN = 0; }
+      // normal speed: keep crossing one lane every C.CROSS ticks while still in the gap (slower = more lanes);
+      // full throttle: C.BOOST_LANES lanes at most
+      const maxN = p.boost && C.BOOST_LOCK ? C.BOOST_LANES : C.MULTI ? C.MAX_LANES : 1; // full throttle 1 lane, otherwise up to MAX_LANES
+      const cross = Math.max(3, Math.round(C.CROSS - C.CROSS_STEP * st.tier)); // quicker hands as the race speeds up: 3 lanes early, 2 at top tiers
+      const ready = p.can || (p.nShift > 0 && st.tick - p.lastShiftT >= cross && p.holdT >= C.HOLD_MIN);
+      if (g && ready && p.nShift < maxN) {
+        let d = 0;
+        if (p.req) d = p.req; else if (inp.inHeld) d = 1; else if (inp.outHeld) d = -1;
+        if (d && canShift(p.r, g.k, d)) {
+          shiftEnt(p, d, g); p.nShift++; p.lastShiftT = st.tick; st.shiftSinceEat = true;
+          if (p.req && --p.reqN <= 0) { p.req = 0; p.reqN = 0; }
+          ev(st, 'shift', { d, who: 'p', n: p.nShift });
+        }
+      }
+      // leader
+      const L = st.leader;
+      if (L && L.warm > 0) { if (sub === 0) L.warm--; } // a new leader waits in place, flashing, before it sets off
+      else if (L) {
+        L.s = wrap(L.s - rv, L.r); if (sub === 0 && L.slT > 0) L.slT--;
+        const lg = zoneStep(L);
+        // the rival locks its turn C.LOCK px before a gap (blinker), then executes it in the gap
+        if (!lg) { const dg = distToGap(L.r, L.s, -1); if (dg < C.LOCK + C.GAPW) { if (!L.locked) lockTurn(st, L, nextGapK(L.r, L.s, -1)); } else { L.locked = false; L.intent = 0; } }
+        else if (!L.locked) lockTurn(st, L, lg.k);
+        if (lg && L.can) { const d = L.intent; if (d && canShift(L.r, lg.k, d)) { shiftEnt(L, d, lg); ev(st, 'shift', { d, who: 'r' }); } else L.can = false; L.intent = 0; }
+        const [lx, ly] = carXY(L);
+        st.trailD += rv;
+        st.trail.push({ d: st.trailD, x: lx, y: ly, r: L.r, s: L.s });
+        const keep = st.trailD - (C.FOLLOW * (C.MAX_CARS + 2) + 20);
+        let cut = 0; while (cut < st.trail.length - 2 && st.trail[cut + 1].d < keep) cut++;
+        if (cut) st.trail.splice(0, cut);
+      }
+      for (const c of st.cruisers) c.s = wrap(c.s - rv * C.CRUISE_SPD, c.r);
+      for (let i = 0; i < st.followers.length; i++) {
+        const f = st.followers[i], tgt = C.FOLLOW * (i + 1);
+        if (f.lag > tgt) f.lag = Math.max(tgt, f.lag - 40 * DT / SUB);
+        if (f.lag < tgt) f.lag = tgt;
+      }
+      if (collide(st)) return st;
+    }
+    // flying cars join the convoy tail
+    for (let i = st.flying.length - 1; i >= 0; i--) {
+      const f = st.flying[i];
+      if (++f.t >= C.FLY) {
+        st.flying.splice(i, 1);
+        if (f.lead && !st.leader) { const p = spotPos(f.spot); makeLeader(st, p.r, p.s, f.id); prefillTrail(st, p.r, p.s); st.leader.warm = C.WARM; ev(st, 'leader', { relocated: true }); }
+        else if (f.spot != null) { st.dormant.push({ id: f.id, spot: f.spot }); ev(st, 'park'); }
+        else if (st.leader) { st.followers.push({ id: f.id, lag: C.FOLLOW * (st.followers.length + 1) }); ev(st, 'join'); }
+        else st.dormant.push({ id: f.id, spot: farSpot(st) });
+      }
+    }
+    // returning cars re-park
+    for (let i = st.returning.length - 1; i >= 0; i--) {
+      if (--st.returning[i].t <= 0) { const id = st.returning[i].id; st.returning.splice(i, 1); parkCar(st, id); }
+    }
+    // fright timer
+    // power ends on its timer, or as soon as nothing edible is left: the whole convoy and every truck eaten
+    if (st.fright > 0 && !st.leader && !st.followers.length && !st.cruisers.length && !st.flying.some(f => f.spot == null)) { st.fright = 1; }
+    if (st.fright > 0) { if (--st.fright === 0) { st.chain = 0; st.shiftSinceEat = false; ev(st, 'frightEnd'); } }
+    // cruisers join as the race speeds up; an eaten one comes back after C.CRUISE_BACK ticks
+    const want = !C.CRUISE ? 0 : st.tier >= C.CRUISE_T2 ? 2 : st.tier >= C.CRUISE_T1 ? 1 : 0;
+    if (st.cruisers.length < want && st.fright === 0) { if (++st.cruiseWait >= (st.cruiseBack || 60)) { st.cruisers.push(placeCruiser(st, newCar(st))); st.cruiseWait = 0; st.cruiseBack = 0; ev(st, 'cruiser'); } }
+    else st.cruiseWait = 0;
+    // new leader when none
+    // only a car already on its way to lead holds the countdown; parking flights and wakes do not
+    if (!st.leader && !st.flying.some(f => f.lead) && st.fright === 0) {
+      if (++st.leaderWait >= C.LEADER_DELAY) promoteDormant(st);
+    } else st.leaderWait = 0;
+    return st;
+  }
+
+  // CE-style refresh: the refilled half takes a different half-pattern; the other half keeps its gaps and dots
+  function morphHalf(st, half) {
+    const old = G, cur = half ? st.pr : st.pl;
+    // feast schedule: the flag numbered FEAST_FIRST, FEAST_FIRST + FEAST_EVERY, ... always turns the refilled half into FEAST.
+    // If that would put FEAST on both halves or twice running on this half, it moves to the next flag (no randomness).
+    const other = half ? st.pl : st.pr, fi = HALVES.findIndex(h => h.feast), k = st.morphs + 1;
+    if (C.FEAST && fi >= 0 && k >= C.FEAST_FIRST && (k - C.FEAST_FIRST) % C.FEAST_EVERY === 0) st.feastDue = true;
+    let nx;
+    if (st.feastDue && !HALVES[other].feast && !HALVES[cur].feast) { nx = fi; st.feastDue = false; }
+    else { // fixed order, easiest first: the next pattern in SEQUENCE after the starting course, skipping this half's current one
+      const L = SEQUENCE.length, start = SEQUENCE.indexOf(COURSES[st.course].l);
+      do { nx = SEQUENCE[(start + 1 + st.seqIdx++) % L]; } while (nx === cur);
+    }
+    if (half) st.pr = nx; else st.pl = nx;
+    G = geoLR(st.pl, st.pr); st.morphs++;
+    const alive = new Map(); old.dots.forEach((d, i) => alive.set(d.r + ':' + d.s.toFixed(2), st.dots[i]));
+    st.dots = G.dots.map(d => d.half === half ? true : (alive.has(d.r + ':' + d.s.toFixed(2)) ? alive.get(d.r + ':' + d.s.toFixed(2)) : true));
+    // parked / homing-to-park cars keep their place: map each old spot to the nearest free spot of the new layout
+    const taken = new Set();
+    const remap = i => { const o = old.spots[i]; let best = 0, bd = 1e9; G.spots.forEach((q, j) => { if (taken.has(j)) return; const [ax, ay] = pos(o.r, o.s), [bx, by] = pos(q.r, q.s), d = Math.hypot(ax - bx, ay - by); if (d < bd) { bd = d; best = j; } }); taken.add(best); return best; };
+    G = old; const oldSpots = st.dormant.map(d => d.spot), oldFly = st.flying.map(f => f.spot); G = geoLR(st.pl, st.pr);
+    st.dormant.forEach((d, i) => { d.spot = remap(oldSpots[i]); });
+    st.flying.forEach((f, i) => { if (oldFly[i] != null) f.spot = remap(oldFly[i]); });
+    // gap ids change with the layout: re-read the zone each car is in (a gap already used stays used)
+    for (const e of [st.player, st.leader]) if (e) { const g = gapOf(e.r, e.s); e.zk = Math.abs(g.o) < C.GAPW ? g.k : -1; e.can = false; e.locked = false; e.intent = 0; }
+    ev(st, 'morph', { half, pattern: nx });
+    if (HALVES[nx].feast) { st.stats.feasts = (st.stats.feasts || 0) + 1; ev(st, 'feast', { half }); }
+  }
+  function parkCar(st, id) {
+    const [px, py] = carXY(st.player);
+    const taken = new Set(st.dormant.map(d => d.spot));
+    const free = G.spots.map((_, i) => i).filter(i => !taken.has(i) && safeAt(st, spotPos(i).r, spotPos(i).s));
+    if (!free.length || !st.convoyOn) { st.returning.push({ id, t: 30 }); return; }
+    st.dormant.push({ id, spot: free[Math.floor(rnd(st) * free.length)] });
+    ev(st, 'park');
+  }
+  // where a car may appear: well away from the player, and never in the player's lane just ahead of it
+  function safeAt(st, r, s0) {
+    const p = st.player, [px, py] = carXY(p), [x, y] = pos(r, s0);
+    if (Math.hypot(x - px, y - py) < C.SAFE_D) return false;
+    if (r === p.r) { let d = (s0 - p.s) % per(r); if (d < 0) d += per(r); if (d < C.SAFE_AHEAD) return false; }
+    return true;
+  }
+  // how late the player reaches a place: 0 = just ahead of it, 1 = just behind it (rivals drive the other way,
+  // so a car appearing behind the player only comes round to meet it after most of a lap)
+  function lateness(st, r, s0) { const p = st.player; let f = s0 / per(r) - p.s / per(p.r); f -= Math.floor(f); return f; }
+  // estimated seconds until a rival starting at (r, s0) and the player come round to each other
+  function meetTime(st, r, s0) { const p = st.player, wp = speed(st) / per(p.r), wr = rivalSpeed(st) / per(r); return lateness(st, r, s0) / (wp + wr); }
+  function spawnOK(st, r, s0) { const [px, py] = carXY(st.player), [x, y] = pos(r, s0); return Math.hypot(x - px, y - py) >= C.SPAWN_MIN; }
+  function spawnScore(st, r, s0) { return C.SPAWN_BEHIND ? (spawnOK(st, r, s0) ? 100 + meetTime(st, r, s0) : -1) : (safeAt(st, r, s0) ? 1e4 : 0) + Math.hypot(...((a, b) => [a[0] - b[0], a[1] - b[1]])(pos(r, s0), carXY(st.player))); }
+  function farSpot(st) {
+    const [px, py] = carXY(st.player);
+    const taken = new Set(st.dormant.map(d => d.spot).concat(st.flying.map(f => f.spot)));
+    let bi = 0, bd = -1;
+    // farthest safe spot; the farthest of all only if none is safe
+    G.spots.forEach((_, i) => { if (taken.has(i)) return; const p = spotPos(i), d = spawnScore(st, p.r, p.s); if (d > bd) { bd = d; bi = i; } });
+    return bi;
+  }
+  function promoteDormant(st) {
+    if (!st.dormant.length) {
+      if (st.convoyOn) {
+        // nobody parked: the next car due back skips the rest of its wait and appears far away
+        if (!st.returning.length) return;
+        const r = st.returning.shift(), p = spotPos(farSpot(st));
+        makeLeader(st, p.r, p.s, r.id); prefillTrail(st, p.r, p.s); st.leader.warm = C.WARM; ev(st, 'leader'); return;
+      }
+      const id = st.returning.length ? st.returning.shift().id : newCar(st);
+      const [px, py] = carXY(st.player);
+      // convoy off: re-enter far from the player
+      let best = null, bd = -1;
+      for (let r = 0; r < NR; r++) for (let k = 0; k < 4; k++) { const s = cornerS(G, r, k); const [x, y] = pos(r, s); const d = Math.hypot(x - px, y - py); if (d > bd) { bd = d; best = { r, s }; } }
+      makeLeader(st, best.r, best.s, id); prefillTrail(st, best.r, best.s); st.leader.warm = C.WARM; ev(st, 'leader'); return;
+    }
+    const [px, py] = carXY(st.player);
+    let bi = -1, bd = -1, fi = 0, fd = -1;
+    st.dormant.forEach((d, i) => { const p = spotPos(d.spot), [x, y] = pos(p.r, p.s); const dd = Math.hypot(x - px, y - py); if (dd > fd) { fd = dd; fi = i; }
+      const ok = C.SPAWN_BEHIND ? spawnOK(st, p.r, p.s) && meetTime(st, p.r, p.s) >= C.SPAWN_LATE : safeAt(st, p.r, p.s), sc = C.SPAWN_BEHIND ? meetTime(st, p.r, p.s) : dd;
+      if (ok && sc > bd) { bd = sc; bi = i; } });
+    if (bi < 0) { // no parked car is in a safe place: the farthest one drives off to the far side first
+      const d = st.dormant.splice(fi, 1)[0], p = spotPos(d.spot), [x, y] = pos(p.r, p.s);
+      st.flying.push({ id: d.id, x0: x, y0: y, t: 0, spot: farSpot(st), lead: true }); return; // it leads from where it lands
+    }
+    const d = st.dormant.splice(bi, 1)[0], p = spotPos(d.spot);
+    makeLeader(st, p.r, p.s, d.id); prefillTrail(st, p.r, p.s); st.leader.warm = C.WARM; ev(st, 'leader');
+  }
+
+  function crash(st, x, y) {
+    st.phase = 'crash'; st.phaseT = C.CRASH; st.stats.crashes++; st.lives--;
+    st.tier = Math.max(0, st.tier - C.CRASH_DROP);
+    if (st.base > 0) { ev(st, 'baselost', { base: st.base }); st.base = 0; } // the truck bonus is the stake you drive with
+    ev(st, 'crash', { x, y });
+  }
+
+  // a truck scores nothing itself but raises the base factor for the rest of the run (x1 -> x2 -> x3 ..., up to x(1 + TRUCK_MAX);
+  // a crash loses it): with x2 every power's red cars score x2, x4, x8 ... Once the base is full, a truck simply scores like a red car.
+  function eatTruck(st, x, y) {
+    st.stats.truckEats = (st.stats.truckEats || 0) + 1;
+    if (st.base >= C.TRUCK_MAX) { eat(st, x, y, true); return; }
+    st.base++;
+    ev(st, 'eat', { x, y, pts: 0, chain: st.chain, truck: true, base: st.base, mult: mult(st, st.chain + 1) });
+    st.stop = C.HITSTOP; st.grace = C.EAT_GRACE;
+  }
+  // exact multiplier of the n-th red car of a power: base factor (x1 + one per truck, no cap by default) times the doubling chain x1, x2, x4 ...,
+  // the product capped at MULT_MAX (x64);
+  // CHAIN_LINEAR (off) would make the chain part x1, x2, x3 ...
+  function mult(st, n) { const chain = C.CHAIN_LINEAR ? n : Math.pow(2, Math.min(n, 7) - 1); return Math.min(C.MULT_MAX, (1 + st.base) * chain); } // the total is capped (x64 = 12,800 per car)
+  function eat(st, x, y, truck) {
+    const sw = st.chain > 0 && st.shiftSinceEat; st.shiftSinceEat = false;
+    st.chain++; st.stats.eats++; st.stats.maxChain = Math.max(st.stats.maxChain, st.chain);
+    // following the convoy's snake through a lane change doubles that hit
+    // chain value: doubling 200, 400, 800 ... (capped at x7), or linear 200 x multiplier when CHAIN_LINEAR
+    const m = mult(st, st.chain), pts = 200 * m * (sw ? 2 : 1);
+    if (sw) st.stats.switches = (st.stats.switches || 0) + 1;
+    st.score += pts; st.stats.chainScore += pts;
+    if (HALVES[x < CX ? st.pl : st.pr].feast) st.stats.feastScore = (st.stats.feastScore || 0) + pts;
+    ev(st, 'eat', { x, y, pts, chain: st.chain, mult: m, sw, boosted: st.base > 0, truckFull: !!truck });
+    st.stop = C.HITSTOP + Math.min(st.chain, 6);
+    st.grace = C.EAT_GRACE; // the next car in line cannot hit you right after a bite, even if the power just ran out
+  }
+
+  function collide(st) {
+    const p = st.player; const [px, py] = carXY(p), [qx, qy] = pos(p.r, p.s);
+    // pickups count where the car is drawn or where it is on its lane, so the sideways slide after a turn never skips a dot
+    const near = (x, y, r) => (Math.abs(x - px) < r && Math.abs(y - py) < r) || (Math.abs(x - qx) < r && Math.abs(y - qy) < r);
+    // dots on the player's lane
+    for (const i of G.byRing[p.r]) {
+      if (!st.dots[i]) continue; const d = G.dots[i];
+      if (near(d.x, d.y, C.DOT_R)) {
+        st.dots[i] = false;
+        if (d.power) {
+          st.score += 50; st.stats.powers++;
+          if (st.powerOn) {
+            if (!st.leader && !st.followers.length) st.stats.wasted++;
+            const onFeast = HALVES[d.half ? st.pr : st.pl].feast;
+            // feast pellets give short power that stacks (the chain carries on while it lasts)
+            st.fright = onFeast ? Math.min(frightTicks(st.tier), st.fright + Math.round(frightTicks(st.tier) * C.FEAST_T)) : frightTicks(st.tier);
+            ev(st, 'power', { x: d.x, y: d.y, feast: onFeast });
+          }
+        } else {
+          st.score += 10; st.stats.dots++; ev(st, 'dot', { x: d.x, y: d.y });
+          checkHalf(st, d.half);
+        }
+      }
+    }
+    // refill flags
+    for (let i = st.items.length - 1; i >= 0; i--) {
+      const it = st.items[i]; const [ix, iy] = pos(it.r, it.s);
+      if (Math.hypot(ix - px, iy - py) < C.HIT || Math.hypot(ix - qx, iy - qy) < C.HIT) {
+        st.items.splice(i, 1); st.tier = Math.min(C.TIER_MAX, st.tier + 1);
+        if (C.MORPH) morphHalf(st, it.half);
+        const pts = 500 * (st.tier + 1); st.score += pts; st.stats.refills++;
+        G.dots.forEach((d, j) => { if (d.half === it.half) st.dots[j] = true; });
+        st.halfDone[it.half] = false;
+        if (st.convoyOn && st.carsTotal < C.MAX_CARS) { st.carsTotal++; parkCar(st, newCar(st)); }
+        ev(st, 'refill', { x: ix, y: iy, pts, tier: st.tier, half: it.half });
+      }
+    }
+    // parked cars wake when driven over
+    for (let i = st.dormant.length - 1; i >= 0; i--) {
+      const dm = st.dormant[i], sp = spotPos(dm.spot), [x, y] = pos(sp.r, sp.s);
+      if (Math.hypot(x - px, y - py) < C.HIT) {
+        st.dormant.splice(i, 1); st.stats.wakes++;
+        // with no convoy to join, the woken car flies to the far side and waits to lead
+        if (st.leader) st.flying.push({ id: dm.id, x0: x, y0: y, t: 0 });
+        else st.flying.push({ id: dm.id, x0: x, y0: y, t: 0, spot: farSpot(st), lead: !st.flying.some(f => f.lead) }); // with no leader, it goes off to lead
+        ev(st, 'wake', { x, y });
+      }
+    }
+    // rival cars (planning copies with ghost set ignore them; after a bite, unpowered contact passes through)
+    if (st.ghost) return false;
+    const safe = st.fright === 0 && st.grace > 0;
+    const L = st.leader;
+    if (L && !safe && !(L.warm > 0)) {
+      const [lx, ly] = carXY(L);
+      if (Math.hypot(lx - px, ly - py) < C.HIT) {
+        if (st.fright > 0) {
+          eat(st, lx, ly); st.returning.push({ id: L.id, t: C.RETURN });
+          if (st.followers.length) {
+            const f = st.followers.shift(); const smp = sampleAt(st, st.trailD - f.lag);
+            const [ex, ey] = pos(smp.r, smp.s);
+            makeLeader(st, smp.r, smp.s, f.id, smp.x - ex, smp.y - ey);
+            st.leader.slT = C.SLIDE;
+            // drop trail beyond the new leader
+            const cutD = st.trailD - f.lag;
+            while (st.trail.length > 2 && st.trail[st.trail.length - 1].d > cutD) st.trail.pop();
+            st.trail.push({ d: cutD, x: smp.x, y: smp.y, r: smp.r, s: smp.s });
+            st.trailD = cutD;
+            for (const o of st.followers) o.lag = Math.max(0, o.lag - f.lag);
+          } else st.leader = null;
+          return false;
+        }
+        crash(st, (lx + px) / 2, (ly + py) / 2); return true;
+      }
+    }
+    if (safe) return false;
+    for (let i = 0; i < st.cruisers.length; i++) {
+      const c = st.cruisers[i], [cx, cy] = pos(c.r, c.s);
+      if (Math.hypot(cx - px, cy - py) < C.HIT) {
+        if (st.fright > 0) { (C.TRUCK_CHAIN ? eatTruck : eat)(st, cx, cy); st.cruisers.splice(i, 1); st.cruiseBack = C.CRUISE_BACK; return false; }
+        crash(st, (cx + px) / 2, (cy + py) / 2); return true;
+      }
+    }
+    for (let i = 0; i < st.followers.length; i++) {
+      const f = st.followers[i]; const [fx, fy] = followerXY(st, f);
+      if (Math.hypot(fx - px, fy - py) < C.HIT) {
+        if (st.fright > 0) { eat(st, fx, fy); st.returning.push({ id: f.id, t: C.RETURN }); st.followers.splice(i, 1); return false; }
+        crash(st, (fx + px) / 2, (fy + py) / 2); return true;
+      }
+    }
+    return false;
+  }
+
+  function checkHalf(st, half) {
+    if (st.halfDone[half]) return;
+    for (let i = 0; i < G.dots.length; i++) { const d = G.dots[i]; if (d.half === half && !d.power && st.dots[i]) return; }
+    st.halfDone[half] = true;
+    // the flag stands in a gap on the other half (or on a dot spot there if that half has no gap)
+    const cand = [];
+    for (let r = 0; r < NR; r++) for (const e of G.ring[r]) { const [x] = pos(r, e.s); if (half === 0 ? x > CX + 1 : x < CX - 1) cand.push({ r, s: e.s }); }
+    if (!cand.length) G.dots.forEach(d => { if (d.half !== half && !d.power) cand.push({ r: d.r, s: d.s }); });
+    const c = cand[Math.floor(rnd(st) * cand.length)];
+    st.items.push({ half, r: c.r, s: c.s });
+    ev(st, 'halfclear', { half });
+  }
+
+  function clone(st) {
+    return {
+      ...st, player: { ...st.player }, leader: st.leader && { ...st.leader },
+      cruisers: st.cruisers.map(c => ({ ...c })), trail: st.trail.slice(), followers: st.followers.map(f => ({ ...f })), flying: st.flying.map(f => ({ ...f })),
+      dormant: st.dormant.map(d => ({ ...d })), returning: st.returning.map(d => ({ ...d })), dots: st.dots.slice(),
+      items: st.items.map(i => ({ ...i })), halfDone: st.halfDone.slice(), events: [], stats: { ...st.stats },
+    };
+  }
+
+  // positions of all live rival cars (for rendering / bots)
+  function rivals(st) {
+    const out = [];
+    if (st.leader) { const [x, y] = carXY(st.leader); const t = tan(st.leader.r, st.leader.s); out.push({ id: st.leader.id, x, y, dx: -t[0], dy: -t[1], lead: true, r: st.leader.r }); }
+    for (const c of st.cruisers) { const [x, y] = pos(c.r, c.s), t = tan(c.r, c.s); out.push({ id: c.id, x, y, dx: -t[0], dy: -t[1], lead: false, cruiser: true, r: c.r }); }
+    st.followers.forEach(f => { const p = sampleAt(st, st.trailD - f.lag); const q = sampleAt(st, st.trailD - f.lag + 4); out.push({ id: f.id, x: p.x, y: p.y, dx: q.x - p.x, dy: q.y - p.y, lead: false, r: p.r }); });
+    return out;
+  }
+  function flyingXY(st, f) {
+    let tl;
+    if (f.spot != null) { const p = spotPos(f.spot), [x, y] = pos(p.r, p.s); tl = { x, y }; }
+    else tl = sampleAt(st, st.trailD - tailLag(st)) || { x: f.x0, y: f.y0 };
+    const k = f.t / C.FLY, e = k * k * (3 - 2 * k);
+    return [f.x0 + (tl.x - f.x0) * e, f.y0 + (tl.y - f.y0) * e - Math.sin(k * Math.PI) * 14];
+  }
+  // Predicted path of the player's own car if the current input is kept: through the gap it is at (or about to
+  // reach) and on to the next gap. Uses the real step on a copy with every other car removed, so it cannot disagree
+  // with the simulation about lanes crossed.
+  function predictPath(st, inp, maxT) {
+    const q = clone(st); q.leader = null; q.followers = []; q.flying = []; q.dormant = []; q.returning = []; q.cruisers = [];
+    q.items = []; q.leaderWait = -1e9; q.cruiseWait = -1e9; q.phase = 'play'; q.stop = 0; q.timeLeft = 1e9; q.fright = 0; q.powerOn = false;
+    const keep = { inHeld: !!inp.inHeld, outHeld: !!inp.outHeld, boost: !!inp.boost };
+    const pts = [carXY(q.player)];
+    let seen = Math.abs(gapOf(q.player.r, q.player.s).o) < C.GAPW, stage = 0; // 0 up to / in the first gap, 1 after it, 2 at the next gap
+    for (let t = 0; t < (maxT || 240) && stage < 2; t++) {
+      // stop at the edge of the next gap, before any crossing there
+      if (stage === 1 && distToGap(q.player.r, q.player.s, 1) - C.GAPW < 6) { stage = 2; break; }
+      step(q, keep); use(q);
+      const p = q.player, inz = Math.abs(gapOf(p.r, p.s).o) < C.GAPW;
+      if (stage === 0) { if (inz) seen = true; else if (seen) stage = 1; }
+      if (t % 2 === 0) pts.push(carXY(p));
+    }
+    pts.push(carXY(q.player));
+    use(st);
+    return { pts, lane: q.player.r, done: stage === 2 };
+  }
+  // Predicted path of the leading rival: through its next gap using the turn it has already signalled, on to the
+  // gap after. Later turns are not guessed (aiBlind), and the copy ignores collisions (ghost).
+  function predictRival(st, maxT) {
+    if (!st.leader) return null;
+    const q = clone(st); q.aiBlind = true; q.ghost = true; q.items = []; q.dormant = []; q.cruisers = []; q.leaderWait = -1e9; q.cruiseWait = -1e9;
+    q.stop = 0; q.timeLeft = 1e9; q.phase = 'play';
+    const pts = [carXY(q.leader)]; let seen = Math.abs(gapOf(q.leader.r, q.leader.s).o) < C.GAPW, stage = 0, id = q.leader.id;
+    for (let t = 0; t < (maxT || 240) && stage < 2; t++) {
+      const L = q.leader; if (!L || L.id !== id) break;
+      if (stage === 1 && distToGap(L.r, L.s, -1) - C.GAPW < 6) break;
+      step(q, {}); use(q);
+      const M = q.leader; if (!M) break;
+      const inz = Math.abs(gapOf(M.r, M.s).o) < C.GAPW;
+      if (stage === 0) { if (inz) seen = true; else if (seen) stage = 1; }
+      if (t % 2 === 0) pts.push(carXY(M));
+    }
+    if (q.leader) pts.push(carXY(q.leader));
+    use(st);
+    return { pts, lane: q.leader ? q.leader.r : -1 };
+  }
+  function dotsLeft(st, half) { use(st); let n = 0; G.dots.forEach((d, i) => { if (st.dots[i] && !d.power && (half == null || d.half === half)) n++; }); return n; }
+
+  checkC();
+  G = geo(0);
+  const HR = { W, H, CX, CY, NR, TPS, C, checkC, COURSES, HALVES, SEQUENCE, geo, geoLR, findGap: (side, off) => G.gaps.findIndex(q => q.side === side && q.off === (off || 0)), use, gapS, gapSide, canShift, cornerS: (r, c) => cornerS(G, r, c), get G() { return G; }, get RINGS() { return G.hw; }, get DOTS() { return G; }, create, step, clone, pos, tan, gapOf, wrap, per, carXY, rivals, flyingXY, spotPos, speed, distToGap, nextGapK, dotsLeft, mult, meetTime: (st, r, s0) => meetTime(st, r, s0), predictPath, predictRival, rivalSpeed, frightTicks };
+  if (typeof module !== 'undefined' && module.exports) module.exports = HR; else root.HR = HR;
+})(this);
+
+;
+// HEAD RUSH — simulated players (browser global HRBots / Node module).
+// Ladder: idle / hold-boost / mash / greedy-lane  <  human-limited planner  <  oracle planner.
+(function (root) {
+  'use strict';
+  const HR = root.HR || (typeof require !== 'undefined' ? require('./core.js') : null);
+  const { C, NR } = HR;
+
+  function mulberry(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { return (r() + r() + r() + r() - 2) * 1.7; }
+
+  function inZone(p) { return Math.abs(HR.gapOf(p.r, p.s).o) < C.GAPW; }
+  // within the gap zone, or less than `lead` px before one
+  function nearGap(p, lead) { const o = HR.gapOf(p.r, p.s).o; return o > -C.GAPW - lead && o < C.GAPW; }
+
+  // Roll out a plan [d1, d2] with boost mode 0 off / 1 on / 2 on until first gap.
+  function rollout(st0, plan, boostMode, horizon, w, lead) {
+    lead = lead == null ? 6 : lead;
+    const st = HR.clone(st0);
+    const s0 = st.score, t0 = st.stats.crashes;
+    let done = 0, was = inZone(st.player) && st.player.can, crashedAt = -1, n = 0;
+    for (let t = 0; t < horizon; t++) {
+      if (st.phase !== 'play') { if (st.phase === 'crash') { crashedAt = t; break; } if (st.phase === 'over') break; }
+      const d0 = done < plan.length ? plan[done] : 0, d = n < Math.abs(d0) ? Math.sign(d0) : 0;
+      const b = boostMode === 1 || (boostMode === 2 && !nearGap(st.player, lead));
+      HR.step(st, { inHeld: d > 0, outHeld: d < 0, boost: b });
+      for (const e of st.events) if (e.type === 'shift' && e.who === 'p') n++;
+      const now = inZone(st.player);
+      if (was && !now) { done++; n = 0; }
+      was = now;
+    }
+    let v = st.score - s0;
+    if (st.stats.crashes > t0 || crashedAt >= 0) return v - w.crash + crashedAt * 5;
+    // shaping: head for dots / flag, and while powered for the convoy
+    const [px, py] = HR.carXY(st.player);
+    let nd = 1e9;
+    const Gm = HR.use(st), ring = Gm.byRing;
+    for (let r = 0; r < NR; r++) for (const i of ring[r]) if (st.dots[i] && !Gm.dots[i].power) { const d = Gm.dots[i]; const dd = Math.abs(d.x - px) + Math.abs(d.y - py); if (dd < nd) nd = dd; }
+    if (nd < 1e9) v -= nd * w.dot;
+    for (const it of st.items) { const [ix, iy] = HR.pos(it.r, it.s); v -= (Math.abs(ix - px) + Math.abs(iy - py)) * w.item; }
+    if (st.fright > 20) {
+      let nr = 1e9; for (const c of HR.rivals(st)) nr = Math.min(nr, Math.hypot(c.x - px, c.y - py) + (c.r === st.player.r ? 0 : 40));
+      if (nr < 1e9) v -= nr * w.chase;
+    }
+    return v;
+  }
+
+  const PLANS = [];
+  for (const a of [0, 1, -1, 2, -2]) for (const b of [0, 1, -1]) PLANS.push([a, b]);
+
+  function plan(st, opts) {
+    let best = null, bv = -Infinity;
+    const plans = opts.plans || PLANS, boosts = opts.boosts || [0, 1, 2];
+    for (const pl of plans) {
+      if (st.player.r + pl[0] < 0 || st.player.r + pl[0] >= NR) continue;
+      for (const bm of boosts) {
+        if (bm === 1 && Math.abs(pl[0]) > (C.BOOST_LOCK ? C.BOOST_LANES : 9)) continue; // a turn plan never holds full throttle
+        const v = rollout(st, pl, bm, opts.horizon, opts.w, opts.lead) + (opts.noise ? opts.noise() : 0);
+        if (v > bv) { bv = v; best = { pl, bm }; }
+      }
+    }
+    HR.use(st); // a rollout may have morphed its clone's layout
+    return best;
+  }
+
+  const W_ORACLE = { crash: 6000, dot: 0.6, item: 2.5, chase: 6 };
+
+  // Strong policy: exact state, 2-gap plans, 1.8 s horizon, replans every 6 ticks.
+  function oracle(opts) {
+    opts = Object.assign({ horizon: 200, every: 6, w: W_ORACLE }, opts || {});
+    let cur = null, next = 0, done = 0, was = false, n = 0;
+    return function (st) {
+      if (st.phase !== 'play') { cur = null; return {}; }
+      for (const e of st.events) if (e.type === 'shift' && e.who === 'p') n++;
+      if (st.tick >= next || !cur) { cur = plan(st, opts); next = st.tick + opts.every; done = 0; n = 0; was = inZone(st.player) && st.player.can; }
+      const now = inZone(st.player); if (was && !now) { done++; n = 0; } was = now;
+      const d0 = cur ? (done < 2 ? cur.pl[done] : 0) : 0, d = n < Math.abs(d0) ? Math.sign(d0) : 0;
+      return { inHeld: d > 0, outHeld: d < 0, boost: !!cur && (cur.bm === 1 || (cur.bm === 2 && !nearGap(st.player, 6))) };
+    };
+  }
+
+  // Human-limited: stale lane-change perception (reaction ~0.27 s), position error,
+  // attention lapses (ignores the convoy tail), one-gap plans, shorter horizon,
+  // tap timing error against the gap window, lagged boost with minimum hold, 4-5 decisions/s.
+  function human(seed, opts) {
+    opts = Object.assign({ react: 16, posErr: 5, lapse: 0.3, blind: 0, horizon: 130, every: 13, tapSd: 4.5, boostLag: 9, early: 12, w: W_ORACLE }, opts || {});
+    const r = mulberry(seed * 7919 + 13);
+    const hist = [];
+    let mode = 0, next = 0, press = null, lastPress = -99, boostWant = false, boost = false, boostAt = 0, boostSince = 0;
+    const plans = opts.plans || (C.MULTI ? [[0, 0], [1, 0], [-1, 0], [2, 0], [-2, 0], [1, 1], [-1, -1]] : [[0, 0], [1, 0], [-1, 0], [1, 1], [-1, -1]]);
+    return function (st) {
+      if (st.phase !== 'play') { press = null; hist.length = 0; return { boost: false }; }
+      hist.push(st.leader ? { id: st.leader.id, r: st.leader.r } : null); if (hist.length > 60) hist.shift();
+      const out = { boost };
+      if (st.tick >= next) {
+        next = st.tick + opts.every + Math.floor(r() * 4);
+        const ps = HR.clone(st);
+        // perception: lane changes seen late, positions misread, tail sometimes unchecked
+        const old = hist[Math.max(0, hist.length - 1 - opts.react)];
+        if (ps.leader && old && old.id === ps.leader.id && old.r !== ps.leader.r) {
+          const g = HR.gapOf(ps.leader.r, ps.leader.s); ps.leader.r = old.r; ps.leader.s = HR.wrap(HR.gapS(old.r, g.k) + g.o, old.r); ps.leader.slT = 0;
+          ps.leader.zk = g.k; ps.leader.can = false;
+        }
+        if (ps.leader) ps.leader.s = HR.wrap(ps.leader.s + gauss(r) * opts.posErr, ps.leader.r);
+        if (r() < opts.lapse) ps.followers = [];
+        if (r() < opts.blind) ps.aiBlind = true; // plans as if the rival keeps its lane after the blinker it shows now
+        const b = plan(ps, { plans, boosts: opts.boosts || [0, 1, 2], horizon: opts.horizon, w: opts.w, lead: HR.speed(st) * C.BOOST / 60 * (opts.boostLag + opts.early), noise: () => gauss(r) * 40 });
+        if (b) {
+          mode = b.bm;
+          const d = b.pl[0];
+          if (d && st.tick - lastPress > 8) {
+            const p = st.player;
+            const v = HR.speed(st) * (boost ? C.BOOST : 1) / 60;
+            const inz = inZone(p) && p.can;
+            const used = inZone(p) && !p.can;
+            const dist = used ? HR.distToGap(p.r, p.s + C.GAPW, 1) + C.GAPW : HR.distToGap(p.r, p.s, 1);
+            const untilZone = inz ? 0 : Math.max(0, (dist - C.GAPW) / v);
+            const t = st.tick + Math.max(2, Math.round(untilZone - 3 - (Math.abs(d) > 1 ? C.HOLD_MIN + 4 : 0) + gauss(r) * opts.tapSd)); // a multi-lane move starts holding early
+            // re-aim the tap each decision; a tap already due keeps its (possibly erroneous) time
+            if (!press || press.d !== d || press.t > t + 6) press = { t, d, hold: 0 };
+          }
+          if (!d) press = null;
+        }
+      }
+            if (press && st.tick >= press.t && !press.hold) {
+        out[press.d > 0 ? 'in' : 'out'] = true; lastPress = st.tick;
+        if (Math.abs(press.d) > 1) { press.hold = 1; press.start = st.tick; } else press = null;
+      }
+      // two lanes: keep holding into the gap and let go by rhythm after the second crossing
+      if (press && press.hold) {
+        const p = st.player, dir = Math.sign(press.d);
+        if (press.hold === 1 && inZone(p)) { press.hold = 2; press.until = Math.max(st.tick + Math.max(3, Math.round(C.CROSS - C.CROSS_STEP * st.tier)), press.start + C.HOLD_MIN) + 2 + Math.round(gauss(r) * 2); }
+        if (press.hold === 2 && st.tick >= press.until) { press = null; }
+        else out[dir > 0 ? 'inHeld' : 'outHeld'] = true;
+        if (press && press.hold === 1 && st.tick - lastPress > 80) press = null;
+      }
+      // straights-only boost: let go a reaction-time ahead of the gap, with timing error
+      const lead = HR.speed(st) * C.BOOST / 60 * (opts.boostLag + opts.early) + gauss(r) * 4;
+      boostWant = mode === 1 || (mode === 2 && !nearGap(st.player, lead));
+      if (boostWant !== boost) {
+        if (!boostAt) boostAt = st.tick + opts.boostLag + Math.floor(r() * 6);
+        if (st.tick >= boostAt && st.tick - boostSince > 18) { boost = boostWant; boostSince = st.tick; boostAt = 0; }
+      } else boostAt = 0;
+      out.boost = boost;
+      return out;
+    };
+  }
+
+  const simple = {
+    idle: () => () => ({}),
+    holdBoost: () => () => ({ boost: true }),
+    mash: seed => { const r = mulberry(seed); return st => { const o = {}; if (st.tick % 9 === 0) { const x = r(); if (x < 0.4) o.in = true; else if (x < 0.8) o.out = true; } o.boost = r() < 0.5; return o; }; },
+    // go to the lane with most dots, never looks at rivals
+    greedy: () => st => {
+      let best = st.player.r, bn = -1;
+      for (let r = 0; r < NR; r++) { let n = 0; for (const i of HR.use(st).byRing[r]) if (st.dots[i]) n++; n -= Math.abs(r - st.player.r) * 2; if (n > bn) { bn = n; best = r; } }
+      if (st.items.length) best = st.items[0].r;
+      return { inHeld: best > st.player.r, outHeld: best < st.player.r };
+    },
+  };
+
+  function run(policy, seed, opts) {
+    const st = HR.create(seed, opts);
+    let presses = 0, lastIn = false, lastOut = false;
+    while (st.phase !== 'over') {
+      const inp = policy(st) || {};
+      if ((inp.in || (inp.inHeld && !lastIn)) || (inp.out || (inp.outHeld && !lastOut))) presses++;
+      lastIn = !!inp.inHeld; lastOut = !!inp.outHeld;
+      HR.step(st, inp);
+    }
+    return { score: st.score, tier: st.tier, stats: st.stats, presses, perMin: presses / 3 };
+  }
+
+  const HRBots = { oracle, human, simple, run, rollout, plan };
+  if (typeof module !== 'undefined' && module.exports) module.exports = HRBots; else root.HRBots = HRBots;
+})(this);
+
+;
+// HEAD RUSH — sound hardware model. Target: Sega System 1 (1983) sound section, i.e. two SN76489A PSGs
+// (2 MHz and 4 MHz, mixed mono 0.40 / 0.60, per MAME system1.cpp), driven by a 60 Hz sound driver.
+// Chip behaviour follows MAME sn76496.cpp for the SN76489A: f = clock / (32 N), 10-bit N (0 means 1024),
+// 2 dB volume steps (15 = off), noise LFSR feedback 0x10000 with taps 0x04 / 0x08, shift every 512 / 1024 /
+// 2048 clocks or once per tone-3 cycle. The 60 Hz driver cadence is an assumption, not taken from a game ROM.
+// The whole file is one self-contained factory so the browser can run it inside an AudioWorklet.
+(function (root) {
+  function HRSoundFactory() {
+    'use strict';
+    const FPS = 60;
+    const VOL = []; { let v = 1; for (let i = 0; i < 15; i++) { VOL.push(v); v /= 1.258925412; } VOL.push(0); }
+
+    class PSG {
+      constructor(clock) {
+        this.clock = clock; this.tickRate = clock / 16;
+        this.period = [0x400, 0x400, 0x400, 32]; this.count = [1, 1, 1, 1]; this.out = [0, 0, 0, 0];
+        this.att = [15, 15, 15, 15]; this.noiseReg = 0; this.rng = 0x10000; this.acc = 0;
+      }
+      nOf(f) { return Math.max(1, Math.min(1023, Math.round(this.clock / (32 * f)))); } // the only pitches the chip can make
+      tone(ch, n) { n &= 0x3ff; this.period[ch] = n === 0 ? 0x400 : n; if (ch === 2 && (this.noiseReg & 3) === 3) this.period[3] = this.period[2] * 2; }
+      vol(ch, a) { this.att[ch] = Math.max(0, Math.min(15, a | 0)); }
+      noise(mode) { // writing the noise register resets the shift register, as on the chip
+        this.noiseReg = mode & 7; this.rng = 0x10000; const n = mode & 3;
+        this.period[3] = n === 3 ? this.period[2] * 2 : (1 << (5 + n));
+      }
+      tick() {
+        for (let i = 0; i < 3; i++) if (--this.count[i] <= 0) { this.out[i] ^= 1; this.count[i] = this.period[i]; }
+        if (--this.count[3] <= 0) {
+          this.count[3] = this.period[3];
+          const white = (this.noiseReg & 4) !== 0;
+          if (((this.rng & 0x04) !== 0) !== (((this.rng & 0x08) !== 0) && white)) { this.rng >>= 1; this.rng |= 0x10000; } else this.rng >>= 1;
+          this.out[3] = this.rng & 1;
+        }
+      }
+      level() { let s = 0; for (let i = 0; i < 4; i++) s += (this.out[i] ? VOL[this.att[i]] : -VOL[this.att[i]]); return s / 4; }
+      // average of all chip ticks that fall inside one output sample (a box filter against aliasing)
+      sample(sr) {
+        this.acc += this.tickRate / sr; let s = 0, n = 0;
+        while (this.acc >= 1) { this.acc -= 1; this.tick(); s += this.level(); n++; }
+        return n ? s / n : this.level();
+      }
+    }
+
+    const midiHz = m => 440 * Math.pow(2, (m - 69) / 12);
+
+    // ---------- BGM (chip A): trance-techno, 8 bars of 16ths, Am F C G | Am F G E, 128 steps ----------
+    // ch2 = four-on-the-floor kick (pitch dive on the beat) + off-beat pumping bass, one channel taking turns
+    // ch1 = trance-gate arpeggio (chord tones in 16ths, 3-3-2 accents)       ch0 = soft half-bar pad; the bright lead is the power's alone
+    // noise = off-beat open hat, clap on 2 and 4, 16th hats from tier 4, snare roll build in bar 8, breakdown in bar 7
+    const _ = -1; // hold the previous lead note
+    const PAD = [[69, 69], [69, 64], [67, 67], [71, 67], [69, 69], [69, 64], [74, 67], [68, 76]]; // two long notes per bar, in the arpeggio's register
+    const ROOT = [45, 41, 48, 43, 45, 41, 43, 40];                      // A F C G | A F G E (bass, octave 2-3)
+    const CHORD = [[69, 72, 76], [65, 69, 72], [67, 72, 76], [67, 71, 74], [69, 72, 76], [65, 69, 72], [67, 71, 74], [64, 68, 71]];
+    const ARP = [0, 2, 3, 2, 1, 2, 3, 2, 0, 2, 3, 2, 1, 3, 2, 3];         // index into [root, third, fifth, octave]
+    const GATE = [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0];        // 3-3-2 accents of the trance gate
+    const TEMPO = [7, 7, 6, 6, 5, 5, 4, 4];                              // frames per 16th by tier: 129 / 150 / 180 / 225 BPM
+    const BREAK = 6, BUILD = 7;                                          // bar 7 drops the kick, bar 8 rolls the snare
+
+    function leadAt(step, tier, fright) {
+      const bar = step >> 4, s = step & 15;
+      // powered: a bright 8th-note run up the bar's chord, an octave above the arpeggio (stays in key with everything else)
+      if (fright) return s % 2 === 0 ? CHORD[bar][(s >> 1) % 3] + 12 : _;
+      if (tier < 2) return s === 0 ? 0 : _;                             // tiers 0-1: groove only
+      return s % 8 === 0 ? PAD[bar][s >> 3] : _;                        // from tier 2: a quiet pad under the groove
+    }
+    function leadLen(step, tier, fright) { let n = 1; while (n < 16 && leadAt((step + n) % 128, tier, fright) === _) n++; return n; }
+    function kickAt(step) { const bar = step >> 4, s = step & 15; return bar !== BREAK && s % 4 === 0; }
+    function bassAt(step) { const bar = step >> 4, s = step & 15; if (bar === BREAK) return s % 8 === 2 ? ROOT[bar] : 0; return s % 4 === 2 ? ROOT[bar] + (s === 14 ? 12 : 0) : 0; }
+    function arpAt(step, tier, fright) {
+      const bar = step >> 4, s = step & 15;
+      const c = CHORD[bar], tones = [c[0], c[1], c[2], c[0] + 12];
+      let m = tones[ARP[s]];
+      if (tier >= 6 && bar >= 4 && m + 12 <= 88) m += 12;                // top speed: second half an octave up (not above E6)
+      return { note: m, accent: !!GATE[s] };
+    }
+    function drumAt(step, tier) {
+      const bar = step >> 4, s = step & 15;
+      if (bar === BUILD) { if (s >= 8 || s % 2 === 0) return 'snare'; return null; } // snare roll into the loop
+      if (tier >= 2 && (s === 4 || s === 12)) return 'clap';
+      if (s % 4 === 2) return 'open';
+      return tier >= 4 ? 'hat' : null;
+    }
+    // pure description of one step, for tests and diagnostics
+    function stepEvents(step, tier, fright) {
+      tier = Math.max(0, Math.min(7, tier | 0));
+      return { lead: leadAt(step, tier, fright), kick: kickAt(step), bass: bassAt(step), arp: arpAt(step, tier, fright), drum: drumAt(step, tier), frames: TEMPO[tier] };
+    }
+    const DRUM = { hat: [4, 8, 1, 4], open: [4, 6, 4, 2], clap: [5, 3, 6, 2], snare: [5, 4, 4, 2] }; // [noise mode, first attenuation, frames, decay per frame]
+
+    class Music {
+      constructor(p) { this.p = p; this.on = false; this.tier = 0; this.fright = false; this.step = 0; this.fi = 0; this.v = [null, null, null, null]; this.noiseMode = -1; }
+      set(on, tier, fright) {
+        tier = Math.max(0, Math.min(7, tier | 0));
+        if (on && !this.on) { this.step = 0; this.fi = 0; }
+        this.on = !!on; this.tier = tier; this.fright = !!fright;
+      }
+      frame() {
+        const p = this.p;
+        if (!this.on) { for (let c = 0; c < 4; c++) p.vol(c, 15); this.v = [null, null, null, null]; return; }
+        const spf = TEMPO[this.tier];
+        if (this.fi === 0) this.startStep(spf);
+        // lead: slow swell, vibrato after 8 frames; the unpowered pad stays far below it, so a bright melody always means power
+        const L = this.v[0];
+        if (L) { const k = L.t++; const n = L.n + (k > 8 ? ((k >> 1) & 1 ? 1 : -1) * Math.max(1, Math.round(L.n * 0.006)) : 0); p.tone(0, n); p.vol(0, L.soft ? Math.max(9, 12 - (k >> 2)) : Math.max(3, 7 - (k >> 1))); if (--L.g <= 0) this.v[0] = null; } else p.vol(0, 15);
+        // arpeggio: one gated 16th, accents louder, a short tail
+        const A = this.v[1];
+        if (A) { const k = A.t++; p.tone(1, A.n); p.vol(1, Math.min(15, (A.accent ? 4 : 8) + k * 2)); if (--A.g <= 0) this.v[1] = null; } else p.vol(1, 15);
+        // ch2: kick dives in pitch for 3 frames, the bass holds a flat off-beat note
+        const B = this.v[2];
+        if (B && B.kick) { const k = B.t++; p.tone(2, B.n[Math.min(k, 2)]); p.vol(2, [1, 3, 7][Math.min(k, 2)]); if (k >= 2) this.v[2] = null; }
+        else if (B) { p.tone(2, B.n); p.vol(2, 4); if (--B.g <= 0) this.v[2] = null; } else p.vol(2, 15);
+        // drums on the noise channel
+        const D = this.v[3];
+        if (D) { const [mode, a0, len, dec] = DRUM[D.kind]; if (mode !== this.noiseMode) { p.noise(mode); this.noiseMode = mode; } p.vol(3, Math.min(15, a0 + D.t * dec)); if (++D.t >= len) this.v[3] = null; } else p.vol(3, 15);
+        if (++this.fi >= spf) { this.fi = 0; this.step = (this.step + 1) % 128; }
+      }
+      startStep(spf) {
+        const e = stepEvents(this.step, this.tier, this.fright), p = this.p;
+        if (e.lead > 0) this.v[0] = { n: p.nOf(midiHz(e.lead)), t: 0, g: leadLen(this.step, this.tier, this.fright) * spf - 1, soft: !this.fright };
+        else if (e.lead === 0) this.v[0] = null;
+        this.v[1] = { n: p.nOf(midiHz(e.arp.note)), accent: e.arp.accent, t: 0, g: spf - 1 };
+        if (e.kick) this.v[2] = { kick: true, n: [p.nOf(196), p.nOf(98), p.nOf(62)], t: 0 };
+        else if (e.bass) this.v[2] = { n: p.nOf(midiHz(e.bass)), g: spf - 1 };
+        if (e.drum) this.v[3] = { kind: e.drum, t: 0 };
+      }
+    }
+
+    // ---------- SE programs (chip B): per-frame [Hz, attenuation] for tone voices, [mode, attenuation] for noise ----------
+    const tn = (f, n, a0, a1) => Array.from({ length: n }, (_, i) => [f, Math.round(a0 + ((a1 == null ? a0 : a1) - a0) * i / Math.max(1, n - 1))]);
+    const sweep = (f0, f1, n, a0, a1) => Array.from({ length: n }, (_, i) => [f0 * Math.pow(f1 / f0, i / Math.max(1, n - 1)), Math.round(a0 + (a1 - a0) * i / Math.max(1, n - 1))]);
+    const seq = (fs, lens, a, decay) => fs.flatMap((f, i) => { const n = Array.isArray(lens) ? lens[i] : lens; return tn(f, n, a, a + (decay || 0)); });
+    const nz = (mode, n, a0, a1) => Array.from({ length: n }, (_, i) => [mode, Math.round(a0 + (a1 - a0) * i / Math.max(1, n - 1))]);
+    const rest = n => tn(0, n, 15);
+    const low = (fs, k) => fs.map(f => f * k);
+    // every pitched SE stays in the BGM's key (A natural minor) so the music is never muddied
+    const AMIN = [220, 247, 262, 294, 330, 349, 392, 440, 494, 523, 587, 659, 698, 784];
+    // A minor from A5 up, above the BGM's register: speed sets the starting step, an unbroken run of dots climbs from there
+    const DOT_SCALE = [880, 988, 1047, 1175, 1319, 1397, 1568, 1760, 1976, 2093, 2349, 2637, 2794, 3136], DOT_CLIMB = 6;
+    const JINGLE = 3;
+    const PROGRAMS = {
+      // arg = tier + 10 x (dots eaten in a row): one scale step per dot, then a two-note shimmer at the top of the climb
+      dot: a => { a = a | 0; const t = Math.min(7, a % 10), run = (a / 10) | 0, k = run <= DOT_CLIMB ? run : DOT_CLIMB - (run & 1); return { prio: 0, tones: [tn(DOT_SCALE[t + k], 3, 6, 11)] }; },
+      shift: n => (n >= 2 ? { prio: 1, noise: nz(4, 6, 2, 11), tones: [seq([1319, 1760], [2, 4], 4, 3)] } : { prio: 1, noise: nz(4, 6, 2, 11) }), // the second lane of one gap rings higher
+      arm: () => ({ prio: 1, tones: [tn(1760, 2, 6)] }), // held long enough to keep crossing: the double blinker lights
+      boost: () => ({ prio: 1, noise: nz(5, 8, 4, 12) }),
+      rshift: () => ({ prio: 1, tones: [sweep(180, 125, 4, 6, 9)] }),
+      power: () => ({ prio: 2, tones: [seq([440, 523, 659, 880], [2, 2, 2, 6], 5, 2)] }), // A minor arpeggio: in key with the BGM
+      eat: chain => { const i = Math.min(9, Math.max(1, chain) - 1), b = AMIN[i]; return { prio: 3, tones: [seq([b, AMIN[i + 4], b * 2], [4, 4, 7], 2, 2)], noise: nz(4, 6, 3, 13) }; }, // each bite one scale step higher: root, diatonic fifth, octave
+      crash: () => ({ prio: 4, tones: [sweep(220, 123, 36, 2, 12)], noise: nz(6, 54, 0, 15) }),
+      wake: () => ({ prio: 1, tones: [seq([659, 0, 659], [3, 2, 3], 3)] }),
+      join: () => ({ prio: 1, tones: [sweep(131, 123, 6, 4, 8)] }),
+      halfclear: () => ({ prio: 2, tones: [seq([523, 659, 784], 4, 4)] }),
+      refill: () => { const m = [523, 659, 784, 1047, 784, 1047]; return { prio: JINGLE, tones: [seq(m, 4, 3), seq(low(m, 0.75), 4, 7)] }; },
+      frightEnd: () => ({ prio: 1, tones: [sweep(400, 200, 8, 3, 8)] }),
+      count: n => ({ prio: 2, tones: [tn(n <= 3 ? 1318 : 988, 4, 5)] }),
+      // game start: a soft rise up the A minor chord to a held E, each note fading; quieter and lower than the other jingles
+      start: () => ({ prio: JINGLE, tones: [seq([330, 440, 523, 659], [6, 6, 6, 20], 5, 3), seq([165, 220, 262, 330], [6, 6, 6, 20], 9, 3)] }),
+      go: () => ({ prio: JINGLE, tones: [seq([392, 392, 784], [7, 7, 18], 3), seq([196, 196, 392], [7, 7, 18], 6)] }),
+      timeover: () => ({ prio: JINGLE, tones: [seq([784, 659, 523, 392], 8, 3), seq([392, 330, 262, 196], 8, 6)] }),
+      courseclear: () => ({ prio: JINGLE, tones: [seq([523, 659, 784, 1047, 1319, 1047, 1319, 1568], [5, 5, 5, 5, 5, 5, 5, 18], 3), seq([262, 330, 392, 523, 659, 523, 659, 784], [5, 5, 5, 5, 5, 5, 5, 18], 7)] }),
+      cruiser: () => ({ prio: 1, tones: [seq([123, 0, 123], [7, 1, 12], 5)] }),
+      entry: () => ({ prio: JINGLE, tones: [seq([392, 523, 659, 784, 659, 784, 1047], 6, 3), seq([196, 262, 330, 392, 330, 392, 523], 6, 7)] }),
+      feast: () => ({ prio: 2, delay: 27, tones: [seq([659, 784, 988, 1319, 988, 1319, 1568], 4, 3)] }),
+      extend: () => ({ prio: JINGLE, tones: [seq([784, 988, 1175, 1568, 1175, 1568], 5, 2), seq([392, 494, 587, 784, 587, 784], 5, 6)] }),
+      gameover: () => ({ prio: 4, tones: [seq([523, 494, 466, 440, 415, 392], [10, 10, 10, 10, 10, 30], 3, 3), seq([262, 247, 233, 220, 208, 196], [10, 10, 10, 10, 10, 30], 7, 3)] }),
+      leader: () => ({ prio: 1, tones: [sweep(150, 300, 8, 4, 8)] }),
+      truck: () => ({ prio: 3, tones: [seq([392, 523, 784, 1047], [3, 3, 3, 9], 2, 1), seq([196, 262, 392, 523], [3, 3, 3, 9], 7)] }), // base multiplier up
+      baselost: () => ({ prio: 2, tones: [seq([392, 262], [6, 14], 4, 4)] }),
+    };
+    const NOISE_ENGINE = 3; // periodic noise clocked by tone 3: the low engine buzz
+
+    class SE {
+      constructor(p) { this.p = p; this.slot = [null, null]; this.nslot = null; this.queue = []; this.later = []; this.engine = { on: false, spd: 0, boost: false, fright: false, ph: 0 }; this.noiseMode = -1; this.log = []; this.lastDot = -9; this.frameNo = 0; }
+      request(name, arg) {
+        const mk = PROGRAMS[name]; if (!mk) return false;
+        if (name === 'dot' && this.frameNo - this.lastDot < 2) return false; // repeat cap
+        if (name === 'dot') this.lastDot = this.frameNo;
+        const prog = mk(arg); prog.name = name;
+        if (prog.delay) this.later.push({ at: this.frameNo + prog.delay, prog }); else this.queue.push(prog);
+        return true;
+      }
+      // allocate everything requested in this frame at once, highest priority first; losers are dropped
+      allocate() {
+        for (let i = this.later.length - 1; i >= 0; i--) if (this.later[i].at <= this.frameNo) { this.queue.push(this.later[i].prog); this.later.splice(i, 1); }
+        if (!this.queue.length) return;
+        const reqs = this.queue.sort((a, b) => b.prio - a.prio); this.queue = [];
+        for (const prog of reqs) {
+          const got = [];
+          for (const v of prog.tones || []) {
+            let best = -1;
+            for (let c = 0; c < 2; c++) { if (got.includes(c)) continue; const s = this.slot[c]; if (!s) { best = c; break; } if (s.prio <= prog.prio && s.fresh !== this.frameNo && (best < 0 || s.prio < this.slot[best].prio)) best = c; }
+            if (best < 0) break;
+            got.push(best); this.slot[best] = { prio: prog.prio, data: v, i: 0, name: prog.name, fresh: this.frameNo };
+          }
+          let noiseOk = false;
+          if (prog.noise && (!this.nslot || (this.nslot.prio <= prog.prio && this.nslot.fresh !== this.frameNo))) { this.nslot = { prio: prog.prio, data: prog.noise, i: 0, name: prog.name, fresh: this.frameNo }; noiseOk = true; }
+          this.log.push({ f: this.frameNo, name: prog.name, voices: got.length, wanted: (prog.tones || []).length, noise: noiseOk });
+        }
+      }
+      frame() {
+        const p = this.p; this.allocate();
+        for (let c = 0; c < 2; c++) {
+          const s = this.slot[c];
+          if (!s) { p.vol(c, 15); continue; }
+          const [f, a] = s.data[s.i];
+          if (f > 0) { p.tone(c, p.nOf(f)); p.vol(c, a); } else p.vol(c, 15);
+          if (++s.i >= s.data.length) this.slot[c] = null;
+        }
+        const n = this.nslot, E = this.engine;
+        if (n) {
+          const [mode, a] = n.data[n.i]; if (mode !== this.noiseMode) { p.noise(mode); this.noiseMode = mode; } p.vol(3, a);
+          if (++n.i >= n.data.length) this.nslot = null;
+        } else if (E.on) {
+          E.ph += 0.25;
+          const f2 = 300 + E.spd * 2.4 * (E.boost ? 1.35 : 1);
+          p.tone(2, p.nOf(f2)); p.vol(2, 15);
+          if (this.noiseMode !== NOISE_ENGINE) { p.noise(NOISE_ENGINE); this.noiseMode = NOISE_ENGINE; }
+          p.vol(3, E.boost ? 9 : 11);
+        } else p.vol(3, 15);
+        p.vol(2, 15);
+        this.frameNo++;
+      }
+      busy() { return this.slot.filter(Boolean).length; }
+    }
+
+    class Sound {
+      constructor(sr) {
+        this.sr = sr; this.A = new PSG(2000000); this.B = new PSG(4000000);
+        this.music = new Music(this.A); this.se = new SE(this.B); this.spf = sr / FPS; this.fAcc = 0; this.muted = false; this.gain = 2.2; // master: as loud as the densest mix allows without clipping
+      }
+      command(m) {
+        if (m.t === 'se') this.se.request(m.name, m.arg);
+        else if (m.t === 'music') this.music.set(m.on, m.tier, m.fright);
+        else if (m.t === 'engine') Object.assign(this.se.engine, { on: !!m.on, spd: m.spd || 0, boost: !!m.boost, fright: !!m.fright });
+        else if (m.t === 'mute') this.muted = !!m.muted;
+      }
+      render(out) {
+        for (let i = 0; i < out.length; i++) {
+          if (this.fAcc <= 0) { this.music.frame(); this.se.frame(); this.fAcc += this.spf; }
+          this.fAcc--;
+          const v = (0.40 * this.A.sample(this.sr) + 0.60 * this.B.sample(this.sr)) * this.gain; // System 1 mix
+          out[i] = this.muted ? 0 : v;
+        }
+      }
+    }
+    return { Sound, PSG, Music, SE, PROGRAMS, VOL, TEMPO, stepEvents, midiHz, FPS, JINGLE };
+  }
+  const api = HRSoundFactory();
+  api.factorySource = '(' + HRSoundFactory.toString() + ')()';
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.HRSound = api;
+})(this);
+
+;
+// HEAD RUSH — audio adapter. Game code calls play / music / engine; everything is rendered by the
+// two-SN76489A model in psg.js (Sega System 1-style sound board), inside an AudioWorklet when available,
+// otherwise in a ScriptProcessorNode running the same code.
+(function (root) {
+  'use strict';
+  let ctx = null, node = null, local = null, muted = false, hidden = false, starting = false, pending = null;
+  const last = {};
+  function send(m) { if (local) local.command(m); else if (node) node.port.postMessage(m); }
+  function sendIfChanged(key, m) { const s = JSON.stringify(m); if (last[key] === s) return; last[key] = s; send(m); }
+
+  async function start() {
+    const AC = root.AudioContext || root.webkitAudioContext; if (!AC) return;
+    ctx = new AC();
+    try {
+      if (!ctx.audioWorklet) throw new Error('no worklet');
+      const src = 'const HRS = ' + root.HRSound.factorySource + ';\n' +
+        'class HRPsg extends AudioWorkletProcessor {\n' +
+        '  constructor() { super(); this.s = new HRS.Sound(sampleRate); this.port.onmessage = e => this.s.command(e.data); }\n' +
+        '  process(i, o) { const ch = o[0]; this.s.render(ch[0]); for (let c = 1; c < ch.length; c++) ch[c].set(ch[0]); return true; }\n' +
+        '}\nregisterProcessor("hr-psg", HRPsg);';
+      const url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url);
+      node = new AudioWorkletNode(ctx, 'hr-psg', { outputChannelCount: [1] });
+    } catch (e) {
+      // fallback: the same chip model on the main thread
+      local = new root.HRSound.Sound(ctx.sampleRate);
+      node = ctx.createScriptProcessor(1024, 0, 1);
+      node.onaudioprocess = ev => local.render(ev.outputBuffer.getChannelData(0));
+    }
+    node.connect(ctx.destination);
+    for (const k in last) send(JSON.parse(last[k]));
+    send({ t: 'mute', muted });
+    // the key press that unlocks audio is also the one that starts the game: play its jingle once the chips exist
+    if (pending && performance.now() - pending.at < 500 && !muted && !hidden) send(pending.m);
+    pending = null;
+  }
+
+  const A = {
+    init() {
+      if (ctx) { if (ctx.state === 'suspended' && !hidden) ctx.resume(); return; }
+      if (starting) return; starting = true; start();
+    },
+    get muted() { return muted; },
+    get state() { return ctx ? ctx.state : 'none'; },
+    get backend() { return local ? 'script' : node ? 'worklet' : 'none'; },
+    toggleMute() { muted = !muted; send({ t: 'mute', muted }); return muted; },
+    play(name, arg) {
+      if (muted || hidden) return;
+      if (!node) { pending = { m: { t: 'se', name, arg }, at: performance.now() }; return; }
+      send({ t: 'se', name, arg });
+    },
+    // continuous state, sent only when it changes
+    music(on, tier, fright) { sendIfChanged('music', { t: 'music', on: !!on && !hidden, tier: tier | 0, fright: !!fright }); },
+    engine(on, spd, boost, fright) { sendIfChanged('engine', { t: 'engine', on: !!on && !hidden, spd: Number.isFinite(spd) ? Math.round(spd) : 0, boost: !!boost, fright: !!fright }); },
+    // host visibility: hidden pages suspend output; visible resumes only what the game still requests
+    setHidden(h) { hidden = h; if (!ctx) return; if (h) ctx.suspend(); else ctx.resume(); },
+    SE_NAMES: () => Object.keys(root.HRSound.PROGRAMS),
+  };
+  root.HRAudio = A;
+  if (typeof module !== 'undefined' && module.exports) module.exports = A;
+})(this);
+
+;
+// HEAD RUSH — rendering, input, arcade flow.
+(function () {
+  'use strict';
+  const { W, H, CX, CY, C, NR } = HR;
+  const cv = document.getElementById('screen');
+  const g = cv.getContext('2d');
+  cv.width = W; cv.height = H;
+  const COL = { bg: '#000', wall: '#2040c0', wall2: '#101c58', dot: '#f0f0f0', power: '#f8b000', me: '#f8e800', rival: '#f83000', rival2: '#b82000',
+    fright: '#3070f8', oneway: '#70a8f8', path: '#9c8c20', cruiser: '#b048f0', flash: '#f0f0f0', dorm: '#686868', text: '#f0f0f0', dim: '#7890b8', pts: '#50f0f0', flag: '#f0f0f0', blink: '#f8b000' };
+  const params = new URLSearchParams(location.search);
+  const TEST = params.has('test');
+
+  // ---------- 3x5 font ----------
+  // 5x7 arcade bitmap font, 6 px advance
+  const FONT = {}, FD = {
+    A: '.###.#...##...#######...##...##...#', B: '####.#...##...#####.#...##...#####.', C: '.###.#...##....#....#....#...#.###.',
+    D: '####.#...##...##...##...##...#####.', E: '######....#....####.#....#....#####', F: '######....#....####.#....#....#....',
+    G: '.###.#...##....#.####...##...#.####', H: '#...##...##...#######...##...##...#', I: '.###...#....#....#....#....#...###.',
+    J: '..###...#....#....#.#..#.#..#..##..', K: '#...##..#.#.#..##...#.#..#..#.#...#', L: '#....#....#....#....#....#....#####',
+    M: '#...###.###.#.##.#.##...##...##...#', N: '#...###..##.#.##..###...##...##...#', O: '.###.#...##...##...##...##...#.###.',
+    P: '####.#...##...#####.#....#....#....', Q: '.###.#...##...##...##.#.##..#..##.#', R: '####.#...##...#####.#.#..#..#.#...#',
+    S: '.###.#...##.....###.....##...#.###.', T: '#####..#....#....#....#....#....#..', U: '#...##...##...##...##...##...#.###.',
+    V: '#...##...##...##...##...#.#.#...#..', W: '#...##...##...##.#.##.#.###.###...#', X: '#...##...#.#.#...#...#.#.#...##...#',
+    Y: '#...##...#.#.#...#....#....#....#..', Z: '#####....#...#...#...#...#....#####',
+    0: '.###.#..###.#.##.#.##.#.###..#.###.', 1: '..#...##....#....#....#....#...###.', 2: '.###.#...#....#..##..#...#....#####',
+    3: '.###.#...#....#..##.....##...#.###.', 4: '...#...##..#.#.#..#.#####...#....#.', 5: '######....####.....#....##...#.###.',
+    6: '..##..#...#....####.#...##...#.###.', 7: '#####....#...#...#...#....#....#...', 8: '.###.#...##...#.###.#...##...#.###.',
+    9: '.###.#...##...#.####....#...#..##..', ':': '.......#....#.........#....#.......', '-': '...............#####...............',
+    '!': '..#....#....#....#....#.........#..', x: '..........#...#.#.#...#...#.#.#...#', '.': '................................#..',
+    '<': '...#...#...#...#.....#.....#.....#.', '>': '.#.....#.....#.....#...#...#...#...', '+': '.......#....#..#####..#....#.......',
+    '/': '....#....#...#...#...#...#....#....', '_': '..............................#####',
+  };
+  for (const k in FD) FONT[k] = FD[k];
+  function text(s, x, y, col, sc) {
+    sc = sc || 1; g.fillStyle = col || COL.text; s = String(s).toUpperCase().replace(/X(?=\d)/g, 'x');
+    for (let c = 0; c < s.length; c++) {
+      const gl = FONT[s[c]] || (s[c] === 'x' ? FONT.x : null); if (gl) for (let i = 0; i < 35; i++) if (gl[i] === '#') g.fillRect(x + (c * 6 + i % 5) * sc, y + ((i / 5) | 0) * sc, sc, sc);
+    }
+  }
+  const tw = (s, sc) => (String(s).length * 6 - 1) * (sc || 1);
+  const ctext = (s, y, col, sc) => { const w = tw(s, sc), x = Math.round((W - w) / 2); g.fillStyle = COL.bg; g.fillRect(x - 2, y - 2, w + 4, 7 * (sc || 1) + 4); text(s, x, y, col, sc); };
+
+  // ---------- car sprite ----------
+  // cars 13x9 facing right: t tyre (shimmers with travel), b body, s twin stripe, g windshield, h headlight
+  const CAR = ['..tt.....tt..', '.bbbbbbbbbbb.', 'bbbbbbbbggbbh', 'bssssssbggbbb', 'bbbbbbbbggbbb', 'bssssssbggbbb', 'bbbbbbbbggbbh', '.bbbbbbbbbbb.', '..tt.....tt..'];
+  // cruiser: 17x9 box truck with a separate cab, so its silhouette differs from the homing cars
+  const TRUCK = ['..tt.......tt.tt.', 'bbbbbbbbbbbb.bbb.', 'bbbbbbbbbbbb.bggh', 'bssssssssssb.bggb', 'bbbbbbbbbbbb.bggb', 'bssssssssssb.bggb', 'bbbbbbbbbbbb.bggh', 'bbbbbbbbbbbb.bbb.', '..tt.......tt.tt.'];
+  const shadeCache = {};
+  function shade(hex, k) { const key = hex + k; if (shadeCache[key]) return shadeCache[key]; const n = parseInt(hex.slice(1), 16), f = c => Math.round(((n >> c) & 255) * k).toString(16).padStart(2, '0'); return (shadeCache[key] = '#' + f(16) + f(8) + f(0)); }
+  let tyre = 0;
+  // 7x5 reserve-car icon for the lives counter
+  function miniCar(x, y) { g.fillStyle = COL.me; g.fillRect(x - 3, y - 2, 7, 5); g.fillStyle = '#60d0f8'; g.fillRect(x + 1, y - 1, 1, 3); g.fillStyle = '#202020'; g.fillRect(x - 2, y - 3, 2, 1); g.fillRect(x + 1, y - 3, 2, 1); g.fillRect(x - 2, y + 3, 2, 1); g.fillRect(x + 1, y + 3, 2, 1); }
+  // lean: [lx, ly] screen offset for the front of the car, so a lane change reads as steering into the new lane
+  function car(x, y, dx, dy, col, glass, spr, stripe, lean) {
+    spr = spr || CAR; x = Math.round(x); y = Math.round(y);
+    const hor = Math.abs(dx) >= Math.abs(dy), sgn = hor ? Math.sign(dx) || 1 : Math.sign(dy) || 1, cw = spr[0].length, ch = spr.length, c0 = (cw - 1) >> 1, r0 = (ch - 1) >> 1;
+    const st = stripe || shade(col, 0.55), gl = glass || '#60d0f8', ty = ((x + y + tyre) >> 1) & 1 ? '#202020' : '#585858';
+    for (let j = 0; j < ch; j++) for (let i = 0; i < cw; i++) {
+      const k = spr[j][i]; if (k === '.') continue;
+      let u = i - c0, v = j - r0; if (sgn < 0) { u = -u; v = -v; }
+      let px = hor ? x + u : x - v, py = hor ? y + v : y + u;
+      if (lean && i - c0 >= 2) { px += lean[0]; py += lean[1]; }
+      g.fillStyle = k === 't' ? ty : k === 'g' ? gl : k === 'h' ? '#f8f8c0' : k === 's' ? st : col;
+      g.fillRect(px, py, 1, 1);
+    }
+  }
+
+  // ---------- state ----------
+  let st = null, mode = 'title', demo = null, demoPolicy = null, overT = 0, paused = false, hi = 0;
+  // title menu: choose the starting course of the 3:00 run
+  const sel = { course: 0 }; // the run always starts on CLASSIC (kept as a field for tests and the ?course= debug parameter)
+  // top-5 per starting course; defaults merge at read time and are never written
+  const DEF = [['ACE', 50000], ['RUN', 35000], ['ZIP', 22000], ['CAR', 12000], ['DOT', 6000]];
+  const rankKey = () => 'head-rush-rank-s' + sel.course;
+  const modeName = () => '3:00 SCORE ATTACK';
+  function savedRank() { try { const a = JSON.parse(localStorage.getItem(rankKey()) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function readRank() {
+    const d = DEF.map(([n, v]) => ({ n, s: v, def: true }));
+    return savedRank().concat(d).sort((a, b) => b.s - a.s).slice(0, 5);
+  }
+  function loadHi() { hi = readRank()[0].s; }
+  // a new score ties in its own favour
+  const rankOf = sc => { const t = readRank(); let i = 0; while (i < t.length && t[i].s > sc) i++; return i; };
+  function saveRank(name, sc) {
+    const a = savedRank(); a.push({ n: name, s: sc, t: Date.now() }); a.sort((x, y) => y.s - x.s || y.t - x.t);
+    try { localStorage.setItem(rankKey(), JSON.stringify(a.slice(0, 5))); } catch (e) { }
+  }
+  const BOARD = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.-'.split('').concat(['DEL', 'END']);
+  const entry = { name: '', cur: 0, t: 0, rank: 0, newRank: -1 };
+  loadHi();
+  const fx = [], pops = [], rings = [];
+  let wreck = null, nameT = [0, 0], baseFlash = 0, shake = 0, flashHalf = [0, 0], lastTier = 0, lastInp = {};
+  // feel: knocked-off cars, crash debris, skid marks, lane sweep on speed-up, flag drop, blinker phase, dot run, power wave
+  const knocked = [], skids = [], sweeps = [];
+  let shakeDir = null, crashHide = -1, clearFlash = [0, 0], flagDrop = [-99, -99], blink0 = -99, lastQ = 0, wasArmed = false, lastBoost = false,
+    dotRun = 0, lastDotT = -99, powerT0 = -99, frPrev = false, pipFlash = 0, timePulse = 0;
+
+  function newGame() { loadHi(); st = HR.create((Date.now() & 0xffff) + 1, { course: params.has('course') ? +params.get('course') : sel.course }); fx.length = 0; pops.length = 0; knocked.length = 0; skids.length = 0; sweeps.length = 0; wreck = null; mode = 'play'; lastTier = 0; }
+  function newDemo() { demo = HR.create(((Math.random() * 1e6) | 0) + 1); demoPolicy = HRBots.human(((Math.random() * 1e6) | 0) + 1); }
+  newDemo();
+
+  // ---------- input ----------
+  const held = {}, edge = {};
+  const DIRK = { ArrowUp: 'u', KeyW: 'u', ArrowDown: 'd', KeyS: 'd', ArrowLeft: 'l', KeyA: 'l', ArrowRight: 'r', KeyD: 'r' };
+  const BOOSTK = { Space: 1, ShiftLeft: 1, ShiftRight: 1, KeyZ: 1, KeyX: 1 };
+  addEventListener('keydown', e => {
+    if (DIRK[e.code] || BOOSTK[e.code] || e.code === 'Enter') e.preventDefault();
+    HRAudio.init();
+    if (e.repeat) return;
+    const k = DIRK[e.code]; if (k) { held[k] = true; edge[k] = true; }
+    if (BOOSTK[e.code]) held.b = (held.b || 0) + 1, edge.start = true;
+    if (e.code === 'Enter') edge.start = true;
+    if (e.code === 'KeyP' && mode === 'play') paused = !paused;
+    if (e.code === 'KeyM') HRAudio.toggleMute();
+    if (paused && e.code !== 'KeyP' && e.code !== 'KeyM') paused = false;
+  });
+  addEventListener('keyup', e => { const k = DIRK[e.code]; if (k) held[k] = false; if (BOOSTK[e.code]) held.b = Math.max(0, (held.b || 1) - 1); });
+  addEventListener('blur', () => { for (const k in held) held[k] = false; held.b = 0; if (mode === 'play') paused = true; });
+  document.addEventListener('visibilitychange', () => { HRAudio.setHidden(document.hidden); if (document.hidden && mode === 'play') paused = true; });
+  // touch: tap inside your lane ring = in, outside = out; a second finger held = boost
+  const touches = new Map();
+  function toLogical(t) { const r = cv.getBoundingClientRect(); return [(t.clientX - r.left) / r.width * W, (t.clientY - r.top) / r.height * H]; }
+  cv.addEventListener('touchstart', e => {
+    e.preventDefault(); HRAudio.init(); edge.start = true;
+    for (const t of e.changedTouches) {
+      touches.set(t.identifier, 1);
+      if (st && mode === 'play') { const [x, y] = toLogical(t); const Gm = HR.use(st), r = st.player.r; edge[Math.abs(x - CX) < Gm.hw[r] && Math.abs(y - CY) < Gm.hh[r] ? 'tin' : 'tout'] = true; }
+    }
+    held.tb = touches.size >= 2;
+  }, { passive: false });
+  const tend = e => { for (const t of e.changedTouches) touches.delete(t.identifier); held.tb = touches.size >= 2; };
+  cv.addEventListener('touchend', tend); cv.addEventListener('touchcancel', tend);
+
+  // arrow keys mean "toward / away from the centre" at the gap the car reaches next
+  const MAP = [{ d: 1, u: -1 }, { r: 1, l: -1 }, { u: 1, d: -1 }, { l: 1, r: -1 }];
+  function readInput() {
+    HR.use(st); const p = st.player, k = HR.nextGapK(p.r, p.s, 1), m = MAP[HR.gapSide(k)] || {};
+    const inp = { boost: !!held.b || !!held.tb || !!pad.b };
+    for (const d of 'udlr') {
+      const v = m[d]; if (!v) continue;
+      if (edge[d]) inp[v > 0 ? 'in' : 'out'] = true;
+      if (held[d] || pad[d]) inp[v > 0 ? 'inHeld' : 'outHeld'] = true;
+    }
+    if (edge.tin) inp.in = true; if (edge.tout) inp.out = true;
+    return inp;
+  }
+  function clearEdges() { for (const k in edge) edge[k] = false; }
+  // gamepad: d-pad or left stick = arrows, A / B / R1 = accelerate (and start), Start = start / pause
+  const pad = {}, padPrev = {};
+  function pollPad() {
+    const gp = navigator.getGamepads ? [...navigator.getGamepads()].find(q => q && q.connected) : null;
+    const b = i => !!(gp && gp.buttons[i] && gp.buttons[i].pressed), ax = i => (gp && gp.axes[i]) || 0;
+    const now = { u: b(12) || ax(1) < -0.5, d: b(13) || ax(1) > 0.5, l: b(14) || ax(0) < -0.5, r: b(15) || ax(0) > 0.5, b: b(0) || b(1) || b(5), st: b(9) };
+    for (const k in now) { if (now[k] && !padPrev[k]) { if ('udlr'.includes(k)) edge[k] = true; else { edge.start = true; HRAudio.init(); if (k === 'st' && mode === 'play') paused = !paused; else if (paused) paused = false; } } padPrev[k] = now[k]; pad[k] = now[k]; }
+  }
+
+  // ---------- events → audio / fx ----------
+  const SILENT = { park: 1, morph: 1 }; // parking is visual only; a morph rides on the refill fanfare // parking is visual only
+  // the player's travel direction and the outward normal of the side it is on
+  function outward(x, y) { const ox = x - CX, oy = y - CY; return Math.abs(ox) * H > Math.abs(oy) * W ? [Math.sign(ox), 0] : [0, Math.sign(oy) || 1]; }
+  function handleEvents(s, audible) {
+    const p = s.player;
+    for (const e of s.events) {
+      // a dot run climbs the scale; it breaks when a lane change or a stretch with no dot comes between two dots
+      if (e.type === 'dot') { const sp = HR.speed(s) * (p.boost ? C.BOOST : 1) / 60; dotRun = s.tick - lastDotT > 30 / sp ? 0 : dotRun + 1; lastDotT = s.tick; }
+      if (e.type === 'shift' && e.who === 'p') dotRun = -1, lastDotT = -99;
+      const arg = e.type === 'eat' ? (e.truck ? e.base : e.chain) : e.type === 'count' ? e.n : e.type === 'shift' ? e.n : e.type === 'dot' ? s.tier + 10 * Math.max(0, dotRun) : s.tier;
+      if (audible && !SILENT[e.type] && !(e.type === 'go' && e.first)) HRAudio.play(e.type === 'shift' ? (e.who === 'p' ? 'shift' : 'rshift') : e.type === 'eat' && e.truck ? 'truck' : e.type, arg);
+      if (e.type === 'eat') {
+        // a truck raises the base multiplier: show the new multiplier big, in the truck's colour
+        if (e.truck) { pops.push({ x: e.x, y: e.y, t: 0, s: 'BASE x' + (e.base + 1), big: false, c: COL.cruiser }); rings.push({ x: e.x, y: e.y, t: 0, T: 22, max: 20, c: COL.cruiser }); baseFlash = 40; }
+        else {
+          pops.push({ x: e.x, y: e.y, t: 0, s: String(e.pts), big: e.chain >= 5 });
+          // the exact multiplier on a line above the points; purple when a truck-built base is in it
+          pops.push({ x: e.x, y: e.y - (e.chain >= 5 ? 18 : 11), t: 0, s: 'x' + e.mult, big: false, c: e.boosted ? COL.cruiser : COL.fright });
+        }
+        if (e.sw) pops.push({ x: e.x, y: e.y + 12, t: 0, s: 'SWITCH', big: false, c: COL.me });
+        // the bitten car is knocked off the track: it holds on the impact frame through the hit-stop, then flies on along
+        // the player's travel and outward, spinning; a longer chain hits harder
+        const tg = HR.tan(p.r, p.s), [ox, oy] = outward(e.x, e.y), k = Math.min(e.chain, 8), v = 1.6 + 0.3 * k;
+        knocked.push({ x: e.x, y: e.y, vx: tg[0] * v + ox * v * 0.7, vy: tg[1] * v + oy * v * 0.7, rot: 0, spin: Math.max(2, 6 - (k >> 1)), dir: [-tg[0], -tg[1]], t: 0, T: 34,
+          col: COL.flash, stripe: e.truck ? COL.cruiser : COL.fright, spr: e.truck || e.truckFull ? TRUCK : null }); // white: already out of play
+        for (let i = 0; i < 10; i++) { const a = i / 10 * 6.283; fx.push({ x: e.x, y: e.y, vx: Math.cos(a) * 1.4, vy: Math.sin(a) * 1.4, t: 18, c: COL.fright }); }
+        if (e.chain >= 4) shake = Math.max(shake, 4), shakeDir = null;
+        rings.push({ x: e.x, y: e.y, t: 0, T: 14 + e.chain * 3, max: 8 + e.chain * 5, c: e.chain >= 5 ? COL.flash : COL.fright });
+      } else if (e.type === 'crash') { rpath = null; path = null; cpaths = [];
+        // both cars are thrown back the way they came after a short freeze; the shake runs along the line of impact
+        const tg = HR.tan(p.r, p.s), [px, py] = HR.carXY(p);
+        let hit = null, bd = 1e9; for (const c of HR.rivals(s)) { const d = Math.hypot(c.x - e.x, c.y - e.y); if (d < bd) { bd = d; hit = c; } }
+        crashHide = hit ? hit.id : -1;
+        wreck = { x: px, y: py, vx: -tg[0] * 1.5, vy: -tg[1] * 1.5, dir: tg, rot: 0, t: 0 };
+        if (hit) knocked.push({ x: hit.x, y: hit.y, vx: tg[0] * 1.5, vy: tg[1] * 1.5, rot: 0, spin: 5, dir: [hit.dx, hit.dy], t: 0, T: C.CRASH, col: hit.cruiser ? COL.cruiser : COL.rival, spr: hit.cruiser ? TRUCK : null, freeze: 4, wreck: true });
+        shake = 14; shakeDir = tg;
+        rings.push({ x: e.x, y: e.y, t: 0, T: 24, max: 30, c: COL.rival });
+        for (let i = 0; i < 26; i++) { const a = Math.random() * 6.283, v = 0.4 + Math.random() * 2.2; fx.push({ x: e.x, y: e.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, t: 30 + Math.random() * 20, c: i & 1 ? COL.me : COL.rival }); }
+      } else if (e.type === 'shift' && e.who === 'p') {
+        // tyre marks where the car left its lane: the gap you used stays marked for a moment
+        const [x, y] = HR.carXY(p), tg = HR.tan(p.r, p.s);
+        for (const q of [-3, 3]) skids.push({ x: Math.round(x - tg[0] * 4 - tg[1] * q), y: Math.round(y - tg[1] * 4 + tg[0] * q), t: 30 });
+      } else if (e.type === 'halfclear') {
+        // the cleared half's barriers flash white once, a spark runs from the car to the new flag, and the flag drops in
+        clearFlash[e.half] = 12; flagDrop[e.half] = s.tick;
+        const it = s.items.find(q => q.half === e.half);
+        if (it) { const [fx0, fy0] = HR.pos(it.r, it.s), [px, py] = HR.carXY(p); for (let i = 0; i < 4; i++) fx.push({ x: px, y: py, vx: (fx0 - px) / 16, vy: (fy0 - py) / 16, t: 16 - i * 2, c: COL.flag, glide: true }); }
+      } else if (e.type === 'refill') {
+        flashHalf[e.half] = 60; nameT[e.half] = 180; rings.push({ x: e.x, y: e.y, t: 0, T: 20, max: 24, c: COL.me }); pops.push({ x: e.x, y: e.y, t: 0, s: String(e.pts), big: true });
+        // speed up: a light runs across the lanes from the outside in, and the new pip flashes
+        sweeps.push({ t: 0, c: pipCol(e.tier - 1) }); pipFlash = 48;
+      } else if (e.type === 'power') {
+        for (let i = 0; i < 8; i++) { const a = i / 8 * 6.283; fx.push({ x: e.x, y: e.y, vx: Math.cos(a) * 2, vy: Math.sin(a) * 2, t: 12, c: COL.power }); }
+        if (!frPrev) powerT0 = s.tick; // a fresh power turns the convoy blue from its head to its tail, so its length reads at a glance
+      } else if (e.type === 'baselost') {
+        const [px, py] = HR.carXY(s.player); pops.push({ x: px, y: py - 12, t: 0, s: 'BASE x1', big: false, c: COL.dim }); baseFlash = 40;
+      } else if (e.type === 'extend') {
+        const [px, py] = HR.carXY(s.player); pops.push({ x: px, y: py - 10, t: 0, s: '1UP', big: true, c: COL.me }); rings.push({ x: 18, y: 268, t: 0, T: 30, max: 14, c: COL.me });
+      } else if (e.type === 'feast') {
+        pops.push({ x: e.half ? CX + 60 : CX - 60, y: CY - 30, t: 0, s: 'FEAST', big: true, c: COL.power });
+      } else if (e.type === 'count') {
+        if (e.n <= 5) timePulse = 12;
+      }
+    }
+    frPrev = s.fright > 0;
+  }
+  const pipCol = i => i >= C.TIER_MAX - 2 ? COL.rival : i >= C.TIER_MAX - 4 ? COL.power : COL.me;
+  // frame-locked feel animation (runs with the game tick, frozen by hit-stop)
+  // wasStopped: the hit-stop held this tick even if it ran out during it (the core spends the last frozen tick bringing stop to 0)
+  function stepFeel(s, wasStopped) {
+    const frozen = s && (s.stop > 0 || wasStopped);
+    for (let i = knocked.length - 1; i >= 0; i--) {
+      const q = knocked[i]; if (frozen || (q.freeze && q.freeze-- > 0)) continue;
+      if (++q.t > q.T) { knocked.splice(i, 1); continue; }
+      q.x += q.vx; q.y += q.vy; const dr = q.wreck ? 0.88 : 0.97; q.vx *= dr; q.vy *= dr;
+      if (q.t % q.spin === 0 && (!q.wreck || q.t < 20)) q.rot++;
+    }
+    if (wreck && s && s.phase === 'crash') { wreck.t++; if (wreck.t > 4) { wreck.x += wreck.vx; wreck.y += wreck.vy; wreck.vx *= 0.88; wreck.vy *= 0.88; if (wreck.t < 24 && wreck.t % 5 === 0) wreck.rot++; } }
+    if (s && s.phase !== 'crash') crashHide = -1;
+    for (let i = skids.length - 1; i >= 0; i--) if (--skids[i].t <= 0) skids.splice(i, 1);
+    for (let i = sweeps.length - 1; i >= 0; i--) if (++sweeps[i].t > NR * 3 + 8) sweeps.splice(i, 1);
+    for (let h = 0; h < 2; h++) if (clearFlash[h] > 0) clearFlash[h]--;
+    if (pipFlash > 0) pipFlash--; if (timePulse > 0) timePulse--;
+    if (shake > 0 && !frozen) shake--; else if (!shake) shakeDir = null;
+  }
+  // a quarter-turn rotation of a facing vector
+  const turn = (d, n) => { let [x, y] = d; for (let i = 0; i < (n & 3); i++) [x, y] = [-y, x]; return [x, y]; };
+
+  // path indicator: near or in a gap, show where the current input takes the car, up to the next gap
+  let path = null;
+  function updatePath(inp) {
+    path = null; if (st.phase !== 'play') return;
+    const p = st.player, o = HR.gapOf(p.r, p.s).o, near = Math.abs(o) < C.GAPW || (HR.distToGap(p.r, p.s, 1) - C.GAPW < 48 && o < 0);
+    if (near) path = HR.predictPath(st, { inHeld: inp.inHeld, outHeld: inp.outHeld, boost: inp.boost });
+    // the rival's committed route, from its blinker to the gap after (while it is near a gap and not fleeing)
+    rpath = null; const L = st.leader;
+    if (L && st.fright === 0) { const lo = HR.gapOf(L.r, L.s).o; if (Math.abs(lo) < C.GAPW || HR.distToGap(L.r, L.s, -1) - C.GAPW < C.LOCK) rpath = HR.predictRival(st); }
+    // cruisers never turn: show 1.5 s of their lane ahead, at decision time or when one shares the player's lane
+    cpaths = [];
+    if (st.fright === 0) {
+      const reach = HR.rivalSpeed(st) * C.CRUISE_SPD * 1.5;
+      for (const c of st.cruisers) if (near || c.r === p.r) {
+        const pts = []; for (let d = 10; d <= reach; d += 3) pts.push(HR.pos(c.r, c.s - d));
+        cpaths.push({ id: c.id, r: c.r, pts });
+      }
+    }
+  }
+  let rpath = null, cpaths = [];
+  function drawCruiserPaths(t) {
+    const ph = (t >> 1) % 3; g.fillStyle = COL.cruiser;
+    for (const cp of cpaths) for (let i = ph; i < cp.pts.length; i += 3) g.fillRect(Math.round(cp.pts[i][0]) - 1, Math.round(cp.pts[i][1]) - 1, 2, 2);
+  }
+  function drawRivalPath(t) {
+    if (!rpath) return; const pts = rpath.pts, ph = (t >> 1) % 3; g.fillStyle = COL.rival;
+    for (let i = 4 + ph; i < pts.length - 2; i += 3) g.fillRect(Math.round(pts[i][0]) - 1, Math.round(pts[i][1]) - 1, 2, 2);
+  }
+  function drawPath(s, t) {
+    if (!path || s.phase !== 'play') return;
+    // marching 2x2 dashes in the player's colour, moving the way the car will go
+    const pts = path.pts, ph = (t >> 1) & 3; g.fillStyle = COL.me;
+    for (let i = 4 + (ph % 3); i < pts.length - 2; i += 3) g.fillRect(Math.round(pts[i][0]) - 1, Math.round(pts[i][1]) - 1, 2, 2);
+    // end mark: a bar across the lane where the next decision comes
+    const e = pts[pts.length - 1], f = pts[Math.max(0, pts.length - 3)], dx = Math.sign(Math.round(e[0] - f[0])), dy = Math.sign(Math.round(e[1] - f[1]));
+    for (let k = -3; k <= 3; k++) g.fillRect(Math.round(e[0] + (dx ? 0 : k)) - (dx ? 1 : 0), Math.round(e[1] + (dy ? 0 : k)) - (dy ? 1 : 0), dx ? 2 : 1, dy ? 2 : 1);
+  }
+
+  // ---------- draw ----------
+  // lane walls come from the course's gap data; one-way gaps carry a chevron pointing the allowed way
+  function drawWalls(Gm) {
+    for (let w = 0; w <= NR; w++) {
+      const hw = Math.round(w === 0 ? Gm.hw[0] + 10 : w === NR ? Gm.hw[NR - 1] - 10 : (Gm.hw[w - 1] + Gm.hw[w]) / 2);
+      const hh = Math.round(w === 0 ? Gm.hh[0] + 10 : w === NR ? Gm.hh[NR - 1] - 10 : (Gm.hh[w - 1] + Gm.hh[w]) / 2);
+      const holes = [[], [], [], []];
+      if (w > 0 && w < NR) for (const q of Gm.gaps) if (q.lo <= w - 1 && w - 1 < q.hi && Math.abs(q.off) < (q.side & 1 ? hh : hw) - 8) holes[q.side].push(q);
+      // a freshly changed half flashes its walls so the new layout is noticed
+      const feastH = [HR.HALVES[Gm.pl].feast, HR.HALVES[Gm.pr].feast];
+      const wc = h => clearFlash[h] > 0 && ((clearFlash[h] >> 1) & 1) ? '#a8b8e8' : flashHalf[h] > 0 && ((flashHalf[h] >> 2) & 1) ? COL.me : feastH[h] ? COL.power : COL.wall; // a feast half has gold barriers
+      const run = (a, b, hs, f) => { let p = a; for (const q of hs.slice().sort((m, n) => m.off - n.off)) { const c = Math.round(q.off); if (c - 12 > p) f(p, c - 12); p = Math.max(p, c + 12); } if (b > p) f(p, b); };
+      // double-line barrier: an outer and an inner line 2 px apart, joined by a cap where an opening starts
+      const hseg = (y, out) => (a, b) => {
+        const ca = a <= -hw, cb = b >= hw + 1;
+        for (const [u, v, h] of [[a, Math.min(b, 0), 0], [Math.max(a, 0), b, 1]]) if (v > u) {
+          g.fillStyle = wc(h);
+          g.fillRect(CX + u - (ca && u === a ? 1 : 0), y - out, v - u + (ca && u === a ? 1 : 0) + (cb && v === b ? 1 : 0), 1);
+          g.fillRect(CX + u + (ca && u === a ? 1 : 0), y + out, v - u - (ca && u === a ? 1 : 0) - (cb && v === b ? 1 : 0), 1);
+          if (!ca && u === a) g.fillRect(CX + u, y - 1, 1, 3);
+          if (!cb && v === b) g.fillRect(CX + v - 1, y - 1, 1, 3);
+        }
+      };
+      const vseg = (x, out, h) => (a, b) => {
+        const ca = a <= -hh, cb = b >= hh + 1; g.fillStyle = wc(h);
+        g.fillRect(x - out, CY + a - (ca ? 1 : 0), 1, b - a + (ca ? 1 : 0) + (cb ? 1 : 0));
+        g.fillRect(x + out, CY + a + (ca ? 1 : 0), 1, b - a - (ca ? 1 : 0) - (cb ? 1 : 0));
+        if (!ca) g.fillRect(x - 1, CY + a, 3, 1);
+        if (!cb) g.fillRect(x - 1, CY + b - 1, 3, 1);
+      };
+      run(-hw, hw + 1, holes[0], hseg(CY - hh, 1));
+      run(-hw, hw + 1, holes[2], hseg(CY + hh, -1));
+      run(-hh, hh + 1, holes[1], vseg(CX - hw, 1, 0));
+      run(-hh, hh + 1, holes[3], vseg(CX + hw, -1, 1));
+      g.fillStyle = COL.oneway;
+      for (let side = 0; side < 4; side++) for (const q of holes[side]) {
+        if (!q.dir) continue;
+        const ix = side === 0 || side === 2 ? CX + Math.round(q.off) : side === 1 ? CX - hw : CX + hw;
+        const iy = side === 1 || side === 3 ? CY + Math.round(q.off) : side === 0 ? CY - hh : CY + hh;
+        const nx = side === 1 ? 1 : side === 3 ? -1 : 0, ny = side === 0 ? 1 : side === 2 ? -1 : 0; // inward normal
+        const k = q.dir; // +1 inward, -1 outward
+        for (let i = -3; i <= 3; i++) { const back = Math.abs(i); for (let d = 0; d < 2; d++) g.fillRect(ix + ny * i + nx * k * (2 - back + d), iy + nx * i + ny * k * (2 - back + d), 1, 1); }
+      }
+    }
+  }
+  function drawField(s, t) {
+    const Gm = HR.use(s);
+    drawWalls(Gm);
+    g.fillStyle = '#585858'; for (const k of skids) if (k.t > 10 || (k.t & 1)) g.fillRect(k.x, k.y, 2, 1 + (k.t > 20 ? 1 : 0));
+    // speed-up sweep: each lane's centre line lights in turn, outermost first
+    for (const w of sweeps) for (let r = 0; r < NR; r++) {
+      const d = w.t - r * 3; if (d < 0 || d > 6) continue;
+      const hw = Gm.hw[r], hh = Gm.hh[r]; g.fillStyle = d > 3 ? shade(w.c, 0.5) : w.c;
+      for (let x = -hw; x <= hw; x += 3) { g.fillRect(CX + x, CY - hh, 2, 1); g.fillRect(CX + x, CY + hh, 2, 1); }
+      for (let y = -hh; y <= hh; y += 3) { g.fillRect(CX - hw, CY + y, 1, 2); g.fillRect(CX + hw, CY + y, 1, 2); }
+    }
+    // dots
+    const blink = (t >> 3) & 1;
+    for (let i = 0; i < Gm.dots.length; i++) {
+      if (!s.dots[i]) continue; const d = Gm.dots[i], x = Math.round(d.x), y = Math.round(d.y);
+      if (d.power) { g.fillStyle = blink ? COL.power : '#a06000'; g.fillRect(x - 3, y - 2, 6, 4); g.fillRect(x - 2, y - 3, 4, 6); }
+      else { g.fillStyle = flashHalf[d.half] > 0 && ((flashHalf[d.half] >> 2) & 1) ? COL.me : COL.dot; g.fillRect(x - 1, y - 1, 3, 3); }
+    }
+    // flags
+    for (const it of s.items) {
+      const df = s.tick - flagDrop[it.half], drop = df >= 0 && df < 14 ? Math.round(30 * ((14 - df) / 14) ** 2) : 0; // a new flag falls into place
+      const [x0, y0] = HR.pos(it.r, it.s), x = Math.round(x0) - 4, y = Math.round(y0) - 6 - drop, wave = (t >> 3) & 1;
+      g.fillStyle = COL.flag; g.fillRect(x, y, 2, 12);
+      for (let j = 0; j < 6; j++) for (let i = 0; i < 8; i++) { g.fillStyle = ((i >> 1) + (j >> 1)) & 1 ? COL.flag : '#303030'; g.fillRect(x + 2 + i, y + j + (wave && i > 3 ? 1 : 0), 1, 1); }
+    }
+    // parked cars (dim, slow blink)
+    for (const dm of s.dormant) {
+      const sp = HR.spotPos(dm.spot), [x, y] = HR.pos(sp.r, sp.s), tg = HR.tan(sp.r, sp.s);
+      car(x, y, -tg[0], -tg[1], ((t + dm.id * 17) % 90) < 8 ? '#909090' : COL.dorm, '#202020', null, '#404040');
+    }
+    const fr = s.fright > 0, fcol0 = fr ? (s.fright < 60 && ((s.fright >> 3) & 1) ? COL.flash : COL.fright) : null;
+    for (const f of s.flying) { const [x, y] = HR.flyingXY(s, f); car(x, y, 1, 0, fcol0 || COL.rival2, fcol0 ? '#f0f0f0' : null, null, fcol0 ? '#f0f0f0' : null); }
+    const rv = HR.rivals(s), wave = s.tick - powerT0;
+    let ci = 0; const order = rv.map(c => (c.cruiser ? -1 : ci++));
+    for (let i = rv.length - 1; i >= 0; i--) {
+      const c = rv[i];
+      if (s.phase === 'crash' && c.id === crashHide) continue; // drawn as debris instead
+      const fcol = fr && !c.cruiser && wave >= 0 && wave < order[i] * 3 ? null : fcol0; // a fresh power turns the convoy blue head to tail
+      const lean = c.lead && s.leader && s.leader.slT > 2 ? [-Math.sign(s.leader.slx), -Math.sign(s.leader.sly)] : null;
+      const warm = c.lead && s.leader && s.leader.warm > 0; // a new leader flashes while it waits to set off
+      if (warm && ((t >> 2) & 1)) { car(c.x, c.y, c.dx, c.dy, COL.flash, null, null, COL.rival); continue; }
+      if (c.cruiser && fr) { // while powered a truck turns blue like every edible car, keeping purple stripes: the special target that lifts the base multiplier
+        car(c.x, c.y, c.dx, c.dy, fcol0, '#f0f0f0', TRUCK, COL.cruiser);
+        if (s.base < C.TRUCK_MAX) text('+1', Math.round(c.x) - 5, Math.round(c.y) - 15, COL.cruiser);
+        continue;
+      }
+      car(c.x, c.y, c.dx, c.dy, fcol || (c.cruiser ? COL.cruiser : c.lead ? COL.rival : COL.rival2), fcol ? '#f0f0f0' : null, c.cruiser ? TRUCK : null, fcol ? '#f0f0f0' : null, lean);
+    }
+    // blinker: rival shows which way it will turn at the coming gap
+    const L = s.leader;
+    if (L && L.intent && s.phase === 'play' && ((t >> 2) & 1)) {
+      const [x, y] = HR.carXY(L), tg = HR.tan(L.r, L.s);
+      const nx = -tg[1], ny = tg[0]; // perpendicular; pick the one pointing toward centre for "in"
+      const toC = (CX - x) * nx + (CY - y) * ny > 0 ? 1 : -1, k = toC * L.intent;
+      // an arrow beside the car pointing to the lane it will take
+      g.fillStyle = COL.blink; const ax = x + nx * k * 7, ay = y + ny * k * 7;
+      for (let i = -2; i <= 2; i++) for (let d = 0; d <= 2 - Math.abs(i); d++) g.fillRect(Math.round(ax - tg[0] * i + nx * k * d) , Math.round(ay - tg[1] * i + ny * k * d), 1, 1);
+    }
+  }
+  function drawPlayer(s, t) {
+    const p = s.player; if (!p) return;
+    if (s.phase === 'crash') {
+      if (wreck) { const d = turn(wreck.dir, wreck.rot); car(wreck.x, wreck.y, d[0], d[1], wreck.t < 5 || (wreck.t & 2) ? COL.me : COL.flash, null, null, '#b89800'); }
+      return;
+    }
+    if (s.phase === 'ready' && ((t >> 3) & 1)) return;
+    const [x, y] = HR.carXY(p), tg = HR.tan(p.r, p.s);
+    if (p.boost && s.phase === 'play') {
+      // full throttle: twin exhaust streaks from the rear corners, longer at higher speed
+      const len = 6 + s.tier * 2, nx = -tg[1], ny = tg[0];
+      for (const q of [-3, 3]) for (let i = 0; i < len; i++) {
+        if (((i + t) & 3) === 3) continue; g.fillStyle = i < 3 ? COL.flash : i < len >> 1 ? COL.power : '#a06000';
+        g.fillRect(Math.round(x - tg[0] * (7 + i) + nx * q), Math.round(y - tg[1] * (7 + i) + ny * q), 1, 1);
+      }
+    }
+    const gr = s.grace > 0 && s.fright === 0 && ((t >> 1) & 1); // after a bite: flashing while other cars pass through
+    const lean = p.slT > 2 ? [-Math.sign(p.slx), -Math.sign(p.sly)] : null; // nose into the new lane while sliding across
+    car(x, y, tg[0], tg[1], gr ? COL.flash : COL.me, null, null, gr ? COL.me : '#b89800', lean);
+    // turn signal: queued or held turn; red and fast while full throttle blocks it
+    const q = p.req ? p.req : lastInp.inHeld ? 1 : lastInp.outHeld ? -1 : 0;
+    // the blink starts lit the moment a turn is asked for (its phase restarts on each press)
+    if (q !== lastQ) { lastQ = q; if (q) blink0 = t; }
+    const bt = t - blink0;
+    if (q && s.phase === 'play') {
+      if (bt < 8 || !((bt >> 2) & 1)) {
+        const nx = -tg[1], ny = tg[0], toC = (CX - x) * nx + (CY - y) * ny > 0 ? 1 : -1, k = toC * q;
+        g.fillStyle = COL.blink;
+        g.fillRect(Math.round(x + nx * k * 5 + tg[0] * 3) - 1, Math.round(y + ny * k * 5 + tg[1] * 3) - 1, 2, 2);
+        // double signal: held long enough to keep crossing lanes in the gap
+        if (p.holdDir === q && p.holdT >= C.HOLD_MIN && !p.boost) g.fillRect(Math.round(x + nx * k * 5 - tg[0] * 1) - 1, Math.round(y + ny * k * 5 - tg[1] * 1) - 1, 2, 2);
+      }
+    }
+  }
+  function drawHUD(s, t) {
+    const sc = String(s ? s.score : 0), hs = String(Math.max(hi, s ? s.score : 0));
+    text('SCORE', 4, 2, COL.dim); text(sc, 4, 11, COL.text);
+    text('HIGH', W - 4 - tw('HIGH'), 2, COL.dim); text(hs, W - 4 - tw(hs), 11, COL.text);
+    if (!s) return;
+    // time, large, top centre
+    const sec = Math.ceil(s.timeLeft / 60), mm = (sec / 60) | 0, ss = sec % 60;
+    const tstr = mm + ':' + String(ss).padStart(2, '0');
+    const warn = sec <= 10 && ((t >> 3) & 1);
+    // speed tier pips, just under the time; the newest one flashes after a speed-up
+    for (let i = 0; i < C.TIER_MAX; i++) { g.fillStyle = i < s.tier ? (i === s.tier - 1 && pipFlash > 0 && (pipFlash & 4) ? COL.flash : pipCol(i)) : '#202840'; g.fillRect(CX - C.TIER_MAX * 4 + i * 8, 20, 7, 3); }
+    // the last five seconds: each second lands big, then settles back
+    const tsc = timePulse > 6 ? 3 : 2, tx = CX - (tw(tstr, tsc) >> 1);
+    if (tsc === 3) { g.fillStyle = COL.bg; g.fillRect(tx - 2, 2, tw(tstr, 3) + 4, 25); }
+    text(tstr, tx, tsc === 3 ? 3 : 4, warn || timePulse > 0 ? COL.rival : COL.text, tsc);
+    // reserve cars, bottom left (up to 4 icons; from 5, one icon and a count)
+    const res = Math.max(0, s.lives - (s.phase === 'crash' || s.phase === 'over' ? 0 : 1));
+    if (res <= 4) for (let i = 0; i < res; i++) miniCar(8 + i * 10, 268);
+    else { miniCar(8, 268); text('x' + res, 16, 265, COL.me); } // five or more: one icon and a count
+    // chain count in the centre box while powered
+    // centre box: the multiplier the next red car will score (raised by trucks); a carried truck bonus shows dimly between powers
+    // centre box: while powered, the multiplier the next red car scores; otherwise the base multiplier the trucks built (purple)
+    if (s.fright > 0) { const cs = 'x' + HR.mult(s, s.chain + 1), sc2 = cs.length <= 3 ? 2 : 1; text(cs, CX - (tw(cs, sc2) >> 1), CY - (sc2 === 2 ? 7 : 3), s.base > 0 ? COL.cruiser : COL.fright, sc2); }
+    else if (s.base > 0) { const cs = 'x' + (s.base + 1), c2 = baseFlash > 0 && ((baseFlash >> 2) & 1) ? COL.flash : COL.cruiser; text('BASE', CX - (tw('BASE') >> 1), CY - 13, c2); text(cs, CX - (tw(cs, 2) >> 1), CY - 3, c2, 2); }
+    if (baseFlash > 0) baseFlash--;
+  }
+  function drawKnocked() {
+    for (const q of knocked) {
+      if (q.t > q.T - 10 && (q.t & 1)) continue;
+      const d = turn(q.dir, q.rot); car(q.x, q.y, d[0], d[1], q.col, q.wreck ? null : '#202020', q.spr, q.stripe || shade(q.col, 0.55));
+    }
+  }
+  function drawFx() {
+    for (let i = rings.length - 1; i >= 0; i--) {
+      const q = rings[i]; if (++q.t > q.T) { rings.splice(i, 1); continue; }
+      const h = Math.round(q.max * Math.sqrt(q.t / q.T)); if ((q.t > q.T * 0.6) && (q.t & 1)) continue;
+      g.fillStyle = q.c; const x = Math.round(q.x), y = Math.round(q.y);
+      g.fillRect(x - h, y - h, 2 * h + 1, 1); g.fillRect(x - h, y + h, 2 * h + 1, 1); g.fillRect(x - h, y - h, 1, 2 * h + 1); g.fillRect(x + h, y - h, 1, 2 * h + 1);
+    }
+    for (let i = fx.length - 1; i >= 0; i--) { const f = fx[i]; f.x += f.vx; f.y += f.vy; if (!f.glide) { f.vx *= 0.94; f.vy *= 0.94; } if (--f.t <= 0) { fx.splice(i, 1); continue; } g.fillStyle = f.c; g.fillRect(Math.round(f.x), Math.round(f.y), 1, 1); }
+    for (let i = pops.length - 1; i >= 0; i--) {
+      const p = pops[i]; p.t++; if (p.t > 50) { pops.splice(i, 1); continue; }
+      const sc = p.big ? 2 : 1, s = p.s;
+      text(s, Math.max(2, Math.min(W - 2 - tw(s, sc), Math.round(p.x - tw(s, sc) / 2))), Math.round(p.y - 8 - Math.min(p.t, 12) * 0.5), p.c || (p.t & 2 ? COL.pts : COL.text), sc);
+    }
+    for (let h = 0; h < 2; h++) if (flashHalf[h] > 0) flashHalf[h]--;
+  }
+
+  function render(s, t, overlay) {
+    tyre = t;
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.fillStyle = COL.bg; g.fillRect(0, 0, W, H);
+    // a crash shakes along the line of impact and dies away; a long chain gives a short random jolt
+    let sx = 0, sy = 0;
+    if (shake && shakeDir) { const a = Math.min(3, Math.ceil(shake / 4)) * (shake & 2 ? 1 : -1); sx = shakeDir[0] * a; sy = shakeDir[1] * a; }
+    else if (shake) { sx = Math.round((Math.random() - 0.5) * Math.min(shake, 4)); sy = Math.round((Math.random() - 0.5) * Math.min(shake, 4)); }
+    g.setTransform(1, 0, 0, 1, sx, sy);
+    drawField(s, t); if (!overlay || overlay === 'over') { drawCruiserPaths(t); drawRivalPath(t); drawPath(s, t); } drawKnocked(); drawPlayer(s, t); drawFx();
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    drawHUD(overlay === 'title' ? null : s, t);
+    if (s.phase === 'ready' && overlay !== 'title') {
+      ctext(s.first ? 'READY' : 'GO AGAIN', CY + 12, COL.me);
+    }
+    // the current half-patterns, under the half they belong to
+    if (overlay === 'demo') { if ((t >> 5) & 1) ctext('PUSH SPACE', 264, COL.text); else ctext('DEMO PLAY', 264, COL.dim); } // pure demo: the bottom line always says it is not your game
+    // a half's pattern name shows for 3 s after it changes (FEAST stays named while it lasts)
+    else if (overlay !== 'title') for (const h of [0, 1]) { const pat = HR.HALVES[h ? s.pr : s.pl]; if (nameT[h] > 0 || pat.feast) { const n = pat.name; text(n, h ? CX + 6 : CX - 4 - tw(n), 265, flashHalf[h] ? COL.me : pat.feast ? COL.power : COL.dim); } if (nameT[h] > 0) nameT[h]--; }
+    if (paused) ctext('PAUSE', CY + 12, COL.me);
+    if (overlay === 'title' && attractPhase() === 'best') { g.fillStyle = COL.bg; g.fillRect(40, CY - 60, 160, 110); ctext('BEST 5', CY - 50, COL.me, 2); ctext(modeName(), CY - 30, COL.dim); drawTable(CY - 14, false); return; }
+    if (overlay === 'title') {
+      { const lx = Math.round((W - tw('HEAD RUSH', 4)) / 2), ly = CY - 90; g.fillStyle = COL.bg; g.fillRect(lx - 4, ly - 4, tw('HEAD RUSH', 4) + 12, 40); text('HEAD RUSH', lx + 4, ly + 4, COL.rival, 4); text('HEAD RUSH', lx, ly, COL.me, 4); }
+      // cast table, arcade style: the real sprites, one line each
+      g.fillStyle = COL.bg; g.fillRect(30, CY - 48, 180, 112);
+      ctext('3:00 SCORE ATTACK', CY - 44, COL.dim);
+      const rows = [
+        [() => car(56, CY - 22, 1, 0, COL.me, null, null, '#b89800'), 'YOU', COL.me],
+        [() => car(56, CY - 6, -1, 0, COL.rival), 'HEAD-ON CRASHES', COL.rival],
+        [() => { g.fillStyle = (t >> 3) & 1 ? COL.power : '#a06000'; g.fillRect(44, CY + 8, 6, 4); g.fillRect(45, CY + 7, 4, 6); car(62, CY + 10, -1, 0, COL.fright, '#f0f0f0', null, '#f0f0f0'); }, 'POWER: EAT THEM', COL.fright],
+        [() => car(54, CY + 26, -1, 0, COL.cruiser, null, TRUCK), 'TRUCK: BASE +1', COL.cruiser],
+        [() => { const x = 50, y = CY + 37; g.fillStyle = COL.flag; g.fillRect(x, y, 2, 12); for (let j = 0; j < 6; j++) for (let i = 0; i < 8; i++) { g.fillStyle = ((i >> 1) + (j >> 1)) & 1 ? COL.flag : '#303030'; g.fillRect(x + 2 + i, y + j, 1, 1); } }, 'FLAG: REFILL + SPEED UP', COL.flag],
+      ];
+      rows.forEach(([icon, label, col], i) => { icon(); text(label, 78, CY - 25 + i * 16, col); });
+      if ((t >> 5) & 1) ctext('PUSH SPACE', CY + 72, COL.text);
+      ctext('ARROWS  CHANGE LANE   SPACE  BOOST', CY + 88, COL.dim);
+    }
+    if (overlay === 'over') {
+      ctext(s.overReason === 'lives' ? 'GAME OVER' : 'TIME UP', CY - 60, s.overReason === 'lives' ? COL.rival : COL.me, 2);
+      ctext('MAX CHAIN ' + s.stats.maxChain + '   FLAGS ' + s.stats.refills, CY + 20, COL.dim);
+      if (s.score > hi && s.score > 0) ctext('NEW HIGH SCORE', CY + 30, (t >> 3) & 1 ? COL.rival : COL.me);
+
+    }
+  }
+
+  // ---------- name entry / ranking screens ----------
+  function drawTable(y0, preview) {
+    const t = readRank(); let rows = t.map(r => ({ n: r.n, s: r.s }));
+    if (preview) { rows.splice(entry.rank, 0, { n: (entry.name + '___').slice(0, 3), s: st.score, me: true }); rows = rows.slice(0, 5); }
+    rows.forEach((r, i) => {
+      const me = r.me || (!preview && i === entry.newRank && mode === 'table');
+      const col = me ? ((frame >> 3) & 1 ? COL.me : COL.text) : COL.dim;
+      text(String(i + 1), 60, y0 + i * 12, col); text(r.n, 76, y0 + i * 12, col); text(String(r.s).padStart(7, ' '), 140, y0 + i * 12, col);
+    });
+  }
+  function renderRank(t) {
+    g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = COL.bg; g.fillRect(0, 0, W, H);
+    drawHUD(null, t);
+    if (mode === 'entry') {
+      ctext('TOP 5  ' + modeName(), 30, COL.me);
+      ctext(String(st.score), 44, COL.text, 2);
+      ctext((entry.name + '___').slice(0, 3), 66, COL.me, 3);
+      BOARD.forEach((c, i) => {
+        const x = 12 + (i % 10) * 22, y = 100 + ((i / 10) | 0) * 14, on = i === entry.cur;
+        if (on) { g.fillStyle = COL.wall; g.fillRect(x - 3, y - 3, tw(c) + 6, 11); }
+        text(c, x, y, on ? COL.me : c === 'END' ? COL.pts : COL.text);
+      });
+      drawTable(160, true);
+      ctext('ARROWS SELECT  SPACE ENTER', 236, COL.dim);
+      ctext(String(Math.max(0, 20 - ((entry.t / 60) | 0))), 250, COL.dim);
+    } else {
+      ctext('BEST 5', 60, COL.me, 2);
+      ctext(modeName(), 82, COL.dim);
+      drawTable(110, false);
+    }
+  }
+
+  // ---------- main loop ----------
+  let acc = 0, last = performance.now(), frame = 0, titleT = 0;
+  // attract cycle: title + cast (7 s) -> pure demo play (20 s, restarted from READY) -> best 5 (4 s)
+  const ATTRACT = [['title', 420], ['demo', 1200], ['best', 240]], CYCLE = ATTRACT.reduce((a, b) => a + b[1], 0);
+  function attractPhase() { let k = titleT % CYCLE; for (const [name, len] of ATTRACT) { if (k < len) return name; k -= len; } return 'title'; }
+  function tick() {
+    pollPad();
+    if (mode === 'title') {
+      const dz = demo.stop > 0; HR.step(demo, demoPolicy(demo)); handleEvents(demo, false); stepFeel(demo, dz); titleT++;
+      if (titleT % CYCLE === ATTRACT[0][1]) newDemo(); // the demo scene always starts from a fresh READY
+      if (demo.phase === 'over' || demo.tick > 60 * 50) newDemo();
+      if (edge.start) { newGame(); HRAudio.play('start'); }
+    } else if (mode === 'play') {
+      if (paused) { HRAudio.engine(false, 0, false, false); HRAudio.music(false); clearEdges(); return; }
+      const inp = window.__game.pilot ? window.__game.pilot(st) : readInput(); lastInp = inp; // pilot: a recording tool can drive the car
+      if (inp.in || inp.out) blink0 = frame; // every press relights the blinker at once
+      const sz = st.stop > 0; HR.step(st, inp); handleEvents(st, true); stepFeel(st, sz);
+      { const p = st.player, live = st.phase === 'play';
+        // the double blinker lighting (held long enough to keep crossing) and full throttle each get a short cue
+        const armed = live && p.holdDir !== 0 && p.holdT >= C.HOLD_MIN && !p.boost; if (armed && !wasArmed) HRAudio.play('arm'); wasArmed = armed;
+        if (live && p.boost && !lastBoost) HRAudio.play('boost'); lastBoost = live && p.boost; }
+      updatePath(inp);
+      if (st.tier !== lastTier) lastTier = st.tier;
+      if (st.phase === 'over') { mode = 'over'; overT = 0; }
+      HRAudio.engine(st.phase === 'play', HR.speed(st), st.player.boost, st.fright > 0);
+      HRAudio.music(st.phase === 'play', st.tier, st.fright > 0);
+    } else if (mode === 'over') {
+      overT++; HRAudio.engine(false, 0, false, false); HRAudio.music(false);
+      if (overT > 150 || (overT > 60 && edge.start)) {
+        entry.rank = rankOf(st.score); entry.newRank = -1; overT = 0;
+        if (st.score > 0 && entry.rank < 5) { mode = 'entry'; entry.name = ''; entry.cur = 0; entry.t = 0; HRAudio.play('entry'); }
+        else mode = 'table';
+      }
+    } else if (mode === 'entry') {
+      entry.t++;
+      if (entry.t > 20) { // grace: the key that closed TIME UP cannot type a letter
+        if (edge.l) entry.cur = (entry.cur + BOARD.length - 1) % BOARD.length;
+        if (edge.r) entry.cur = (entry.cur + 1) % BOARD.length;
+        if (edge.u) entry.cur = (entry.cur + BOARD.length - 10) % BOARD.length;
+        if (edge.d) entry.cur = (entry.cur + 10) % BOARD.length;
+        if (edge.l || edge.r || edge.u || edge.d) HRAudio.play('dot', 0);
+        if (edge.start) {
+          const c = BOARD[entry.cur];
+          if (c === 'DEL') entry.name = entry.name.slice(0, -1);
+          else if (c === 'END') entry.t = 1e9;
+          else if (entry.name.length < 3) { entry.name += c; if (entry.name.length === 3) entry.cur = BOARD.length - 1; }
+          HRAudio.play('wake');
+        }
+      }
+      if (entry.t > 60 * 20) { // END or 20 s timeout; short names pad with dots
+        saveRank((entry.name + '...').slice(0, 3), st.score); entry.newRank = entry.rank; loadHi();
+        mode = 'table'; overT = 0; HRAudio.play('courseclear');
+      }
+    } else if (mode === 'table') {
+      overT++;
+      if (overT > 60 * 7 || (overT > 40 && edge.start)) { mode = 'title'; newDemo(); titleT = 0; }
+    }
+    clearEdges();
+  }
+  function loop(now) {
+    acc += Math.min(100, now - last); last = now;
+    while (acc >= 1000 / 60) { tick(); acc -= 1000 / 60; frame++; }
+    const s = mode === 'title' ? demo : st;
+    if (mode === 'entry' || mode === 'table') renderRank(frame); else render(s, frame, mode === 'title' ? (attractPhase() === 'demo' ? 'demo' : 'title') : mode === 'over' ? 'over' : null);
+    requestAnimationFrame(loop);
+  }
+  function fit() {
+    const sc = Math.max(1, Math.floor(Math.min(innerWidth / W, innerHeight / H)));
+    const s2 = Math.min(innerWidth / W, innerHeight / H) < 1 ? Math.min(innerWidth / W, innerHeight / H) : sc;
+    cv.style.width = W * s2 + 'px'; cv.style.height = H * s2 + 'px';
+  }
+  addEventListener('resize', fit); fit();
+  requestAnimationFrame(loop);
+
+  window.__game = {
+    get state() { return st; }, get demo() { return demo; }, get mode() { return mode; }, get paused() { return paused; },
+    newGame, tick, sel, entry, readRank, get attract() { return mode === 'title' ? attractPhase() : null; }, setTitleT(v) { titleT = v; }, get path() { return path; }, get cpaths() { return cpaths; },
+    visual: { palette: COL, hud: { score: [4, 11], high: 'right', time: ['centre', 4, 2], pips: [CX - 30, 266], halves: 265 }, sprite: { car: [CAR[0].length, CAR.length], truck: [TRUCK[0].length, TRUCK.length], font: [5, 7, 6] } }, render: () => render(mode === 'title' ? demo : st, frame, mode === 'title' ? 'title' : mode === 'over' ? 'over' : null),
+    setState(s) { st = s; }, audio: HRAudio, pilot: null,
+    get feel() { return { knocked, skids, sweeps, wreck, crashHide, clearFlash, flagDrop, blink0, dotRun, powerT0, pipFlash, timePulse, frame, fx, col: COL }; },
+  };
+})();
+
+window.__agenticSetup({start(){__game.newGame()},read(){const s=__game.state; return {score:s?.score??0,ended:!!(s&&(s.phase === "over")),won:!!(s&&(false)),phase:s?.phase??s?.mode??'playing'};}});</script></body></html>
