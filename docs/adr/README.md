@@ -63,3 +63,5 @@
 - [0047 — Original Yutnori game](0047-original-yutnori.md) — Accepted.
 - [0048 — Optional Adsterra banners](0048-adsterra-banners.md) — Accepted.
 - [0049 — Original Gonggi game](0049-original-gonggi.md) — Accepted.
+- [0050 — Consented game lifecycle analytics](0050-consented-game-analytics.md) — Accepted.
+- [0051 — Eight original arcade games](0051-original-retro-eight.md) — Accepted.

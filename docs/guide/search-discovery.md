@@ -49,7 +49,7 @@ An HTTP 200 or 202 is recorded only as a submission receipt. HTTP 202 can mean t
 3. For Korean discovery, add the exact host in Naver Search Advisor, verify ownership and submit the sitemap. Keep existing tools/modutt properties untouched.
 4. Record observed indexed URLs, search impressions/clicks and Bing AI Performance citations only when dashboards show them. A submitted sitemap, successful fetch, indexed page, ranking and AI citation are different states. Do not promise timing or rank.
 
-Optional GA4 page-view measurement is enabled only after an explicit local consent choice. The tag strips query strings and fragments, keeps cookies on the games subdomain for up to 60 days, disables Google Signals and enhanced measurement, and does not send search terms, form text, account identifiers, game inputs, scores or gameplay events. The privacy page describes the data and offers a way to change the choice; local and declined sessions load no Google tag.
+Optional GA4 page views and minimal game-start/completed-round measurement are enabled only after an explicit renewed local consent choice (ADR 0050). The tag strips query strings and fragments, keeps cookies on the games subdomain for up to 60 days, disables Google Signals and enhanced measurement, and does not send search terms, form text, account identifiers, game inputs or scores. The only gameplay parameters sent are the catalogue game ID and sanitized page context for `game_start` and `game_complete`; old page-view consent must be renewed. The privacy page describes the data and offers a way to change the choice; local and declined sessions load no Google tag.
 
 ## Primary guidance
 

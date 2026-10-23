@@ -26,6 +26,8 @@ export interface GameContext {
   onError?: (message: string) => void;
 }
 export interface GameInstance {
+  /** Native held-key handlers own gameplay input; shell still owns pause. */
+  handlesKeyboard?: boolean;
   start(): void;
   pause(): void;
   resume(): void;

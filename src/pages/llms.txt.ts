@@ -1,3 +1,4 @@
+import { retroIds } from "../data/retro-discovery";
 import { games } from "../data/games";
 const boardGames = games.filter((game) => game.classic);
 export function GET() {
@@ -18,6 +19,21 @@ export function GET() {
     `- [Tesla browser games and compatibility](${base}/en/tesla/)`,
     `- [테슬라 브라우저 웹게임과 호환성 안내](${base}/ko/tesla/)`,
     `- [Credits and sources](${base}/en/licenses/)`,
+    "",
+    "## Original retro arcade games",
+    `- [Original arcade game guide](${base}/en/guides/retro-arcade/)`,
+    `- [오락실 감성 게임 안내](${base}/ko/guides/retro-arcade/)`,
+    `- [Retro arcade collection](${base}/en/collections/retro-arcade/)`,
+    `- [오락실 감성 게임 모음](${base}/ko/collections/retro-arcade/)`,
+    "These eight games use original names, graphics and stages. They are not licensed commercial remakes. Multiplayer modes share one device; there is no online matchmaking.",
+    ...games
+      .filter((game) => retroIds.includes(game.id))
+      .flatMap((game) =>
+        (["en", "ko"] as const).map(
+          (locale) =>
+            `- [${game.text[locale].title}](${base}/${locale}/games/${game.id}/): ${game.text[locale].description}`,
+        ),
+      ),
     "",
     "## Classic board games",
     ...boardGames.flatMap((g) =>

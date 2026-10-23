@@ -1,3 +1,4 @@
+import { retroIds } from "./retro-discovery";
 import { games, type Game } from "./games";
 import type { Locale } from "../lib/types";
 export { controlLabels, controlStyles } from "./play-styles";
@@ -15,6 +16,32 @@ interface GameCollection {
   text: Record<Locale, CollectionCopy>;
 }
 export const collections: GameCollection[] = [
+  {
+    id: "retro-arcade",
+    ids: retroIds,
+    text: {
+      en: {
+        title: "Eight original arcade games for solo and local play",
+        intro:
+          "Explore bomb mazes, snowball arenas, artillery duels, tank defense, splitting spheres, bubble puzzles, vertical shooting and ladder escapes. Play these original games in your browser.",
+        criteria:
+          "Eight independently created games with original names, graphics and stages. Four offer same-device two-player modes; four are solo games. These are not commercial classic ports or online multiplayer games.",
+        question: "Which arcade games can I play with a friend?",
+        answer:
+          "Choose Ember Maze for a local duel, Frost Patrol or Iron Bastion for local cooperation, or Crater Duel to take turns. Two players share one device; there are no online rooms or matchmaking.",
+      },
+      ko: {
+        title: "혼자 또는 친구와 즐기는 오락실 감성 웹게임 8종",
+        intro:
+          "폭탄 미로·눈덩이 액션·포격 대전·탱크 방어·공 쪼개기·버블 퍼즐·세로 슈팅·사다리 탈출을 만나보세요. 직접 만든 여덟 게임을 브라우저에서 즐길 수 있어요.",
+        criteria:
+          "이름·그래픽·스테이지를 직접 만든 게임 여덟 종이에요. 네 게임은 한 기기 2인 모드를, 나머지 네 게임은 혼자 하는 도전을 제공해요. 상용 고전게임의 이식판이나 온라인 다인 게임은 아니에요.",
+        question: "친구와 함께 할 수 있는 오락실 게임은 무엇인가요?",
+        answer:
+          "불씨 미로에서 한 기기 대전, 서리 순찰대·강철 보루에서 협동, 분화구 결투에서 번갈아 하는 포격 대전을 즐기세요. 두 사람이 한 기기를 함께 사용하며 온라인 방·매칭은 없어요.",
+      },
+    },
+  },
   {
     id: "traditional-games",
     ids: ["yutnori", "gonggi"],

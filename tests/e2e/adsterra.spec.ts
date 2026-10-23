@@ -90,7 +90,7 @@ test.describe("Adsterra banner", () => {
     await expect(
       page.locator('.game-grid [data-game-card="gonggi"]'),
     ).toHaveCount(1);
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(1);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(2);
     expect(requests).toBe(0);
     await expect(banner.locator("iframe")).toHaveCount(0);
   });
@@ -114,7 +114,7 @@ test.describe("Adsterra banner", () => {
     await expect(
       page.locator('.game-grid [data-game-card="gonggi"]'),
     ).toHaveCount(1);
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(1);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(2);
     await expect(banner).toBeHidden();
     await expect(banner.locator("iframe")).toHaveCount(0);
     expect(requests).toBe(1);

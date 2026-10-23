@@ -72,7 +72,7 @@ Use 12 explicit editor picks with bilingual reasons based on screen/rule review.
 | F11 honest compatibility | compatibility and diagnostic pages |
 | F12–F13 ads | ad config/adapter, failure recovery tests |
 | F14 SEO/GEO | static editorial HTML, canonical/hreflang/sitemap |
-| F15 observability | local gameplay event ring and diagnostics; opt-in GA4 page views only; no query strings or gameplay events sent remotely |
+| F15 observability | local event ring and diagnostics; renewed opt-in GA4 page views and minimal game starts/completions; no query strings, inputs or scores sent remotely |
 | F19 scale | typed registry, real pagination, 1,000-entry build fixture |
 | F20 mobile | responsive browser tests; physical-device signoff pending |
 | F21 slots | shared component, no display slots in play |
@@ -631,3 +631,9 @@ Acceptance requires pure rules coverage for throw mapping, paths, exact finish, 
 ## Optional Adsterra display integration — 2026-10-23
 
 The owner requested Adsterra activation. Use one consent-gated 300×250 banner on home and game details in each language, with no gameplay advertising. Google-specific approval/CMP gates remain unchanged; Adsterra has its own explicit choice and provider/filter readiness gates. See [ADR 0048](../adr/0048-adsterra-banners.md).
+
+## Original arcade expansion — 2026-10-23
+
+Add eight original games covering bomb mazes, snowball arenas, artillery, tank defense, splitting spheres, bubble puzzles, vertical shooting and ladder escapes. Four support same-device two-player play; four are solo. Publish bilingual game details, controls, a comparison guide and a curated collection, with generated canonical/schema/search/sitemap coverage and `llms.txt` links. Use original code, names and visual content; no commercial ROM or licensed-remake claim is permitted. See [ADR 0051](../adr/0051-original-retro-eight.md).
+
+Expand optional GA4 measurement to consented game starts and completed rounds using only the game ID and sanitized page context. Renew the earlier page-view-only permission, do not replay historical activity, and keep analytics optional for play. Provider receipt, search indexing and AI discovery remain separately verified outcomes; see [ADR 0050](../adr/0050-consented-game-analytics.md).

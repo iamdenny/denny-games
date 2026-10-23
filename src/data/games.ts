@@ -1,3 +1,5 @@
+import { retroAGames } from "./retro-a";
+import { retroBGames } from "./retro-b";
 import type { Locale } from "../lib/types";
 import crisp from "./crisp.json" with { type: "json" };
 import { crispCycleGames } from "./crisp-cycles";
@@ -1413,6 +1415,8 @@ const externalBrowserGames: Game[] = [
 gameCandidates.push(
   ...logicGames,
   ...heritageGames,
+  ...retroAGames,
+  ...retroBGames,
   ...retroImports,
   ...openSourceGames,
   ...externalBrowserGames,

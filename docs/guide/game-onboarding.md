@@ -29,3 +29,7 @@ Gonggi is an original MIT five-stage adaptation of Korean five-stones play. Its 
 ## Original logic games
 
 `src/games/logic/` contains the shared renderer and pure seeded rules for Lantern Grid and Number Trail. `src/data/logic-games.ts` registers both bilingual campaigns. Their SVG artwork in `public/art/` is project-authored; no third-party files are used. See [ADR 0043](../adr/0043-original-logic-pack.md) before changing generation, saves or scoring.
+
+## Original arcade games
+
+The eight-game arcade expansion uses independently authored code, names, graphics and stages. Genre inspiration does not authorize commercial assets or branding. Maintain accurate solo versus same-device duel/cooperation metadata, local-save behavior and controls in both languages. Keep the registry, comparison guide, collection, sitemap and `llms.txt` references aligned. Verify the actual rendered games before attaching screenshot evidence. See [ADR 0051](../adr/0051-original-retro-eight.md); optional lifecycle analytics follows [ADR 0050](../adr/0050-consented-game-analytics.md).
