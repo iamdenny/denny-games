@@ -7,11 +7,15 @@ read_when:
 
 # Open game inventory
 
-As of 2026-10-22, the public registry has 215 games and every title launches on Denny Games. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
+As of 2026-10-23, the public registry has 216 games and every title launches on Denny Games. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
 
 ## Original Korean board game — 2026-10-22
 
 Yutnori is a Denny Games original TypeScript rules engine, DOM interface, CSS and SVG artwork under the repository MIT license. The National Folk Museum of Korea is credited as the rules reference; no external code, artwork, sticks or sound assets are bundled. The 2–4 player same-device mode uses four pieces per player, corner shortcuts, stack movement, captures and extra throws for Yut/Mo or a capture. The detail page identifies exact-finish and no-Back-do as this edition's house rules because regional play can differ. See [ADR 0047](../adr/0047-original-yutnori.md) and [the bilingual rules guide](../../src/data/pages.ts).
+
+## Original Korean dexterity game — 2026-10-23
+
+Gonggi is a Denny Games original five-stage adaptation using project-authored TypeScript, DOM controls, CSS and SVG under the repository MIT license. The [National Folk Museum of Korea Gonggi article](https://webzine.nfm.go.kr/2016/03/30/%EA%B3%B5%EA%B8%B0%EB%86%80%EC%9D%B4-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%98%EB%8A%94-%EB%86%80%EC%9D%B4%EC%9D%BC%EA%B9%8C/) is a rules reference only; no third-party code, artwork, sound or game assets are bundled. The timed catch and Kkeokgi scoring are identified as digital rules. See [ADR 0049](../adr/0049-original-gonggi.md) and [the bilingual rules guide](../../src/data/pages.ts).
 
 ## Original classic-rule additions — 2026-10-22
 

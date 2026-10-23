@@ -38,9 +38,11 @@ for (const item of crisp)
       await canvas.dispatchEvent("mousedown", { clientX: 100, clientY: 100 });
       await page.waitForTimeout(80);
       await canvas.dispatchEvent("mouseup", {});
-    }
-    await frame.waitForFunction(() => Number(document.body.dataset.ticks) > 5);
-    if (item.id !== "crisp-rolfrg") {
+      await expect(page.locator("#score")).not.toHaveText("0");
+    } else {
+      await frame.waitForFunction(
+        () => Number(document.body.dataset.ticks) > 5,
+      );
       await canvas.dispatchEvent("mousedown", { clientX: 100, clientY: 100 });
       await page.waitForTimeout(80);
       await canvas.dispatchEvent("mouseup", {});
