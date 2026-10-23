@@ -22,8 +22,15 @@ for (const game of [...crisp, ...agenticGames]) {
         Number(await frame.locator("body").getAttribute("data-ticks")),
       )
       .toBeGreaterThan(2);
-    if (await page.locator("#pause-button").isEnabled())
-      await page.locator("#pause-button").tap();
+    if (await page.locator("#pause-button").isEnabled()) {
+      const pause = (await page.locator("#pause-button").boundingBox())!;
+      // A natural loss can disable Pause between the check and touch delivery.
+      // Deliver a real tap once; do not wait for an ended game to enable Pause.
+      await page.touchscreen.tap(
+        pause.x + pause.width / 2,
+        pause.y + pause.height / 2,
+      );
+    }
     if (game.id.startsWith("crisp-")) {
       // Pause crosses an asynchronous postMessage boundary; sample after receipt.
       await expect
