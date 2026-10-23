@@ -662,3 +662,9 @@ Add Star Pinball and Jewel Drop as original solo games. Provide a three-ball pin
 ## Six original games
 
 Add Minefield Watch (three minefields), Mosaic Mystery (twelve uniquely solvable picture puzzles), Traffic Escape (twelve sliding-vehicle stages), River Hop (five crossing stages with three lives per stage), Meteor Guard (five internal twenty-second waves), and Pocket Bowling (ten frames). Each has bilingual rules and controls, original art, local continuation and a complete result condition. Existing consent-aware analytics and advertising remain shared. See ADR 0057 for lifecycle and verification boundaries.
+
+## Original Jegi Rally game — 2026-10-24
+
+Add one original locally playable Jegichagi-inspired timing game, growing the repository registry from 334 to 335 and the Korean traditional-games collection from two games to three. The first round keeps one chosen foot for six kicks; the second alternates feet for eight; the third follows a left/right/back-foot sequence for ten. Each has a visible timing gate, tighter windows by round, accuracy-based points, three misses and restart. These mechanics are Denny Games digital rules, not universal physical Jegichagi rules.
+
+Publish original bilingual detail/play/guide/collection routes, source attribution to Korean cultural references, local artwork and a real gameplay screenshot. Support touch, mouse, keyboard and the player's standard gamepad mapping through native controls; don't claim physical-device verification. Preserve consented lifecycle analytics and existing ad boundaries; add no score/input telemetry or in-player ads. See [ADR 0059](../adr/0059-jegi-rally.md). Search and AI discovery coverage are not an indexing, rank or traffic guarantee.

@@ -20,6 +20,99 @@ export const heritageGames: Game[] = [
     licenseAppliesToGame: true,
     author: "Denny Games",
     source:
+      "https://github.com/iamdenny/denny-games/tree/main/src/games/jegi-rally",
+    added: "2026-10-24",
+    playModes: ["single-player"],
+    id: "jegi-rally",
+    category: "sports",
+    controlStyle: "directional",
+    color: "mint",
+    duration: "2–4",
+    stages: 3,
+    inputs: ["touch", "mouse", "keyboard", "gamepad"],
+    artwork: "/art/jegi-rally.svg",
+    artworkAlt: {
+      en: "A paper jegi with lime and mint streamers above a timing ring.",
+      ko: "연두색과 민트색 꼬리가 달린 종이 제기가 타이밍 고리 위로 떠 있어요.",
+    },
+    screenshot: "/art/screenshots/jegi-rally.png",
+    guide: {
+      path: "guides/jegichagi-rules",
+      label: {
+        en: "Learn Jegichagi styles and the digital rules",
+        ko: "제기차기 방식과 디지털 규칙 알아보기",
+      },
+    },
+    tags: [
+      "jegichagi",
+      "jegi game",
+      "korean traditional game",
+      "timing",
+      "sports",
+      "제기차기",
+      "제기 게임",
+      "한국 전통놀이",
+      "타이밍",
+    ],
+    text: {
+      en: {
+        title: "Jegi Rally",
+        searchTitle:
+          "Free Jegichagi Game — Single Foot, Alternating Feet and Back Foot",
+        subtitle: "Keep the paper shuttle in the air.",
+        description:
+          "Play an original Korean jegichagi timing game in your browser. Keep one foot, alternate feet, then follow a back-foot sequence across three short rounds. Touch, keyboard and controller actions are supported by the player; physical devices are not certified.",
+        rules: [
+          "Round 1: choose left or right and use the same foot for six accurate kicks.",
+          "Round 2: choose either starting foot, then alternate feet for eight kicks.",
+          "Round 3: follow the left, right, back-foot sequence for ten kicks. Each round allows three misses; the timing windows narrow by round.",
+        ],
+        controls: [
+          "Touch or mouse: choose a foot or style, then press Kick when the moving jegi reaches the marked timing window.",
+          "Keyboard: Left/Right selects a foot, Up selects back-foot in round 3, and Enter or Space kicks.",
+          "Standard gamepad: D-pad selects a foot/style and the primary button kicks. Physical controller behavior is unverified.",
+        ],
+        tips: [
+          "Read the required foot/style cue before each kick; a wrong choice uses one miss.",
+          "The striped band shows the full timing window. Aim near its center for more points.",
+          "Pause to freeze the flight. Completed kicks save in this browser; the current flight restarts after a reload.",
+        ],
+      },
+      ko: {
+        title: "제기 랠리",
+        searchTitle: "무료 제기차기 게임 · 외발·양발·뒷발 3단 도전",
+        subtitle: "종이 제기를 떨어뜨리지 말고 이어 차세요.",
+        description:
+          "한국 전통놀이 제기차기에서 영감을 얻은 자체 제작 타이밍 게임이에요. 한 발 유지, 양발 번갈아 차기, 뒷발 순서를 짧은 세 판으로 즐겨 보세요. 터치·키보드·게임패드 입력을 지원하지만 실제 기기 검증을 뜻하지는 않아요.",
+        rules: [
+          "1판: 왼발 또는 오른발을 고르고 같은 발로 정확히 여섯 번 차세요.",
+          "2판: 시작 발을 고른 뒤 양발을 번갈아 사용해 여덟 번 차세요.",
+          "3판: 왼발·오른발·뒷발 순서를 열 번 이어 가세요. 각 판은 세 번 실수하면 끝나며 타이밍 구간이 판마다 좁아져요.",
+        ],
+        controls: [
+          "터치·마우스: 발 기술을 고른 뒤 움직이는 제기가 표시 구간에 들어올 때 ‘차기’를 누르세요.",
+          "키보드: 왼쪽·오른쪽 방향키로 발을 고르고, 3판에서는 위쪽 방향키로 뒷발을 골라요. Enter·Space로 차세요.",
+          "표준 게임패드: 방향패드로 발 기술을 고르고 기본 버튼으로 차세요. 실제 컨트롤러 동작은 미검증이에요.",
+        ],
+        tips: [
+          "차례마다 필요한 발 기술을 먼저 확인하세요. 다른 기술을 고르면 실수 한 번을 사용해요.",
+          "줄무늬 띠가 타이밍 구간이에요. 가운데에 가까울수록 점수가 높아요.",
+          "일시정지하면 제기 비행도 멈춰요. 완료한 차기 기록은 이 브라우저에 저장되고 새로고침하면 진행 중인 비행부터 다시 시작해요.",
+        ],
+      },
+    },
+  },
+  {
+    version: 1,
+    license: "MIT",
+    licenseDescription: {
+      en: "Original TypeScript rules, interface and vector artwork by Denny Games.",
+      ko: "규칙·화면·벡터 그림은 데니 게임즈가 직접 만들었으며 MIT 라이선스로 공개합니다.",
+    },
+    licenseUrl: "https://github.com/iamdenny/denny-games/blob/main/LICENSE",
+    licenseAppliesToGame: true,
+    author: "Denny Games",
+    source:
       "https://github.com/iamdenny/denny-games/tree/main/src/games/gonggi",
     added: "2026-10-23",
     playModes: ["single-player"],

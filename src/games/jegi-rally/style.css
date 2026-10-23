@@ -1,0 +1,238 @@
+.jegi-game {
+  --jegi-ink: #17211d;
+  --jegi-paper: #f5f2e9;
+  --jegi-mint: #a7f0e6;
+  --jegi-lime: #e5ed68;
+  box-sizing: border-box;
+  display: grid;
+  align-content: center;
+  gap: clamp(8px, 1.8vh, 16px);
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  padding: clamp(10px, 2.4vw, 22px);
+  color: var(--jegi-paper);
+  background:
+    radial-gradient(ellipse at 48% 40%, rgb(57 102 103 / 39%), transparent 66%),
+    linear-gradient(145deg, #183438, #0e2227 78%);
+  border: 1px solid #527578;
+  border-radius: 22px;
+  font-family: inherit;
+}
+
+.jegi-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: min(100%, 720px);
+  margin-inline: auto;
+}
+
+.jegi-stage-name,
+.jegi-counts,
+.jegi-status {
+  margin: 0;
+}
+
+.jegi-stage-name {
+  color: var(--jegi-mint);
+  font-size: clamp(0.82rem, 2.5vw, 1rem);
+  font-weight: 800;
+}
+
+.jegi-counts {
+  color: #e4e9d9;
+  font-size: clamp(0.72rem, 2.1vw, 0.9rem);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+.jegi-game canvas[data-game="jegi-rally"] {
+  display: block;
+  width: min(100%, 720px);
+  height: auto;
+  max-height: min(52vh, 420px);
+  aspect-ratio: 12 / 7;
+  margin-inline: auto;
+  border: 1px solid rgb(167 240 230 / 24%);
+  border-radius: clamp(12px, 2vw, 20px);
+  box-shadow: 0 14px 34px rgb(0 0 0 / 20%);
+}
+
+.jegi-flight-track {
+  position: relative;
+  overflow: hidden;
+  width: min(100%, 720px);
+  height: 16px;
+  margin-inline: auto;
+  background: #09191d;
+  border: 1px solid #64858a;
+  border-radius: 999px;
+}
+
+.jegi-flight-track[hidden],
+.jegi-controls [hidden] {
+  display: none;
+}
+
+.jegi-window-mark,
+.jegi-flight-fill {
+  position: absolute;
+  inset-block: 0;
+}
+
+.jegi-window-mark {
+  z-index: 1;
+  background: repeating-linear-gradient(
+    135deg,
+    rgb(229 237 104 / 72%) 0 6px,
+    rgb(229 237 104 / 30%) 6px 11px
+  );
+  border-inline: 2px solid var(--jegi-lime);
+}
+
+.jegi-flight-fill {
+  z-index: 0;
+  left: 0;
+  background: linear-gradient(90deg, #6db6b0, var(--jegi-mint));
+}
+
+.jegi-flight-track.is-open {
+  outline: 3px solid var(--jegi-lime);
+  outline-offset: 2px;
+}
+
+.jegi-status {
+  min-height: 1.5em;
+  color: #d2dfd2;
+  font-size: clamp(0.82rem, 2.4vw, 1rem);
+  font-weight: 700;
+  text-align: center;
+}
+
+.jegi-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+  gap: clamp(6px, 1.5vw, 12px);
+  width: min(100%, 720px);
+  margin: 12px auto 0;
+}
+
+.jegi-technique,
+.jegi-kick {
+  box-sizing: border-box;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 2px;
+  min-width: 48px;
+  min-height: 60px;
+  padding: 5px 8px;
+  color: var(--jegi-paper);
+  background: #213b40;
+  border: 1px solid #78979a;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 800;
+  line-height: 1.1;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color 120ms ease,
+    outline-color 120ms ease,
+    transform 120ms ease;
+}
+
+.jegi-technique-icon {
+  color: var(--jegi-mint);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.jegi-technique-label {
+  font-size: clamp(0.75rem, 2.1vw, 0.82rem);
+  text-align: center;
+  white-space: normal;
+}
+
+.jegi-technique[aria-pressed="true"] {
+  background: #31565a;
+  border-color: var(--jegi-mint);
+  box-shadow: inset 0 0 0 1px var(--jegi-mint);
+}
+
+.jegi-technique.is-required {
+  outline: 2px dashed var(--jegi-lime);
+  outline-offset: 2px;
+}
+
+.jegi-kick {
+  color: var(--jegi-ink);
+  background: var(--jegi-lime);
+  border-color: var(--jegi-lime);
+  font-size: clamp(0.82rem, 2.4vw, 1rem);
+}
+
+.jegi-technique:hover:not(:disabled),
+.jegi-kick:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.jegi-technique:focus-visible,
+.jegi-kick:focus-visible {
+  outline: 3px solid #fff3a6;
+  outline-offset: 3px;
+}
+
+.jegi-technique:disabled,
+.jegi-kick:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
+@media (max-width: 390px) {
+  .jegi-game {
+    gap: 7px;
+    padding: 9px;
+    border-radius: 16px;
+  }
+
+  .jegi-controls {
+    gap: 5px;
+    margin-top: 8px;
+  }
+
+  .jegi-technique,
+  .jegi-kick {
+    min-height: 56px;
+    padding-inline: 4px;
+  }
+}
+
+@media (max-height: 620px) {
+  .jegi-game {
+    gap: 6px;
+    padding-block: 8px;
+  }
+
+  .jegi-game canvas[data-game="jegi-rally"] {
+    max-height: 42vh;
+  }
+
+  .jegi-controls {
+    margin-top: 4px;
+  }
+
+  .jegi-technique,
+  .jegi-kick {
+    min-height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jegi-technique,
+  .jegi-kick {
+    transition: none;
+  }
+}

@@ -119,6 +119,95 @@ export const articles: Record<string, Record<Locale, Article>> = {
       ],
     },
   },
+  "guides/jegichagi-rules": {
+    en: {
+      title:
+        "How to play Jegichagi: single-foot, alternating and back-foot styles",
+      intro:
+        "Jegichagi is a Korean traditional game of keeping a small shuttle in the air with the feet. Published cultural references describe several play styles, and local rules can differ. Jegi Rally is Denny Games' original single-player digital adaptation.",
+      sections: [
+        {
+          heading: "What is Jegichagi?",
+          paragraphs: [
+            "Players kick a light shuttle called a jegi and try not to let it fall. It can be practiced alone or passed between people. The Ministry of Culture and the National Folk Museum of Korea describe single-foot, alternating-feet and back-foot styles among the ways people play.",
+            "Names and rules vary by region and group. These descriptions provide cultural context; they are not a single rulebook for every game of Jegichagi.",
+          ],
+        },
+        {
+          heading: "How does Jegi Rally work?",
+          paragraphs: [
+            "The first round asks you to choose one foot and keep it for six accurate kicks. The second lets you choose either starting foot, then asks you to alternate for eight kicks. The third follows a left-foot, right-foot, back-foot sequence for ten kicks.",
+            "Each round allows three misses, and the timing window gets narrower in later rounds. The timing, points and fixed sequence are Denny Games rules for this digital version, not universal physical Jegichagi rules.",
+          ],
+        },
+        {
+          heading: "How do I control the game?",
+          paragraphs: [
+            "Choose the foot or style shown in the cue, then press Kick when the shuttle reaches the marked band. The striped band shows the timing window; a closer hit to its centre earns more points. A wrong foot/style or late kick uses one miss.",
+            "Touch, mouse, keyboard and the player's standard gamepad action mapping are supported. Pause from the player controls. Completed kicks save in this browser, while the current flight restarts after a reload. Physical phones, tablets and controllers require separate hands-on verification.",
+          ],
+        },
+      ],
+      links: [
+        { label: "Play Jegi Rally", href: "/en/play/jegi-rally/" },
+        {
+          label: "Browse Korean traditional games",
+          href: "/en/collections/traditional-games/",
+        },
+        {
+          label: "Ministry of Culture: Jegichagi (Korean)",
+          href: "https://www.mcst.go.kr/usr/child/enter/play/jegichagi.jsp",
+        },
+        {
+          label: "National Folk Museum of Korea: Jegichagi (Korean)",
+          href: "https://www.nfm.go.kr/kids/elecontents/view.do?topic=13",
+        },
+      ],
+    },
+    ko: {
+      title: "제기차기 하는 법: 외발·양발·뒷발 방식 알아보기",
+      intro:
+        "제기차기는 발로 제기를 차서 떨어뜨리지 않는 한국 전통놀이예요. 문화 자료에는 여러 방식이 소개되어 있고 지역과 모임마다 규칙이 다를 수 있어요. 제기 랠리는 데니 게임즈가 직접 만든 1인용 디지털 변형입니다.",
+      sections: [
+        {
+          heading: "제기차기는 어떤 놀이인가요?",
+          paragraphs: [
+            "가벼운 제기를 발로 차서 공중에 계속 띄우는 놀이예요. 혼자 차기도 하고 여러 사람이 서로 제기를 보내며 놀기도 해요. 문화체육관광부와 국립민속박물관 자료에는 발을 든 채 차기, 양발 번갈아 차기, 뒷발 차기 등 여러 방식이 소개되어 있어요.",
+            "놀이 이름과 규칙은 지역과 모임에 따라 달라요. 아래 설명은 문화적 배경을 안내하며 모든 제기차기에 적용되는 하나의 규칙을 뜻하지 않아요.",
+          ],
+        },
+        {
+          heading: "제기 랠리는 어떻게 진행되나요?",
+          paragraphs: [
+            "1판에서는 왼발 또는 오른발을 골라 여섯 번 이어 차요. 2판에서는 시작 발을 고른 뒤 양발을 번갈아 여덟 번 차요. 3판에서는 왼발·오른발·뒷발 순서를 열 번 이어 가요.",
+            "각 판에서 세 번 실수하면 끝나고, 뒤 판으로 갈수록 타이밍 구간이 좁아져요. 타이밍·점수·정해진 발 순서는 데니 게임즈가 만든 디지털 규칙이며 실제 제기차기의 보편 규칙이 아니에요.",
+          ],
+        },
+        {
+          heading: "게임은 어떻게 조작하나요?",
+          paragraphs: [
+            "화면에 나온 발 기술을 고른 뒤 제기가 줄무늬 띠에 들어올 때 ‘차기’를 누르세요. 띠가 타이밍 구간이고 가운데에 가까울수록 점수가 높아요. 다른 발 기술을 고르거나 늦게 차면 실수 한 번을 사용해요.",
+            "터치·마우스·키보드와 플레이어의 표준 게임패드 입력 연결을 지원해요. 플레이어 조작에서 일시정지할 수 있어요. 끝낸 차기 기록은 이 브라우저에 저장되고 새로고침하면 진행 중인 비행부터 다시 시작해요. 실제 휴대폰·태블릿·컨트롤러는 별도 기기 검증이 필요해요.",
+          ],
+        },
+      ],
+      links: [
+        { label: "제기 랠리 플레이", href: "/ko/play/jegi-rally/" },
+        {
+          label: "한국 전통놀이 게임 모아보기",
+          href: "/ko/collections/traditional-games/",
+        },
+        {
+          label: "문화체육관광부 어린이 누리집: 제기차기",
+          href: "https://www.mcst.go.kr/usr/child/enter/play/jegichagi.jsp",
+        },
+        {
+          label: "국립민속박물관 어린이민속사전: 제기차기",
+          href: "https://www.nfm.go.kr/kids/elecontents/view.do?topic=13",
+        },
+      ],
+    },
+  },
   "guides/yutnori-rules": {
     en: {
       title: "How to play Yutnori: throw results, shortcuts and stacking",
@@ -1043,6 +1132,7 @@ export const guidePaths = [
   "guides/pocket-pingpong",
   "guides/retro-arcade",
   "guides/gonggi-rules",
+  "guides/jegichagi-rules",
   "guides/yutnori-rules",
   "guides/classic-board-games",
   "guides/test-your-device",

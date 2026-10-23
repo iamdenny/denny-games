@@ -715,6 +715,7 @@ try {
     "snack-street": () => import("../games/snack-street"),
     "pocket-pingpong": () => import("../games/pocket-pingpong"),
     gonggi: () => import("../games/gonggi"),
+    "jegi-rally": () => import("../games/jegi-rally"),
     "ember-maze": () => import("../games/ember-maze"),
     "frost-patrol": () => import("../games/frost-patrol"),
     "crater-duel": () => import("../games/crater-duel"),

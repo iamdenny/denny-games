@@ -26,6 +26,8 @@ Five traditional board games use independently written MIT rules, bounded AI, a 
 
 Gonggi is an original MIT five-stage adaptation of Korean five-stones play. Its TypeScript, CSS and SVG are project-authored; the National Folk Museum of Korea is credited as the rules reference, not as a code or asset source. The timed catch window and Kkeokgi scoring are disclosed as digital rules. See the [Gonggi PRD](../product/GONGGI-GAME.md) and [ADR 0049](../adr/0049-original-gonggi.md).
 
+Jegi Rally is an original MIT Canvas game based on single-foot, alternating-feet and back-foot Jegichagi variants documented by the Ministry of Culture and National Folk Museum of Korea. Its six/eight/ten-kick goals, required foot sequence, timing windows and points are Denny Games digital rules. The repository uses its own TypeScript, CSS and vector cover; no reference code, cultural artwork, sound or game assets are bundled. See [ADR 0059](../adr/0059-jegi-rally.md) and the bilingual [Jegichagi guide](../../src/data/pages.ts).
+
 ## Original logic games
 
 `src/games/logic/` contains the shared renderer and pure seeded rules for Lantern Grid and Number Trail. `src/data/logic-games.ts` registers both bilingual campaigns. Their SVG artwork in `public/art/` is project-authored; no third-party files are used. See [ADR 0043](../adr/0043-original-logic-pack.md) before changing generation, saves or scoring.

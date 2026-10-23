@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title description">
+  <title id="title">Jegi Rally</title>
+  <desc id="description">A colorful handmade paper jegi follows a bright timing arc over a dark teal playfield.</desc>
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#244b50" />
+      <stop offset="1" stop-color="#10252b" />
+    </linearGradient>
+    <radialGradient id="spot" cx="50%" cy="44%" r="60%">
+      <stop offset="0" stop-color="#4b7978" stop-opacity=".62" />
+      <stop offset="1" stop-color="#10252b" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="coin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe9ad" />
+      <stop offset="1" stop-color="#ef896b" />
+    </linearGradient>
+    <filter id="shadow" x="-.5" y="-.5" width="2" height="2">
+      <feGaussianBlur stdDeviation="7" />
+    </filter>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#field)" />
+  <rect width="640" height="360" rx="24" fill="url(#spot)" />
+  <path d="M46 296H594" stroke="#a7f0e6" stroke-opacity=".38" stroke-width="2" />
+  <path d="M94 264Q320 20 546 264" fill="none" stroke="#a7f0e6" stroke-opacity=".58" stroke-width="3" stroke-dasharray="5 13" />
+  <circle cx="374" cy="142" r="39" fill="#e5ed68" fill-opacity=".12" filter="url(#shadow)" />
+  <circle cx="374" cy="142" r="31" fill="none" stroke="#e5ed68" stroke-width="4" />
+  <path d="M329 142h13m64 0h13M374 97v13m0 64v13" stroke="#e5ed68" stroke-linecap="round" stroke-width="4" />
+  <ellipse cx="320" cy="306" rx="148" ry="17" fill="#a7f0e6" fill-opacity=".08" />
+  <g transform="translate(320 161) rotate(-13)">
+    <path d="M0-12C-17-37-14-63 0-83C13-60 17-38 0-12Z" fill="#e5ed68" />
+    <path d="M10-6C35-23 59-18 77-3C53 11 32 13 10-6Z" fill="#a7f0e6" />
+    <path d="M8 9C29 29 25 53 10 73C-4 52-7 31 8 9Z" fill="#ef896b" />
+    <path d="M-10 7C-36 23-58 16-75-3C-51-15-30-13-10 7Z" fill="#b7a8f4" />
+    <path d="M-7-10C-5-36 10-51 31-58C29-33 18-17-7-10Z" fill="#f7cb50" />
+    <path d="M12 3C37 7 50 24 55 46C31 38 16 24 12 3Z" fill="#62c684" />
+    <circle r="19" fill="url(#coin)" stroke="#fff4d8" stroke-width="3" />
+    <circle r="8" fill="none" stroke="#fff4d8" stroke-width="2" />
+  </g>
+  <text x="320" y="337" fill="#f5f2e9" font-family="system-ui, sans-serif" font-size="24" font-weight="900" text-anchor="middle" letter-spacing="2">JEGI RALLY</text>
+</svg>

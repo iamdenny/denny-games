@@ -7,7 +7,7 @@ read_when:
 
 # Open game inventory
 
-The 2026-10-24 release candidate registry contains 334 locally playable games; production publication is confirmed separately by deployed-SHA and public-route readback. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
+The 2026-10-24 release candidate registry contains 335 locally playable games; production publication is confirmed separately by deployed-SHA and public-route readback. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
 
 ## One hundred additional arcade games — 2026-10-23
 
@@ -20,6 +20,10 @@ Yutnori is a Denny Games original TypeScript rules engine, DOM interface, CSS an
 ## Original Korean dexterity game — 2026-10-23
 
 Gonggi is a Denny Games original five-stage adaptation using project-authored TypeScript, DOM controls, CSS and SVG under the repository MIT license. The [National Folk Museum of Korea Gonggi article](https://webzine.nfm.go.kr/2016/03/30/%EA%B3%B5%EA%B8%B0%EB%86%80%EC%9D%B4-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%98%EB%8A%94-%EB%86%80%EC%9D%B4%EC%9D%BC%EA%B9%8C/) is a rules reference only; no third-party code, artwork, sound or game assets are bundled. The timed catch and Kkeokgi scoring are identified as digital rules. See [ADR 0049](../adr/0049-original-gonggi.md) and [the bilingual rules guide](../../src/data/pages.ts).
+
+## Original Korean kicking game — 2026-10-24
+
+Jegi Rally is an original MIT Canvas adaptation with single-foot, alternating-feet and back-foot rounds. The [Ministry of Culture Jegichagi page](https://www.mcst.go.kr/usr/child/enter/play/jegichagi.jsp) and [National Folk Museum of Korea entry](https://www.nfm.go.kr/kids/elecontents/view.do?topic=13) are rules references only; no third-party source, images, sound or game assets are bundled. The fixed six/eight/ten-kick sequence, timing gate and scoring are labeled as Denny Games digital rules. See [ADR 0059](../adr/0059-jegi-rally.md) and the [English/Korean Jegichagi guide](../../src/data/pages.ts).
 
 ## Original classic-rule additions — 2026-10-22
 
