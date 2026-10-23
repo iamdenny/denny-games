@@ -46,7 +46,7 @@ See [ADR 0009](adr/0009-imported-games.md). The catalogue never imports the engi
 
 ## Play-style discovery and local reports
 
-Search refinements use a native disclosure, initially collapsed below 700px. Its active count follows the URL-backed form state. The existing Adsterra adapter observes the search banner's eligibility attribute and removes frames when a result page has fewer than eight games. The canonical board guide and llms.txt describe finding solo and shared-device games; GA4 retains its existing sanitized, optional event contract. See [ADR 0054](adr/0054-compact-search-discovery-and-ads.md).
+Search refinements use a native disclosure, initially collapsed below 700px. Its active count follows the URL-backed form state. The existing Adsterra adapter observes the search banner's eligibility attribute and removes frames when a result page has fewer than eight games. The canonical board guide and llms.txt describe finding solo and shared-device games; GA4 retains its existing sanitized, optional event contract. See [ADR 0055](adr/0055-compact-search-discovery-and-ads.md).
 
 Resolved solo and same-device modes are serialized into the locale search indexes using the small `play-styles.ts` resolver. Search displays those modes and composes a `mode` URL parameter with its existing filters; no game engines are loaded. See [ADR 0052](adr/0052-player-mode-search.md).
 

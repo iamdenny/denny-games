@@ -1,5 +1,5 @@
 ---
-title: "ADR 0054 — Compact search, discovery and optional ads"
+title: "ADR 0055 — Compact search, discovery and optional ads"
 summary: "Prioritize mobile game results while connecting canonical answers, consented GA4 and bounded search advertising."
 read_when:
   - Changing search filters, discovery answers or search advertising
