@@ -6,6 +6,7 @@ export interface GameResult {
   won: boolean;
   message?: string;
   draw?: boolean;
+  restored?: boolean;
 }
 export interface GameContext {
   host: HTMLElement;

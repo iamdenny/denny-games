@@ -1,6 +1,6 @@
 ---
 title: "First market focus: South Korea"
-summary: "Choose a narrow Korean-language local two-player game niche and record its evidence limits."
+summary: "Choose a Korean-language local board-game niche and record its evidence limits."
 read_when:
   - Prioritizing country-level discovery work
 ---
@@ -9,18 +9,18 @@ read_when:
 
 ## Decision
 
-Run the first country experiment in South Korea with the narrower search intent **free two-player board games that friends can play on one device**. Do not create a separate `/korea/` doorway or add a new locale. Keep the existing English and Korean pages canonical and reciprocal.
+Run the first country experiment in South Korea with the narrower search intent **free board games friends and families can play on one device**. Do not create a separate `/korea/` doorway or add a new locale. Keep the existing English and Korean pages canonical and reciprocal.
 
-This is a low-cost product-fit decision, not evidence that South Korea is the most competitive market or has proven search demand. The site already has Korean copy and five original board games with tested same-device play. A new market would add localization and support work before we have evidence that this entry performs.
+This is a low-cost product-fit decision, not evidence that South Korea is the most competitive market or has proven search demand. The site already has Korean copy and five original board games with tested same-device play. Adding Yutnori deepens that local fit with a complete 2–4 player game and Korean rules guide, but does not prove search demand, lower competition or first-page potential.
 
 ## Public competitor evidence
 
 Public pages found on 2026-10-21 show established competition in both candidate markets:
 
-| Market | Public examples | What the pages show |
-| --- | --- | --- |
+| Market      | Public examples                                                                                                                                                                 | What the pages show                                                                                                                                                                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | South Korea | [Poki Korea](https://poki.com/kr), [Moyeoplay](https://moyeoplay.studio/), [PlayHub](https://playhub-arcade.web.app/ko/), [TwoPlayerGames Korea](https://twoplayergames.net/ko) | Poki lists a 2-player category and claims 1,000+ titles globally. Moyeoplay presents eight same-device party games; PlayHub presents 38 games and a same-screen two-player collection. These are visible product claims, not independent audience measurements. |
-| Brazil | [2Player.com Brazil](https://www.2player.com/pt-br/), [2player.gg Brazil](https://2player.gg/pt-br/), [Jogos.com two-player games](https://www.jogos.com/pt/module/2-player/) | Multiple Portuguese-language destinations already focus on two-player browser games. Denny Games does not currently publish Brazilian Portuguese routes. |
+| Brazil      | [2Player.com Brazil](https://www.2player.com/pt-br/), [2player.gg Brazil](https://2player.gg/pt-br/), [Jogos.com two-player games](https://www.jogos.com/pt/module/2-player/)   | Multiple Portuguese-language destinations already focus on two-player browser games. Denny Games does not currently publish Brazilian Portuguese routes.                                                                                                        |
 
 The search result sample establishes that both markets have competitors; it does not establish their exact rank for a particular query, actual traffic, or query volume. A separate web-search sample for two-player board-game terms also surfaced specialist pages such as [NoriBoard](https://noriboard.com/en/), [Strategy Games](https://strategygames.app/) and [GomokuPlay](https://gomokuplay.com/play/), but those results do not prove they rank in Korea. Poki's global audience claim is not a Korea-specific metric.
 
@@ -31,6 +31,7 @@ No region-personalized Google result pages or authenticated Search Console metri
 The selected niche uses existing verified content:
 
 - Gomoku, Reversi, Four in a Row, English checkers and Dots and Boxes.
+- Yutnori: a locally authored 2–4 player Korean board game, with its exact-finish and no-Back-do house rules stated on the page.
 - Local AI or two people taking turns on the same device.
 - Rules, controls and save limits explained in Korean and English.
 - No claim of online matchmaking, ratings, popularity or Tesla support.
@@ -45,11 +46,16 @@ Use these as query groups for measurement, not as a volume-backed keyword list:
 - `친구랑 하는 보드게임`
 - `한 기기 2인 게임`
 - `무료 2인용 웹게임`
+- `무료 윷놀이 게임`
+- `윷놀이 하는 법`
+- `윷놀이 규칙`
+- `도개걸윷모`
+- `2~4인 윷놀이`
 
 Do not repeat phrases unnaturally in hidden text, image alt text or metadata. Keep game rules and differences visible because they help a visitor choose a game.
 
 ## Evaluation
 
-Search Console data was not available during this decision. After the updated page has had time to be crawled, compare its latest completed 28-day window with the preceding 28 days. Report the exact country, query, page, device, clicks, impressions, CTR and average position. Keep indexing and submission receipts separate from ranking and visits. Consented GA4 page views do not prove that a game was played; this site does not send gameplay events.
+Search Console data was not available during this decision or the Yutnori addition. After the localized collection, game and guide pages have had time to be crawled, compare their latest completed 28-day window with the preceding 28 days. Report the exact country, query, page, device, clicks, impressions, CTR and average position. Keep indexing and submission receipts separate from ranking and visits. Consented GA4 page views do not prove that a game was played; this site does not send gameplay events.
 
 Revisit the country focus only after those observations or an explicit product-scope change. A stronger country comparison needs repeatable, location-specific SERP captures for the same intent groups and Search Console query/page data; do not add Portuguese localization based only on market size or competitor pages.

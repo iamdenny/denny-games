@@ -244,11 +244,11 @@ test("board category, collection, guide, schema and llms links are bilingual and
 }) => {
   for (const locale of ["en", "ko"] as const) {
     await page.goto(`/${locale}/category/board/`);
-    await expect(page.locator("[data-game-card]")).toHaveCount(5);
+    await expect(page.locator("[data-game-card]")).toHaveCount(6);
     await page.goto(`/${locale}/collections/classic-board/`);
-    await expect(page.locator("[data-game-card]")).toHaveCount(5);
+    await expect(page.locator("[data-game-card]")).toHaveCount(6);
     const playLinks = page.locator("a[data-home-play-link]");
-    await expect(playLinks).toHaveCount(5);
+    await expect(playLinks).toHaveCount(6);
     for (const id of classicIds) {
       const playLink = page.locator(`a[data-home-play-link="${id}"]`);
       const title = games.find((game) => game.id === id)!.text[locale].title;
@@ -261,7 +261,7 @@ test("board category, collection, guide, schema and llms links are bilingual and
     }
     await expect(page.locator("h1")).toHaveText(
       locale === "ko"
-        ? "친구랑 하는 2인용 무료 보드게임 · 오목·사목·리버시"
+        ? "친구와 하는 무료 보드게임 · 오목·사목·리버시·윷놀이"
         : "Free two-player board games to play with a friend",
     );
     await expect(page.locator(".prose")).toContainText(
@@ -272,7 +272,7 @@ test("board category, collection, guide, schema and llms links are bilingual and
     await expect(page.locator(".prose")).toContainText(
       locale === "ko"
         ? "게임에서 같은 기기 2인 모드를 고르고 한 화면에서 번갈아 두세요."
-        : "Choose Local two-player to take turns on one device.",
+        : "Choose a local two-player mode to take turns on one device.",
     );
     await page.goto(`/${locale}/games/gomoku/`);
     const schema = JSON.parse(

@@ -6,6 +6,7 @@ export const classicIds = [
   "checkers",
   "dots-and-boxes",
 ] as const;
+export const boardGameIds = [...classicIds, "yutnori"] as const;
 const controls: Record<"en" | "ko", string[]> = {
   en: [
     "Touch or mouse: select a space, column or edge to preview, then select it again to play. Confirm move also works. Checkers: select a piece, then click a marked destination to move.",
@@ -19,7 +20,7 @@ const controls: Record<"en" | "ko", string[]> = {
   ],
 };
 const descriptions: {
-  id: (typeof classicIds)[number];
+  id: (typeof boardGameIds)[number];
   duration: string;
   color: string;
   en: Omit<GameCopy, "controls">;
@@ -212,6 +213,49 @@ const descriptions: {
       ],
     },
   },
+  {
+    id: "yutnori",
+    duration: "15–30",
+    color: "mint",
+    en: {
+      title: "Yutnori",
+      searchTitle: "Free Yutnori Game · Korean Board Game Rules & 2–4 Players",
+      subtitle: "Four sticks. A shortcut can change everything.",
+      description:
+        "Play Yutnori free in your browser with 2–4 people sharing one device. Throw four sticks, race around a 29-space board, choose diagonal shortcuts, stack your pieces and send rival stacks back to the yard. No account, installation or online matchmaking.",
+      rules: [
+        "The number of flat sides facing up sets your move: Do 1, Gae 2, Geol 3, Yut 4 and Mo 5 spaces. Yut and Mo earn another throw after the move.",
+        "Each player has four pieces. Choose one piece or a same-space stack to move. Your pieces stack when they meet; landing on an opponent sends that whole stack back to its yard and earns another throw.",
+        "Move around the outside, or choose a diagonal shortcut at a corner. Once on a diagonal, follow it through the centre to the opposite corner.",
+        "This edition uses an exact-finish house rule: a piece must land on the finish with its exact count. Back-do is off. Yutnori rules can vary by region and group.",
+        "The first player to bring all four pieces home wins. Play locally on one device; there is no AI or online opponent.",
+      ],
+      tips: [
+        "A Yut or Mo adds another throw, so choose a piece that can use both results well.",
+        "A shortcut saves spaces, but stopping on a corner can expose a stack to capture.",
+        "Stacking moves several pieces together and can accelerate a finish, but one capture sends the whole stack home.",
+      ],
+    },
+    ko: {
+      title: "윷놀이",
+      searchTitle: "무료 윷놀이 게임 · 윷놀이 규칙과 2~4인 브라우저 플레이",
+      subtitle: "윷가락 네 개, 지름길 한 번의 선택.",
+      description:
+        "친구·가족과 같은 기기에서 즐기는 무료 브라우저 윷놀이입니다. 29밭 말판에서 도개걸윷모에 따라 이동하고, 대각선 지름길·말 업기·잡기를 해보세요. 가입·설치·온라인 상대 연결 없이 2~4명이 플레이합니다.",
+      rules: [
+        "윷가락의 평평한 면이 위로 나온 수에 따라 도 1칸, 개 2칸, 걸 3칸, 윷 4칸, 모 5칸 이동합니다. 윷·모가 나오면 이동한 뒤 한 번 더 던집니다.",
+        "각자 말 네 개를 사용합니다. 말 하나 또는 같은 밭에 업힌 무리를 선택해 이동하세요. 내 말끼리 만나면 함께 움직이고, 상대 말이 있는 밭에 도착하면 그 무리 전체를 대기 자리로 보내고 한 번 더 던집니다.",
+        "바깥길을 따라가거나 모서리에서 대각선 지름길을 선택할 수 있습니다. 지름길에 진입하면 중앙을 지나 반대쪽 모서리까지 같은 대각선으로 이동합니다.",
+        "이 게임은 정확한 수로 도착해야 하는 자체 규칙을 사용하고 빽도는 적용하지 않습니다. 윷놀이는 지역·모임마다 규칙이 다를 수 있습니다.",
+        "네 말을 모두 도착시킨 플레이어가 이깁니다. 한 기기에서만 대전하며 AI나 온라인 상대는 없습니다.",
+      ],
+      tips: [
+        "윷·모는 한 번 더 던질 수 있으니 두 결과를 모두 활용할 말과 경로를 생각하세요.",
+        "지름길은 이동 칸을 줄여주지만, 모서리에 멈춘 말무리는 잡힐 수 있어요.",
+        "말을 업으면 여러 말이 함께 빨리 갈 수 있지만, 한 번 잡히면 무리 전체가 대기 자리로 돌아갑니다.",
+      ],
+    },
+  },
 ];
 export const boardGames: Game[] = descriptions.map(
   ({ id, duration, color, en, ko }) => ({
@@ -224,45 +268,77 @@ export const boardGames: Game[] = descriptions.map(
     controlStyle: "pointer",
     version: 1,
     stages: 1,
-    tags: [
-      id,
-      en.title,
-      ko.title,
-      "board",
-      "보드게임",
-      "AI",
-      "2인",
-      "local two-player",
-      "strategy",
-      "전략",
-    ],
-    inputs: ["touch", "keyboard", "gamepad"],
+    tags:
+      id === "yutnori"
+        ? [
+            id,
+            en.title,
+            ko.title,
+            "윷놀이 게임",
+            "도개걸윷모",
+            "Korean board game",
+            "traditional Korean game",
+            "무료 보드게임",
+            "2인",
+            "3인",
+            "4인",
+            "same-device multiplayer",
+          ]
+        : [
+            id,
+            en.title,
+            ko.title,
+            "board",
+            "보드게임",
+            "AI",
+            "2인",
+            "local two-player",
+            "strategy",
+            "전략",
+          ],
+    inputs:
+      id === "yutnori"
+        ? ["touch", "mouse", "keyboard"]
+        : ["touch", "keyboard", "gamepad"],
+    ...(id === "yutnori" ? { playModes: ["multi-player"] as const } : {}),
     license: "MIT · original implementation",
     author: "Denny Games",
-    source: "https://github.com/iamdenny/denny-games/tree/main/src/games/board",
-    added: "2026-10-12",
+    source: `https://github.com/iamdenny/denny-games/tree/main/src/games/${id === "yutnori" ? "yutnori" : "board"}`,
+    added: id === "yutnori" ? "2026-10-22" : "2026-10-12",
     artwork: `/art/${id}.svg`,
     screenshot: `/art/screenshots/${id}.png`,
     text: {
       en: {
         ...en,
         controls:
-          id === "gomoku"
+          id === "yutnori"
             ? [
-                "Touch or mouse: click a space to preview, then click the same space again to place your stone. Click another space to move the preview. Confirm move also works.",
-                ...controls.en.slice(1),
+                "Tap or click Throw, select one of your pieces, then choose the route. A same-space stack moves together. Use buttons only; there is no drag control.",
+                "Keyboard: Tab to a control and press Enter or Space. Browser gamepad support is not included.",
+                "The match saves in this browser. It is local pass-and-play for 2–4 people, with no AI or online rooms.",
               ]
-            : controls.en,
+            : id === "gomoku"
+              ? [
+                  "Touch or mouse: click a space to preview, then click the same space again to place your stone. Click another space to move the preview. Confirm move also works.",
+                  ...controls.en.slice(1),
+                ]
+              : controls.en,
       },
       ko: {
         ...ko,
         controls:
-          id === "gomoku"
+          id === "yutnori"
             ? [
-                "터치·마우스: 칸을 눌러 미리 보고 같은 자리를 한 번 더 누르면 돌을 놓습니다. 다른 칸을 누르면 미리보기가 이동합니다. 수 두기 버튼으로도 확정할 수 있어요.",
-                ...controls.ko.slice(1),
+                "던지기를 누르고 움직일 말을 고른 다음 이동 경로를 선택하세요. 같은 밭에 업힌 말은 함께 움직입니다. 드래그 조작은 사용하지 않습니다.",
+                "키보드: Tab으로 버튼을 이동하고 Enter 또는 Space를 누르세요. 게임패드 조작은 지원하지 않습니다.",
+                "대국은 이 브라우저에 저장됩니다. 2~4명이 한 기기에서 번갈아 플레이하며 AI·온라인 방은 없습니다.",
               ]
-            : controls.ko,
+            : id === "gomoku"
+              ? [
+                  "터치·마우스: 칸을 눌러 미리 보고 같은 자리를 한 번 더 누르면 돌을 놓습니다. 다른 칸을 누르면 미리보기가 이동합니다. 수 두기 버튼으로도 확정할 수 있어요.",
+                  ...controls.ko.slice(1),
+                ]
+              : controls.ko,
       },
     },
   }),

@@ -50,7 +50,7 @@ for (const locale of ["en", "ko"]) {
   const html = await get(`/${locale}/`);
   assert(html.includes(`lang="${locale}"`));
   const games = JSON.parse(await get(`/${locale}/search-index.json`));
-  assert.equal(games.length, 209, `${locale}: published game count differs`);
+  assert.equal(games.length, 215, `${locale}: published game count differs`);
   assert(
     games.every((game) => !game.externalHost && !game.externalPlayUrl),
     `${locale}: search index contains an external play destination`,

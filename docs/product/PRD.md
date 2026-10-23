@@ -620,6 +620,14 @@ The local catalogue includes the original Amber Trail, Starlight Apprentice and 
 
 Provide a footer-linked bilingual promotional download page with ten PNG sizes for desktop, mobile and social placements, exact dimensions, responsive previews and selectable embed HTML. Use original brand artwork without audience or advertising-approval claims. See [ADR 0046](../adr/0046-promotional-banners.md).
 
+## Korean market catalogue extension — 2026-10-22
+
+Add Yutnori as a locally playable Korean board game to strengthen the existing Korean-language board-game entry. The game supports 2–4 people sharing one browser, four pieces per player, the five base throw results, diagonal shortcuts, stacking, capture and extra throws. It has no AI, online matchmaking or external play site. Its exact-finish and no-Back-do rules are labeled as this edition's choices because regional rules can differ.
+
+Register English and Korean game copy, a Korean rules guide with an English equivalent, original MIT code and illustration, accurate multiplayer-only metadata, a direct local play route and links from the existing classic-board collection. Add search-intent coverage for 윷놀이 게임/규칙/하는 법 and English Yutnori queries without claiming search volume or first-page position. The public game count becomes 215 after merge.
+
+Acceptance requires pure rules coverage for throw mapping, paths, exact finish, stack movement, capture, extra turns and save validation; browser journeys for 2–4 players, pause/reload/restart, both locales and 320–430px phone plus iPad/desktop widths; regenerated actual-game screenshot; docs/SEO/catalogue parity; and the repository verification pipeline. A passing build or emulator does not verify physical phones, gamepads, Tesla browsers, external indexing, rank, traffic or revenue. See [ADR 0047](../adr/0047-original-yutnori.md).
+
 ## Optional Adsterra display integration — 2026-10-23
 
-The owner requested Adsterra activation. Use one consent-gated 300×250 banner on home and game details in each language, with no gameplay advertising. Google-specific approval/CMP gates remain unchanged; Adsterra has its own explicit choice and provider/filter readiness gates. See [ADR 0046](../adr/0046-adsterra-banners.md).
+The owner requested Adsterra activation. Use one consent-gated 300×250 banner on home and game details in each language, with no gameplay advertising. Google-specific approval/CMP gates remain unchanged; Adsterra has its own explicit choice and provider/filter readiness gates. See [ADR 0048](../adr/0048-adsterra-banners.md).

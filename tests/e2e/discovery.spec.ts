@@ -50,8 +50,7 @@ test("Tesla pages distinguish built-in installation from browser games in both l
       link: "Browse the full browser-game catalog (Tesla support unverified)",
       href: "/en/all/",
       multiplayerHeading: "Can two people play on one screen?",
-      multiplayerLink:
-        "Explore five same-device two-player board games (Tesla unverified)",
+      multiplayerLink: "Explore six local board games (Tesla unverified)",
       multiplayerHref: "/en/collections/classic-board/",
     },
     {
@@ -60,7 +59,7 @@ test("Tesla pages distinguish built-in installation from browser games in both l
       link: "전체 브라우저 게임 보기 (테슬라 지원 미검증)",
       href: "/ko/all/",
       multiplayerHeading: "두 명이 한 화면에서 함께 할 수 있나요?",
-      multiplayerLink: "같은 기기 2인 보드게임 다섯 개 보기 (테슬라 미검증)",
+      multiplayerLink: "같은 기기 로컬 보드게임 6종 보기 (테슬라 미검증)",
       multiplayerHref: "/ko/collections/classic-board/",
     },
   ]) {

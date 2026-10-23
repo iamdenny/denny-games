@@ -385,17 +385,32 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </section>
         {game.classic && (
           <section>
-            <h2>{label("AI or a friend?", "AI 또는 친구와 한 판")}</h2>
+            <h2>
+              {game.id === "yutnori"
+                ? label("Play with friends", "친구와 함께 플레이")
+                : label("AI or a friend?", "AI 또는 친구와 한 판")}
+            </h2>
             <p>
-              {label(
-                "Choose local AI with three search levels, or two players sharing one device. Changing mode or level starts a fresh game. Select a space, then confirm your move. There are no online rooms.",
-                "세 난이도의 로컬 AI 또는 같은 기기 2인 모드를 고르세요. 방식·난이도 변경은 새 대국을 시작합니다. 칸을 선택한 뒤 수를 확정하세요. 온라인 대전 방은 없습니다.",
-              )}
+              {game.id === "yutnori"
+                ? label(
+                    "Choose 2–4 people and take turns on this device. Throw the sticks, select a piece and choose its route. The match saves in this browser; there is no AI or online room.",
+                    "2~4명을 선택하고 한 기기에서 번갈아 플레이하세요. 윷을 던지고 말을 고른 뒤 경로를 선택합니다. 대국은 이 브라우저에 저장되며 AI·온라인 방은 없습니다.",
+                  )
+                : label(
+                    "Choose local AI with three search levels, or two players sharing one device. Changing mode or level starts a fresh game. Select a space, then confirm your move. There are no online rooms.",
+                    "세 난이도의 로컬 AI 또는 같은 기기 2인 모드를 고르세요. 방식·난이도 변경은 새 대국을 시작합니다. 칸을 선택한 뒤 수를 확정하세요. 온라인 대전 방은 없습니다.",
+                  )}
             </p>
-            <a href={`/${locale}/guides/classic-board-games/`}>
+            <a
+              href={`/${locale}/guides/${game.id === "yutnori" ? "yutnori-rules" : "classic-board-games"}/`}
+            >
               {label(
-                "Compare rules, controls and local saves",
-                "규칙·조작·저장 방식 비교하기",
+                game.id === "yutnori"
+                  ? "Read the Yutnori rules and route guide"
+                  : "Compare rules, controls and local saves",
+                game.id === "yutnori"
+                  ? "윷놀이 규칙과 말 이동 경로 읽기"
+                  : "규칙·조작·저장 방식 비교하기",
               )}{" "}
               ↗
             </a>
