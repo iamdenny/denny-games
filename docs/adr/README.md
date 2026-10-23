@@ -72,3 +72,5 @@
 - [0055 — Compact search, discovery and optional ads](0055-compact-search-discovery-and-ads.md) — Accepted.
 
 - [0056 — Original pinball and falling gems](0056-pinball-and-falling-gems.md)
+
+- [0057 — Six original browser games](0057-six-original-games.md) — Accepted.

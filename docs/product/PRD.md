@@ -654,3 +654,7 @@ Add original Snack Street and Pocket Table Tennis solo campaigns, and improve th
 ## Original pinball and gem puzzle — 2026-10-23
 
 Add Star Pinball and Jewel Drop as original solo games. Provide a three-ball pinball table with a 1,500-point goal and a six-by-twelve falling-gem puzzle with a sixty-gem goal, validated local continuation, bilingual controls and visible rules guides. Preserve the shared player, optional consented analytics and ads outside the live surface. See [ADR 0056](../adr/0056-pinball-and-falling-gems.md).
+
+## Six original games
+
+Add Minefield Watch (three minefields), Mosaic Mystery (twelve uniquely solvable picture puzzles), Traffic Escape (twelve sliding-vehicle stages), River Hop (five crossing stages with three lives per stage), Meteor Guard (five internal twenty-second waves), and Pocket Bowling (ten frames). Each has bilingual rules and controls, original art, local continuation and a complete result condition. Existing consent-aware analytics and advertising remain shared. See ADR 0057 for lifecycle and verification boundaries.

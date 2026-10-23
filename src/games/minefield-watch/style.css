@@ -1,0 +1,183 @@
+.watch-puzzle {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 8px;
+  color: #f5f2e9;
+  background: radial-gradient(ellipse at 25% 0, #31565b, #142a32 80%);
+  overflow: auto;
+  font-family: system-ui, sans-serif;
+}
+.watch-puzzle h2 {
+  font-size: clamp(16px, 3vh, 26px);
+  margin: 0;
+  color: #d9ed68;
+  letter-spacing: 0.04em;
+}
+.watch-status,
+.watch-note {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.watch-grid {
+  width: min(100%, 540px);
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  grid-template-rows: repeat(var(--n), 1fr);
+  gap: 3px;
+  background: #10232b;
+  padding: 6px;
+  box-sizing: border-box;
+  border: 2px solid #557d7a;
+  border-radius: 12px;
+}
+.watch-grid button {
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid #7fa69b;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #527d70, #294e48);
+  color: #f4f3dc;
+  font-size: clamp(13px, 3vh, 25px);
+  font-weight: 800;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: inset 0 3px #ffffff18;
+  touch-action: manipulation;
+}
+.watch-grid button[data-kind="open"] {
+  background: #e9e7d4;
+  color: #224856;
+  box-shadow: none;
+}
+.watch-grid button[data-kind="flag"] {
+  color: #ffcf83;
+}
+.watch-grid button[data-kind="mine"] {
+  background: #f18b74;
+  color: #17211d;
+}
+.watch-grid button[data-selected="true"] {
+  outline: 3px solid #d9ed68;
+  outline-offset: -3px;
+}
+.watch-grid button:focus-visible {
+  outline: 3px solid #a7f0e6;
+  outline-offset: 1px;
+  z-index: 2;
+}
+.watch-controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+.watch-controls button {
+  min-width: 48px;
+  min-height: 48px;
+  flex: 1;
+  padding: 8px;
+  background: #a7f0e6;
+  color: #17211d;
+  border: 1px solid #17211d;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  touch-action: manipulation;
+}
+.watch-controls button:disabled {
+  opacity: 0.5;
+}
+.watch-controls button:focus-visible {
+  outline: 3px solid #ef896b;
+  outline-offset: 2px;
+}
+.mosaic-mystery {
+  background: radial-gradient(ellipse at top, #535477, #262a44);
+}
+.with-clues {
+  grid-template-columns: 25% repeat(var(--n), minmax(0, 1fr));
+  grid-template-rows: 25% repeat(var(--n), minmax(0, 1fr));
+  background: #272b46;
+  border-color: #8c91ac;
+  gap: 2px;
+}
+.watch-col,
+.watch-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(11px, 2vh, 17px);
+  font-weight: 700;
+  color: #f5f2e9;
+  white-space: pre-line;
+  text-align: center;
+}
+.watch-col {
+  align-items: flex-end;
+  padding-bottom: 4px;
+}
+.watch-row {
+  justify-content: flex-end;
+  padding-right: 6px;
+}
+.with-clues button {
+  background: #f5f2e9;
+  border: 1px solid #8b94ad;
+  color: #364d68;
+  box-shadow: none;
+}
+.with-clues button[data-kind="filled"] {
+  background: #ed987e;
+  border-color: #ffd5a0;
+  box-shadow:
+    inset 2px 2px #ffffff40,
+    inset -2px -2px #00000020;
+}
+.with-clues button[data-kind="cross"] {
+  background: #d7dce5;
+  color: #45556e;
+}
+.watch-note {
+  font-size: 11px;
+}
+@media (max-width: 380px) {
+  .watch-puzzle {
+    padding: 5px;
+    gap: 5px;
+  }
+  .with-clues {
+    grid-template-columns: 25% repeat(var(--n), minmax(0, 1fr));
+    grid-template-rows: 25% repeat(var(--n), minmax(0, 1fr));
+  }
+  .watch-grid {
+    gap: 2px;
+    padding: 4px;
+  }
+  .watch-row {
+    padding-right: 3px;
+  }
+}
+
+.watch-puzzle h2,
+.watch-status,
+.watch-note {
+  flex-shrink: 0;
+}
+.watch-col,
+.watch-row {
+  min-width: 0;
+  min-height: 0;
+  line-height: 1.1;
+  box-sizing: border-box;
+}
