@@ -66,6 +66,7 @@ export interface Game {
   source: string;
   sourceLabel?: Record<Locale, string>;
   playModes?: ("single-player" | "multi-player")[];
+  guide?: { path: string; label: Record<Locale, string> };
   externalPlay?: {
     url: string;
     host: Record<Locale, string>;

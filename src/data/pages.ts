@@ -7,6 +7,106 @@ export interface Article {
   links?: { label: string; href: string }[];
 }
 export const articles: Record<string, Record<Locale, Article>> = {
+  "guides/gonggi-rules": {
+    en: {
+      title: "How to play Gonggi: four picking stages and Kkeokgi",
+      intro:
+        "Gonggi is a Korean five-stones dexterity game. This guide describes a common way to play, while noting that families and regions may use different rules. The Denny Games version is a single-player browser adaptation with touch, mouse and keyboard controls.",
+      sections: [
+        {
+          heading: "What is Gonggi?",
+          paragraphs: [
+            "Players use five small stones. Toss one keeper stone into the air, pick up a group from the surface, and catch the keeper before it lands. Gonggi can be practiced alone or played by taking turns with other people.",
+            "The exact origin is not known. Historical references describe children playing with small round stones, while the steps and names vary across regions and groups.",
+          ],
+        },
+        {
+          heading: "How do the first four stages work?",
+          paragraphs: [
+            "A common sequence is one stone at a time, two at a time, three followed by the last one, and all four remaining stones at once. A turn succeeds when the keeper is caught and the requested stones are picked without disturbing the others.",
+            "In Kkeokgi, players toss all five stones and receive some on the back of a hand. They flick those stones up again and try to catch them in the hand. Groups decide whether every stone must be caught or whether the captured count scores points.",
+          ],
+        },
+        {
+          heading: "What counts as a mistake?",
+          paragraphs: [
+            "Dropping the keeper or moving a stone outside the group being picked commonly ends the attempt. Local rules can change the fourth stage, catching rules or what happens after a mistake; agree on those details before playing in person.",
+            "The browser adaptation uses a visible timing band and three mistakes per stage. Its final Kkeokgi challenge converts the back-of-hand and catch sequence into two timed button presses. That timing and scoring are digital game rules, not a claim about every physical version.",
+          ],
+        },
+        {
+          heading: "How do I play the browser version?",
+          paragraphs: [
+            "Choose a stage, toss the stones, select the requested number while the keeper is in the air, then press Catch when the marker reaches the amber band. Catching near the centre earns more points. A picked stone can be tapped again to put it back before the catch.",
+            "Stage 5 has two catches: first receive stones on the hand, then flick and catch them again. Pause from the player controls. Completed throws and personal bests save in this browser; an unfinished toss restarts after a reload.",
+          ],
+        },
+      ],
+      links: [
+        {
+          label: "Play Gonggi",
+          href: "/en/play/gonggi/",
+        },
+        {
+          label: "Browse Korean traditional games",
+          href: "/en/collections/traditional-games/",
+        },
+        {
+          label: "National Folk Museum of Korea: Gonggi, how to play? (Korean)",
+          href: "https://webzine.nfm.go.kr/2016/03/30/%EA%B3%B5%EA%B8%B0%EB%86%80%EC%9D%B4-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%98%EB%8A%94-%EB%86%80%EC%9D%B4%EC%9D%BC%EA%B9%8C/",
+        },
+      ],
+    },
+    ko: {
+      title: "공기놀이 하는 법: 1단부터 꺾기까지",
+      intro:
+        "공기놀이는 작은 공깃돌 다섯 알로 즐기는 한국 전통 손재주 놀이예요. 아래에는 널리 알려진 기본 순서를 소개하고, 지역과 모임에 따라 규칙이 달라질 수 있음을 함께 설명합니다. 데니 게임즈 버전은 터치·마우스·키보드로 조작하는 1인용 브라우저 변형이에요.",
+      sections: [
+        {
+          heading: "공기놀이는 어떤 놀이인가요?",
+          paragraphs: [
+            "다섯 개의 작은 돌을 사용해요. 기준이 되는 공깃돌 하나를 띄운 뒤 바닥의 공깃돌을 정해진 수만큼 집고, 기준돌이 떨어지기 전에 받아요. 혼자 연습할 수도 있고 여러 명이 차례로 할 수도 있어요.",
+            "정확한 시작 시기는 알려져 있지 않아요. 작은 둥근 돌을 가지고 놀았다는 옛 기록이 전해지며, 단계의 이름과 방법은 지역과 모임에 따라 달라요.",
+          ],
+        },
+        {
+          heading: "1단부터 4단까지 어떻게 하나요?",
+          paragraphs: [
+            "널리 알려진 순서는 한 알씩 집기, 두 알씩 집기, 세 알과 마지막 한 알 집기, 남은 네 알을 한 번에 집기예요. 집으려는 알을 건드리지 않고 기준돌까지 받아야 한 번의 동작을 성공해요.",
+            "마지막 꺾기에서는 공깃돌 다섯 알을 모두 띄워 손등으로 받아요. 손등 위의 알을 다시 띄운 뒤 손으로 잡습니다. 모두 잡아야 성공하는지, 잡은 수만큼 점수를 얻는지는 함께하는 사람끼리 정할 수 있어요.",
+          ],
+        },
+        {
+          heading: "언제 실수로 처리하나요?",
+          paragraphs: [
+            "기준돌을 놓치거나 집으려는 무리 밖의 돌을 움직이면 보통 해당 시도가 끝나요. 4단 방식, 잡는 조건, 실수 뒤 처리 방식은 지역 규칙이 다를 수 있으니 실제 놀이를 시작하기 전에 맞춰 보세요.",
+            "브라우저 버전은 화면에 타이밍 띠를 표시하고 단계마다 세 번의 실수를 허용해요. 마지막 꺾기는 손등 받기와 다시 잡기를 두 번의 타이밍 입력으로 바꿨어요. 이 점수와 타이밍은 디지털 게임 규칙이며 실제 공기놀이의 모든 규칙을 대표하지 않아요.",
+          ],
+        },
+        {
+          heading: "브라우저 버전은 어떻게 플레이하나요?",
+          paragraphs: [
+            "단계를 고르고 공깃돌을 던져요. 기준돌이 날아가는 동안 목표 개수만큼 바닥의 돌을 고른 뒤 표시가 황금색 띠에 들어오면 ‘받기’를 누르세요. 띠 가운데에 가까울수록 점수가 높아요. 받기 전에는 고른 돌을 다시 눌러 내려놓을 수 있어요.",
+            "5단은 두 번 받아요. 첫 번째로 손등에 돌을 받고, 다시 띄워 잡습니다. 플레이어 조작에서 일시정지할 수 있어요. 완료한 동작과 최고 기록은 이 브라우저에 저장되며 진행 중인 던지기는 새로고침하면 다시 시작해요.",
+          ],
+        },
+      ],
+      links: [
+        {
+          label: "공기놀이 시작하기",
+          href: "/ko/play/gonggi/",
+        },
+        {
+          label: "한국 전통놀이 게임 모아보기",
+          href: "/ko/collections/traditional-games/",
+        },
+        {
+          label: "국립민속박물관: 공기놀이, 어떻게 하는 놀이일까?",
+          href: "https://webzine.nfm.go.kr/2016/03/30/%EA%B3%B5%EA%B8%B0%EB%86%80%EC%9D%B4-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%98%EB%8A%94-%EB%86%80%EC%9D%B4%EC%9D%BC%EA%B9%8C/",
+        },
+      ],
+    },
+  },
   "guides/yutnori-rules": {
     en: {
       title: "How to play Yutnori: throw results, shortcuts and stacking",
@@ -889,6 +989,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/gonggi-rules",
   "guides/yutnori-rules",
   "guides/classic-board-games",
   "guides/test-your-device",

@@ -674,6 +674,7 @@ show(text.loading);
 start.disabled = true;
 try {
   const loaders: Record<string, () => Promise<{ mount: GameFactory }>> = {
+    gonggi: () => import("../games/gonggi"),
     "lantern-grid": () =>
       import("../games/logic").then((m) => ({
         mount: m.createMount("lantern-grid"),

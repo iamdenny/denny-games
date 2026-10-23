@@ -52,6 +52,8 @@ The registry carries interaction metadata separately from input/device evidence.
 
 Five original traditional rule implementations share `src/games/board/rules.ts`, a bounded alpha-beta AI, worker and DOM renderer. Catalogue metadata lives in `src/data/board-games.ts` and imports no engine runtime. Worker requests are invalidated and terminated on pause, mode reset and destroy. Three AI settings and same-device two-player mode are restored with validated board arrays. Selection and confirmation are separate actions. Board scores in the shared shell are hidden; the board displays turns, material/box counts and result instead. See [ADR 0015](adr/0015-classic-board-games.md).
 
+Gonggi is a separate lazy-loaded DOM game in `src/games/gonggi/`. Pure stage, catch timing, score and save validation live in `rules.ts`; the renderer uses native buttons and the shared player lifecycle. It has no external runtime or network service. See [ADR 0049](adr/0049-original-gonggi.md).
+
 Shared player audio uses original synthesized event cues in `src/lib/audio.ts`. Audio starts after a user gesture, with persisted mute/volume preferences and cancellation on pause/background. Board engines report semantic cues through the existing lifecycle sound callback; imported game sound events retain the default cue.
 
 Gameplay transitions run independently of asynchronous audio resume. Mute can cancel audio immediately without leaving a paused overlay behind. Score presentation uses localized whole numbers and wrapping; stored scores keep their original precision.
