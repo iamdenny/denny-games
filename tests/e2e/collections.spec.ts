@@ -127,6 +127,10 @@ for (const width of [320, 390, 1440])
         ),
       ).toBe(true);
       await expect(page.locator('[data-affiliate="coupang"]')).toHaveCount(0);
+      if (path.endsWith("search/"))
+        await page.locator("[data-search-refinements]").evaluate((element) => {
+          (element as HTMLDetailsElement).open = true;
+        });
       for (const select of await page
         .locator(".search-filters select, .device-check-form select")
         .all())

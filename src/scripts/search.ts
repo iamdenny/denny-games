@@ -25,6 +25,13 @@ const results = document.querySelector<HTMLUListElement>("#search-results")!;
 const count = document.querySelector<HTMLElement>("#result-count")!;
 const empty = document.querySelector<HTMLElement>("#search-empty")!;
 const pages = document.querySelector<HTMLElement>("#search-pages")!;
+const refinements = form.querySelector<HTMLDetailsElement>(
+  "[data-search-refinements]",
+)!;
+const filterCount = document.querySelector<HTMLElement>(
+  "#search-filter-count",
+)!;
+const searchAd = document.querySelector<HTMLElement>("[data-adsterra-search]");
 let items: CatalogueItem[] = [],
   timer: ReturnType<typeof setTimeout>;
 
@@ -129,7 +136,17 @@ function render(requested: string | null = "1", push = false) {
   );
   const page = searchPage(requested, matches.length);
   results.replaceChildren();
-  for (const item of paginate(matches, page)) results.append(resultCard(item));
+  const pageItems = paginate(matches, page);
+  for (const item of pageItems) results.append(resultCard(item));
+  if (searchAd) searchAd.hidden = pageItems.length < 8;
+  const activeFilters = [category, control, length, mode].filter(
+    (select) => select.value,
+  ).length;
+  filterCount.textContent = activeFilters
+    ? locale === "ko"
+      ? `${activeFilters}개 적용`
+      : `${activeFilters} active`
+    : "";
   count.textContent = `${matches.length} ${text.results}`;
   empty.hidden = matches.length > 0;
   const url = new URL(location.href);
@@ -185,6 +202,7 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   clearTimeout(timer);
   render("1", true);
+  if (matchMedia("(max-width: 699px)").matches) refinements.open = false;
 });
 form.addEventListener("reset", () => {
   clearTimeout(timer);

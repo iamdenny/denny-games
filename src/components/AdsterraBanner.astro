@@ -4,8 +4,13 @@ import type { Locale } from "../lib/types";
 interface Props {
   locale: Locale;
   categoryEligibility?: boolean;
+  searchEligibility?: boolean;
 }
-const { locale, categoryEligibility = false } = Astro.props;
+const {
+  locale,
+  categoryEligibility = false,
+  searchEligibility = false,
+} = Astro.props;
 const ko = locale === "ko";
 ---
 
@@ -15,7 +20,8 @@ const ko = locale === "ko";
     class="adsterra-banner"
     data-adsterra
     data-adsterra-category={categoryEligibility ? "" : undefined}
-    hidden={categoryEligibility}
+    data-adsterra-search={searchEligibility ? "" : undefined}
+    hidden={categoryEligibility || searchEligibility}
     aria-label={ko ? "광고 · Adsterra" : "Advertisement · Adsterra"}
   >
     <small>{ko ? "광고 · Adsterra" : "Advertisement · Adsterra"}</small>
