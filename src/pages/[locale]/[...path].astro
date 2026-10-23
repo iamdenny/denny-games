@@ -612,6 +612,9 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           <GameCard game={g} locale={locale} />
         ))}
       </div>
+      {categoryGames(category!).length >= 8 && (
+        <AdsterraBanner locale={locale} categoryEligibility />
+      )}
       {categoryGames(category!).length > PAGE_SIZE && (
         <nav
           class="pagination"
@@ -692,6 +695,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           <GameCard game={g} locale={locale} />
         ))}
       </div>
+      {collection.length >= 8 && <AdsterraBanner locale={locale} />}
       <CataloguePages
         locale={locale}
         page={page}
@@ -710,6 +714,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       </div>
       <CollectionLinks locale={locale} />
       <p class="notice">{text.deviceNotice}</p>
+      <AdsterraBanner locale={locale} />
     </>
   )}
   {gameCollection && collectionCopy && (
@@ -746,6 +751,9 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           />
         ))}
       </div>
+      {collectionGames(gameCollection.id).length >= 8 && (
+        <AdsterraBanner locale={locale} />
+      )}
       <div class="prose">
         <h2>{label("How these games were selected", "이렇게 골랐습니다")}</h2>
         <p>{collectionCopy.criteria}</p>
@@ -1017,6 +1025,7 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         </p>
       </div>
       <LearnToPlay locale={locale} />
+      <AdsterraBanner locale={locale} />
       <div class="notes-grid">
         {guidePaths.map((p, i) => (
           <article class="note-card">
@@ -1041,13 +1050,23 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         <a href={`/${locale}/`}>{text.home}</a>
         <span>/ {article.title}</span>
       </nav>
-      {article.sections.map((section) => (
-        <section>
-          <h2>{section.heading}</h2>
-          {section.paragraphs.map((p) => (
-            <p>{p}</p>
-          ))}
-        </section>
+      {article.sections.map((section, index) => (
+        <>
+          <section>
+            <h2>{section.heading}</h2>
+            {section.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+          </section>
+          {path.startsWith("guides/") &&
+            ![
+              "guides/test-your-device",
+              "guides/controller-not-detected",
+            ].includes(path) &&
+            index === Math.floor((article.sections.length - 1) / 2) && (
+              <AdsterraBanner locale={locale} />
+            )}
+        </>
       ))}
       {path === "privacy" && (
         <p>
