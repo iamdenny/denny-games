@@ -164,6 +164,29 @@ describe("Crater Duel", () => {
     expect(a.shot!.x).toBeLessThan(b.shot!.x);
   });
 });
+it("Crater direct-hit checkpoint retains victory margin across capped and jittered frames", () => {
+  const patterns = Array.from({ length: 33 }, (_, i) => [(i + 1) / 1000]);
+  patterns.push([1 / 60], [1 / 120], [0.008, 0.033, 0.016, 0.025]);
+  for (let seed = 0; seed < 20; seed++)
+    patterns.push(
+      Array.from(
+        { length: 100 },
+        (_, i) => 0.001 + ((i * 7 + seed * 11) % 33) / 1000,
+      ),
+    );
+  for (const pattern of patterns) {
+    const s = duel.create(1, "local");
+    s.wait = 0;
+    s.angle = 20;
+    s.power = 400;
+    duel.fire(s);
+    for (let frame = 0; frame < 4000 && s.shot; frame++)
+      duel.step(s, 1, pattern[frame % pattern.length]!, [idle, idle]);
+    expect(s.shot).toBeNull();
+    // At least ten health of margin above the real browser checkpoint's 40 HP.
+    expect(100 - s.hp[1]!).toBeGreaterThanOrEqual(50);
+  }
+});
 describe("Iron Bastion", () => {
   for (let stage = 1; stage <= 6; stage++)
     it(`stage ${stage} contains clear enemy approaches`, () => {

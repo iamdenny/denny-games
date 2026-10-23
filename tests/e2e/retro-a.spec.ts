@@ -2,7 +2,6 @@ import { test, expect, type Page } from "@playwright/test";
 import * as frost from "../../src/games/frost-patrol/rules";
 import * as duel from "../../src/games/crater-duel/rules";
 import * as tank from "../../src/games/iron-bastion/rules";
-const idle = { x: 0, y: 0, fire: false };
 async function checkpoint(page: Page, id: string, state: unknown) {
   await page.addInitScript(
     ({ id, state }) => {
@@ -84,26 +83,13 @@ for (const locale of ["en", "ko"]) {
     page,
   }) => {
     const seed = duel.create(1, "local");
-    let found = false;
-    for (let angle = 20; angle <= 80 && !found; angle += 5)
-      for (let power = 260; power <= 500 && !found; power += 20) {
-        const candidate = duel.create(1, "local");
-        candidate.wait = 0;
-        candidate.angle = angle;
-        candidate.power = power;
-        candidate.hp[1] = 40;
-        duel.fire(candidate);
-        for (let i = 0; i < 500 && candidate.shot; i++)
-          duel.step(candidate, 1, 0.02, [idle, idle]);
-        if (candidate.won) {
-          seed.angle = angle;
-          seed.power = power;
-          seed.hp[1] = 40;
-          seed.wait = 0;
-          found = true;
-        }
-      }
-    expect(found).toBe(true);
+    // A direct hit with margin across 1–33ms frames (covered by unit regression).
+    // The old first-winning search chose a 40-damage grazing shot at 20ms,
+    // which legitimately dealt 39 damage at CI's 33ms frame cap.
+    seed.angle = 20;
+    seed.power = 400;
+    seed.hp[1] = 40;
+    seed.wait = 0;
     await checkpoint(page, "crater-duel", seed);
     await page.goto(`/${locale}/play/crater-duel/`);
     await page.locator("#start-button").click();
