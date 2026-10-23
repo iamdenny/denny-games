@@ -39,6 +39,8 @@ describe("pinned Agentic editions", () => {
       );
       expect(html).toContain("connect-src 'none'");
       expect(html).toContain("noindex,nofollow");
+      // Upstream Wreckfall adds thumb-space inline margins; the host owns frame sizing.
+      expect(html).toContain("canvas{margin:0!important;width:100%!important;");
       expect(html).toContain("window.__agenticSetup(");
       expect(html).toContain("e.origin!==parentOrigin");
       expect(html).toContain("window.setInterval=");

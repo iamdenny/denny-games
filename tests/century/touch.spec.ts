@@ -24,6 +24,32 @@ for (const game of [...crisp, ...agenticGames]) {
       .toBeGreaterThan(2);
     if (await page.locator("#pause-button").isEnabled())
       await page.locator("#pause-button").tap();
+    if (game.id.startsWith("crisp-")) {
+      // Pause crosses an asynchronous postMessage boundary; sample after receipt.
+      await expect
+        .poll(() =>
+          frame
+            .locator("body")
+            .evaluate(
+              () =>
+                (window as unknown as { dennyBridge: { running: boolean } })
+                  .dennyBridge.running,
+            ),
+        )
+        .toBe(false);
+    } else {
+      // Independent adapters keep running private. Observe settling, then verify
+      // a separate frozen interval below rather than sampling the command race.
+      await expect
+        .poll(async () => {
+          const before = await frame.locator("body").getAttribute("data-ticks");
+          await page.waitForTimeout(80);
+          return (
+            (await frame.locator("body").getAttribute("data-ticks")) === before
+          );
+        })
+        .toBe(true);
+    }
     const ticks = await frame.locator("body").getAttribute("data-ticks");
     await page.waitForTimeout(80);
     await expect(frame.locator("body")).toHaveAttribute("data-ticks", ticks!);
