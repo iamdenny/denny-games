@@ -332,13 +332,16 @@ function mount(saved: boolean) {
   game.setVolume?.(Number(volume.value) / 100);
   el("best").textContent = formatScore(best());
   show(
-    id.startsWith("crisp-") ? text.loading : text.ready,
+    id.startsWith("crisp-") || id.startsWith("agentic-")
+      ? text.loading
+      : text.ready,
     root.dataset.instructions,
     true,
   );
   start.textContent = text.start;
   start.disabled =
     id.startsWith("crisp-") ||
+    id.startsWith("agentic-") ||
     id === "gridland" ||
     id === "neverball" ||
     id === "neverputt";
@@ -785,7 +788,9 @@ try {
   ]);
   const module = await (id.startsWith("crisp-") && !crispCycleIds.has(id)
     ? import("../games/crisp")
-    : loaders[id]!());
+    : id.startsWith("agentic-")
+      ? import("../games/agentic")
+      : loaders[id]!());
   if (token === generation) {
     factory = module.mount;
     track("load", id);

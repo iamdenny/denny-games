@@ -1,0 +1,3089 @@
+{
+  "recorded": "2026-10-24",
+  "scope": "89 shared-runtime candidates; two bounded native-input rounds per title. Natural early ends are accepted. No physical-device or full-game completion claim. Cling Hop uses the slower-input retry after the initial cadence produced no score.",
+  "games": [
+    {
+      "id": "crisp-barge-hop",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 97,
+          "ticks": "1210",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 245
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1218",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 330
+        }
+      ]
+    },
+    {
+      "id": "crisp-baserunnerdash",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 49,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 3,
+              "won": false
+            }
+          ],
+          "maximumScore": 3
+        },
+        {
+          "round": 2,
+          "actions": 10,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-bladedancer",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 19,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 6,
+              "won": false
+            }
+          ],
+          "maximumScore": 6
+        },
+        {
+          "round": 2,
+          "actions": 52,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 31,
+              "won": false
+            }
+          ],
+          "maximumScore": 31
+        }
+      ]
+    },
+    {
+      "id": "crisp-blast-buoy",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 72,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1224",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 18
+        }
+      ]
+    },
+    {
+      "id": "crisp-blaze-thrust",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 58,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1222",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 50
+        }
+      ]
+    },
+    {
+      "id": "crisp-blockstacker",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 94,
+          "ticks": "1205",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 24
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1228",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 25
+        }
+      ]
+    },
+    {
+      "id": "crisp-bola-thread",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 19,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 95,
+          "ticks": "1203",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 31
+        }
+      ]
+    },
+    {
+      "id": "crisp-bore-comet",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 63,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 66,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-bridgecross",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 72,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 49,
+              "won": false
+            }
+          ],
+          "maximumScore": 49
+        },
+        {
+          "round": 2,
+          "actions": 15,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 3,
+              "won": false
+            }
+          ],
+          "maximumScore": 3
+        }
+      ]
+    },
+    {
+      "id": "crisp-catchingwheel",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 62,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 21,
+              "won": false
+            }
+          ],
+          "maximumScore": 21
+        },
+        {
+          "round": 2,
+          "actions": 42,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 7,
+              "won": false
+            }
+          ],
+          "maximumScore": 7
+        }
+      ]
+    },
+    {
+      "id": "crisp-chalkboard",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 16,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        },
+        {
+          "round": 2,
+          "actions": 34,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 2,
+              "won": false
+            }
+          ],
+          "maximumScore": 2
+        }
+      ]
+    },
+    {
+      "id": "crisp-cleaner",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 27,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 10,
+              "won": false
+            }
+          ],
+          "maximumScore": 10
+        },
+        {
+          "round": 2,
+          "actions": 20,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 3,
+              "won": false
+            }
+          ],
+          "maximumScore": 3
+        }
+      ]
+    },
+    {
+      "id": "crisp-cling-hop",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 1,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0,
+          "playMilliseconds": 1314
+        },
+        {
+          "round": 2,
+          "actions": 1,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0,
+          "playMilliseconds": 1290
+        }
+      ]
+    },
+    {
+      "id": "crisp-cue-crumb",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 5,
+              "won": false
+            }
+          ],
+          "maximumScore": 5
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 4,
+              "won": false
+            }
+          ],
+          "maximumScore": 4
+        }
+      ]
+    },
+    {
+      "id": "crisp-dark-sort",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 10,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "crisp-echo-bridge",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 43,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 730,
+              "won": false
+            }
+          ],
+          "maximumScore": 730
+        },
+        {
+          "round": 2,
+          "actions": 38,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 759,
+              "won": false
+            }
+          ],
+          "maximumScore": 759
+        }
+      ]
+    },
+    {
+      "id": "crisp-elastichero",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 98,
+          "ticks": "1221",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 97,
+          "ticks": "1208",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 129
+        }
+      ]
+    },
+    {
+      "id": "crisp-fallbounce",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-feedingfrenzy",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 96,
+          "ticks": "1198",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 80
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1225",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 69
+        }
+      ]
+    },
+    {
+      "id": "crisp-fishgrill",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-fracave",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 20,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 6,
+              "won": false
+            }
+          ],
+          "maximumScore": 6
+        },
+        {
+          "round": 2,
+          "actions": 8,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 2,
+              "won": false
+            }
+          ],
+          "maximumScore": 2
+        }
+      ]
+    },
+    {
+      "id": "crisp-geoerase",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 21,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 2,
+              "won": false
+            }
+          ],
+          "maximumScore": 2
+        },
+        {
+          "round": 2,
+          "actions": 40,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 7,
+              "won": false
+            }
+          ],
+          "maximumScore": 7
+        }
+      ]
+    },
+    {
+      "id": "crisp-geyser-hop",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 2,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 2,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-ghost-hop",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 51,
+              "won": false
+            }
+          ],
+          "maximumScore": 51
+        },
+        {
+          "round": 2,
+          "actions": 22,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 129,
+              "won": false
+            }
+          ],
+          "maximumScore": 129
+        }
+      ]
+    },
+    {
+      "id": "crisp-grapplingh",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 5,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 5,
+              "won": false
+            }
+          ],
+          "maximumScore": 5
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 4,
+              "won": false
+            }
+          ],
+          "maximumScore": 4
+        }
+      ]
+    },
+    {
+      "id": "crisp-gravity-bubble",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 16,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 258,
+              "won": false
+            }
+          ],
+          "maximumScore": 258
+        },
+        {
+          "round": 2,
+          "actions": 24,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 690,
+              "won": false
+            }
+          ],
+          "maximumScore": 690
+        }
+      ]
+    },
+    {
+      "id": "crisp-gravity-drift",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 4,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 48,
+              "won": false
+            }
+          ],
+          "maximumScore": 49
+        },
+        {
+          "round": 2,
+          "actions": 4,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 45,
+              "won": false
+            }
+          ],
+          "maximumScore": 46
+        }
+      ]
+    },
+    {
+      "id": "crisp-gravitywell",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 98,
+          "ticks": "1217",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 74
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1226",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 69
+        }
+      ]
+    },
+    {
+      "id": "crisp-hoardspout",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 74,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 24,
+              "won": false
+            }
+          ],
+          "maximumScore": 24
+        },
+        {
+          "round": 2,
+          "actions": 42,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 9,
+              "won": false
+            }
+          ],
+          "maximumScore": 9
+        }
+      ]
+    },
+    {
+      "id": "crisp-hoppinhazards",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 9,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 12.536102777777767,
+              "won": false
+            }
+          ],
+          "maximumScore": 12.536102777777767
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 9.860899999999996,
+              "won": false
+            }
+          ],
+          "maximumScore": 9.860899999999996
+        }
+      ]
+    },
+    {
+      "id": "crisp-inkinh",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 19,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 3,
+              "won": false
+            }
+          ],
+          "maximumScore": 3
+        },
+        {
+          "round": 2,
+          "actions": 25,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 2,
+              "won": false
+            }
+          ],
+          "maximumScore": 2
+        }
+      ]
+    },
+    {
+      "id": "crisp-jet-stream",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 22,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        },
+        {
+          "round": 2,
+          "actions": 22,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "crisp-jpaddle",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 97,
+          "ticks": "1209",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 302.1347016431281
+        },
+        {
+          "round": 2,
+          "actions": 54,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 39.04116740657898,
+              "won": false
+            }
+          ],
+          "maximumScore": 39.04116740657898
+        }
+      ]
+    },
+    {
+      "id": "crisp-jugglingact",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 98,
+          "ticks": "1220",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 28
+        },
+        {
+          "round": 2,
+          "actions": 71,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 22,
+              "won": false
+            }
+          ],
+          "maximumScore": 22
+        }
+      ]
+    },
+    {
+      "id": "crisp-kelpclimber",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 16,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 110,
+              "won": false
+            }
+          ],
+          "maximumScore": 110
+        },
+        {
+          "round": 2,
+          "actions": 41,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 238,
+              "won": false
+            }
+          ],
+          "maximumScore": 238
+        }
+      ]
+    },
+    {
+      "id": "crisp-kite-master",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 48,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 48,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-knightvspawns",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 34,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 72,
+              "won": false
+            }
+          ],
+          "maximumScore": 72
+        },
+        {
+          "round": 2,
+          "actions": 71,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 188,
+              "won": false
+            }
+          ],
+          "maximumScore": 188
+        }
+      ]
+    },
+    {
+      "id": "crisp-levitation",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 28,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 10,
+              "won": false
+            }
+          ],
+          "maximumScore": 10
+        },
+        {
+          "round": 2,
+          "actions": 28,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 8,
+              "won": false
+            }
+          ],
+          "maximumScore": 8
+        }
+      ]
+    },
+    {
+      "id": "crisp-marble-bounce",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 98,
+          "ticks": "1215",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 345
+        },
+        {
+          "round": 2,
+          "actions": 68,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 127,
+              "won": false
+            }
+          ],
+          "maximumScore": 127
+        }
+      ]
+    },
+    {
+      "id": "crisp-microbial-focus",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 50,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 2,
+              "won": false
+            }
+          ],
+          "maximumScore": 2
+        },
+        {
+          "round": 2,
+          "actions": 58,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 5,
+              "won": false
+            }
+          ],
+          "maximumScore": 5
+        }
+      ]
+    },
+    {
+      "id": "crisp-missile-guide",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 15,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        },
+        {
+          "round": 2,
+          "actions": 32,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "crisp-monkeyt",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 4,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "crisp-neonpollinator",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-orbit-grazer",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 28,
+              "won": false
+            }
+          ],
+          "maximumScore": 28
+        },
+        {
+          "round": 2,
+          "actions": 28,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 189,
+              "won": false
+            }
+          ],
+          "maximumScore": 189
+        }
+      ]
+    },
+    {
+      "id": "crisp-outpostpatrol",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 31,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        },
+        {
+          "round": 2,
+          "actions": 14,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-periscopeping",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 70,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 182,
+              "won": false
+            }
+          ],
+          "maximumScore": 182
+        },
+        {
+          "round": 2,
+          "actions": 50,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 36,
+              "won": false
+            }
+          ],
+          "maximumScore": 36
+        }
+      ]
+    },
+    {
+      "id": "crisp-phaserun",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 10,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 44,
+              "won": false
+            }
+          ],
+          "maximumScore": 44
+        },
+        {
+          "round": 2,
+          "actions": 10,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 79,
+              "won": false
+            }
+          ],
+          "maximumScore": 79
+        }
+      ]
+    },
+    {
+      "id": "crisp-plasmasplitter",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 16,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-pod-migration",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 5,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 5,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-pressbound",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 10,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 194,
+              "won": false
+            }
+          ],
+          "maximumScore": 194
+        },
+        {
+          "round": 2,
+          "actions": 2,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-pulse-stream",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 98,
+          "ticks": "1212",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 25
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1224",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 45
+        }
+      ]
+    },
+    {
+      "id": "crisp-pulsepiper",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 14,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 7,
+              "won": false
+            }
+          ],
+          "maximumScore": 7
+        },
+        {
+          "round": 2,
+          "actions": 26,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 39,
+              "won": false
+            }
+          ],
+          "maximumScore": 39
+        }
+      ]
+    },
+    {
+      "id": "crisp-quantumleaper",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 42,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 3,
+              "won": false
+            }
+          ],
+          "maximumScore": 3
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1214",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 9
+        }
+      ]
+    },
+    {
+      "id": "crisp-recoil-radar",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 59,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 173,
+              "won": false
+            }
+          ],
+          "maximumScore": 173
+        },
+        {
+          "round": 2,
+          "actions": 14,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 43,
+              "won": false
+            }
+          ],
+          "maximumScore": 43
+        }
+      ]
+    },
+    {
+      "id": "crisp-rocket-trail",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 2,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 2,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-rope-corral",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 98,
+          "ticks": "1211",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 11
+        },
+        {
+          "round": 2,
+          "actions": 66,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 7,
+              "won": false
+            }
+          ],
+          "maximumScore": 7
+        }
+      ]
+    },
+    {
+      "id": "crisp-rotatingtunnel",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 57,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 2,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-rotationrod",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 9,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 9,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-skyraftsman",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 12,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 12,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-slimestretcher",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 28,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        },
+        {
+          "round": 2,
+          "actions": 36,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 6,
+              "won": false
+            }
+          ],
+          "maximumScore": 6
+        }
+      ]
+    },
+    {
+      "id": "crisp-spin-cell",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 71,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 5,
+              "won": false
+            }
+          ],
+          "maximumScore": 5
+        },
+        {
+          "round": 2,
+          "actions": 19,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-splitzig",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 46,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 77,
+              "won": false
+            }
+          ],
+          "maximumScore": 77
+        },
+        {
+          "round": 2,
+          "actions": 30,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 45,
+              "won": false
+            }
+          ],
+          "maximumScore": 45
+        }
+      ]
+    },
+    {
+      "id": "crisp-stageseparation",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 106.49815467592627,
+              "won": false
+            }
+          ],
+          "maximumScore": 106.49815467592627
+        },
+        {
+          "round": 2,
+          "actions": 14,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 86.25915504629656,
+              "won": false
+            }
+          ],
+          "maximumScore": 86.25915504629656
+        }
+      ]
+    },
+    {
+      "id": "crisp-star-eater",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 98,
+          "ticks": "1223",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 62
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1212",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 32
+        }
+      ]
+    },
+    {
+      "id": "crisp-stillfire-choir",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 39,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 20,
+              "won": false
+            }
+          ],
+          "maximumScore": 20
+        },
+        {
+          "round": 2,
+          "actions": 15,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-stompingbubbles",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 5,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 11,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 28,
+              "won": false
+            }
+          ],
+          "maximumScore": 31
+        }
+      ]
+    },
+    {
+      "id": "crisp-stompshelter",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 61,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 310,
+              "won": false
+            }
+          ],
+          "maximumScore": 310
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 27,
+              "won": false
+            }
+          ],
+          "maximumScore": 27
+        }
+      ]
+    },
+    {
+      "id": "crisp-stormveil",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 1,
+              "won": false
+            }
+          ],
+          "maximumScore": 1
+        }
+      ]
+    },
+    {
+      "id": "crisp-sunflowersway",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 69,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 183.97584999999995,
+              "won": false
+            }
+          ],
+          "maximumScore": 183.97584999999995
+        },
+        {
+          "round": 2,
+          "actions": 28,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-switchboard",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 27,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 27,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-tectonic-tether",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 54,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 10,
+              "won": false
+            }
+          ],
+          "maximumScore": 10
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1212",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 118
+        }
+      ]
+    },
+    {
+      "id": "crisp-tongue-hunter",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 20,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 300,
+              "won": false
+            }
+          ],
+          "maximumScore": 300
+        },
+        {
+          "round": 2,
+          "actions": 22,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 237,
+              "won": false
+            }
+          ],
+          "maximumScore": 237
+        }
+      ]
+    },
+    {
+      "id": "crisp-tornadotwister",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 58,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 65,
+              "won": false
+            }
+          ],
+          "maximumScore": 65
+        },
+        {
+          "round": 2,
+          "actions": 73,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 34,
+              "won": false
+            }
+          ],
+          "maximumScore": 34
+        }
+      ]
+    },
+    {
+      "id": "crisp-trojan-defense",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 40,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 10,
+              "won": false
+            }
+          ],
+          "maximumScore": 10
+        },
+        {
+          "round": 2,
+          "actions": 38,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 20,
+              "won": false
+            }
+          ],
+          "maximumScore": 20
+        }
+      ]
+    },
+    {
+      "id": "crisp-turbotunnel",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 6,
+              "won": false
+            }
+          ],
+          "maximumScore": 6
+        },
+        {
+          "round": 2,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-turtletide",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 34,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 58.78014904895095,
+              "won": false
+            }
+          ],
+          "maximumScore": 58.78014904895095
+        },
+        {
+          "round": 2,
+          "actions": 38,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 68.69277649565353,
+              "won": false
+            }
+          ],
+          "maximumScore": 67.11312877140531
+        }
+      ]
+    },
+    {
+      "id": "crisp-twinjumpers",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 72,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 818.2300836518314,
+              "won": false
+            }
+          ],
+          "maximumScore": 448.4115195947279
+        },
+        {
+          "round": 2,
+          "actions": 6,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 36.54704701986799,
+              "won": false
+            }
+          ],
+          "maximumScore": 36.54704701986799
+        }
+      ]
+    },
+    {
+      "id": "crisp-vineclimber",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 19,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 12,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-wavybird",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 14,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 53,
+              "won": false
+            }
+          ],
+          "maximumScore": 53
+        },
+        {
+          "round": 2,
+          "actions": 8,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 22,
+              "won": false
+            }
+          ],
+          "maximumScore": 22
+        }
+      ]
+    },
+    {
+      "id": "crisp-windowwasher",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 10,
+              "won": false
+            }
+          ],
+          "maximumScore": 10
+        },
+        {
+          "round": 2,
+          "actions": 12,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 6,
+              "won": false
+            }
+          ],
+          "maximumScore": 6
+        }
+      ]
+    },
+    {
+      "id": "crisp-windpower",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 84.98217972677149,
+              "won": false
+            }
+          ],
+          "maximumScore": 84.98217972677149
+        },
+        {
+          "round": 2,
+          "actions": 16,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 69.53027061847902,
+              "won": false
+            }
+          ],
+          "maximumScore": 69.53027061847902
+        }
+      ]
+    },
+    {
+      "id": "crisp-wipe-blade",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 36,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 3,
+              "won": false
+            }
+          ],
+          "maximumScore": 3
+        },
+        {
+          "round": 2,
+          "actions": 26,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 4,
+              "won": false
+            }
+          ],
+          "maximumScore": 4
+        }
+      ]
+    },
+    {
+      "id": "crisp-zipfall",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 8,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 10,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        }
+      ]
+    },
+    {
+      "id": "crisp-bubblebounce",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 35,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 46,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 10,
+              "won": false
+            }
+          ],
+          "maximumScore": 10
+        }
+      ]
+    },
+    {
+      "id": "crisp-laserdeflection",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 40,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 8,
+              "won": false
+            }
+          ],
+          "maximumScore": 8
+        },
+        {
+          "round": 2,
+          "actions": 41,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 9,
+              "won": false
+            }
+          ],
+          "maximumScore": 9
+        }
+      ]
+    },
+    {
+      "id": "crisp-laststand",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 19,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 0,
+              "won": false
+            }
+          ],
+          "maximumScore": 0
+        },
+        {
+          "round": 2,
+          "actions": 36,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 20,
+              "won": false
+            }
+          ],
+          "maximumScore": 20
+        }
+      ]
+    },
+    {
+      "id": "crisp-timetravelrun",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 14,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 11,
+              "won": false
+            }
+          ],
+          "maximumScore": 11
+        },
+        {
+          "round": 2,
+          "actions": 34,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 24,
+              "won": false
+            }
+          ],
+          "maximumScore": 24
+        }
+      ]
+    },
+    {
+      "id": "crisp-towerclimb",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 14,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 109,
+              "won": false
+            }
+          ],
+          "maximumScore": 109
+        },
+        {
+          "round": 2,
+          "actions": 18,
+          "ticks": "0",
+          "paused": true,
+          "resumed": false,
+          "readyEvents": 1,
+          "ends": [
+            {
+              "score": 30,
+              "won": false
+            }
+          ],
+          "maximumScore": 30
+        }
+      ]
+    },
+    {
+      "id": "crisp-signal-crossing",
+      "status": "passed",
+      "journeys": [
+        {
+          "round": 1,
+          "actions": 96,
+          "ticks": "1215",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 15,
+          "playMilliseconds": 20616
+        },
+        {
+          "round": 2,
+          "actions": 98,
+          "ticks": "1221",
+          "paused": true,
+          "resumed": true,
+          "readyEvents": 1,
+          "ends": [],
+          "maximumScore": 15,
+          "playMilliseconds": 20750
+        }
+      ]
+    }
+  ]
+}

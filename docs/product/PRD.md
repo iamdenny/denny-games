@@ -26,6 +26,10 @@ This repository carries the original research requirements below. The following 
 
 > Catalogue expansion (2026-10-11): 191 pinned Crisp games join the initial three titles in six categories. See [inventory](../guide/open-game-inventory.md) and [ADR 0009](../adr/0009-imported-games.md). Imported rounds restart on leaving; daily challenges remain limited to the original three. Candidate status does not imply playable release or device certification.
 
+## One hundred additional games — 2026-10-23
+
+Expand the current234-game registry to334 with100 distinct locally playable additions. Preserve source rights, bilingual rules and the common player lifecycle. Keep individual admission evidence, actual gameplay artwork and a discoverable100-game collection. No placeholder, duplicate revision or external link counts as an added game. See [ADR0058](../adr/0058-century-arcade.md).
+
 ## Classic board release — 2026-10-12
 
 See [Classic board games PRD](CLASSIC-BOARD-GAMES.md) for five original games, the Board category, local AI/two-player modes, mobile confirmation controls and bilingual SEO/GEO acceptance. The catalogue grows from 194 to 199 games; daily challenges remain the original three.

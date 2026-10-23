@@ -7,6 +7,8 @@ import { retroAGames } from "./retro-a";
 import { retroBGames } from "./retro-b";
 import type { Locale } from "../lib/types";
 import crisp from "./crisp.json" with { type: "json" };
+import centuryCrisp from "./century-crisp.json" with { type: "json" };
+import { agenticGames } from "./agentic-games";
 import { crispCycleGames } from "./crisp-cycles";
 import { retroImports } from "./retro-imports";
 import { heritageGames } from "./heritage-games";
@@ -505,7 +507,7 @@ gameCandidates.push({
   },
 });
 gameCandidates.push(
-  ...crisp.map((item): Game => ({
+  ...[...crisp, ...centuryCrisp].map((item): Game => ({
     id: item.id,
     controlStyle: item.digits
       ? "numbers"
@@ -534,26 +536,28 @@ gameCandidates.push(
       item.title,
       item.slug,
       item.category,
-      "ABA Games",
+      "author" in item ? String(item.author) : "ABA Games",
       "Crisp",
       "오픈소스",
       ...item.controlsKo,
     ],
     inputs: ["touch", "keyboard", "gamepad"],
     license: "MIT",
-    author: "ABA Games",
+    author: "author" in item ? String(item.author) : "ABA Games",
     source: item.source,
-    added: "2026-10-11",
+    added: centuryCrisp.some((game) => game.id === item.id)
+      ? "2026-10-23"
+      : "2026-10-11",
     imported: true,
     internalScore: item.slug === "skygolf",
-    notice: "/licenses/crisp/",
+    notice: "notice" in item ? String(item.notice) : "/licenses/crisp/",
     artwork: `/art/crisp/${item.slug}.png`,
     text: {
       en: {
         title: item.title,
         subtitle: item.controls.join(" · "),
         description: item.summary,
-        rules: item.controls,
+        rules: "rules" in item ? (item.rules as string[]) : item.controls,
         controls: [
           "Touch or mouse: " + item.controls.join("; "),
           item.digits
@@ -562,6 +566,7 @@ gameCandidates.push(
           "Standard gamepad: left stick/D-pad moves the pointer, hold A to press; Start pauses. Physical hardware unverified.",
         ],
         tips: [
+          ...("tips" in item ? (item.tips as string[]) : []),
           "Pause at any time with P/Escape or the Pause button.",
           item.slug === "skygolf"
             ? "This game counts strokes inside the game. Leaving the page restarts your course."
@@ -573,7 +578,7 @@ gameCandidates.push(
         title: item.title,
         subtitle: item.controlsKo.join(" · "),
         description: item.summaryKo,
-        rules: item.controlsKo,
+        rules: "rulesKo" in item ? (item.rulesKo as string[]) : item.controlsKo,
         controls: [
           "터치·마우스: " + item.controlsKo.join(" · "),
           item.digits
@@ -582,6 +587,7 @@ gameCandidates.push(
           "표준 게임패드: 왼쪽 스틱·방향패드로 포인터 이동, A 길게 누르기, Start 정지. 실제 패드는 미검증입니다.",
         ],
         tips: [
+          ...("tipsKo" in item ? (item.tipsKo as string[]) : []),
           "P/Escape 또는 정지 버튼으로 언제든 멈출 수 있어요.",
           item.slug === "skygolf"
             ? "타수는 게임 화면에서 확인하세요. 페이지를 떠나면 코스가 처음부터 시작합니다."
@@ -593,6 +599,7 @@ gameCandidates.push(
   })),
 );
 gameCandidates.push(...boardGames);
+gameCandidates.push(...agenticGames);
 gameCandidates.push(...crispCycleGames);
 const externalBrowserGames: Game[] = [
   {

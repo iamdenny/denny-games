@@ -1,0 +1,14 @@
+{
+  "id": "crisp-signal-crossing",
+  "author": "Denny Games (Denny Lim)",
+  "license": "MIT",
+  "original": true,
+  "created": "2026-10-24",
+  "source_path": "public/vendor/crisp/games/signal-crossing/main.js",
+  "source_sha256": "f864f5cc57e134337f39fbb913f010a987e3d5f65efaeeb3283b697e8721705c",
+  "license_path": "public/licenses/crisp/signal-crossing.txt",
+  "assets": "Procedural shapes only; no external assets",
+  "release_ready": true,
+  "device_tested": false,
+  "admission_evidence": "vendor/century-admission.json"
+}

@@ -7,7 +7,11 @@ read_when:
 
 # Open game inventory
 
-As of 2026-10-23, the public registry has 216 games and every title launches on Denny Games. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
+The 2026-10-24 release candidate registry contains 334 locally playable games; production publication is confirmed separately by deployed-SHA and public-route readback. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
+
+## One hundred additional arcade games — 2026-10-23
+
+The century collection adds 88 imported Crisp games, 11 independent Canvas games and the original Signal Crossing game, all locally hosted with pinned source and MIT notices. Templates and alternate revisions are excluded. See [ADR 0058](../adr/0058-century-arcade.md), `src/data/century-crisp.json`, `src/data/agentic-games.ts`, `vendor/crisp/provenance.json` and `vendor/agentic/provenance.json`. External music is not imported. Original bytes and checked build adaptations remain reviewable. Browser admission, release deployment and physical-device verification are separate evidence states.
 
 ## Original Korean board game — 2026-10-22
 
@@ -59,7 +63,7 @@ Hextris adds a quick hexagonal block-matching puzzle. The source page includes t
 
 ## Player differences
 
-Most imports restart on page reload or language change; the shell saves personal best scores, favorites and recent plays. Hextris is an exception: its latest completed board checkpoint and high scores are restored locally. Imported games do not participate in daily seeded challenges. Optional upstream music/WebGL effects are disabled; the shared sound switch controls simple shell-generated effects where supported. A connected standard controller can move a virtual pointer and hold A; Start and disconnect pause. Mouse/touch remains available after controller use. DIGI10 uses number keys or the on-screen number buttons.
+Most imports restart on page reload or language change; the shell saves personal best scores, favorites and recent plays. Hextris is an exception: its latest completed board checkpoint and high scores are restored locally. Imported games do not participate in daily seeded challenges. Optional upstream external music/WebGL effects are disabled in the shared Crisp adapter; its sound switch controls simple shell-generated effects where supported. The eleven independent Agentic editions retain local synthesized sound under the shared mute and volume controls. A connected standard controller can move a virtual pointer and hold A; Start and disconnect pause. Mouse/touch remains available after controller use. DIGI10 uses number keys or the on-screen number buttons.
 
 At research time the Hextris repository showed about 2.4k GitHub stars. This is a changing developer-interest signal, not evidence of player counts, demand, search rankings or earnings. Candidates that fail license, load-size or mobile-UX review remain unpublished. External play listings are not permitted. A Dark Room and Ancient Beast remain unpublished because the reviewed browser versions have mobile or orientation limitations; those old host observations do not represent Denny Games compatibility.
 

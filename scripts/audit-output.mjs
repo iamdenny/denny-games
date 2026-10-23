@@ -45,7 +45,9 @@ for (const file of files) {
     );
   }
 }
-assert(bytes < 100 * 1024 * 1024, "Site exceeds 100MiB budget");
+// ADR0058: 334 games add 400 bilingual detail/player pages to the prior release.
+// Keep a bounded total while preserving the existing per-file download limits.
+assert(bytes < 120 * 1024 * 1024, "Site exceeds 120MiB budget");
 const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 assert(!/\/play\/|\/search\/|\/library\//.test(sitemap));
 for (const file of [

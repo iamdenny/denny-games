@@ -1,0 +1,1224 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>pileup · ABA Games</title><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://games.iamdenny.com/en/games/agentic-pileup/"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; media-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'"><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c13;display:grid;place-items:center}canvas{width:100%!important;height:100%!important;max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;touch-action:none;display:block}</style></head><body><canvas width="504" height="464" id="screen"></canvas><script>/* Denny Games lifecycle adapter; upstream sources remain unmodified. */
+(()=>{
+ const channel=new URLSearchParams(location.search).get('channel');
+ const parentOrigin=document.referrer?new URL(document.referrer).origin:location.origin;
+ const post=(type,data={})=>parent.postMessage({channel,type,...data},parentOrigin);
+ const nativeRAF=window.requestAnimationFrame.bind(window);
+ let now=performance.now(),next=1,queue=new Map(),running=false,ended=false,hook,started=false,ticks=0,lastScore=-1,sound=false;
+ Object.defineProperty(performance,'now',{value:()=>now});
+ window.requestAnimationFrame=cb=>{const id=next++;queue.set(id,cb);return id;};
+ window.cancelAnimationFrame=id=>queue.delete(id);
+ const timers=new Map();
+ window.setTimeout=(fn,delay=0,...args)=>{const id=next++;timers.set(id,{fn,args,at:now+Math.max(1,Number(delay)||0),period:0});return id;};
+ window.setInterval=(fn,delay=0,...args)=>{const id=next++,period=Math.max(1,Number(delay)||0);timers.set(id,{fn,args,at:now+period,period});return id;};
+ window.clearTimeout=window.clearInterval=id=>timers.delete(id);
+ const contexts=[], gains=new WeakMap();let volume=1;
+ const connect=window.AudioNode?.prototype.connect;
+ if(connect)window.AudioNode.prototype.connect=function(destination,...args){return connect.call(this,gains.get(destination)||destination,...args);};
+ const NativeAudio=window.AudioContext||window.webkitAudioContext;
+ if(NativeAudio){window.AudioContext=new Proxy(NativeAudio,{construct(Target,args){const c=new Target(...args),resume=c.resume.bind(c);contexts.push(c);const master=c.createGain();master.gain.value=volume;connect.call(master,c.destination);gains.set(c.destination,master);c.resume=()=>running&&sound?resume():Promise.resolve();if(!running||!sound)c.suspend().catch(()=>{});else resume().catch(()=>{});return c;}});window.webkitAudioContext=window.AudioContext;}
+ const syncAudio=()=>contexts.forEach(c=>{(running&&sound?c.resume():c.suspend()).catch(()=>{});});
+ // Imported leaderboards are session-local; shell owns persistent personal bests.
+ const memory=new Map();
+ try{Object.defineProperty(window,'localStorage',{value:{getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,String(v)),removeItem:k=>memory.delete(k),clear:()=>memory.clear()}});}catch{}
+ // Shared shell owns visibility/focus pause. Clear all held keys before freezing.
+ window.addEventListener('blur',e=>e.stopImmediatePropagation(),true);
+ document.addEventListener('visibilitychange',e=>{if(document.hidden&&running)post('pause');e.stopImmediatePropagation();},true);
+ const held=new Set(),physicalKeys=new Set(),pointers=new Set(),touches=new Map();
+ window.addEventListener('keydown',e=>{if(running)physicalKeys.add(e.code);},true);
+ window.addEventListener('keyup',e=>physicalKeys.delete(e.code),true);
+ window.addEventListener('pointerdown',e=>{if(running)pointers.add(e.pointerId);},true);
+ for(const type of ['pointerup','pointercancel'])window.addEventListener(type,e=>pointers.delete(e.pointerId),true);
+ window.addEventListener('touchstart',e=>{if(running)for(const t of e.changedTouches)touches.set(t.identifier,t);},true);
+ for(const type of ['touchend','touchcancel'])window.addEventListener(type,e=>{for(const t of e.changedTouches||[])touches.delete(t.identifier);},true);
+ function key(code,down){if(down===held.has(code))return;if(down)held.add(code);else held.delete(code);window.dispatchEvent(new KeyboardEvent(down?'keydown':'keyup',{code,key:code==='Space'?' ':code,bubbles:true}));}
+ const clear=()=>{const c=document.querySelector('canvas');if(c){for(const pointerId of [...pointers])c.dispatchEvent(new PointerEvent('pointercancel',{bubbles:true,pointerId}));c.dispatchEvent(new MouseEvent('mouseup',{bubbles:true}));const event=new Event('touchcancel',{bubbles:true});Object.defineProperty(event,'changedTouches',{value:[...touches.values()]});c.dispatchEvent(event);}for(const k of [...held])key(k,false);for(const k of new Set([...physicalKeys,'ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space']))window.dispatchEvent(new KeyboardEvent('keyup',{code:k,key:k==='Space'?' ':k,bubbles:true}));};
+ for(const name of ['keydown','keyup'])window.addEventListener(name,e=>{if(running&&e.type==='keydown'&&['KeyP','Escape'].includes(e.code)){post('pause');clear();running=false;syncAudio();}if((!running||['KeyP','KeyM','Escape','Enter'].includes(e.code))&&!e.__release){if(!running&&e.type==='keyup')return;e.preventDefault();e.stopImmediatePropagation();}},true);
+ for(const name of ['pointerdown','pointerup','pointermove','touchstart','touchmove','touchend','mousedown','mouseup'])window.addEventListener(name,e=>{if(!running){e.preventDefault();e.stopImmediatePropagation();}}, {capture:true,passive:false});
+ window.addEventListener('message',e=>{if(e.source!==parent||e.origin!==parentOrigin||e.data?.channel!==channel)return;const d=e.data;
+ if(d.type==='run'){if(!d.running)clear();running=d.running===true&&!ended;syncAudio();}
+ if(d.type==='sound'){sound=d.enabled===true;syncAudio();}
+ if(d.type==='volume'&&Number.isFinite(d.volume)){volume=Math.min(1,Math.max(0,d.volume));contexts.forEach(c=>{gains.get(c.destination).gain.value=volume;});}
+ if(d.type==='key'&&running&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space'].includes(d.code))key(d.code,d.down===true);
+ if(d.type==='input'&&running){key('ArrowLeft',d.x<0);key('ArrowRight',d.x>0);key('ArrowUp',d.y<0);key('ArrowDown',d.y>0);key('Space',d.pressed===true);}
+ });
+ window.__agenticSetup=h=>{hook=h;h.start();started=true;const c=document.querySelector('canvas');const callbacks=[...queue.values()];queue.clear();callbacks.forEach(f=>f(now));post('ready',{width:c.width,height:c.height});document.body.dataset.phase='ready';};
+ let previous;
+ function pump(real){const dt=previous===undefined?0:Math.min(33,real-previous);previous=real;
+ if(running&&started){now+=dt;ticks++;for(const [id,t] of [...timers])if(now>=t.at){if(t.period)t.at=now+t.period;else timers.delete(id);if(typeof t.fn==='function')t.fn(...t.args);}const callbacks=[...queue.values()];queue.clear();try{callbacks.forEach(f=>f(now));const s=hook.read();document.body.dataset.ticks=String(ticks);document.body.dataset.phase=String(s.phase);if(Number.isFinite(s.score)&&s.score!==lastScore){lastScore=s.score;post('score',{score:s.score});}if(s.ended&&!ended){ended=true;running=false;clear();syncAudio();post('end',{score:Number.isFinite(s.score)?s.score:0,won:s.won});}}catch(error){running=false;syncAudio();post('error');}}
+ nativeRAF(pump);
+ }nativeRAF(pump);
+ window.addEventListener('error',()=>{running=false;syncAudio();post('error');});
+ window.addEventListener('unhandledrejection',()=>{running=false;syncAudio();post('error');});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden&&running)post('pause');},true);
+})();
+
+;
+// PILEUP — rules core (browser global PILEUP / Node module). Deterministic integer rules, 60 ticks per second.
+// A getaway car in a city-block maze leaves tyre tracks. Patrol cars hunt it until they cross its tracks, then
+// follow the tracks exactly, turn for turn, wherever they go. So the getaway car's route is the police's route:
+// drive across your own tracks just ahead of the line, or double back after a junction, and the line meets
+// itself. Cars meeting head-on or side-on wreck; a burning wreck blocks its tile, and a car following tracks
+// through it drives in and joins the pileup. Wreck enough cars and the district's exits open: each leads to the
+// neighbouring district on that side of a 7x7 city, and driving out of the outer ring escapes the city.
+(function (root) {
+  'use strict';
+  const C = {
+    W: 21, H: 18, TILE: 240,           // grid; positions are integer units, tile centres at TILE*i + TILE/2
+    PSPD: 22,                          // getaway car, units per tick (5.5 tiles/s)
+    CSPD0: 18, CSPD_MAX: 28, CSPD_STEP_T: 600, // patrol cars start slower and gain 1 unit/tick every STEP_T ticks
+    CAP0: 4, CAP_MAX: 10, CAP_STEP_T: 600,      // patrol cars on the field: CAP0 at start, +1 every STEP_T ticks
+    FIRST_T: 60, SPAWN_GAP0: 150, SPAWN_GAP_MIN: 40, SPAWN_RAMP: 1, WARN_T: 90, // first arrival; gap between arrivals (falls RAMP ticks per second); siren warning before one
+    WRECK_T: 540,                      // a wreck burns this long, then is towed
+    HIT_CC: 180,                       // two patrol cars closer than this (Manhattan units) collide
+    HIT_PC: 170,                       // a patrol car this close to the getaway car catches it
+    HIT_W: 200,                        // a car this close to a wreck's tile centre has driven into it
+    TRAIL_N: 48,                       // tyre tracks kept, in tiles (older ones fade and are lost)
+    PTS: 100,                          // the n-th car in a pileup scores PTS * n
+    VAN_IMMUNE: 30,                    // a van that rams a car drives on; it cannot be hit again for this long
+    VAN_HP: 3,                         // ...but each ram damages it; the third wrecks it. A burning wreck stops it at once
+    READY_T: 90, DEAD_T: 100, CLEAR_T: 150,
+    LIVES: 3, EXTEND_FIRST: 10000, EXTEND_EVERY: 40000,
+    CLEAR_BONUS: 1000,                 // x (ring + 1), for getting out of a district for the first time
+    CLEAR_LIFE: 1,                     // and an extra car, also the first time only
+    ESCAPE_BONUS: 10000,               // for driving out of the city
+    CAR_BONUS: 5000,                   // ...and this for each car you still have when you do
+    REVISIT_HEAT: 2,                   // a district you have been through before is on alert: this much more heat
+    RUN_HEAT_T: 7200,                  // and police everywhere get a step faster every this many ticks of the run
+    CITY_R: 3,                         // the city is (2R+1) x (2R+1) districts around DOWNTOWN
+  };
+  const DX = [0, 0, 1, 0, -1], DY = [0, -1, 0, 1, 0]; // 1 up, 2 right, 3 down, 4 left
+  const REV = [0, 3, 4, 1, 2];
+  const HALF = C.TILE / 2;
+  const START = [10, 7];
+  // exits in the middle of each edge: the tile outside the wall, the road tile inside it, and the way out
+  const EXITS = [[10, 0, 1], [20, 7, 2], [10, 17, 3], [0, 7, 4]].map(([x, y, d]) => ({ x, y, d, px: x - DX[d], py: y - DY[d] }));
+  const GATES = [[1, 1], [19, 1], [1, 16], [19, 16]]; // patrol cars arrive at the four corners
+
+  // ---- districts: a lattice of roads with some streets removed, and the element each one brings
+  // H i,j: row j between col i and i+1; V i,j: col i between row j and j+1 (ROWS and COLS index the lattice)
+  const ROWS = [1, 4, 7, 10, 13, 16], COLS = [1, 4, 7, 10, 13, 16, 19];
+  // ---- the city: DOWNTOWN in the middle; every other district's zone is drawn for each run, the outer rings leaning
+  // to the best-paying, hottest zones but often mixed with others. A zone sets which police come and how much a
+  // pileup pays; the ring sets the quota.
+  // heat: police on the field (cap) and their speed, up or down from the city's usual
+  const ZONES = {
+    DOWNTOWN: { mult: 1, heat: 0 },
+    'OLD TOWN': { mult: 1, heat: -1 },
+    MARKET: { van: true, mult: 1.5, heat: 0 },
+    UPTOWN: { dog: true, mult: 1.5, heat: 0 },
+    HARBOR: { van: true, dog: true, mult: 3, heat: 1 },
+    INDUSTRY: { van: true, dog: true, mult: 3, heat: 1 },
+  };
+  // chance of each zone by ring: [OLD TOWN, MARKET, UPTOWN, HARBOR or INDUSTRY]
+  const ZONE_ODDS = [null, [0.35, 0.30, 0.30, 0.05], [0.20, 0.275, 0.275, 0.25], [0.15, 0.20, 0.20, 0.45]];
+  const ring = (cx, cy) => Math.max(Math.abs(cx), Math.abs(cy));
+  const cityIndex = (cx, cy) => (cy + C.CITY_R) * (2 * C.CITY_R + 1) + cx + C.CITY_R;
+  function drawCity(st) {
+    const R = C.CITY_R, z = [];
+    for (let cy = -R; cy <= R; cy++) for (let cx = -R; cx <= R; cx++) {
+      const r = ring(cx, cy);
+      if (!r) { z.push('DOWNTOWN'); continue; }
+      const odds = ZONE_ODDS[r], u = rnd(st);
+      let k = 0, acc = odds[0];
+      while (u >= acc && k < 3) acc += odds[++k];
+      z.push(k < 3 ? ['OLD TOWN', 'MARKET', 'UPTOWN'][k] : rnd(st) < 0.5 ? 'HARBOR' : 'INDUSTRY');
+    }
+    return z;
+  }
+  function districtAt(st, cx, cy) {
+    const name = st.zones[cityIndex(cx, cy)], r = ring(cx, cy);
+    return { name, cx, cy, ring: r, quota: 4 + r, ...ZONES[name], van: !!ZONES[name].van, dog: !!ZONES[name].dog };
+  }
+  // times the run has entered (cx, cy); the district you are in counts once
+  const visits = (st, cx, cy) => st.route.filter(([a, b]) => a === cx && b === cy).length;
+  const DOWNTOWN_CUT = ['V3,0', 'V3,4', 'H0,2', 'H5,2', 'H0,3', 'H5,3', 'V2,2', 'V4,2'];
+  const SEGMENTS = [];
+  for (let j = 0; j < ROWS.length; j++) for (let i = 0; i + 1 < COLS.length; i++) SEGMENTS.push(`H${i},${j}`);
+  for (let i = 0; i < COLS.length; i++) for (let j = 0; j + 1 < ROWS.length; j++) SEGMENTS.push(`V${i},${j}`);
+  function isRoad(M, tx, ty) { return tx >= 0 && ty >= 0 && tx < C.W && ty < C.H && M.road[ty * C.W + tx] === 1; }
+  function buildMap(D) {
+    const road = new Uint8Array(C.W * C.H), cut = D.cut || [];
+    for (let j = 0; j < ROWS.length; j++) for (let i = 0; i + 1 < COLS.length; i++) if (!cut.includes(`H${i},${j}`)) for (let x = COLS[i]; x <= COLS[i + 1]; x++) road[ROWS[j] * C.W + x] = 1;
+    for (let i = 0; i < COLS.length; i++) for (let j = 0; j + 1 < ROWS.length; j++) if (!cut.includes(`V${i},${j}`)) for (let y = ROWS[j]; y <= ROWS[j + 1]; y++) road[y * C.W + COLS[i]] = 1;
+    const M = { name: D.name, road };
+    // every road tile has two ways out, and every road tile can reach every other
+    const tiles = [];
+    for (let y = 0; y < C.H; y++) for (let x = 0; x < C.W; x++) if (road[y * C.W + x]) {
+      tiles.push(y * C.W + x);
+      let n = 0; for (let d = 1; d <= 4; d++) if (isRoad(M, x + DX[d], y + DY[d])) n++;
+      if (n < 2) throw new Error(`${D.name}: dead end at ${x},${y}`);
+    }
+    const seen = new Set([tiles[0]]), q = [tiles[0]];
+    while (q.length) {
+      const k = q.pop(), x = k % C.W, y = (k - x) / C.W;
+      for (let d = 1; d <= 4; d++) { const nk = (y + DY[d]) * C.W + x + DX[d]; if (isRoad(M, x + DX[d], y + DY[d]) && !seen.has(nk)) { seen.add(nk); q.push(nk); } }
+    }
+    if (seen.size !== tiles.length) throw new Error(`${D.name}: the map is cut in two`);
+    for (const g of GATES) if (!isRoad(M, g[0], g[1])) throw new Error(`${D.name}: gate ${g} is not a road`);
+    if (!isRoad(M, START[0], START[1]) || EXITS.some(e => !isRoad(M, e.px, e.py))) throw new Error(`${D.name}: start or an exit is not on a road`);
+    return M;
+  }
+  // every district's maze is fixed: DOWNTOWN is drawn by hand, the rest remove 6-9 streets chosen from a seed of
+  // the district's position, keeping the rules buildMap checks (no dead end, one connected city, gates, exits)
+  const MAPS = new Map();
+  function mapAt(cx, cy) {
+    const key = cx + ',' + cy;
+    let M = MAPS.get(key);
+    if (M) return M;
+    if (!cx && !cy) M = buildMap({ name: 'DOWNTOWN', cut: DOWNTOWN_CUT });
+    else {
+      let s = ((cx + 11) * 7919 + (cy + 13) * 104729) | 0;
+      const r = () => { s = (s + 0x6D2B79F5) | 0; let t = Math.imul(s ^ (s >>> 15), 1 | s); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+      for (let tries = 0; !M; tries++) {
+        const n = 6 + Math.floor(r() * 4), cut = [];
+        while (cut.length < n) { const sg = SEGMENTS[Math.floor(r() * SEGMENTS.length)]; if (!cut.includes(sg)) cut.push(sg); }
+        try { M = buildMap({ name: key, cut }); } catch (e) { if (tries > 500) throw e; }
+      }
+    }
+    MAPS.set(key, M);
+    return M;
+  }
+  for (let cy = -C.CITY_R; cy <= C.CITY_R; cy++) for (let cx = -C.CITY_R; cx <= C.CITY_R; cx++) mapAt(cx, cy);
+
+  function rnd(st) { let a = st.rs = (st.rs + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  const cen = (t) => t * C.TILE + HALF;
+  const tileOf = (v) => Math.floor(v / C.TILE);
+  const atCentre = (o) => (o.x - HALF) % C.TILE === 0 && (o.y - HALF) % C.TILE === 0;
+  const map = (st) => mapAt(st.cx, st.cy);
+  // the district you are in; back in one you have been through before, it is on alert
+  function district(st) {
+    const D = districtAt(st, st.cx, st.cy);
+    if (visits(st, st.cx, st.cy) > 1) { D.heat += C.REVISIT_HEAT; D.alert = true; }
+    return D;
+  }
+  const feature = (st, f) => !!district(st)[f] && !st.off[f];
+  // where an exit leads: the neighbouring district, or out of the city
+  function exitDest(st, d) {
+    const cx = st.cx + DX[d], cy = st.cy + DY[d];
+    return ring(cx, cy) > C.CITY_R ? { escape: true } : { cx, cy, ...districtAt(st, cx, cy), seen: st.cleared.includes(cx + ',' + cy), alert: visits(st, cx, cy) > 0 };
+  }
+
+  // opt.at: start in district [cx, cy] (as if it were the run's first), opt.zone: that district's zone;
+  // opt.off: elements switched off ({ van, dog }),
+  // for measuring what each one does
+  function create(seed, opt) {
+    const st = {
+      t: 0, rs: (seed | 0) ^ 0x5bd1e995, score: 0, over: false, won: false, cause: null,
+      d: 0, cx: (opt && opt.at && opt.at[0]) || 0, cy: (opt && opt.at && opt.at[1]) || 0, entry: 0, cleared: [], route: [], lives: C.LIVES, nextExtend: C.EXTEND_FIRST, off: (opt && opt.off) || {},
+      wrecked: 0, exit: false, phase: 'ready', pt: C.READY_T, dt: 0,
+      p: null, cops: [], wrecks: [], nextId: 1, spawnT: C.FIRST_T, warn: null,
+      distP: new Int16Array(C.W * C.H), trail: null, trailBase: 0, events: [],
+      stats: { crashes: 0, cars: 0, best: 0, spawned: 0, turns: 0, deaths: 0, districts: 0, vanHits: 0, fail: {} },
+    };
+    st.zones = drawCity(st);
+    if (opt && opt.zone) st.zones[cityIndex(st.cx, st.cy)] = opt.zone;
+    st.route.push([st.cx, st.cy]);
+    enter(st);
+    return st;
+  }
+  // put the actors back for the start of a district or a life
+  // a district is entered at the edge opposite the side you left the last one by, rolling inwards; the run
+  // starts in the middle of DOWNTOWN
+  function enter(st) {
+    const e = st.entry ? EXITS.find(x => x.d === REV[st.entry]) : null, sx = e ? e.px : START[0], sy = e ? e.py : START[1];
+    st.p = { x: cen(sx), y: cen(sy), dir: 0, want: st.entry || 0 };
+    st.cops = []; st.wrecks = []; st.spawnT = C.FIRST_T; st.dt = 0;
+    st.trail = [[sx, sy, st.t]]; st.trailBase = 0;
+    route(st); st.warn = { gate: pickGate(st), t: C.FIRST_T };
+    st.phase = 'ready'; st.pt = C.READY_T;
+  }
+
+  const wreckAt = (st, tx, ty) => st.wrecks.some(w => w.tx === tx && w.ty === ty);
+  const road = (st, tx, ty) => isRoad(map(st), tx, ty);
+  const open = (st, tx, ty) => road(st, tx, ty) && !wreckAt(st, tx, ty);
+  const canMove = (st, tx, ty, d) => open(st, tx + DX[d], ty + DY[d]);
+
+  // shortest road distance to tile (sx, sy) from every tile, around wrecks
+  function flood(st, D, sx, sy) {
+    D.fill(-1);
+    const q = [sx + sy * C.W];
+    D[q[0]] = 0;
+    for (let h = 0; h < q.length; h++) {
+      const k = q[h], x = k % C.W, y = (k - x) / C.W;
+      for (let d = 1; d <= 4; d++) {
+        const nx = x + DX[d], ny = y + DY[d];
+        if (!open(st, nx, ny)) continue;
+        const nk = nx + ny * C.W;
+        if (D[nk] < 0) { D[nk] = D[k] + 1; q.push(nk); }
+      }
+    }
+  }
+  function route(st) { flood(st, st.distP, tileOf(st.p.x), tileOf(st.p.y)); }
+
+  // advance a car by spd units along the roads; choose(car) picks a direction at each tile centre (0 stops)
+  function drive(car, spd, choose) {
+    let rem = spd;
+    while (rem > 0) {
+      if (atCentre(car)) {
+        const d = choose(car);
+        if (!d) { car.dir = 0; return; }
+        car.dir = d;
+      } else if (!car.dir) return;
+      const off = car.dir === 2 || car.dir === 4 ? (car.x - HALF) % C.TILE : (car.y - HALF) % C.TILE;
+      const toC = off === 0 ? C.TILE : (car.dir === 2 || car.dir === 3 ? C.TILE - off : off);
+      const s = rem < toC ? rem : toC;
+      car.x += DX[car.dir] * s; car.y += DY[car.dir] * s; rem -= s;
+    }
+  }
+
+  function choosePlayer(st) {
+    return (p) => {
+      const tx = tileOf(p.x), ty = tileOf(p.y), tr = st.trail, last = tr[tr.length - 1];
+      if (last[0] !== tx || last[1] !== ty) {          // a new tile of tyre tracks
+        tr.push([tx, ty, st.t]);
+        if (tr.length > C.TRAIL_N) { tr.shift(); st.trailBase++; }
+      }
+      if (st.exit) for (const e of EXITS) if (p.want === e.d && tx === e.px && ty === e.py) return e.d; // out through an open exit
+      if (p.want && canMove(st, tx, ty, p.want)) { if (p.want !== p.dir) st.stats.turns++; return p.want; }
+      if (p.dir && canMove(st, tx, ty, p.dir)) return p.dir;
+      return 0;
+    };
+  }
+  // a car on the tracks drives to the next tile of them, even into a wreck and even back the way it came.
+  // Off the tracks it hunts the getaway car by the shortest road, never reversing, and picks up the tracks at the
+  // first tile of them it reaches (the newest visit to that tile). A dog unit never takes the tracks: it always hunts.
+  function dirTo(tx, ty, nx, ny) { for (let d = 1; d <= 4; d++) if (tx + DX[d] === nx && ty + DY[d] === ny) return d; return 0; }
+  function chooseCop(st) {
+    const tr = st.trail, dogs = feature(st, 'dog');
+    return (c) => {
+      const tx = tileOf(c.x), ty = tileOf(c.y), hunter = c.kind === 'dog' && dogs;
+      let rel = c.ti >= 0 && !hunter ? c.ti - st.trailBase : -1;
+      if (rel >= 0 && (tr[rel][0] !== tx || tr[rel][1] !== ty)) rel = -1;
+      if (rel < 0 && !hunter) {
+        c.ti = -1;
+        for (let i = tr.length - 2; i >= 0; i--) if (tr[i][0] === tx && tr[i][1] === ty) { rel = i; break; }
+        if (rel >= 0) st.events.push({ type: 'scent', id: c.id, tx, ty });
+      }
+      if (rel >= 0 && rel + 1 < tr.length) {
+        const d = dirTo(tx, ty, tr[rel + 1][0], tr[rel + 1][1]);
+        if (d) { c.ti = st.trailBase + rel + 1; return d; }
+      }
+      c.ti = rel >= 0 ? st.trailBase + rel : -1;     // at the newest track tile: the getaway car is just ahead
+      let best = 0, bd = 1e9;
+      for (const d of c.pref) {
+        if (d === REV[c.dir]) continue;
+        if (!canMove(st, tx, ty, d)) continue;
+        let v = st.distP[tx + DX[d] + (ty + DY[d]) * C.W]; if (v < 0) v = 999;
+        if (v < bd) { bd = v; best = d; }
+      }
+      if (!best && c.dir && canMove(st, tx, ty, REV[c.dir])) best = REV[c.dir];
+      if (!best) for (let d = 1; d <= 4; d++) if (canMove(st, tx, ty, d)) { best = d; break; }
+      return best;
+    };
+  }
+
+  const PREFS = [[1, 4, 3, 2], [4, 1, 2, 3], [2, 3, 4, 1], [3, 2, 1, 4], [1, 2, 3, 4], [4, 3, 2, 1]];
+  function spawnCop(st, gate) {
+    const [gx, gy] = GATES[gate];
+    let kind = 'car';
+    const r = rnd(st);
+    if (feature(st, 'dog') && r < 0.25) kind = 'dog';
+    else if (feature(st, 'van') && r > 0.7) kind = 'van';
+    const c = { id: st.nextId++, x: cen(gx), y: cen(gy), dir: 0, pref: PREFS[Math.floor(rnd(st) * PREFS.length)].slice(), ti: -1, kind, hp: kind === 'van' ? C.VAN_HP : 1, immune: 0 };
+    st.cops.push(c); st.stats.spawned++;
+    st.events.push({ type: 'spawn', id: c.id, x: c.x, y: c.y, kind });
+  }
+  function pickGate(st) {
+    // one of the two corners farthest from the getaway car, by road
+    const g = GATES.map((t, i) => ({ i, d: st.distP[t[0] + t[1] * C.W] }))
+      .filter(o => o.d >= 0 && !wreckAt(st, GATES[o.i][0], GATES[o.i][1])).sort((a, b) => b.d - a.d);
+    if (!g.length) return -1;
+    return g[Math.min(g.length - 1, Math.floor(rnd(st) * 2))].i;
+  }
+  // police on the field and their speed: the district's heat, every second district entered on this run, how long the run
+  // has gone on, and time spent in this life
+  const cap = (st) => Math.min(C.CAP_MAX + district(st).heat, C.CAP0 + district(st).heat + Math.floor(st.dt / C.CAP_STEP_T));
+  const copSpeed = (st) => Math.min(C.CSPD_MAX, C.CSPD0 + district(st).heat + (st.d >> 1) + Math.floor(st.t / C.RUN_HEAT_T) + Math.floor(st.dt / C.CSPD_STEP_T));
+  const man = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+
+  function addScore(st, pts) {
+    st.score += pts;
+    while (st.score >= st.nextExtend) { st.lives++; st.nextExtend += C.EXTEND_EVERY; st.events.push({ type: 'extend', lives: st.lives }); }
+  }
+  // a car joins wreck w; a van scores twice but is one car towards the exit
+  function addToWreck(st, w, car) {
+    st.wrecked++;
+    for (let k = car.kind === 'van' && feature(st, 'van') ? 2 : 1; k > 0; k--) {
+      w.n++;                                         // the fire burns from the first crash; joining cars do not prolong it
+      const pts = Math.round(C.PTS * w.n * district(st).mult);
+      addScore(st, pts); st.stats.cars++;
+      if (w.n > st.stats.best) st.stats.best = w.n;
+      st.events.push({ type: 'crash', id: w.id, n: w.n, pts, x: car.x, y: car.y, tx: w.tx, ty: w.ty, tracked: car.ti >= 0, kind: car.kind });
+    }
+  }
+    // a heavy van rams: a car that hits it is wrecked and the van drives on, damaged. Its third ram, or any
+  // burning wreck, stops it.
+  function hurt(st, c, byWreck) {
+    if (c.kind === 'van' && feature(st, 'van') && !byWreck && --c.hp > 0) {
+      c.immune = C.VAN_IMMUNE; st.stats.vanHits++;
+      st.events.push({ type: 'dent', id: c.id, x: c.x, y: c.y });
+      return false;
+    }
+    return true;
+  }
+
+  // input: { d: 1..4 } sets the direction the getaway car takes at the next chance (kept until replaced)
+  function step(st, input) {
+    st.events = [];
+    if (st.over || st.won) return;
+    st.t++;
+    const p = st.p;
+    if (input && input.d >= 1 && input.d <= 4) {
+      p.want = input.d;
+      if (st.phase === 'play' && p.dir && input.d === REV[p.dir]) p.dir = input.d; // reversing is instant
+    }
+    if (st.phase !== 'play') {
+      if (--st.pt > 0) return;
+      if (st.phase === 'ready') { st.phase = 'play'; st.events.push({ type: 'go' }); }
+      else if (st.phase === 'dead') {
+        if (st.lives <= 0) { st.over = true; st.events.push({ type: 'gameover' }); }
+        else enter(st);
+      } else if (st.phase === 'clear') {
+        if (st.escaped) { st.won = true; st.events.push({ type: 'won' }); return; }
+        st.cx += DX[st.entry]; st.cy += DY[st.entry]; st.d++; st.wrecked = 0; st.exit = false;
+        st.route.push([st.cx, st.cy]);
+        enter(st);
+      }
+      return;
+    }
+    st.dt++;
+    drive(p, C.PSPD, choosePlayer(st));
+    if (p.x <= cen(0) || p.y <= cen(0) || p.x >= cen(C.W - 1) || p.y >= cen(C.H - 1)) { // out through an exit
+      const dir = p.x <= cen(0) ? 4 : p.x >= cen(C.W - 1) ? 2 : p.y <= cen(0) ? 1 : 3, dest = exitDest(st, dir), key = st.cx + ',' + st.cy;
+      const first = !st.cleared.includes(key);
+      let bonus = first ? C.CLEAR_BONUS * (district(st).ring + 1) : 0;
+      let cars = 0;
+      if (dest.escape) { cars = st.lives * C.CAR_BONUS; bonus += C.ESCAPE_BONUS + cars; st.escaped = true; }
+      addScore(st, bonus); st.stats.districts++;
+      if (first) { st.cleared.push(key); if (C.CLEAR_LIFE && !dest.escape) { st.lives += C.CLEAR_LIFE; st.events.push({ type: 'extend', lives: st.lives }); } }
+      st.entry = dir;
+      st.phase = 'clear'; st.pt = C.CLEAR_T; st.events.push({ type: 'clear', d: st.d, bonus, dir, first, escape: !!dest.escape, cars });
+      return;
+    }
+    route(st);
+    const pick = chooseCop(st), base = copSpeed(st);
+    for (const c of st.cops) {
+      if (c.immune > 0) c.immune--;
+      drive(c, base, pick);
+    }
+
+    // patrol cars meeting each other head-on or side-on (one running into the back of another does not count)
+    const gone = new Set();
+    for (let i = 0; i < st.cops.length; i++) for (let j = i + 1; j < st.cops.length; j++) {
+      const a = st.cops[i], b = st.cops[j];
+      if (gone.has(a) || gone.has(b) || man(a, b) >= C.HIT_CC || (a.dir === b.dir && a.dir)) continue;
+      if (a.immune > 0 && b.immune > 0) continue;       // a van just hit takes no second hit until it drives on
+      const ka = a.immune > 0 ? false : hurt(st, a), kb = b.immune > 0 ? false : hurt(st, b);
+      if (!ka && !kb) continue;
+      const w0 = ka ? a : b;
+      let tx = ka && kb ? tileOf((a.x + b.x) >> 1) : tileOf(w0.x), ty = ka && kb ? tileOf((a.y + b.y) >> 1) : tileOf(w0.y);
+      if (!road(st, tx, ty)) { tx = tileOf(w0.x); ty = tileOf(w0.y); }
+      let w = st.wrecks.find(o => o.tx === tx && o.ty === ty);
+      if (!w) { w = { id: st.nextId++, tx, ty, n: 0, t: C.WRECK_T }; st.wrecks.push(w); st.stats.crashes++; }
+      if (ka) { addToWreck(st, w, a); gone.add(a); }
+      if (kb) { addToWreck(st, w, b); gone.add(b); }
+    }
+    // patrol cars driving into a burning wreck
+    for (const c of st.cops) {
+      if (gone.has(c)) continue;
+      for (const w of st.wrecks) {
+        if (Math.abs(c.x - cen(w.tx)) + Math.abs(c.y - cen(w.ty)) >= C.HIT_W || c.immune > 0) continue;
+        if (!hurt(st, c, true)) continue;
+        addToWreck(st, w, c); gone.add(c); break;
+      }
+    }
+    if (gone.size) st.cops = st.cops.filter(c => !gone.has(c));
+
+    // wrecks burn out
+    for (const w of st.wrecks) if (--w.t <= 0) st.events.push({ type: 'tow', id: w.id, tx: w.tx, ty: w.ty });
+    st.wrecks = st.wrecks.filter(w => w.t > 0);
+
+    // the exit opens once enough cars are wrecked
+    if (!st.exit && st.wrecked >= district(st).quota) { st.exit = true; st.events.push({ type: 'exit' }); }
+
+    // arrivals
+    if (st.warn) {
+      if (--st.warn.t <= 0) {
+        const g = GATES[st.warn.gate];
+        const busy = wreckAt(st, g[0], g[1]) || st.cops.some(c => Math.abs(c.x - cen(g[0])) + Math.abs(c.y - cen(g[1])) < C.TILE) || man(p, { x: cen(g[0]), y: cen(g[1]) }) < 3 * C.TILE;
+        if (busy) st.warn.t = 20; else { spawnCop(st, st.warn.gate); st.warn = null; st.spawnT = st.cops.length < 3 ? 40 : Math.max(C.SPAWN_GAP_MIN, C.SPAWN_GAP0 - Math.floor(C.SPAWN_RAMP * st.dt / 60)); }
+      }
+    } else if (st.spawnT > 0) st.spawnT--;
+    else if (st.cops.length < cap(st)) {
+      const g = pickGate(st);
+      if (g >= 0) { st.warn = { gate: g, t: C.WARN_T }; st.events.push({ type: 'warn', gate: g }); }
+    }
+
+    // the getaway car
+    let cause = null;
+    for (const w of st.wrecks) if (Math.abs(p.x - cen(w.tx)) + Math.abs(p.y - cen(w.ty)) < C.HIT_W) cause = 'wreck';
+    if (!cause) for (const c of st.cops) if (man(p, c) < C.HIT_PC) { cause = 'caught'; break; }
+    if (cause) {
+      st.cause = cause; st.lives--; st.stats.deaths++; st.stats.fail[cause] = (st.stats.fail[cause] || 0) + 1;
+      st.phase = 'dead'; st.pt = C.DEAD_T;
+      st.events.push({ type: 'death', cause, x: p.x, y: p.y, lives: st.lives });
+    }
+  }
+
+  function clone(st) {
+    const s = JSON.parse(JSON.stringify({ ...st, distP: null }));
+    s.distP = new Int16Array(st.distP);
+    return s;
+  }
+  function hash(st) {
+    const s = JSON.stringify([st.t, st.rs, st.score, st.over, st.won, st.escaped, st.zones, st.d, st.cx, st.cy, st.entry, st.cleared, st.lives, st.wrecked, st.exit, st.phase, st.pt, st.dt, st.p, st.cops, st.wrecks, st.spawnT, st.warn, st.nextId, st.trail, st.trailBase]);
+    let h = 0x811c9dc5;
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+    return (h >>> 0).toString(16).padStart(8, '0');
+  }
+
+  const api = { C, DX, DY, REV, GATES, ROWS, COLS, START, EXITS, ZONES, ZONE_ODDS, districtAt, cityIndex, district, exitDest, mapAt, ring, map, feature, road, open, canMove,
+    tileOf, cen, atCentre, create, step, flood, clone, hash, copSpeed, cap };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.PILEUP = api;
+})(typeof self !== 'undefined' ? self : this);
+
+;
+// PILEUP — sound. An era-inspired small wavetable board in the manner of Namco's 1980 WSG (not an emulation):
+// three voices playing 32-step 4-bit waveforms at 16 volume levels, plus one LFSR noise voice for crashes and tyres.
+// One fixed master chain: gain -> soft clipper -> mono output.
+//
+// Game code calls SFX.play(event, arg, { demo }) and SFX.music(state) once a frame; nothing else. The music is a
+// layered chase loop in A minor pentatonic: the police speed sets the tempo, a counter-melody joins while three or
+// more police are on your tracks, the exits opening switch it to the getaway section and a revisited district to
+// the alert section; changes land on bar lines. Effects take the lead or counter voice from the music while they
+// play (the bass is never taken by an effect); the noise voice belongs to effects.
+(function (root) {
+  'use strict';
+  const PROFILE = { id: 'namco-wsg-inspired', fidelity: 'era-inspired', voiceLimit: 4, voices: ['bass', 'lead', 'counter', 'noise'],
+    primitives: ['wave32x4', 'lfsr-noise'], waveSteps: 32, waveLevels: 16, volumeLevels: 16 };
+  const MASTER = 0.3;                              // asked for after s8: 0.55 → 0.4 → 0.3
+
+  // ---- waveforms: 32 steps of 0..15
+  const W = (f) => Array.from({ length: 32 }, (_, i) => Math.max(0, Math.min(15, Math.round(f(i / 32)))));
+  const WAVES = {
+    pulse: W(t => (t < 0.375 ? 15 : 0)),                               // lead: hollow pulse
+    saw: W(t => 15 * (1 - t)),                                         // counter and blips: thin and bright
+    soft: W(t => 7.5 + 7.5 * (t < 0.5 ? 4 * t - 1 : 3 - 4 * t)),       // bass: triangle
+    organ: W(t => 7.5 + 4 * (t < 0.5 ? 1 : -1) + 3.5 * (((t * 2) % 1) < 0.5 ? 1 : -1)), // jingles: two-octave square
+  };
+
+  // ---- pitch
+  const SEMI = { C: -9, D: -7, E: -5, F: -4, G: -2, A: 0, B: 2 };
+  const hz = (n) => 440 * Math.pow(2, (SEMI[n[0]] + (n[1] === '#' ? 1 : 0) + 12 * (+n[n.length - 1] - 4)) / 12);
+  const KEY = new Set(['C', 'D', 'E', 'G', 'A']);                       // A minor pentatonic
+
+  // ---- effects and jingles: steps { t, d, voice: 'tone' | 'tone2' | 'bass' | 'noise', wave, n0, n1 (note names) or f0, f1 (Hz), v 0..15 }
+  // tone/tone2 take the lead or counter voice from the music; bass is used only by jingles, which stop the music.
+  const T = (t, d, n0, n1, v, wave, voice) => ({ t, d, n0, n1: n1 || n0, v, wave: wave || 'pulse', voice: voice || 'tone' });
+  const N = (t, d, f0, f1, v) => ({ t, d, f0, f1, v, voice: 'noise' });
+  const UP = ['C', 'D', 'E', 'G', 'A'];
+  const step = (base, k) => UP[((k % 5) + 5) % 5] + (base + Math.floor(k / 5));  // k-th note of the scale above C<base>
+  // an arpeggio on one voice: each note ends where the next begins, the last one rings a little longer
+  const arp = (notes, gap, last, v, wave) => notes.map((n, i) => T(i * gap, i === notes.length - 1 ? last : gap, n, null, v, wave));
+  const PROGRAMS = {
+    // a crunch of noise, longer with the pileup, then a tally note one scale step higher per car
+    crash: (n) => ({ kind: 'sfx', steps: [N(0, 0.2 + 0.04 * Math.min(n, 6), 9000, 900, 14), T(0.08, 0.1, step(5, Math.min(n, 9) - 2), null, 11), T(0.15, 0.12, step(5, Math.min(n, 9)), null, 10, 'pulse', 'tone2')] }),
+    // a car picks up your tracks: a short high double blip above the music
+    scent: () => ({ kind: 'sfx', steps: [T(0, 0.04, 'E6', null, 15, 'pulse'), T(0.05, 0.04, 'G6', null, 15, 'pulse')] }),
+    // an arrival: two-tone siren (an alarm, deliberately out of key)
+    siren: () => ({ kind: 'sfx', steps: [0, 1].flatMap(i => [{ ...T(i * 0.22, 0.1, null, null, 14), f0: 740, f1: 740 }, { ...T(i * 0.22 + 0.11, 0.1, null, null, 14), f0: 587, f1: 587 }]) }),
+    // a van rams: metallic clank (out of key on purpose)
+    dent: () => ({ kind: 'sfx', steps: [{ ...T(0, 0.08, null, null, 13, 'saw'), f0: 310, f1: 290 }, N(0, 0.06, 12000, 12000, 9)] }),
+    go: () => ({ kind: 'sfx', steps: [T(0, 0.09, 'C5', null, 11), T(0.1, 0.16, 'G5', null, 11)] }),
+    tick: () => ({ kind: 'sfx', steps: [T(0, 0.03, 'E6', null, 9, 'saw')] }),
+    // counting the cars left on escape: one tick per car, a step higher each
+    tally: (k) => ({ kind: 'sfx', steps: [T(0, 0.06, step(5, 2 + (k | 0)), null, 11, 'organ')] }),
+    exit: () => ({ kind: 'jingle', steps: arp(['C5', 'E5', 'G5', 'C6'], 0.08, 0.14, 12, 'organ') }),
+    extend: () => ({ kind: 'jingle', steps: arp(['G5', 'A5', 'C6', 'E6', 'C6', 'E6'], 0.06, 0.1, 11, 'organ') }),
+    clear: () => ({ kind: 'jingle', steps: [...arp(['G4', 'C5', 'E5', 'G5', 'E5', 'C6'], 0.1, 0.16, 11, 'organ'), T(0, 0.3, 'C3', null, 13, 'soft', 'bass'), T(0.3, 0.3, 'G2', null, 13, 'soft', 'bass')] }),
+    start: () => ({ kind: 'jingle', steps: arp(['G4', 'C5', 'E5', 'G5', 'E5', 'G5'], 0.07, 0.1, 11, 'organ') }),
+    // busted: a crash and a falling tone (a fall, not a scale)
+    death: () => ({ kind: 'jingle', steps: [N(0, 0.9, 8000, 300, 15), { ...T(0, 0.8, null, null, 13), f0: 330, f1: 40 }] }),
+    gameover: () => ({ kind: 'jingle', steps: [...arp(['E5', 'D5', 'C5', 'A4', 'E4'], 0.22, 0.2, 12, 'soft'), T(0, 1.08, 'A2', null, 11, 'soft', 'bass')] }),
+    won: () => ({ kind: 'jingle', steps: [...arp(['C5', 'E5', 'G5', 'C6', 'G5', 'C6', 'E6'], 0.12, 0.3, 11, 'organ'), T(0, 0.5, 'C3', null, 13, 'soft', 'bass'), T(0.6, 0.6, 'C4', null, 13, 'soft', 'bass')] }),
+  };
+  // events whose pitches are out of key on purpose, with the reason
+  const OUT_OF_KEY = { siren: 'alarm two-tone', dent: 'metallic clank', death: 'falling tone' };
+  // who keeps a voice when two want it: control feedback, danger, consequence, then rewards and chimes
+  const PRIORITY = { death: 98, siren: 90, crash: 85, dent: 84, scent: 80, exit: 62, clear: 61, go: 60, extend: 58, start: 55, gameover: 55, won: 55, tally: 50, tick: 40 };
+
+  // ---- music: four bars of sixteenths per section; tokens are notes, '-' holds, '.' rests
+  const bar = (s) => s.trim().split(/\s+/);
+  const SECTIONS = {
+    chase: {
+      bass: bar('A2 . A3 . A2 . A3 . A2 . A3 . G2 . G3 . A2 . A3 . A2 . A3 . C3 . C4 . D3 . D4 . A2 . A3 . A2 . A3 . A2 . A3 . G2 . G3 . E2 . E3 . E2 . E3 . G2 . G3 . A2 A2 A3 .'),
+      lead: bar('E5 - . E5 D5 - C5 - A4 - - . . . C5 D5 E5 - . E5 G5 - E5 - D5 - C5 - D5 - . . E5 - . E5 D5 - C5 - A4 - - . C5 - D5 - E5 - G5 - E5 - D5 - C5 - A4 - - - . . . .'),
+      counter: bar('A4 C5 E5 C5 A4 C5 E5 C5 G4 C5 E5 C5 G4 C5 E5 C5 A4 C5 E5 C5 A4 C5 E5 C5 C5 E5 G5 E5 D5 G5 A5 G5 A4 C5 E5 C5 A4 C5 E5 C5 G4 C5 E5 C5 G4 C5 E5 C5 E4 G4 C5 G4 E4 G4 C5 G4 G4 C5 D5 C5 A4 . . .'),
+    },
+    getaway: {
+      bass: bar('C3 . C4 . C3 . C4 . G2 . G3 . G2 . G3 . A2 . A3 . A2 . A3 . G2 . G3 . G2 . G3 . C3 . C4 . C3 . C4 . E3 . E4 . E3 . E4 . D3 . D4 . G2 . G3 . C3 C3 C4 . G2 . G3 .'),
+      lead: bar('G5 - E5 - G5 A5 G5 E5 C6 - - - A5 - G5 - E5 - G5 - A5 - C6 - D6 - C6 - A5 - G5 - . . G5 - E5 - G5 A5 G5 E5 C6 - - - A5 - G5 - E5 - D5 - E5 - G5 - E5 - C5 - - - . . . .'),
+      counter: bar('C5 E5 G5 E5 C5 E5 G5 E5 D5 G5 A5 G5 D5 G5 A5 G5 C5 E5 A5 E5 C5 E5 A5 E5 D5 G5 A5 G5 D5 G5 C6 G5 C5 E5 G5 E5 C5 E5 G5 E5 E5 G5 C6 G5 E5 G5 C6 G5 D5 G5 A5 G5 D5 G5 A5 G5 C5 E5 G5 E5 C5 . . .'),
+    },
+    alert: {
+      bass: bar('A2 - A2 . A2 - A2 . G2 - G2 . G2 - E2 . A2 - A2 . A2 - A2 . C3 - C3 . D3 - E3 . A2 - A2 . A2 - A2 . G2 - G2 . G2 - E2 . E2 - E2 . G2 - G2 . A2 - - . A2 . A1 .'),
+      lead: bar('A4 - - - . . G4 - A4 - - - . . . . C5 - - - . . A4 - G4 - E4 - . . . . A4 - - - . . G4 - A4 - - - . . E5 - D5 - - - C5 - - - A4 - - - . . . .'),
+      counter: bar('E5 . E5 . E5 . E5 . D5 . D5 . D5 . D5 . E5 . E5 . E5 . E5 . G5 . G5 . A5 . A5 . E5 . E5 . E5 . E5 . D5 . D5 . D5 . D5 . C5 . C5 . C5 . C5 . D5 . D5 . E5 . . .'),
+    },
+  };
+  const BPM0 = 132, BPM_STEP = 6, BPM_MAX = 168;
+  const MUSIC_VOL = { bass: 9, lead: 6, counter: 4 };
+  const MUSIC_WAVE = { bass: 'soft', lead: 'pulse', counter: 'saw' };
+  // a section as a timeline of notes { voice, t, d, n, v } for one loop at a tempo
+  function timeline(name, bpm, withCounter) {
+    const S = SECTIONS[name], dt = 60 / bpm / 4, out = [];
+    for (const voice of ['bass', 'lead', 'counter']) {
+      if (voice === 'counter' && !withCounter) continue;
+      const toks = S[voice];
+      for (let i = 0; i < toks.length; i++) {
+        const n = toks[i];
+        if (n === '.' || n === '-') continue;
+        let len = 1; while (i + len < toks.length && toks[i + len] === '-') len++;
+        out.push({ voice, t: i * dt, d: len * dt * 0.92, n, v: MUSIC_VOL[voice], wave: MUSIC_WAVE[voice] });
+      }
+    }
+    return { notes: out, loop: S.bass.length * dt };
+  }
+  const tempoFor = (heat) => Math.min(BPM_MAX, BPM0 + BPM_STEP * Math.max(0, Math.min(6, heat | 0)));
+
+  // ---- the board
+  let ac = null, out = null, muted = false, hidden = false, bufs = null;
+  const log = [];                                   // emission log: { name, voices } or { name, skipped }
+  const newVoices = () => ({ bass: { until: 0, owner: null }, lead: { until: 0, owner: null }, counter: { until: 0, owner: null }, noise: { until: 0, owner: null } });
+  const voices = newVoices(), playing = {}, effect = {};   // the music's current note on each voice; an effect's notes on each voice
+  function chain(ctx) {
+    const gain = ctx.createGain(), clip = ctx.createWaveShaper(), curve = new Float32Array(1024);
+    for (let i = 0; i < 1024; i++) { const x = i / 511.5 - 1; curve[i] = Math.tanh(1.6 * x) / Math.tanh(1.6); }   // rounds peaks only
+    clip.curve = curve; gain.gain.value = MASTER; gain.connect(clip); clip.connect(ctx.destination);
+    return gain;
+  }
+  // one cycle of each waveform as a 32-sample buffer, and one second of 15-bit LFSR noise
+  function buffers(ctx) {
+    const wb = {};
+    for (const [k, w] of Object.entries(WAVES)) { const b = ctx.createBuffer(1, 32, ctx.sampleRate), d = b.getChannelData(0); for (let i = 0; i < 32; i++) d[i] = w[i] / 7.5 - 1; wb[k] = b; }
+    const nb = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate), d = nb.getChannelData(0);
+    let r = 1; for (let i = 0; i < d.length; i++) { const bit = (r ^ (r >> 1)) & 1; r = (r >> 1) | (bit << 14); d[i] = r & 1 ? 0.8 : -0.8; }
+    return { wb, nb };
+  }
+  // one note on a voice at time t: a looped wave or noise, its pitch, and a 4-bit volume with a short release
+  function note(ctx, dest, B, s, t) {
+    const g = ctx.createGain(), src = ctx.createBufferSource(), vol = (s.v / 15) * 0.32;
+    g.gain.value = 0;                                // silent until its envelope starts: no first-sample spike
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 0.004);
+    g.gain.setValueAtTime(vol, t + Math.max(0.005, s.d - 0.02)); g.gain.linearRampToValueAtTime(0, t + s.d);
+    src.loop = true;
+    if (s.voice === 'noise') {
+      src.buffer = B.nb;
+      src.playbackRate.setValueAtTime(s.f0 / 22050, t); if (s.f1 !== s.f0) src.playbackRate.exponentialRampToValueAtTime(s.f1 / 22050, t + s.d);
+    } else {
+      src.buffer = B.wb[s.wave || 'pulse'];
+      const base = ctx.sampleRate / 32, f0 = s.f0 || hz(s.n0 || s.n), f1 = s.f1 || hz(s.n1 || s.n0 || s.n);
+      src.playbackRate.setValueAtTime(f0 / base, t); if (f1 !== f0) src.playbackRate.exponentialRampToValueAtTime(f1 / base, t + s.d);
+    }
+    src.connect(g); g.connect(dest); src.start(t); src.stop(t + s.d + 0.01);
+    return src;
+  }
+  // which voice each part of an effect gets, or null. An effect may take a voice from the music or from a
+  // lower-priority effect; a loser moves to the other tone voice or is dropped (the log says which)
+  function allocate(name, prog, now, V) {
+    const pr = PRIORITY[name] || 10, got = {};
+    const free = (k) => V[k].until <= now || (PRIORITY[V[k].owner] || 0) < pr;
+    for (const s of prog.steps) {
+      if (got[s.voice] !== undefined) continue;
+      if (s.voice === 'noise' || s.voice === 'bass') { got[s.voice] = free(s.voice) ? s.voice : null; continue; }
+      const order = s.voice === 'tone2' ? ['counter', 'lead'] : ['lead', 'counter'];
+      got[s.voice] = order.find(k => free(k) && !Object.values(got).includes(k)) || null;
+    }
+    const len = Math.max(...prog.steps.map(s => s.t + s.d));
+    for (const k of Object.values(got)) if (k) { V[k].until = now + len; V[k].owner = name; }
+    return got;
+  }
+
+  // ---- music scheduler: plans a little ahead; tempo, counter layer and section change only at a bar line
+  const music = { want: null, cur: null, bpm: BPM0, counter: false, step: 0, next: 0, timer: null };
+  function startMusic(state) { music.cur = state.section; music.bpm = tempoFor(state.heat); music.counter = !!state.line; music.step = 0; music.next = ac.currentTime + 0.05; }
+  function schedule() {
+    if (!ac || !music.cur || hidden) return;
+    const ahead = ac.currentTime + 0.15;
+    while (music.cur && music.next < ahead) {
+      if (music.step % 16 === 0) {                     // a bar line: take up what the game asks for now
+        if (!music.want) { music.cur = null; break; }
+        if (music.want.section !== music.cur) music.step = 0;
+        music.cur = music.want.section; music.bpm = tempoFor(music.want.heat); music.counter = !!music.want.line;
+      }
+      const S = SECTIONS[music.cur], len = S.bass.length, dt = 60 / music.bpm / 4, i = music.step % len;
+      for (const voice of ['bass', 'lead', 'counter']) {
+        if (voice === 'counter' && !music.counter) continue;
+        const toks = S[voice], n = toks[i];
+        if (n === '.' || n === '-') continue;
+        if (voices[voice].until > music.next) continue;  // an effect has this voice
+        let k = 1; while (i + k < len && toks[i + k] === '-') k++;
+        if (!muted) playing[voice] = note(ac, out, bufs, { voice, n, d: k * dt * 0.92, v: MUSIC_VOL[voice], wave: MUSIC_WAVE[voice] }, music.next);
+      }
+      music.next += dt; music.step++;
+    }
+  }
+
+  function init() {
+    if (ac) { if (ac.state === 'suspended' && !hidden) ac.resume(); return; }
+    const AC = root.AudioContext || root.webkitAudioContext;
+    if (!AC) return;
+    ac = new AC(); out = chain(ac); bufs = buffers(ac);
+    music.timer = setInterval(schedule, 25);
+    if (root.document) root.document.addEventListener('visibilitychange', () => SFX.setHostVisible(root.document.visibilityState === 'visible'));
+  }
+  const length = (prog) => Math.max(...prog.steps.map(s => s.t + s.d));
+
+  const SFX = root.SFX = {
+    PROFILE, WAVES, PROGRAMS, PRIORITY, OUT_OF_KEY, SECTIONS, KEY, hz, timeline, tempoFor, allocate, length, log, newVoices,
+    init, get muted() { return muted; }, get hidden() { return hidden; }, get musicSection() { return music.cur; }, get musicWanted() { return music.want; },
+    toggle() { muted = !muted; if (out) out.gain.value = muted ? 0 : MASTER; },
+    // opt.demo: sounds from the attract loop, which are off (demo sound off)
+    play(name, arg, opt) {
+      if (!PROGRAMS[name]) return;
+      if ((opt && opt.demo) || muted || hidden || !ac) { log.push({ name, skipped: true }); if (log.length > 200) log.shift(); return; }
+      try {
+        const prog = PROGRAMS[name](arg), now = ac.currentTime, got = allocate(name, prog, now, voices);
+        if (prog.kind === 'jingle') { music.want = null; music.cur = null; }
+        for (const k of Object.values(got)) if (k) {             // take the voice: stop the music's note and any earlier effect on it
+          for (const src of [playing[k], ...(effect[k] || [])]) if (src) { try { src.stop(now); } catch (e) { /* already stopped */ } }
+          playing[k] = null; effect[k] = [];
+        }
+        for (const s of prog.steps) {
+          const k = got[s.voice];
+          if (k) effect[k].push(note(ac, out, bufs, { ...s, voice: k }, now + s.t));
+        }
+        log.push({ name, voices: got });
+        if (log.length > 200) log.shift();
+      } catch (e) { /* audio is optional */ }
+    },
+    // the game's state, every frame: null for no music, or { section: 'chase' | 'getaway' | 'alert', heat, line }
+    music(state, opt) {
+      if (opt && opt.demo) state = null;
+      music.want = state;
+      if (state && !music.cur && ac && !hidden) startMusic(state);
+    },
+    stopAll() {
+      music.want = null; music.cur = null;
+      for (const k in playing) { try { playing[k] && playing[k].stop(); } catch (e) { /* already stopped */ } playing[k] = null; }
+      Object.assign(voices, newVoices());
+    },
+    // a hidden page goes quiet at once and plays nothing; back in view, only the music the game still asks for resumes
+    setHostVisible(visible) {
+      if (hidden === !visible) return;
+      hidden = !visible;
+      if (!ac) return;
+      if (hidden) { music.cur = null; ac.suspend(); }
+      else { ac.resume(); if (music.want) startMusic(music.want); }
+    },
+    // renders [name, arg, time] effects and optionally a music section through the same chain offline: { peak, rms }
+    async render(events, seconds, mus) {
+      const OAC = root.OfflineAudioContext, ctx = new OAC(1, Math.ceil(44100 * seconds), 44100), dest = chain(ctx), B = buffers(ctx);
+      const V = newVoices(), taken = [];
+      for (const [name, arg, t] of events) {
+        const prog = PROGRAMS[name](arg), got = allocate(name, prog, t, V);
+        for (const s of prog.steps) if (got[s.voice]) note(ctx, dest, B, { ...s, voice: got[s.voice] }, t + s.t);
+        for (const k of Object.values(got)) if (k) taken.push([k, t, t + length(prog)]);
+      }
+      if (mus) {
+        const tl = timeline(mus.section, tempoFor(mus.heat), mus.line);
+        for (let rep = 0; rep * tl.loop < seconds; rep++) for (const n of tl.notes) {
+          const t = rep * tl.loop + n.t;
+          if (!taken.some(([k, a, b]) => k === n.voice && t + n.d > a && t < b)) note(ctx, dest, B, n, t);
+        }
+      }
+      const buf = await ctx.startRendering(), d = buf.getChannelData(0);
+      let peak = 0, sum = 0; for (let i = 0; i < d.length; i++) { const a = Math.abs(d[i]); if (a > peak) peak = a; sum += d[i] * d[i]; }
+      return { peak, rms: Math.sqrt(sum / d.length) };
+    },
+  };
+})(this);
+
+;
+// PILEUP — attract-mode demo: a recorded strong-bot run (seed 18, 3600 points, best pileup 5), replayed through the rules. Written by tests/demo.cjs.
+window.PILEUP_DEMO = {"seed":18,"ticks":2820,"inputs":[[90,1],[99,1],[110,1],[121,2],[132,2],[143,2],[154,1],[165,1],[176,1],[187,2],[198,2],[208,2],[219,2],[230,2],[241,2],[252,4],[260,2],[268,4],[276,2],[284,4],[292,2],[300,3],[311,3],[322,3],[333,3],[344,1],[352,1],[363,1],[374,1],[385,3],[393,3],[404,3],[415,1],[423,1],[434,1],[445,4],[456,4],[467,4],[478,3],[488,3],[499,3],[510,2],[521,2],[532,4],[540,4],[551,4],[562,4],[572,4],[583,1],[594,1],[605,1],[616,2],[627,2],[638,4],[646,4],[657,4],[668,4],[679,4],[690,4],[700,4],[711,4],[722,4],[733,2],[741,4],[749,2],[757,2],[768,2],[778,4],[785,4],[796,3],[807,1],[815,3],[823,3],[834,3],[845,3],[856,3],[867,3],[878,2],[889,2],[900,2],[910,2],[921,4],[928,3],[939,3],[950,3],[961,2],[972,2],[983,2],[994,2],[1005,4],[1013,2],[1021,2],[1032,4],[1040,4],[1051,3],[1062,3],[1073,3],[1084,4],[1095,4],[1106,4],[1116,2],[1123,4],[1130,4],[1141,4],[1152,4],[1163,4],[1174,4],[1185,4],[1196,1],[1207,3],[1215,1],[1223,1],[1234,1],[1245,1],[1256,1],[1266,1],[1277,1],[1288,1],[1299,1],[1310,2],[1321,4],[1329,4],[1340,4],[1351,4],[1362,1],[1372,1],[1383,1],[1394,2],[1405,2],[1416,2],[1427,3],[1438,1],[1446,3],[1454,3],[1465,3],[1476,3],[1487,3],[1498,3],[1508,2],[1519,2],[1530,2],[1541,2],[1552,2],[1563,2],[1574,1],[1585,1],[1596,1],[1607,3],[1615,1],[1623,2],[1634,2],[1644,2],[1655,1],[1666,1],[1677,1],[1688,2],[1699,2],[1710,2],[1721,3],[1732,3],[1743,3],[1754,2],[1764,2],[1775,2],[1786,1],[1797,1],[1808,1],[1819,4],[1830,4],[1841,4],[1852,3],[1863,3],[1874,3],[1884,2],[1895,2],[1906,2],[1917,1],[1928,1],[1939,1],[1950,4],[1961,4],[1972,4],[1983,3],[1994,3],[2004,3],[2015,2],[2026,4],[2034,2],[2042,4],[2050,2],[2058,4],[2066,2],[2074,4],[2082,2],[2090,4],[2098,2],[2106,4],[2114,1],[2124,1],[2135,1],[2146,3],[2154,1],[2162,4],[2173,4],[2184,4],[2195,2],[2203,4],[2211,2],[2219,2],[2230,2],[2241,2],[2252,2],[2262,2],[2273,3],[2284,3],[2295,1],[2303,1],[2314,4],[2324,4],[2335,4],[2346,3],[2357,3],[2368,1],[2376,1],[2387,2],[2398,2],[2408,2],[2419,3],[2430,1],[2438,4],[2448,4],[2459,4],[2470,3],[2481,1],[2489,4],[2500,4],[2510,4],[2521,3],[2532,1],[2540,2],[2550,4],[2557,3],[2568,1],[2576,3],[2584,1],[2592,3],[2600,3],[2611,1],[2619,3],[2627,3],[2638,4],[2649,4],[2660,4],[2671,4],[2682,2],[2690,4],[2698,4],[2709,4],[2720,4],[2730,4],[2741,4],[2752,1],[2763,1],[2774,1],[2785,2],[2796,2],[2807,2],[2818,3]]};
+
+;
+// PILEUP — page: input, top-down drawing, feedback, title / demo / high-score table. The rules live in core.js.
+(function () {
+  'use strict';
+  const S = window.PILEUP, C = S.C, DX = S.DX, DY = S.DY;
+  const BUILD = 'finished';
+  const cv = document.getElementById('screen'), g = cv.getContext('2d');
+  const TS = 24, OY = 32, VW = C.W * TS, VH = C.H * TS + OY;
+  cv.width = VW; cv.height = VH;
+  const q = new URLSearchParams(location.search);
+  const U = TS / C.TILE;                        // screen pixels per rules unit
+  const sx = (x) => x * U, sy = (y) => OY + y * U;
+  const tc = (t) => t * TS + TS / 2;            // tile centre on screen
+
+  // palette roles (VISUAL_DESIGN.md): amber = you, white + red/blue = police, red = where police will drive,
+  // orange = fire (a pileup), green = the open exit, cyan = the dog unit
+  const PAL = { bg: '#000', road: '#0b0b10', block: '#16306a', blockHi: '#3f6fd8', blockLo: '#0a1638', lane: '#2a2a36',
+    me: '#ffcf2e', meDark: '#a8740a', cop: '#f2f2f2', van: '#1d2c66', dog: '#3ff0ff', mark: '#ff3b3b', fire: '#ff8a1c',
+    hulk: '#3a3a3a', goal: '#4dff6a', text: '#fff', dim: '#7f9cff' };
+
+  // ---- high scores
+  const DEFAULT_TABLE = [[30000, 'ABA'], [20000, 'CPU'], [12000, 'KIT'], [6000, 'VAN'], [3000, 'K9 ']];
+  let table = DEFAULT_TABLE.map(([s, n]) => ({ s, n }));
+  try { const t = JSON.parse(localStorage.getItem('pileup.table') || 'null'); if (Array.isArray(t) && t.length === 5) table = t; } catch (e) { /* storage optional */ }
+  const saveTable = () => { try { localStorage.setItem('pileup.table', JSON.stringify(table)); } catch (e) { /* optional */ } };
+
+  // modes: title, demo, play, over (game over / city escaped), entry (initials)
+  let st = null, mode = 'title', modeT = 0, seed = (Date.now() % 100000) | 0, pending = 0, lastLine = '';
+  if (q.get('seed')) seed = +q.get('seed');
+  let shake = 0, flash = 0, flashRGB = '255,240,200', frame = 0, demoK = 0;
+  const fx = { pops: [], skids: [], debris: [], scents: [], smoke: [], banner: null };
+  const faces = new Map(); // which way each car last pointed (drawing only; 0 is the getaway car)
+  let entry = null;        // { rank, letters: [..], pos }
+  // the first READY of a district names what it brings
+  const INTRO = { DOWNTOWN: 'THEY DRIVE YOUR TRACKS. CROSS THEM.', MARKET: 'HEAVY VAN RAMS THROUGH. 3 RAMS OR A WRECK STOP IT.',
+    UPTOWN: 'DOG UNIT IGNORES YOUR TRACKS. IT HUNTS.', HARBOR: 'VANS, DOG UNITS, MORE POLICE. PILEUPS PAY x3', INDUSTRY: 'VANS, DOG UNITS, MORE POLICE. PILEUPS PAY x3',
+    'OLD TOWN': 'QUIET STREETS. PILEUPS PAY x1' };
+  const introSeen = {};
+  // each zone's look: its blocks' colours, what is on its rooftops, and the chip that names it on an exit and the map
+  const THEME = {
+    DOWNTOWN: { block: '#16306a', hi: '#3f6fd8', lo: '#0a1638', win: 'rgba(160,190,255,0.2)', deco: 'windows', tag: 'DTN', chip: '#3f6fd8' },
+    'OLD TOWN': { block: '#4a2418', hi: '#9a5236', lo: '#24100a', win: 'rgba(255,190,140,0.28)', deco: 'tiles', tag: 'OLD', chip: '#c06a44' },
+    MARKET: { block: '#33361a', hi: '#7c8640', lo: '#181a0a', win: 'rgba(225,235,160,0.3)', deco: 'awnings', tag: 'MKT', chip: '#9aa64c' },
+    UPTOWN: { block: '#341a56', hi: '#7b4fc4', lo: '#190c2a', win: 'rgba(215,180,255,0.4)', deco: 'towers', tag: 'UPT', chip: '#9a6ae0' },
+    HARBOR: { block: '#12343c', hi: '#2f7f8a', lo: '#081a1e', win: 'rgba(150,225,225,0.25)', deco: 'crates', tag: 'HBR', chip: '#3f9aa6' },
+    INDUSTRY: { block: '#2a2a30', hi: '#64646e', lo: '#121216', win: 'rgba(200,200,200,0.18)', deco: 'stripes', tag: 'IND', chip: '#8a8a96' },
+  };
+
+  window.REVIEW && REVIEW.attach({ slug: 'pileup', build: BUILD, level: 'replay', key: 'KeyN', used: ['KeyM', 'Space', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'KeyW', 'KeyA', 'KeyS', 'KeyD'], hash: () => S.hash(st) });
+
+  function clearFx() { for (const k of ['pops', 'skids', 'debris', 'scents', 'smoke']) fx[k].length = 0; fx.banner = null; faces.clear(); shake = 0; flash = 0; }
+  function start() {
+    SFX.init(); SFX.stopAll(); SFX.play('start');
+    st = S.create(seed); mode = 'play'; modeT = 0; pending = 0; clearFx(); paintCity(st.cx, st.cy, S.district(st).name); for (const k in introSeen) delete introSeen[k];
+    window.REVIEW && REVIEW.runStart({ seed });
+    seed = (seed * 48271 + 11) % 2147483647 % 1000000;
+  }
+  function startDemo() {
+    const D = window.PILEUP_DEMO;
+    if (!D) { mode = 'title'; modeT = 0; return; }
+    st = S.create(D.seed); mode = 'demo'; modeT = 0; demoK = 0; clearFx(); paintCity(st.cx, st.cy, S.district(st).name);
+  }
+  function toTitle() { mode = 'title'; modeT = 0; st = null; clearFx(); paintCity(0, 0); }
+
+  // ---- input: a direction is remembered and taken at the next chance; the opposite one reverses at once
+  const KEYS = { ArrowUp: 1, KeyW: 1, ArrowRight: 2, KeyD: 2, ArrowDown: 3, KeyS: 3, ArrowLeft: 4, KeyA: 4 };
+  const ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ. ';
+  function press(d, fire) {
+    SFX.init();
+    if (mode === 'play') { if (d) pending = d; return; }
+    if (mode === 'entry') {
+      const L = entry.letters;
+      if (d === 1 || d === 3) { L[entry.pos] = ALPHA[(ALPHA.indexOf(L[entry.pos]) + (d === 1 ? 1 : ALPHA.length - 1)) % ALPHA.length]; SFX.play('tick'); }
+      else if (d === 4 && entry.pos > 0) entry.pos--;
+      else if (d === 2 || fire) {
+        if (entry.pos < 2) { entry.pos++; SFX.play('tick'); }
+        else { table[entry.rank].n = L.join(''); saveTable(); SFX.play('tick'); entry = null; toTitle(); }
+      }
+      return;
+    }
+    if (fire && (mode === 'title' || mode === 'demo' || (mode === 'over' && modeT > 60))) start();
+  }
+  addEventListener('keydown', (e) => {
+    if (KEYS[e.code] || e.code === 'Space' || e.code === 'Enter') e.preventDefault();
+    if (e.code === 'KeyM') { SFX.init(); SFX.toggle(); return; }
+    if (KEYS[e.code]) press(KEYS[e.code], false);
+    else if ((e.code === 'Space' || e.code === 'Enter') && !e.repeat) press(0, true);
+  });
+  // touch / mouse: swipe to steer, tap to start
+  let touch0 = null, swiped = false;
+  cv.addEventListener('pointerdown', (e) => { e.preventDefault(); SFX.init(); touch0 = [e.clientX, e.clientY]; swiped = false; });
+  addEventListener('pointermove', (e) => {
+    if (!touch0) return;
+    const dx = e.clientX - touch0[0], dy = e.clientY - touch0[1];
+    if (Math.abs(dx) + Math.abs(dy) < 18) return;
+    press(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 2 : 4) : (dy > 0 ? 3 : 1), false);
+    touch0 = [e.clientX, e.clientY]; swiped = true;
+  });
+  addEventListener('pointerup', () => { if (touch0 && !swiped) press(0, true); touch0 = null; });
+  cv.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  // ---- rules tick and the feedback it produces
+  function tick() {
+    frame++; modeT++;
+    if (mode !== 'play') SFX.music(null);
+    if (mode === 'title') { if (modeT > 60 * 9) startDemo(); return; }
+    if (mode === 'entry') return;
+    if (mode === 'over') { if (entry && modeT > 60) mode = 'entry'; else if (!entry && modeT > 60 * 6) toTitle(); return; }
+    if (mode === 'demo') {
+      const D = window.PILEUP_DEMO;
+      let input = {};
+      while (demoK < D.inputs.length && D.inputs[demoK][0] <= st.t) { if (D.inputs[demoK][0] === st.t) input = { d: D.inputs[demoK][1] }; demoK++; }
+      stepRules(input, false);
+      SFX.music(null, { demo: true });
+      if (st.t >= D.ticks || st.phase !== 'play' && st.phase !== 'ready') toTitle();
+      return;
+    }
+    const input = pending ? { d: pending } : {};
+    pending = 0;
+    stepRules(input, true);
+    clearTally();
+    if (st.over || st.won) {
+      const progress = (st.stats.districts + (st.won ? 0 : Math.min(1, st.wrecked / S.district(st).quota) * 0.99)).toFixed(2);
+      const fails = Object.entries(st.stats.fail).map(([k, v]) => `${k}:${v}`).join(',');
+      lastLine = `RUN v1 build=${BUILD} progress=${progress} score=${st.score} time=${Math.floor(st.t / 60)}${fails ? ' fail=' + fails : ''}`;
+      console.log(lastLine);
+      window.REVIEW && REVIEW.runEnd(lastLine);
+      const rank = table.findIndex(r => st.score > r.s);
+      if (rank >= 0) { table.splice(rank, 0, { s: st.score, n: '___' }); table.length = 5; entry = { rank, letters: ['A', 'A', 'A'], pos: 0 }; }
+      mode = 'over'; modeT = 0;
+      if (st.won) SFX.play('won'); else SFX.play('gameover');
+    }
+  }
+  const sfx = (name, arg) => SFX.play(name, arg, { demo: mode === 'demo' }); // attract-mode sounds are off
+  // what the music should be doing: nothing outside play; the getaway section once the exits are open, the alert
+  // section back in a district you have been through, else the chase; tempo from the police speed; the counter
+  // layer while three or more police are on your tracks
+  function musicState() {
+    if (!st || st.phase !== 'play' || st.over || st.won) return null;
+    const D = S.district(st), onTracks = st.cops.filter(c => c.ti >= 0).length;
+    return { section: st.exit ? 'getaway' : D.alert ? 'alert' : 'chase', heat: S.copSpeed(st) - C.CSPD0, line: onTracks >= 3 };
+  }
+  function stepRules(input, live) {
+    const before = st.p.dir, d0 = st.d;
+    S.step(st, input);
+    SFX.music(musicState(), { demo: !live });
+    if (live) window.REVIEW && REVIEW.step(input);
+    if (before && st.p.dir === S.REV[before]) fx.skids.push({ x: st.p.x, y: st.p.y, d: before, life: 1 });   // skid marks; no sound (removed on request)
+    for (const e of st.events) react(e);
+    if (st.d !== d0 && !st.won) { paintCity(st.cx, st.cy, S.district(st).name); clearFx(); }
+  }
+  function clearTally() {
+    const L = fx.lastClear;
+    if (!L || !L.escape || st.phase !== 'clear') return;
+    const n = L.cars / C.CAR_BONUS, since = C.CLEAR_T - st.pt;
+    if (L.tallied < n && since > 45 + L.tallied * 18) sfx('tally', L.tallied++);
+  }
+  function react(e) {
+    if (e.type === 'crash') {
+      sfx('crash', e.n);
+      const pop = fx.pops.find(o => o.id === e.id && o.life > 0.3);   // one tally per pileup, growing
+      if (pop) { pop.pts += e.pts; pop.n = e.n; pop.life = 1; } else fx.pops.push({ id: e.id, x: S.cen(e.tx), y: S.cen(e.ty), pts: e.pts, n: e.n, life: 1 });
+      shake = Math.max(shake, 2 + e.n * 1.5);
+      for (let i = 0; i < 4 + e.n * 2; i++) {
+        const a = Math.random() * 6.283, v = 40 + Math.random() * 60 * Math.min(e.n, 6);
+        fx.debris.push({ x: sx(e.x), y: sy(e.y), vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 0.6 + Math.random() * 0.4, hot: Math.random() < 0.5 });
+      }
+      if (e.n >= 3) { flash = Math.min(0.4, 0.08 * e.n); flashRGB = '255,240,200'; fx.banner = { text: `${e.n}-CAR PILEUP`, life: 1.4, n: e.n, color: PAL.fire }; }
+    } else if (e.type === 'warn') sfx('siren');
+    else if (e.type === 'scent') { sfx('scent'); fx.scents.push({ x: S.cen(e.tx), y: S.cen(e.ty), life: 1 }); }
+    else if (e.type === 'dent') { sfx('dent'); shake = Math.max(shake, 4); for (let i = 0; i < 6; i++) fx.smoke.push({ id: e.id, x: sx(e.x) + (Math.random() - 0.5) * 10, y: sy(e.y) + (Math.random() - 0.5) * 10, r: 3 + Math.random() * 3, life: 1 + Math.random() }); }
+    else if (e.type === 'exit') { sfx('exit'); fx.banner = { text: 'EXITS OPEN', life: 1.6, n: 4, color: PAL.goal }; }
+    else if (e.type === 'extend') { sfx('extend'); if (!fx.banner || fx.banner.life < 0.8) fx.banner = { text: 'EXTRA CAR', life: 1.4, n: 3, color: PAL.me }; }
+    else if (e.type === 'clear') { sfx('clear'); fx.lastClear = { ...e, tallied: 0 }; }
+    else if (e.type === 'go') { sfx('go'); introSeen[S.district(st).name] = true; }
+    else if (e.type === 'death') {
+      // caught: a cold blue-white flash, the police lights; wrecked: an orange burst of fire
+      sfx('death'); shake = 12; flash = 0.5; flashRGB = e.cause === 'wreck' ? '255,150,60' : '170,200,255';
+      if (e.cause === 'wreck') for (let i = 0; i < 14; i++) { const a = Math.random() * 6.283, v = 60 + Math.random() * 120; fx.debris.push({ x: sx(e.x), y: sy(e.y), vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, hot: true }); }
+    }
+  }
+
+  // ---- drawing: the district is painted once into a buffer
+  const city = document.createElement('canvas'); city.width = VW; city.height = VH;
+  function paintCity(cx, cy, zone) {
+    const c = city.getContext('2d'), M = { cx, cy, off: {} }, road = (x, y) => S.road(M, x, y), T = THEME[zone || 'DOWNTOWN'];
+    c.fillStyle = PAL.road; c.fillRect(0, OY, VW, VH - OY);
+    for (let y = 0; y < C.H; y++) for (let x = 0; x < C.W; x++) {
+      if (road(x, y)) continue;
+      const px = x * TS, py = OY + y * TS;
+      c.fillStyle = T.block; c.fillRect(px, py, TS, TS);
+      // a bevel on edges that face a road: lit from the top left
+      c.fillStyle = T.hi;
+      if (road(x, y - 1)) c.fillRect(px, py, TS, 3);
+      if (road(x - 1, y)) c.fillRect(px, py, 3, TS);
+      c.fillStyle = T.lo;
+      if (road(x, y + 1)) c.fillRect(px, py + TS - 3, TS, 3);
+      if (road(x + 1, y)) c.fillRect(px + TS - 3, py, 3, TS);
+      // rooftops: what kind of district this is
+      const h = (x * 7 + y * 13 + cx * 5 + cy * 3) & 7, edge = x === 0 || y === 0 || x === C.W - 1 || y === C.H - 1;
+      if (edge) continue;
+      c.fillStyle = T.win;
+      if (T.deco === 'windows' && h < 2) c.fillRect(px + 10, py + 10, 3, 3);
+      else if (T.deco === 'towers') { for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) if ((h + i + j) & 1) c.fillRect(px + 5 + i * 6, py + 5 + j * 6, 2, 3); }
+      else if (T.deco === 'tiles' && h < 4) { c.fillRect(px + 5, py + 6, 6, 2); c.fillRect(px + 13, py + 14, 6, 2); }
+      else if (T.deco === 'awnings' && road(x, y + 1)) { for (let i = 0; i < 4; i++) if (i & 1) c.fillRect(px + i * 6, py + TS - 7, 6, 4); }
+      else if (T.deco === 'crates' && h < 3) { c.strokeStyle = T.win; c.lineWidth = 1; c.strokeRect(px + 6.5, py + 6.5, 7, 7); c.strokeRect(px + 12.5, py + 11.5, 6, 6); }
+      else if (T.deco === 'stripes' && h < 2) { c.save(); c.beginPath(); c.rect(px + 4, py + 4, TS - 8, TS - 8); c.clip(); for (let i = -TS; i < TS; i += 6) { c.beginPath(); c.moveTo(px + i, py + TS); c.lineTo(px + i + TS, py); c.strokeStyle = T.win; c.lineWidth = 2; c.stroke(); } c.restore(); }
+    }
+    c.fillStyle = PAL.lane;                                     // lane dashes down straight road tiles
+    for (let y = 0; y < C.H; y++) for (let x = 0; x < C.W; x++) {
+      if (!road(x, y)) continue;
+      if (road(x - 1, y) && road(x + 1, y) && !road(x, y - 1) && !road(x, y + 1)) c.fillRect(x * TS + 6, OY + y * TS + TS / 2 - 1, 12, 2);
+      if (road(x, y - 1) && road(x, y + 1) && !road(x - 1, y) && !road(x + 1, y)) c.fillRect(x * TS + TS / 2 - 1, OY + y * TS + 6, 2, 12);
+    }
+    // the exits: a barrier in each gap in the city wall
+    for (const e of S.EXITS) { c.fillStyle = '#0b0b10'; c.fillRect(e.x * TS + 2, OY + e.y * TS + 2, TS - 4, TS - 4); c.fillStyle = '#5b5b70'; c.fillRect(e.x * TS + 4, OY + e.y * TS + 10, TS - 8, 4); }
+  }
+  paintCity(0, 0);
+
+  // a car seen from above, pointing along d (1 up, 2 right, 3 down, 4 left); len and wid in pixels
+  function car(x, y, d, body, roof, lights, len, wid, stripe) {
+    len = len || 20; wid = wid || 14;
+    g.save(); g.translate(Math.round(x), Math.round(y));
+    g.rotate([0, 0, Math.PI / 2, Math.PI, -Math.PI / 2][d || 1]);
+    const hl = len / 2, hw = wid / 2;
+    g.fillStyle = 'rgba(0,0,0,0.5)'; g.fillRect(-hw + 1, -hl + 1, wid, len);
+    g.fillStyle = body; g.fillRect(-hw, -hl, wid, len);
+    if (stripe) { g.fillStyle = stripe; g.fillRect(-hw, -hl + 3, wid, 2); g.fillRect(-hw, hl - 5, wid, 2); }
+    g.fillStyle = roof; g.fillRect(-hw + 2, -4, wid - 4, len > 22 ? 12 : 8);
+    g.fillStyle = '#111'; g.fillRect(-hw - 1, -hl + 2, 2, 5); g.fillRect(hw - 1, -hl + 2, 2, 5); g.fillRect(-hw - 1, hl - 7, 2, 5); g.fillRect(hw - 1, hl - 7, 2, 5);
+    if (lights) { g.fillStyle = lights[0]; g.fillRect(-hw + 2, -2, hw - 2, 3); g.fillStyle = lights[1]; g.fillRect(0, -2, hw - 2, 3); }
+    g.fillStyle = '#fffbe0'; g.fillRect(-hw + 1, -hl - 1, 3, 2); g.fillRect(hw - 4, -hl - 1, 3, 2);  // headlamps
+    g.restore();
+  }
+  // a sweeping cyan beam: the dog unit hunting
+  function searchlight(x, y, d) {
+    const a = [0, -Math.PI / 2, 0, Math.PI / 2, Math.PI][d] + Math.sin(frame * 0.12) * 0.5, ca = Math.cos(a), sa = Math.sin(a);
+    const grd = g.createRadialGradient(x, y, 4, x, y, 56);
+    grd.addColorStop(0, 'rgba(63,240,255,0.45)'); grd.addColorStop(1, 'rgba(63,240,255,0)');
+    g.fillStyle = grd; g.beginPath(); g.moveTo(x, y);
+    g.lineTo(x + (ca * 56 - sa * 16), y + (sa * 56 + ca * 16)); g.lineTo(x + (ca * 56 + sa * 16), y + (sa * 56 - ca * 16)); g.closePath(); g.fill();
+  }
+  // dents and smoke on a van that has rammed: one ram, a dent; two, dents and a trail of smoke
+  function vanDamage(x, y, d, n) {
+    if (!n) return;
+    g.save(); g.translate(Math.round(x), Math.round(y)); g.rotate([0, 0, Math.PI / 2, Math.PI, -Math.PI / 2][d || 1]);
+    g.fillStyle = '#0a0a14'; g.fillRect(-8, -12, 5, 4); if (n >= 2) { g.fillRect(4, 2, 4, 6); g.fillRect(-8, 6, 4, 4); }
+    g.fillStyle = '#ffb040'; if (n >= 2 && (frame >> 2) & 1) g.fillRect(-2, -14, 3, 3);   // sparks off the front
+    g.restore();
+    if (frame % (n >= 2 ? 4 : 10) === 0) fx.smoke.push({ x: x + (Math.random() - 0.5) * 8, y: y + (Math.random() - 0.5) * 8, r: 2 + n, life: 1 + Math.random() * 0.5 });
+  }
+  function headlights(x, y, d, a) {
+    const ux = DX[d], uy = DY[d];
+    const grd = g.createLinearGradient(x, y, x + ux * 40, y + uy * 40);
+    grd.addColorStop(0, `rgba(255,250,200,${a})`); grd.addColorStop(1, 'rgba(255,250,200,0)');
+    g.fillStyle = grd; g.beginPath();
+    g.moveTo(x + ux * 10 - uy * 5, y + uy * 10 + ux * 5); g.lineTo(x + ux * 40 - uy * 12, y + uy * 40 + ux * 12);
+    g.lineTo(x + ux * 40 + uy * 12, y + uy * 40 - ux * 12); g.lineTo(x + ux * 10 + uy * 5, y + uy * 10 - ux * 5); g.fill();
+  }
+
+  function drawField() {
+    const blink = (frame >> 3) & 1;
+    // where each exit leads: the zone's chip and what its pileups pay, on the wall beside the gap
+    for (const e of S.EXITS) {
+      const dest = S.exitDest(st, e.d), side = e.d === 1 || e.d === 3;
+      const lx = side ? tc(e.x + 1) + 4 : tc(e.x), ly = side ? OY + tc(e.y) : OY + tc(e.y + 1) + 4;
+      const tag = dest.escape ? 'OUT' : THEME[dest.name].tag, col = dest.escape ? PAL.goal : THEME[dest.name].chip;
+      g.fillStyle = 'rgba(0,0,0,0.6)'; g.fillRect(side ? lx - 10 : lx - 11, side ? ly - 8 : ly - 10, side ? 46 : 22, side ? 16 : 30);
+      g.fillStyle = col; g.fillRect(side ? lx - 8 : lx - 9, side ? ly - 6 : ly - 8, 4, side ? 12 : 4);
+      text(tag, side ? lx - 2 : lx, side ? ly + 4 : ly + 3, 9, st.exit ? '#fff' : '#9aa', side ? 'left' : 'center');
+      if (dest.alert) text('HOT', side ? lx + 18 : lx, side ? ly + 4 : ly + 13, 9, (frame >> 4) & 1 ? PAL.mark : '#fff', side ? 'left' : 'center');   // been there: on alert
+      else if (!dest.escape) text('x' + dest.mult, side ? lx + 18 : lx, side ? ly + 4 : ly + 13, 9, dest.mult > 1 ? PAL.fire : '#9aa', side ? 'left' : 'center');
+      else text('!', side ? lx + 18 : lx, side ? ly + 4 : ly + 13, 9, PAL.goal, side ? 'left' : 'center');
+    }
+    // the open exits: green chevrons pulsing outward through the gap
+    if (st.exit) for (const e of S.EXITS) {
+      const x = tc(e.x), y = OY + tc(e.y), k = (frame % 30) / 30;
+      g.fillStyle = PAL.goal;
+      for (let i = 0; i < 2; i++) {
+        const o = ((k + i * 0.5) % 1) * 10 - 5, px = x + DX[e.d] * o, py = y + DY[e.d] * o;
+        g.save(); g.translate(px, py); g.rotate([0, 0, Math.PI / 2, Math.PI, -Math.PI / 2][e.d]);
+        g.beginPath(); g.moveTo(-8, 4); g.lineTo(0, -4); g.lineTo(8, 4); g.lineTo(8, 8); g.lineTo(0, 0); g.lineTo(-8, 8); g.closePath(); g.fill(); g.restore();
+      }
+    }
+    for (const s of fx.skids) { g.fillStyle = `rgba(90,90,90,${s.life * 0.7})`; const vert = s.d === 1 || s.d === 3; g.fillRect(sx(s.x) - (vert ? 5 : 12), sy(s.y) - (vert ? 12 : 5), vert ? 3 : 24, vert ? 24 : 3); g.fillRect(sx(s.x) + (vert ? 2 : -12), sy(s.y) + (vert ? -12 : 2), vert ? 3 : 24, vert ? 24 : 3); }
+    // arrival warning at a corner
+    if (st.warn && blink && st.phase === 'play') {
+      const gt = S.GATES[st.warn.gate];
+      g.strokeStyle = (frame >> 4) & 1 ? PAL.mark : '#3b6bff'; g.lineWidth = 2; g.strokeRect(tc(gt[0]) - 10, OY + tc(gt[1]) - 10, 20, 20);
+    }
+    // tyre tracks: the route every patrol car on them will drive. Red where a car is still to drive them.
+    const tr = st.trail;
+    let from = tr.length;
+    for (const c of st.cops) if (c.ti >= 0) from = Math.min(from, c.ti - st.trailBase - 1);
+    g.lineCap = 'square';
+    for (let i = 1; i < tr.length; i++) {
+      const a0 = tr[i - 1], a1 = tr[i], age = Math.min(1, i / tr.length + 0.15), hot = i > from;
+      if (Math.abs(a0[0] - a1[0]) + Math.abs(a0[1] - a1[1]) !== 1) continue;
+      g.strokeStyle = hot ? `rgba(255,90,70,${0.25 + 0.5 * age})` : `rgba(150,150,170,${0.12 + 0.3 * age})`;
+      g.lineWidth = hot ? 4 : 3;
+      g.beginPath(); g.moveTo(tc(a0[0]), OY + tc(a0[1])); g.lineTo(tc(a1[0]), OY + tc(a1[1])); g.stroke();
+      if (hot) {   // the stretch the police will still drive: bright dashes running along it toward you
+        g.save(); g.setLineDash([4, 8]); g.lineDashOffset = -((frame + i * 12) % 12); g.strokeStyle = 'rgba(255,220,200,0.8)'; g.lineWidth = 2;
+        g.beginPath(); g.moveTo(tc(a0[0]), OY + tc(a0[1])); g.lineTo(tc(a1[0]), OY + tc(a1[1])); g.stroke(); g.restore();
+      }
+    }
+    for (const k of fx.scents) { g.strokeStyle = `rgba(255,90,70,${k.life})`; g.lineWidth = 2; const r = 6 + (1 - k.life) * 14; g.strokeRect(sx(k.x) - r, sy(k.y) - r, r * 2, r * 2); }
+    // wrecks: a burnt hulk under a fire that grows with the pileup, blinking before the tow
+    for (const w of st.wrecks) {
+      const x = tc(w.tx), y = OY + tc(w.ty);
+      if (w.t < 90 && blink) continue;
+      g.fillStyle = PAL.hulk; g.fillRect(x - 10, y - 10, 20, 20);
+      g.fillStyle = '#222'; g.fillRect(x - 6, y - 6, 12, 12);
+      const f = 6 + Math.min(w.n, 6) * 2;
+      for (let i = 0; i < 3 + Math.min(w.n, 8); i++) {
+        const fx0 = x + Math.sin(frame * 0.4 + i * 2.1) * f * 0.5, fy0 = y + Math.cos(frame * 0.33 + i * 1.7) * f * 0.4 - 2;
+        g.fillStyle = i % 2 ? PAL.fire : '#ffd23c'; g.fillRect(fx0 - 3, fy0 - 3 - (frame + i * 5) % 6, 6, 6);
+      }
+      if (w.n >= 3) { g.fillStyle = '#fff'; g.font = 'bold 10px monospace'; g.textAlign = 'center'; g.fillText(String(w.n), x, y + TS - 6); }
+    }
+    // police: car, heavy van (long, navy), dog unit (short, cyan stripe)
+    for (const c of st.cops) {
+      const x = sx(c.x), y = sy(c.y), ph = (frame >> 3) & 1, lb = ph ? ['#ff2020', '#2040ff'] : ['#2040ff', '#ff2020'];
+      if (c.dir) faces.set(c.id, c.dir);
+      const f = faces.get(c.id) || 1;
+      if (c.kind === 'dog') {
+        // dog unit: a cyan car with a searchlight sweeping ahead instead of headlights; it never takes your tracks
+        if (c.dir) searchlight(x, y, c.dir);
+        car(x, y, f, PAL.dog, '#063a40', null, 18, 13, '#063a40');
+        continue;
+      }
+      if (c.dir) headlights(x, y, c.dir, 0.18);
+      if (c.kind === 'van') {
+        // heavy van: damage shows as dents, a dead light bar and smoke; the third ram wrecks it
+        const hurtBy = C.VAN_HP - c.hp;
+        car(x, y, f, c.immune > 0 && blink ? '#e8e8f0' : PAL.van, hurtBy ? '#9a9aa8' : '#e8e8f0', hurtBy >= 2 ? (blink ? ['#ff2020', '#111'] : ['#111', '#111']) : lb, 26, 16);
+        vanDamage(x, y, f, hurtBy);
+      } else car(x, y, f, PAL.cop, '#202020', lb);
+    }
+    for (const s of fx.smoke) { g.fillStyle = `rgba(150,150,160,${Math.min(0.6, s.life * 0.4)})`; g.beginPath(); g.arc(s.x, s.y - (2 - s.life) * 10, s.r * (2.2 - s.life), 0, 6.283); g.fill(); }
+    // the getaway car (blinks while busted)
+    if (!(st.phase === 'dead' && blink) && st.phase !== 'clear') {
+      const x = sx(st.p.x), y = sy(st.p.y);
+      if (st.p.dir) { headlights(x, y, st.p.dir, 0.3); faces.set(0, st.p.dir); }
+      car(x, y, faces.get(0) || 1, st.phase === 'dead' ? '#ff5a3a' : PAL.me, PAL.meDark, null);
+    }
+    for (const d of fx.debris) { g.fillStyle = d.hot ? `rgba(255,170,40,${d.life})` : `rgba(200,200,200,${d.life})`; g.fillRect(d.x - 2, d.y - 2, 4, 4); }
+    g.textAlign = 'center';
+    for (const p of fx.pops) {
+      g.font = `bold ${p.n >= 3 ? 16 : 12}px monospace`;
+      g.fillStyle = p.n >= 3 ? `rgba(255,255,255,${p.life})` : `rgba(255,210,90,${p.life})`;
+      g.fillText(String(p.pts), p.x * U, OY + p.y * U - 14 - (1 - p.life) * 18);
+    }
+  }
+
+  function draw() {
+    g.save();
+    g.fillStyle = PAL.bg; g.fillRect(0, 0, VW, VH);
+    if (shake > 0) g.translate((Math.random() - 0.5) * shake, (Math.random() - 0.5) * shake);
+    g.drawImage(city, 0, 0);
+    if (st) drawField();
+    g.restore();
+    if (flash > 0) { g.fillStyle = `rgba(${flashRGB},${flash})`; g.fillRect(0, 0, VW, VH); }
+    hud();
+  }
+  // the city: zones by colour, districts got out of brighter, the route so far, where you are (and where you are going)
+  function cityMap(x0, y0, s, going, k) {
+    const R = C.CITY_R, n = 2 * R + 1, done = new Set(st.cleared);
+    g.fillStyle = 'rgba(0,0,0,0.8)'; g.fillRect(x0 - 4, y0 - 4, n * s + 8, n * s + 8);
+    for (let cy = -R; cy <= R; cy++) for (let cx = -R; cx <= R; cx++) {
+      const D = S.districtAt(st, cx, cy);
+      g.globalAlpha = done.has(cx + ',' + cy) ? 1 : 0.45; g.fillStyle = THEME[D.name].chip; g.fillRect(x0 + (cx + R) * s, y0 + (cy + R) * s, s - 1, s - 1);
+    }
+    g.globalAlpha = 1; g.strokeStyle = PAL.me; g.lineWidth = 2; g.beginPath();
+    st.route.forEach(([cx, cy], i) => { const px = x0 + (cx + R) * s + s / 2, py = y0 + (cy + R) * s + s / 2; if (i) g.lineTo(px, py); else g.moveTo(px, py); });
+    if (going) g.lineTo(x0 + (st.cx + R) * s + s / 2 + DX[going] * s * (k === undefined ? 1 : k), y0 + (st.cy + R) * s + s / 2 + DY[going] * s * (k === undefined ? 1 : k));
+    g.stroke();
+    if ((frame >> 3) & 1) { g.strokeStyle = '#fff'; g.lineWidth = 1; g.strokeRect(x0 + (st.cx + R) * s - 0.5, y0 + (st.cy + R) * s - 0.5, s, s); }
+  }
+  function panel(h) { g.fillStyle = 'rgba(0,0,0,0.72)'; g.fillRect(0, VH / 2 - h / 2, VW, h); }
+  function text(s, x, y, size, color, align) { g.font = `bold ${size}px monospace`; g.fillStyle = color; g.textAlign = align || 'center'; g.fillText(s, x, y); }
+  function hud() {
+    g.fillStyle = '#000'; g.fillRect(0, 0, VW, OY - 2);
+    const best = Math.max(table[0].s, st && mode === 'play' ? st.score : 0);
+    text(String(st && mode !== 'title' ? st.score : 0).padStart(7, '0'), 10, 21, 16, PAL.text, 'left');
+    text('HI ' + String(best).padStart(7, '0'), VW - 10, 21, 16, PAL.dim, 'right');
+    if (st && mode !== 'title') {
+      // the district's quota as car icons: filled when wrecked, green when the exits are open
+      const D = S.district(st), n = D.quota, w = 8, x0 = VW / 2 - n * w / 2;
+      for (let i = 0; i < n; i++) { g.fillStyle = st.exit ? PAL.goal : i < st.wrecked ? PAL.fire : '#2a2f48'; g.fillRect(x0 + i * w + 1, 8, w - 2, 12); }
+      text(D.name, x0 - 8, 20, 11, THEME[D.name].chip, 'right');
+      text('x' + D.mult, x0 + n * w + 6, 20, 11, D.mult > 1 ? PAL.fire : PAL.dim, 'left');
+      // spare cars along the bottom wall
+      for (let i = 0; i < Math.min(st.lives - (st.phase === 'dead' ? 0 : 1), 8); i++) { g.fillStyle = PAL.me; g.fillRect(8 + i * 14, VH - 17, 10, 6); g.fillStyle = PAL.meDark; g.fillRect(10 + i * 14, VH - 16, 6, 4); }
+    }
+    if (fx.banner) { const b = fx.banner; text(b.text, VW / 2, OY + 100, 18 + Math.min(b.n, 7) * 3, (frame >> 2) & 1 ? '#fff' : b.color); }
+    if (mode === 'play' || mode === 'demo') {
+      const D = S.district(st);
+      if (st.phase === 'ready') {
+        panel(96); cityMap(VW - 84, VH / 2 - 36, 10, null);
+        text(D.name, VW / 2 - 40, VH / 2 - 14, 22, THEME[D.name].chip); text(`PILEUPS x${D.mult}`, VW / 2 - 40, VH / 2 + 6, 12, D.mult > 1 ? PAL.fire : PAL.dim);
+        text(D.alert ? 'BACK AGAIN: THEY ARE WAITING. MORE POLICE.' : INTRO[D.name] && !introSeen[D.name] ? INTRO[D.name] : 'READY', VW / 2 - 40, VH / 2 + 30, 12, D.alert ? PAL.mark : '#fff');
+      } else if (st.phase === 'clear') {
+        const last = fx.lastClear || {}, k = Math.min(1, (C.CLEAR_T - st.pt) / 40);   // the bonus counts up; the route steps on
+        panel(96); cityMap(VW - 84, VH / 2 - 36, 10, st.entry, k);
+        text(last.escape ? 'OUT OF THE CITY!' : 'GOT AWAY!', VW / 2 - 40, VH / 2 - 8, 26, PAL.goal);
+        if (last.escape) {
+          text(`BONUS ${Math.round((last.bonus - last.cars) * k)}`, VW / 2 - 40, VH / 2 + 20, 12, '#fff');
+          for (let i = 0; i < last.cars / C.CAR_BONUS; i++) { const lit = i < last.tallied; g.fillStyle = lit ? PAL.me : '#333'; g.fillRect(VW / 2 - 100 + i * 16, VH / 2 + 30, 12, 7); }
+          if (last.tallied) text(`CARS LEFT ${last.tallied * C.CAR_BONUS}`, VW / 2 + 30, VH / 2 + 38, 12, PAL.me);
+        } else text(last.bonus ? `BONUS ${Math.round(last.bonus * k)}${last.first ? '   EXTRA CAR' : ''}` : 'BEEN HERE BEFORE: NO BONUS', VW / 2 - 40, VH / 2 + 20, 12, '#fff');
+      }
+      else if (st.phase === 'dead' && st.pt < C.DEAD_T - 30) { panel(50); text(st.cause === 'wreck' ? 'WRECKED' : 'BUSTED', VW / 2, VH / 2 + 10, 28, '#fff'); }
+    }
+    if (mode === 'demo') { text('DEMO', VW / 2, OY + 70, 16, PAL.dim); if ((frame >> 5) & 1) text('PUSH SPACE', VW / 2, VH - 40, 16, '#fff'); }
+    if (mode === 'title') {
+      panel(300);
+      text('PILEUP', VW / 2, VH / 2 - 95, 56, PAL.me);
+      text('YOUR TRACKS ARE THEIR ROUTE', VW / 2, VH / 2 - 66, 13, PAL.mark);
+      for (let i = 0; i < 5; i++) text(`${i + 1}  ${String(table[i].s).padStart(7, ' ')}  ${table[i].n}`, VW / 2, VH / 2 - 26 + i * 20, 16, i === 0 ? PAL.me : '#fff');
+      if ((frame >> 5) & 1) text('PUSH SPACE', VW / 2, VH / 2 + 110, 16, '#fff');
+      text('ARROWS STEER   M SOUND', VW / 2, VH / 2 + 136, 11, PAL.dim);
+    } else if (mode === 'over') {
+      panel(entry ? 150 : 90);
+      text(st.won ? 'CITY ESCAPED' : 'GAME OVER', VW / 2, VH / 2 - (entry ? 40 : 10), 30, st.won ? PAL.goal : '#fff');
+      text(`${st.stats.cars} CARS  BEST PILEUP ${st.stats.best}`, VW / 2, VH / 2 + (entry ? -14 : 18), 13, PAL.dim);
+      if (!entry && modeT > 60 && (frame >> 5) & 1) text('PUSH SPACE', VW / 2, VH / 2 + 38, 14, '#fff');
+    }
+    if (mode === 'entry') {
+      panel(150);
+      text(st.won ? 'CITY ESCAPED' : 'GAME OVER', VW / 2, VH / 2 - 40, 30, st.won ? PAL.goal : '#fff');
+      text(`RANK ${entry.rank + 1}   ${st.score}`, VW / 2, VH / 2 - 12, 14, PAL.me);
+      for (let i = 0; i < 3; i++) text(entry.letters[i], VW / 2 - 30 + i * 30, VH / 2 + 26, 28, i === entry.pos && (frame >> 3) & 1 ? PAL.me : '#fff');
+      g.fillStyle = PAL.me; g.fillRect(VW / 2 - 40 + entry.pos * 30, VH / 2 + 32, 20, 3);
+      text('UP/DOWN LETTER  SPACE NEXT', VW / 2, VH / 2 + 58, 11, PAL.dim);
+    }
+  }
+  function age(dt) {
+    for (const p of fx.pops) p.life -= dt * 0.9;
+    fx.pops = fx.pops.filter(p => p.life > 0);
+    for (const s of fx.skids) s.life -= dt * 0.8;
+    fx.skids = fx.skids.filter(s => s.life > 0);
+    for (const k of fx.scents) k.life -= dt * 2.5;
+    fx.scents = fx.scents.filter(k => k.life > 0);
+    for (const s of fx.smoke) s.life -= dt;
+    fx.smoke = fx.smoke.filter(s => s.life > 0);
+    for (const d of fx.debris) { d.x += d.vx * dt; d.y += d.vy * dt; d.vx *= 0.92; d.vy *= 0.92; d.life -= dt * 1.3; }
+    fx.debris = fx.debris.filter(d => d.life > 0);
+    if (fx.banner && (fx.banner.life -= dt) <= 0) fx.banner = null;
+    shake = Math.max(0, shake - dt * 30); flash = Math.max(0, flash - dt * 2);
+  }
+
+  function resize() {
+    const k = Math.min(innerWidth / VW, innerHeight / VH);
+    cv.style.width = (VW * k) + 'px'; cv.style.height = (VH * k) + 'px';
+  }
+  addEventListener('resize', resize); resize();
+
+  let prev = performance.now(), acc = 0;
+  function loop(now) {
+    const dt = Math.min(100, now - prev); prev = now; acc += dt;
+    while (acc >= 1000 / 60) { acc -= 1000 / 60; tick(); }
+    age(dt / 1000);
+    draw();
+    requestAnimationFrame(loop);
+  }
+  if (q.get('manual') !== '1') requestAnimationFrame(loop); else draw();
+
+  // test hooks
+  window.__test = {
+    get state() { return st; }, get mode() { return mode; }, get last() { return lastLine; }, get table() { return table; }, get fx() { return fx; },
+    load(s) { st = s; mode = 'play'; paintCity(s.cx, s.cy, S.district(s).name); }, start, startDemo, toTitle, advance(n) { for (let i = 0; i < n; i++) tick(); age(n / 60); draw(); },
+    steer(d) { pending = d; }, press, paint: paintCity,
+  };
+})();
+
+window.__agenticSetup({start(){__test.start()},read(){const s=__test.state; return {score:s?.score??0,ended:!!(s&&(s.over || s.won)),won:!!(s&&(s.won)),phase:s?.phase??s?.mode??'playing'};}});</script></body></html>

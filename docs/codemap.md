@@ -67,3 +67,15 @@
 - `src/games/meteor-guard/`: five-wave action round.
 - `src/games/pocket-bowling/`: ten-frame bowling round.
 - `src/data/six-{puzzles,movement,action}.ts`: typed catalogue entries; companion guide modules own localized instructions.
+
+## Century arcade collection
+
+- `src/data/century-crisp.json`: 88 imported ABA titles and original Signal Crossing using the shared Crisp adapter.
+- `src/data/agentic-games.ts`: eleven independently adapted ABA games with bilingual rules, input and provenance metadata.
+- `src/games/agentic/index.ts`: lazy opaque-frame lifecycle, peer validation, native controls, sound preferences and restart-only persistence.
+- `vendor/agentic/sources/`, `vendor/agentic/art/`, `vendor/agentic/provenance.json`: unchanged pinned sources, upstream artwork and SHA-256 inventory.
+- `vendor/agentic/bridge.js`: virtual clock/timers, input release, source-state results and audio lifecycle.
+- `scripts/build-agentic.mjs`: fail-closed source hash validation, local module bundling and eleven generated no-network HTML frames.
+- `public/vendor/agentic/`, `public/licenses/agentic/`, `public/art/agentic/`: generated runtime, retained notices and actual gameplay PNGs.
+- `scripts/check-imports.mjs`: filtered shared-runtime admission with bounded repeated input, JSON evidence and screenshots.
+- `tests/unit/agentic.test.ts`, `tests/unit/century.test.ts`, `tests/e2e/century-games.spec.ts`: rights/catalogue checks, bridge state regressions and integrated browser journeys.
