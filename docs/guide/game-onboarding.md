@@ -33,3 +33,7 @@ Gonggi is an original MIT five-stage adaptation of Korean five-stones play. Its 
 ## Original arcade games
 
 The eight-game arcade expansion uses independently authored code, names, graphics and stages. Genre inspiration does not authorize commercial assets or branding. Maintain accurate solo versus same-device duel/cooperation metadata, local-save behavior and controls in both languages. Keep the registry, comparison guide, collection, sitemap and `llms.txt` references aligned. Verify the actual rendered games before attaching screenshot evidence. See [ADR 0051](../adr/0051-original-retro-eight.md); optional lifecycle analytics follows [ADR 0050](../adr/0050-consented-game-analytics.md).
+
+## Cooking and table tennis
+
+Snack Street and Pocket Table Tennis use original project-authored TypeScript, CSS/canvas rendering and SVG covers under MIT. There are no imported images, fonts, sound recordings or game files. Both are solo campaigns with validated local saves. Ember Maze retains its original modes and rules while adding state-independent effects. See [ADR 0054](../adr/0054-cooking-and-table-tennis.md).

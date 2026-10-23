@@ -1,3 +1,4 @@
+import { arcadeTrioGuides } from "./arcade-trio-guides";
 import { retroGuide } from "./retro-discovery";
 import { games } from "./games";
 import type { Locale } from "../lib/types";
@@ -8,6 +9,7 @@ export interface Article {
   links?: { label: string; href: string }[];
 }
 export const articles: Record<string, Record<Locale, Article>> = {
+  ...arcadeTrioGuides,
   "guides/retro-arcade": retroGuide,
   "guides/gonggi-rules": {
     en: {
@@ -991,6 +993,8 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/snack-street",
+  "guides/pocket-pingpong",
   "guides/retro-arcade",
   "guides/gonggi-rules",
   "guides/yutnori-rules",

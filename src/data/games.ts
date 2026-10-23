@@ -1,3 +1,4 @@
+import { arcadeTrioGames } from "./arcade-trio";
 import { retroAGames } from "./retro-a";
 import { retroBGames } from "./retro-b";
 import type { Locale } from "../lib/types";
@@ -1413,6 +1414,7 @@ const externalBrowserGames: Game[] = [
   },
 ];
 gameCandidates.push(
+  ...arcadeTrioGames,
   ...logicGames,
   ...heritageGames,
   ...retroAGames,
