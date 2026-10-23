@@ -1,3 +1,4 @@
+import "./style.css";
 import type { GameFactory, Action } from "../../lib/types";
 import { createMotion } from "../../lib/motion";
 import {
@@ -38,14 +39,15 @@ export const mount: GameFactory = (ctx) => {
   if (!g) throw Error(ko ? "화면을 만들 수 없어요." : "Canvas unavailable.");
   ctx.host.append(canvas);
   const panel = document.createElement("div");
+  panel.className = "river-controls";
   panel.style.cssText =
     "display:grid;gap:2px;width:100%;max-width:650px;margin:auto;font:12px/1.35 system-ui";
   const status = document.createElement("p");
   status.style.cssText = "margin:0;font-weight:800";
   status.setAttribute("role", "status");
   const row = document.createElement("div");
-  row.style.cssText =
-    "display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px";
+  row.className = "river-actions";
+  row.style.cssText = "display:grid;gap:4px";
   const hint = document.createElement("p");
   hint.style.margin = "0";
   hint.textContent = ko
@@ -278,15 +280,8 @@ export const mount: GameFactory = (ctx) => {
     draw();
     raf = requestAnimationFrame(tick);
   }
-  const resize = new ResizeObserver(() => {
-    motion.finish();
-    row.style.gridTemplateColumns =
-      panel.clientWidth < 220
-        ? "repeat(2,minmax(0,1fr))"
-        : "repeat(4,minmax(0,1fr))";
-  });
+  const resize = new ResizeObserver(() => motion.finish());
   resize.observe(canvas);
-  resize.observe(panel);
   draw();
   ctx.onChange(score(s));
   ctx.onReady?.({ width: 450, height: 550 });
