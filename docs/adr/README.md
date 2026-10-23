@@ -68,3 +68,4 @@
 
 - [0053 — Ad placements and house banners](0053-ad-placements-and-house-banners.md) — Accepted.
 - [0052 — Solo and same-device search](0052-player-mode-search.md) — Accepted.
+- [0054 — Compact search, discovery and optional ads](0054-compact-search-discovery-and-ads.md) — Accepted.

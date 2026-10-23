@@ -44,4 +44,6 @@ The adapter offers separate optional advertising consent on home, game details, 
 
 ## Outside-player display and original house banners
 
+[ADR 0054](../adr/0054-compact-search-discovery-and-ads.md) supersedes the earlier search-route exclusion. One existing Adsterra placement may appear below at least eight successfully rendered results on the current search page. It stays hidden during loading, empty/sparse/error states and without JavaScript, even with saved consent. Result changes remove ineligible frames. Advertising consent stays separate from GA4; Google approval gates are unchanged.
+
 [ADR 0053](../adr/0053-ad-placements-and-house-banners.md) permits a separate display placement below the full-viewport player and moves home/catalogue placements into visible content. It supersedes the earlier route-level exclusion; no advertisement covers game controls. The one-code-per-page rule and consent/provider gates remain. Existing original MODU TT and Tools images are served locally for random first-party promotion without third-party scripts.

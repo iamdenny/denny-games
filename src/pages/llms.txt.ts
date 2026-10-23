@@ -13,6 +13,7 @@ export function GET() {
     `- [한국어 전체 게임](${base}/ko/all/)`,
     `- [Classic board guide](${base}/en/guides/classic-board-games/)`,
     `- [보드게임 규칙과 대전 안내](${base}/ko/guides/classic-board-games/)`,
+    "The classic board guide explains solo AI versus same-device play, how search filters work, and which rules differ. Filtered search pages are navigation tools, not canonical answers or online multiplayer rooms.",
     `- [Yutnori rules and route guide](${base}/en/guides/yutnori-rules/)`,
     `- [윷놀이 규칙과 말 이동 안내](${base}/ko/guides/yutnori-rules/)`,
     `- [Compatibility evidence](${base}/en/compatibility/)`,

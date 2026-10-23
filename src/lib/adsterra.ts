@@ -111,7 +111,10 @@ export function initAdsterra(): void {
     render();
   }
   for (const banner of banners) {
-    if (banner.hasAttribute("data-adsterra-category"))
+    if (
+      banner.hasAttribute("data-adsterra-category") ||
+      banner.hasAttribute("data-adsterra-search")
+    )
       eligibilityObserver.observe(banner, {
         attributes: true,
         attributeFilter: ["hidden"],

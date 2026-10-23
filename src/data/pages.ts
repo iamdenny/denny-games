@@ -234,6 +234,13 @@ export const articles: Record<string, Record<Locale, Article>> = {
           ],
         },
         {
+          heading: "How do I find a solo game or a game to share?",
+          paragraphs: [
+            "In search, choose Solo to find games you can play alone, including the five AI board games. Choose Together on one device to find local shared-device play, then select Board to narrow the results. Yutnori needs two to four people and is excluded from solo results.",
+            "On a phone, open Narrow your search to change players, genre, controls or estimated round length. The active-filter count stays visible while the controls are folded away. A shared search link keeps those choices, but does not create an online room or connect another device.",
+          ],
+        },
+        {
           heading: "How do AI and two-player modes work?",
           paragraphs: [
             "Five games offer browser AI or local two-player play. Open Settings in one of those games to choose a mode; Mint moves first and the AI plays Coral. Yutnori instead supports two to four people passing one device and has no AI. None offers online matchmaking or account sync.",
@@ -258,7 +265,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "Are games saved, and where are the ads?",
           paragraphs: [
             "Board positions, Yutnori match state, modes, difficulty and completed results are stored in this browser. Pause before leaving, and use the same browser profile to continue. Clearing site data removes progress. Games pause when the page loses visibility.",
-            "Catalogue and detail pages may contain clearly disclosed ad or affiliate positions. The board player has no display-ad slots. Advertising approval and serving are separate from a game being available.",
+            "Catalogue and detail pages may contain clearly disclosed ad or affiliate positions. An optional display placement may appear below the player, outside the game surface. Search shows one optional placement below a page of at least eight results. Advertising consent is separate from analytics, and neither is required to play.",
           ],
         },
       ],
@@ -269,6 +276,14 @@ export const articles: Record<string, Record<Locale, Article>> = {
         },
         { label: "Read the Yutnori rules", href: "/en/guides/yutnori-rules/" },
         { label: "Browse all board games", href: "/en/category/board/" },
+        {
+          label: "Find solo board games",
+          href: "/en/search/?mode=single-player&category=board",
+        },
+        {
+          label: "Find games to share on one device",
+          href: "/en/search/?mode=multi-player",
+        },
       ],
     },
     ko: {
@@ -282,6 +297,13 @@ export const articles: Record<string, Record<Locale, Article>> = {
             "오목은 15×15 자유룰로 다섯 개 이상 연결하면 승리하고 금수는 없습니다. 리버시는 8×8 판과 둘 곳이 없을 때 자동 패스를 사용합니다. 사목은 7열·6행에서 돌이 아래로 떨어집니다.",
             "체커는 일반 말의 전진 이동·전진 잡기, 강제 잡기, 연속 점프와 승급 시 차례 종료를 적용하는 영국식입니다. 킹은 대각선 앞뒤로 이동합니다. 잡기 없는 킹 이동 80수는 무승부이고 반복 국면 판정은 적용하지 않습니다. 점 잇기는 16개 사각형을 차지하며 완성하면 한 번 더 둡니다.",
             "윷놀이는 네 윷가락 결과로 29밭에서 이동합니다. 도·개·걸·윷·모는 1~5칸이며 윷·모가 나오면 한 번 더 던집니다. 같은 편 말은 업고, 상대 말이 있는 밭에 도착하면 무리 전체를 잡아 대기 자리로 보냅니다. 모서리 지름길은 중앙을 지나 반대편으로 이어집니다. 이 버전은 정확한 수로 도착하고 빽도는 제외합니다. 지역 규칙은 다를 수 있습니다.",
+          ],
+        },
+        {
+          heading: "혼자 할 게임과 친구와 할 게임은 어떻게 찾나요?",
+          paragraphs: [
+            "검색에서 ‘혼자 플레이’를 고르면 혼자 즐기는 게임과 AI 보드게임 다섯 종을 찾을 수 있어요. ‘같은 기기에서 함께’를 고른 뒤 장르를 보드게임으로 좁히면 한 기기를 나눠 쓰는 게임이 나옵니다. 윷놀이는 2~4명이 필요하므로 혼자 플레이 결과에서 제외해요.",
+            "휴대폰에서는 ‘조건으로 찾기’를 펼쳐 인원·장르·조작·예상 시간을 바꾸세요. 접어도 적용한 조건 수는 표시되고, 검색 링크를 공유하면 조건이 유지돼요. 이 링크는 온라인 대전방을 만들거나 다른 기기와 연결하는 기능은 아닙니다.",
           ],
         },
         {
@@ -309,7 +331,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "저장은 어디에 되고 광고는 어디에 있나요?",
           paragraphs: [
             "게임판·윷놀이 대국·방식·난이도·종료 결과를 이 브라우저에 저장합니다. 나가기 전에 정지하고 같은 브라우저 프로필로 돌아오세요. 사이트 데이터를 지우면 진행 상태도 삭제됩니다. 페이지가 숨겨지면 게임은 정지합니다.",
-            "목록·소개 페이지에는 표시된 광고·제휴 위치가 있을 수 있습니다. 보드게임 플레이어 안에는 디스플레이 광고 슬롯이 없습니다. 게임 공개와 광고 승인·노출은 별개입니다.",
+            "목록·소개 페이지에는 표시된 광고·제휴 위치가 있을 수 있어요. 플레이어 아래의 별도 영역과 한 페이지에 결과가 여덟 개 이상인 검색 결과 아래에는 선택형 광고가 표시될 수 있습니다. 광고 동의와 방문 분석 동의는 별개이며 거절해도 게임을 이용할 수 있어요.",
           ],
         },
       ],
@@ -323,6 +345,14 @@ export const articles: Record<string, Record<Locale, Article>> = {
           href: "/ko/guides/yutnori-rules/",
         },
         { label: "보드게임 전체 보기", href: "/ko/category/board/" },
+        {
+          label: "혼자 할 보드게임 찾기",
+          href: "/ko/search/?mode=single-player&category=board",
+        },
+        {
+          label: "같은 기기에서 함께 할 게임 찾기",
+          href: "/ko/search/?mode=multi-player",
+        },
       ],
     },
   },
@@ -584,7 +614,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "Advertising",
           paragraphs: [
             "Coupang affiliate cards, when enabled, are labeled as advertisements with a commission disclosure. They use ordinary external links without a Coupang script, image or iframe request on page load. Clicking opens Coupang, where its privacy and purchase terms apply. Purchases are optional and do not unlock game rewards.",
-            "Optional Adsterra banners on the home page, game information, catalogues, collections and general guides load only after a separate advertising choice. Adsterra and its advertising partners may process IP addresses, browser information and cookies. Your choice is saved in this browser until changed or cleared. Withdraw consent at any banner to remove it and stop future requests; this does not erase data already received by providers. No banners appear in gameplay, search, device-check or gamepad-diagnostic pages, or the library. Provider privacy policy: https://adsterra.com/privacy-policy/",
+            "Optional Adsterra banners on the home page, game information, catalogues, collections and general guides load only after a separate advertising choice. Adsterra and its advertising partners may process IP addresses, browser information and cookies. Your choice is saved in this browser until changed or cleared. Withdraw consent at any banner to remove it and stop future requests; this does not erase data already received by providers. A separate banner may appear below the player, outside gameplay, and below search results when a page has at least eight matches. No banners appear on device-check or gamepad-diagnostic pages, or in the library. Provider privacy policy: https://adsterra.com/privacy-policy/",
             "Google display and in-game ads are inactive while approval and consent requirements are pending. An AdSense account verification meta tag and public seller record identify the publisher; these do not load an advertising script.",
           ],
         },
@@ -623,7 +653,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
           heading: "광고",
           paragraphs: [
             "쿠팡 제휴 카드가 활성화되면 광고 표시와 수수료 안내를 함께 제공합니다. 페이지를 열 때 쿠팡 스크립트·이미지·iframe을 요청하지 않는 일반 외부 링크입니다. 클릭하면 쿠팡으로 이동하며 쿠팡의 개인정보·구매 정책이 적용됩니다. 구매는 선택 사항이며 게임 보상과 연결되지 않습니다.",
-            "홈·게임 소개·카탈로그·게임 모음·일반 가이드의 선택형 Adsterra 배너는 분석과 별도로 광고를 허용해야 불러옵니다. Adsterra와 광고 파트너는 IP 주소·브라우저 정보·쿠키를 처리할 수 있습니다. 선택은 변경하거나 삭제할 때까지 이 브라우저에 저장됩니다. 배너에서 허용을 취소하면 광고를 제거하고 이후 요청을 중단하지만 이미 전달된 데이터는 삭제하지 않습니다. 실제 플레이·검색·기기 점검·게임패드 진단·보관함에는 배너가 없습니다. 제공사 개인정보 처리방침: https://adsterra.com/privacy-policy/",
+            "홈·게임 소개·카탈로그·게임 모음·일반 가이드의 선택형 Adsterra 배너는 분석과 별도로 광고를 허용해야 불러옵니다. Adsterra와 광고 파트너는 IP 주소·브라우저 정보·쿠키를 처리할 수 있습니다. 선택은 변경하거나 삭제할 때까지 이 브라우저에 저장됩니다. 배너에서 허용을 취소하면 광고를 제거하고 이후 요청을 중단하지만 이미 전달된 데이터는 삭제하지 않습니다. 게임 조작 영역 밖인 플레이어 아래와 한 페이지에 결과가 여덟 개 이상인 검색 결과 아래에도 별도 배너가 표시될 수 있습니다. 기기 점검·게임패드 진단·보관함에는 배너가 없습니다. 제공사 개인정보 처리방침: https://adsterra.com/privacy-policy/",
             "Google 배너·게임 내 광고는 승인과 동의 요건을 갖출 때까지 비활성 상태입니다. AdSense 계정 확인 메타 태그와 공개 판매자 정보만 게시하며, 이 정보는 광고 스크립트를 불러오지 않습니다.",
           ],
         },

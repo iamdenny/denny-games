@@ -847,61 +847,74 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           placeholder={text.search}
           maxlength="120"
         />
-        <fieldset>
-          <legend>{label("Narrow your search", "조건으로 찾기")}</legend>
-          <label>
-            {label("Players", "플레이 인원")}
-            <select name="mode">
-              <option value="">
-                {label("Solo or together", "혼자 또는 함께")}
-              </option>
-              <option value="single-player">
-                {label("Solo", "혼자 플레이")}
-              </option>
-              <option value="multi-player">
-                {label("Together on one device", "같은 기기에서 함께")}
-              </option>
-            </select>
-          </label>
-          <label>
-            {label("Category", "장르")}
-            <select name="category">
-              <option value="">{label("All categories", "전체 장르")}</option>
-              {categories.map((category) => (
-                <option value={category}>{text[category]}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            {label("Play style", "플레이 방식")}
-            <select name="control">
-              <option value="">
-                {label("All play styles", "모든 플레이 방식")}
-              </option>
-              {controlStyles.map((style) => (
-                <option value={style}>{controlLabels[style][locale]}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            {label("Estimated round", "예상 한 판 길이")}
-            <select name="length">
-              <option value="">{label("Any length", "모든 길이")}</option>
-              <option value="short">
-                {label("Up to 3 minutes", "3분 이내")}
-              </option>
-              <option value="long">
-                {label("Over 3 minutes", "3분 초과")}
-              </option>
-            </select>
-          </label>
-        </fieldset>
-        <p class="notice">
-          {label(
-            "Together means sharing one device, without online matchmaking. Round lengths are estimates. Play style describes controls, not verified device support.",
-            "함께 플레이는 한 기기를 나눠 쓰는 방식이며 온라인 매칭은 제공하지 않습니다. 한 판 길이는 예상치이며, 플레이 방식은 기기 호환성 인증이 아닙니다.",
-          )}
-        </p>
+        <details class="search-refinements" data-search-refinements>
+          <summary>
+            {label("Narrow your search", "조건으로 찾기")}
+            <span id="search-filter-count"></span>
+          </summary>
+          <script is:inline>
+            (() => {
+              const disclosure = document.currentScript?.closest("details");
+              if (disclosure && matchMedia("(min-width: 700px)").matches)
+                disclosure.open = true;
+            })();
+          </script>
+          <fieldset>
+            <legend>{label("Narrow your search", "조건으로 찾기")}</legend>
+            <label>
+              {label("Players", "플레이 인원")}
+              <select name="mode">
+                <option value="">
+                  {label("Solo or together", "혼자 또는 함께")}
+                </option>
+                <option value="single-player">
+                  {label("Solo", "혼자 플레이")}
+                </option>
+                <option value="multi-player">
+                  {label("Together on one device", "같은 기기에서 함께")}
+                </option>
+              </select>
+            </label>
+            <label>
+              {label("Category", "장르")}
+              <select name="category">
+                <option value="">{label("All categories", "전체 장르")}</option>
+                {categories.map((category) => (
+                  <option value={category}>{text[category]}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              {label("Play style", "플레이 방식")}
+              <select name="control">
+                <option value="">
+                  {label("All play styles", "모든 플레이 방식")}
+                </option>
+                {controlStyles.map((style) => (
+                  <option value={style}>{controlLabels[style][locale]}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              {label("Estimated round", "예상 한 판 길이")}
+              <select name="length">
+                <option value="">{label("Any length", "모든 길이")}</option>
+                <option value="short">
+                  {label("Up to 3 minutes", "3분 이내")}
+                </option>
+                <option value="long">
+                  {label("Over 3 minutes", "3분 초과")}
+                </option>
+              </select>
+            </label>
+          </fieldset>
+          <p class="notice">
+            {label(
+              "Together means sharing one device, without online matchmaking. Round lengths are estimates. Play style describes controls, not verified device support.",
+              "함께 플레이는 한 기기를 나눠 쓰는 방식이며 온라인 매칭은 제공하지 않습니다. 한 판 길이는 예상치이며, 플레이 방식은 기기 호환성 인증이 아닙니다.",
+            )}
+          </p>
+        </details>
         <div class="detail-actions">
           <button type="submit">{text.searchAction}</button>
           <button type="reset">{label("Clear filters", "조건 초기화")}</button>
@@ -925,6 +938,15 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       <p id="search-empty" hidden>
         {text.searchEmpty}
       </p>
+      <p class="search-guide-link">
+        <a href={`/${locale}/guides/classic-board-games/`}>
+          {label(
+            "Solo or with friends? Find your board game",
+            "혼자 또는 친구와? 보드게임 고르는 법",
+          )}
+        </a>
+      </p>
+      <AdsterraBanner locale={locale} searchEligibility />
       <CollectionLinks locale={locale} />
     </>
   )}

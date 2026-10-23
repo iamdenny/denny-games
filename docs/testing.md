@@ -47,6 +47,8 @@ Collection membership must resolve to real games, and one-button/pointer/daily s
 
 ## Classic board checks
 
+`compact-search-growth.spec.ts` checks initial mobile game visibility, disclosure keyboard/submit behavior, filter counts, canonical guide answers, GA4 query sanitization and consent separation, plus sparse/error search ad suppression using intercepted provider requests. These are instrumentation and browser checks, not provider dashboard receipt or advertising fill/revenue proof.
+
 `search-players.spec.ts` checks solo/same-device membership, combined board filtering, bilingual result labels, reload/history/locale/reset behavior, invalid URL values, 320–1440px layouts and direct local play. Registry and serialized-index unit checks exclude multiplayer-only Yutnori from solo results. These checks do not certify physical devices or online multiplayer.
 
 Rules fixtures cover Gomoku overlines and row boundaries, gravity and line wins, Reversi multidirectional flips/pass/early finish, mandatory checkers captures/continued jumps/crowning/no-move loss/quiet-king draws, and double-box extra turns/ties. AI fixtures check legal moves, source nonmutation, immediate wins and forced defence. Browser scenarios exercise five AI/local journeys, worker replies, pause cancellation, reload/locale preservation, completed-result restoration, keyboard confirmation and 320/390/430px layouts. Bilingual category/collection/guide, play-mode schema and llms.txt are checked. These do not establish Elo strength, accessibility certification or physical-device compatibility.
