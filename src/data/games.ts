@@ -2,6 +2,7 @@ import { sixPuzzleGames } from "./six-puzzles";
 import { sixMovementGames } from "./six-movement";
 import { sixActionGames } from "./six-action";
 import { retroDuoGames } from "./retro-duo";
+import { klondikeGames } from "./klondike";
 import { arcadeTrioGames } from "./arcade-trio";
 import { retroAGames } from "./retro-a";
 import { retroBGames } from "./retro-b";
@@ -1425,6 +1426,7 @@ const externalBrowserGames: Game[] = [
   },
 ];
 gameCandidates.push(
+  ...klondikeGames,
   ...arcadeTrioGames,
   ...retroDuoGames,
   ...sixPuzzleGames,

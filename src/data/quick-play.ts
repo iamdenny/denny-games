@@ -10,7 +10,7 @@ export const quickPlayGroups = [
   {
     id: "think",
     label: { en: "Think it through", ko: "머리 쓰기" },
-    ids: ["circuit-loop", "2048", "reversi"],
+    ids: ["circuit-loop", "2048", "reversi", "klondike-solitaire"],
   },
   {
     id: "together",

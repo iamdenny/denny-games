@@ -40,6 +40,15 @@ for (const locale of ["en", "ko"]) {
     await expect(launch).toHaveAttribute("href", `/${locale}/play/2048/`);
     await expect(page.locator("[data-quick-status]")).toContainText("2048");
     await page.locator("[data-quick-next]").click();
+    await expect(launch).toHaveAttribute("href", `/${locale}/play/reversi/`);
+    await page.locator("[data-quick-next]").click();
+    await expect(launch).toHaveAttribute(
+      "href",
+      `/${locale}/play/klondike-solitaire/`,
+    );
+    await expect(page.locator("[data-quick-title]")).toContainText(
+      locale === "ko" ? "솔리테어" : "Solitaire",
+    );
     await page.locator("[data-quick-next]").click();
     await expect(launch).toHaveAttribute(
       "href",

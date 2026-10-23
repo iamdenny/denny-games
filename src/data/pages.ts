@@ -2,6 +2,7 @@ import { sixPuzzleGuides } from "./six-puzzles-guides";
 import { sixMovementGuides } from "./six-movement-guides";
 import { sixActionGuides } from "./six-action-guides";
 import { retroDuoGuides } from "./retro-duo-guides";
+import { klondikeGuide } from "./klondike-guide";
 import { arcadeTrioGuides } from "./arcade-trio-guides";
 import { retroGuide } from "./retro-discovery";
 import { games } from "./games";
@@ -15,6 +16,7 @@ export interface Article {
 export const articles: Record<string, Record<Locale, Article>> = {
   ...arcadeTrioGuides,
   ...retroDuoGuides,
+  "guides/klondike-solitaire": klondikeGuide,
   ...sixPuzzleGuides,
   ...sixMovementGuides,
   ...sixActionGuides,
@@ -1120,6 +1122,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/klondike-solitaire",
   "guides/minefield-watch",
   "guides/mosaic-mystery",
   "guides/traffic-escape",

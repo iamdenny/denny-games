@@ -51,7 +51,7 @@ for (const locale of ["en", "ko"]) {
   const html = await get(`/${locale}/`);
   assert(html.includes(`lang="${locale}"`));
   const games = JSON.parse(await get(`/${locale}/search-index.json`));
-  assert.equal(games.length, 335, `${locale}: published game count differs`);
+  assert.equal(games.length, 336, `${locale}: published game count differs`);
   const localeGamesById = new Map(games.map((game) => [game.id, game]));
   if (activeGamesById)
     assert.deepEqual(
@@ -149,8 +149,15 @@ for (const path of [
   "/licenses/2048.txt",
   "/licenses/dependencies.json",
   "/art/screenshots/circuit-loop.png",
+  "/art/klondike-solitaire.svg",
+  "/art/screenshots/klondike-solitaire.png",
 ])
   await get(path);
+for (const locale of ["en", "ko"]) {
+  await get(`/${locale}/games/klondike-solitaire/`);
+  await get(`/${locale}/play/klondike-solitaire/`);
+  await get(`/${locale}/guides/klondike-solitaire/`);
+}
 console.log(
   JSON.stringify(
     {

@@ -11,12 +11,18 @@ export default defineConfig({
     "sokoban.spec.ts",
     "gridland.spec.ts",
     "yutnori.spec.ts",
+    "klondike.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },
     {
       name: "webkit-ipad-touch",
-      testMatch: ["sokoban.spec.ts", "gridland.spec.ts", "yutnori.spec.ts"],
+      testMatch: [
+        "sokoban.spec.ts",
+        "gridland.spec.ts",
+        "yutnori.spec.ts",
+        "klondike.spec.ts",
+      ],
       use: { ...devices["iPad Mini"] },
     },
   ],

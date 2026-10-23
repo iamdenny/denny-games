@@ -5,6 +5,7 @@ Read [current PRD](product/PRD.md), [architecture](architecture.md), and [accept
 - [홈 게임 탐색 개선 PRD](product/HOME-DISCOVERY.md): 추천·장르 미리보기 중복 제거와 바로 플레이 흐름.
 - [Gonggi browser game PRD](product/GONGGI-GAME.md): five-stage Korean five-stones game and its evidence boundaries.
 - [Visible multi-stage progression (ADR 0042)](adr/0042-visible-multi-stage-progression.md): expose stage counts and a next-stage action.
+- [Original local Klondike Solitaire (ADR 0060)](adr/0060-local-klondike-solitaire.md): Draw 1/Draw 3, card accessibility and validated local saves.
 
 - [Commands and setup](commands.md)
 - [Testing and evidence](testing.md)

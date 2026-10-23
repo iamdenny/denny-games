@@ -131,6 +131,7 @@ describe("play-style discovery", () => {
       "crisp-chain-drift",
       "crisp-comet-slash",
       "crisp-volt-keeper",
+      "klondike-solitaire",
       "snack-street",
       "pocket-pingpong",
       "star-pinball",

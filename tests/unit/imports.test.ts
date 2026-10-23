@@ -23,10 +23,14 @@ const externalResearch = JSON.parse(
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(335);
+    expect(games).toHaveLength(336);
     expect(games.filter((game) => game.externalPlay)).toHaveLength(0);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
+    const solitaire = games.find((game) => game.id === "klondike-solitaire");
+    expect(solitaire?.license).toBe("MIT");
+    expect(solitaire?.externalPlay).toBeUndefined();
+    expect(solitaire?.guide?.path).toBe("guides/klondike-solitaire");
     expect(
       categories.filter((category) =>
         games.every((game) => game.category !== category),

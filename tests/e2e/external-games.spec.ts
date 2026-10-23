@@ -94,7 +94,7 @@ for (const locale of ["en", "ko"] as const) {
         externalPlayUrl?: string;
       }[];
     }, locale);
-    expect(searchIndex).toHaveLength(335);
+    expect(searchIndex).toHaveLength(336);
     expect(
       searchIndex.every(
         (entry) => !entry.externalHost && !entry.externalPlayUrl,
