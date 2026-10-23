@@ -25,7 +25,7 @@ test("GA4 stays unloaded until the visitor allows it and strips URL details", as
     await page.evaluate(() =>
       localStorage.getItem("denny-games.analytics-consent"),
     ),
-  ).toBe("granted");
+  ).toBe("granted-v2");
 
   const commands = await page.evaluate(() => {
     const dataLayer =
@@ -128,4 +128,67 @@ test("consent choices synchronize across open tabs", async ({ context }) => {
         ],
     ),
   ).toBe(true);
+});
+
+test("old permission is renewed before real game starts are counted", async ({
+  page,
+}) => {
+  await page.addInitScript(() =>
+    localStorage.setItem("denny-games.analytics-consent", "granted"),
+  );
+  await page.goto("/en/play/2048/");
+  await expect(page.locator("[data-analytics-consent]")).toBeVisible();
+  await expect(
+    page.locator('script[src*="googletagmanager.com/gtag/js"]'),
+  ).toHaveCount(0);
+  await page.locator("[data-analytics-allow]").click();
+  const events = () =>
+    page.evaluate(() =>
+      (window.dataLayer ?? [])
+        .map((entry) => Array.from(entry))
+        .filter((entry) => entry[0] === "event"),
+    );
+  expect(await events()).toEqual([]);
+  await page.locator("#start-button").click();
+  await page.locator("#pause-button").click();
+  await page.locator("#start-button").click();
+  expect(await events()).toEqual([
+    [
+      "event",
+      "game_start",
+      {
+        send_to: "G-5NZLTVBG5Y",
+        game_id: "2048",
+        page_location: `${new URL(page.url()).origin}/en/play/2048/`,
+        page_referrer: "",
+      },
+    ],
+  ]);
+});
+
+test("restored terminal rounds do not create a phantom game start", async ({
+  page,
+}) => {
+  const { newPop } = await import("../../src/games/prism-pop/rules");
+  const saved = newPop(1);
+  saved.status = "won";
+  saved.balls = [];
+  saved.score = 1000;
+  await page.addInitScript((state) => {
+    localStorage.setItem("denny-games.analytics-consent", "granted-v2");
+    localStorage.setItem(
+      "denny-games:v1:progress:prism-pop:v1:prism-pop:v1:normal:1",
+      JSON.stringify(state),
+    );
+  }, saved);
+  await page.goto("/en/play/prism-pop/");
+  await page.locator("#start-button").click();
+  await expect(page.locator("#next-stage")).toBeVisible();
+  expect(
+    await page.evaluate(() =>
+      (window.dataLayer ?? [])
+        .map((x) => Array.from(x))
+        .filter((x) => x[0] === "event"),
+    ),
+  ).toEqual([]);
 });

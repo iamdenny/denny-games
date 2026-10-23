@@ -12,11 +12,16 @@ declare global {
 }
 
 let initialized = false;
+let activeGame: string | null = null;
 
 function readConsent(): Consent {
   try {
     const value = localStorage.getItem(consentKey);
-    return value === "granted" || value === "denied" ? value : null;
+    return value === "granted-v2"
+      ? "granted"
+      : value === "denied"
+        ? "denied"
+        : null;
   } catch {
     return null;
   }
@@ -24,7 +29,10 @@ function readConsent(): Consent {
 
 function saveConsent(value: Exclude<Consent, null>): boolean {
   try {
-    localStorage.setItem(consentKey, value);
+    localStorage.setItem(
+      consentKey,
+      value === "granted" ? "granted-v2" : value,
+    );
     return true;
   } catch {
     return false;
@@ -87,6 +95,7 @@ function startAnalytics(): void {
 }
 
 function stopAnalytics(): void {
+  activeGame = null;
   (window as unknown as Record<string, unknown>)[disabledKey] = true;
   document
     .querySelectorAll<HTMLScriptElement>("script[data-google-analytics]")
@@ -158,4 +167,32 @@ export function initAnalytics(): void {
   panel.hidden = consent !== null;
   if (consent === "granted") startAnalytics();
   else stopAnalytics();
+}
+
+/** Only the shell's actual start/end lifecycle can contribute aggregate counts. */
+export function trackGameAnalytics(event: string, game: string): void {
+  if (event === "restart" || event === "load" || event === "load_error") {
+    activeGame = null;
+    return;
+  }
+  if (!initialized || readConsent() !== "granted") {
+    activeGame = null;
+    return;
+  }
+  const player = document.querySelector<HTMLElement>("#player");
+  if (!player || player.dataset.id !== game || !/^[a-z0-9-]{1,80}$/.test(game))
+    return;
+  if (event === "start") {
+    if (activeGame === game) return;
+    activeGame = game;
+  } else if (event === "end") {
+    if (activeGame !== game) return;
+    activeGame = null;
+  } else return;
+  window.gtag?.("event", event === "start" ? "game_start" : "game_complete", {
+    send_to: measurementId,
+    game_id: game,
+    page_location: `${location.origin}${location.pathname}`,
+    page_referrer: sanitizedReferrer(),
+  });
 }

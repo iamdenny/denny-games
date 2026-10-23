@@ -1,3 +1,4 @@
+import { trackGameAnalytics } from "./analytics";
 type EventName =
   | "load"
   | "load_error"
@@ -9,6 +10,7 @@ type EventName =
   | "ad_skipped";
 const events: { event: EventName; game: string; time: string }[] = [];
 export function track(event: EventName, game: string): void {
+  trackGameAnalytics(event, game);
   const entry = { event, game, time: new Date().toISOString() };
   events.push(entry);
   if (events.length > 50) events.shift();

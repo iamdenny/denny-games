@@ -428,11 +428,11 @@ start.addEventListener("click", async () => {
   el("game-controls").inert = false;
   pauseButton.disabled = false;
   pauseButton.textContent = `Ⅱ ${text.pause}`;
-  track(wasPaused ? "resume" : "start", id);
   if (wasPaused) game.resume();
   else game.start();
   addRecent(id);
   if (state === "running") {
+    track(wasPaused ? "resume" : "start", id);
     focusGame();
     if (!wasPaused) root.scrollTop = 0;
   }
@@ -589,6 +589,7 @@ const keyboard = (event: KeyboardEvent) => {
     }
     return;
   }
+  if (game?.handlesKeyboard) return;
   const keys: Record<string, Action> = {
     ArrowUp: "up",
     ArrowDown: "down",
@@ -675,6 +676,15 @@ start.disabled = true;
 try {
   const loaders: Record<string, () => Promise<{ mount: GameFactory }>> = {
     gonggi: () => import("../games/gonggi"),
+    "ember-maze": () => import("../games/ember-maze"),
+    "frost-patrol": () => import("../games/frost-patrol"),
+    "crater-duel": () => import("../games/crater-duel"),
+    "iron-bastion": () => import("../games/iron-bastion"),
+    "prism-pop": () => import("../games/prism-pop"),
+    "bubble-harbor": () => import("../games/bubble-harbor"),
+    "starfall-wing": () => import("../games/starfall-wing"),
+    "vault-runner": () => import("../games/vault-runner"),
+
     "lantern-grid": () =>
       import("../games/logic").then((m) => ({
         mount: m.createMount("lantern-grid"),
