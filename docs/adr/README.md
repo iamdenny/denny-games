@@ -61,3 +61,4 @@
 - [0046 — Promotional banner kit](0046-promotional-banners.md) — Accepted.
 
 - [0047 — Original Yutnori game](0047-original-yutnori.md) — Accepted.
+- [0048 — Optional Adsterra banners](0048-adsterra-banners.md) — Accepted.
