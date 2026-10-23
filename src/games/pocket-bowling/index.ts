@@ -29,15 +29,17 @@ export const mount: GameFactory = (ctx) => {
     "display:grid;gap:4px;width:100%;max-width:500px;margin:auto";
   const status = document.createElement("p");
   status.setAttribute("role", "status");
-  status.style.cssText = "margin:0;font:700 12px system-ui";
+  status.style.cssText =
+    "margin:0;font:700 12px/14px system-ui;white-space:pre-line";
   const row = document.createElement("div");
-  row.style.cssText = "display:flex;gap:5px;align-items:end;flex-wrap:wrap";
+  row.style.cssText =
+    "display:grid;grid-template-columns:minmax(48px,1fr) minmax(48px,1fr) max-content;gap:4px;align-items:end";
   function button(name: string, fn: () => void) {
     const b = document.createElement("button");
     b.textContent = name;
     b.type = "button";
     b.style.cssText =
-      "min-width:48px;min-height:48px;border-radius:10px;border:1px solid #a7f0e6;background:#234754;color:#fff;font:700 13px system-ui;padding:5px 10px";
+      "min-width:48px;min-height:48px;border-radius:10px;border:1px solid #a7f0e6;background:#234754;color:#fff;font:700 13px system-ui;padding:5px 4px";
     b.addEventListener(
       "click",
       () => {
@@ -107,7 +109,7 @@ export const mount: GameFactory = (ctx) => {
   (ctx.controlsHost ?? ctx.host).append(panel);
   const motion = createMotion(ctx.host);
   const label = () =>
-    `${ko ? "프레임" : "Frame"} ${layout(s.rolls).frame}/10 · ${s.score} / 100 · ${ko ? "추천 조준/힘" : "Target aim/power"} ${target(s).aim.toFixed(2)} / ${Math.round(target(s).power * 100)}% · ${s.phase === "ready" ? (ko ? "조준 후 굴리세요" : "Aim, then roll") : s.phase === "done" ? (ko ? "경기 종료" : "Game complete") : ko ? "공 진행 중" : "Ball in play"}`;
+    `${ko ? "프레임" : "Frame"} ${layout(s.rolls).frame}/10 · ${s.score}/100\n${ko ? "추천" : "Target"} ${target(s).aim.toFixed(2)} / ${Math.round(target(s).power * 100)}%\n${s.phase === "ready" ? (ko ? "조준 후 굴리세요" : "Aim, then roll") : s.phase === "done" ? (ko ? "경기 종료" : "Game complete") : ko ? "공 진행 중" : "Ball in play"}`;
   function draw() {
     if (!g) return;
     g.fillStyle = "#142d40";

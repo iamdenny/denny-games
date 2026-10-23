@@ -94,6 +94,9 @@ for (const locale of ["en", "ko"])
     await page.setViewportSize({ width: 740, height: 360 });
     await page.goto(`/${locale}/play/pocket-bowling/`);
     await page.locator("#start-button").click();
+    const tools = await page.locator(".player-tools").boundingBox();
+    expect(tools!.y).toBeGreaterThanOrEqual(0);
+    expect(tools!.y + tools!.height).toBeLessThanOrEqual(361);
     for (const control of await page
       .locator(
         '[data-action-controls="pocket-bowling"] button,[data-action-controls="pocket-bowling"] input,#pause-button,#restart-button,#sound-button,#player-settings summary',
@@ -106,5 +109,8 @@ for (const locale of ["en", "ko"])
       expect(b!.x + b!.width).toBeLessThanOrEqual(741);
       expect(b!.y).toBeGreaterThanOrEqual(0);
       expect(b!.y + b!.height).toBeLessThanOrEqual(361);
+      expect(b!.y + b!.height).toBeLessThanOrEqual(
+        tools!.y + tools!.height + 1,
+      );
     }
   });
