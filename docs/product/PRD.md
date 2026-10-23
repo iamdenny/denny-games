@@ -637,3 +637,7 @@ The owner requested Adsterra activation. Use one consent-gated 300×250 banner o
 Add eight original games covering bomb mazes, snowball arenas, artillery, tank defense, splitting spheres, bubble puzzles, vertical shooting and ladder escapes. Four support same-device two-player play; four are solo. Publish bilingual game details, controls, a comparison guide and a curated collection, with generated canonical/schema/search/sitemap coverage and `llms.txt` links. Use original code, names and visual content; no commercial ROM or licensed-remake claim is permitted. See [ADR 0051](../adr/0051-original-retro-eight.md).
 
 Expand optional GA4 measurement to consented game starts and completed rounds using only the game ID and sanitized page context. Renew the earlier page-view-only permission, do not replay historical activity, and keep analytics optional for play. Provider receipt, search indexing and AI discovery remain separately verified outcomes; see [ADR 0050](../adr/0050-consented-game-analytics.md).
+
+## Visible placements and owned-service promotion — 2026-10-23
+
+Use one consented Adsterra slot after home picks, inside the all-games list, and below the full-viewport player. Original MODU TT and Tools image banners promote owned services without ad-provider requests. See [ADR 0052](../adr/0052-ad-placements-and-house-banners.md), which supersedes the earlier no-player-route restriction only outside the game surface.

@@ -1113,3 +1113,27 @@
   #player[data-immersive="true"] {
   position: relative;
 }
+
+/* The game keeps its full viewport; promotions are ordinary content below it. */
+.player-immersive:has(.player-promotions) {
+  overflow: auto;
+}
+.player-immersive:has(.player-promotions) > .play-layout {
+  width: 100%;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0;
+}
+.player-immersive:has(.player-promotions) #player[data-immersive="true"] {
+  position: relative;
+}
+.player-promotions {
+  padding: 24px 12px;
+  background: #f5f2e9;
+  color: #17211d;
+}
+.player-promotions > a {
+  display: block;
+  text-align: center;
+  padding: 12px;
+}

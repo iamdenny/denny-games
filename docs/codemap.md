@@ -39,3 +39,7 @@
 
 - `src/data/retro-discovery.ts`: the original eight-game ID set and bilingual arcade comparison guide, reused by collection and AI-discovery navigation.
 - `src/lib/analytics.ts`, `src/lib/events.ts`: versioned optional GA4 consent and minimal game lifecycle measurement; local diagnostics remain separate from provider delivery.
+
+## Owned-service promotion
+
+`src/components/HouseBanner.astro` selects a local original banner once per page placement. `public/house-banners/` holds owner-authorized originals; provenance and placement rules are in ADR 0052.

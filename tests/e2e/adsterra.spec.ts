@@ -51,7 +51,7 @@ test.describe("Adsterra banner", () => {
         });
       });
     }
-  test("withdrawal propagates across tabs and gameplay never embeds ads", async ({
+  test("withdrawal propagates across tabs and player ads stay outside the game", async ({
     page,
     context,
   }) => {
@@ -67,7 +67,10 @@ test.describe("Adsterra banner", () => {
     await expect(other.locator("[data-adsterra] iframe")).toHaveCount(0);
     await page.evaluate((k) => localStorage.setItem(k, "allowed"), key);
     await page.goto("/ko/play/2048/");
-    await expect(page.locator("[data-adsterra]")).toHaveCount(0);
+    await expect(page.locator("#player [data-adsterra]")).toHaveCount(0);
+    await expect(
+      page.locator(".player-promotions [data-adsterra] iframe"),
+    ).toHaveCount(1);
   });
   test("pre-consented sparse category results keep the banner and request hidden", async ({
     page,

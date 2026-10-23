@@ -1,0 +1,123 @@
+---
+import type { Locale } from "../lib/types";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const ko = locale === "ko";
+const choices = [
+  {
+    name: "MODU TT",
+    href: "https://modutt.kr/",
+    wide: "/house-banners/modutt-wide.png",
+    mobile: "/house-banners/modutt-mobile.png",
+    alt: ko
+      ? "MODU TT 모두의핑퐁 — 탁구 기록부터 대회까지"
+      : "MODU TT — table tennis records and tournaments (Korean banner)",
+  },
+  {
+    name: "Everyday Tools",
+    href: `https://tools.iamdenny.com/${locale}/`,
+    wide: "/house-banners/tools-banner.png",
+    mobile: "/house-banners/tools-banner.png",
+    alt: ko
+      ? "Everyday Tools — 일상에 필요한 온라인 도구"
+      : "Everyday Tools — useful online tools (Korean banner)",
+  },
+];
+const first = choices[0]!;
+---
+
+<aside
+  class="house-banner"
+  data-house-banner
+  data-choices={JSON.stringify(choices)}
+  aria-label={ko ? "자체 서비스 홍보" : "Our services"}
+>
+  <small>{ko ? "자체 서비스 홍보" : "Our services"}</small>
+  <a
+    href={first.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`${first.alt} · ${ko ? "새 탭" : "new tab"}`}
+  >
+    <picture lang="ko">
+      <source media="(max-width: 600px)" srcset={first.mobile} />
+      <img
+        src={first.wide}
+        alt={first.alt}
+        width="1200"
+        height="400"
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+  </a>
+</aside>
+<style>
+  .house-banner {
+    grid-column: 1 / -1;
+    margin: 24px 0;
+    text-align: center;
+  }
+  small {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  a {
+    display: block;
+    max-width: 728px;
+    margin: auto;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f5f2e9;
+  }
+  a:focus-visible {
+    outline: 3px solid #138777;
+    outline-offset: 4px;
+  }
+  picture {
+    display: block;
+    aspect-ratio: 3;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  @media (max-width: 600px) {
+    a {
+      max-width: 400px;
+    }
+    picture {
+      aspect-ratio: 3;
+    }
+  }
+</style>
+<script>
+  document
+    .querySelectorAll<HTMLElement>("[data-house-banner]")
+    .forEach((banner) => {
+      const choices = JSON.parse(banner.dataset.choices ?? "[]") as Array<{
+        href: string;
+        wide: string;
+        mobile: string;
+        alt: string;
+      }>;
+      const choice = choices[Math.floor(Math.random() * choices.length)];
+      if (!choice) return;
+      const link = banner.querySelector("a")!;
+      const img = banner.querySelector("img")!;
+      link.href = choice.href;
+      link.setAttribute(
+        "aria-label",
+        `${choice.alt} · ${document.documentElement.lang === "ko" ? "새 탭" : "new tab"}`,
+      );
+      banner.querySelector("source")!.srcset = choice.mobile;
+      img.src = choice.wide;
+      img.alt = choice.alt;
+    });
+</script>

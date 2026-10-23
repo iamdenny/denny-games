@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import HouseBanner from "../components/HouseBanner.astro";
 import { categories } from "../data/games";
 import { t } from "../data/i18n";
 import { ads } from "../data/ads";
@@ -250,9 +251,21 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
         </aside>
       )}
       <main id="main">
+        {!play && (
+          <a
+            class="ad-settings-link"
+            href="#advertising"
+            data-ad-settings
+            hidden
+          >
+            {locale === "ko" ? "광고 설정" : "Ad settings"}
+          </a>
+        )}
+
         <slot />
       </main>
     </div>
+    {!play && <HouseBanner locale={locale} />}
     {!play && (
       <footer class="site-footer">
         <a class="footer-brand" href={`/${locale}/`}>

@@ -11,6 +11,7 @@ const ko = locale === "ko";
 
 {adsterra.enabled && adsterra.approved && adsterra.filtersConfirmed && (
   <aside
+    id="advertising"
     class="adsterra-banner"
     data-adsterra
     data-adsterra-category={categoryEligibility ? "" : undefined}
@@ -52,6 +53,8 @@ const ko = locale === "ko";
 )}
 <style>
   .adsterra-banner {
+    grid-column: 1 / -1;
+    scroll-margin-top: 20px;
     margin: 32px 0;
     padding: 12px 0;
     border-block: 1px solid var(--line);

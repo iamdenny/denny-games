@@ -41,3 +41,7 @@ See [ADR 0048](../adr/0048-adsterra-banners.md) for the provider-specific amendm
 The adapter offers separate optional advertising consent on home, game details, category and all-games catalogues, collections and general guide pages, with immediate removal on withdrawal. It places at most one Adsterra banner per page; the same issued code is not duplicated within a page. Search, gameplay, device checks, gamepad diagnostics and library views remain ad-free. Google consent/approval and the existing static Coupang cards are unchanged. The banner may remain empty on no-fill or blocking; requests are not counted as rendered creatives. No seller line was supplied in the issued code dialog, so existing ads.txt records are preserved.
 
 `release.json` reports `adsterra-opt-in` when configured readiness gates pass, and separates the Google verification-only state from Adsterra consent-required state. These are configuration states, never proof of impressions or revenue.
+
+## Outside-player display and original house banners
+
+[ADR 0052](../adr/0052-ad-placements-and-house-banners.md) permits a separate display placement below the full-viewport player and moves home/catalogue placements into visible content. It supersedes the earlier route-level exclusion; no advertisement covers game controls. The one-code-per-page rule and consent/provider gates remain. Existing original MODU TT and Tools images are served locally for random first-party promotion without third-party scripts.
