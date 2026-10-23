@@ -35,6 +35,7 @@ export const createMount: GameFactory = (ctx) => {
   app.setAttribute("aria-label", tr("Yutnori game", "윷놀이 게임"));
   const scoreboard = document.createElement("div");
   scoreboard.className = "yut-scoreboard";
+  scoreboard.setAttribute("role", "group");
   scoreboard.setAttribute(
     "aria-label",
     tr("Players and pieces", "플레이어와 말"),
@@ -100,7 +101,7 @@ export const createMount: GameFactory = (ctx) => {
     nodeButtons.push(button);
     board.append(button);
   });
-  app.append(scoreboard, board);
+  app.append(board);
   ctx.host.append(app);
 
   const controls = document.createElement("div");
@@ -128,11 +129,14 @@ export const createMount: GameFactory = (ctx) => {
   skipButton.className = "button yut-skip";
   skipButton.textContent = tr("Skip this move", "이번 수 건너뛰기");
   skipButton.addEventListener("click", skipMove);
+  const throwRow = document.createElement("div");
+  throwRow.className = "yut-throw-row";
+  throwRow.append(rollButton, sticks);
   controls.append(
+    scoreboard,
     turnHeading,
     status,
-    sticks,
-    rollButton,
+    throwRow,
     yard,
     moveChoices,
     skipButton,
@@ -236,29 +240,22 @@ export const createMount: GameFactory = (ctx) => {
       card.style.setProperty("--player-color", COLORS[playerIndex]!);
       card.setAttribute("aria-current", String(playerIndex === state.turn));
       const title = document.createElement("strong");
-      title.textContent = name(playerIndex);
-      const count = document.createElement("span");
-      count.textContent = tr(
-        `${countFinished(playerIndex)} / 4 finished`,
-        `${countFinished(playerIndex)} / 4개 완주`,
+      const active = playerIndex === state.turn && state.winner === null;
+      title.textContent = `${active ? "▶ " : ""}${tr(`P${playerIndex + 1}`, `${playerIndex + 1}번`)}`;
+      title.setAttribute(
+        "aria-label",
+        `${name(playerIndex)}${active ? tr("'s turn", " 차례") : ""}`,
       );
-      const pieces = document.createElement("span");
-      pieces.className = "yut-player-pieces";
-      player.tokens.forEach((token, tokenIndex) => {
-        const piece = document.createElement("span");
-        piece.className = "yut-piece-mini";
-        piece.style.setProperty("--player-color", COLORS[playerIndex]!);
-        piece.textContent = token.finished ? "✓" : String(tokenIndex + 1);
-        piece.setAttribute(
-          "aria-label",
-          tr(
-            `Piece ${tokenIndex + 1}: ${token.finished ? "finished" : token.node === null ? "in yard" : `space ${token.node}`}`,
-            `${tokenIndex + 1}번 말: ${token.finished ? "완주" : token.node === null ? "대기" : `${token.node}번 밭`}`,
-          ),
-        );
-        pieces.append(piece);
-      });
-      card.append(title, count, pieces);
+      const count = document.createElement("span");
+      count.textContent = `${countFinished(playerIndex)}/4`;
+      count.setAttribute(
+        "aria-label",
+        tr(
+          `${countFinished(playerIndex)} of 4 finished`,
+          `4개 중 ${countFinished(playerIndex)}개 완주`,
+        ),
+      );
+      card.append(title, count);
       scoreboard.append(card);
     });
   }
@@ -337,10 +334,7 @@ export const createMount: GameFactory = (ctx) => {
     const current = state.players[state.turn]!;
     const label = document.createElement("p");
     label.className = "yut-yard-label";
-    label.textContent = tr(
-      `${name(state.turn)} · pieces in yard`,
-      `${name(state.turn)} · 대기 중인 말`,
-    );
+    label.textContent = tr("Waiting pieces", "대기 말");
     yard.append(label);
     current.tokens.forEach((token, index) => {
       if (token.finished || token.node !== null) return;
@@ -348,7 +342,11 @@ export const createMount: GameFactory = (ctx) => {
       button.type = "button";
       button.className = "yut-yard-piece";
       button.dataset.yardPiece = String(index);
-      button.textContent = tr(`Piece ${index + 1}`, `${index + 1}번 말`);
+      button.textContent = String(index + 1);
+      button.setAttribute(
+        "aria-label",
+        tr(`Piece ${index + 1}`, `${index + 1}번 말`),
+      );
       button.style.setProperty("--player-color", COLORS[state.turn]!);
       button.disabled = !running || state.roll === null;
       button.classList.toggle(
@@ -449,14 +447,13 @@ export const createMount: GameFactory = (ctx) => {
         selected = undefined;
         announcement = tr("Choose a piece to move.", "움직일 말을 선택하세요.");
         render();
-        if (previous?.kind === "node")
-          nodeButtons[previous.node]?.focus({ preventScroll: true });
+        if (previous?.kind === "node") focusAction(nodeButtons[previous.node]);
         else if (previous?.kind === "yard")
-          yard
-            .querySelector<HTMLButtonElement>(
+          focusAction(
+            yard.querySelector<HTMLButtonElement>(
               `[data-yard-piece="${previous.token}"]`,
-            )
-            ?.focus({ preventScroll: true });
+            ),
+          );
       });
       moveChoices.append(cancel);
     }
@@ -499,6 +496,7 @@ export const createMount: GameFactory = (ctx) => {
     }
     rollButton.disabled =
       !running || state.roll !== null || state.winner !== null;
+    rollButton.hidden = state.roll !== null;
     rollButton.textContent = state.roll
       ? tr("Choose a piece", "말 선택하기")
       : tr("Throw the sticks", "윷 던지기");
@@ -516,6 +514,11 @@ export const createMount: GameFactory = (ctx) => {
   function persist() {
     ctx.onChange(state.moves);
     ctx.onSave?.();
+  }
+
+  function focusAction(target: HTMLElement | null | undefined) {
+    target?.focus({ preventScroll: true });
+    target?.scrollIntoView({ block: "nearest", inline: "nearest" });
   }
 
   function throwSticks() {
@@ -536,7 +539,7 @@ export const createMount: GameFactory = (ctx) => {
     const nextPiece =
       board.querySelector<HTMLButtonElement>(".yut-node.selectable") ??
       yard.querySelector<HTMLButtonElement>("button:not(:disabled)");
-    (nextPiece ?? skipButton).focus({ preventScroll: true });
+    focusAction(nextPiece ?? skipButton);
   }
 
   function chooseYard(token: number) {
@@ -549,9 +552,10 @@ export const createMount: GameFactory = (ctx) => {
       ? tr(`Piece ${token + 1} selected.`, `${token + 1}번 말을 선택했어요.`)
       : tr("Choose a piece to move.", "움직일 말을 선택하세요.");
     render();
-    yard
-      .querySelector<HTMLButtonElement>(`[data-yard-piece="${token}"]`)
-      ?.focus();
+    focusAction(
+      yard.querySelector<HTMLButtonElement>(`[data-yard-piece="${token}"]`),
+    );
+    if (selected) moveChoices.scrollIntoView({ block: "nearest" });
   }
 
   function chooseNode(node: number) {
@@ -590,6 +594,7 @@ export const createMount: GameFactory = (ctx) => {
           )
         : tr("Choose a piece to move.", "움직일 말을 선택하세요.");
       render();
+      if (selected) moveChoices.scrollIntoView({ block: "nearest" });
     }
   }
 
@@ -633,7 +638,7 @@ export const createMount: GameFactory = (ctx) => {
     }
     persist();
     render();
-    if (state.winner === null) rollButton.focus({ preventScroll: true });
+    if (state.winner === null) focusAction(rollButton);
   }
 
   function skipMove() {
@@ -656,7 +661,7 @@ export const createMount: GameFactory = (ctx) => {
     );
     persist();
     render();
-    rollButton.focus({ preventScroll: true });
+    focusAction(rollButton);
   }
 
   render();
@@ -676,8 +681,13 @@ export const createMount: GameFactory = (ctx) => {
         });
         return;
       }
+      announcement = "";
       running = true;
       render();
+      const firstMove =
+        board.querySelector<HTMLButtonElement>(".yut-node.selectable") ??
+        yard.querySelector<HTMLButtonElement>("button:not(:disabled)");
+      focusAction(state.roll ? (firstMove ?? skipButton) : rollButton);
     },
     pause() {
       running = false;

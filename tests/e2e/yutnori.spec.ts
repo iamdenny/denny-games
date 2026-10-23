@@ -48,7 +48,14 @@ test("Yutnori labels and board controls fit bilingual phone, tablet and desktop 
   for (const locale of ["en", "ko"] as const) {
     await page.goto(`/${locale}/play/yutnori/`);
     await expect(page.locator(".yut-board")).toBeVisible();
+    await page.locator("#game-mode-choice select").selectOption("4");
+    await page.locator("#start-button").click();
+    await expect(
+      page.locator("#game-controls .yut-scoreboard .yut-player"),
+    ).toHaveCount(4);
+    await expect(page.locator("#game-host .yut-scoreboard")).toHaveCount(0);
     for (const [width, height] of [
+      [320, 568],
       [320, 640],
       [360, 640],
       [390, 844],
@@ -65,7 +72,23 @@ test("Yutnori labels and board controls fit bilingual phone, tablet and desktop 
           ),
         )
         .toBe(true);
+      await page.locator("#player").evaluate((root) => {
+        root.scrollTop = 0;
+      });
       const bounds = await page.locator(".yut-board").boundingBox();
+      const area = await page.locator(".play-area").boundingBox();
+      expect(area).not.toBeNull();
+      expect(bounds).not.toBeNull();
+      expect(bounds!.y).toBeGreaterThanOrEqual(area!.y);
+      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(
+        area!.y + area!.height + 1,
+      );
+      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(height);
+      if (width === 320) expect(bounds!.width).toBeGreaterThanOrEqual(278);
+      const pause = await page.locator("#pause-button").boundingBox();
+      expect(pause).not.toBeNull();
+      expect(pause!.y).toBeGreaterThanOrEqual(0);
+      expect(pause!.y + pause!.height).toBeLessThanOrEqual(height);
       expect(bounds).not.toBeNull();
       expect(bounds!.width).toBeLessThanOrEqual(width);
       expect(bounds!.height).toBeLessThanOrEqual(width);
@@ -81,9 +104,10 @@ test("keyboard confirmation throws the sticks and assistive labels remain availa
     Math.random = () => 0;
   });
   await page.goto("/en/play/yutnori/");
-  await page.locator("#start-button").click();
   const throwButton = page.getByRole("button", { name: "Throw the sticks" });
-  await throwButton.focus();
+  await page.locator("#start-button").focus();
+  await page.keyboard.press("Enter");
+  await expect(throwButton).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator(".yut-result")).toContainText("Yut");
   const yardPiece = page.locator('.yut-yard-piece[data-yard-piece="0"]');
@@ -322,4 +346,48 @@ test("Yutnori capture returns the rival piece to the yard and grants another thr
       return [state.players[1].tokens[0].node, state.turn];
     }),
   ).toEqual([null, 0]);
+});
+
+test("short phones start with the full board and header, then reach every action", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.addInitScript(() => {
+    Math.random = () => 0;
+  });
+  await page.goto("/en/play/yutnori/");
+  await page.locator("#game-mode-choice select").selectOption("4");
+  await page.locator("#start-button").click();
+  await expect
+    .poll(() => page.locator("#player").evaluate((root) => root.scrollTop))
+    .toBe(0);
+  const board = await page.locator(".yut-board").boundingBox();
+  const header = await page.locator(".player-top").boundingBox();
+  expect(board).not.toBeNull();
+  expect(header).not.toBeNull();
+  expect(board!.y).toBeGreaterThanOrEqual(header!.y + header!.height);
+  expect(board!.y + board!.height).toBeLessThanOrEqual(568);
+  await expect(page.locator(".exit-link")).toBeInViewport();
+  await expect(page.locator("#pause-button")).toBeInViewport();
+  await page.getByRole("button", { name: "Throw the sticks" }).click();
+  const piece = page.getByRole("button", { name: "Piece 1", exact: true });
+  const toolbar = page.locator(".player-controls");
+  await expect
+    .poll(async () => {
+      const target = await piece.boundingBox();
+      const bar = await toolbar.boundingBox();
+      return Boolean(target && bar && target.y + target.height <= bar.y);
+    })
+    .toBe(true);
+  await piece.click();
+  const route = page.getByRole("button", { name: /Outer route/ });
+  await expect
+    .poll(async () => {
+      const target = await route.boundingBox();
+      const bar = await toolbar.boundingBox();
+      return Boolean(target && bar && target.y + target.height <= bar.y);
+    })
+    .toBe(true);
+  await route.click();
+  await expect(page.locator('.yut-node[data-node="4"]')).toContainText("1");
 });

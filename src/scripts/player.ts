@@ -432,7 +432,10 @@ start.addEventListener("click", async () => {
   if (wasPaused) game.resume();
   else game.start();
   addRecent(id);
-  if (state === "running") focusGame();
+  if (state === "running") {
+    focusGame();
+    if (!wasPaused) root.scrollTop = 0;
+  }
   save();
 });
 // Focusing a parent control blurs the imported frame and may pause before

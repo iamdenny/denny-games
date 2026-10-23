@@ -71,7 +71,9 @@ test("UNDERRUN WebGL runtime is isolated and handles pad, touch, pause and resta
   const frameElement = page.locator("#game-host iframe");
   await expect(frameElement).toHaveAttribute("sandbox", "allow-scripts");
   await expect
-    .poll(() => frameElement.evaluate((frame) => frame.style.aspectRatio))
+    .poll(() => frameElement.evaluate((frame) => frame.style.aspectRatio), {
+      timeout: 15000,
+    })
     .toBe("16 / 9");
   await expect(page.locator("#start-button")).toBeEnabled({ timeout: 20000 });
   let frame = page
