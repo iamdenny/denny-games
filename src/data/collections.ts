@@ -17,6 +17,33 @@ interface GameCollection {
 }
 export const collections: GameCollection[] = [
   {
+    id: "bumpers-and-gems",
+    ids: ["star-pinball", "jewel-drop", "orbit-break"],
+    text: {
+      en: {
+        title: "Bumpers, gems and bouncing balls",
+        intro:
+          "Time a pinball return, build a gem chain or aim a brick-breaking shot. Three original browser games for short solo rounds.",
+        criteria:
+          "Single-player games with large touch controls, keyboard input and local progress. Original tables and graphics, available without an account.",
+        question:
+          "Which game rewards planning rather than quick flipper timing?",
+        answer:
+          "Choose Jewel Drop for column placement and chain planning, Star Pinball for flipper timing, or Orbit Break for paddle aiming. All three run on this site and save locally; none uses online matchmaking.",
+      },
+      ko: {
+        title: "핀볼, 보석, 튀어 오르는 공",
+        intro:
+          "핀볼을 받아치고 보석 연쇄를 만들거나 벽돌을 겨누세요. 짧게 혼자 즐기는 자체 제작 웹게임 세 종입니다.",
+        criteria:
+          "큰 터치 버튼, 키보드 입력, 로컬 진행 저장을 제공하는 1인용 게임입니다. 자체 제작한 테이블과 그래픽으로 계정 없이 즐깁니다.",
+        question: "빠른 플리퍼 조작보다 배치를 고민하는 게임은 무엇인가요?",
+        answer:
+          "배치와 연쇄를 고민하려면 보석 낙하, 플리퍼 타이밍을 즐기려면 별빛 핀볼, 패들로 조준하려면 오빗 브레이크를 고르세요. 모두 이 사이트에서 실행하고 로컬에 저장하며 온라인 매칭은 사용하지 않습니다.",
+      },
+    },
+  },
+  {
     id: "cook-rally-duel",
     ids: ["snack-street", "pocket-pingpong", "ember-maze"],
     text: {

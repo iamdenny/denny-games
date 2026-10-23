@@ -80,3 +80,7 @@ Three original short campaigns and the locally hosted Neverball/Neverputt pair a
 ## Original cooking and sports additions — 2026-10-23
 
 Snack Street and Pocket Table Tennis add two locally implemented solo games. Their rules, renderers, covers and bilingual copy are original MIT work. Ember Maze receives visual improvements without creating another catalogue entry. The registry remains the authoritative current count; earlier dated counts above are historical. See [ADR 0054](../adr/0054-cooking-and-table-tennis.md).
+
+## Original pinball and falling gems — 2026-10-23
+
+Star Pinball and Jewel Drop add an original three-ball table and a falling-column chain puzzle under MIT. Neither imports archived pinball research entries or commercial game assets. The registry is the authoritative current count; earlier dated counts above remain historical. See [ADR 0056](../adr/0056-pinball-and-falling-gems.md).

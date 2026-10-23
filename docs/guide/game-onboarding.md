@@ -37,3 +37,7 @@ The eight-game arcade expansion uses independently authored code, names, graphic
 ## Cooking and table tennis
 
 Snack Street and Pocket Table Tennis use original project-authored TypeScript, CSS/canvas rendering and SVG covers under MIT. There are no imported images, fonts, sound recordings or game files. Both are solo campaigns with validated local saves. Ember Maze retains its original modes and rules while adding state-independent effects. See [ADR 0054](../adr/0054-cooking-and-table-tennis.md).
+
+## Original pinball and gems
+
+Star Pinball and Jewel Drop contain project-authored rules, table/gem geometry, covers and bilingual copy under MIT. Preserve their finite goals, deterministic saved state, reduced-motion behavior and solo-only metadata. See [ADR 0056](../adr/0056-pinball-and-falling-gems.md).

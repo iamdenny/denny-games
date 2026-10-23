@@ -50,3 +50,10 @@
 - `src/games/pocket-pingpong/`: rally physics, AI league, checkpoint validation and perspective canvas.
 - `src/data/arcade-trio.ts`: typed metadata without engine imports.
 - `src/data/arcade-trio-guides.ts`: bilingual cooking and table-tennis guides.
+
+## Original retro duo
+
+- `src/games/star-pinball/`: fixed-step pinball rules and renderer.
+- `src/games/jewel-drop/`: falling-gem state, matching/chains and renderer.
+- `src/data/retro-duo.ts` and `src/data/retro-duo-guides.ts`: bilingual registry and rules content.
+- `tests/unit/{star-pinball,jewel-drop}.test.ts` and matching browser specs: rules, saves, real input and lifecycle evidence.

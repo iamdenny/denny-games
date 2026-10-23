@@ -51,7 +51,7 @@ for (const locale of ["en", "ko"]) {
   const html = await get(`/${locale}/`);
   assert(html.includes(`lang="${locale}"`));
   const games = JSON.parse(await get(`/${locale}/search-index.json`));
-  assert.equal(games.length, 226, `${locale}: published game count differs`);
+  assert.equal(games.length, 228, `${locale}: published game count differs`);
   const localeGamesById = new Map(games.map((game) => [game.id, game]));
   if (activeGamesById)
     assert.deepEqual(
