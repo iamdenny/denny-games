@@ -638,6 +638,9 @@ Add eight original games covering bomb mazes, snowball arenas, artillery, tank d
 
 Expand optional GA4 measurement to consented game starts and completed rounds using only the game ID and sanitized page context. Renew the earlier page-view-only permission, do not replay historical activity, and keep analytics optional for play. Provider receipt, search indexing and AI discovery remain separately verified outcomes; see [ADR 0050](../adr/0050-consented-game-analytics.md).
 
+## Visible placements and owned-service promotion — 2026-10-23
+
+Use one consented Adsterra slot after home picks, inside the all-games list, and below the full-viewport player. Original MODU TT and Tools image banners promote owned services without ad-provider requests. See [ADR 0053](../adr/0053-ad-placements-and-house-banners.md), which supersedes the earlier no-player-route restriction only outside the game surface.
 ## Solo and same-device search — 2026-10-23
 
 Search offers a bilingual player filter for solo or together on one device. Derive membership from the registry's explicit play modes and existing classic-board default; Yutnori is multiplayer-only. Show supported modes on each result and combine the filter with query, genre, controls and length. Preserve it through pagination, reload, browser history and language changes, and clear invalid values. Explain that together means sharing one device without online matchmaking. Search stays noindex with static collection fallbacks. See [ADR 0052](../adr/0052-player-mode-search.md).

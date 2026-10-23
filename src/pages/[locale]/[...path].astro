@@ -11,6 +11,7 @@ import ShareLink from "../../components/ShareLink.astro";
 import { editorialOrder } from "../../data/editorial";
 import CataloguePages from "../../components/CataloguePages.astro";
 import AdSlot from "../../components/AdSlot.astro";
+import HouseBanner from "../../components/HouseBanner.astro";
 import AdsterraBanner from "../../components/AdsterraBanner.astro";
 import AffiliateCard from "../../components/AffiliateCard.astro";
 import CollectionLinks from "../../components/CollectionLinks.astro";
@@ -208,6 +209,8 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           ))}
         </div>
       </section>
+      <AdsterraBanner locale={locale} />
+      <HouseBanner locale={locale} />
       {homeCategoryPreviews.map((preview) => (
         <section
           class="catalogue-section"
@@ -237,7 +240,6 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       ))}
       <DailyChallenges locale={locale} compact />
       <AdSlot id="home-mid" locale={locale} />
-      <AdsterraBanner locale={locale} />
       <AffiliateCard locale={locale} />
       <section class="notes-grid">
         <article class="note-card">
@@ -582,7 +584,22 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
       </section>
     </>
   )}
-  {game && isPlay && <Player game={game} locale={locale} />}
+  {game && isPlay && (
+    <>
+      <Player game={game} locale={locale} />
+      <section
+        class="player-promotions"
+        aria-label={label(
+          "Advertisements and our services",
+          "광고와 자체 서비스",
+        )}
+      >
+        <a href="#player">{label("Back to game", "게임으로 돌아가기")} ↑</a>
+        <AdsterraBanner locale={locale} />
+        <HouseBanner locale={locale} />
+      </section>
+    </>
+  )}
   {kind === "category" && (
     <>
       <div class="page-heading">
@@ -699,11 +716,14 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         placement="top"
       />
       <div class="game-grid" data-all-games>
-        {collection.map((g) => (
-          <GameCard game={g} locale={locale} />
+        {collection.map((g, index) => (
+          <>
+            <GameCard game={g} locale={locale} />
+            {index === 7 && <AdsterraBanner locale={locale} />}
+            {index === 15 && <HouseBanner locale={locale} />}
+          </>
         ))}
       </div>
-      {collection.length >= 8 && <AdsterraBanner locale={locale} />}
       <CataloguePages
         locale={locale}
         page={page}

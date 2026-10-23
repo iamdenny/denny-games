@@ -167,6 +167,11 @@ const nextGame =
       <details class="player-settings" id="player-settings">
         <summary>{locale === "ko" ? "설정" : "Settings"}</summary>
         <div class="settings-panel">
+          <a href="#advertising">
+            {locale === "ko"
+              ? "광고 설정 · 자체 서비스"
+              : "Ad settings · our services"}
+          </a>
           <div id="game-settings"></div>
           <label class="sound-volume">
             {locale === "ko" ? "효과음 음량" : "Effects volume"}

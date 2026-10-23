@@ -55,3 +55,7 @@ On compact screens, label the quick-play artwork action "Play now" / "바로 플
 ## Daily return paths
 
 Use a pale green progress panel on home and daily, with an explicit UTC date and text count. Daily cards show an actual completed-round status and best completed score; never imply a win from completion. Keep actions at least 48px and use a single card column on phones. At daily round end, show progress and a link to a remaining daily game or the completed summary. See ADR 0030.
+
+## Owned-service banner placements
+
+Original MODU TT and Tools images sit in labeled, reserved, uncropped image areas. Selection happens once on page initialization, without motion. Player-route promotions remain below the full-height game; paid requests retain separate consent. See [ADR 0053](docs/adr/0053-ad-placements-and-house-banners.md).

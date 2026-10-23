@@ -21,7 +21,7 @@ export function adsterraDocument(): string {
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="referrer" content="no-referrer"><base href="https://bauval.org/"><style>html,body{margin:0;width:300px;height:250px;overflow:hidden}</style></head><body><script>window.atOptions=${options};</script><script src="${adsterra.scriptUrl}"></script></body></html>`;
 }
 export function initAdsterra(): void {
-  if (!adsterraReady() || document.body.classList.contains("play-page")) return;
+  if (!adsterraReady()) return;
   const banners = [
     ...document.querySelectorAll<HTMLElement>("[data-adsterra]"),
   ];
@@ -53,6 +53,8 @@ export function initAdsterra(): void {
     /* session choice works without storage */
   }
   function render() {
+    const shortcut = document.querySelector<HTMLElement>("[data-ad-settings]");
+    if (shortcut) shortcut.hidden = banners.every((banner) => banner.hidden);
     for (const banner of banners) {
       const choice = banner.querySelector<HTMLElement>(
         "[data-adsterra-choice]",

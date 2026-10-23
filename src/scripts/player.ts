@@ -175,7 +175,7 @@ function focusGame() {
     host
   ).focus({ preventScroll: true });
 }
-function pause(note = "") {
+function pause(note = "", preserveFocus = false) {
   if (state !== "running") return;
   state = "paused";
   track("pause", id);
@@ -185,7 +185,7 @@ function pause(note = "") {
   show(text.paused, note);
   start.textContent = text.resume;
   pauseButton.textContent = `▶ ${text.resume}`;
-  start.focus();
+  if (!preserveFocus) start.focus();
 }
 function soundTick(cue: SoundCue = "tick") {
   if (sound) audio.play(cue);
@@ -435,6 +435,14 @@ start.addEventListener("click", async () => {
     track(wasPaused ? "resume" : "start", id);
     focusGame();
     if (!wasPaused) root.scrollTop = 0;
+    // Ready dialogs can scroll the document while revealing Start on short screens.
+    // Explicit play/resume returns to the full stage without locking promotion scrolling.
+    if (root.dataset.immersive === "true")
+      root.scrollIntoView({
+        block: "start",
+        inline: "nearest",
+        behavior: "instant",
+      });
   }
   save();
 });
@@ -580,7 +588,11 @@ const disconnect = connectGamepad(
   id === "underrun" ? "dpad-aim-stick-move" : "standard",
 );
 const keyboard = (event: KeyboardEvent) => {
-  if ((event.target as HTMLElement).closest("input,select,textarea,summary"))
+  if (
+    (event.target as HTMLElement).closest(
+      "input,select,textarea,summary,.player-promotions",
+    )
+  )
     return;
   if (event.key === "Escape" || event.code === "KeyP") {
     if (state === "running") {
@@ -606,6 +618,20 @@ const keyboard = (event: KeyboardEvent) => {
   game?.action(value);
   save();
 };
+document
+  .querySelector('.settings-panel a[href="#advertising"]')
+  ?.addEventListener("click", () => {
+    pause("", true);
+    document
+      .querySelector<HTMLDetailsElement>(".player-settings")
+      ?.removeAttribute("open");
+  });
+document.addEventListener("focusin", (event) => {
+  if ((event.target as HTMLElement).closest(".player-promotions")) {
+    pause("", true);
+    void audio?.suspend();
+  }
+});
 window.addEventListener("keydown", keyboard);
 window.addEventListener("blur", () => {
   if (document.activeElement?.matches("iframe.crisp-frame")) return;
