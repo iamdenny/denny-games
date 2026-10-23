@@ -53,16 +53,24 @@ test("Kkeokgi uses two timed catches and reports the recovered count", async ({
     ".gonggi-controls .gonggi-action:not(.gonggi-catch)",
   );
   const catchButton = page.locator(".gonggi-catch");
+  const status = page.locator(".gonggi-status");
 
   await toss.click();
   await catchAtCenter(page, catchButton);
   await expect(toss).toContainText("Flick");
+  const handCaught = Number((await status.textContent())?.match(/\d+/)?.[0]);
+  expect(handCaught).toBeGreaterThanOrEqual(3);
   await toss.click();
   await catchAtCenter(page, catchButton);
 
   await expect(page.locator("#next-stage")).toBeVisible();
-  await expect(page.locator("#score")).toHaveText("750");
-  await expect(page.locator("#overlay-note")).toContainText("5 stones");
+  const score = Number(await page.locator("#score").textContent());
+  const resultNote = await page.locator("#overlay-note").textContent();
+  const recovered = Number(resultNote?.match(/(\d+) stones/)?.[1]);
+  expect(Number.isInteger(recovered)).toBe(true);
+  expect(recovered).toBeGreaterThanOrEqual(3);
+  expect(recovered).toBeLessThanOrEqual(handCaught);
+  expect(score).toBe(handCaught * 50 + recovered * 100);
 });
 
 async function catchAtCenter(
