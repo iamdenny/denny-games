@@ -70,3 +70,5 @@
 - [0053 — Ad placements and house banners](0053-ad-placements-and-house-banners.md) — Accepted.
 - [0054 — Cooking, table tennis and Ember Maze motion](0054-cooking-and-table-tennis.md) — Accepted.
 - [0055 — Compact search, discovery and optional ads](0055-compact-search-discovery-and-ads.md) — Accepted.
+
+- [0056 — Original pinball and falling gems](0056-pinball-and-falling-gems.md)

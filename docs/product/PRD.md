@@ -650,3 +650,7 @@ Search offers a bilingual player filter for solo or together on one device. Deri
 ## Cooking and table tennis — 2026-10-23
 
 Add original Snack Street and Pocket Table Tennis solo campaigns, and improve the existing Ember Maze movement and explosions. Snack Street has five days, forty customers and upgrades; Pocket Table Tennis has three AI opponents with simplified first-to-five scoring. Preserve validated browser-local saves, English/Korean controls, pause and reduced motion. Provide truthful discovery pages and shared consented analytics. See [ADR 0054](../adr/0054-cooking-and-table-tennis.md).
+
+## Original pinball and gem puzzle — 2026-10-23
+
+Add Star Pinball and Jewel Drop as original solo games. Provide a three-ball pinball table with a 1,500-point goal and a six-by-twelve falling-gem puzzle with a sixty-gem goal, validated local continuation, bilingual controls and visible rules guides. Preserve the shared player, optional consented analytics and ads outside the live surface. See [ADR 0056](../adr/0056-pinball-and-falling-gems.md).

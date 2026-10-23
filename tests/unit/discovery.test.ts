@@ -122,6 +122,8 @@ describe("play-style discovery", () => {
       "crisp-volt-keeper",
       "snack-street",
       "pocket-pingpong",
+      "star-pinball",
+      "jewel-drop",
       "lantern-grid",
       "number-trail",
       "gonggi",

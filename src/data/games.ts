@@ -1,3 +1,4 @@
+import { retroDuoGames } from "./retro-duo";
 import { arcadeTrioGames } from "./arcade-trio";
 import { retroAGames } from "./retro-a";
 import { retroBGames } from "./retro-b";
@@ -1415,6 +1416,7 @@ const externalBrowserGames: Game[] = [
 ];
 gameCandidates.push(
   ...arcadeTrioGames,
+  ...retroDuoGames,
   ...logicGames,
   ...heritageGames,
   ...retroAGames,

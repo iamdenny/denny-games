@@ -1,3 +1,4 @@
+import { retroDuoGuides } from "./retro-duo-guides";
 import { arcadeTrioGuides } from "./arcade-trio-guides";
 import { retroGuide } from "./retro-discovery";
 import { games } from "./games";
@@ -10,6 +11,7 @@ export interface Article {
 }
 export const articles: Record<string, Record<Locale, Article>> = {
   ...arcadeTrioGuides,
+  ...retroDuoGuides,
   "guides/retro-arcade": retroGuide,
   "guides/gonggi-rules": {
     en: {
@@ -1023,6 +1025,8 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/star-pinball",
+  "guides/jewel-drop",
   "guides/snack-street",
   "guides/pocket-pingpong",
   "guides/retro-arcade",

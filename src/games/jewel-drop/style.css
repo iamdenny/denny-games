@@ -1,0 +1,204 @@
+.jewel-drop {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: radial-gradient(ellipse at top, #29495a, #13242e 75%);
+  color: #f5f2e9;
+  overflow: auto;
+  font-family: system-ui, sans-serif;
+}
+.jewel-heading {
+  text-align: center;
+  letter-spacing: 0.12em;
+  font-weight: 900;
+  font-size: clamp(16px, 3vw, 24px);
+  color: #d9ed68;
+}
+.jewel-stats {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.jewel-play {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  min-height: 180px;
+  justify-content: center;
+  align-items: center;
+}
+.jewel-board {
+  height: 100%;
+  max-height: 480px;
+  aspect-ratio: 1/2;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  position: relative;
+  background: #0d1c25;
+  border: 2px solid #799994;
+  border-radius: 8px;
+  padding: 3px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.jewel-cell {
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid #20323d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.jewel-gem {
+  display: flex;
+  width: 90%;
+  height: 90%;
+  align-items: center;
+  justify-content: center;
+  color: #14232c;
+  background: var(--gem);
+  border-radius: 27%;
+  font-size: clamp(10px, 2.4vh, 20px);
+  font-weight: 900;
+  box-shadow:
+    inset 2px 3px 0 #ffffff70,
+    inset -3px -4px 0 #00000030;
+  clip-path: polygon(
+    23% 0,
+    77% 0,
+    100% 23%,
+    100% 77%,
+    77% 100%,
+    23% 100%,
+    0 77%,
+    0 23%
+  );
+}
+.jewel-ghost .jewel-gem {
+  opacity: 0.18;
+}
+.jewel-active {
+  background: #a7f0e61a;
+}
+.jewel-side {
+  width: 64px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+.jewel-side strong {
+  color: #a7f0e6;
+  font-size: 13px;
+}
+.jewel-preview {
+  display: grid;
+  gap: 4px;
+  width: 40px;
+  margin: 8px auto;
+}
+.jewel-preview .jewel-gem {
+  width: 36px;
+  height: 36px;
+}
+.jewel-controls {
+  width: 100%;
+  max-width: 680px;
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  flex-shrink: 0;
+}
+.jewel-controls button {
+  min-height: 48px;
+  min-width: 48px;
+  border: 1px solid #a7f0e670;
+  border-radius: 8px;
+  background: #254554;
+  color: #f5f2e9;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 5px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.jewel-controls button:last-child {
+  grid-column: span 2;
+  background: #d9ed68;
+  color: #17211d;
+}
+.jewel-controls button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.jewel-drop :focus-visible {
+  outline: 3px solid #a7f0e6;
+  outline-offset: 2px;
+}
+.jewel-note {
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: center;
+  margin: 0;
+  min-height: 16px;
+  flex-shrink: 0;
+}
+.jewel-clear-layer {
+  position: absolute;
+  inset: 3px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  pointer-events: none;
+}
+.jewel-clear-layer .jewel-cell {
+  border-color: transparent;
+}
+@media (max-width: 380px) {
+  .jewel-drop {
+    padding: 8px;
+    gap: 5px;
+  }
+  .jewel-play {
+    gap: 8px;
+  }
+  .jewel-side {
+    width: 54px;
+  }
+  .jewel-stats {
+    font-size: 11px;
+  }
+  .jewel-controls button {
+    font-size: 12px;
+  }
+}
+
+.jewel-flight {
+  position: absolute;
+  width: 16.666%;
+  height: 25%;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+.jewel-flight .jewel-gem {
+  height: 90%;
+  width: 90%;
+}
+
+@media (min-width: 600px) {
+  .jewel-board {
+    max-height: 640px;
+  }
+}

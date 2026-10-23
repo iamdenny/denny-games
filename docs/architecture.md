@@ -73,3 +73,7 @@ Daily challenge shares point directly to the local player with `daily=1&stage=1`
 ## Cooking and table tennis
 
 `src/data/arcade-trio.ts` contains metadata only. `src/games/snack-street/` and `src/games/pocket-pingpong/` are lazy modules with separately testable rules and validated checkpoints. Cooking uses a contained DOM counter; table tennis uses an 800×520 perspective canvas. Both expose the common lifecycle and own their campaign progression within one shell stage. `src/data/arcade-trio-guides.ts` supplies bilingual rules pages. See [ADR 0054](adr/0054-cooking-and-table-tennis.md).
+
+## Pinball and falling gems
+
+`src/games/star-pinball/` and `src/games/jewel-drop/` separate pure rule state from rendering and decoration. Typed entries in `src/data/retro-duo.ts` and guides in `src/data/retro-duo-guides.ts` feed existing static discovery. Both use lazy player imports and raw validated checkpoints; no catalogue bundle imports their engines. See [ADR 0056](adr/0056-pinball-and-falling-gems.md).
