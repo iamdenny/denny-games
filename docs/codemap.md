@@ -57,3 +57,13 @@
 - `src/games/jewel-drop/`: falling-gem state, matching/chains and renderer.
 - `src/data/retro-duo.ts` and `src/data/retro-duo-guides.ts`: bilingual registry and rules content.
 - `tests/unit/{star-pinball,jewel-drop}.test.ts` and matching browser specs: rules, saves, real input and lifecycle evidence.
+
+## Six original games
+
+- `src/games/minefield-watch/`: seeded safe-first minefields and reusable dense-board presentation.
+- `src/games/mosaic-mystery/`: original nonogram inventory, clues, uniqueness solver and marking rules.
+- `src/games/traffic-escape/`: sliding-vehicle puzzle stages and controls.
+- `src/games/river-hop/`: crossing stages and life management.
+- `src/games/meteor-guard/`: five-wave action round.
+- `src/games/pocket-bowling/`: ten-frame bowling round.
+- `src/data/six-{puzzles,movement,action}.ts`: typed catalogue entries; companion guide modules own localized instructions.

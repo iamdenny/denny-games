@@ -96,7 +96,13 @@ test.describe("Adsterra banner", () => {
     await expect(
       page.locator('.game-grid [data-game-card="star-pinball"]'),
     ).toHaveCount(1);
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(3);
+    await expect(
+      page.locator('.game-grid [data-game-card="river-hop"]'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator('.game-grid [data-game-card="meteor-guard"]'),
+    ).toHaveCount(1);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(5);
     expect(requests).toBe(0);
     await expect(banner.locator("iframe")).toHaveCount(0);
   });
@@ -123,7 +129,13 @@ test.describe("Adsterra banner", () => {
     await expect(
       page.locator('.game-grid [data-game-card="star-pinball"]'),
     ).toHaveCount(1);
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(3);
+    await expect(
+      page.locator('.game-grid [data-game-card="river-hop"]'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator('.game-grid [data-game-card="meteor-guard"]'),
+    ).toHaveCount(1);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(5);
     await expect(banner).toBeHidden();
     await expect(banner.locator("iframe")).toHaveCount(0);
     expect(requests).toBe(1);

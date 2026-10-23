@@ -17,6 +17,58 @@ interface GameCollection {
 }
 export const collections: GameCollection[] = [
   {
+    id: "logic-detectives",
+    ids: ["minefield-watch", "mosaic-mystery", "traffic-escape"],
+    text: {
+      en: {
+        title: "Mines, mosaics and traffic puzzles",
+        intro:
+          "Read numbered clues, reveal a hidden picture or slide cars toward an exit. Three original browser puzzles for a thoughtful break.",
+        criteria:
+          "Solo puzzles with touch and keyboard controls, local progress and clearly defined goals. All boards and graphics are created for Denny Games.",
+        question: "Which puzzle should I choose first?",
+        answer:
+          "Minefield Watch asks you to uncover safe cells using nearby mine counts. Mosaic Mystery uses row and column runs to build a picture. Traffic Escape asks you to clear a route for the exit car. None requires an account or online opponents.",
+      },
+      ko: {
+        title: "지뢰, 모자이크, 주차 퍼즐",
+        intro:
+          "숫자 단서를 읽고 숨겨진 그림을 완성하거나 자동차를 밀어 출구를 여세요. 차분하게 즐기는 자체 제작 퍼즐 세 종입니다.",
+        criteria:
+          "터치와 키보드 조작, 로컬 진행 저장, 명확한 목표가 있는 1인용 퍼즐입니다. 보드와 그래픽은 데니 게임즈가 직접 제작했습니다.",
+        question: "어떤 퍼즐부터 시작하면 좋을까요?",
+        answer:
+          "주변 지뢰 수로 안전한 칸을 찾으려면 지뢰 감시대, 행과 열의 연속 숫자로 그림을 완성하려면 모자이크 미스터리, 출구 자동차의 길을 열려면 교통 탈출을 고르세요. 계정이나 온라인 상대가 필요하지 않습니다.",
+      },
+    },
+  },
+  {
+    id: "cross-defend-roll",
+    ids: ["river-hop", "meteor-guard", "pocket-bowling"],
+    text: {
+      en: {
+        title: "Cross, defend and bowl",
+        intro:
+          "Find a safe crossing, intercept incoming meteors or line up a bowling shot. Three original games with different rhythms and clear round goals.",
+        criteria:
+          "Locally playable solo games with large primary controls, keyboard alternatives and saved progress. Simplified original arcade rules are explained on each game page.",
+        question: "Which game is best for deliberate aiming?",
+        answer:
+          "Pocket Bowling lets you adjust each shot before rolling. Meteor Guard combines aiming with time pressure while protecting cities. River Hop focuses on timing movement between safe spaces. These are solo browser games, without online matchmaking.",
+      },
+      ko: {
+        title: "건너고, 지키고, 굴리고",
+        intro:
+          "안전한 길로 강을 건너고, 떨어지는 유성을 막고, 볼링 공의 방향을 맞추세요. 서로 다른 리듬과 분명한 목표가 있는 자체 제작 게임 세 종입니다.",
+        criteria:
+          "큰 주요 조작 버튼, 키보드 대체 조작, 진행 저장을 제공하는 로컬 1인용 게임입니다. 간소화한 오락실 규칙은 각 게임 안내에서 설명합니다.",
+        question: "천천히 조준하며 즐길 게임은 무엇인가요?",
+        answer:
+          "포켓 볼링은 공을 굴리기 전에 조준을 조절할 수 있습니다. 유성 방어대는 제한된 시간에 도시를 지키며 조준하고, 강 건너기는 안전한 공간 사이로 이동하는 타이밍이 중요합니다. 모두 온라인 매칭 없는 1인용 웹게임입니다.",
+      },
+    },
+  },
+  {
     id: "bumpers-and-gems",
     ids: ["star-pinball", "jewel-drop", "orbit-break"],
     text: {

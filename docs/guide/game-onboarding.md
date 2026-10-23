@@ -41,3 +41,7 @@ Snack Street and Pocket Table Tennis use original project-authored TypeScript, C
 ## Original pinball and gems
 
 Star Pinball and Jewel Drop contain project-authored rules, table/gem geometry, covers and bilingual copy under MIT. Preserve their finite goals, deterministic saved state, reduced-motion behavior and solo-only metadata. See [ADR 0056](../adr/0056-pinball-and-falling-gems.md).
+
+## Six-game example
+
+Minefield Watch, Mosaic Mystery, Traffic Escape, River Hop, Meteor Guard and Pocket Bowling use original MIT code and covers, typed bilingual metadata, lazy engines and actual gameplay preview paths. Their stage counts describe selectable shell stages; internal waves and frames are not extra catalogue entries. A shared dense-board helper is presentation only: mine and nonogram rules remain independently testable. Keep uniqueness proofs, finite-game completion, restored-result handling and responsive control evidence distinct from physical-device qualification. See ADR 0057.

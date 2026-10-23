@@ -701,6 +701,12 @@ show(text.loading);
 start.disabled = true;
 try {
   const loaders: Record<string, () => Promise<{ mount: GameFactory }>> = {
+    "minefield-watch": () => import("../games/minefield-watch"),
+    "mosaic-mystery": () => import("../games/mosaic-mystery"),
+    "traffic-escape": () => import("../games/traffic-escape"),
+    "river-hop": () => import("../games/river-hop"),
+    "meteor-guard": () => import("../games/meteor-guard"),
+    "pocket-bowling": () => import("../games/pocket-bowling"),
     "star-pinball": () => import("../games/star-pinball"),
     "jewel-drop": () => import("../games/jewel-drop"),
     "snack-street": () => import("../games/snack-street"),

@@ -84,3 +84,16 @@ Snack Street and Pocket Table Tennis add two locally implemented solo games. The
 ## Original pinball and falling gems — 2026-10-23
 
 Star Pinball and Jewel Drop add an original three-ball table and a falling-column chain puzzle under MIT. Neither imports archived pinball research entries or commercial game assets. The registry is the authoritative current count; earlier dated counts above remain historical. See [ADR 0056](../adr/0056-pinball-and-falling-gems.md).
+
+## Six original additions
+
+| Game | Scope | Rights |
+| --- | --- | --- |
+| Minefield Watch | Three seeded minefields; safe first cell and neighbors | Original MIT |
+| Mosaic Mystery | Twelve unique-solution 5×5/6×6 nonograms | Original MIT |
+| Traffic Escape | Twelve sliding-vehicle stages | Original MIT |
+| River Hop | Five crossing stages; three lives per stage | Original MIT |
+| Meteor Guard | Five internal twenty-second waves | Original MIT |
+| Pocket Bowling | Ten-frame round | Original MIT |
+
+These additions use original code and artwork, without ROMs or third-party game assets. Runtime publication, CI and public verification are separate release evidence; this inventory does not claim physical-device certification, search ranking or ad approval. See ADR 0057.

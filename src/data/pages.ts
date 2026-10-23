@@ -1,3 +1,6 @@
+import { sixPuzzleGuides } from "./six-puzzles-guides";
+import { sixMovementGuides } from "./six-movement-guides";
+import { sixActionGuides } from "./six-action-guides";
 import { retroDuoGuides } from "./retro-duo-guides";
 import { arcadeTrioGuides } from "./arcade-trio-guides";
 import { retroGuide } from "./retro-discovery";
@@ -12,6 +15,9 @@ export interface Article {
 export const articles: Record<string, Record<Locale, Article>> = {
   ...arcadeTrioGuides,
   ...retroDuoGuides,
+  ...sixPuzzleGuides,
+  ...sixMovementGuides,
+  ...sixActionGuides,
   "guides/retro-arcade": retroGuide,
   "guides/gonggi-rules": {
     en: {
@@ -1025,6 +1031,12 @@ export const articles: Record<string, Record<Locale, Article>> = {
   },
 };
 export const guidePaths = [
+  "guides/minefield-watch",
+  "guides/mosaic-mystery",
+  "guides/traffic-escape",
+  "guides/river-hop",
+  "guides/meteor-guard",
+  "guides/pocket-bowling",
   "guides/star-pinball",
   "guides/jewel-drop",
   "guides/snack-street",
