@@ -23,7 +23,8 @@
     "seo:check": "node scripts/check-seo.mjs",
     "indexnow:notify": "node scripts/notify-indexnow.mjs",
     "test:mobile": "playwright test --config playwright.mobile.config.ts",
-    "predev": "node scripts/build-neverball.mjs"
+    "predev": "node scripts/build-neverball.mjs",
+    "test:devices": "playwright test --config playwright.devices.config.ts"
   },
   "dependencies": {
     "astro": "7.3.8",

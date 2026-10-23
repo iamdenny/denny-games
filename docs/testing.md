@@ -78,3 +78,11 @@ Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430p
 ## Daily completion and return
 
 `daily-progress.spec.ts` completes a real Circuit round and checks next-daily navigation, local persistence, home progress, date rollover, saved-stage defaults, pause without completion, corrupt records, static links, denied storage and phone/iPad widths. `daily.test.ts` covers supported seeds, versions, zero scores and date boundaries. These checks do not establish physical-device signoff or increased retention.
+
+## Six-game touch matrix
+
+Run `npm run test:devices` for the six original games introduced in ADR 0057. The dedicated matrix covers: iPhone 13 and iPad Mini/Pro 11 profiles in WebKit, Pixel 7 in Chromium, compact 740×360 WebKit, and 1280×800 / 1920×1080 Chromium touch viewports. Each profile checks both languages, actual touchscreen taps, board and 48px control containment, paused state during viewport rotation, reload, restart and uncaught page errors. Screenshots are captured for each journey and traces are retained on failures. This dedicated command is currently manual; the GitHub credential lacks workflow-write scope to add a CI job.
+
+The wide touch profiles are generic layout probes, not Tesla firmware emulation. Playwright WebKit is not the shipping iOS Safari binary. Physical iPad/iPhone/Android/Tesla operation, hardware performance, audible audio and long-session reliability remain separate manual evidence. See the [Playwright browser documentation](https://playwright.dev/docs/browsers).
+
+River Hop uses CSS container queries to change its direction-button columns without resizing an observed element from a ResizeObserver callback. The observer only finishes optional canvas motion. Traffic Escape keeps its English instructions short enough for the compact side toolbar.

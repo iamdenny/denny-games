@@ -32,7 +32,7 @@ export const mount: GameFactory = (ctx) => {
   const hint = document.createElement("p");
   hint.textContent = ko
     ? "차를 선택한 뒤 방향 버튼으로 이동 · A차를 오른쪽 출구로!"
-    : "Select a car, then move along its lane. Send car A to the right exit.";
+    : "Select a car · use arrows · A exits right.";
   panel.append(status, buttons, hint);
   ctx.host.append(root);
   (ctx.controlsHost ?? ctx.host).append(panel);
