@@ -33,7 +33,7 @@ for (const id of ids) {
           ),
         )
         .toBe(true);
-      const buttons = page.locator("[data-retro-action]");
+      const buttons = page.locator("[data-retro-action]:visible");
       expect(await buttons.count()).toBeGreaterThan(0);
       for (const button of await buttons.all()) {
         await button.scrollIntoViewIfNeeded();
