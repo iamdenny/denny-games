@@ -30,6 +30,7 @@ async function eachLimited(items, limit, action) {
 }
 const release = JSON.parse(await get("/release.json"));
 const expectedKey = readFileSync(`public${KEY_PATH}`, "utf8").trim();
+let activeGamesById;
 assert.equal(
   (await get(KEY_PATH)).trim(),
   expectedKey,
@@ -51,6 +52,18 @@ for (const locale of ["en", "ko"]) {
   assert(html.includes(`lang="${locale}"`));
   const games = JSON.parse(await get(`/${locale}/search-index.json`));
   assert.equal(games.length, 215, `${locale}: published game count differs`);
+  const localeGamesById = new Map(games.map((game) => [game.id, game]));
+  if (activeGamesById)
+    assert.deepEqual(
+      [...localeGamesById.keys()].sort(),
+      [...activeGamesById.keys()].sort(),
+      `${locale}: localized catalogue IDs differ`,
+    );
+  else activeGamesById = localeGamesById;
+  // Some retired external listings reuse their slug for a locally hosted game.
+  const retiredRoutes = retiredExternalGames.filter(
+    (game) => !localeGamesById.has(game.id),
+  );
   assert(
     games.every((game) => !game.externalHost && !game.externalPlayUrl),
     `${locale}: search index contains an external play destination`,
@@ -74,7 +87,7 @@ for (const locale of ["en", "ko"]) {
     assert(player.includes("noindex, follow"));
     assert(!player.includes("data-ad-slot"));
   });
-  await eachLimited(retiredExternalGames, 24, async (game) => {
+  await eachLimited(retiredRoutes, 24, async (game) => {
     const response = await fetch(`${base}/${locale}/games/${game.id}/`, {
       signal: AbortSignal.timeout(15000),
       cache: "no-store",
@@ -90,8 +103,11 @@ for (const locale of ["en", "ko"]) {
     await get(match[1]);
 }
 const sitemap = await get("/sitemap.xml");
+const retiredRoutes = retiredExternalGames.filter(
+  (game) => !activeGamesById.has(game.id),
+);
 for (const locale of ["en", "ko"])
-  for (const game of retiredExternalGames)
+  for (const game of retiredRoutes)
     assert(
       !sitemap.includes(`/${locale}/games/${game.id}/`),
       `Sitemap still contains retired external game /${locale}/games/${game.id}/`,
@@ -105,6 +121,21 @@ await eachLimited(retiredExternalGames, 24, async (game) => {
   const path = `/art/${game.archivedArtwork.slice(
     "vendor/external-listing-art/".length,
   )}`;
+  const activeGame = activeGamesById.get(game.id);
+  if (activeGame?.artwork === path) {
+    const publishedArtwork = await get(path);
+    assert.equal(
+      publishedArtwork,
+      readFileSync(`public${activeGame.artwork}`, "utf8"),
+      `${path}: active local artwork differs from its source`,
+    );
+    assert.notEqual(
+      publishedArtwork,
+      readFileSync(game.archivedArtwork, "utf8"),
+      `${path}: archived external artwork is still published`,
+    );
+    return;
+  }
   const response = await fetch(`${base}${path}`, {
     signal: AbortSignal.timeout(15000),
     cache: "no-store",
