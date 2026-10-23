@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { games } from "../../data/games";
 import { editorialOrder, editorialPick } from "../../data/editorial";
 import { locales } from "../../data/i18n";
+import { playModesFor } from "../../data/play-styles";
 import type { Locale } from "../../lib/types";
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
@@ -21,6 +22,7 @@ export const GET: APIRoute = ({ params }) => {
         inputs: game.inputs,
         category: game.category,
         controlStyle: game.controlStyle,
+        playModes: playModesFor(game),
         categoryName: {
           en: {
             board: "Board",

@@ -10,8 +10,49 @@ import {
 } from "../../src/lib/catalogue";
 import { deviceChecks, makeDeviceReport } from "../../src/lib/device-check";
 import { pagePaths } from "../../src/lib/routes";
+import { playModesFor } from "../../src/data/play-styles";
 
 describe("play-style discovery", () => {
+  it("filters solo and same-device games without treating Yutnori as solo", () => {
+    const filters = { category: "", control: "", length: "" };
+    const together = filterCatalogue(games, {
+      ...filters,
+      mode: "multi-player",
+    });
+    expect(together.map((game) => game.id).sort()).toEqual([
+      "checkers",
+      "crater-duel",
+      "dots-and-boxes",
+      "ember-maze",
+      "four-in-a-row",
+      "frost-patrol",
+      "gomoku",
+      "iron-bastion",
+      "reversi",
+      "yutnori",
+    ]);
+    const solo = filterCatalogue(games, { ...filters, mode: "single-player" });
+    expect(solo.some((game) => game.id === "yutnori")).toBe(false);
+    expect(solo.some((game) => game.id === "gonggi")).toBe(true);
+    expect(solo.some((game) => game.id === "gomoku")).toBe(true);
+    expect(
+      filterCatalogue(games, {
+        ...filters,
+        mode: "multi-player",
+        category: "board",
+      }),
+    ).toHaveLength(6);
+    const index = games.map((game) => ({
+      ...game,
+      classic: undefined,
+      playModes: playModesFor(game),
+    }));
+    expect(
+      filterCatalogue(index, { ...filters, mode: "multi-player" }).map(
+        (game) => game.id,
+      ),
+    ).toEqual(together.map((game) => game.id));
+  });
   it("includes a listed guide route for every game detail link", () => {
     const paths = pagePaths();
     for (const game of games) {
