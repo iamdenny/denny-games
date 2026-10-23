@@ -36,6 +36,7 @@
 - `scripts/generate-promo.mjs`, `public/promo/`: original promotional artwork generator and twenty committed PNG assets.
 
 - `src/games/yutnori/rules.ts`, `src/games/yutnori/index.ts`, `src/data/board-games.ts`: standalone Yutnori movement/capture rules, local save contract, bilingual registration and responsive 29-space board.
+- `src/games/klondike/{rules.ts,index.ts,style.css}`: original Klondike deal and pile rules, accessible DOM cards, draw modes, hints, undo and validated local snapshots.
 - `src/games/jegi-rally/{rules.ts,index.ts,style.css}`: pure foot/style sequence and timing-score rules, lazy Canvas renderer, native bilingual controls and validated local progress.
 
 - `src/data/retro-discovery.ts`: the original eight-game ID set and bilingual arcade comparison guide, reused by collection and AI-discovery navigation.

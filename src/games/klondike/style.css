@@ -1,0 +1,443 @@
+.klondike-board {
+  --card-width: clamp(38px, 8.8vw, 76px);
+  --card-height: calc(var(--card-width) * 1.4);
+  --felt: #174f43;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto max-content auto;
+  align-content: start;
+  gap: clamp(8px, 1.4vw, 14px);
+  box-sizing: border-box;
+  width: min(100%, 720px);
+  height: auto;
+  max-height: 100%;
+  min-height: 0;
+  margin: auto;
+  padding: clamp(8px, 1.7vw, 16px);
+  overflow: auto;
+  border: 1px solid #7ab29a;
+  border-radius: 18px;
+  background-color: var(--felt);
+  background-image:
+    radial-gradient(ellipse at 50% 35%, #2b715c 0, #194f43 72%),
+    repeating-linear-gradient(35deg, #ffffff04 0 1px, transparent 1px 4px);
+  box-shadow: inset 0 0 42px #06231f80;
+  color: #f7f4e8;
+  font-family: system-ui, sans-serif;
+}
+
+.klondike-top-row,
+.klondike-tableau {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(2px, 0.8vw, 8px);
+  width: min(100%, calc(var(--card-width) * 7 + 48px));
+  margin-inline: auto;
+}
+
+.klondike-top-row {
+  align-items: start;
+}
+
+.klondike-pile,
+.klondike-card,
+.klondike-empty-pile {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--card-height);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #c9dccb;
+  border-radius: clamp(5px, 1vw, 10px);
+  background: #f8f5e9;
+  box-shadow: 0 2px 4px #071d1966;
+  color: #172c27;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.klondike-pile:disabled,
+.klondike-card:disabled,
+.klondike-empty-pile:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.klondike-stock,
+.klondike-waste,
+.klondike-foundation {
+  display: grid;
+  place-items: center;
+}
+
+.klondike-stock {
+  border-style: dashed;
+  background: #f8f5e91c;
+  color: #f7f4e8;
+  font:
+    800 clamp(9px, 1vw, 12px) / 1.1 system-ui,
+    sans-serif;
+}
+
+.klondike-top-spacer {
+  display: block;
+  min-width: 0;
+}
+
+.klondike-foundation {
+  border-style: dashed;
+  background: #f8f5e91c;
+  color: #d9edcf;
+  font:
+    800 clamp(18px, 3vw, 28px) / 1 system-ui,
+    sans-serif;
+}
+
+.klondike-waste {
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
+}
+
+.klondike-card-back {
+  position: absolute;
+  inset: 3px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #d5e8d6;
+  border-radius: clamp(3px, 0.7vw, 7px);
+  background-color: #245c72;
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0 6px, #c6edf23a 6px 8px),
+    repeating-linear-gradient(-45deg, transparent 0 6px, #c6edf23a 6px 8px);
+  box-shadow: inset 0 0 0 2px #286c76;
+}
+
+.klondike-stock .klondike-card-back::after {
+  content: "✦";
+  color: #e2ecac;
+  font-size: clamp(13px, 2.4vw, 22px);
+}
+
+.klondike-card,
+.klondike-card-face {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: clamp(3px, 0.55vw, 7px);
+  font-weight: 850;
+  line-height: 1;
+}
+
+.klondike-card-rank {
+  font-size: clamp(10px, 1.45vw, 15px);
+}
+
+.klondike-card-suit {
+  align-self: flex-end;
+  font-size: clamp(15px, 2vw, 22px);
+}
+
+.klondike-card.is-red,
+.klondike-waste.is-red,
+.klondike-foundation.is-red,
+.klondike-peek-card.is-red {
+  color: #b23c43;
+}
+
+.klondike-tableau {
+  align-items: start;
+  min-height: var(--card-height);
+}
+
+.klondike-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  min-height: var(--card-height);
+}
+
+.klondike-facedown {
+  position: relative;
+  display: block;
+  flex: 0 0 clamp(13px, 2.3vw, 18px);
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d5e8d6;
+  border-radius: 4px;
+  background-color: #245c72;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0 5px,
+    #c6edf23a 5px 7px
+  );
+  box-shadow: 0 1px 2px #071d1966;
+}
+
+.klondike-card.is-up-start {
+  margin-block-start: 5px;
+}
+
+.klondike-card.is-overlap {
+  margin-block-start: calc(var(--card-height) * -0.72);
+}
+
+.klondike-empty-pile {
+  display: grid;
+  place-items: center;
+  border: 1px dashed #d5e8d689;
+  background: #f8f5e90d;
+  box-shadow: none;
+  color: #d5e8d689;
+  font:
+    800 clamp(12px, 1.4vw, 16px) system-ui,
+    sans-serif;
+}
+
+.klondike-card-face {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+  background: #f8f5e9;
+  color: #172c27;
+  pointer-events: none;
+}
+
+.klondike-card-face.is-red {
+  color: #b23c43;
+}
+
+.klondike-peek-card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid #c9dccb;
+  border-radius: clamp(5px, 1vw, 10px);
+  background: #f8f5e9;
+  box-shadow: 0 2px 4px #071d1966;
+  color: #172c27;
+  pointer-events: none;
+}
+
+.klondike-peek-card.peek-1 {
+  transform: translateX(-7px);
+}
+
+.klondike-peek-card.peek-2 {
+  transform: translateX(-3px);
+}
+
+.klondike-status {
+  min-height: 1.3em;
+  margin: 0;
+  color: #def0df;
+  font:
+    650 clamp(11px, 1.25vw, 14px) / 1.35 system-ui,
+    sans-serif;
+  text-align: center;
+}
+
+.klondike-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  width: min(100%, 420px);
+  margin-inline: auto;
+  font:
+    650 13px / 1.3 system-ui,
+    sans-serif;
+}
+
+.klondike-tools-heading,
+.klondike-mode-label {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #ecf3e5;
+}
+
+.klondike-mode-label {
+  font-size: 11px;
+  color: #bfd5c7;
+}
+
+.klondike-mode-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  grid-column: 1 / -1;
+}
+
+.klondike-tool-button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 8px;
+  border: 1px solid #a2c6b4;
+  border-radius: 9px;
+  background: #245547;
+  color: #f7f4e8;
+  font:
+    750 12px / 1.2 system-ui,
+    sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.klondike-tool-button[aria-pressed="true"] {
+  border-color: #e4f27b;
+  background: #dbe968;
+  color: #15322b;
+}
+
+.klondike-tool-button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.klondike-new-deal {
+  grid-column: 1 / -1;
+  border-color: #e4f27b;
+  color: #e8f283;
+}
+
+.klondike-setup {
+  display: grid;
+  gap: 8px;
+}
+
+.klondike-setup p {
+  margin: 0;
+  color: inherit;
+  font:
+    650 13px / 1.4 system-ui,
+    sans-serif;
+}
+
+.klondike-board :focus-visible,
+.klondike-tools :focus-visible,
+.klondike-setup :focus-visible {
+  z-index: 4;
+  outline: 3px solid #e4f27b;
+  outline-offset: 2px;
+}
+
+.klondike-card.is-selected,
+.klondike-waste.is-selected {
+  outline: 3px solid #e4f27b;
+  outline-offset: 1px;
+  z-index: 2;
+}
+
+.klondike-card.is-hinted,
+.klondike-pile.is-hinted,
+.klondike-empty-pile.is-hinted {
+  outline: 3px solid #8bf0df;
+  outline-offset: 1px;
+  z-index: 3;
+}
+
+.klondike-board button:hover:not(:disabled),
+.klondike-tools button:hover:not(:disabled),
+.klondike-setup button:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.klondike-board button:active:not(:disabled),
+.klondike-tools button:active:not(:disabled),
+.klondike-setup button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* The shared player theme gives every button a dark panel treatment. Keep
+   cards and game-local controls on their own colors inside that shell. */
+.play-page .klondike-board .klondike-card {
+  background: #f8f5e9;
+  color: #172c27;
+}
+
+.play-page .klondike-board .klondike-card.is-red {
+  color: #b23c43;
+}
+
+.play-page .klondike-board .klondike-stock {
+  background: #f8f5e91c;
+  color: #f7f4e8;
+}
+
+.play-page .klondike-board .klondike-waste {
+  background: transparent;
+  color: #f7f4e8;
+}
+
+.play-page .klondike-board .klondike-foundation.has-card {
+  border-style: solid;
+  background: #f8f5e9;
+  color: #172c27;
+}
+
+.play-page .klondike-board .klondike-foundation:not(.has-card) {
+  background: #f8f5e91c;
+  color: #d9edcf;
+}
+
+.play-page .klondike-board .klondike-foundation.has-card.is-red {
+  color: #b23c43;
+}
+
+.play-page .klondike-board .klondike-empty-pile {
+  background: #f8f5e90d;
+  color: #d5e8d689;
+}
+
+.play-page .klondike-tools .klondike-tool-button,
+.play-page .klondike-setup .klondike-tool-button {
+  border-color: #a2c6b4;
+  background: #245547;
+  color: #f7f4e8;
+}
+
+.play-page .klondike-tools .klondike-tool-button[aria-pressed="true"],
+.play-page .klondike-setup .klondike-tool-button[aria-pressed="true"] {
+  border-color: #e4f27b;
+  background: #dbe968;
+  color: #15322b;
+}
+
+.play-page .klondike-tools .klondike-new-deal {
+  border-color: #e4f27b;
+  color: #e8f283;
+}
+
+@media (max-width: 430px) {
+  .klondike-board {
+    padding: 7px;
+    border-radius: 12px;
+  }
+
+  .klondike-top-row,
+  .klondike-tableau {
+    gap: 2px;
+  }
+
+  .klondike-card-rank {
+    font-size: 10px;
+  }
+
+  .klondike-card-suit {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .klondike-board button,
+  .klondike-tools button,
+  .klondike-setup button {
+    scroll-behavior: auto;
+  }
+}

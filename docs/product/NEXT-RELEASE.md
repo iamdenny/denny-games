@@ -7,7 +7,7 @@ read_when:
 
 # 다음 릴리스 PRD
 
-> Historical delivery plan. Its October 2026 external-listing waves are no longer public: [ADR 0038](../adr/0038-local-play-only-catalogue.md) requires every published game to run on Denny Games. The current repository registry contains 335 in-site games; verify production publication against the deployed SHA and public routes.
+> Historical delivery plan. Its October 2026 external-listing waves are no longer public: [ADR 0038](../adr/0038-local-play-only-catalogue.md) requires every published game to run on Denny Games. The current repository registry contains 336 in-site games; verify production publication against the deployed SHA and public routes.
 
 ## 해결할 문제
 

@@ -77,3 +77,4 @@
 
 - [0058 — One hundred additional arcade games](0058-century-arcade.md) — Accepted.
 - [0059 — Original Jegi Rally game](0059-jegi-rally.md) — Accepted.
+- [0060 — Original local Klondike Solitaire](0060-local-klondike-solitaire.md) — Accepted.

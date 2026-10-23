@@ -7,7 +7,7 @@ read_when:
 
 # Open game inventory
 
-The 2026-10-24 release candidate registry contains 335 locally playable games; production publication is confirmed separately by deployed-SHA and public-route readback. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
+The 2026-10-24 release candidate registry contains 336 locally playable games; production publication is confirmed separately by deployed-SHA and public-route readback. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
 
 ## One hundred additional arcade games — 2026-10-23
 
@@ -105,3 +105,7 @@ Star Pinball and Jewel Drop add an original three-ball table and a falling-colum
 | Pocket Bowling | Ten-frame round | Original MIT |
 
 These additions use original code and artwork, without ROMs or third-party game assets. Runtime publication, CI and public verification are separate release evidence; this inventory does not claim physical-device certification, search ranking or ad approval. See ADR 0057.
+
+## Original Klondike Solitaire — 2026-10-24
+
+Klondike Solitaire adds a locally playable standard 52-card layout with Draw 1 and Draw 3 rules. The TypeScript engine, bilingual interface, card-table illustration and gameplay screenshot are project-authored under the repository MIT license. It does not reuse the external Klondike research candidate's code, card artwork, assets or host runtime. Every shuffle is allowed to be unsolvable; the game makes no winnability promise. It supports tap-to-select/tap-to-place, keyboard and standard gamepad focus, hint, undo, new deals and validated browser-local saves. See [ADR 0060](../adr/0060-local-klondike-solitaire.md).

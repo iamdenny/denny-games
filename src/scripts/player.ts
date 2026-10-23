@@ -748,6 +748,7 @@ try {
       import("../games/heritage").then((m) => ({ mount: m.mountQuest })),
     "circuit-loop": () => import("../games/circuit"),
     "orbit-break": () => import("../games/orbit"),
+    "klondike-solitaire": () => import("../games/klondike"),
     "2048": () => import("../games/merge"),
     hextris: () => import("../games/hextris"),
     "bounce-back": () => import("../games/bounceback"),
