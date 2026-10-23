@@ -17,6 +17,32 @@ interface GameCollection {
 }
 export const collections: GameCollection[] = [
   {
+    id: "cook-rally-duel",
+    ids: ["snack-street", "pocket-pingpong", "ember-maze"],
+    text: {
+      en: {
+        title: "Cook, rally or duel",
+        intro:
+          "Build a snack shop, climb a table tennis league or escape a chain explosion. Three original games with distinct rhythms.",
+        criteria:
+          "Snack Street and Pocket Table Tennis are solo campaigns. Ember Maze offers solo play and a same-device duel.",
+        question: "Which of these games can I play with a friend?",
+        answer:
+          "Choose Ember Maze for two players sharing one device. Snack Street and Pocket Table Tennis are single-player games. All three save locally; none uses online matchmaking.",
+      },
+      ko: {
+        title: "요리하고, 랠리하고, 대결해요",
+        intro:
+          "분식집을 키우고 탁구 리그에 도전하거나 연쇄 폭발을 피하세요. 서로 다른 리듬의 자체 제작 게임 세 종입니다.",
+        criteria:
+          "분식 골목과 포켓 탁구 리그는 혼자 하는 캠페인이고, 불씨 미로는 혼자 또는 한 기기 2인 대전을 지원해요.",
+        question: "친구와 함께 할 수 있는 게임은 무엇인가요?",
+        answer:
+          "둘이 한 기기를 함께 쓴다면 불씨 미로를 고르세요. 분식 골목과 포켓 탁구 리그는 혼자 하는 게임입니다. 세 게임 모두 로컬 저장을 사용하며 온라인 매칭은 없어요.",
+      },
+    },
+  },
+  {
     id: "retro-arcade",
     ids: retroIds,
     text: {

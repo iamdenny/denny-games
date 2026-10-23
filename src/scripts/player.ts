@@ -701,6 +701,8 @@ show(text.loading);
 start.disabled = true;
 try {
   const loaders: Record<string, () => Promise<{ mount: GameFactory }>> = {
+    "snack-street": () => import("../games/snack-street"),
+    "pocket-pingpong": () => import("../games/pocket-pingpong"),
     gonggi: () => import("../games/gonggi"),
     "ember-maze": () => import("../games/ember-maze"),
     "frost-patrol": () => import("../games/frost-patrol"),

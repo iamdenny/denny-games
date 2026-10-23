@@ -69,3 +69,7 @@ GameContext may provide a setupHost in the ready overlay, a settingsHost owned b
 Daily completion keeps validated game IDs, rule versions and scores in a bounded seven-day UTC trail. Only a real same-date, stage-1 shell result qualifies. Home and daily pages read it locally; daily results lead to remaining challenges. See [ADR 0030](adr/0030-daily-completion-and-return.md) and [ADR 0032](adr/0032-seven-day-daily-trail.md).
 
 Daily challenge shares point directly to the local player with `daily=1&stage=1`; the seed uses the UTC date when the recipient opens the URL. The share link contains no player result or tracking value. Game and collection landing-page shares continue to use canonical URLs under [ADR 0036](adr/0036-game-learning-and-sharing.md); daily challenge invites follow [ADR 0039](adr/0039-daily-challenge-sharing.md).
+
+## Cooking and table tennis
+
+`src/data/arcade-trio.ts` contains metadata only. `src/games/snack-street/` and `src/games/pocket-pingpong/` are lazy modules with separately testable rules and validated checkpoints. Cooking uses a contained DOM counter; table tennis uses an 800×520 perspective canvas. Both expose the common lifecycle and own their campaign progression within one shell stage. `src/data/arcade-trio-guides.ts` supplies bilingual rules pages. See [ADR 0054](adr/0054-cooking-and-table-tennis.md).

@@ -36,6 +36,14 @@ export function GET() {
         ),
       ),
     "",
+    "## Cooking and table tennis",
+    `- [Snack Street cooking guide](${base}/en/guides/snack-street/)`,
+    `- [분식집 타이쿤 안내](${base}/ko/guides/snack-street/)`,
+    `- [Pocket Table Tennis guide](${base}/en/guides/pocket-pingpong/)`,
+    `- [포켓 탁구 리그 안내](${base}/ko/guides/pocket-pingpong/)`,
+    `- [Cook, rally or duel collection](${base}/en/collections/cook-rally-duel/)`,
+    "These original solo games run locally. Snack Street has five shop days and upgrades; Pocket Table Tennis has three AI opponents and simplified five-point matches. Saves stay in this browser.",
+    "",
     "## Classic board games",
     ...boardGames.flatMap((g) =>
       ["en", "ko"].map((l) => {
