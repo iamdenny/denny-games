@@ -177,27 +177,27 @@ export const collections: GameCollection[] = [
   },
   {
     id: "traditional-games",
-    ids: ["yutnori", "gonggi"],
+    ids: ["yutnori", "gonggi", "jegi-rally"],
     text: {
       en: {
         title: "Free Korean traditional games",
         intro:
-          "Try Yutnori, a 2–4 player same-device board game, or Gonggi, a five-stage five-stones dexterity challenge. Both original games run here in your browser, with no account or installation.",
+          "Try Yutnori, a 2–4 player same-device board game, Gonggi's five-stage stone challenge, or Jegi Rally's three rounds of footwork and timing. All three original adaptations run here in your browser, with no account or installation.",
         criteria:
-          "Two original browser games based on Korean traditional play. Yutnori is local pass-and-play; Gonggi is a single-player digital variation. Neither offers online matchmaking.",
+          "Three original browser games based on Korean traditional play. Yutnori is local pass-and-play; Gonggi and Jegi Rally are single-player digital variations. None offers online matchmaking.",
         question: "Can I play Korean traditional games in my browser?",
         answer:
-          "Yes. Play Yutnori with 2–4 people sharing one device, or practice the five stages of Gonggi on your own. The games are hosted on Denny Games; progress stays in this browser.",
+          "Yes. Play Yutnori with 2–4 people sharing one device, practice Gonggi's five stages, or try Jegi Rally's single-foot, alternating-feet and back-foot rounds. The games are hosted on Denny Games; progress stays in this browser.",
       },
       ko: {
         title: "무료 한국 전통놀이 게임",
         intro:
-          "한 기기에서 2~4명이 즐기는 윷놀이와 다섯 단계를 연습하는 공기놀이를 해보세요. 두 게임 모두 이 브라우저에서 실행되는 자체 제작 게임이며 가입·설치가 필요 없습니다.",
+          "한 기기에서 2~4명이 즐기는 윷놀이, 다섯 단계 공기놀이, 발동작과 타이밍에 도전하는 제기 랠리를 만나보세요. 세 게임 모두 이 브라우저에서 실행되며 가입·설치가 필요 없어요.",
         criteria:
-          "한국 전통놀이를 바탕으로 직접 만든 브라우저 게임 두 종입니다. 윷놀이는 한 기기에서 차례로 하는 다인 플레이, 공기놀이는 혼자 하는 디지털 변형입니다. 온라인 매칭은 제공하지 않습니다.",
+          "한국 전통놀이를 바탕으로 직접 만든 브라우저 게임 세 종입니다. 윷놀이는 한 기기에서 차례로 하는 다인 플레이, 공기놀이와 제기 랠리는 혼자 하는 디지털 변형입니다. 온라인 매칭은 제공하지 않습니다.",
         question: "한국 전통놀이를 브라우저에서 할 수 있나요?",
         answer:
-          "네. 한 기기에서 2~4명이 윷놀이를 하거나 혼자 공기놀이 다섯 단계를 연습할 수 있어요. 두 게임은 데니 게임즈에서 실행되고 진행 기록은 이 브라우저에 저장돼요.",
+          "네. 한 기기에서 2~4명이 윷놀이를 하거나 혼자 공기놀이와 제기 랠리를 할 수 있어요. 제기 랠리에는 외발·양발 번갈아 차기·뒷발 3판이 있어요. 세 게임 모두 데니 게임즈에서 실행되고 기록은 이 브라우저에 저장돼요.",
       },
     },
   },

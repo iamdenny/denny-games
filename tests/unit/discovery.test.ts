@@ -143,6 +143,7 @@ describe("play-style discovery", () => {
       "pocket-bowling",
       "lantern-grid",
       "number-trail",
+      "jegi-rally",
       "gonggi",
       "amber-trail",
       "starlight-apprentice",

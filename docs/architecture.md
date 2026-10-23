@@ -58,6 +58,8 @@ Five original traditional rule implementations share `src/games/board/rules.ts`,
 
 Gonggi is a separate lazy-loaded DOM game in `src/games/gonggi/`. Pure stage, catch timing, score and save validation live in `rules.ts`; the renderer uses native buttons and the shared player lifecycle. It has no external runtime or network service. See [ADR 0049](adr/0049-original-gonggi.md).
 
+Jegi Rally is an original, lazy-loaded Canvas game in `src/games/jegi-rally/`. Pure foot/style sequences, timing grades, finite round results and save validation live in `rules.ts`; native controls use shared directional/confirm actions. Its three rounds are single-foot, alternating-feet and back-foot challenges, with the digital timing and scoring documented separately from regional Jegichagi rules. See [ADR 0059](adr/0059-jegi-rally.md).
+
 Shared player audio uses original synthesized event cues in `src/lib/audio.ts`. Audio starts after a user gesture, with persisted mute/volume preferences and cancellation on pause/background. Board engines report semantic cues through the existing lifecycle sound callback; shared Crisp sound events retain the default cue. Independent Agentic games retain original synthesized audio behind their isolated sound adapter.
 
 Gameplay transitions run independently of asynchronous audio resume. Mute can cancel audio immediately without leaving a paused overlay behind. Score presentation uses localized whole numbers and wrapping; stored scores keep their original precision.
