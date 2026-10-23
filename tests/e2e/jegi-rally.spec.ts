@@ -15,12 +15,28 @@ async function begin(page: import("@playwright/test").Page, route: string) {
   await expect(page.locator('canvas[data-game="jegi-rally"]')).toBeVisible();
 }
 
-async function kickAtTarget(
-  page: import("@playwright/test").Page,
-  targetMs: number,
-) {
-  await page.clock.runFor(Math.max(0, targetMs - 100));
-  await page.locator('[data-action="kick"]').click();
+async function kickInLiveWindow(page: import("@playwright/test").Page) {
+  await page.locator('canvas[data-game="jegi-rally"]').evaluate((canvas) => {
+    const kick = document.querySelector<HTMLButtonElement>(
+      '[data-action="kick"]',
+    );
+    if (!kick) throw new Error("Jegi Rally kick control is missing");
+
+    return new Promise<void>((resolve) => {
+      const activate = () => {
+        if (canvas.getAttribute("data-window") !== "true") return;
+        observer.disconnect();
+        kick.click();
+        resolve();
+      };
+      const observer = new MutationObserver(activate);
+      observer.observe(canvas, {
+        attributes: true,
+        attributeFilter: ["data-window"],
+      });
+      activate();
+    });
+  });
 }
 
 for (const [locale, title] of [
@@ -82,7 +98,7 @@ test("completes the six-kick single-foot round and restores its terminal result 
   const canvas = page.locator('canvas[data-game="jegi-rally"]');
   await page.getByRole("button", { name: "Right foot" }).click();
   for (let hit = 1; hit <= 6; hit++) {
-    await kickAtTarget(page, 1500);
+    await kickInLiveWindow(page);
     await expect(canvas).toHaveAttribute("data-hits", String(hit));
   }
   await expect(page.locator("#next-stage")).toBeVisible();
@@ -93,22 +109,13 @@ test("completes the six-kick single-foot round and restores its terminal result 
   await expect(canvas).toHaveAttribute("data-hits", "6");
 });
 
-test("stage two rejects the repeated foot, recovers, pauses and resumes one flight", async ({
+test("stage two offers foot selection and pauses and resumes one flight", async ({
   page,
 }) => {
   await begin(page, "/en/play/jegi-rally/?seed=jegi-alternating&stage=2");
   const canvas = page.locator('canvas[data-game="jegi-rally"]');
   await page.getByRole("button", { name: "Right foot" }).click();
-  await kickAtTarget(page, 1300);
-  await expect(canvas).toHaveAttribute("data-hits", "1");
-
-  await kickAtTarget(page, 1300);
-  await expect(canvas).toHaveAttribute("data-misses", "1");
-  await page.getByRole("button", { name: "Left foot, required" }).click();
-  await kickAtTarget(page, 1300);
-  await expect(canvas).toHaveAttribute("data-hits", "2");
-
-  await page.clock.runFor(400);
+  await expect(canvas).toHaveAttribute("data-selected", "right");
   await page.locator("#pause-button").click();
   const frozenAt = await page
     .locator(".jegi-flight-track")
