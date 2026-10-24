@@ -87,8 +87,14 @@ if (grid) {
   const hasInitialFilter = ["sort", "input", "page"].some((key) =>
     initialQuery.has(key),
   );
-  if (categoryAd)
-    categoryAd.hidden = hasInitialFilter || grid.children.length < 8;
+  if (categoryAd) {
+    const initialCards = [
+      ...grid.querySelectorAll<HTMLElement>("[data-game-card]"),
+    ];
+    const eligible = !hasInitialFilter && initialCards.length >= 8;
+    if (eligible) initialCards[7]!.after(categoryAd);
+    categoryAd.hidden = !eligible;
+  }
   let generation = 0;
   const render = async (page = 1) => {
     const token = ++generation;
@@ -104,8 +110,24 @@ if (grid) {
       if (sort.value === "newest")
         items.sort((a, b) => b.added.localeCompare(a.added));
       const pageItems = items.slice((page - 1) * 24, page * 24);
-      grid.replaceChildren(...pageItems.map((item) => makeCard(item, locale)));
-      if (categoryAd) categoryAd.hidden = pageItems.length < 8;
+      const existingCards = new Map(
+        [...grid.querySelectorAll<HTMLElement>("[data-game-card]")].map(
+          (card) => [card.dataset.gameCard!, card],
+        ),
+      );
+      for (const card of existingCards.values()) card.remove();
+      const cards = pageItems.map(
+        (item) => existingCards.get(item.id) ?? makeCard(item, locale),
+      );
+      if (categoryAd) {
+        categoryAd.hidden = pageItems.length < 8;
+        if (!grid.contains(categoryAd)) grid.append(categoryAd);
+        for (const card of cards.slice(0, 8))
+          grid.insertBefore(card, categoryAd);
+        for (const card of cards.slice(8)) grid.append(card);
+      } else {
+        for (const card of cards) grid.append(card);
+      }
       refreshFavorites(false);
       let nav = document.querySelector<HTMLElement>("[data-pagination]");
       if (!nav) {
