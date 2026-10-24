@@ -678,3 +678,7 @@ Publish original bilingual detail, play and guide routes, list the game in the l
 ## Visible ads in long game collections — 2026-10-24
 
 Place the existing single consent-gated Adsterra banner in collections with at least eight games immediately after the first eight cards, so it is reachable before visitors scroll through an entire long collection. Keep the banner outside live gameplay, preserve optional consent, and retain the 300×250 responsive frame behavior. See [ADR 0061](../adr/0061-inline-collection-ad.md).
+
+## PACKABUNCHAS open-source puzzle import — 2026-10-24
+
+Add PACKABUNCHAS as one locally playable puzzle game with five internal modes, preserving its pinned MIT source and separate ZzFX/ZzFXM MIT notices. Run it inside a no-network opaque iframe with bounded local progress, pauseable animation/timers and bilingual host instructions. The imported game interface remains English; expose only touch and mouse input. Add a real gameplay screenshot, bilingual detail/guide routes and a thinking-games quick-play link. See [ADR 0062](../adr/0062-packabunchas-import.md). The repository registry grows from 336 to 337; physical-device checks, indexing, ranking and revenue remain separate evidence.

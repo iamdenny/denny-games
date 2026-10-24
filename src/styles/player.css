@@ -492,6 +492,20 @@
   min-height: 0;
   background: #14212b;
 }
+.packabunchas-frame {
+  display: block;
+  width: min(100%, calc(72vh * 9 / 16));
+  height: auto;
+  max-height: 72vh;
+  min-height: 0;
+  margin: auto;
+  border: 0;
+  background: #172333;
+}
+#player[data-immersive="true"] .packabunchas-frame {
+  width: min(100%, 56.25cqh);
+  max-height: 100%;
+}
 .hextris-controls {
   display: flex;
   gap: 10px;

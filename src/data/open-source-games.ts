@@ -2,6 +2,107 @@ import type { Game } from "./games";
 
 export const openSourceGames: Game[] = [
   {
+    id: "packabunchas",
+    category: "puzzle",
+    duration: "5–10",
+    controlStyle: "pointer",
+    color: "violet",
+    version: 1,
+    stages: 1,
+    tags: [
+      "tile packing",
+      "polyomino puzzle",
+      "tiling puzzle",
+      "block placement",
+      "colorful puzzle",
+      "오픈소스 게임",
+      "타일 맞추기",
+      "도형 퍼즐",
+      "블록 배치",
+      "폴리오미노 퍼즐",
+    ],
+    inputs: ["touch", "mouse"],
+    license: "MIT",
+    licenseDescription: {
+      en: "PACKABUNCHAS by Mattia Fortunati is MIT-licensed. Its generated music and sound use code credited to ZzFX by Frank Force and ZzFXM by Keith Clark, both under MIT. The game keeps its original English interface; Denny Games provides the bilingual rules and host controls.",
+      ko: "Mattia Fortunati가 만든 PACKABUNCHAS는 MIT 라이선스를 따릅니다. 생성형 음악과 효과음에는 MIT 라이선스인 Frank Force의 ZzFX와 Keith Clark의 ZzFXM이 사용됩니다. 게임 화면은 원작 영어를 유지하며 데니 게임즈가 한국어·영어 규칙과 사이트 조작 안내를 제공합니다.",
+    },
+    licenseUrl:
+      "https://github.com/MattiaFortunati/packabunchas/blob/fc4e6331fa4b8c17cc341094e9027bccd02f463f/LICENSE",
+    licenseUrlLabel: {
+      en: "MIT source license",
+      ko: "MIT 원본 라이선스",
+    },
+    author: "Mattia Fortunati",
+    source:
+      "https://github.com/MattiaFortunati/packabunchas/tree/fc4e6331fa4b8c17cc341094e9027bccd02f463f",
+    sourceLabel: {
+      en: "Pinned source code and notices",
+      ko: "버전을 고정한 원본 소스와 고지",
+    },
+    playModes: ["single-player"],
+    guide: {
+      path: "guides/packabunchas",
+      label: {
+        en: "How to play PACKABUNCHAS",
+        ko: "PACKABUNCHAS 하는 법",
+      },
+    },
+    added: "2026-10-24",
+    imported: true,
+    notice: "/licenses/packabunchas/",
+    artworkAlt: {
+      en: "Original Denny Games artwork of colorful space puzzle blocks around a small rescue ship",
+      ko: "작은 구조선을 둘러싼 알록달록한 우주 퍼즐 블록을 그린 데니 게임즈 자체 일러스트",
+    },
+    artwork: "/art/open-games/packabunchas.svg",
+    screenshot: "/art/open-games/packabunchas-preview.png",
+    text: {
+      en: {
+        title: "PACKABUNCHAS",
+        subtitle: "Pack the shapes. Rescue the lost crew.",
+        description:
+          "Fit colorful block shapes into each outlined space and help Spacey rescue the lost Blockychums. Five modes offer different ways to settle into a relaxed, no-rush puzzle. The original game interface is in English; the rules and Denny Games player are available in English and Korean.",
+        rules: [
+          "Tap or click the title screen, then choose a mode with the left and right arrows and press Start.",
+          "Drag the colorful pieces into the outlined space. Double-tap or double-click a piece to rotate it.",
+          "There is no countdown. Complete the shape to move through the rescue puzzle; your mode and story progress stay in this browser.",
+        ],
+        controls: [
+          "Touch: tap the title, choose a mode, then drag a piece into place. Double-tap a piece to rotate it.",
+          "Mouse: click the title, choose a mode, then drag and drop. Double-click a piece to rotate it.",
+          "This game does not provide keyboard or gamepad controls. Use the player bar above the board to pause or leave.",
+        ],
+        tips: [
+          "Start with a piece whose edges match a corner or narrow part of the outline.",
+          "Try rotating a piece before moving it into a tight space.",
+          "Choose a different mode from the in-game menu when you want another puzzle style.",
+        ],
+      },
+      ko: {
+        title: "PACKABUNCHAS",
+        subtitle: "도형을 채우고, 길 잃은 대원을 구해요.",
+        description:
+          "알록달록한 블록 도형을 윤곽에 맞춰 스페이시와 길 잃은 블로키첨스를 구해요. 다섯 가지 모드로 서두르지 않고 퍼즐을 즐길 수 있어요. 원작 게임 화면은 영어이며, 데니 게임즈의 규칙과 플레이어 안내는 한국어와 영어로 제공해요.",
+        rules: [
+          "제목 화면을 누르고 좌우 화살표로 모드를 고른 뒤 Start를 누르세요.",
+          "색색의 조각을 윤곽 안으로 끌어 놓으세요. 조각을 빠르게 두 번 누르거나 클릭하면 회전해요.",
+          "시간제한은 없어요. 모양을 완성해 구조 퍼즐을 이어가세요. 모드와 이야기 진행은 이 브라우저에 저장돼요.",
+        ],
+        controls: [
+          "터치: 제목을 누르고 모드를 고른 뒤 조각을 끌어 놓으세요. 조각을 두 번 빠르게 누르면 회전해요.",
+          "마우스: 제목을 클릭하고 모드를 고른 뒤 조각을 끌어 놓으세요. 조각을 두 번 클릭하면 회전해요.",
+          "키보드와 게임패드는 지원하지 않아요. 보드 위 플레이어 막대에서 일시정지하거나 나가세요.",
+        ],
+        tips: [
+          "윤곽의 모서리나 좁은 부분에 맞는 조각부터 찾아보세요.",
+          "좁은 공간에 옮기기 전에 조각을 회전해 보세요.",
+          "다른 퍼즐 방식이 궁금하면 게임 안 메뉴에서 모드를 바꿔보세요.",
+        ],
+      },
+    },
+  },
+  {
     id: "gridland",
     category: "puzzle",
     duration: "5–10",

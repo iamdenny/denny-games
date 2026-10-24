@@ -1,0 +1,48 @@
+{
+  "title": "PACKABUNCHAS",
+  "author": "Mattia Fortunati",
+  "license": "MIT",
+  "source_repository": "https://github.com/MattiaFortunati/packabunchas",
+  "source_commit": "fc4e6331fa4b8c17cc341094e9027bccd02f463f",
+  "license_scope": "The complete pinned PACKABUNCHAS source and original MIT license are retained. The game includes generated ZzFX and ZzFXM audio code credited by upstream; their MIT notices are included separately. No upstream screenshot or remote asset is bundled.",
+  "upstream_files": {
+    "LICENSE": "d655211d95e898fbe34991f52377dc62d08a935dbaafc00f766a538ec37c2ca5",
+    "Readme.md": "95b478642e96c614ef746dabb68646baf6f239ed91bad39803933a90d56a33f3",
+    "game.js": "120022f7676bc060b58c8ae8e53ed155952d8e8b1b0a53a0e379ca879eb36eab",
+    "index.html": "258fcff5b4fb2ad0a61ddf1ed1eaac521d51cd752d357e206d17188191fb1ed9"
+  },
+  "product_artwork": {
+    "public/art/open-games/packabunchas.svg": "40ca9ee4b1d123156c41a30527dcb2e6ee0a6e0a693e293136b2f45b1126729a",
+    "public/art/open-games/packabunchas-preview.png": "5afb3b44d1342d3cf969b34a3e4128f7846c1ff932bf2f79c32877f73c2fa8e2"
+  },
+  "host_adaptations": [
+    "Runs in an allow-scripts-only opaque-origin iframe with a no-network content security policy.",
+    "Replaces localStorage calls with a bounded allowlisted parent save bridge.",
+    "Freezes animation frames, timers and background music while paused.",
+    "Uses the upstream portrait canvas and touch/mouse controls; the original English game UI is retained."
+  ],
+  "third_party": [
+    {
+      "name": "ZzFX",
+      "author": "Frank Force",
+      "license": "MIT",
+      "source": "https://github.com/KilledByAPixel/ZzFX"
+    },
+    {
+      "name": "ZzFXM",
+      "author": "Keith Clark",
+      "license": "MIT",
+      "source": "https://github.com/keithclark/ZzFXM"
+    }
+  ],
+  "upstream_code_references": [
+    "https://stackoverflow.com/questions/8110313/add-points-after-every-3-digits-on-all-text-fields-with-js/8110352",
+    "https://blog.abelotech.com/posts/number-currency-formatting-javascript/",
+    "https://stackoverflow.com/questions/53311809/all-possible-combinations-of-a-2d-array-in-javascript",
+    "https://codepen.io/ma77os/pen/KGIEh",
+    "https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/",
+    "https://stackoverflow.com/questions/17130395/real-mouse-position-on-canvas",
+    "https://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-using-canvas",
+    "https://codegolf.stackexchange.com/questions/45302/random-golf-of-the-day-1-shuffle-an-array"
+  ]
+}

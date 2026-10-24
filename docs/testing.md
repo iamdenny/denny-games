@@ -81,6 +81,10 @@ Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430p
 
 `klondike.test.ts` checks deterministic 52-card deals, both stock modes, legal and illegal pile moves, exposure, foundations, completion and corrupted-save rejection. `klondike.spec.ts` checks English/Korean game and guide routes, starting with either draw style, stock draw/recycle, undo, hints, explicit new deals, local resume and 320/390/810/1440px page bounds. The focus journey covers keyboard and synthetic standard-gamepad actions; it does not certify physical controllers or phones.
 
+## PACKABUNCHAS
+
+`tests/e2e/packabunchas.spec.ts` checks both catalogue locales and the public license/guide links; one locally hosted game with five in-game modes; no off-site requests; the opaque frame and bounded browser save bridge; actual mode selection, saved-mode restore, pause/resume and frozen animation frames. Chromium, WebKit mobile layout and the Playwright iPad Mini touch profile check the frame at 320×740, 390×844, 820×1180 and 844×390 with no horizontal overflow. `public/art/open-games/packabunchas-preview.png` is captured from a running local game. These are browser-emulation checks only; physical phones and tablets remain unverified.
+
 ## Daily completion and return
 
 `daily-progress.spec.ts` completes a real Circuit round and checks next-daily navigation, local persistence, home progress, date rollover, saved-stage defaults, pause without completion, corrupt records, static links, denied storage and phone/iPad widths. `daily.test.ts` covers supported seeds, versions, zero scores and date boundaries. These checks do not establish physical-device signoff or increased retention.

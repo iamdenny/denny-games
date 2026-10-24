@@ -404,6 +404,7 @@ async function restartRound() {
   mount(
     id === "bounce-back" ||
       id === "hextris" ||
+      id === "packabunchas" ||
       id === "sokoban" ||
       nativeRecords,
   );
@@ -714,6 +715,7 @@ try {
     "jewel-drop": () => import("../games/jewel-drop"),
     "snack-street": () => import("../games/snack-street"),
     "pocket-pingpong": () => import("../games/pocket-pingpong"),
+    packabunchas: () => import("../games/packabunchas"),
     gonggi: () => import("../games/gonggi"),
     "jegi-rally": () => import("../games/jegi-rally"),
     "ember-maze": () => import("../games/ember-maze"),

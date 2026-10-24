@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">PACKABUNCHAS</title>
+  <desc id="desc">A small rescue ship surrounded by colorful packing-puzzle blocks.</desc>
+  <defs>
+    <linearGradient id="space" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#172333"/>
+      <stop offset="1" stop-color="#35566a"/>
+    </linearGradient>
+    <linearGradient id="ship" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#c9fff1"/>
+      <stop offset="1" stop-color="#73d8ce"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" rx="34" fill="url(#space)"/>
+  <circle cx="106" cy="105" r="4" fill="#f8efbd"/>
+  <circle cx="601" cy="86" r="3" fill="#b8e9e2"/>
+  <circle cx="632" cy="365" r="5" fill="#f8efbd"/>
+  <circle cx="168" cy="373" r="3" fill="#b8e9e2"/>
+  <g opacity=".95">
+    <path d="M95 192h74v74H95zM169 192h74v74h-74zM95 266h74v74H95z" fill="#ffcf69" stroke="#fff0b1" stroke-width="5"/>
+    <path d="M482 115h74v74h-74zM556 115h74v74h-74zM556 189h74v74h-74z" fill="#a99af6" stroke="#ddd6ff" stroke-width="5"/>
+    <path d="M467 310h74v74h-74zM541 310h74v74h-74z" fill="#f28c73" stroke="#ffd0a9" stroke-width="5"/>
+  </g>
+  <path d="M327 129c-24 36-42 79-48 132l74-11 46 65c24-48 35-94 33-137-2-43-25-68-52-67-20 0-39 6-53 18z" fill="url(#ship)" stroke="#effffb" stroke-width="8" stroke-linejoin="round"/>
+  <circle cx="364" cy="185" r="26" fill="#254358" stroke="#d8ffef" stroke-width="7"/>
+  <path d="m327 250-40 67 62-17M397 231l50 43-64-7" fill="#ff8f76" stroke="#ffd4ad" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M352 327c-23 20-29 37-24 51 5 13 22 15 38 0 17 15 35 12 39-2 4-13-4-30-28-49" fill="#e7ee7a" opacity=".94"/>
+  <text x="360" y="430" fill="#f4f3e7" font-family="system-ui, sans-serif" font-size="27" font-weight="800" letter-spacing="2" text-anchor="middle">PACKABUNCHAS</text>
+</svg>

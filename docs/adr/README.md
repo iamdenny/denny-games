@@ -79,3 +79,4 @@
 - [0059 — Original Jegi Rally game](0059-jegi-rally.md) — Accepted.
 - [0060 — Original local Klondike Solitaire](0060-local-klondike-solitaire.md) — Accepted.
 - [0061 — Inline ad in long game collections](0061-inline-collection-ad.md) — Accepted.
+- [0062 — PACKABUNCHAS local puzzle import](0062-packabunchas-import.md) — Accepted.

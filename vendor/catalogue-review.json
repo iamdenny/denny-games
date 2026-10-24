@@ -153,8 +153,8 @@
       "category": "배치 퍼즐",
       "researchTier": "B",
       "runtime": "W",
-      "status": "rights-or-integration-review",
-      "reason": "원작 README는 대소문자 Readme.md. 퍼즐 모드 5개를 게임 5종으로 세지 않았다. 생성형 효과음·음악 라이브러리 고지 확인",
+      "status": "integrated",
+      "reason": "고정 MIT 원본과 ZzFX/ZzFXM 별도 MIT 고지·소스/아트 해시를 확인하고, 한 게임·다섯 모드로 통합. 무네트워크 격리 프레임의 모바일·태블릿 브라우저 자동화 통과; 실물 기기는 미검증",
       "source": "https://github.com/MattiaFortunati/packabunchas"
     },
     {

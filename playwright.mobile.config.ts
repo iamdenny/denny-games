@@ -12,6 +12,7 @@ export default defineConfig({
     "gridland.spec.ts",
     "yutnori.spec.ts",
     "klondike.spec.ts",
+    "packabunchas.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },
@@ -22,6 +23,7 @@ export default defineConfig({
         "gridland.spec.ts",
         "yutnori.spec.ts",
         "klondike.spec.ts",
+        "packabunchas.spec.ts",
       ],
       use: { ...devices["iPad Mini"] },
     },
