@@ -678,3 +678,7 @@ Publish original bilingual detail, play and guide routes, list the game in the l
 ## Visible ads in long game collections — 2026-10-24
 
 Place the existing single consent-gated Adsterra banner in collections with at least eight games immediately after the first eight cards, so it is reachable before visitors scroll through an entire long collection. Keep the banner outside live gameplay, preserve optional consent, and retain the 300×250 responsive frame behavior. See [ADR 0061](../adr/0061-inline-collection-ad.md).
+
+## Visible ads in category results — 2026-10-24
+
+Place the existing single consent-gated Adsterra banner after the eighth currently rendered result on eligible category pages. Keep it with the active sort and filter, hide it when fewer than eight results remain or the catalogue fails, and preserve the one-placement-per-page limit and no-ads-in-live-gameplay rule. See [ADR 0062](../adr/0062-inline-category-ad.md).
