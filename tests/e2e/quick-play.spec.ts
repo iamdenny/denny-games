@@ -37,6 +37,14 @@ for (const locale of ["en", "ko"]) {
       `/${locale}/play/circuit-loop/`,
     );
     await page.locator("[data-quick-next]").click();
+    await expect(launch).toHaveAttribute(
+      "href",
+      `/${locale}/play/packabunchas/`,
+    );
+    await expect(page.locator("[data-quick-status]")).toContainText(
+      "PACKABUNCHAS",
+    );
+    await page.locator("[data-quick-next]").click();
     await expect(launch).toHaveAttribute("href", `/${locale}/play/2048/`);
     await expect(page.locator("[data-quick-status]")).toContainText("2048");
     await page.locator("[data-quick-next]").click();
@@ -313,7 +321,7 @@ for (const [width, height] of [
     );
     await expect(page.locator("#next-game")).toHaveAttribute(
       "href",
-      "/en/play/2048/",
+      "/en/play/packabunchas/",
     );
     await page.locator("#next-game").scrollIntoViewIfNeeded();
     const next = await page.locator("#next-game").boundingBox();
