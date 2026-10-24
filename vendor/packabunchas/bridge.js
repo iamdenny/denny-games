@@ -171,6 +171,9 @@
     }
   }
 
+  window.addEventListener("blur", () => {
+    if (running) post("pause");
+  });
   window.addEventListener("message", receive);
   window.addEventListener("load", () => post("ready"), { once: true });
 })();

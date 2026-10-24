@@ -7,7 +7,7 @@ read_when:
 
 # Game onboarding
 
-1. Record author, fixed source commit, code/assets/fonts/music/levels licenses and exceptions. A root LICENSE alone is insufficient.
+1. Record author, fixed source commit, code/assets/fonts/music/levels licenses and exceptions. A root LICENSE alone is insufficient. For copied Q&A code, record the answer author, post link/date, applicable license and any changes; do not assume the repository license covers embedded snippets.
 2. Keep original notices and corresponding source where required. Remove unreviewed assets; never import commercial ROM collections.
 3. Implement the common lifecycle and normalized actions. Scope pointer capture to the board, release listeners and animation frames on destroy.
 4. Add a registry entry with English/Korean content, primary category, original thumbnail, controls, expected duration, source, rights review and evidence.

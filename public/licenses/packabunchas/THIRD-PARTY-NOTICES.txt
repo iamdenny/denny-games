@@ -45,3 +45,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Source: https://github.com/keithclark/ZzFXM
+
+---
+
+Stack Exchange code excerpts
+
+The upstream PACKABUNCHAS source contains the following code excerpts. The
+upstream code keeps its own function names and surrounding integration. The
+source comments and provenance record retain the original references.
+
+- `currFormat`, adapted from `formatNumber` by Bob (2020-07-06), CC BY-SA 4.0:
+  https://stackoverflow.com/questions/8110313/add-points-after-every-3-digits-on-all-text-fields-with-js/8110352
+- `allCombinationsOfArray`, adapted from `combos` by Mark (2018-11-15),
+  CC BY-SA 4.0:
+  https://stackoverflow.com/questions/53311809/all-possible-combinations-of-a-2d-array-in-javascript
+- `permute` by le_m (2016-06-02), CC BY-SA 3.0:
+  https://stackoverflow.com/a/37580979/1647737
+- `getMousePos` by Rafał S. (2015-10-11), CC BY-SA 3.0:
+  https://stackoverflow.com/questions/17130395/real-mouse-position-in-canvas
+- `roundRect` by Grumdrig (2011-10-20), CC BY-SA 3.0:
+  https://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-using-html-canvas
+- `shuffleArray` adapted from core1024's JavaScript answer (2015-02-06),
+  CC BY-SA 3.0:
+  https://codegolf.stackexchange.com/questions/45302/random-golf-of-the-day-1-shuffle-an-array
+
+The licenses applicable to each contribution depend on its contribution date.
+Stack Exchange's licensing terms identify CC BY-SA 3.0 for contributions from
+2011-04-08 through 2018-05-01 and CC BY-SA 4.0 for contributions on or after
+2018-05-02. See the official licensing page and license texts:
+
+- https://stackoverflow.com/help/licensing
+- https://creativecommons.org/licenses/by-sa/3.0/
+- https://creativecommons.org/licenses/by-sa/4.0/
+
+These notices do not change the separate MIT license for the PACKABUNCHAS
+upstream project or the MIT notices above for ZzFX and ZzFXM.

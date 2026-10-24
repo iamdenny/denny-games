@@ -111,6 +111,8 @@ export const mount: GameFactory = (context) => {
     } else if (data.type === "storage-change") {
       storage = readStorage({ version: 1, storage: data.storage });
       context.onSave?.();
+    } else if (data.type === "pause") {
+      context.onPause?.();
     }
   };
   window.addEventListener("message", receive);

@@ -4,13 +4,22 @@
   "license": "MIT",
   "source_repository": "https://github.com/MattiaFortunati/packabunchas",
   "source_commit": "fc4e6331fa4b8c17cc341094e9027bccd02f463f",
-  "license_scope": "The complete pinned PACKABUNCHAS source and original MIT license are retained. The game includes generated ZzFX and ZzFXM audio code credited by upstream; their MIT notices are included separately. No upstream screenshot or remote asset is bundled.",
-  "upstream_files": {
+  "license_scope": "The pinned PACKABUNCHAS source repository and original MIT license are retained. Its embedded Stack Exchange code excerpts carry separate CC BY-SA 3.0 or 4.0 terms and are attributed in the third-party notices. A linear interpolation helper that linked to an unverifiable CodePen Pen was replaced with an equivalent local expression and the link was removed. Generated ZzFX and ZzFXM audio code is MIT-licensed and credited by upstream. No upstream screenshot or remote asset is bundled.",
+  "upstream_source_hashes": {
     "LICENSE": "d655211d95e898fbe34991f52377dc62d08a935dbaafc00f766a538ec37c2ca5",
     "Readme.md": "95b478642e96c614ef746dabb68646baf6f239ed91bad39803933a90d56a33f3",
     "game.js": "120022f7676bc060b58c8ae8e53ed155952d8e8b1b0a53a0e379ca879eb36eab",
     "index.html": "258fcff5b4fb2ad0a61ddf1ed1eaac521d51cd752d357e206d17188191fb1ed9"
   },
+  "vendored_source_hashes": {
+    "LICENSE": "d655211d95e898fbe34991f52377dc62d08a935dbaafc00f766a538ec37c2ca5",
+    "Readme.md": "95b478642e96c614ef746dabb68646baf6f239ed91bad39803933a90d56a33f3",
+    "game.js": "d2521bddaf75325b1e640b8ae101f7d1a3a9dc7f00dc563fbe6131fa1d62db18",
+    "index.html": "258fcff5b4fb2ad0a61ddf1ed1eaac521d51cd752d357e206d17188191fb1ed9"
+  },
+  "source_adaptations": [
+    "Replaced the CodePen-linked lerp helper with the equivalent local expression start + (end - start) * amt and removed the external URL because the specific Pen's license could not be verified. The original upstream game.js SHA-256 is retained in upstream_source_hashes; the adapted file SHA-256 is in vendored_source_hashes."
+  ],
   "product_artwork": {
     "public/art/open-games/packabunchas.svg": "40ca9ee4b1d123156c41a30527dcb2e6ee0a6e0a693e293136b2f45b1126729a",
     "public/art/open-games/packabunchas-preview.png": "5afb3b44d1342d3cf969b34a3e4128f7846c1ff932bf2f79c32877f73c2fa8e2"
@@ -35,11 +44,66 @@
       "source": "https://github.com/keithclark/ZzFXM"
     }
   ],
+  "third_party_code": [
+    {
+      "name": "Number formatting function",
+      "function": "currFormat",
+      "author": "Bob",
+      "contribution_date": "2020-07-06",
+      "license": "CC BY-SA 4.0",
+      "source": "https://stackoverflow.com/questions/8110313/add-points-after-every-3-digits-on-all-text-fields-with-js/8110352",
+      "adaptation": "The upstream source renames formatNumber to currFormat."
+    },
+    {
+      "name": "Cartesian product recursion",
+      "function": "allCombinationsOfArray",
+      "author": "Mark",
+      "contribution_date": "2018-11-15",
+      "license": "CC BY-SA 4.0",
+      "source": "https://stackoverflow.com/questions/53311809/all-possible-combinations-of-a-2d-array-in-javascript",
+      "adaptation": "The upstream source renames combos to allCombinationsOfArray."
+    },
+    {
+      "name": "Heap permutation algorithm",
+      "function": "permute",
+      "author": "le_m",
+      "contribution_date": "2016-06-02",
+      "license": "CC BY-SA 3.0",
+      "source": "https://stackoverflow.com/a/37580979/1647737",
+      "adaptation": "The upstream source retains the algorithm and adapts its parameter name."
+    },
+    {
+      "name": "Canvas pointer coordinates",
+      "function": "getMousePos",
+      "author": "Rafał S.",
+      "contribution_date": "2015-10-11",
+      "license": "CC BY-SA 3.0",
+      "source": "https://stackoverflow.com/questions/17130395/real-mouse-position-in-canvas",
+      "adaptation": "The upstream source adapts variable names and scales to its canvas dimensions."
+    },
+    {
+      "name": "Canvas rounded rectangle path",
+      "function": "CanvasRenderingContext2D.prototype.roundRect",
+      "author": "Grumdrig",
+      "contribution_date": "2011-10-20",
+      "license": "CC BY-SA 3.0",
+      "source": "https://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-using-html-canvas",
+      "adaptation": "The upstream source retains the answer's path construction."
+    },
+    {
+      "name": "Fisher-Yates shuffle",
+      "function": "shuffleArray",
+      "author": "core1024",
+      "contribution_date": "2015-02-06",
+      "license": "CC BY-SA 3.0",
+      "source": "https://codegolf.stackexchange.com/questions/45302/random-golf-of-the-day-1-shuffle-an-array",
+      "adaptation": "The upstream source renames the submitted function to shuffleArray."
+    }
+  ],
   "upstream_code_references": [
     "https://stackoverflow.com/questions/8110313/add-points-after-every-3-digits-on-all-text-fields-with-js/8110352",
     "https://blog.abelotech.com/posts/number-currency-formatting-javascript/",
     "https://stackoverflow.com/questions/53311809/all-possible-combinations-of-a-2d-array-in-javascript",
-    "https://codepen.io/ma77os/pen/KGIEh",
     "https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/",
     "https://stackoverflow.com/questions/17130395/real-mouse-position-on-canvas",
     "https://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-using-canvas",

@@ -212,7 +212,11 @@ describe("import admission and catalogue", () => {
     ).toHaveLength(20);
     const packabunchas = games.find((game) => game.id === "packabunchas")!;
     expect(packabunchas.externalPlay).toBeUndefined();
-    expect(packabunchas.license).toBe("MIT");
+    expect(packabunchas.license).toBe("MIT + CC BY-SA 3.0/4.0 snippets");
+    expect(packabunchas.internalScore).toBe(true);
+    expect(packabunchas.licenseDescription?.en).toContain(
+      "CC BY-SA 3.0 and 4.0",
+    );
     expect(packabunchas.notice).toBe("/licenses/packabunchas/");
     expect(packabunchas.imported).toBe(true);
     expect(packabunchas.stages).toBe(1);
@@ -223,8 +227,14 @@ describe("import admission and catalogue", () => {
     expect(packabunchas.guide?.path).toBe("guides/packabunchas");
     expect(packabunchas.text.en.description).toContain("Five modes");
     expect(packabunchas.text.ko.description).toContain("다섯 가지 모드");
+    expect(packabunchasProvenance.upstream_source_hashes["game.js"]).toBe(
+      "120022f7676bc060b58c8ae8e53ed155952d8e8b1b0a53a0e379ca879eb36eab",
+    );
+    expect(packabunchasProvenance.source_adaptations[0]).toContain(
+      "CodePen-linked lerp helper",
+    );
     for (const [file, expected] of Object.entries(
-      packabunchasProvenance.upstream_files,
+      packabunchasProvenance.vendored_source_hashes,
     )) {
       expect(
         createHash("sha256")
@@ -240,11 +250,22 @@ describe("import admission and catalogue", () => {
       ).toBe(expected);
     }
     expect(
-      readFileSync("public/licenses/packabunchas/THIRD-PARTY-MIT.txt", "utf8"),
+      readFileSync(
+        "public/licenses/packabunchas/THIRD-PARTY-NOTICES.txt",
+        "utf8",
+      ),
     ).toMatch(/Frank Force/);
     expect(
-      readFileSync("public/licenses/packabunchas/THIRD-PARTY-MIT.txt", "utf8"),
+      readFileSync(
+        "public/licenses/packabunchas/THIRD-PARTY-NOTICES.txt",
+        "utf8",
+      ),
     ).toMatch(/Keith Clark/);
+    const packabunchasNotices = readFileSync(
+      "public/licenses/packabunchas/THIRD-PARTY-NOTICES.txt",
+      "utf8",
+    );
+    expect(packabunchasNotices).not.toContain("ma77os");
     const gridland = games.find((game) => game.id === "gridland")!;
     expect(gridland.externalPlay).toBeUndefined();
     expect(gridland.license).toBe("MPL-2.0");

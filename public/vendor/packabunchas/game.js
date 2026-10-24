@@ -2823,10 +2823,8 @@ function permute(_array) {
 	return result;
 }
 
-//basic lerp
-//https://codepen.io/ma77os/pen/KGIEh
 function lerp(start, end, amt) {
-	return (1 - amt) * start + amt * end
+	return start + (end - start) * amt
 }
 
 //https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/

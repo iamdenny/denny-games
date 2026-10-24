@@ -56,7 +56,14 @@ test("PACKABUNCHAS stays local, saves modes and pauses across phone/tablet layou
   await page.goto("/licenses/packabunchas/");
   await expect(page.locator("h1")).toContainText("source and licenses");
   await expect(page.locator('a[href="LICENSE.txt"]')).toBeVisible();
-  await expect(page.locator('a[href="THIRD-PARTY-MIT.txt"]')).toBeVisible();
+  await expect(page.locator('a[href="THIRD-PARTY-NOTICES.txt"]')).toBeVisible();
+  const noticeResponse = await page.request.get(
+    "/licenses/packabunchas/THIRD-PARTY-NOTICES.txt",
+  );
+  expect(noticeResponse.ok()).toBe(true);
+  const notices = await noticeResponse.text();
+  expect(notices).toContain("CC BY-SA 4.0");
+  expect(notices).not.toContain("ma77os");
 
   const saved = {
     version: 1,
@@ -86,6 +93,10 @@ test("PACKABUNCHAS stays local, saves modes and pauses across phone/tablet layou
   await page.goto("/ko/play/packabunchas/");
   const frameElement = page.locator("#game-host iframe");
   await expect(page.locator("#start-button")).toBeEnabled();
+  await expect(page.locator(".scoreboard")).toBeHidden();
+  await expect(page.locator("#overlay-note")).toContainText(
+    "키보드·게임패드는 지원하지 않아요.",
+  );
   await expect(frameElement).toHaveAttribute("sandbox", "allow-scripts");
   await expect
     .poll(() => frameElement.evaluate((frame) => frame.style.aspectRatio))
@@ -193,8 +204,16 @@ test("PACKABUNCHAS stays local, saves modes and pauses across phone/tablet layou
     .toBeGreaterThan(0);
 
   await frame.evaluate(() => {
-    const scope = window as unknown as { packTestFrames?: number };
+    const scope = window as unknown as {
+      packTestFrames?: number;
+      packPauseAcknowledged?: boolean;
+    };
     scope.packTestFrames = 0;
+    scope.packPauseAcknowledged = false;
+    window.addEventListener("message", (event) => {
+      if (event.data?.type === "run" && event.data.running === false)
+        scope.packPauseAcknowledged = true;
+    });
     const tick = () => {
       scope.packTestFrames = (scope.packTestFrames ?? 0) + 1;
       requestAnimationFrame(tick);
@@ -210,6 +229,15 @@ test("PACKABUNCHAS stays local, saves modes and pauses across phone/tablet layou
     .toBeGreaterThan(2);
   await page.locator("#pause-button").click();
   await expect(page.locator("#game-overlay")).toBeVisible();
+  await expect
+    .poll(() =>
+      frame.evaluate(
+        () =>
+          (window as unknown as { packPauseAcknowledged: boolean })
+            .packPauseAcknowledged,
+      ),
+    )
+    .toBe(true);
   const pausedFrames = await frame.evaluate(
     () => (window as unknown as { packTestFrames: number }).packTestFrames,
   );
@@ -227,6 +255,32 @@ test("PACKABUNCHAS stays local, saves modes and pauses across phone/tablet layou
       ),
     )
     .toBeGreaterThan(pausedFrames);
+
+  await frame.evaluate(() => {
+    (
+      window as unknown as { packPauseAcknowledged: boolean }
+    ).packPauseAcknowledged = false;
+    window.dispatchEvent(new Event("blur"));
+  });
+  await expect(page.locator("#game-overlay")).toBeVisible();
+  await expect
+    .poll(() =>
+      frame.evaluate(
+        () =>
+          (window as unknown as { packPauseAcknowledged: boolean })
+            .packPauseAcknowledged,
+      ),
+    )
+    .toBe(true);
+  const blurPausedFrames = await frame.evaluate(
+    () => (window as unknown as { packTestFrames: number }).packTestFrames,
+  );
+  await page.waitForTimeout(200);
+  expect(
+    await frame.evaluate(
+      () => (window as unknown as { packTestFrames: number }).packTestFrames,
+    ),
+  ).toBe(blurPausedFrames);
 
   await page.reload();
   frame = await waitForGameFrame(page);

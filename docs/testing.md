@@ -83,7 +83,7 @@ Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430p
 
 ## PACKABUNCHAS
 
-`tests/e2e/packabunchas.spec.ts` checks both catalogue locales and the public license/guide links; one locally hosted game with five in-game modes; no off-site requests; the opaque frame and bounded browser save bridge; actual mode selection, saved-mode restore, pause/resume and frozen animation frames. Chromium, WebKit mobile layout and the Playwright iPad Mini touch profile check the frame at 320×740, 390×844, 820×1180 and 844×390 with no horizontal overflow. `public/art/open-games/packabunchas-preview.png` is captured from a running local game. These are browser-emulation checks only; physical phones and tablets remain unverified.
+`tests/e2e/packabunchas.spec.ts` checks both catalogue locales, the third-party license notices and guide links; the shell scoreboard stays hidden; the touch/mouse-only limitation appears before play; one locally hosted game has five in-game modes; no off-site requests occur; and the opaque frame, bounded browser save bridge, actual mode selection, saved-mode restore, acknowledged pause/resume, pause on iframe focus loss and frozen animation frames work. Chromium, WebKit mobile layout and the Playwright iPad Mini touch profile check the frame at 320×740, 390×844, 820×1180 and 844×390 with no horizontal overflow. `public/art/open-games/packabunchas-preview.png` is captured from a running local game. These are browser-emulation checks only; physical phones and tablets remain unverified.
 
 ## Daily completion and return
 

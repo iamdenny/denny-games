@@ -22,16 +22,16 @@ export const openSourceGames: Game[] = [
       "폴리오미노 퍼즐",
     ],
     inputs: ["touch", "mouse"],
-    license: "MIT",
+    license: "MIT + CC BY-SA 3.0/4.0 snippets",
     licenseDescription: {
-      en: "PACKABUNCHAS by Mattia Fortunati is MIT-licensed. Its generated music and sound use code credited to ZzFX by Frank Force and ZzFXM by Keith Clark, both under MIT. The game keeps its original English interface; Denny Games provides the bilingual rules and host controls.",
-      ko: "Mattia Fortunati가 만든 PACKABUNCHAS는 MIT 라이선스를 따릅니다. 생성형 음악과 효과음에는 MIT 라이선스인 Frank Force의 ZzFX와 Keith Clark의 ZzFXM이 사용됩니다. 게임 화면은 원작 영어를 유지하며 데니 게임즈가 한국어·영어 규칙과 사이트 조작 안내를 제공합니다.",
+      en: "The upstream PACKABUNCHAS project by Mattia Fortunati is MIT-licensed. Its source contains credited Stack Exchange snippets under CC BY-SA 3.0 and 4.0; authors, links and changes are listed in the local notices. The pinned game source has one documented local adaptation: an unverified external linear-interpolation helper was replaced with an equivalent local expression. Generated music and sound use MIT-licensed ZzFX by Frank Force and ZzFXM by Keith Clark. The game keeps its original English interface; Denny Games provides bilingual rules and host controls.",
+      ko: "Mattia Fortunati의 PACKABUNCHAS 원본 프로젝트는 MIT 라이선스입니다. 원본 소스에는 CC BY-SA 3.0·4.0을 따르는 Stack Exchange 코드 조각도 포함되어 있으며 작성자, 링크와 변경 사항은 사이트 라이선스 고지에서 확인할 수 있어요. 검증할 수 없는 외부 선형 보간 함수를 같은 결과를 내는 로컬 표현으로 바꾼 내용은 고정 원본 및 변경 소스 해시와 함께 기록했어요. 생성형 음악과 효과음에는 MIT 라이선스인 Frank Force의 ZzFX와 Keith Clark의 ZzFXM이 사용됩니다. 게임 화면은 원작 영어를 유지하며 데니 게임즈가 한국어·영어 규칙과 사이트 조작 안내를 제공합니다.",
     },
     licenseUrl:
       "https://github.com/MattiaFortunati/packabunchas/blob/fc4e6331fa4b8c17cc341094e9027bccd02f463f/LICENSE",
     licenseUrlLabel: {
-      en: "MIT source license",
-      ko: "MIT 원본 라이선스",
+      en: "Upstream MIT license",
+      ko: "원본 MIT 라이선스",
     },
     author: "Mattia Fortunati",
     source:
@@ -50,6 +50,7 @@ export const openSourceGames: Game[] = [
     },
     added: "2026-10-24",
     imported: true,
+    internalScore: true,
     notice: "/licenses/packabunchas/",
     artworkAlt: {
       en: "Original Denny Games artwork of colorful space puzzle blocks around a small rescue ship",
@@ -69,7 +70,7 @@ export const openSourceGames: Game[] = [
           "There is no countdown. Complete the shape to move through the rescue puzzle; your mode and story progress stay in this browser.",
         ],
         controls: [
-          "Touch: tap the title, choose a mode, then drag a piece into place. Double-tap a piece to rotate it.",
+          "Touch or mouse: tap the title, choose a mode, then drag a piece into place; double-tap or double-click to rotate. Keyboard and gamepad are not available.",
           "Mouse: click the title, choose a mode, then drag and drop. Double-click a piece to rotate it.",
           "This game does not provide keyboard or gamepad controls. Use the player bar above the board to pause or leave.",
         ],
@@ -90,7 +91,7 @@ export const openSourceGames: Game[] = [
           "시간제한은 없어요. 모양을 완성해 구조 퍼즐을 이어가세요. 모드와 이야기 진행은 이 브라우저에 저장돼요.",
         ],
         controls: [
-          "터치: 제목을 누르고 모드를 고른 뒤 조각을 끌어 놓으세요. 조각을 두 번 빠르게 누르면 회전해요.",
+          "터치·마우스로 제목을 눌러 모드를 고른 뒤 조각을 끌어 놓으세요. 두 번 누르면 회전해요. 키보드·게임패드는 지원하지 않아요.",
           "마우스: 제목을 클릭하고 모드를 고른 뒤 조각을 끌어 놓으세요. 조각을 두 번 클릭하면 회전해요.",
           "키보드와 게임패드는 지원하지 않아요. 보드 위 플레이어 막대에서 일시정지하거나 나가세요.",
         ],
