@@ -44,6 +44,8 @@ Sokoban uses a native, lazily loaded module because its pinned MIT rules and sol
 
 See [ADR 0009](adr/0009-imported-games.md). The catalogue never imports the engine bundle. An opaque-origin iframe loads one self-hosted Crisp source after the player mounts. Checked runtime hooks stop simulation while paused and relay validated score/results. Imported games retain only best scores, not mid-round progress. Home previews are bounded; category sorting/filtering uses the full JSON index and libraries instantiate only saved/recent cards.
 
+Black Box is an independently generated WebAssembly puzzle. Its lazy adapter uses an allow-scripts-only opaque iframe, injects pinned WASM bytes so `connect-src 'none'` remains enforced, stores upstream preferences only in frame memory, gates RAF/input until explicit start and pauses on frame blur. The Denny Games bridge adds touch marking and turns over a fresh channel on restart. Its upstream controls remain English and puzzle progress is not saved. Source archive, official runtime hashes and MIT notice are recorded under `vendor/sgt-blackbox/` and published under `/licenses/sgt-blackbox/`; `scripts/build-sgt-blackbox.mjs` creates the public runtime.
+
 ## Play-style discovery and local reports
 
 Search refinements use a native disclosure, initially collapsed below 700px. Its active count follows the URL-backed form state. The existing Adsterra adapter observes the search banner's eligibility attribute and removes frames when a result page has fewer than eight games. The canonical board guide and llms.txt describe finding solo and shared-device games; GA4 retains its existing sanitized, optional event contract. See [ADR 0055](adr/0055-compact-search-discovery-and-ads.md).

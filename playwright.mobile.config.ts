@@ -13,6 +13,7 @@ export default defineConfig({
     "yutnori.spec.ts",
     "klondike.spec.ts",
     "packabunchas.spec.ts",
+    "sgt-blackbox.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },
@@ -24,6 +25,7 @@ export default defineConfig({
         "yutnori.spec.ts",
         "klondike.spec.ts",
         "packabunchas.spec.ts",
+        "sgt-blackbox.spec.ts",
       ],
       use: { ...devices["iPad Mini"] },
     },

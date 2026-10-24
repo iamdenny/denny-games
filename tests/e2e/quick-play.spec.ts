@@ -39,6 +39,14 @@ for (const locale of ["en", "ko"]) {
     await page.locator("[data-quick-next]").click();
     await expect(launch).toHaveAttribute(
       "href",
+      `/${locale}/play/sgt-blackbox/`,
+    );
+    await expect(page.locator("[data-quick-status]")).toContainText(
+      locale === "ko" ? "블랙 박스" : "Black Box",
+    );
+    await page.locator("[data-quick-next]").click();
+    await expect(launch).toHaveAttribute(
+      "href",
       `/${locale}/play/packabunchas/`,
     );
     await expect(page.locator("[data-quick-status]")).toContainText(
@@ -321,7 +329,7 @@ for (const [width, height] of [
     );
     await expect(page.locator("#next-game")).toHaveAttribute(
       "href",
-      "/en/play/packabunchas/",
+      "/en/play/sgt-blackbox/",
     );
     await page.locator("#next-game").scrollIntoViewIfNeeded();
     const next = await page.locator("#next-game").boundingBox();

@@ -81,3 +81,4 @@
 - [0061 — Inline ad in long game collections](0061-inline-collection-ad.md) — Accepted.
 - [0062 — Inline ad in filtered category results](0062-inline-category-ad.md) — Accepted.
 - [0063 — PACKABUNCHAS local puzzle import](0063-packabunchas-import.md) — Accepted.
+- [0064 — Black Box local WebAssembly puzzle](0064-sgt-blackbox-wasm-import.md) — Accepted.

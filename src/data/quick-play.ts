@@ -12,6 +12,7 @@ export const quickPlayGroups = [
     label: { en: "Think it through", ko: "머리 쓰기" },
     ids: [
       "circuit-loop",
+      "sgt-blackbox",
       "packabunchas",
       "2048",
       "reversi",

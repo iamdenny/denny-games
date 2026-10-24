@@ -2,6 +2,113 @@ import type { Game } from "./games";
 
 export const openSourceGames: Game[] = [
   {
+    id: "sgt-blackbox",
+    category: "puzzle",
+    duration: "5–15",
+    controlStyle: "pointer",
+    color: "mint",
+    version: 1,
+    stages: 1,
+    tags: [
+      "black box puzzle",
+      "laser puzzle",
+      "optics puzzle",
+      "logic deduction",
+      "hidden ball puzzle",
+      "WebAssembly puzzle",
+      "WASM game",
+      "오픈소스 게임",
+      "블랙 박스 퍼즐",
+      "레이저 추리",
+      "광학 퍼즐",
+      "논리 추리",
+      "숨은 공 찾기",
+    ],
+    inputs: ["touch", "mouse"],
+    license: "MIT",
+    licenseDescription: {
+      en: "Black Box is part of Simon Tatham’s Portable Puzzle Collection. This release pins source commit 616da16f25da428ccda805536209095bd062676e and the official JavaScript/WebAssembly artifacts; hashes and the local lifecycle/touch adaptations are published in the local notices. The upstream menu and status text remain in English. Denny Games translates the host guide and adds touch marking. Puzzle progress is not saved.",
+      ko: "Black Box는 Simon Tatham의 Portable Puzzle Collection에 포함된 게임입니다. 소스 커밋 616da16f25da428ccda805536209095bd062676e와 공식 JavaScript·WebAssembly 파일을 고정했고, 해시와 로컬 일시정지·터치 변경 사항은 사이트 라이선스 안내에 기록했어요. 원작 메뉴와 상태 문구는 영어로 제공되며, 데니 게임즈가 플레이 안내를 번역하고 터치 표시 기능을 추가했어요. 퍼즐 진행은 저장되지 않아요.",
+    },
+    licenseUrl: "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/",
+    licenseUrlLabel: {
+      en: "Official collection and MIT source",
+      ko: "공식 게임 모음과 MIT 소스",
+    },
+    author: "Simon Tatham’s Portable Puzzle Collection",
+    source: "https://git.tartarus.org/simon/puzzles",
+    sourceLabel: {
+      en: "Pinned upstream source and official browser build",
+      ko: "버전을 고정한 원본 소스와 공식 브라우저 빌드",
+    },
+    playModes: ["single-player"],
+    guide: {
+      path: "guides/sgt-blackbox",
+      label: {
+        en: "How to play Black Box",
+        ko: "블랙 박스 하는 법",
+      },
+    },
+    added: "2026-10-25",
+    imported: true,
+    internalScore: true,
+    notice: "/licenses/sgt-blackbox/",
+    artworkAlt: {
+      en: "Original Denny Games illustration of a laser beam tracing a path past hidden spheres inside a dark grid",
+      ko: "어두운 격자 안의 숨은 구슬 곁으로 레이저가 지나가는 데니 게임즈 자체 일러스트",
+    },
+    artwork: "/art/open-games/sgt-blackbox.svg",
+    screenshot: "/art/open-games/sgt-blackbox-preview.png",
+    text: {
+      en: {
+        title: "Black Box",
+        searchTitle: "Black Box laser puzzle",
+        subtitle: "Fire a beam. Read the return. Find the hidden balls.",
+        description:
+          "Hidden balls bend or stop light inside a grid. Fire beams from the edges, compare hits, reflections and paired exits, then work out which squares can hold a ball. This calm deduction puzzle has no clock. Denny Games adds a touch mark mode; the original in-game menu remains in English.",
+        rules: [
+          "Tap or click a square around the edge to fire a laser beam into the box.",
+          "H means the beam hit a ball. R means it reflected or passed a ball beside its entry square. Matching numbers show where a beam entered and exited.",
+          "Tap or click a square inside the box to add or remove a guessed ball. Turn on Mark mode to mark a square as known on touch screens.",
+          "When your guesses are ready, use the green check button. Some different ball layouts can produce exactly the same beam results.",
+        ],
+        controls: [
+          "Touch: tap an edge square to fire and a board square to guess. Turn Mark mode on to mark known squares, then turn it off before firing or guessing.",
+          "Mouse: left-click to fire or guess; right-click a square to mark it as known.",
+          "The original game menu and status text are in English. Puzzle progress starts fresh after restart or reload.",
+        ],
+        tips: [
+          "A direct hit stops a beam at the first ball in its path.",
+          "A reflection can come from a ball beside the entry square, so compare beams from nearby edges.",
+          "An exit number pairs with the matching entry number; reason about the path between both ends.",
+        ],
+      },
+      ko: {
+        title: "블랙 박스",
+        searchTitle: "Black Box 레이저 추리 퍼즐",
+        subtitle: "빛을 쏘고, 되돌아온 흔적에서 구슬을 찾아요.",
+        description:
+          "격자 안의 숨은 구슬은 빛을 꺾거나 멈추게 해요. 가장자리에서 빛을 쏘고 직격·반사·입구와 출구의 번호를 비교해 구슬이 있는 칸을 추리하세요. 시간제한 없이 즐기는 논리 퍼즐이에요. 데니 게임즈는 터치 표시 모드를 더했으며 원작 게임 메뉴는 영어로 제공돼요.",
+        rules: [
+          "가장자리 칸을 누르면 상자 안으로 레이저를 쏴요.",
+          "H는 구슬에 바로 맞았다는 뜻이에요. R은 되돌아오거나 입구 옆 구슬에 반사됐다는 뜻이에요. 같은 번호는 빛이 들어간 곳과 나온 곳을 나타내요.",
+          "안쪽 칸을 누르면 구슬 추측을 놓거나 지워요. 터치 화면에서는 게임 위 표시 모드를 켜고 확실한 칸을 표시하세요.",
+          "추측을 마치면 초록색 확인 버튼을 누르세요. 서로 다른 구슬 배치가 같은 빛의 결과를 만들 수도 있어요.",
+        ],
+        controls: [
+          "터치: 가장자리 칸을 눌러 빛을 쏘고 안쪽 칸을 눌러 구슬을 추측해요. 확실한 칸을 표시한 뒤에는 발사나 추측 전에 표시 모드를 끄세요.",
+          "마우스: 왼쪽 클릭은 발사·추측, 오른쪽 클릭은 확실한 칸 표시예요.",
+          "원작 게임 메뉴와 상태 문구는 영어예요. 다시 시작하거나 새로고침하면 퍼즐이 새로 시작돼요.",
+        ],
+        tips: [
+          "직격된 빛은 경로의 첫 구슬에서 멈춰요.",
+          "입구 옆 구슬 때문에 반사될 수도 있어요. 가까운 가장자리에서 쏜 결과를 함께 비교하세요.",
+          "출구의 번호는 같은 번호의 입구와 짝을 이뤄요. 양 끝 사이의 경로를 추리해 보세요.",
+        ],
+      },
+    },
+  },
+  {
     id: "packabunchas",
     category: "puzzle",
     duration: "5–10",

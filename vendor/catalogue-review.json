@@ -1,10 +1,10 @@
 {
-  "reviewedAt": "2026-10-17",
+  "reviewedAt": "2026-10-25",
   "scope": "All 295 entries in the commercial-redistribution research; not every open game worldwide.",
   "counts": {
-    "integrated": 200,
-    "rights-or-integration-review": 21,
-    "port-required": 74
+    "integrated": 203,
+    "rights-or-integration-review": 20,
+    "port-required": 72
   },
   "entries": [
     {
@@ -623,8 +623,8 @@
       "category": "논리 퍼즐 / 네트워크 연결",
       "researchTier": "A",
       "runtime": "P",
-      "status": "port-required",
-      "reason": "공식 20260923.616da16 매뉴얼 목차 수록. 웹 버전 존재, 자체 배포용 빌드와 터치·우클릭 대체 검증 필요. 게임 모음 전체 MIT 배포 명시",
+      "status": "integrated",
+      "reason": "공식 20260923.616da16 WebAssembly 빌드를 로컬 격리 프레임에 통합. 공식 소스 아카이브·MIT 고지와 런타임 해시를 공개하고, 터치 표시 모드 및 일시정지 입력 게이트를 자동화로 확인",
       "source": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/"
     },
     {

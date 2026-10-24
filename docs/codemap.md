@@ -16,6 +16,8 @@
 | `vendor/gridland/`     | Pinned MPL-2.0 source subset, exclusions, runtime build and local save adapter provenance                                                                                       |
 | `src/games/packabunchas/` | Lazy opaque-frame lifecycle adapter and bounded local-save bridge                                                                                                               |
 | `vendor/packabunchas/` | Pinned source with documented local adaptation, lifecycle bridge, source hashes and third-party license notices                                                                  |
+| `src/games/sgt-blackbox/` | Lazy opaque-frame Black Box adapter with focus-loss pause and fresh-channel restart                                                                                                |
+| `vendor/sgt-blackbox/` | Pinned source, local bridge, WebAssembly artifact and license provenance                                                                                                           |
 | `scripts/`             | Docs/rights/output/scale and local/public SEO validation                                                                                                                        |
 | `tests/`               | Unit and browser regression evidence                                                                                                                                            |
 | `.github/workflows/`   | PR checks and main-only Pages deployment                                                                                                                                        |
@@ -34,6 +36,7 @@
 - `src/games/neverball/`: parent lifecycle and bounded native-save adapter.
 - `vendor/neverball/`: pinned upstream source/runtime, notices and opaque-frame host integration.
 - `scripts/build-neverball.mjs`: provenance validation and local no-network runtime generation.
+- `scripts/build-sgt-blackbox.mjs`: pinned source/artifact validation and local no-network WebAssembly runtime generation.
 - `src/components/PromoKit.astro`: bilingual promotional previews, downloads and embed snippets at `/en/promote/` and `/ko/promote/`.
 - `scripts/generate-promo.mjs`, `public/promo/`: original promotional artwork generator and twenty committed PNG assets.
 

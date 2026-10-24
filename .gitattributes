@@ -4,3 +4,7 @@ public/vendor/gridland/runtime/** whitespace=cr-at-eol,-trailing-space,-space-be
 public/vendor/gridland/source/upstream/** whitespace=cr-at-eol,-trailing-space,-space-before-tab,-indent-with-non-tab
 public/vendor/gridland/source/runtime/** whitespace=cr-at-eol,-trailing-space,-space-before-tab,-indent-with-non-tab
 public/licenses/gridland/LICENSE.txt whitespace=-blank-at-eof
+# Preserve pinned Black Box source formatting and hashes in review diffs.
+vendor/sgt-blackbox/upstream/** whitespace=cr-at-eol,-trailing-space,-space-before-tab,-indent-with-non-tab
+public/vendor/sgt-blackbox/source/upstream/** whitespace=cr-at-eol,-trailing-space,-space-before-tab,-indent-with-non-tab
+public/vendor/sgt-blackbox/source/runtime/** whitespace=cr-at-eol,-trailing-space,-space-before-tab,-indent-with-non-tab

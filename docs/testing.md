@@ -85,6 +85,10 @@ Mobile player acceptance includes short 320×568 and 360×640 portrait, 390/430p
 
 `tests/e2e/packabunchas.spec.ts` checks both catalogue locales, the third-party license notices and guide links; the shell scoreboard stays hidden; the touch/mouse-only limitation appears before play; one locally hosted game has five in-game modes; no off-site requests occur; and the opaque frame, bounded browser save bridge, actual mode selection, saved-mode restore, acknowledged pause/resume, pause on iframe focus loss and frozen animation frames work. Chromium, WebKit mobile layout and the Playwright iPad Mini touch profile check the frame at 320×740, 390×844, 820×1180 and 844×390 with no horizontal overflow. `public/art/open-games/packabunchas-preview.png` is captured from a running local game. These are browser-emulation checks only; physical phones and tablets remain unverified.
 
+## Black Box
+
+`tests/e2e/sgt-blackbox.spec.ts` checks English/Korean game and guide routes, the local MIT notice, the no-network opaque frame and actual beam/guess/mouse-mark actions. It verifies that pause gates synthetic input, blur pauses the host, explicit resume works, restart rotates the message channel, stale messages are ignored, and leaving removes the frame. Its touch profile verifies that Mark mode maps touch to the original right-click action without placing a guess. The WebKit mobile command includes the same suite, with touch-specific assertions on iPad Mini. Layout probes cover 320×740, 390×844, 820×1180, 844×390 and 1440×900. The local gameplay preview is captured from the running frame. These checks do not certify physical iPhone/iPad/Android operation or guarantee a unique puzzle solution.
+
 ## Daily completion and return
 
 `daily-progress.spec.ts` completes a real Circuit round and checks next-daily navigation, local persistence, home progress, date rollover, saved-stage defaults, pause without completion, corrupt records, static links, denied storage and phone/iPad widths. `daily.test.ts` covers supported seeds, versions, zero scores and date boundaries. These checks do not establish physical-device signoff or increased retention.

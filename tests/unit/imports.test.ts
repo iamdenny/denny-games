@@ -9,6 +9,7 @@ import hextrisProvenance from "../../vendor/hextris/provenance.json";
 import sokobanProvenance from "../../vendor/sokoban/provenance.json";
 import gridlandProvenance from "../../vendor/gridland/provenance.json";
 import packabunchasProvenance from "../../vendor/packabunchas/provenance.json";
+import blackboxProvenance from "../../vendor/sgt-blackbox/provenance.json";
 import { categoryCopy } from "../../src/data/discovery";
 import { copy } from "../../src/data/i18n";
 import { controlStyles } from "../../src/data/play-styles";
@@ -24,7 +25,7 @@ const externalResearch = JSON.parse(
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(337);
+    expect(games).toHaveLength(338);
     expect(games.filter((game) => game.externalPlay)).toHaveLength(0);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
@@ -45,6 +46,47 @@ describe("import admission and catalogue", () => {
         expect(g.text[l].description.length).toBeGreaterThan(20);
       }
     }
+  });
+  it("pins the Black Box source, license and local-only game route", () => {
+    const game = games.find((entry) => entry.id === "sgt-blackbox");
+    expect(game).toBeDefined();
+    expect(game?.externalPlay).toBeUndefined();
+    expect(game?.license).toBe("MIT");
+    expect(game?.imported).toBe(true);
+    expect(game?.internalScore).toBe(true);
+    expect(game?.inputs).toEqual(["touch", "mouse"]);
+    expect(game?.notice).toBe("/licenses/sgt-blackbox/");
+    expect(game?.guide?.path).toBe("guides/sgt-blackbox");
+    expect(game?.screenshot).toBe("/art/open-games/sgt-blackbox-preview.png");
+    expect(existsSync(`public${game!.screenshot}`)).toBe(true);
+    expect(blackboxProvenance.source_commit).toBe(
+      "616da16f25da428ccda805536209095bd062676e",
+    );
+    expect(blackboxProvenance.license).toBe("MIT");
+    expect(blackboxProvenance.host_adapter.bridge_sha256).toBe(
+      createHash("sha256")
+        .update(readFileSync(blackboxProvenance.host_adapter.bridge))
+        .digest("hex"),
+    );
+    for (const [file, expected] of Object.entries(
+      blackboxProvenance.vendored_source_hashes,
+    )) {
+      expect(
+        createHash("sha256")
+          .update(readFileSync(`vendor/sgt-blackbox/upstream/${file}`))
+          .digest("hex"),
+      ).toBe(expected);
+    }
+    expect(
+      createHash("sha256")
+        .update(readFileSync(blackboxProvenance.source_archive))
+        .digest("hex"),
+    ).toBe(blackboxProvenance.source_archive_sha256);
+    expect(
+      readFileSync("vendor/sgt-blackbox/upstream/LICENCE", "utf8"),
+    ).toMatch(/Permission is hereby granted/);
+    expect(game?.text.en.controls.join(" ")).toContain("Turn Mark mode on");
+    expect(game?.text.ko.controls.join(" ")).toContain("표시 모드를 끄세요");
   });
   it("publishes only games with an in-site player route", () => {
     expect(externalResearch.entries).toHaveLength(149);
@@ -200,11 +242,16 @@ describe("import admission and catalogue", () => {
       readFileSync("vendor/catalogue-review.json", "utf8"),
     );
     expect(review.entries).toHaveLength(295);
+    expect(review.counts).toEqual({
+      integrated: 203,
+      "rights-or-integration-review": 20,
+      "port-required": 72,
+    });
     expect(
       review.entries.filter(
         (g: { status: string }) => g.status === "integrated",
       ),
-    ).toHaveLength(202);
+    ).toHaveLength(203);
     expect(
       review.entries.filter(
         (g: { status: string }) => g.status === "rights-or-integration-review",
