@@ -771,20 +771,20 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         <BoardChoices locale={locale} />
       )}
       <div class="game-grid">
-        {collectionGames(gameCollection.id).map((game) => (
-          <GameCard
-            game={game}
-            locale={locale}
-            directPlay={
-              gameCollection.id === "classic-board" ||
-              gameCollection.id === "traditional-games"
-            }
-          />
+        {collectionGames(gameCollection.id).map((game, index) => (
+          <>
+            <GameCard
+              game={game}
+              locale={locale}
+              directPlay={
+                gameCollection.id === "classic-board" ||
+                gameCollection.id === "traditional-games"
+              }
+            />
+            {index === 7 && <AdsterraBanner locale={locale} />}
+          </>
         ))}
       </div>
-      {collectionGames(gameCollection.id).length >= 8 && (
-        <AdsterraBanner locale={locale} />
-      )}
       <div class="prose">
         <h2>{label("How these games were selected", "이렇게 골랐습니다")}</h2>
         <p>{collectionCopy.criteria}</p>

@@ -51,6 +51,46 @@ test.describe("Adsterra banner", () => {
         });
       });
     }
+  for (const locale of ["ko", "en"])
+    for (const width of [320, 768, 1440]) {
+      test(`${locale} ${width}: long collection ad follows eight games without overflow`, async ({
+        page,
+      }) => {
+        await page.setViewportSize({ width, height: 900 });
+        let requests = 0;
+        await page.route("https://bauval.org/**", (route) => {
+          requests++;
+          return route.fulfill({
+            contentType: "application/javascript",
+            body: "",
+          });
+        });
+        await page.goto(`/${locale}/collections/arcade-century/`);
+        const banner = page.locator("[data-adsterra]");
+        await expect(banner).toBeVisible();
+        await expect(banner.locator("[data-adsterra-choice]")).toBeVisible();
+        await expect(banner.locator("iframe")).toHaveCount(0);
+        expect(await page.locator("[data-adsterra]").count()).toBe(1);
+        expect(
+          await banner.evaluate((element) => {
+            let cardsBefore = 0;
+            for (
+              let sibling = element.previousElementSibling;
+              sibling;
+              sibling = sibling.previousElementSibling
+            )
+              if (sibling.matches("[data-game-card]")) cardsBefore++;
+            return cardsBefore;
+          }),
+        ).toBe(8);
+        expect(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+        ).toBe(true);
+        expect(requests).toBe(0);
+      });
+    }
   test("withdrawal propagates across tabs and player ads stay outside the game", async ({
     page,
     context,
