@@ -636,10 +636,10 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         {collection.map((g) => (
           <GameCard game={g} locale={locale} />
         ))}
+        {categoryGames(category!).length >= 8 && (
+          <AdsterraBanner locale={locale} categoryEligibility />
+        )}
       </div>
-      {categoryGames(category!).length >= 8 && (
-        <AdsterraBanner locale={locale} categoryEligibility />
-      )}
       {categoryGames(category!).length > PAGE_SIZE && (
         <nav
           class="pagination"
