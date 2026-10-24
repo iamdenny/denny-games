@@ -8,6 +8,7 @@ import cycleProvenance from "../../vendor/crisp-cycles/provenance.json";
 import hextrisProvenance from "../../vendor/hextris/provenance.json";
 import sokobanProvenance from "../../vendor/sokoban/provenance.json";
 import gridlandProvenance from "../../vendor/gridland/provenance.json";
+import packabunchasProvenance from "../../vendor/packabunchas/provenance.json";
 import { categoryCopy } from "../../src/data/discovery";
 import { copy } from "../../src/data/i18n";
 import { controlStyles } from "../../src/data/play-styles";
@@ -23,7 +24,7 @@ const externalResearch = JSON.parse(
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(336);
+    expect(games).toHaveLength(337);
     expect(games.filter((game) => game.externalPlay)).toHaveLength(0);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
@@ -203,12 +204,68 @@ describe("import admission and catalogue", () => {
       review.entries.filter(
         (g: { status: string }) => g.status === "integrated",
       ),
-    ).toHaveLength(201);
+    ).toHaveLength(202);
     expect(
       review.entries.filter(
         (g: { status: string }) => g.status === "rights-or-integration-review",
       ),
-    ).toHaveLength(21);
+    ).toHaveLength(20);
+    const packabunchas = games.find((game) => game.id === "packabunchas")!;
+    expect(packabunchas.externalPlay).toBeUndefined();
+    expect(packabunchas.license).toBe("MIT + CC BY-SA 3.0/4.0 snippets");
+    expect(packabunchas.internalScore).toBe(true);
+    expect(packabunchas.licenseDescription?.en).toContain(
+      "CC BY-SA 3.0 and 4.0",
+    );
+    expect(packabunchas.notice).toBe("/licenses/packabunchas/");
+    expect(packabunchas.imported).toBe(true);
+    expect(packabunchas.stages).toBe(1);
+    expect(packabunchas.inputs).toEqual(["touch", "mouse"]);
+    expect(packabunchas.screenshot).toBe(
+      "/art/open-games/packabunchas-preview.png",
+    );
+    expect(packabunchas.guide?.path).toBe("guides/packabunchas");
+    expect(packabunchas.text.en.description).toContain("Five modes");
+    expect(packabunchas.text.ko.description).toContain("다섯 가지 모드");
+    expect(packabunchasProvenance.upstream_source_hashes["game.js"]).toBe(
+      "120022f7676bc060b58c8ae8e53ed155952d8e8b1b0a53a0e379ca879eb36eab",
+    );
+    expect(packabunchasProvenance.source_adaptations[0]).toContain(
+      "CodePen-linked lerp helper",
+    );
+    for (const [file, expected] of Object.entries(
+      packabunchasProvenance.vendored_source_hashes,
+    )) {
+      expect(
+        createHash("sha256")
+          .update(readFileSync(`vendor/packabunchas/upstream/${file}`))
+          .digest("hex"),
+      ).toBe(expected);
+    }
+    for (const [file, expected] of Object.entries(
+      packabunchasProvenance.product_artwork,
+    )) {
+      expect(
+        createHash("sha256").update(readFileSync(file)).digest("hex"),
+      ).toBe(expected);
+    }
+    expect(
+      readFileSync(
+        "public/licenses/packabunchas/THIRD-PARTY-NOTICES.txt",
+        "utf8",
+      ),
+    ).toMatch(/Frank Force/);
+    expect(
+      readFileSync(
+        "public/licenses/packabunchas/THIRD-PARTY-NOTICES.txt",
+        "utf8",
+      ),
+    ).toMatch(/Keith Clark/);
+    const packabunchasNotices = readFileSync(
+      "public/licenses/packabunchas/THIRD-PARTY-NOTICES.txt",
+      "utf8",
+    );
+    expect(packabunchasNotices).not.toContain("ma77os");
     const gridland = games.find((game) => game.id === "gridland")!;
     expect(gridland.externalPlay).toBeUndefined();
     expect(gridland.license).toBe("MPL-2.0");

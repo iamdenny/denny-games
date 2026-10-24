@@ -14,6 +14,8 @@
 | `vendor/crisp-cycles/` | Pinned source, image/audio hashes and provenance for games with their own Crisp arcade cycles                                                                                   |
 | `vendor/bounceback/`   | Pinned GPL source, hash provenance and isolated host adapter for Bounce Back                                                                                                    |
 | `vendor/gridland/`     | Pinned MPL-2.0 source subset, exclusions, runtime build and local save adapter provenance                                                                                       |
+| `src/games/packabunchas/` | Lazy opaque-frame lifecycle adapter and bounded local-save bridge                                                                                                               |
+| `vendor/packabunchas/` | Pinned source with documented local adaptation, lifecycle bridge, source hashes and third-party license notices                                                                  |
 | `scripts/`             | Docs/rights/output/scale and local/public SEO validation                                                                                                                        |
 | `tests/`               | Unit and browser regression evidence                                                                                                                                            |
 | `.github/workflows/`   | PR checks and main-only Pages deployment                                                                                                                                        |

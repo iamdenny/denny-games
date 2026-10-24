@@ -520,12 +520,17 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
                     )
                   : game.id === "sokoban"
                     ? label("MIT license", "MIT 라이선스")
-                    : game.id === "hextris"
+                    : game.id === "packabunchas"
                       ? label(
-                          "GPL-3.0-or-later source and dependency notices",
-                          "GPL-3.0-or-later 소스와 의존성 고지",
+                          "License notices and pinned source",
+                          "라이선스 고지와 고정 원본 소스",
                         )
-                      : label("MIT notices and source", "MIT 고지와 출처")}
+                      : game.id === "hextris"
+                        ? label(
+                            "GPL-3.0-or-later source and dependency notices",
+                            "GPL-3.0-or-later 소스와 의존성 고지",
+                          )
+                        : label("MIT notices and source", "MIT 고지와 출처")}
                 {" · "}
               </a>
             )}

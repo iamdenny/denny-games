@@ -160,6 +160,7 @@ describe("play-style discovery", () => {
 
       "neverball",
       "neverputt",
+      "packabunchas",
       "gridland",
       "sokoban",
     ]);

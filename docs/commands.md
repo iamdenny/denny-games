@@ -32,6 +32,8 @@ Use `npx playwright install chromium` once for local browser tests. No environme
 
 `node scripts/build-agentic.mjs` verifies retained source/artwork hashes and generates the eleven independent Canvas frames. It runs during `npm run build`; when working through the dev server, run it explicitly after editing the owned adapter or source manifest. Generated frames belong in `public/vendor/agentic/`; retained sources and provenance belong in `vendor/agentic/`.
 
+`node scripts/build-packabunchas.mjs` verifies the pinned upstream file and product-art hashes, applies the checked local-save bridge patch, and generates the opaque-frame runtime and license notices. It runs during `npm run build`; the source snapshot and provenance remain in `vendor/packabunchas/`.
+
 `npm run test:century-devices` runs all 100 new games in WebKit and Chromium with actual touch input and phone, tablet, wide and short-landscape containment checks. This manual matrix uses its own preview port (`PLAYWRIGHT_PORT`, default 43165); use a separate output directory if another browser suite is running. It does not certify physical devices.
 
 ## Filtered game admission

@@ -42,11 +42,13 @@ const nextGame =
       : "bottom"
   }
   data-stage-ratio={
-    game.id === "orbit-break"
-      ? 640 / 680
-      : game.id === "four-in-a-row"
-        ? 7 / 6
-        : 1
+    game.id === "packabunchas"
+      ? 9 / 16
+      : game.id === "orbit-break"
+        ? 640 / 680
+        : game.id === "four-in-a-row"
+          ? 7 / 6
+          : 1
   }
   data-id={game.id}
   data-locale={locale}
