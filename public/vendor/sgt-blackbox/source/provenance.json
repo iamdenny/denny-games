@@ -1,0 +1,51 @@
+{
+  "source_repository": "https://git.tartarus.org/simon/puzzles",
+  "source_commit": "616da16f25da428ccda805536209095bd062676e",
+  "source_version": "20260923.616da16",
+  "source_archive": "vendor/sgt-blackbox/upstream/puzzles-20260923.616da16.tar.gz",
+  "source_archive_url": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/puzzles-20260923.616da16.tar.gz",
+  "source_archive_sha256": "cc419c8060b4e22be398aa03e30651fbce146eee510645c303fb6f5f1b77b78e",
+  "license": "MIT",
+  "license_file": "vendor/sgt-blackbox/upstream/LICENCE",
+  "official_runtime_page": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/blackbox.html",
+  "official_runtime_files": {
+    "blackbox.html": {
+      "source": "vendor/sgt-blackbox/upstream/blackbox.html",
+      "url": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/blackbox.html",
+      "sha256": "c26204aed3296a641e5371ecad68c887a1b340e07eb9ed32b2b19f007668450b"
+    },
+    "blackbox.js": {
+      "source": "vendor/sgt-blackbox/upstream/blackbox.js",
+      "url": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/blackbox.js",
+      "sha256": "dd86d0ed0c58572c663617dc0d34875609d2357cda27d106dd51be4887300ce2"
+    },
+    "blackbox.wasm": {
+      "source": "vendor/sgt-blackbox/upstream/blackbox.wasm",
+      "url": "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/blackbox.wasm",
+      "sha256": "f59efad7f577c6ae6cf105705812588db01a0054aed396b7e6040af872f13e05"
+    }
+  },
+  "vendored_source_hashes": {
+    "LICENCE": "eb18a1d915cb923b2da9fb1e79bcdf677b17ebfaada9ce5d5252e384266029c6",
+    "blackbox.html": "c26204aed3296a641e5371ecad68c887a1b340e07eb9ed32b2b19f007668450b",
+    "blackbox.js": "dd86d0ed0c58572c663617dc0d34875609d2357cda27d106dd51be4887300ce2",
+    "blackbox.wasm": "f59efad7f577c6ae6cf105705812588db01a0054aed396b7e6040af872f13e05",
+    "puzzles-20260923.616da16.tar.gz": "cc419c8060b4e22be398aa03e30651fbce146eee510645c303fb6f5f1b77b78e"
+  },
+  "host_adapter": {
+    "bridge": "vendor/sgt-blackbox/bridge.js",
+    "bridge_sha256": "deee2341c25e55f63d10fb33e845a4339d94690607993ea07ec9fae4aa03175a",
+    "source_adaptations": [
+      "The checked official WebAssembly bytes are injected into Module.wasmBinary so runtime startup requires no fetch or connection permission.",
+      "The official runtime preference reads and writes are redirected to an in-frame memory value because opaque origins cannot use localStorage; puzzle progress is not persisted.",
+      "Trailing whitespace is removed from the adapted inlined runtime output; the retained official JavaScript artifact remains byte-exact.",
+      "The host bridge gates animation frames and all game input until explicit start, pauses frames while paused, and adds a touch mark mode that maps taps to the original right mouse button.",
+      "The official HTML is wrapped in a local no-network document with a restrictive CSP; external page chrome and links are hidden from the game surface, and a source comment containing a script-close token is escaped before inline delivery.",
+      "Losing focus from the running opaque frame notifies the host and pauses the puzzle; resuming requires an explicit player action."
+    ]
+  },
+  "archive_verification": {
+    "published_sha256_reference": "https://fredygames.com/bundles/sgt-blackbox/src/build-sgt-puzzles.sh",
+    "note": "The official archive host timed out during retrieval. The matching source archive bytes were obtained from a mirror, verified against the independently published digest and checked against source revision 616da16."
+  }
+}

@@ -131,7 +131,8 @@ stageObserver.observe(root);
 stageObserver.observe(root.querySelector(".player-top")!);
 function save(): boolean {
   if (!game) return false;
-  const ok = write(savedKey(), game.serialize());
+  const snapshot = game.serialize();
+  const ok = snapshot === undefined || write(savedKey(), snapshot);
   const stageSaved = write(`stage:${id}`, stage);
   if (!ok || !stageSaved) el("game-message").textContent = text.storageError;
   return ok && stageSaved;
@@ -332,7 +333,9 @@ function mount(saved: boolean) {
   game.setVolume?.(Number(volume.value) / 100);
   el("best").textContent = formatScore(best());
   show(
-    id.startsWith("crisp-") || id.startsWith("agentic-")
+    id.startsWith("crisp-") ||
+      id.startsWith("agentic-") ||
+      id === "sgt-blackbox"
       ? text.loading
       : text.ready,
     root.dataset.instructions,
@@ -342,6 +345,7 @@ function mount(saved: boolean) {
   start.disabled =
     id.startsWith("crisp-") ||
     id.startsWith("agentic-") ||
+    id === "sgt-blackbox" ||
     id === "gridland" ||
     id === "neverball" ||
     id === "neverputt";
@@ -716,6 +720,7 @@ try {
     "snack-street": () => import("../games/snack-street"),
     "pocket-pingpong": () => import("../games/pocket-pingpong"),
     packabunchas: () => import("../games/packabunchas"),
+    "sgt-blackbox": () => import("../games/sgt-blackbox"),
     gonggi: () => import("../games/gonggi"),
     "jegi-rally": () => import("../games/jegi-rally"),
     "ember-maze": () => import("../games/ember-maze"),

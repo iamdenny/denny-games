@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Black Box — Denny Games</title>
+  <desc id="desc">A laser beam bends between hidden balls in a dark logic-puzzle grid.</desc>
+  <defs>
+    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#18383c"/>
+      <stop offset="1" stop-color="#101b27"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#79e6d6" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#79e6d6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="beam" x="-30%" y="-50%" width="160%" height="200%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#a9c0c2" stroke-opacity=".16" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" rx="34" fill="#0d171f"/>
+  <rect x="16" y="16" width="768" height="568" rx="26" fill="url(#surface)" stroke="#52767a" stroke-width="2"/>
+  <circle cx="464" cy="296" r="290" fill="url(#glow)"/>
+  <g transform="translate(196 86)">
+    <rect width="406" height="406" rx="18" fill="#14242e" stroke="#9ab9bc" stroke-width="4"/>
+    <rect x="3" y="3" width="400" height="400" rx="15" fill="url(#grid)"/>
+    <g fill="#8da6ac" opacity=".28">
+      <circle cx="84" cy="126" r="15"/><circle cx="252" cy="210" r="15"/><circle cx="336" cy="294" r="15"/>
+    </g>
+    <g fill="#d9f05c" stroke="#14242e" stroke-width="7">
+      <circle cx="168" cy="126" r="17"/><circle cx="294" cy="336" r="17"/>
+    </g>
+    <path d="M-52 252H84L126 210H210L252 252H336L378 210H456" fill="none" stroke="#53dfd1" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#beam)"/>
+    <path d="M-52 252H84L126 210H210L252 252H336L378 210H456" fill="none" stroke="#d7fff7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#d7fff7" stroke="#14242e" stroke-width="5">
+      <circle cx="84" cy="252" r="7"/><circle cx="336" cy="252" r="7"/>
+    </g>
+    <g fill="#12222a" stroke="#d9f05c" stroke-width="3">
+      <circle cx="0" cy="252" r="20"/><circle cx="406" cy="210" r="20"/>
+    </g>
+    <g fill="#d9f05c" font-family="system-ui,sans-serif" font-size="17" font-weight="800" text-anchor="middle">
+      <text x="0" y="258">1</text><text x="406" y="216">1</text>
+    </g>
+  </g>
+  <g font-family="system-ui,sans-serif" fill="#f7f2e6">
+    <text x="64" y="536" font-size="15" font-weight="700" letter-spacing="3" fill="#83dace">TRACE THE LIGHT</text>
+    <text x="64" y="566" font-size="22" font-weight="850">BLACK BOX</text>
+  </g>
+  <circle cx="690" cy="520" r="26" fill="#d9f05c"/>
+  <path d="m685 508 18 12-18 12z" fill="#17252a"/>
+</svg>
