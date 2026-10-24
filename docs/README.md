@@ -6,7 +6,7 @@ Read [current PRD](product/PRD.md), [architecture](architecture.md), and [accept
 - [Gonggi browser game PRD](product/GONGGI-GAME.md): five-stage Korean five-stones game and its evidence boundaries.
 - [Visible multi-stage progression (ADR 0042)](adr/0042-visible-multi-stage-progression.md): expose stage counts and a next-stage action.
 - [Original local Klondike Solitaire (ADR 0060)](adr/0060-local-klondike-solitaire.md): Draw 1/Draw 3, card accessibility and validated local saves.
-- [PACKABUNCHAS import (ADR 0062)](adr/0062-packabunchas-import.md): five-mode puzzle, opaque no-network runtime and local progress bridge.
+- [PACKABUNCHAS import (ADR 0063)](adr/0063-packabunchas-import.md): five-mode puzzle, opaque no-network runtime and local progress bridge.
 
 - [Commands and setup](commands.md)
 - [Testing and evidence](testing.md)

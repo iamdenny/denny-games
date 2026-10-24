@@ -91,6 +91,60 @@ test.describe("Adsterra banner", () => {
         expect(requests).toBe(0);
       });
     }
+  for (const locale of ["ko", "en"])
+    for (const width of [320, 768, 1440]) {
+      test(`${locale} ${width}: category ad follows eight sorted results`, async ({
+        page,
+      }) => {
+        await page.setViewportSize({ width, height: 900 });
+        let requests = 0;
+        await page.route("https://bauval.org/**", (route) => {
+          requests++;
+          return route.fulfill({
+            contentType: "application/javascript",
+            body: "",
+          });
+        });
+        await page.addInitScript(
+          ({ storageKey }) => localStorage.setItem(storageKey, "allowed"),
+          { storageKey: key },
+        );
+        await page.goto(`/${locale}/category/arcade/`);
+        const banner = page.locator("[data-adsterra-category]");
+        const cardsBefore = () =>
+          banner.evaluate((element) => {
+            let count = 0;
+            for (
+              let sibling = element.previousElementSibling;
+              sibling;
+              sibling = sibling.previousElementSibling
+            )
+              if (sibling.matches("[data-game-card]")) count++;
+            return count;
+          });
+        const firstCard = () =>
+          page
+            .locator(".game-grid [data-game-card]")
+            .first()
+            .getAttribute("data-game-card");
+        await expect(banner).toBeVisible();
+        await expect(banner.locator("iframe")).toHaveCount(1);
+        expect(await cardsBefore()).toBe(8);
+        expect(requests).toBe(1);
+
+        const recommendedFirst = await firstCard();
+        await page.locator("[data-sort]").selectOption("name");
+        await expect.poll(firstCard).not.toBe(recommendedFirst);
+        await expect.poll(cardsBefore).toBe(8);
+        expect(await page.locator("[data-adsterra]").count()).toBe(1);
+        expect(requests).toBe(1);
+        expect(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+        ).toBe(true);
+      });
+    }
   test("withdrawal propagates across tabs and player ads stay outside the game", async ({
     page,
     context,

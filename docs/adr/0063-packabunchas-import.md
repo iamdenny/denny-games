@@ -1,5 +1,5 @@
 ---
-title: "ADR 0062 — PACKABUNCHAS local puzzle import"
+title: "ADR 0063 — PACKABUNCHAS local puzzle import"
 summary: "Host PACKABUNCHAS locally with a bounded save bridge, pauseable opaque frame and explicit five-mode scope."
 read_when:
   - Changing PACKABUNCHAS source, controls, save behavior or runtime isolation
