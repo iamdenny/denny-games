@@ -50,9 +50,9 @@ test("explicit locale and manual switching override browser language", async ({
   await expect(page).toHaveURL("/en/games/2048/?ref=shared#main");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await page.locator('[data-locale-link][lang="ko"]').click();
-  await expect(page).toHaveURL("/ko/games/2048/?ref=shared");
+  await expect(page).toHaveURL("/ko/games/2048/?ref=shared#main");
   await page.locator('[data-locale-link][lang="en"]').click();
-  await expect(page).toHaveURL("/en/games/2048/?ref=shared");
+  await expect(page).toHaveURL("/en/games/2048/?ref=shared#main");
   await context.close();
 });
 
@@ -87,13 +87,13 @@ test("root keeps bilingual links and verification metadata without JavaScript", 
 });
 
 // Header links must work before the deferred site bundle finishes loading.
-test("locale links preserve queries without external scripts", async ({
+test("locale links preserve queries and fragments without external scripts", async ({
   page,
 }) => {
   await page.route("**/*.js", (route) => route.abort());
   await page.goto("/en/games/2048/?ref=shared#main");
   await page.locator('[data-locale-link][lang="ko"]').click();
-  await expect(page).toHaveURL("/ko/games/2048/?ref=shared");
+  await expect(page).toHaveURL("/ko/games/2048/?ref=shared#main");
   await page.locator('[data-locale-link][lang="en"]').click();
-  await expect(page).toHaveURL("/en/games/2048/?ref=shared");
+  await expect(page).toHaveURL("/en/games/2048/?ref=shared#main");
 });

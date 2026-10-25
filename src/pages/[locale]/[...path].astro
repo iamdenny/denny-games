@@ -174,7 +174,6 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           >
             <input
               type="search"
-              name="q"
               aria-label={text.search}
               placeholder={text.search}
             />
@@ -182,6 +181,12 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
               ⌕
             </button>
           </form>
+          <p class="notice no-js-search-fallback home-no-js-fallback">
+            {label(
+              "Search needs JavaScript.",
+              "검색하려면 JavaScript가 필요해요.",
+            )}
+          </p>
         </div>
       </section>
       <QuickPlay locale={locale} />
@@ -846,7 +851,6 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         <label for="search-query">{text.search}</label>
         <input
           id="search-query"
-          name="q"
           type="search"
           aria-label={text.search}
           placeholder={text.search}
@@ -925,6 +929,12 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
           <button type="reset">{label("Clear filters", "조건 초기화")}</button>
         </div>
       </form>
+      <p class="notice no-js-search-fallback">
+        {label(
+          "Search needs JavaScript. Browse the game categories and static collections below.",
+          "검색에는 JavaScript가 필요해요. 아래 장르와 게임 모음을 둘러보세요.",
+        )}
+      </p>
       <p id="result-count" role="status"></p>
       <ul id="search-results" class="results-list" role="list"></ul>
       <nav
@@ -932,14 +942,6 @@ const label = (en: string, ko: string) => (locale === "ko" ? ko : en);
         class="pagination"
         aria-label={label("Search pages", "검색 결과 페이지")}
       ></nav>
-      <noscript>
-        <p>
-          {label(
-            "Search filters need JavaScript. Browse the static collections below instead.",
-            "검색 필터에는 JavaScript가 필요합니다. 아래 정적 게임 모음에서 탐색하세요.",
-          )}
-        </p>
-      </noscript>
       <p id="search-empty" hidden>
         {text.searchEmpty}
       </p>

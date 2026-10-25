@@ -35,7 +35,7 @@ for (const viewport of [
           await page.evaluate(() =>
             localStorage.getItem("denny-games.analytics-consent"),
           ),
-        ).toBe(choice === "allow" ? "granted-v2" : "denied");
+        ).toBe(choice === "allow" ? "granted-v3" : "denied");
         await page.locator("#start-button").click();
         await expect(page.locator("#game-overlay")).toBeHidden();
         await page.locator("#pause-button").click();

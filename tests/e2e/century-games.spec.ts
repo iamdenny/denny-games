@@ -158,7 +158,7 @@ test("century imported start analytics respects consent and does not count pause
   page,
 }) => {
   await page.addInitScript(() =>
-    localStorage.setItem("denny-games.analytics-consent", "granted-v2"),
+    localStorage.setItem("denny-games.analytics-consent", "granted-v3"),
   );
   await page.goto("/en/play/agentic-blink-scope/");
   const events = () =>
@@ -188,7 +188,7 @@ test("century natural loss emits one consented completion", async ({
 }) => {
   test.setTimeout(90000);
   await page.addInitScript(() =>
-    localStorage.setItem("denny-games.analytics-consent", "granted-v2"),
+    localStorage.setItem("denny-games.analytics-consent", "granted-v3"),
   );
   await page.goto("/en/play/agentic-blink-scope/");
   await page.locator("#start-button").click();

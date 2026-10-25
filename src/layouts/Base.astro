@@ -37,6 +37,45 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
 <html lang={locale}>
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      document.documentElement.classList.add("js-enabled");
+      (() => {
+        const url = new URL(location.href);
+        const searchRoute = /^\/(?:en|ko)\/search\/$/.test(url.pathname);
+        const searchStateKeys = [
+          "q",
+          "category",
+          "control",
+          "length",
+          "mode",
+          "page",
+        ];
+        const searchTermKeys = ["q", "s", "search", "query", "keyword"];
+        const keys = searchRoute
+          ? [...new Set([...searchStateKeys, ...searchTermKeys])]
+          : searchTermKeys;
+        const state = new URLSearchParams(url.hash.slice(1));
+        let changed = false;
+        for (const key of keys) {
+          if (!url.searchParams.has(key)) continue;
+          if (searchRoute) {
+            const value = url.searchParams.get(key);
+            if (value) {
+              if (searchTermKeys.includes(key)) {
+                if (!state.has("q")) state.set("q", value);
+              } else if (!state.has(key)) {
+                state.set(key, value);
+              }
+            }
+          }
+          url.searchParams.delete(key);
+          changed = true;
+        }
+        if (!changed) return;
+        if (searchRoute) url.hash = state.toString();
+        history.replaceState(history.state, "", url);
+      })();
+    </script>
     <slot name="head" />
     <meta
       name="viewport"
@@ -178,6 +217,7 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
     <script is:inline>
       document.querySelectorAll("[data-locale-link]").forEach((link) => {
         link.search = location.search;
+        link.hash = location.hash;
       });
     </script>
     <aside
@@ -188,8 +228,8 @@ const alternate = (lang: string) => `${base}/${lang}/${path ? path + "/" : ""}`;
     >
       <p data-analytics-consent-message>
         {locale === "ko"
-          ? "방문 통계 개선을 위해 페이지 조회, 게임 시작·종료 횟수와 게임 ID, 기본 브라우저 정보를 Google Analytics로 보낼 수 있어요. 검색어·입력값·게임 점수는 보내지 않으며 언제든 선택을 바꿀 수 있습니다."
-          : "You can share page views, game starts and completions with the game ID, and basic browser information with Google Analytics to improve Denny Games. Search terms, typed input and game scores are excluded. You can change this choice any time."}
+          ? "방문 통계 개선을 위해 페이지 조회, 게임 시작·종료와 게임 ID, 검색어 입력 여부·필터 수·결과 수, 기본 브라우저 정보를 Google Analytics로 보낼 수 있어요. 검색어 원문·폼 입력·게임 점수는 보내지 않으며 언제든 선택을 바꿀 수 있습니다."
+          : "You can share page views, game starts and completions with the game ID, aggregate catalogue-search details (whether text was entered, filter count and result count), and basic browser information with Google Analytics. Search terms, form text and game scores are excluded. You can change this choice any time."}
         <a href={`/${locale}/privacy/`}>
           {locale === "ko" ? "개인정보 안내" : "Privacy details"}
         </a>

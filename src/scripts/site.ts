@@ -1,7 +1,7 @@
 import { read, write, list, toggleFavorite } from "../lib/storage";
 import { connectGamepad, focusNext } from "../lib/input";
 import { initDisplayAds } from "../lib/ads";
-import { initAnalytics } from "../lib/analytics";
+import { initAnalytics, markCatalogueSearchSubmission } from "../lib/analytics";
 import { loadCatalogue, makeCard } from "../lib/cards";
 import { t } from "../data/i18n";
 import type { Locale } from "../lib/types";
@@ -22,7 +22,22 @@ document
   .querySelectorAll<HTMLAnchorElement>("[data-locale-link]")
   .forEach((link) => {
     link.search = location.search;
+    link.hash = location.hash;
   });
+const homeSearch = document.querySelector<HTMLFormElement>(".home-search");
+homeSearch?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  markCatalogueSearchSubmission();
+  const query =
+    homeSearch.querySelector<HTMLInputElement>('input[type="search"]')?.value ??
+    "";
+  const target = new URL(homeSearch.action, location.href);
+  if (query.trim())
+    target.hash = new URLSearchParams({
+      q: query.trim().slice(0, 120),
+    }).toString();
+  location.assign(target);
+});
 let refreshing = 0;
 async function refreshLibrary() {
   const grids = [...document.querySelectorAll<HTMLElement>("[data-library]")];

@@ -2,6 +2,7 @@ const measurementId = "G-5NZLTVBG5Y";
 const consentKey = "denny-games.analytics-consent";
 const disabledKey = `ga-disable-${measurementId}`;
 const cookiePrefix = "dennygames";
+const catalogueSearchSubmissionKey = "denny-games.catalog-search-submitted";
 
 type Consent = "granted" | "denied" | null;
 declare global {
@@ -13,11 +14,12 @@ declare global {
 
 let initialized = false;
 let activeGame: string | null = null;
+let consentRevision = 0;
 
 function readConsent(): Consent {
   try {
     const value = localStorage.getItem(consentKey);
-    return value === "granted-v2"
+    return value === "granted-v3"
       ? "granted"
       : value === "denied"
         ? "denied"
@@ -31,7 +33,7 @@ function saveConsent(value: Exclude<Consent, null>): boolean {
   try {
     localStorage.setItem(
       consentKey,
-      value === "granted" ? "granted-v2" : value,
+      value === "granted" ? "granted-v3" : value,
     );
     return true;
   } catch {
@@ -128,6 +130,7 @@ export function initAnalytics(): void {
   };
 
   const choose = (choice: Exclude<Consent, null>) => {
+    consentRevision++;
     if (!saveConsent(choice)) {
       if (choice === "granted") {
         showStorageError();
@@ -157,6 +160,7 @@ export function initAnalytics(): void {
 
   window.addEventListener("storage", (event) => {
     if (event.key !== consentKey && event.key !== null) return;
+    consentRevision++;
     const nextConsent = readConsent();
     panel.hidden = nextConsent !== null;
     if (nextConsent === "granted") startAnalytics();
@@ -195,4 +199,75 @@ export function trackGameAnalytics(event: string, game: string): void {
     page_location: `${location.origin}${location.pathname}`,
     page_referrer: sanitizedReferrer(),
   });
+}
+
+/** Send only an aggregate search outcome, never the query or selected values. */
+export function trackCatalogueSearch(summary: {
+  hasQuery: boolean;
+  filterCount: number;
+  resultCount: number;
+}): void {
+  if (!initialized || readConsent() !== "granted") return;
+  if (
+    location.pathname !== "/en/search/" &&
+    location.pathname !== "/ko/search/"
+  )
+    return;
+  if (
+    typeof summary.hasQuery !== "boolean" ||
+    !Number.isInteger(summary.filterCount) ||
+    summary.filterCount < 0 ||
+    summary.filterCount > 4 ||
+    !Number.isInteger(summary.resultCount) ||
+    summary.resultCount < 0 ||
+    summary.resultCount > 10_000 ||
+    (!summary.hasQuery && summary.filterCount === 0)
+  )
+    return;
+
+  window.gtag?.("event", "catalog_search", {
+    send_to: measurementId,
+    search_has_query: summary.hasQuery,
+    search_filter_count: summary.filterCount,
+    search_result_count: summary.resultCount,
+    page_location: `${location.origin}${location.pathname}`,
+    page_referrer: sanitizedReferrer(),
+  });
+}
+
+/** Search controls use this before scheduling delayed measurements. */
+export function analyticsIsActive(): boolean {
+  return initialized && readConsent() === "granted";
+}
+
+/** Delayed measurements are discarded if consent changes before they run. */
+export function analyticsConsentRevision(): number {
+  return consentRevision;
+}
+
+/** Preserve an explicit, consented home-search action across its page load. */
+export function markCatalogueSearchSubmission(): void {
+  if (!analyticsIsActive()) return;
+  try {
+    sessionStorage.setItem(catalogueSearchSubmissionKey, String(Date.now()));
+  } catch {
+    // Storage restrictions must not affect search or analytics consent.
+  }
+}
+
+/** Consume a short-lived flag; search text itself is never stored here. */
+export function consumeCatalogueSearchSubmission(): boolean {
+  try {
+    const value = sessionStorage.getItem(catalogueSearchSubmissionKey);
+    sessionStorage.removeItem(catalogueSearchSubmissionKey);
+    if (!value) return false;
+    const submittedAt = Number(value);
+    return (
+      Number.isFinite(submittedAt) &&
+      submittedAt <= Date.now() &&
+      Date.now() - submittedAt <= 15_000
+    );
+  } catch {
+    return false;
+  }
 }

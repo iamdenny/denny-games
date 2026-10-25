@@ -70,7 +70,7 @@ for (const id of ["minefield-watch", "mosaic-mystery"])
       ({ key, state }) => {
         if (!localStorage.getItem(key))
           localStorage.setItem(key, JSON.stringify(state));
-        localStorage.setItem("denny-games.analytics-consent", "granted-v2");
+        localStorage.setItem("denny-games.analytics-consent", "granted-v3");
       },
       { key, state },
     );

@@ -49,7 +49,7 @@ test("search composes filters, preserves URL and language, handles history and r
   await expect(page.locator("#search-results")).toContainText("PARKING");
   await expect(page.locator('[data-locale-link][lang="ko"]')).toHaveAttribute(
     "href",
-    /q=PARKING.*category=racing/,
+    /#q=PARKING&category=racing/,
   );
   await page.reload();
   await expect(page.locator("#search-results li")).toHaveCount(1);

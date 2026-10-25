@@ -12,6 +12,12 @@ import {
   playModesFor,
 } from "../data/play-styles";
 import { t } from "../data/i18n";
+import {
+  analyticsConsentRevision,
+  analyticsIsActive,
+  consumeCatalogueSearchSubmission,
+  trackCatalogueSearch,
+} from "../lib/analytics";
 import type { Locale } from "../lib/types";
 const locale = document.documentElement.lang as Locale,
   text = t(locale);
@@ -32,8 +38,16 @@ const filterCount = document.querySelector<HTMLElement>(
   "#search-filter-count",
 )!;
 const searchAd = document.querySelector<HTMLElement>("[data-adsterra-search]");
+const searchStateKeys = ["q", "category", "control", "length", "mode", "page"];
+const submittedFromHomeConsentRevision = analyticsConsentRevision();
+const submittedFromHome = consumeCatalogueSearchSubmission();
 let items: CatalogueItem[] = [],
-  timer: ReturnType<typeof setTimeout>;
+  timer: ReturnType<typeof setTimeout>,
+  analyticsTimer: ReturnType<typeof setTimeout>,
+  catalogueLoaded = false,
+  currentResultCount = 0,
+  pendingAnalyticsRevision: number | null = null,
+  emittedAnalyticsStates = new Set<string>();
 
 function resultCard(item: CatalogueItem): HTMLLIElement {
   const li = document.createElement("li");
@@ -121,7 +135,22 @@ function updateUrl(url: URL, push: boolean) {
     .querySelectorAll<HTMLAnchorElement>("[data-locale-link]")
     .forEach((link) => {
       link.search = url.search;
+      link.hash = url.hash;
     });
+}
+function readSearchState(): URLSearchParams {
+  const state = new URLSearchParams(location.hash.slice(1));
+  const legacy = new URLSearchParams(location.search);
+  for (const key of searchStateKeys)
+    if (!state.has(key) && legacy.has(key))
+      state.set(key, legacy.get(key) ?? "");
+  if (!state.has("q"))
+    for (const key of ["s", "search", "query", "keyword"])
+      if (legacy.has(key)) {
+        state.set("q", legacy.get(key) ?? "");
+        break;
+      }
+  return state;
 }
 function render(requested: string | null = "1", push = false) {
   const query = input.value.slice(0, 120);
@@ -134,6 +163,7 @@ function render(requested: string | null = "1", push = false) {
     }),
     query,
   );
+  currentResultCount = matches.length;
   const page = searchPage(requested, matches.length);
   results.replaceChildren();
   const pageItems = paginate(matches, page);
@@ -151,6 +181,8 @@ function render(requested: string | null = "1", push = false) {
   empty.hidden = matches.length > 0;
   const url = new URL(location.href);
   url.search = "";
+  url.hash = "";
+  const state = new URLSearchParams();
   for (const [key, value] of Object.entries({
     q: query,
     category: category.value,
@@ -158,15 +190,18 @@ function render(requested: string | null = "1", push = false) {
     length: length.value,
     mode: mode.value,
   }))
-    if (value) url.searchParams.set(key, value);
-  if (page > 1) url.searchParams.set("page", String(page));
+    if (value) state.set(key, value);
+  if (page > 1) state.set("page", String(page));
+  url.hash = state.toString();
   updateUrl(url, push);
   pages.replaceChildren();
   for (let n = 1; n <= Math.ceil(matches.length / PAGE_SIZE); n++) {
     const link = document.createElement("a"),
       target = new URL(url);
-    if (n > 1) target.searchParams.set("page", String(n));
-    else target.searchParams.delete("page");
+    const targetState = new URLSearchParams(target.hash.slice(1));
+    if (n > 1) targetState.set("page", String(n));
+    else targetState.delete("page");
+    target.hash = targetState.toString();
     link.href = target.href;
     link.textContent = String(n);
     if (n === page) link.setAttribute("aria-current", "page");
@@ -178,8 +213,52 @@ function render(requested: string | null = "1", push = false) {
     pages.append(link);
   }
 }
+function sendSearchAnalytics(expectedConsentRevision?: number) {
+  if (!analyticsIsActive()) return;
+  const consentRevision = analyticsConsentRevision();
+  if (
+    expectedConsentRevision !== undefined &&
+    consentRevision !== expectedConsentRevision
+  )
+    return;
+  const query = input.value.trim().slice(0, 120);
+  const filterValues = [category, control, length, mode].map(
+    (select) => select.value,
+  );
+  const filterCount = filterValues.filter(Boolean).length;
+  if (!query && filterCount === 0) return;
+  if (!catalogueLoaded) {
+    pendingAnalyticsRevision = consentRevision;
+    return;
+  }
+  const state = JSON.stringify([query, ...filterValues]);
+  if (emittedAnalyticsStates.has(state)) return;
+  emittedAnalyticsStates.add(state);
+  trackCatalogueSearch({
+    hasQuery: query.length > 0,
+    filterCount,
+    resultCount: currentResultCount,
+  });
+}
+function flushPendingSearchAnalytics() {
+  const consentRevision = pendingAnalyticsRevision;
+  pendingAnalyticsRevision = null;
+  if (
+    consentRevision !== null &&
+    consentRevision === analyticsConsentRevision()
+  )
+    sendSearchAnalytics(consentRevision);
+}
+function scheduleSearchAnalytics(consentRevision: number) {
+  clearTimeout(analyticsTimer);
+  if (!analyticsIsActive() || analyticsConsentRevision() !== consentRevision)
+    return;
+  analyticsTimer = setTimeout(() => {
+    if (analyticsConsentRevision() === consentRevision) sendSearchAnalytics();
+  }, 700);
+}
 function restore() {
-  const params = new URL(location.href).searchParams;
+  const params = readSearchState();
   input.value = params.get("q")?.slice(0, 120) ?? "";
   for (const select of [category, control, length, mode]) {
     const value = params.get(select.name) ?? "";
@@ -190,22 +269,40 @@ function restore() {
   render(params.get("page"));
 }
 input.addEventListener("input", () => {
+  const consentedAtInput = analyticsIsActive();
+  const consentRevision = analyticsConsentRevision();
   clearTimeout(timer);
-  timer = setTimeout(() => render(), 120);
+  clearTimeout(analyticsTimer);
+  pendingAnalyticsRevision = null;
+  timer = setTimeout(() => {
+    render();
+    if (consentedAtInput) scheduleSearchAnalytics(consentRevision);
+  }, 120);
 });
 for (const select of [category, control, length, mode])
   select.addEventListener("change", () => {
+    const consentedAtChange = analyticsIsActive();
+    const consentRevision = analyticsConsentRevision();
     clearTimeout(timer);
+    clearTimeout(analyticsTimer);
+    pendingAnalyticsRevision = null;
     render("1", true);
+    if (consentedAtChange) scheduleSearchAnalytics(consentRevision);
   });
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  const consentRevision = analyticsConsentRevision();
   clearTimeout(timer);
+  clearTimeout(analyticsTimer);
+  pendingAnalyticsRevision = null;
   render("1", true);
+  sendSearchAnalytics(consentRevision);
   if (matchMedia("(max-width: 699px)").matches) refinements.open = false;
 });
 form.addEventListener("reset", () => {
   clearTimeout(timer);
+  clearTimeout(analyticsTimer);
+  pendingAnalyticsRevision = null;
   queueMicrotask(() => {
     input.value = "";
     category.value = control.value = length.value = mode.value = "";
@@ -214,12 +311,18 @@ form.addEventListener("reset", () => {
 });
 window.addEventListener("popstate", () => {
   clearTimeout(timer);
+  clearTimeout(analyticsTimer);
+  pendingAnalyticsRevision = null;
   restore();
 });
 try {
   items = await loadCatalogue(locale);
+  catalogueLoaded = true;
   restore();
+  if (submittedFromHome) sendSearchAnalytics(submittedFromHomeConsentRevision);
+  flushPendingSearchAnalytics();
 } catch {
+  pendingAnalyticsRevision = null;
   count.textContent =
     locale === "ko"
       ? "검색을 불러오지 못했어요. 새로고침하거나 아래 게임 모음을 이용하세요."

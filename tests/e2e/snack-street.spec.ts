@@ -107,7 +107,7 @@ test("Snack Street reduced motion completes campaign; terminal reload does not r
     ({ key, state }) => {
       if (!localStorage.getItem(key))
         localStorage.setItem(key, JSON.stringify(state));
-      localStorage.setItem("denny-games.analytics-consent", "granted-v2");
+      localStorage.setItem("denny-games.analytics-consent", "granted-v3");
     },
     { key, state },
   );
