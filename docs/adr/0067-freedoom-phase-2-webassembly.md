@@ -21,7 +21,7 @@ The 28,787,748-byte engine data package is much larger than the normal 5 MiB art
 
 Add one catalogue game for the official 32-map Phase 2 campaign. Keep its engine out of catalogue bundles and use the static player's lazy factory. The original game menu remains English; all Denny Games descriptions, guides, touch controls, download notes, errors and license information are bilingual. Do not advertise save persistence: browser progress is session-only and restart/reload resets it.
 
-Serve checked JavaScript, WebAssembly and game data from fixed same-site paths. The host transfers their bytes to an `allow-scripts`-only iframe with an opaque origin. The child CSP sets `connect-src 'none'` and blocks frames, workers, media, forms and other resources. Validate frame source, opaque origin and random channel on every parent message. Pause/resume controls the engine main loop and releases held keys. Add touch buttons for movement, turning, firing, doors and running.
+Serve checked JavaScript, WebAssembly and game data from fixed same-site paths. The host transfers their bytes to an `allow-scripts`-only iframe with an opaque origin. The child CSP sets `connect-src 'none'` and blocks frames, workers, media, forms and other resources. Validate frame source, opaque origin and random channel on every parent message. Keep the Fullscreen API unavailable to the child because the player controls stage sizing in the parent page. Patch Emscripten's fullscreen-change detection so it does not query the permission-gated document property. Pause/resume controls the engine main loop and releases held keys. Add touch buttons for movement, turning, firing, doors and running.
 
 Deliver the compressed WAD in three fixed same-site parts, then use the browser's gzip stream decoder to reconstruct the verified 28,787,748-byte WAD in memory. Keep the 5 MiB per-file ceiling unchanged, including the existing Neverball-only exception, and raise the total artifact ceiling to 140 MiB. The exact output size and gameplay journey are recorded by the release verification; the total remains a hard stop.
 
@@ -29,7 +29,7 @@ Deliver the compressed WAD in three fixed same-site parts, then use the browser'
 
 The registry grows by one game. Players can run the Phase 2 campaign on Denny Games without an external game host; the first load transfers about 12.4 MiB (13 MB) of compressed game and engine data. The WAD expands in memory. No controller, physical phone/tablet or vehicle browser compatibility is implied. Restart and page reload return to the first map. Commercial Doom files remain outside the project.
 
-The source archive and notices add a small bounded amount to the static output. The browser runtime and game data stay outside catalogue chunks and are loaded only on the play route. A successful host build or Chromium journey does not establish search ranking, physical-device behavior, advertising approval or revenue.
+The source archive and notices add a small bounded amount to the static output. The browser runtime and game data stay outside catalogue chunks and are loaded only on the play route. Ordered, hash-checked runtime patches keep Asyncify sleep paused and avoid fullscreen permission checks in the opaque frame. A successful host build or browser journey does not establish search ranking, physical-device behavior, advertising approval or revenue.
 
 ## Verification
 

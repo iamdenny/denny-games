@@ -21,14 +21,23 @@
       "Export browser pause and resume functions.",
       "Use an Emscripten main-loop callback for Doom frame updates.",
       "Apply Emscripten runtime exports and browser canvas adaptations recorded in the pinned corresponding source archive.",
-      "Denny Games patches Emscripten Asyncify sleep wakeups so a paused player remains paused during screen wipes."
+      "Denny Games patches Emscripten Asyncify sleep wakeups so a paused player remains paused during screen wipes.",
+      "Denny Games disables Emscripten fullscreen-change detection because the isolated opaque frame is not granted the Fullscreen API."
     ],
-    "runtimePatch": {
-      "file": "source/emscripten-sleep-patch.json",
-      "sha256": "a68cac29d274cdb1ba2565510c2cdcd732ff18744b918c77878f4e2b98df3d67",
-      "inputSha256": "c5ed72bfc6875566aff22244083907cc5111aa87e33f4007e420368102faf51b",
-      "outputSha256": "b4e50294d1c53811f9f3e9f30e407084586f7a44a1ed05ebd73c99cdf3990618"
-    },
+    "runtimePatches": [
+      {
+        "file": "source/emscripten-sleep-patch.json",
+        "sha256": "a68cac29d274cdb1ba2565510c2cdcd732ff18744b918c77878f4e2b98df3d67",
+        "inputSha256": "c5ed72bfc6875566aff22244083907cc5111aa87e33f4007e420368102faf51b",
+        "outputSha256": "b4e50294d1c53811f9f3e9f30e407084586f7a44a1ed05ebd73c99cdf3990618"
+      },
+      {
+        "file": "source/emscripten-fullscreen-policy-patch.json",
+        "sha256": "fed779d6284a669c314d1919477ccffb8d510af83b8b154d07d6d866d96d2134",
+        "inputSha256": "b4e50294d1c53811f9f3e9f30e407084586f7a44a1ed05ebd73c99cdf3990618",
+        "outputSha256": "5f6a2a67343067d574992d1bbdd305cef38aeb51b1f0647106c0dda542b56935"
+      }
+    ],
     "sourceArchive": "source/chocolate-doom-emscripten.tar.gz",
     "sourceArchiveSha256": "e69a3dd6f9fa90e58043f7398495750ee9505aea5bb41d1fdd78ed4fa2c30b17",
     "buildNote": "Build instructions are published with the corresponding source. The generated binaries have not been independently reproduced from the published inputs."
@@ -36,8 +45,8 @@
   "runtime": {
     "chocolate-doom.js": {
       "upstreamSha256": "c5ed72bfc6875566aff22244083907cc5111aa87e33f4007e420368102faf51b",
-      "sha256": "b4e50294d1c53811f9f3e9f30e407084586f7a44a1ed05ebd73c99cdf3990618",
-      "bytes": 187927
+      "sha256": "5f6a2a67343067d574992d1bbdd305cef38aeb51b1f0647106c0dda542b56935",
+      "bytes": 187872
     },
     "chocolate-doom.wasm": {
       "sha256": "6922e97650ff306d0fef584eb515d52fd1e09bb77bc7e8287b658e09977b54f7",

@@ -40,7 +40,7 @@ The browser runtime must use the site's lazy player lifecycle. The host fetches 
 - The selected campaign loads from the official Freedoom WAD whose hash matches release 0.13.0. No commercial Doom IWAD is present.
 - Chromium starts a playable map in an opaque-origin frame. The frame has no network permission, only locally hosted game files load, and no external request or uncaught runtime error occurs.
 - A delayed engine script keeps Start disabled during loading and enables it only after the child reports ready.
-- Keyboard and touch controls change gameplay. At 320, 360, 390, 430, 820 and 1440 CSS-pixel widths, the stage keeps its aspect ratio, controls stay reachable, and the page has no horizontal overflow.
+- Keyboard and touch controls dispatch their mapped press/release events to the local game frame. A local Chromium visual check confirms ArrowRight changes the view. At 320, 360, 390, 430, 820 and 1440 CSS-pixel widths, the stage keeps its aspect ratio, controls stay reachable, and the page has no horizontal overflow.
 - Pause freezes the game including its initial screen wipe; held keys are cleared; paused input cannot advance it; explicit resume works. Restart starts a fresh map. Destroy removes the frame, aborts pending work, and ignores messages from older frames.
 - Do not expose browser save persistence unless the exact WAD/runtime round-trip is separately validated. This release keeps progress in the current session and discloses that restart/reload resets it.
 - `npm run verify`, the complete browser suite, the targeted Freedoom browser journey, format checks, and artifact/license audits pass before PR. After merge, verify the Pages deployment SHA and public game, guide, play, and license routes.
@@ -51,7 +51,7 @@ The browser runtime must use the site's lazy player lifecycle. The host fetches 
 - [x] Verify the candidate WAD bytes against official Freedoom 0.13.0 release and record provenance facts.
 - [x] Smoke-test the candidate engine in a local browser and prototype asset transfer into an opaque, no-network sandbox.
 - [x] Audit and pin the engine source, Emscripten pause patch, build instructions, complete notices and generated runtime hashes.
-- [x] Qualify automatic map start, pause/resume through an initial screen wipe, keyboard and touch input, and gzip WAD decoding with the pinned runtime.
+- [x] Qualify automatic map start, pause/resume through an initial screen wipe, keyboard and touch event routing, and gzip WAD decoding with the pinned runtime.
 - [x] Add the typed game entry, lazy adapter, opaque child, session-only progress disclosure, download note and bilingual touch controls.
 - [x] Add and test original artwork, actual gameplay screenshot, bilingual guide, and public license/source page.
 - [x] Add output-size, provenance, iframe isolation, no-network, pause/input, responsive and teardown regressions.
@@ -63,7 +63,7 @@ The browser runtime must use the site's lazy player lifecycle. The host fetches 
 | ID    | Sequence                                                                | Expected                                                                                                                                        | Evidence                                    |
 | ----- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
 | BSM-1 | Play route, host fetches fixed assets, sandbox receives runtime and WAD | Phase 2 starts; child origin is opaque; no foreign or child-origin network request                                                              | Targeted Chromium journey and network audit |
-| BSM-2 | Start, hold movement/fire, release, pause, attempt input, resume        | Movement/fire respond while running; pause freezes and clears held input; explicit resume continues                                             | Targeted browser journey                    |
+| BSM-2 | Start, hold movement/fire, release, pause, attempt input, resume        | Mapped movement/fire press/release events reach the game frame; pause freezes and clears held input; explicit resume continues                 | Targeted browser journey; local Chromium visual check |
 | BSM-3 | Play, restart frame, reload page                                        | Progress stays session-only and restarts at the first map; no browser save data is written                                                      | Targeted lifecycle browser journey          |
 | BSM-4 | Restart, stale old-frame message, locale change/flush, destroy          | Fresh map starts; stale messages do not mutate state; the no-save flush allows navigation without claiming persistence; destroy leaves no frame | Targeted lifecycle journey                  |
 | BSM-5 | Resize phone portrait, phone landscape, tablet, desktop                 | Canvas remains 16:10 and touch controls fit without page overflow                                                                               | Chromium/WebKit responsive journeys         |

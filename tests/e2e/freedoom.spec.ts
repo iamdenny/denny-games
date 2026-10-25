@@ -47,6 +47,12 @@ test("Freedoom Phase 2 runs locally in a paused opaque frame with touch controls
     "href",
     "/vendor/freedoom/source/emscripten-sleep-patch.json",
   );
+  await expect(
+    page.getByRole("link", { name: /fullscreen policy patch/i }),
+  ).toHaveAttribute(
+    "href",
+    "/vendor/freedoom/source/emscripten-fullscreen-policy-patch.json",
+  );
 
   await page.route("**/vendor/freedoom/chocolate-doom.js", async (route) => {
     await new Promise((resolve) => setTimeout(resolve, 3000));

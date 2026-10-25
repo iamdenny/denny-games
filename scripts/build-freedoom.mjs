@@ -28,8 +28,16 @@ const runtimePatch = JSON.parse(
     "utf8",
   ),
 );
+const fullscreenPatch = JSON.parse(
+  fs.readFileSync(
+    path.join(root, "source/emscripten-fullscreen-policy-patch.json"),
+    "utf8",
+  ),
+);
 const runtimePatchHash =
   "a68cac29d274cdb1ba2565510c2cdcd732ff18744b918c77878f4e2b98df3d67";
+const fullscreenPatchHash =
+  "fed779d6284a669c314d1919477ccffb8d510af83b8b154d07d6d866d96d2134";
 
 function sha256(file) {
   return createHash("sha256").update(fs.readFileSync(file)).digest("hex");
@@ -40,6 +48,11 @@ assert.equal(
   sha256(path.join(root, "source/emscripten-sleep-patch.json")),
   runtimePatchHash,
   "Freedoom Asyncify pause patch hash mismatch",
+);
+assert.equal(
+  sha256(path.join(root, "source/emscripten-fullscreen-policy-patch.json")),
+  fullscreenPatchHash,
+  "Freedoom fullscreen policy patch hash mismatch",
 );
 assert.equal(
   runtimePatch.sourceSha256,
@@ -60,12 +73,34 @@ for (const [name, expected] of Object.entries(files)) {
       2,
       "Freedoom pause patch must match exactly once",
     );
-    const patched = original.replace(runtimePatch.from, runtimePatch.to);
+    const sleepPatched = original.replace(runtimePatch.from, runtimePatch.to);
+    const sleepPatchedHash = createHash("sha256")
+      .update(sleepPatched)
+      .digest("hex");
+    assert.equal(
+      sleepPatchedHash,
+      runtimePatch.outputSha256,
+      "Freedoom pause-patched runtime hash mismatch",
+    );
+    assert.equal(
+      fullscreenPatch.sourceSha256,
+      sleepPatchedHash,
+      "Freedoom fullscreen patch input does not match the pause-patched runtime",
+    );
+    assert.equal(
+      sleepPatched.split(fullscreenPatch.from).length,
+      2,
+      "Freedoom fullscreen policy patch must match exactly once",
+    );
+    const patched = sleepPatched.replace(
+      fullscreenPatch.from,
+      fullscreenPatch.to,
+    );
     const patchedHash = createHash("sha256").update(patched).digest("hex");
     assert.equal(
       patchedHash,
-      runtimePatch.outputSha256,
-      "Freedoom pause-patched runtime hash mismatch",
+      fullscreenPatch.outputSha256,
+      "Freedoom fullscreen policy patched runtime hash mismatch",
     );
     fs.writeFileSync(path.join(output, name), patched);
   } else {
@@ -127,5 +162,5 @@ fs.copyFileSync(
   path.join(output, "provenance.json"),
 );
 console.log(
-  `Freedoom runtime, compressed WAD and corresponding source hashes passed (${chunkCount} local chunks).`,
+  `Freedoom runtime, patches, compressed WAD and corresponding source hashes passed (${chunkCount} local chunks).`,
 );

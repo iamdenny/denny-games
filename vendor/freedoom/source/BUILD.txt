@@ -27,10 +27,14 @@ The generated JavaScript, WebAssembly, and data files are identified by hashes
 in provenance.json. Denny Games has not independently reproduced those exact
 binary outputs; this record does not claim a bit-for-bit reproducible build.
 After compilation, the Denny Games build script verifies the original generated
-JavaScript hash and applies emscripten-sleep-patch.json. This small runtime patch
-holds an Asyncify sleep wakeup while the player is paused, including during a
-screen wipe, and releases it on resume. The patch input and output hashes are
-recorded in provenance.json; the patch JSON is published beside these notes.
+JavaScript hash and applies two documented runtime patches. The
+emscripten-sleep-patch.json patch holds an Asyncify sleep wakeup while the
+player is paused, including during a screen wipe, and releases it on resume.
+The emscripten-fullscreen-policy-patch.json patch disables Emscripten's
+fullscreen-change detection because the opaque game frame is not granted the
+Fullscreen API; the player controls stage sizing in its parent page. Both
+patches verify their ordered input and output hashes and are published beside
+these notes.
 The browser bridge, opaque-frame integration, touch controls, and CSP are local
 Denny Games adaptations stored in the main repository under public/vendor/freedoom
 and src/games/freedoom.
