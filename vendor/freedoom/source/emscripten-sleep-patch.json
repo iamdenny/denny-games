@@ -1,0 +1,7 @@
+{
+  "purpose": "Keep Emscripten Asyncify sleeps suspended while the Denny Games player is paused.",
+  "sourceSha256": "c5ed72bfc6875566aff22244083907cc5111aa87e33f4007e420368102faf51b",
+  "outputSha256": "b4e50294d1c53811f9f3e9f30e407084586f7a44a1ed05ebd73c99cdf3990618",
+  "from": "_emscripten_sleep=ms=>Asyncify.handleSleep(wakeUp=>safeSetTimeout(wakeUp,ms));",
+  "to": "_emscripten_sleep=ms=>Asyncify.handleSleep(wakeUp=>{Module[\"dennySleepPending\"]=true;const wakeWhenActive=()=>{if(Module[\"dennyPaused\"]){(Module[\"dennyPendingSleepWakeups\"]??=[]).push(wakeWhenActive);return}Module[\"dennySleepPending\"]=false;wakeUp()};safeSetTimeout(wakeWhenActive,ms)});"
+}

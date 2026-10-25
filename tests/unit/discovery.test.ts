@@ -161,6 +161,7 @@ describe("play-style discovery", () => {
 
       "neverball",
       "neverputt",
+      "freedoom-2",
       "sgt-blackbox",
       "packabunchas",
       "gridland",

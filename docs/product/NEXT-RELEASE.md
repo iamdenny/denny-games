@@ -7,7 +7,7 @@ read_when:
 
 # 다음 릴리스 PRD
 
-> Historical delivery plan. Its October 2026 external-listing waves are no longer public: [ADR 0038](../adr/0038-local-play-only-catalogue.md) requires every published game to run on Denny Games. The current repository registry contains 339 in-site games; verify production publication against the deployed SHA and public routes.
+> Historical delivery plan. Its October 2026 external-listing waves are no longer public: [ADR 0038](../adr/0038-local-play-only-catalogue.md) requires every published game to run on Denny Games. The current repository registry contains 340 in-site games; verify production publication against the deployed SHA and public routes.
 
 ## 해결할 문제
 
@@ -43,8 +43,8 @@ read_when:
 
 | 영역 | 현재 저장소 근거 | 남은 확인 |
 | --- | --- | --- |
-| 게임 공급·권리 | 100개 추가 게임 배치는 완료했다. 현재 소스 레지스트리는 로컬 플레이 339개, 외부 플레이 0개다. 외부 호스트 후보 149개는 공개 목록에서 제외되어 연구 자료로만 남아 있다. [인벤토리](../guide/open-game-inventory.md) | 새 게임은 고유한 플레이 경험, 권리·에셋 출처, 조작과 생명주기를 검토한 뒤 추가한다. 공개 수량은 배포 SHA와 공개 경로로 확인한다. |
-| 고전 게임 포트 | Freedoom, SuperTux, OpenTTD, Pingus, Wesnoth, SuperTuxKart는 아직 포트 후보로 기록돼 있다. Prehistorik(고인돌), Astonishia Story(어스토니시아 스토리), Princess Maker(프린세스 메이커)의 상용 원작 콘텐츠를 사용할 권한은 기록돼 있지 않다. [포트 검토](../guide/classic-expansion.md) | 라이선스와 자산 권한이 확인되지 않은 ROM·코드·음악·대사·그림·상표는 사용하지 않는다. 독립 창작물은 별도 이름과 표현으로 만든다. |
+| 게임 공급·권리 | 100개 추가 게임 배치는 완료했다. 현재 소스 레지스트리는 로컬 플레이 340개, 외부 플레이 0개다. 외부 호스트 후보 149개는 공개 목록에서 제외되어 연구 자료로만 남아 있다. [인벤토리](../guide/open-game-inventory.md) | 새 게임은 고유한 플레이 경험, 권리·에셋 출처, 조작과 생명주기를 검토한 뒤 추가한다. 공개 수량은 배포 SHA와 공개 경로로 확인한다. |
+| 고전 게임 포트 | Freedoom Phase 2는 현 소스에서 로컬 플레이로 구현했다. SuperTux, OpenTTD, Pingus, Wesnoth, SuperTuxKart는 포트 후보로 남아 있다. Prehistorik(고인돌), Astonishia Story(어스토니시아 스토리), Princess Maker(프린세스 메이커)의 상용 원작 콘텐츠를 사용할 권한은 기록돼 있지 않다. [포트 검토](../guide/classic-expansion.md) | 라이선스와 자산 권한이 확인되지 않은 ROM·코드·음악·대사·그림·상표는 사용하지 않는다. 독립 창작물은 별도 이름과 표현으로 만든다. |
 | 모바일·태블릿·차량 | Playwright에는 Chromium과 별도 WebKit, 반응형 화면 및 에뮬레이트 터치 검사가 있다. 일부 게임 묶음은 휴대폰·태블릿·가로 화면 크기를 검사한다. [검증 범위](../testing.md) | 실물 iPhone/iPad/Android, 실물 컨트롤러 및 Tesla 브라우저는 별도 검증 전까지 미확인으로 표시한다. |
 | 번역·진행 복원 | 호스트 탐색·규칙은 한·영으로 제공한다. 가져온 게임 내부 문구는 원본 언어일 수 있고, 대부분 페이지 이탈 뒤 새 라운드로 시작한다. 예외와 저장 범위는 인벤토리에 기록한다. | 번역·저장은 게임별 권리와 런타임을 확인한 뒤 추가하고, 기존 원본 고지를 보존한다. |
 | 분석·검색 | GA4 페이지뷰와 최소 `game_start` / `game_complete` 이벤트는 새로 허용한 동의 뒤 전송하도록 구현했다. 2026-10-21 IndexNow가 사이트맵 URL 503개의 접수를 반환했다. [검색·측정 기록](../guide/search-discovery.md) | 새 게임 이벤트의 GA4 수신, 검색엔진 크롤링·색인·순위·AI 인용은 각각 대시보드나 공개 증거로 확인한다. 코드나 접수 응답만으로 완료를 주장하지 않는다. |

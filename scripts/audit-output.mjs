@@ -45,9 +45,9 @@ for (const file of files) {
     );
   }
 }
-// ADR0058: 334 games add 400 bilingual detail/player pages to the prior release.
-// Keep a bounded total while preserving the existing per-file download limits.
-assert(bytes < 120 * 1024 * 1024, "Site exceeds 120MiB budget");
+// ADR0067 adds the gzip-compressed Freedoom runtime and split WAD delivery.
+// Per-file limits stay unchanged and all public output remains bounded.
+assert(bytes < 140 * 1024 * 1024, "Site exceeds 140MiB budget");
 const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 assert(!/\/play\/|\/search\/|\/library\//.test(sitemap));
 for (const file of [

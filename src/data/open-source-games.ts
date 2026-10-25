@@ -2,6 +2,113 @@ import type { Game } from "./games";
 
 export const openSourceGames: Game[] = [
   {
+    id: "freedoom-2",
+    category: "shooting",
+    duration: "15–30",
+    controlStyle: "directional",
+    color: "rust",
+    version: 1,
+    stages: 1,
+    tags: [
+      "freedoom",
+      "freedoom phase 2",
+      "doom style fps",
+      "classic first person shooter",
+      "browser fps",
+      "free doom data",
+      "webassembly shooter",
+      "오픈소스 게임",
+      "프리둠",
+      "둠 스타일 FPS",
+      "1인칭 슈팅",
+      "무료 FPS",
+      "웹어셈블리 게임",
+    ],
+    inputs: ["keyboard", "touch"],
+    license: "GPL-2.0-or-later engine · BSD-3-Clause game data",
+    licenseDescription: {
+      en: "Freedoom Phase 2 game data is from the official 0.13.0 release under BSD-3-Clause. The Chocolate Doom engine is GPL-2.0-or-later and includes browser changes from a pinned Emscripten port. Runtime/source hashes, full notices, credits, corresponding engine source and build notes are published locally. The engine menu remains in English. Progress resets when the frame is restarted or the page is reloaded; browser storage is not used.",
+      ko: "Freedoom Phase 2 데이터는 공식 0.13.0 릴리스의 BSD-3-Clause 자료예요. Chocolate Doom 엔진은 GPL-2.0-or-later이며 고정한 Emscripten 브라우저 포트 변경을 포함해요. 런타임·소스 해시, 전체 라이선스 고지와 크레딧, 대응 엔진 소스와 빌드 안내를 사이트에 공개했어요. 게임 메뉴는 영어로 제공돼요. 프레임을 다시 시작하거나 페이지를 새로고침하면 진행이 초기화되며 브라우저 저장소는 사용하지 않아요.",
+    },
+    licenseUrl: "/licenses/freedoom/",
+    licenseUrlLabel: {
+      en: "Freedoom and engine licenses, source and hashes",
+      ko: "프리둠·엔진 라이선스, 소스와 해시",
+    },
+    author: "Freedoom contributors / Chocolate Doom contributors",
+    source:
+      "https://github.com/OscarRevollo/doom-wasm/tree/ed01a7f3dcc9b1b42c1973d0ebfa3b482a88eb2a",
+    sourceLabel: {
+      en: "Pinned browser engine source",
+      ko: "버전을 고정한 브라우저 엔진 소스",
+    },
+    playModes: ["single-player"],
+    guide: {
+      path: "guides/freedoom-2",
+      label: {
+        en: "Freedoom Phase 2 controls and guide",
+        ko: "프리둠 페이즈 2 조작과 안내",
+      },
+    },
+    added: "2026-10-25",
+    imported: true,
+    internalScore: true,
+    classic: true,
+    notice: "/licenses/freedoom/",
+    artworkAlt: {
+      en: "Original Denny Games pixel illustration of a stone gate opening into a green-lit maze",
+      ko: "초록빛 미로로 이어지는 돌문을 픽셀로 그린 데니 게임즈 자체 일러스트",
+    },
+    artwork: "/art/open-games/freedoom-2.svg",
+    screenshot: "/art/open-games/freedoom-2-preview.png",
+    text: {
+      en: {
+        title: "Freedoom Phase 2",
+        searchTitle: "Freedoom Phase 2 · Free Browser FPS",
+        subtitle: "Find the exit across a free 32-map campaign.",
+        description:
+          "Explore the free Freedoom Phase 2 campaign in your browser. Find keys, open routes and fight through 32 maps with the locally hosted Chocolate Doom engine. No commercial Doom files, account or external game site are used. The original game interface is in English.",
+        rules: [
+          "The first map opens in a single-player campaign. Find its exit to continue through the official Phase 2 map set.",
+          "Move through each level, collect keys, use marked doors and fight hostile creatures. Watch your health and ammunition.",
+          "Pause with the Denny Games player controls. Restart returns to the first map; reloading the page also resets this session.",
+        ],
+        controls: [
+          "Keyboard: Up/Down moves, Left/Right turns, Ctrl fires, Space uses doors, and Shift runs.",
+          "Touch: use the on-page direction and action buttons. Hold a button to keep moving or firing.",
+          "The first load downloads about 12.4 MiB (13 MB). The original in-game menu stays in English. Progress is not saved after restart or reload.",
+        ],
+        tips: [
+          "Explore side rooms for keys, supplies and alternate routes.",
+          "Use doors and switches when a path appears blocked; some routes are easy to miss.",
+          "Save ammunition for groups of enemies and keep moving when a corridor is exposed.",
+        ],
+      },
+      ko: {
+        title: "프리둠 페이즈 2",
+        searchTitle: "프리둠 페이즈 2 · 무료 브라우저 FPS",
+        subtitle: "무료 32개 맵 캠페인에서 출구를 찾아요.",
+        description:
+          "무료 프리둠 페이즈 2 캠페인을 브라우저에서 탐험하세요. 데니 게임즈가 직접 제공하는 Chocolate Doom 엔진으로 32개 맵을 진행하며 열쇠를 찾고 길을 열어 적과 맞서요. 상업용 둠 파일이나 계정, 외부 게임 사이트는 사용하지 않아요. 원작 게임 화면은 영어예요.",
+        rules: [
+          "1인 캠페인의 첫 맵에서 시작해요. 출구를 찾으면 공식 페이즈 2 맵을 차례로 이어서 플레이할 수 있어요.",
+          "각 맵을 탐험하며 열쇠를 모으고 표시된 문을 열어 적과 싸우세요. 체력과 탄약을 살펴보세요.",
+          "데니 게임즈 플레이어의 일시정지 버튼으로 멈추세요. 다시 시작하면 첫 맵으로 돌아가고 새로고침해도 이 세션이 초기화돼요.",
+        ],
+        controls: [
+          "키보드: 위·아래 방향키로 이동하고 왼쪽·오른쪽 방향키로 회전해요. Ctrl은 발사, Space는 문 열기, Shift는 달리기예요.",
+          "터치: 화면의 방향·동작 버튼을 사용하세요. 버튼을 누르고 있으면 계속 이동하거나 발사해요.",
+          "처음 열 때 약 12.4 MiB(약 13 MB)를 내려받아요. 원작 게임 메뉴는 영어예요. 다시 시작하거나 새로고침하면 진행이 저장되지 않아요.",
+        ],
+        tips: [
+          "옆방을 살펴 열쇠와 보급품을 찾고 다른 길이 있는지 확인하세요.",
+          "길이 막힌 것 같으면 문과 스위치를 찾아보세요. 지나치기 쉬운 길도 있어요.",
+          "적이 몰린 곳에 탄약을 아껴 쓰고, 노출된 복도에서는 계속 움직이세요.",
+        ],
+      },
+    },
+  },
+  {
     id: "sgt-blackbox",
     category: "puzzle",
     duration: "5–15",

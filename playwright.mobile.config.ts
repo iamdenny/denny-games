@@ -15,6 +15,7 @@ export default defineConfig({
     "packabunchas.spec.ts",
     "sgt-blackbox.spec.ts",
     "chogan-eightball.spec.ts",
+    "freedoom.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },
@@ -28,6 +29,7 @@ export default defineConfig({
         "packabunchas.spec.ts",
         "sgt-blackbox.spec.ts",
         "chogan-eightball.spec.ts",
+        "freedoom.spec.ts",
       ],
       use: { ...devices["iPad Mini"] },
     },

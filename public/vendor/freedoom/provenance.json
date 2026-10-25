@@ -1,0 +1,64 @@
+{
+  "gameData": {
+    "name": "Freedoom Phase 2",
+    "release": "0.13.0",
+    "upstream": "https://github.com/freedoom/freedoom/releases/tag/v0.13.0",
+    "releaseArchiveSha256": "3f9b264f3e3ce503b4fb7f6bdcb1f419d93c7b546f4df3e874dd878db9688f59",
+    "file": "freedoom2.wad",
+    "sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+    "bytes": 28787748,
+    "license": "BSD-3-Clause"
+  },
+  "engine": {
+    "name": "Chocolate Doom",
+    "upstream": "https://github.com/chocolate-doom/chocolate-doom",
+    "upstreamCommit": "3e0cd5dc0cd0d5b6788100a2fbc1cdd4ce014b35",
+    "sourceRepository": "https://github.com/OscarRevollo/doom-wasm/tree/ed01a7f3dcc9b1b42c1973d0ebfa3b482a88eb2a/engine/vendor/chocolate-doom",
+    "sourceRepositoryCommit": "ed01a7f3dcc9b1b42c1973d0ebfa3b482a88eb2a",
+    "emscripten": "4.0.14",
+    "license": "GPL-2.0-or-later",
+    "changes": [
+      "Export browser pause and resume functions.",
+      "Use an Emscripten main-loop callback for Doom frame updates.",
+      "Apply Emscripten runtime exports and browser canvas adaptations recorded in the pinned corresponding source archive.",
+      "Denny Games patches Emscripten Asyncify sleep wakeups so a paused player remains paused during screen wipes."
+    ],
+    "runtimePatch": {
+      "file": "source/emscripten-sleep-patch.json",
+      "sha256": "a68cac29d274cdb1ba2565510c2cdcd732ff18744b918c77878f4e2b98df3d67",
+      "inputSha256": "c5ed72bfc6875566aff22244083907cc5111aa87e33f4007e420368102faf51b",
+      "outputSha256": "b4e50294d1c53811f9f3e9f30e407084586f7a44a1ed05ebd73c99cdf3990618"
+    },
+    "sourceArchive": "source/chocolate-doom-emscripten.tar.gz",
+    "sourceArchiveSha256": "e69a3dd6f9fa90e58043f7398495750ee9505aea5bb41d1fdd78ed4fa2c30b17",
+    "buildNote": "Build instructions are published with the corresponding source. The generated binaries have not been independently reproduced from the published inputs."
+  },
+  "runtime": {
+    "chocolate-doom.js": {
+      "upstreamSha256": "c5ed72bfc6875566aff22244083907cc5111aa87e33f4007e420368102faf51b",
+      "sha256": "b4e50294d1c53811f9f3e9f30e407084586f7a44a1ed05ebd73c99cdf3990618",
+      "bytes": 187927
+    },
+    "chocolate-doom.wasm": {
+      "sha256": "6922e97650ff306d0fef584eb515d52fd1e09bb77bc7e8287b658e09977b54f7",
+      "bytes": 1673014
+    },
+    "chocolate-doom.data": {
+      "sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+      "bytes": 28787748
+    }
+  },
+  "delivery": {
+    "compression": "gzip",
+    "fileSha256": "fe0aa62547f85db54676bd66dfe01deb7b228d3bd20ff2e48df7d180817f17a4",
+    "compressedBytes": 11112488,
+    "chunkBytesMaximum": 4194304,
+    "parts": [
+      "chocolate-doom-data-1.bin",
+      "chocolate-doom-data-2.bin",
+      "chocolate-doom-data-3.bin"
+    ],
+    "decodedFileSha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+    "decodedBytes": 28787748
+  }
+}

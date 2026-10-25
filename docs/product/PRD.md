@@ -9,7 +9,7 @@ read_when:
 
 ## Current source snapshot — 2026-10-25
 
-The repository registry contains 339 locally playable games and no external-play entries; the public release count must still be checked against the deployed SHA and public routes. Google AdSense remains verification-only, while Adsterra uses separate optional consent. Neither provider configuration nor approval proves ad fill, impressions or revenue; see the [advertising guide](../guide/advertising.md).
+The repository registry contains 340 locally playable games and no external-play entries; the public release count must still be checked against the deployed SHA and public routes. Google AdSense remains verification-only, while Adsterra uses separate optional consent. Neither provider configuration nor approval proves ad fill, impressions or revenue; see the [advertising guide](../guide/advertising.md).
 
 GA4 page views and minimal `game_start` / `game_complete` events require renewed explicit consent. Instrumentation does not establish receipt of the new lifecycle events; see [ADR 0050](../adr/0050-consented-game-analytics.md). Browser automation and emulated touch are separate from physical-device support. Sitemap and IndexNow receipts are separate from crawling, indexing, ranking and AI citations; see the [search discovery guide](../guide/search-discovery.md).
 
@@ -36,7 +36,7 @@ This repository carries the original research requirements below. The following 
 
 ## One hundred additional games — 2026-10-23
 
-Expand the 234-game registry to 334 with 100 distinct locally playable additions. Preserve source rights, bilingual rules and the common player lifecycle. Keep individual admission evidence, actual gameplay artwork and a discoverable 100-game collection. No placeholder, duplicate revision or external link counts as an added game. See [ADR 0058](../adr/0058-century-arcade.md). Later additions bring the current repository snapshot to 339 entries; see the [open game inventory](../guide/open-game-inventory.md).
+Expand the 234-game registry to 334 with 100 distinct locally playable additions. Preserve source rights, bilingual rules and the common player lifecycle. Keep individual admission evidence, actual gameplay artwork and a discoverable 100-game collection. No placeholder, duplicate revision or external link counts as an added game. See [ADR 0058](../adr/0058-century-arcade.md). Later additions bring the current repository snapshot to 340 entries; see the [open game inventory](../guide/open-game-inventory.md).
 
 ## Classic board release — 2026-10-12
 

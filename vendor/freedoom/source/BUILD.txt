@@ -1,0 +1,39 @@
+Freedoom Phase 2 WebAssembly source and build notes
+===================================================
+
+The corresponding Chocolate Doom source snapshot is chocolate-doom-emscripten.tar.gz.
+It is the browser-adapted source published in Oscar Revollo's doom-wasm repository
+at commit ed01a7f3dcc9b1b42c1973d0ebfa3b482a88eb2a. The engine base is pinned in
+provenance.json. Its browser changes export pause/resume, move Doom frame updates
+to the Emscripten main loop, and adapt SDL's canvas/runtime exports.
+
+Game data is the unmodified freedoom2.wad distributed in the official Freedoom
+0.13.0 release. Its SHA-256 is recorded in provenance.json. The WAD contains the
+Freedoom Phase 2 campaign; no commercial Doom IWAD is used. The checked runtime
+stores that WAD as a deterministic gzip stream split into three static delivery
+parts. The site decompresses the joined stream in memory before passing the
+verified WAD bytes to the engine.
+
+Build prerequisites: Emscripten SDK 4.0.14, CMake, Ninja, Python 3, SDL2 ports
+provided by Emscripten, and the extracted source archive. Place the official
+freedoom2.wad in engine/assets/freedoom2.wad. From the source repository root,
+run engine/scripts/build_wasm.sh after installing the prerequisites. That script
+uses Emscripten's CMake wrapper and builds the chocolate-doom target with
+SDL2_mixer and SDL2_net disabled, Asyncify and memory growth enabled, and the WAD
+preloaded at /iwads/freedoom2.wad. Decompress the official WAD to reconstruct
+that build input; the delivered split gzip file is only a transfer optimization.
+
+The generated JavaScript, WebAssembly, and data files are identified by hashes
+in provenance.json. Denny Games has not independently reproduced those exact
+binary outputs; this record does not claim a bit-for-bit reproducible build.
+After compilation, the Denny Games build script verifies the original generated
+JavaScript hash and applies emscripten-sleep-patch.json. This small runtime patch
+holds an Asyncify sleep wakeup while the player is paused, including during a
+screen wipe, and releases it on resume. The patch input and output hashes are
+recorded in provenance.json; the patch JSON is published beside these notes.
+The browser bridge, opaque-frame integration, touch controls, and CSP are local
+Denny Games adaptations stored in the main repository under public/vendor/freedoom
+and src/games/freedoom.
+
+Licenses and credits in this directory cover Chocolate Doom, Freedoom, SDL2,
+Emscripten, and the Freedoom contributors and music credits.

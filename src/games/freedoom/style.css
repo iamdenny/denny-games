@@ -1,0 +1,107 @@
+.freedoom-frame {
+  width: min(100%, 960px, calc(60dvh * 16 / 10));
+  max-width: none;
+  min-height: 0;
+  max-height: 60dvh;
+  margin: auto;
+  border: 1px solid #405666;
+  background: #070d12;
+  touch-action: none;
+}
+
+#player[data-immersive="true"] .freedoom-frame {
+  width: min(100%, calc(100cqh * 16 / 10));
+  max-height: none;
+}
+
+.freedoom-download-note {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--muted, #67736c);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.freedoom-controls {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.freedoom-control-group {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.freedoom-pad {
+  grid-template-columns: repeat(3, 48px);
+  grid-template-areas: ". forward ." "left . right" ". back .";
+}
+
+.freedoom-pad button:nth-child(1) {
+  grid-area: forward;
+}
+.freedoom-pad button:nth-child(2) {
+  grid-area: back;
+}
+.freedoom-pad button:nth-child(3) {
+  grid-area: left;
+}
+.freedoom-pad button:nth-child(4) {
+  grid-area: right;
+}
+
+.freedoom-actions {
+  grid-template-columns: repeat(2, minmax(54px, 70px));
+}
+
+.freedoom-touch-button {
+  display: grid;
+  min-width: 48px;
+  min-height: 48px;
+  place-items: center;
+  border: 1px solid #54727c;
+  border-radius: 12px;
+  color: #f4f1e8;
+  background: #20333d;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.freedoom-touch-button[aria-pressed="true"] {
+  color: #10211f;
+  background: #d9f26a;
+  border-color: #a5c941;
+}
+
+.freedoom-touch-button:focus-visible {
+  outline: 3px solid #d9f26a;
+  outline-offset: 2px;
+}
+
+@media (max-width: 360px) {
+  .freedoom-controls {
+    gap: 8px;
+  }
+  .freedoom-pad {
+    grid-template-columns: repeat(3, 44px);
+  }
+  .freedoom-actions {
+    grid-template-columns: repeat(2, minmax(48px, 58px));
+  }
+  .freedoom-touch-button {
+    min-width: 44px;
+    min-height: 48px;
+    padding: 2px;
+    font-size: 0.68rem;
+  }
+}

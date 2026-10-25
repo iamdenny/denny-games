@@ -133,7 +133,7 @@ function save(): boolean {
   if (!game) return false;
   const snapshot = game.serialize();
   const ok = snapshot === undefined || write(savedKey(), snapshot);
-  const stageSaved = write(`stage:${id}`, stage);
+  const stageSaved = count < 2 || write(`stage:${id}`, stage);
   if (!ok || !stageSaved) el("game-message").textContent = text.storageError;
   return ok && stageSaved;
 }
@@ -335,7 +335,8 @@ function mount(saved: boolean) {
   show(
     id.startsWith("crisp-") ||
       id.startsWith("agentic-") ||
-      id === "sgt-blackbox"
+      id === "sgt-blackbox" ||
+      id === "freedoom-2"
       ? text.loading
       : text.ready,
     root.dataset.instructions,
@@ -346,6 +347,7 @@ function mount(saved: boolean) {
     id.startsWith("crisp-") ||
     id.startsWith("agentic-") ||
     id === "sgt-blackbox" ||
+    id === "freedoom-2" ||
     id === "gridland" ||
     id === "neverball" ||
     id === "neverputt";
@@ -720,6 +722,7 @@ try {
     "snack-street": () => import("../games/snack-street"),
     "pocket-pingpong": () => import("../games/pocket-pingpong"),
     packabunchas: () => import("../games/packabunchas"),
+    "freedoom-2": () => import("../games/freedoom"),
     "sgt-blackbox": () => import("../games/sgt-blackbox"),
     "chogan-eightball": () => import("../games/chogan-eightball"),
     gonggi: () => import("../games/gonggi"),
