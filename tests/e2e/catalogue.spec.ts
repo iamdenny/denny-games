@@ -18,6 +18,7 @@ for (const locale of ["en", "ko"] as const) {
     await page.goto(`/${locale}/`);
     await page.locator(".compact-menu summary").click();
     await page.locator('.compact-menu a[href$="/all/"]').click();
+    await page.waitForLoadState("load");
     const seen: string[] = [];
     const total = Math.ceil(gameIds.length / PAGE_SIZE);
     for (let n = 1; n <= total; n++) {
@@ -45,6 +46,7 @@ for (const locale of ["en", "ko"] as const) {
         await page
           .locator('[data-catalogue-pages="top"] a[rel="next"]')
           .click();
+      if (n < total) await page.waitForLoadState("load");
     }
     expect(new Set(seen).size).toBe(gameIds.length);
     await page.locator("[data-all-games] [data-game-card] a").last().click();
