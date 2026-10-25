@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="title desc">
+  <title id="title">8-Ball Pool</title>
+  <desc id="desc">An illustrated green pool table with a cue ball aiming toward a triangle of numbered balls.</desc>
+  <defs>
+    <linearGradient id="felt" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#227b58"/>
+      <stop offset="1" stop-color="#124936"/>
+    </linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#9b673e"/>
+      <stop offset="1" stop-color="#57351f"/>
+    </linearGradient>
+    <radialGradient id="white" cx=".33" cy=".28" r=".75">
+      <stop stop-color="#fffdf4"/>
+      <stop offset="1" stop-color="#a6b5ad"/>
+    </radialGradient>
+    <radialGradient id="black" cx=".34" cy=".28" r=".8">
+      <stop stop-color="#43515b"/>
+      <stop offset="1" stop-color="#10171c"/>
+    </radialGradient>
+    <filter id="shadow" x="-.2" y="-.2" width="1.4" height="1.5">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#081d18" flood-opacity=".42"/>
+    </filter>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="#102b28"/>
+  <circle cx="562" cy="67" r="110" fill="#d9f05c" opacity=".08"/>
+  <g filter="url(#shadow)" transform="rotate(-7 320 202)">
+    <rect x="45" y="50" width="550" height="300" rx="35" fill="url(#rail)" stroke="#c08c59" stroke-width="4"/>
+    <rect x="68" y="72" width="504" height="256" rx="18" fill="url(#felt)" stroke="#271e18" stroke-width="7"/>
+    <path d="M92 200h457" stroke="#d5e5d5" stroke-opacity=".18" stroke-width="2"/>
+    <path d="M194 84v232" stroke="#d5e5d5" stroke-opacity=".18" stroke-width="2"/>
+    <g fill="#10120f">
+      <circle cx="80" cy="84" r="20"/><circle cx="560" cy="84" r="20"/>
+      <circle cx="80" cy="316" r="20"/><circle cx="560" cy="316" r="20"/>
+      <circle cx="320" cy="78" r="15"/><circle cx="320" cy="322" r="15"/>
+    </g>
+    <g fill="#dfcda9" opacity=".7">
+      <circle cx="170" cy="61" r="3"/><circle cx="245" cy="59" r="3"/><circle cx="395" cy="59" r="3"/><circle cx="470" cy="61" r="3"/>
+      <circle cx="170" cy="339" r="3"/><circle cx="245" cy="341" r="3"/><circle cx="395" cy="341" r="3"/><circle cx="470" cy="339" r="3"/>
+    </g>
+    <path d="M180 200L414 160" stroke="#e8e4d9" stroke-width="2" stroke-dasharray="8 8" opacity=".76"/>
+    <path d="M116 212L201 197" stroke="#d9aa69" stroke-width="5" stroke-linecap="round"/>
+    <g stroke="#152222" stroke-width="3">
+      <circle cx="180" cy="200" r="16" fill="url(#white)"/>
+      <circle cx="420" cy="150" r="16" fill="#e7be38"/><circle cx="448" cy="166" r="16" fill="#416ed0"/>
+      <circle cx="392" cy="166" r="16" fill="#d84e40"/><circle cx="420" cy="182" r="16" fill="#151d22"/>
+      <circle cx="448" cy="198" r="16" fill="#aa68ca"/><circle cx="392" cy="198" r="16" fill="#e98438"/>
+      <circle cx="420" cy="214" r="16" fill="#52a973"/>
+    </g>
+    <g fill="#f4f2e8" font-family="system-ui,sans-serif" font-size="11" font-weight="800" text-anchor="middle" dominant-baseline="central">
+      <text x="420" y="150">1</text><text x="448" y="166">2</text><text x="392" y="166">3</text>
+      <text x="420" y="182">8</text><text x="448" y="198">4</text><text x="392" y="198">5</text><text x="420" y="214">6</text>
+    </g>
+  </g>
+  <rect x="428" y="323" width="172" height="43" rx="21" fill="#d9f05c"/>
+  <text x="514" y="351" fill="#142622" font-family="system-ui,sans-serif" font-size="17" font-weight="800" text-anchor="middle">8-BALL POOL</text>
+</svg>

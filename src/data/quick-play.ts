@@ -22,6 +22,6 @@ export const quickPlayGroups = [
   {
     id: "together",
     label: { en: "Play together", ko: "둘이 한 판" },
-    ids: ["gomoku", "four-in-a-row", "dots-and-boxes"],
+    ids: ["gomoku", "four-in-a-row", "dots-and-boxes", "chogan-eightball"],
   },
 ] satisfies { id: string; label: Record<Locale, string>; ids: string[] }[];

@@ -14,6 +14,7 @@ export default defineConfig({
     "klondike.spec.ts",
     "packabunchas.spec.ts",
     "sgt-blackbox.spec.ts",
+    "chogan-eightball.spec.ts",
   ],
   projects: [
     { name: "webkit-mobile-layout", use: { ...devices["Desktop Safari"] } },
@@ -26,6 +27,7 @@ export default defineConfig({
         "klondike.spec.ts",
         "packabunchas.spec.ts",
         "sgt-blackbox.spec.ts",
+        "chogan-eightball.spec.ts",
       ],
       use: { ...devices["iPad Mini"] },
     },

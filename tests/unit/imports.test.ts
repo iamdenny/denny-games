@@ -10,6 +10,7 @@ import sokobanProvenance from "../../vendor/sokoban/provenance.json";
 import gridlandProvenance from "../../vendor/gridland/provenance.json";
 import packabunchasProvenance from "../../vendor/packabunchas/provenance.json";
 import blackboxProvenance from "../../vendor/sgt-blackbox/provenance.json";
+import choganProvenance from "../../vendor/chogan-eightball/provenance.json";
 import { categoryCopy } from "../../src/data/discovery";
 import { copy } from "../../src/data/i18n";
 import { controlStyles } from "../../src/data/play-styles";
@@ -25,7 +26,7 @@ const externalResearch = JSON.parse(
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(338);
+    expect(games).toHaveLength(339);
     expect(games.filter((game) => game.externalPlay)).toHaveLength(0);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
@@ -87,6 +88,48 @@ describe("import admission and catalogue", () => {
     ).toMatch(/Permission is hereby granted/);
     expect(game?.text.en.controls.join(" ")).toContain("Turn Mark mode on");
     expect(game?.text.ko.controls.join(" ")).toContain("표시 모드를 끄세요");
+  });
+  it("pins Chogan 8-Ball Pool source, licenses and local-only game route", () => {
+    const game = games.find((entry) => entry.id === "chogan-eightball");
+    expect(game).toBeDefined();
+    expect(game?.externalPlay).toBeUndefined();
+    expect(game?.license).toBe("MIT + SIL OFL 1.1 font");
+    expect(game?.imported).toBe(true);
+    expect(game?.internalScore).toBe(true);
+    expect(game?.inputs).toEqual(["touch", "mouse", "keyboard", "gamepad"]);
+    expect(game?.notice).toBe("/licenses/chogan-eightball/");
+    expect(game?.guide?.path).toBe("guides/chogan-eightball");
+    expect(game?.screenshot).toBe(
+      "/art/open-games/chogan-eightball-preview.png",
+    );
+    expect(existsSync(`public${game!.screenshot}`)).toBe(true);
+    expect(choganProvenance.source_commit).toBe(
+      "2c6d6d80b25aad8a6fc4987d0f347a445493780e",
+    );
+    expect(choganProvenance.licenses.game).toBe("MIT");
+    expect(choganProvenance.licenses.font).toBe("SIL Open Font License 1.1");
+    for (const [file, expected] of Object.entries(
+      choganProvenance.upstream_files,
+    )) {
+      expect(
+        createHash("sha256")
+          .update(readFileSync(`vendor/chogan-eightball/upstream/${file}`))
+          .digest("hex"),
+      ).toBe(expected);
+    }
+    for (const [file, expected] of Object.entries(
+      choganProvenance.host_adapter.files,
+    )) {
+      expect(
+        createHash("sha256").update(readFileSync(file)).digest("hex"),
+      ).toBe(expected);
+    }
+    expect(
+      readFileSync("public/licenses/chogan-eightball/LICENSE.txt", "utf8"),
+    ).toContain("Copyright (c) 2026 Chogan");
+    expect(
+      readFileSync("public/licenses/chogan-eightball/OFL.txt", "utf8"),
+    ).toContain("SIL OPEN FONT LICENSE Version 1.1");
   });
   it("publishes only games with an in-site player route", () => {
     expect(externalResearch.entries).toHaveLength(149);

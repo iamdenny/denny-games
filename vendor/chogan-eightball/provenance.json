@@ -1,0 +1,42 @@
+{
+  "source_repository": "https://github.com/choganhq/chogan",
+  "source_commit": "2c6d6d80b25aad8a6fc4987d0f347a445493780e",
+  "source_date": "2026-10-23",
+  "source_version": "0.16.0",
+  "game_path": "www/games/eightball/index.html",
+  "licenses": {
+    "game": "MIT",
+    "font": "SIL Open Font License 1.1"
+  },
+  "upstream_files": {
+    "fonts/OFL.txt": "17e355067c8284f47743a1ee3b1ef7ff684ff0601eda357f9353b10b3016ab31",
+    "fonts/vazirmatn-variable.woff2": "4e3fa217d38fdafc1fea4414ceb58ca5e662cf0ab5fa735a8c8c20e8b42cad92",
+    "games/eightball/icon.svg": "d5b38d7bbd9ab01a06fd0947ef1f0910c347e14e13898d82b4724cd9442624b2",
+    "games/eightball/index.html": "4e0fe935ad2943ce019e566dd94ca799d9033b8a35a7c634e0746aa1bd0b7420",
+    "lib/chogan.css": "08aa24c1fa410de9adad1ee303a4096fe7fb17c3ec9dd3b6358bb9158c4ff446",
+    "lib/chogan.js": "fc16754cd37e8b9d335f61405071e9ad7f5ad7138f4edc2d2f3698c98bc0140d",
+    "lib/cue.js": "8339c906e6a96ec87600dd84a0cb332d111f6af7c28c03fb78534dc015755acb",
+    "metadata/LICENSE": "5d56a517b9046037b4a83024e79314c8f3b74f9b7144c7a68ac939efb8da1a97",
+    "metadata/README.md": "600d8af8e19a360e770cbc36a4075eb4f54ed3da4791a258c301cec8892785b6",
+    "version.js": "ba69ce9390a68ce302fca993108d3155fe851855161d8d7c212385258061a8c4"
+  },
+  "host_adapter": {
+    "files": {
+      "vendor/chogan-eightball/adapter/bridge.js": "6dc226ca7b767aa5f9120d9a402de9f0034c225aee0451636d25554a5af5ebc7",
+      "vendor/chogan-eightball/adapter/eightball.css": "959560e4b3220a933be0850173b283d40a2b87fc5781185151987e0fee355274",
+      "vendor/chogan-eightball/adapter/THIRD-PARTY-NOTICES.txt": "63d9f7280b8c171bbc1e6af08ebc83aba8accdb461750820cf806358916ddf12"
+    },
+    "changes": [
+      "Serve pinned Chogan files from a sandboxed opaque-origin frame with a no-network CSP.",
+      "Add Korean in-game labels and select the English or Korean game locale from the Denny Games route.",
+      "Gate game animation with the Denny Games pause/resume lifecycle and validate a random postMessage channel.",
+      "Map supported host gamepad actions to Chogan's keyboard controls and connect the host sound and volume controls.",
+      "Use standalone mode and hide upstream back/fullscreen exits; disable upstream share links, first-run tutorial, and currency rewards.",
+      "Add the original Denny Games player layout, bilingual guide, license notice, and original cover art."
+    ]
+  },
+  "product_artwork": {
+    "public/art/open-games/chogan-eightball.svg": "3462176e8667ca3535d3607ecee523e13d52d4fa5b4523dfd9d10e0f00e5891d",
+    "public/art/open-games/chogan-eightball-preview.png": "f7ce15d93fa2ace1991c6407efcb0c8d9e5eb6b1be0d04b67dce670b6b261435"
+  }
+}

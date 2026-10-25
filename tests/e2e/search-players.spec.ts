@@ -51,7 +51,7 @@ test("player filters and local game launches fit phones and tablets", async ({
   for (const width of [320, 360, 390, 430, 834, 1194, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/ko/search/?mode=multi-player");
-    await expect(page.locator("[data-search-result]")).toHaveCount(10);
+    await expect(page.locator("[data-search-result]")).toHaveCount(11);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

@@ -502,6 +502,15 @@
   border: 0;
   background: #172333;
 }
+.chogan-eightball-frame {
+  width: min(100%, 620px);
+  max-width: none;
+  max-height: 72dvh;
+  min-height: 0;
+  margin: auto;
+  border: 0;
+  background: #fbf6ef;
+}
 #player[data-immersive="true"] .packabunchas-frame {
   width: min(100%, 56.25cqh);
   max-height: 100%;
@@ -845,6 +854,9 @@
   width: min(100%, calc(100cqh * var(--frame-ratio, 1)));
   min-height: 0;
   max-height: none;
+}
+#player[data-immersive="true"] .chogan-eightball-frame {
+  width: min(100%, calc(100cqh * var(--frame-ratio, 0.75)));
 }
 @media (max-width: 560px) {
   #player[data-immersive="true"] .player-top {

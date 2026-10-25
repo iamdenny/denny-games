@@ -7,7 +7,7 @@ read_when:
 
 # Open game inventory
 
-The 2026-10-25 release candidate registry contains 338 locally playable games; production publication is confirmed separately by deployed-SHA and public-route readback. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
+The 2026-10-25 release candidate registry contains 339 locally playable games; production publication is confirmed separately by deployed-SHA and public-route readback. It has zero external-play entries. The 149 researched outbound listings have been removed from public game, search and sitemap routes. Their source, host, price and license evidence remains in `vendor/external-browser-listings.json`; their unused catalogue illustrations are in `vendor/external-listing-art/`, outside the deployed site. The research includes proprietary, unpublished and mixed-license candidates, so free browser access alone does not authorize redistribution.
 
 ## One hundred additional arcade games — 2026-10-23
 
@@ -29,7 +29,7 @@ Jegi Rally is an original MIT Canvas adaptation with single-foot, alternating-fe
 
 Lantern Grid and Number Trail use project-authored TypeScript, CSS and SVG under the repository MIT license. Their cross-toggle and sliding-number rules are implemented without copied branded art, levels, sound or code. Each has 24 solvable seeded stages. See [ADR 0043](../adr/0043-original-logic-pack.md).
 
-Further import candidates are research only: [Chogan](https://github.com/choganhq/chogan) and [wavde/games](https://github.com/wavde/games) require per-game source, dependency and asset license review before selection. Neither has been imported. [Komyo](https://github.com/N0zz/komyo.online) declares noncommercial restrictions and is excluded from commercial import selection. A public repository or free-to-play page is not redistribution approval. Prefer a small number of complete, tested games over counting research candidates as playable inventory.
+Further import candidates are research only: [wavde/games](https://github.com/wavde/games) requires per-game source, dependency and asset license review before selection. [Komyo](https://github.com/N0zz/komyo.online) declares noncommercial restrictions and is excluded from commercial import selection. A public repository or free-to-play page is not redistribution approval. Prefer a small number of complete, tested games over counting research candidates as playable inventory.
 
 ## Archived external-host research — not public listings
 
@@ -95,14 +95,14 @@ Star Pinball and Jewel Drop add an original three-ball table and a falling-colum
 
 ## Six original additions
 
-| Game | Scope | Rights |
-| --- | --- | --- |
+| Game            | Scope                                                  | Rights       |
+| --------------- | ------------------------------------------------------ | ------------ |
 | Minefield Watch | Three seeded minefields; safe first cell and neighbors | Original MIT |
-| Mosaic Mystery | Twelve unique-solution 5×5/6×6 nonograms | Original MIT |
-| Traffic Escape | Twelve sliding-vehicle stages | Original MIT |
-| River Hop | Five crossing stages; three lives per stage | Original MIT |
-| Meteor Guard | Five internal twenty-second waves | Original MIT |
-| Pocket Bowling | Ten-frame round | Original MIT |
+| Mosaic Mystery  | Twelve unique-solution 5×5/6×6 nonograms               | Original MIT |
+| Traffic Escape  | Twelve sliding-vehicle stages                          | Original MIT |
+| River Hop       | Five crossing stages; three lives per stage            | Original MIT |
+| Meteor Guard    | Five internal twenty-second waves                      | Original MIT |
+| Pocket Bowling  | Ten-frame round                                        | Original MIT |
 
 These additions use original code and artwork, without ROMs or third-party game assets. Runtime publication, CI and public verification are separate release evidence; this inventory does not claim physical-device certification, search ranking or ad approval. See ADR 0057.
 
@@ -117,3 +117,7 @@ PACKABUNCHAS adds one locally hosted puzzle game with five internal modes. The p
 ## Black Box laser-deduction puzzle — 2026-10-25
 
 Black Box adds one locally hosted logic puzzle from Simon Tatham's Portable Puzzle Collection. The source archive, official HTML/JavaScript/WebAssembly hashes and complete MIT notice are retained and published; the retrieval mirror is disclosed in the provenance record and checked against an independent published digest. The official artifacts run in an opaque sandbox with a restrictive no-network CSP. Denny Games injects the checked WASM bytes locally, keeps preferences only in frame memory, pauses on player focus loss, and adds a bilingual touch Mark mode for the upstream right-click action. The original in-game menu and status remain English. Puzzle progress is not saved, and some distinct ball layouts may share all beam results. Browser tests cover real mouse/touch actions and responsive emulation; no physical-device compatibility or unique-solution claim follows. See `vendor/sgt-blackbox/provenance.json`, the [MIT license and source notice](/licenses/sgt-blackbox/) and [ADR 0064](../adr/0064-sgt-blackbox-wasm-import.md).
+
+## Chogan 8-Ball Pool — 2026-10-25
+
+8-Ball Pool adds a locally hosted billiards game from Chogan's pinned `0.16.0` source commit `2c6d6d80b25aad8a6fc4987d0f347a445493780e`. The game, shared UI and cue physics are MIT-licensed; its bundled Vazirmatn font has a separate SIL OFL 1.1 notice. Every upstream file in the import subset is hash-checked, and both licenses and the adapted source are published. The game runs in an `allow-scripts` opaque-origin frame with a restrictive no-network CSP. The adapter translates the game UI into Korean, supports touch/mouse/keyboard and mapped gamepad actions, gates animation while paused, and removes the upstream back/fullscreen exits, share links and currency rewards. Players can choose three AI difficulties or two-player pass-and-play; each new frame creates a fresh rack. There is no online matchmaking, daily challenge entry or save after leaving/reloading. The local guide, game description and error messages are bilingual. Physical-device compatibility is not claimed. See `vendor/chogan-eightball/provenance.json`, the [MIT/OFL source notice](/licenses/chogan-eightball/) and [ADR 0065](../adr/0065-chogan-eightball-import.md).
