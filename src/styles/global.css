@@ -417,6 +417,17 @@ html:not(.js-enabled) #search-form {
 html.js-enabled .no-js-search-fallback {
   display: none;
 }
+.home-actions .home-no-js-fallback {
+  flex: 1 1 240px;
+  max-width: 360px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  line-height: 1.5;
+}
 .search-form {
   display: flex;
   gap: 8px;
