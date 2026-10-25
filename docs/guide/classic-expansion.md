@@ -7,7 +7,11 @@ read_when:
 
 # Classic game expansion tracking
 
-## Implemented in this change
+## Current repository status — 2026-10-25
+
+The initial batch below is a historical implementation snapshot, not the current game count. The repository registry now contains 339 locally playable games and no external-play entries; production publication is checked separately against the deployed SHA and public routes. See the [open game inventory](open-game-inventory.md) for the current source count and candidate dispositions.
+
+## Initial implementation batch — 2026-10-22
 
 | Game | Scope | Rights and source |
 | --- | --- | --- |
@@ -19,7 +23,7 @@ read_when:
 
 Neverball provenance is in `vendor/neverball/provenance.json`. The matching source archive and unchanged runtime downloads are retained in `upstream/`; `scripts/build-neverball.mjs` checks every hash. The runtime request constructor is changed only in generated output. The adapter installs the local course list before starting the engine. Legal notices are exposed at `/licenses/neverball/NOTICE.txt` with upstream texts and font exceptions. Audio is omitted rather than fetching upstream music.
 
-Original games are distinct short works, not ports or licensed remakes of commercial classics. The catalogue has 214 playable entries after these five additions. Publishing/CI/deployment status must be recorded separately.
+Original games are distinct short works, not ports or licensed remakes of commercial classics. The registry had 214 playable entries after these five additions in that release snapshot. That historical count does not describe today's catalogue.
 
 ## Remaining requested ports
 
@@ -36,7 +40,7 @@ These are not published playable entries. No placeholder is counted as a game. A
 
 ## Commercial classics
 
-Prehistorik, Astonishia Story and Princess Maker original code, characters, music, dialogue, maps and branding are not copied. A newly written engine or port is not a substitute for permission to distribute protected game content. Original-inspired development can reuse general genre ideas while creating distinct expression. Any licensed original release still requires an applicable agreement; no rights-holder messages were sent and no licensing approval is claimed.
+Prehistorik (고인돌), Astonishia Story (어스토니시아 스토리) and Princess Maker (프린세스 메이커) original code, characters, music, dialogue, maps and branding are not copied. A newly written engine or port is not a substitute for permission to distribute protected game content. Original-inspired development can reuse general genre ideas while creating distinct expression. Any licensed original release still requires an applicable agreement; no rights-holder messages or licensing approvals are recorded here.
 
 ## Validation boundaries
 

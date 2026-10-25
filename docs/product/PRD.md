@@ -5,7 +5,15 @@ read_when:
   - Implementing product behavior or reviewing release scope
 ---
 
-# Current delivery decisions — 2026-10-11
+# Product requirements and delivery record
+
+## Current source snapshot — 2026-10-25
+
+The repository registry contains 339 locally playable games and no external-play entries; the public release count must still be checked against the deployed SHA and public routes. Google AdSense remains verification-only, while Adsterra uses separate optional consent. Neither provider configuration nor approval proves ad fill, impressions or revenue; see the [advertising guide](../guide/advertising.md).
+
+GA4 page views and minimal `game_start` / `game_complete` events require renewed explicit consent. Instrumentation does not establish receipt of the new lifecycle events; see [ADR 0050](../adr/0050-consented-game-analytics.md). Browser automation and emulated touch are separate from physical-device support. Sitemap and IndexNow receipts are separate from crawling, indexing, ranking and AI citations; see the [search discovery guide](../guide/search-discovery.md).
+
+## Initial delivery decisions — 2026-10-11
 
 This repository carries the original research requirements below. The following decisions supersede conflicting draft recommendations:
 
@@ -20,7 +28,7 @@ This repository carries the original research requirements below. The following 
 - Astro + strict TypeScript + lightweight Canvas/DOM modules; Phaser is deferred until justified.
 - Initial games: Circuit Loop (30 deterministic solvable boards), Orbit Break (12 stage layouts), and MIT 2048 adaptation. Existing-game candidates require individual rights review.
 - Catalogue, categories, search, favorites/recent, daily challenges, player lifecycle, diagnostic/guides and advertising gates are in the implementation scope.
-- Ad integration is P0; site/H5 approval, certified CMP and serving credentials are external gates. Default mode off.
+- Initial monetization proposal: AdSense display and H5 integrations were P0, gated on provider approval, certified CMP and serving credentials. The current Google state is verification-only; Adsterra is a separate opt-in integration. See the current source snapshot above and the [advertising guide](../guide/advertising.md).
 - Mobile responsive and browser automation are tested; actual iOS/Android/pads/Tesla, 20-minute device soak, field p75 metrics, search registration/indexing and legal/provider review are separately pending until evidence exists.
 - No fake games, fake compatibility or 90-day experiment plan.
 
@@ -28,7 +36,7 @@ This repository carries the original research requirements below. The following 
 
 ## One hundred additional games — 2026-10-23
 
-Expand the current234-game registry to334 with100 distinct locally playable additions. Preserve source rights, bilingual rules and the common player lifecycle. Keep individual admission evidence, actual gameplay artwork and a discoverable100-game collection. No placeholder, duplicate revision or external link counts as an added game. See [ADR0058](../adr/0058-century-arcade.md).
+Expand the 234-game registry to 334 with 100 distinct locally playable additions. Preserve source rights, bilingual rules and the common player lifecycle. Keep individual admission evidence, actual gameplay artwork and a discoverable 100-game collection. No placeholder, duplicate revision or external link counts as an added game. See [ADR 0058](../adr/0058-century-arcade.md). Later additions bring the current repository snapshot to 339 entries; see the [open game inventory](../guide/open-game-inventory.md).
 
 ## Classic board release — 2026-10-12
 
@@ -238,7 +246,7 @@ Enrich the existing 2048 and Gomoku pages with static worked rules and beginner 
 
 ## 5. 기능 요구사항과 완료 기준
 
-P0는 첫 출시 필수, P1은 후속 추가다. 광고는 P0다.
+초기 제품안에서 P0는 첫 출시 필수, P1은 후속 추가였다. 광고의 현재 공급자별 상태는 이 문서 상단의 현황과 [광고 가이드](../guide/advertising.md)를 따른다.
 
 | ID | 우선순위 | 요구사항 | 완료 기준 |
 | --- | --- | --- | --- |
@@ -311,7 +319,9 @@ Gamepad API의 연결 이벤트와 `navigator.getGamepads()`를 사용한다. �
 
 영상과 결과는 별도로 보관하고 개인정보·차량 식별번호는 공개하지 않는다. 사용자 제보는 자체 검증 기록과 분리한다. OTA 이후 동작이 달라지면 기존 검증 날짜를 남기고 재확인 대기로 바꾼다.
 
-## 7. 광고 수익화 — 첫 출시 필수
+## 7. 원안: 광고 수익화 — 첫 출시 목표
+
+이 절은 초기 AdSense/H5 출시 제안의 요구사항을 보존한다. 2026-10-25 기준 Google AdSense는 검증 전용이고 H5 요청은 비활성화되어 있다. Adsterra는 별도 동의형으로 운영 코드를 구성했으며, 소재 채움·노출·수익은 확인된 것으로 간주하지 않는다. 현재 상태는 [광고 가이드](../guide/advertising.md)를 따른다.
 
 ### 7.1 광고 상품 선택
 

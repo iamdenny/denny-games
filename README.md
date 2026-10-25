@@ -2,7 +2,7 @@
 
 Free browser arcade in English and Korean at [games.iamdenny.com](https://games.iamdenny.com).
 
-Circuit Loop, Orbit Break and a credited MIT adaptation of 2048. Arcade Press catalogue, daily seeded challenges, local progress, favourites and responsive controls. Physical phones, controllers and Tesla browsers still require device testing. Advertising slots and approval/consent gates are implemented; actual serving is inactive.
+An English/Korean catalogue of original games and credited adaptations, with daily seeded challenges, local progress, favourites and responsive controls. Chromium/WebKit browser checks and emulated touch do not certify physical phones, tablets, controllers or Tesla browsers. Google AdSense remains verification-only; Adsterra banners are optional and consent-gated. Provider approval and configured placements do not establish ad impressions or revenue.
 
 ## Develop
 

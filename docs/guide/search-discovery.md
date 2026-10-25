@@ -11,7 +11,7 @@ read_when:
 
 Improve existing entry pages before treating catalogue size as a growth mechanism. [ADR 0036](../adr/0036-game-learning-and-sharing.md) adds worked 2048 rules, Gomoku rule boundaries, a five-game same-device comparison and canonical-only sharing, with static links from home. Private analytics reports remain in their authorized reporting channel.
 
-Monitor the existing `/en/games/2048/`, `/ko/games/2048/`, `/en/games/gomoku/`, `/ko/games/gomoku/` and bilingual `/collections/classic-board/` URLs in subsequent reports. Use Search Console's latest completed seven-day window and previous seven-day comparison when available; track impressions, clicks, CTR, position and queries separately from consented GA4 users, sessions, views and source/medium. These measures distinguish discovery from measured visits. Page views do not prove play, and a shared URL does not prove that a recipient visited. Do not infer a trend from one or two users. No account changes or manual submissions are part of this release.
+Monitor the existing `/en/games/2048/`, `/ko/games/2048/`, `/en/games/gomoku/`, `/ko/games/gomoku/` and bilingual `/collections/classic-board/` URLs in subsequent reports. Use Search Console's latest completed seven-day window and previous seven-day comparison when available; track impressions, clicks, CTR, position and queries separately from consented GA4 users, sessions, views and source/medium. These measures distinguish discovery from measured visits. Page views do not prove play, and a shared URL does not prove that a recipient visited. Do not infer a trend from one or two users. No account changes or manual submissions were part of that 2026-10-18 content update.
 
 ## Korean Gonggi entry — 2026-10-23
 
@@ -49,6 +49,10 @@ An HTTP 200 or 202 is recorded only as a submission receipt. HTTP 202 can mean t
 3. For Korean discovery, add the exact host in Naver Search Advisor, verify ownership and submit the sitemap. Keep existing tools/modutt properties untouched.
 4. Record observed indexed URLs, search impressions/clicks and Bing AI Performance citations only when dashboards show them. A submitted sitemap, successful fetch, indexed page, ranking and AI citation are different states. Do not promise timing or rank.
 
+### Latest recorded evidence — 2026-10-21
+
+The release record reports an IndexNow HTTP 200 receipt for 503 sitemap URLs; this confirms submission acceptance only. Search Console performance metrics were unavailable in that record. Google ownership was recorded as verified through the existing domain provider. Bing and Naver verification tokens are present in the root HTML, but a token in source alone does not prove the provider console accepted the property or sitemap. This repository has no dated Daum console readback. Do not describe all four search engines as registered or indexed without those provider-specific receipts. See the [2026-10-21 release evidence](../releases/2026-10-21-korea-local-board-entry.md).
+
 Optional GA4 page views and minimal game-start/completed-round measurement are enabled only after an explicit renewed local consent choice (ADR 0050). The tag strips query strings and fragments, keeps cookies on the games subdomain for up to 60 days, disables Google Signals and enhanced measurement, and does not send search terms, form text, account identifiers, game inputs or scores. The only gameplay parameters sent are the catalogue game ID and sanitized page context for `game_start` and `game_complete`; old page-view consent must be renewed. The privacy page describes the data and offers a way to change the choice; local and declined sessions load no Google tag.
 
 ## Primary guidance
@@ -62,7 +66,7 @@ Optional GA4 page views and minimal game-start/completed-round measurement are e
 - [Bing webmaster guidelines](https://www.bing.com/webmasters/help/bing-webmaster-guidelines-30fba23a): discovery and content clarity support search and AI eligibility.
 - [Bing AI Performance](https://www.bing.com/webmasters/help/ai-performance-9f8e7d6c): use dashboard citation evidence when available.
 
-Reviewed 2026-10-15. Deployment and actual submission receipts belong in release evidence, not predictions in this guide.
+Reconciled 2026-10-25. Deployment and actual submission receipts belong in dated release evidence, not predictions in this guide.
 
 ## Play-style discovery release
 

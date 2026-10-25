@@ -1,21 +1,21 @@
 ---
 title: "Advertising"
-summary: "Approval and consent gates for display and H5 ads."
+summary: "Separate Google AdSense gates, optional Adsterra placements and owned-service promotions."
 read_when:
   - Working on advertising
 ---
 
 # Advertising
 
-Advertising is a P0 integration but serving requires external approval. Runtime modes are `off`, `verification`, `live`. Default is off; no publisher ID or live slots are guessed.
+## Google AdSense and H5 ads
 
-Display slots are shared components in content pages, with a maximum of two slots per page and no slots in live gameplay, search, diagnostics or empty library views. Disabled slots occupy no layout. Enabled slots reserve dimensions, show an advertisement label and retain space through no-fill. Game controls stay separated.
+Google AdSense remains in `verification` mode in `src/data/ads.ts`. The site has no configured display slot IDs, and approval, certified-CMP, H5-approval and hosting gates are false, so `canServe()` blocks Google display and H5 requests. `AdSlot` stays hidden. Verification mode may add only configured verification metadata; it does not request ads.
 
-Live requests require configured publisher/slot IDs, site approval, verified Google-certified CMP integration and an affirmative policy decision from that CMP. A simple local consent toggle is not a substitute. If the CMP signal is missing, ads remain disabled. Verification mode may add only the configured verification tag and never requests slots.
+If Google live serving is considered later, requests require configured publisher/slot IDs, site approval, verified Google-certified CMP integration and an affirmative policy decision from that CMP. A simple local consent toggle is not a substitute. If the CMP signal is missing, ads remain disabled.
 
-H5 requests are offered only between rounds, after two completed rounds and at least three minutes since the previous opportunity. Pause the game and mute before the request; recover to an explicit-resume state for completed, rejected, failed or no-fill callbacks. Do not use a timeout to remove a playing advertisement. Never programmatically click ads. Vehicle large-screen mode disables H5 until a recorded device test permits it.
+The H5 callback contract is implemented, but H5 requests remain disabled until the approval and serving gates pass. If enabled later, offer them only between rounds, after two completed rounds and at least three minutes since the previous opportunity. Pause the game and mute before the request; recover to an explicit-resume state for completed, rejected, failed or no-fill callbacks. Do not use a timeout to remove a playing advertisement. Never programmatically click ads. Vehicle large-screen mode disables H5 until a recorded device test permits it.
 
-`ads.txt` is empty until an explicit authorized seller configuration supplies its contents. No placeholder publisher IDs are published. Existing iamdenny.com root sellers must be preserved; root-domain approval and ads.txt delegation are separate operations. Account/site approval, H5 approval, CMP certification, actual serving and revenue remain separate evidence. Pages commercial hosting suitability must be resolved before enabling live monetization; the same static output can move to a suitable free host.
+`ads.txt` contains only explicitly authorized seller lines. The current Google seller line is configured in `src/data/ads.ts`; Adsterra did not supply a seller line, so none is guessed. Preserve existing iamdenny.com root sellers; root-domain approval and `ads.txt` delegation are separate operations. Account/site approval, H5 approval, CMP certification, actual serving and revenue remain separate evidence. GitHub Pages commercial-hosting suitability must be resolved before enabling Google live monetization.
 
 ## References
 
@@ -38,7 +38,7 @@ See [ADR 0011](../adr/0011-provider-verification-and-affiliate.md). Provider app
 
 See [ADR 0048](../adr/0048-adsterra-banners.md) for the provider-specific amendment to the earlier Google-only gates. Games site 6142646 and banner 31868961 are approved/active in the dashboard. The issued public code is in `src/data/adsterra.ts`. Adult ads were disabled on registration. Support confirmed completion of the owner-authorized Games-specific gambling/betting/casino/adult filter request, identifying site 6142646 and banner 31868961; `filtersConfirmed` is true. Support also confirmed the separately authorized account-wide gambling block completed; adult/erotic restrictions are website-level, not an account-wide adult filter. This is separate from approval and serving.
 
-The adapter offers separate optional advertising consent on home, game details, category and all-games catalogues, collections with at least eight games and general guide pages, with immediate removal on withdrawal. Long collection pages place their single Adsterra banner after the first eight game cards. Category pages place the banner after the eighth currently rendered result; sorting and filtering keep it with the results, while pages with fewer than eight results or a catalogue error hide it. Short collections remain ad-free, and the same issued code is not duplicated within a page. Search may show a separate eligible banner after at least eight results; live gameplay, device checks, gamepad diagnostics and library views remain ad-free. Google consent/approval and the existing static Coupang cards are unchanged. The banner may remain empty on no-fill or blocking; requests are not counted as rendered creatives. No seller line was supplied in the issued code dialog, so existing ads.txt records are preserved.
+The adapter offers separate optional advertising consent on home, game details, category and all-games catalogues, collections with at least eight games and general guide pages, with immediate removal on withdrawal. Long collection pages place their single Adsterra banner after the first eight game cards. Category pages place it after the eighth currently rendered result; sorting and filtering keep it with the results, while pages with fewer than eight results or a catalogue error hide it. Short collections remain ad-free, and one issued Adsterra code is used per eligible page. Search may show a banner after at least eight successfully rendered results. A player page may show a separate banner below the full-height game surface; no ad overlays game controls. Device checks, gamepad diagnostics and library views remain ad-free. Google consent/approval and the existing static Coupang cards are unchanged. The frame loads only after Adsterra consent and may remain empty on no-fill or blocking; requests are not counted as rendered creatives. No Adsterra seller line was supplied, so existing `ads.txt` records are preserved.
 
 `release.json` reports `adsterra-opt-in` when configured readiness gates pass, and separates the Google verification-only state from Adsterra consent-required state. These are configuration states, never proof of impressions or revenue.
 
