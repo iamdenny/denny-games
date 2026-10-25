@@ -721,6 +721,7 @@ try {
     "pocket-pingpong": () => import("../games/pocket-pingpong"),
     packabunchas: () => import("../games/packabunchas"),
     "sgt-blackbox": () => import("../games/sgt-blackbox"),
+    "chogan-eightball": () => import("../games/chogan-eightball"),
     gonggi: () => import("../games/gonggi"),
     "jegi-rally": () => import("../games/jegi-rally"),
     "ember-maze": () => import("../games/ember-maze"),

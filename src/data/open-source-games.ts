@@ -399,4 +399,118 @@ export const openSourceGames: Game[] = [
       },
     },
   },
+  {
+    id: "chogan-eightball",
+    category: "sports",
+    duration: "10–20",
+    controlStyle: "pointer",
+    color: "mint",
+    version: 1,
+    stages: 1,
+    tags: [
+      "8-ball pool",
+      "8 ball pool",
+      "billiards",
+      "pool game",
+      "free pool game",
+      "AI pool game",
+      "two player pool",
+      "local multiplayer pool",
+      "browser billiards",
+      "eight ball",
+      "8볼 당구",
+      "8볼 풀",
+      "당구 게임",
+      "무료 당구",
+      "2인용 당구",
+      "친구와 당구",
+      "AI 당구",
+      "오픈소스 게임",
+    ],
+    inputs: ["touch", "mouse", "keyboard", "gamepad"],
+    license: "MIT + SIL OFL 1.1 font",
+    licenseDescription: {
+      en: "The 8-Ball Pool game, shared UI and cue physics are from Chogan, pinned to commit 2c6d6d80b25aad8a6fc4987d0f347a445493780e and licensed under MIT. The bundled Vazirmatn font has a separate SIL Open Font License 1.1 notice. Source hashes, the Denny Games host bridge and local adaptations are published with the notices. The game runs here in an opaque sandbox with network access blocked. It offers three AI difficulties or same-device two-player play, but no online matchmaking. A new frame creates a fresh rack; progress is not saved after leaving or reloading.",
+      ko: "8볼 풀 게임과 공용 UI·당구 물리는 Chogan 원본이며 2c6d6d80b25aad8a6fc4987d0f347a445493780e 커밋에 고정한 MIT 라이선스입니다. 포함된 Vazirmatn 글꼴은 별도의 SIL Open Font License 1.1을 따릅니다. 원본 해시, 데니 게임즈 브리지와 변경 사항을 라이선스 안내에 공개했어요. 게임은 네트워크를 차단한 불투명 샌드박스에서 실행합니다. AI 3단계 또는 한 기기 2인 플레이를 지원하며 온라인 매칭은 없어요. 새 게임을 시작할 때마다 공을 다시 배열하고, 페이지를 떠나거나 새로고침하면 진행은 저장되지 않습니다.",
+    },
+    licenseUrl:
+      "https://github.com/choganhq/chogan/blob/2c6d6d80b25aad8a6fc4987d0f347a445493780e/LICENSE",
+    licenseUrlLabel: {
+      en: "Pinned MIT license and separate font notice",
+      ko: "고정한 MIT 라이선스와 글꼴 고지",
+    },
+    author: "Chogan (choganhq)",
+    source:
+      "https://github.com/choganhq/chogan/tree/2c6d6d80b25aad8a6fc4987d0f347a445493780e",
+    sourceLabel: {
+      en: "Pinned source and local notices",
+      ko: "버전을 고정한 원본과 로컬 고지",
+    },
+    playModes: ["single-player", "multi-player"],
+    guide: {
+      path: "guides/chogan-eightball",
+      label: {
+        en: "How to play 8-Ball Pool",
+        ko: "8볼 풀 하는 법",
+      },
+    },
+    added: "2026-10-25",
+    imported: true,
+    internalScore: true,
+    notice: "/licenses/chogan-eightball/",
+    artworkAlt: {
+      en: "Original Denny Games illustration of an eight-ball table with a cue ball lined up toward a rack",
+      ko: "흰 공이 당구공 삼각형을 겨누는 당구대를 그린 데니 게임즈 자체 일러스트",
+    },
+    artwork: "/art/open-games/chogan-eightball.svg",
+    screenshot: "/art/open-games/chogan-eightball-preview.png",
+    text: {
+      en: {
+        title: "8-Ball Pool",
+        searchTitle: "Free 8-Ball Pool Game · AI and Local 2 Player",
+        subtitle: "Line up the cue. Clear your group. Finish on the 8.",
+        description:
+          "Play a free 8-ball pool game in your browser. Drag to aim, pull to set shot power, then sink your group before pocketing the 8. Choose one of three AI difficulties or pass the same device for a local two-player match. Each new frame racks a fresh table. No account or installation is needed; there is no online matchmaking.",
+        rules: [
+          "The first player to sink a solid (1–7) or stripe (9–15) takes that group; the other player gets the remaining group.",
+          "Keep your turn by sinking one of your own balls. Hit one of your group first on each shot; scratching, missing every ball or hitting an opponent's ball first is a foul.",
+          "After clearing your group, sink the 8 to win. Sinking it early or with a foul loses the frame. An 8 sunk on the break is spotted again.",
+        ],
+        controls: [
+          "Touch/mouse: drag the table to aim and the power bar to shoot. Keyboard: use the arrows to aim and set power; Space or Enter shoots.",
+          "Keyboard: Left/Right aims, Up/Down sets shot power, Space or Enter shoots. Use W/A/S/D to move the cue ball during ball in hand.",
+          "Standard gamepad: D-pad aims or moves the cue ball during ball in hand; Up/Down changes power; the primary button shoots. Use the Denny Games pause control to stop play.",
+          "Open New frame to choose one of three AI difficulties or two players on one device. There is no online matchmaking. A new frame starts a new rack; leaving or reloading ends the current game.",
+        ],
+        tips: [
+          "Drag around the cue ball to see how the aim line changes before taking a shot.",
+          "Use the power bar for a soft position shot; pull farther for a stronger break or a long pot.",
+          "Plan the route to the 8 early. Potting your group is not enough if the cue ball finishes behind another ball.",
+        ],
+      },
+      ko: {
+        title: "8볼 풀",
+        searchTitle: "무료 8볼 당구 게임 · AI와 한 기기 2인 대전",
+        subtitle: "조준하고, 내 공을 비우고, 마지막은 8번 공으로.",
+        description:
+          "브라우저에서 무료 8볼 당구를 즐겨보세요. 드래그해 조준하고 힘을 조절해 내 그룹의 공을 넣은 뒤 마지막에 8번 공을 넣으세요. AI 난이도 세 단계와 한 기기 2인 대전을 지원합니다. 새 게임마다 당구공을 다시 배열해요. 가입이나 설치가 필요 없고 온라인 매칭은 제공하지 않습니다.",
+        rules: [
+          "단색 공(1~7) 또는 줄무늬 공(9~15)을 먼저 넣은 사람이 해당 그룹을 맡고, 상대는 나머지 그룹을 맡아요.",
+          "내 그룹의 공을 넣으면 차례를 이어가요. 매 샷마다 내 그룹 공을 먼저 맞혀야 해요. 흰 공을 넣거나, 공을 하나도 맞히지 못하거나, 상대 공을 먼저 맞히면 파울입니다.",
+          "내 그룹을 모두 넣은 뒤 8번 공을 넣으면 이겨요. 8번 공을 먼저 넣거나 파울과 함께 넣으면 해당 판에서 져요. 초구에 들어간 8번 공은 다시 놓입니다.",
+        ],
+        controls: [
+          "터치·마우스는 당구대를 드래그해 조준하고 힘 조절 막대를 끌어 쳐요. 키보드는 방향키로 조준·힘을 조절하고 Space 또는 Enter로 쳐요.",
+          "키보드: 좌우 방향키는 조준, 위아래 방향키는 샷의 힘을 조절해요. Space 또는 Enter로 쳐요. 흰 공 배치 차례에는 W/A/S/D를 사용하세요.",
+          "표준 게임패드: 방향패드로 조준하거나 흰 공을 옮기고, 위아래로 힘을 조절한 뒤 기본 버튼으로 샷해요. 멈출 때는 데니 게임즈 일시정지 버튼을 누르세요.",
+          "새 게임 버튼을 열어 AI 난이도 3단계 또는 한 기기 2인 플레이를 선택하세요. 온라인 매칭은 없어요. 새 판에는 공이 새로 배열되며, 페이지를 떠나거나 새로고침하면 진행 중인 게임이 끝납니다.",
+        ],
+        tips: [
+          "흰 공 주변을 드래그하며 조준선이 어디로 향하는지 살펴보세요.",
+          "부드럽게 위치를 잡을 때는 힘 조절 막대를 조금만 당기고, 초구나 먼 공에는 더 강하게 당겨요.",
+          "마지막 8번 공의 경로도 미리 생각하세요. 내 그룹 공을 모두 넣어도 흰 공이 가로막히면 어려워질 수 있어요.",
+        ],
+      },
+    },
+  },
 ];

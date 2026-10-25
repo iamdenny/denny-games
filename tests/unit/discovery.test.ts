@@ -21,6 +21,7 @@ describe("play-style discovery", () => {
     });
     expect(together.map((game) => game.id).sort()).toEqual([
       "checkers",
+      "chogan-eightball",
       "crater-duel",
       "dots-and-boxes",
       "ember-maze",
@@ -164,6 +165,7 @@ describe("play-style discovery", () => {
       "packabunchas",
       "gridland",
       "sokoban",
+      "chogan-eightball",
     ]);
     expect(
       search(

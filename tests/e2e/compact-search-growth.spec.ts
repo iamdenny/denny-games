@@ -7,7 +7,7 @@ for (const locale of ["en", "ko"] as const) {
     await page.setViewportSize({ width: 320, height: 800 });
     await page.goto(`/${locale}/search/?mode=multi-player`);
     const disclosure = page.locator("[data-search-refinements]");
-    await expect(page.locator("[data-search-result]")).toHaveCount(10);
+    await expect(page.locator("[data-search-result]")).toHaveCount(11);
     await expect(disclosure).not.toHaveAttribute("open");
     await expect(page.locator("#search-filter-count")).toContainText("1");
     expect(
@@ -58,7 +58,7 @@ test("search advertising obeys consent and removes the frame for sparse results"
   });
   await page.goto("/en/search/?mode=multi-player");
   const banner = page.locator("[data-adsterra-search]");
-  await expect(page.locator("[data-search-result]")).toHaveCount(10);
+  await expect(page.locator("[data-search-result]")).toHaveCount(11);
   await expect(banner).toBeVisible();
   expect(requests).toBe(0);
   await banner.locator("[data-adsterra-allow]").click();

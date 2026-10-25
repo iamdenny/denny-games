@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { quickPlayGroups } from "../../src/data/quick-play";
 import { gameById, games } from "../../src/data/games";
+import { playModesFor } from "../../src/data/play-styles";
 
 test("all curated launch targets exist and declare local touch play", () => {
   for (const group of quickPlayGroups)
@@ -9,7 +10,8 @@ test("all curated launch targets exist and declare local touch play", () => {
       expect(game, id).toBeDefined();
       expect(game!.externalPlay, id).toBeUndefined();
       expect(game!.inputs, id).toContain("touch");
-      if (group.id === "together") expect(game!.classic, id).toBe(true);
+      if (group.id === "together")
+        expect(playModesFor(game!), id).toContain("multi-player");
     }
 });
 

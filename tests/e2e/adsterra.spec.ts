@@ -199,7 +199,7 @@ test.describe("Adsterra banner", () => {
     await expect(
       page.locator('.game-grid [data-game-card="jegi-rally"]'),
     ).toHaveCount(1);
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(5);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(6);
     expect(requests).toBe(0);
     await expect(banner.locator("iframe")).toHaveCount(0);
   });
@@ -235,7 +235,7 @@ test.describe("Adsterra banner", () => {
     await expect(
       page.locator('.game-grid [data-game-card="jegi-rally"]'),
     ).toHaveCount(1);
-    await expect(page.locator(".game-grid .game-card")).toHaveCount(5);
+    await expect(page.locator(".game-grid .game-card")).toHaveCount(6);
     await expect(banner).toBeHidden();
     await expect(banner.locator("iframe")).toHaveCount(0);
     expect(requests).toBe(1);

@@ -5,6 +5,7 @@ import { retroDuoGuides } from "./retro-duo-guides";
 import { klondikeGuide } from "./klondike-guide";
 import { packabunchasGuide } from "./packabunchas-guide";
 import { sgtBlackboxGuide } from "./sgt-blackbox-guide";
+import { choganEightballGuide } from "./chogan-eightball-guide";
 import { arcadeTrioGuides } from "./arcade-trio-guides";
 import { retroGuide } from "./retro-discovery";
 import { games } from "./games";
@@ -21,6 +22,7 @@ export const articles: Record<string, Record<Locale, Article>> = {
   "guides/klondike-solitaire": klondikeGuide,
   "guides/packabunchas": packabunchasGuide,
   "guides/sgt-blackbox": sgtBlackboxGuide,
+  "guides/chogan-eightball": choganEightballGuide,
   ...sixPuzzleGuides,
   ...sixMovementGuides,
   ...sixActionGuides,
@@ -1129,6 +1131,7 @@ export const guidePaths = [
   "guides/klondike-solitaire",
   "guides/packabunchas",
   "guides/sgt-blackbox",
+  "guides/chogan-eightball",
   "guides/minefield-watch",
   "guides/mosaic-mystery",
   "guides/traffic-escape",
