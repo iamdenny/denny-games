@@ -84,7 +84,7 @@ Use 12 explicit editor picks with bilingual reasons based on screen/rule review.
 | F11 honest compatibility | compatibility and diagnostic pages |
 | F12–F13 ads | ad config/adapter, failure recovery tests |
 | F14 SEO/GEO | static editorial HTML, canonical/hreflang/sitemap |
-| F15 observability | local event ring and diagnostics; renewed opt-in GA4 page views and minimal game starts/completions; no query strings, inputs or scores sent remotely |
+| F15 observability | local event ring and diagnostics; renewed opt-in GA4 page views, minimal game starts/completions and aggregate catalogue-search outcomes; no query strings, search text, filter values, game inputs or scores sent remotely |
 | F19 scale | typed registry, real pagination, 1,000-entry build fixture |
 | F20 mobile | responsive browser tests; physical-device signoff pending |
 | F21 slots | shared component, no display slots in play |
@@ -660,6 +660,10 @@ Use one consented Adsterra slot after home picks, inside the all-games list, and
 Search integration follows [ADR 0055](../adr/0055-compact-search-discovery-and-ads.md): compact mobile filter controls, visible selection answers in the canonical bilingual board guide and llms.txt, existing consented GA4 coverage without search terms, and one consented Adsterra placement below a search page with at least eight results. Search remains noindex; Google advertising remains verification-only until its separate approval gates pass.
 
 Search offers a bilingual player filter for solo or together on one device. Derive membership from the registry's explicit play modes and existing classic-board default; Yutnori is multiplayer-only. Show supported modes on each result and combine the filter with query, genre, controls and length. Preserve it through pagination, reload, browser history and language changes, and clear invalid values. Explain that together means sharing one device without online matchmaking. Search stays noindex with static collection fallbacks. See [ADR 0052](../adr/0052-player-mode-search.md).
+
+## Consented catalogue-search outcomes — 2026-10-25
+
+After a fresh explicit analytics choice, GA4 may receive one `catalog_search` event after a settled search or explicit form submission. A home-page submission carries only a short-lived, one-use session marker so the loaded results can be counted without storing its text. Include only whether text was entered, the number of active filters and the total result count, with a query-free localized path and sanitized referrer origin. Keep query, filters and page in the URL fragment and migrate legacy search parameters before analytics initializes; do not send query text, selected filter values, URL parameters, game selections or inputs. Blank catalogue views, history restoration and pagination do not emit search events. Previous game-only consent must be renewed; denial and advertising choices remain separate. See [ADR 0066](../adr/0066-consented-catalogue-search.md).
 
 ## Cooking and table tennis — 2026-10-23
 

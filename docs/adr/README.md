@@ -83,3 +83,4 @@
 - [0063 — PACKABUNCHAS local puzzle import](0063-packabunchas-import.md) — Accepted.
 - [0064 — Black Box local WebAssembly puzzle](0064-sgt-blackbox-wasm-import.md) — Accepted.
 - [0065 — Chogan 8-Ball Pool local import](0065-chogan-eightball-import.md) — Accepted.
+- [0066 — Consented catalogue search outcomes](0066-consented-catalogue-search.md) — Accepted.

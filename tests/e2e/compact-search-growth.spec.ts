@@ -89,6 +89,20 @@ test("search keeps GA4 consent separate and excludes terms from page-view comman
     localStorage.removeItem("denny-games.analytics-consent"),
   );
   await page.goto("/ko/search/?q=private-test-term&mode=multi-player#private");
+  expect(
+    await page.evaluate(() => ({
+      search: location.search,
+      hash: location.hash,
+    })),
+  ).toMatchObject({
+    search: "",
+  });
+  expect(await page.evaluate(() => location.hash)).toContain(
+    "q=private-test-term",
+  );
+  expect(await page.evaluate(() => location.hash)).toContain(
+    "mode=multi-player",
+  );
   expect(await page.evaluate(() => window.dataLayer)).toBeUndefined();
   await page.locator("[data-analytics-allow]").click();
   const commands = await page.evaluate(() =>

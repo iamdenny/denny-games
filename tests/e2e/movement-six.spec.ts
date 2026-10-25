@@ -115,7 +115,7 @@ test("Traffic Escape solved by real car inputs; terminal reload does not duplica
   page,
 }) => {
   await page.addInitScript(() =>
-    localStorage.setItem("denny-games.analytics-consent", "granted-v2"),
+    localStorage.setItem("denny-games.analytics-consent", "granted-v3"),
   );
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/en/play/traffic-escape/");
@@ -160,7 +160,7 @@ test("River Hop final-bank real input wins and restores terminal", async ({
     ({ key, s }) => {
       if (!localStorage.getItem(key))
         localStorage.setItem(key, JSON.stringify(s));
-      localStorage.setItem("denny-games.analytics-consent", "granted-v2");
+      localStorage.setItem("denny-games.analytics-consent", "granted-v3");
     },
     { key: saveKey("river-hop", 5), s },
   );

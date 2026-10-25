@@ -410,6 +410,13 @@ main {
   max-width: 360px;
   min-width: 0;
 }
+html:not(.js-enabled) .home-search,
+html:not(.js-enabled) #search-form {
+  display: none;
+}
+html.js-enabled .no-js-search-fallback {
+  display: none;
+}
 .search-form {
   display: flex;
   gap: 8px;

@@ -59,7 +59,7 @@ test("Jewel Drop reduced motion wins and restores terminal without duplicate com
     ({ key, s }) => {
       if (!localStorage.getItem(key))
         localStorage.setItem(key, JSON.stringify(s));
-      localStorage.setItem("denny-games.analytics-consent", "granted-v2");
+      localStorage.setItem("denny-games.analytics-consent", "granted-v3");
     },
     { key, s },
   );
