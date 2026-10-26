@@ -7,7 +7,7 @@ read_when:
 
 # Commands
 
-Use Node 22.22.3 (`.nvmrc`) and npm. Run from repository root.
+Use Node.js 24.22.1 or newer in the 24.x line (`.nvmrc`) and npm. Run from repository root.
 
 | Command | Purpose |
 | --- | --- |

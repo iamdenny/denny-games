@@ -6,7 +6,7 @@ An English/Korean catalogue of original games and credited adaptations, with dai
 
 ## Develop
 
-Use Node 22.22.3 and npm:
+Use Node.js 24.22.1 or newer in the 24.x line and npm:
 
 ```sh
 npm ci

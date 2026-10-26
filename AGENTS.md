@@ -5,7 +5,7 @@ Static English/Korean browser arcade at games.iamdenny.com. Read the PRD and rel
 ## Working rules
 
 - Use `ghr` for every GitHub CLI operation; local `ghr.profile=iamdenny`. Author: Denny Lim <hi.iamdenny@gmail.com>. Preserve active work.
-- Node 22.22.3, npm lockfile, Astro static output, strict TypeScript. Use `npm ci` for reproducible installs.
+- Node.js 24.22.1 or newer in the 24.x line, npm lockfile, Astro static output, strict TypeScript. Use `npm ci` for reproducible installs.
 - Add a game through typed registry metadata and the lifecycle contract. Keep game engines out of catalogue bundles.
 - Every public feature and error needs English and Korean. No empty categories, fabricated counts, ratings or compatibility claims.
 - Keep third-party license and provenance records. No ROMs or unreviewed assets. Secrets and account-specific credentials never enter source or static output.
