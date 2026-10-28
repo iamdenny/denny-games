@@ -9,22 +9,22 @@ read_when:
 
 Use Node.js 24.22.1 or newer in the 24.x line (`.nvmrc`) and npm. Run from repository root.
 
-| Command | Purpose |
-| --- | --- |
-| `npm ci` | Install locked dependencies |
-| `npm run dev` | Astro on localhost:4321 |
-| `npm run build` | Static dist plus artifact audit |
-| `npm run preview` | Preview production output on localhost:4321 |
-| `npm run format` | Format Astro, TypeScript, styles and validation scripts |
-| `npm run format:check` | Verify formatting |
-| `npm run check` | Astro/TypeScript diagnostics |
-| `npm test` | Game rules and shared services |
-| `npm run test:e2e` | Chromium user journeys and mobile layouts |
-| `npm run docs:check` | Frontmatter and internal documentation links |
-| `npm run docs:lint` | Markdown style |
-| `npm run test:scale` | Nonpublic 1,000-game registry and static generation |
+| Command                                      | Purpose                                                                              |
+| -------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `npm ci`                                     | Install locked dependencies                                                          |
+| `npm run dev`                                | Astro on localhost:4321                                                              |
+| `npm run build`                              | Static dist plus artifact audit                                                      |
+| `npm run preview`                            | Preview production output on localhost:4321                                          |
+| `npm run format`                             | Format Astro, TypeScript, styles and validation scripts                              |
+| `npm run format:check`                       | Verify formatting                                                                    |
+| `npm run check`                              | Astro/TypeScript diagnostics                                                         |
+| `npm test`                                   | Game rules and shared services                                                       |
+| `npm run test:e2e`                           | Chromium user journeys and mobile layouts                                            |
+| `npm run docs:check`                         | Frontmatter and internal documentation links                                         |
+| `npm run docs:lint`                          | Markdown style                                                                       |
+| `npm run test:scale`                         | Nonpublic 1,000-game registry and static generation                                  |
 | `node scripts/verify-public.mjs --sha <sha>` | Verify release SHA, public HTML/assets, internal play routes and external-host links |
-| `npm run verify` | Types, unit tests, docs, scale and production build |
+| `npm run verify`                             | Types, unit tests, docs, scale and production build                                  |
 
 Use `npx playwright install chromium` once for local browser tests. No environment variables are required for development. Advertisement mode defaults to off. Do not copy another project's credentials.
 
@@ -55,6 +55,6 @@ The import runner covers the shared Crisp adapter only. Run `npx playwright test
 
 Mobile WebKit regression: `npx playwright install webkit` then `npm run test:mobile`. Existing CI/Pages run the full Chromium suite. WebKit is a separate local/manual command; enabling it in CI additionally requires workflow write permission. Chromium-only CDP swipe injection is skipped on WebKit; tap, layout, settings and orientation tests run on both engines.
 
-`npm run dev` generates the ignored Neverball/Neverputt local runtime from checked source payloads through `predev`; production builds run the same generator.
+`npm run dev` generates the ignored Neverball/Neverputt runtime and verifies/emits the pinned Freedoom runtime through `predev`; production builds run the same generators.
 
-The output audit enforces a 120 MiB total artifact ceiling for the century expansion, while retaining the existing 5 MiB per-file and 28 MiB Neverball limits. See [ADR 0058](adr/0058-century-arcade.md); passing this budget is separate from browser performance evidence.
+The output audit enforces a 140 MiB total artifact ceiling after the Freedoom import. Per-file output stays below 5 MiB except the existing 28 MiB Neverball data limit; the Freedoom WAD is gzip-compressed and split into parts below 5 MiB. See [ADR 0058](adr/0058-century-arcade.md) and [ADR 0067](adr/0067-freedoom-phase-2-webassembly.md); passing this budget is separate from browser performance evidence.

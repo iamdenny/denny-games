@@ -1,26 +1,26 @@
 # Codemap
 
-| Directory              | Responsibility                                                                                                                                                                  |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/data/`            | Registry, shared editorial picks/order, interaction metadata, curated collections, translations and editorial pages                                                             |
-| `src/layouts/`         | SEO shell, locale navigation and common chrome                                                                                                                                  |
-| `src/components/`      | Cards, static worked game examples and choice guides, canonical share controls, responsive viewport player/settings host, pagination, artwork and disclosed ad/affiliate slots  |
-| `src/pages/`           | Static bilingual route generation and discovery files                                                                                                                           |
-| `src/scripts/`         | Catalogue/search state, player shell, canonical URL sharing with manual recovery, diagnostics and local device report downloads                                                 |
-| `src/lib/`             | Storage, seed, input, filtered pagination, device report validation, advertisement contracts and registry-derived discovery schema                                              |
-| `src/games/`           | Circuit, arcade, adapted 2048, classic board rules/AI/worker/renderer, restricted Crisp mini-game and cycle adapters, isolated GPL/WebGL game bridges, and Gridland save bridge |
-| `vendor/`              | Pinned imports, unchanged runtime, candidate and asset provenance                                                                                                               |
-| `public/vendor/crisp/` | Selected mini-game files, generated host runtime, sandbox bridge and reviewed sprites                                                                                           |
-| `vendor/crisp-cycles/` | Pinned source, image/audio hashes and provenance for games with their own Crisp arcade cycles                                                                                   |
-| `vendor/bounceback/`   | Pinned GPL source, hash provenance and isolated host adapter for Bounce Back                                                                                                    |
-| `vendor/gridland/`     | Pinned MPL-2.0 source subset, exclusions, runtime build and local save adapter provenance                                                                                       |
+| Directory                 | Responsibility                                                                                                                                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/data/`               | Registry, shared editorial picks/order, interaction metadata, curated collections, translations and editorial pages                                                             |
+| `src/layouts/`            | SEO shell, locale navigation and common chrome                                                                                                                                  |
+| `src/components/`         | Cards, static worked game examples and choice guides, canonical share controls, responsive viewport player/settings host, pagination, artwork and disclosed ad/affiliate slots  |
+| `src/pages/`              | Static bilingual route generation and discovery files                                                                                                                           |
+| `src/scripts/`            | Catalogue/search state, player shell, canonical URL sharing with manual recovery, diagnostics and local device report downloads                                                 |
+| `src/lib/`                | Storage, seed, input, filtered pagination, device report validation, advertisement contracts and registry-derived discovery schema                                              |
+| `src/games/`              | Circuit, arcade, adapted 2048, classic board rules/AI/worker/renderer, restricted Crisp mini-game and cycle adapters, isolated GPL/WebGL game bridges, and Gridland save bridge |
+| `vendor/`                 | Pinned imports, unchanged runtime, candidate and asset provenance                                                                                                               |
+| `public/vendor/crisp/`    | Selected mini-game files, generated host runtime, sandbox bridge and reviewed sprites                                                                                           |
+| `vendor/crisp-cycles/`    | Pinned source, image/audio hashes and provenance for games with their own Crisp arcade cycles                                                                                   |
+| `vendor/bounceback/`      | Pinned GPL source, hash provenance and isolated host adapter for Bounce Back                                                                                                    |
+| `vendor/gridland/`        | Pinned MPL-2.0 source subset, exclusions, runtime build and local save adapter provenance                                                                                       |
 | `src/games/packabunchas/` | Lazy opaque-frame lifecycle adapter and bounded local-save bridge                                                                                                               |
-| `vendor/packabunchas/` | Pinned source with documented local adaptation, lifecycle bridge, source hashes and third-party license notices                                                                  |
-| `src/games/sgt-blackbox/` | Lazy opaque-frame Black Box adapter with focus-loss pause and fresh-channel restart                                                                                                |
-| `vendor/sgt-blackbox/` | Pinned source, local bridge, WebAssembly artifact and license provenance                                                                                                           |
-| `scripts/`             | Docs/rights/output/scale and local/public SEO validation                                                                                                                        |
-| `tests/`               | Unit and browser regression evidence                                                                                                                                            |
-| `.github/workflows/`   | PR checks and main-only Pages deployment                                                                                                                                        |
+| `vendor/packabunchas/`    | Pinned source with documented local adaptation, lifecycle bridge, source hashes and third-party license notices                                                                 |
+| `src/games/sgt-blackbox/` | Lazy opaque-frame Black Box adapter with focus-loss pause and fresh-channel restart                                                                                             |
+| `vendor/sgt-blackbox/`    | Pinned source, local bridge, WebAssembly artifact and license provenance                                                                                                        |
+| `scripts/`                | Docs/rights/output/scale and local/public SEO validation                                                                                                                        |
+| `tests/`                  | Unit and browser regression evidence                                                                                                                                            |
+| `.github/workflows/`      | PR checks and main-only Pages deployment                                                                                                                                        |
 
 - `src/lib/audio.ts`: original synthesized effects, volume and note cancellation.
 
@@ -34,6 +34,9 @@
 
 - `src/games/heritage/`: original platform, raising-simulation and RPG rules/renderers.
 - `src/games/neverball/`: parent lifecycle and bounded native-save adapter.
+- `src/games/freedoom/`: opaque WebAssembly host adapter and bilingual touch controls.
+- `vendor/freedoom/`: pinned browser runtime, corresponding engine source archive, licenses and provenance.
+- `scripts/build-freedoom.mjs`: verifies Freedoom runtime/source hashes and emits local play files.
 - `vendor/neverball/`: pinned upstream source/runtime, notices and opaque-frame host integration.
 - `scripts/build-neverball.mjs`: provenance validation and local no-network runtime generation.
 - `scripts/build-sgt-blackbox.mjs`: pinned source/artifact validation and local no-network WebAssembly runtime generation.

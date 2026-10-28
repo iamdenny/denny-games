@@ -1,0 +1,55 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 720 450"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">Freedoom Phase 2</title>
+  <desc id="desc">
+    Original pixel-art stone gate opening into a green-lit maze.
+  </desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#243947" />
+      <stop offset="1" stop-color="#10191e" />
+    </linearGradient>
+    <linearGradient id="door" x2="0" y2="1">
+      <stop stop-color="#b2c4b9" />
+      <stop offset="1" stop-color="#53665d" />
+    </linearGradient>
+    <linearGradient id="glow" x2="0" y2="1">
+      <stop stop-color="#bcf36d" />
+      <stop offset="1" stop-color="#357958" />
+    </linearGradient>
+  </defs>
+  <rect width="720" height="450" rx="28" fill="url(#sky)" />
+  <path d="M0 340h720v110H0z" fill="#202b2a" />
+  <path
+    d="M72 362 170 82h380l98 280z"
+    fill="#34413e"
+    stroke="#95a49a"
+    stroke-width="14"
+  />
+  <path
+    d="M203 350V164q0-61 157-61t157 61v186z"
+    fill="url(#door)"
+    stroke="#d0d6c9"
+    stroke-width="12"
+  />
+  <path d="M247 350V185q0-40 113-40t113 40v165z" fill="#14221f" />
+  <path d="M266 345 321 205h79l56 140z" fill="url(#glow)" />
+  <path d="m0 340 200 0-46 110H0zm720 0H520l46 110h154z" fill="#131d20" />
+  <path d="M343 344h36l-18-70z" fill="#e2e9ca" opacity=".9" />
+  <path
+    d="M169 83h380M202 161h315M199 260h321"
+    stroke="#d0d6c9"
+    stroke-width="8"
+    opacity=".65"
+  />
+  <g fill="#f2f0e6" font-family="system-ui,sans-serif" font-weight="800">
+    <text x="36" y="405" font-size="28" letter-spacing="3">FREEDOOM</text>
+    <text x="38" y="430" font-size="13" letter-spacing="4" opacity=".72">
+      PHASE 2 · 32 MAPS
+    </text>
+  </g>
+</svg>

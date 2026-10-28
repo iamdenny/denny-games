@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'unsafe-inline' blob: 'wasm-unsafe-eval'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; worker-src 'none'; media-src 'none'; font-src 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'"
+    />
+    <link
+      rel="canonical"
+      href="https://games.iamdenny.com/vendor/freedoom/index.html"
+    />
+    <link rel="icon" href="data:," />
+    <title>Freedoom Phase 2 runtime · Denny Games</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        background: #070d12;
+        font:
+          14px system-ui,
+          sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body,
+      main {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0;
+        overflow: hidden;
+      }
+      main {
+        position: relative;
+        display: block;
+        background: #070d12;
+      }
+      canvas {
+        display: block;
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 200% !important;
+        height: 200% !important;
+        outline: none;
+        image-rendering: pixelated;
+      }
+      #status {
+        position: fixed;
+        inset: auto 8px 8px;
+        padding: 6px 10px;
+        color: #dce9ef;
+        background: #111c23;
+        border-radius: 6px;
+        text-align: center;
+      }
+      #status[hidden] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <canvas id="doom-canvas" width="640" height="400" tabindex="0"></canvas>
+    </main>
+    <p id="status" role="status"></p>
+    <script type="module">
+      const params = new URLSearchParams(location.search);
+      const channel = params.get("channel");
+      const parentOrigin = params.get("parentOrigin");
+      const locale = params.get("locale") === "ko" ? "ko" : "en";
+      const canvas = document.querySelector("#doom-canvas");
+      const status = document.querySelector("#status");
+      const copy =
+        locale === "ko"
+          ? {
+              waiting: "게임 파일을 기다리는 중…",
+              starting: "프리둠 페이즈 2를 시작하는 중…",
+              connectionError:
+                "게임 연결을 사용할 수 없어요. 데니 게임즈로 돌아가 새로고침해 주세요.",
+              loadError:
+                "프리둠을 시작하지 못했어요. 데니 게임즈로 돌아가 새로고침해 주세요.",
+              canvasLabel: "프리둠 페이즈 2 게임 화면",
+            }
+          : {
+              waiting: "Waiting for local game files…",
+              starting: "Starting Freedoom Phase 2…",
+              connectionError:
+                "Game connection is unavailable. Return to Denny Games and reload.",
+              loadError:
+                "Freedoom could not start. Return to Denny Games and reload.",
+              canvasLabel: "Freedoom Phase 2 game screen",
+            };
+      document.documentElement.lang = locale;
+      canvas.setAttribute("aria-label", copy.canvasLabel);
+      status.textContent = copy.waiting;
+      const keys = new Map([
+        ["forward", ["ArrowUp", "ArrowUp", 38]],
+        ["back", ["ArrowDown", "ArrowDown", 40]],
+        ["left", ["ArrowLeft", "ArrowLeft", 37]],
+        ["right", ["ArrowRight", "ArrowRight", 39]],
+        ["fire", ["Control", "ControlLeft", 17]],
+        ["use", [" ", "Space", 32]],
+        ["run", ["Shift", "ShiftLeft", 16]],
+        ["escape", ["Escape", "Escape", 27]],
+      ]);
+      const held = new Set();
+      let engine;
+      let active = false;
+      let initialized = false;
+      let blurTimer;
+
+      function pauseEngine() {
+        if (!engine) return;
+        engine.dennyPaused = true;
+        engine._DB_PauseMainLoop?.();
+      }
+      function resumeEngine() {
+        if (!engine) return;
+        engine.dennyPaused = false;
+        const wakeups = engine.dennyPendingSleepWakeups?.splice(0) ?? [];
+        if (wakeups.length) {
+          wakeups.forEach((wake) => wake());
+        } else if (!engine.dennySleepPending) {
+          engine._DB_ResumeMainLoop?.();
+        }
+      }
+      function post(type, detail = {}) {
+        if (parentOrigin && channel)
+          parent.postMessage({ channel, type, ...detail }, parentOrigin);
+      }
+      function dispatch(key, pressed) {
+        const binding = keys.get(key);
+        if (!binding || held.has(`${key}:${pressed}`)) return;
+        const [value, code, keyCode] = binding;
+        const event = new KeyboardEvent(pressed ? "keydown" : "keyup", {
+          key: value,
+          code,
+          keyCode,
+          which: keyCode,
+          bubbles: true,
+          cancelable: true,
+        });
+        canvas.dispatchEvent(event);
+        const identity = `${key}:${pressed}`;
+        if (pressed) held.add(identity);
+        else held.delete(`${key}:true`);
+      }
+      function releaseAll() {
+        for (const key of keys.keys()) {
+          if (held.has(`${key}:true`)) dispatch(key, false);
+        }
+        held.clear();
+      }
+      function onMessage(event) {
+        if (
+          event.source !== parent ||
+          event.origin !== parentOrigin ||
+          event.data?.channel !== channel ||
+          !initialized
+        )
+          return;
+        const message = event.data;
+        if (message.type === "resume") {
+          clearTimeout(blurTimer);
+          active = true;
+          canvas.focus({ preventScroll: true });
+          resumeEngine();
+          status.hidden = true;
+        } else if (message.type === "pause") {
+          active = false;
+          releaseAll();
+          pauseEngine();
+        } else if (
+          message.type === "key" &&
+          active &&
+          typeof message.key === "string" &&
+          typeof message.pressed === "boolean"
+        ) {
+          dispatch(message.key, message.pressed);
+        }
+      }
+
+      window.addEventListener("message", onMessage);
+      window.addEventListener("blur", () => {
+        releaseAll();
+        if (active) {
+          clearTimeout(blurTimer);
+          blurTimer = setTimeout(() => {
+            if (!active) return;
+            active = false;
+            pauseEngine();
+            post("pause");
+          }, 160);
+        }
+      });
+      if (!channel || !parentOrigin) {
+        status.textContent = copy.connectionError;
+        post("error");
+      } else {
+        post("bridge-ready");
+      }
+
+      async function initialize(message) {
+        if (
+          initialized ||
+          !(message.script instanceof ArrayBuffer) ||
+          !(message.wasm instanceof ArrayBuffer) ||
+          !(message.data instanceof ArrayBuffer)
+        )
+          return;
+        try {
+          status.textContent = copy.starting;
+          const moduleUrl = URL.createObjectURL(
+            new Blob([message.script], { type: "text/javascript" }),
+          );
+          const { default: createDoomModule } = await import(moduleUrl);
+          engine = await createDoomModule({
+            canvas,
+            keyboardListeningElement: canvas,
+            elementPointerLock: false,
+            noInitialRun: true,
+            dennyPaused: true,
+            wasmBinary: message.wasm,
+            getPreloadedPackage: () => message.data,
+            locateFile: () => "about:blank",
+            preRun: [
+              (module) => {
+                module.FS.mkdir("/config");
+                module.FS.mkdir("/savegames");
+                module.FS.writeFile(
+                  "/config/default.cfg",
+                  "fullscreen 0\nwindow_width 640\nwindow_height 400\ngrabmouse 0\nuse_mouse 0\n",
+                );
+                module.FS.writeFile(
+                  "/config/chocolate-doom.cfg",
+                  "smooth_pixel_scaling 0\nforce_software_renderer 1\n",
+                );
+              },
+            ],
+            print: (line) =>
+              post("log", {
+                level: "info",
+                message: String(line).slice(0, 500),
+              }),
+            printErr: (line) =>
+              post("log", {
+                level: "warn",
+                message: String(line).slice(0, 500),
+              }),
+            onAbort: () => post("error"),
+          });
+          try {
+            engine.callMain([
+              "-window",
+              "-nomouse",
+              "-nograbmouse",
+              "-iwad",
+              "/iwads/freedoom2.wad",
+              "-warp",
+              "1",
+              "-skill",
+              "3",
+              "-savedir",
+              "/savegames",
+              "-config",
+              "/config/default.cfg",
+              "-extraconfig",
+              "/config/chocolate-doom.cfg",
+            ]);
+          } catch (error) {
+            if (error !== "unwind" && error !== "SimulateInfiniteLoop")
+              throw error;
+          }
+          URL.revokeObjectURL(moduleUrl);
+          pauseEngine();
+          initialized = true;
+          status.hidden = true;
+          post("ready", { width: 640, height: 400 });
+        } catch {
+          status.textContent = copy.loadError;
+          post("error");
+        }
+      }
+
+      window.addEventListener("message", (event) => {
+        if (
+          event.source !== parent ||
+          event.origin !== parentOrigin ||
+          event.data?.channel !== channel
+        )
+          return;
+        if (event.data.type === "init") void initialize(event.data);
+      });
+    </script>
+  </body>
+</html>

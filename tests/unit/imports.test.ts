@@ -26,7 +26,7 @@ const externalResearch = JSON.parse(
 describe("import admission and catalogue", () => {
   it("has unique playable entries, bounded daily scope and nonempty categories", () => {
     expect(crisp).toHaveLength(191);
-    expect(games).toHaveLength(339);
+    expect(games).toHaveLength(340);
     expect(games.filter((game) => game.externalPlay)).toHaveLength(0);
     expect(new Set(games.map((g) => g.id)).size).toBe(games.length);
     expect(games.filter((g) => g.tags.includes("daily"))).toHaveLength(3);
@@ -286,15 +286,15 @@ describe("import admission and catalogue", () => {
     );
     expect(review.entries).toHaveLength(295);
     expect(review.counts).toEqual({
-      integrated: 203,
+      integrated: 204,
       "rights-or-integration-review": 20,
-      "port-required": 72,
+      "port-required": 71,
     });
     expect(
       review.entries.filter(
         (g: { status: string }) => g.status === "integrated",
       ),
-    ).toHaveLength(203);
+    ).toHaveLength(204);
     expect(
       review.entries.filter(
         (g: { status: string }) => g.status === "rights-or-integration-review",

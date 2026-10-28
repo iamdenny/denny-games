@@ -2,9 +2,9 @@
   "reviewedAt": "2026-10-25",
   "scope": "All 295 entries in the commercial-redistribution research; not every open game worldwide.",
   "counts": {
-    "integrated": 203,
+    "integrated": 204,
     "rights-or-integration-review": 20,
-    "port-required": 72
+    "port-required": 71
   },
   "entries": [
     {
@@ -373,8 +373,8 @@
       "category": "FPS",
       "researchTier": "A",
       "runtime": "P",
-      "status": "port-required",
-      "reason": "공식 README가 레벨·그림·소리·음악으로 구성된 자유 게임 데이터라고 명시. 상용 Doom WAD를 포함하지 않는다. 캠페인·대전 모음을 한 계열로 집계. 게임 데이터 BSD-3-Clause",
+      "status": "integrated",
+      "reason": "Freedoom 0.13.0 Phase 2의 공식 BSD-3-Clause 게임 데이터를 고정한 Chocolate Doom WebAssembly 엔진과 함께 로컬 등록했다. 32개 맵 캠페인만 포함하고 상용 Doom WAD·Phase 1·FreeDM은 포함하지 않는다. 출처·해시·대응 엔진 소스·라이선스는 vendor/freedoom에 기록했다.",
       "source": "https://github.com/freedoom/freedoom"
     },
     {

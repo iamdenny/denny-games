@@ -84,3 +84,4 @@
 - [0064 — Black Box local WebAssembly puzzle](0064-sgt-blackbox-wasm-import.md) — Accepted.
 - [0065 — Chogan 8-Ball Pool local import](0065-chogan-eightball-import.md) — Accepted.
 - [0066 — Consented catalogue search outcomes](0066-consented-catalogue-search.md) — Accepted.
+- [0067 — Freedoom Phase 2 local WebAssembly campaign](0067-freedoom-phase-2-webassembly.md) — Accepted.

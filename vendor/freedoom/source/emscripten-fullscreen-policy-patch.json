@@ -1,0 +1,7 @@
+{
+  "purpose": "Disable Emscripten fullscreen-change detection because the player uses parent-controlled sizing and does not grant the opaque game frame Fullscreen API permission.",
+  "sourceSha256": "b4e50294d1c53811f9f3e9f30e407084586f7a44a1ed05ebd73c99cdf3990618",
+  "outputSha256": "5f6a2a67343067d574992d1bbdd305cef38aeb51b1f0647106c0dda542b56935",
+  "from": "fullscreenEnabled(){return document.fullscreenEnabled||document.webkitFullscreenEnabled}",
+  "to": "fullscreenEnabled(){return false}"
+}

@@ -9,17 +9,18 @@ read_when:
 
 ## Current repository status — 2026-10-25
 
-The initial batch below is a historical implementation snapshot, not the current game count. The repository registry now contains 339 locally playable games and no external-play entries; production publication is checked separately against the deployed SHA and public routes. See the [open game inventory](open-game-inventory.md) for the current source count and candidate dispositions.
+The initial batch below is a historical implementation snapshot, not the current game count. The repository registry now contains 340 locally playable games and no external-play entries; production publication is checked separately against the deployed SHA and public routes. See the [open game inventory](open-game-inventory.md) for the current source count and candidate dispositions.
 
 ## Initial implementation batch — 2026-10-22
 
-| Game | Scope | Rights and source |
-| --- | --- | --- |
-| Amber Trail | Six original platform levels, gems, combat, local progress | Original MIT code and drawings |
-| Starlight Apprentice | 24-week raising simulation, resources, festivals, seven careers | Original MIT code and drawings |
-| Beacon Quest | Three valleys, keys, workshops, combat, final boss | Original MIT code and drawings |
-| Neverball | Official 25-map easy set, native preferences/records | Pinned upstream GPL source and separate notices |
-| Neverputt | Original 18-hole course, native preferences (not round scores) | Same reviewed runtime, separately selected game mode |
+| Game                 | Scope                                                           | Rights and source                                                            |
+| -------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Amber Trail          | Six original platform levels, gems, combat, local progress      | Original MIT code and drawings                                               |
+| Starlight Apprentice | 24-week raising simulation, resources, festivals, seven careers | Original MIT code and drawings                                               |
+| Beacon Quest         | Three valleys, keys, workshops, combat, final boss              | Original MIT code and drawings                                               |
+| Neverball            | Official 25-map easy set, native preferences/records            | Pinned upstream GPL source and separate notices                              |
+| Neverputt            | Original 18-hole course, native preferences (not round scores)  | Same reviewed runtime, separately selected game mode                         |
+| Freedoom Phase 2     | Official 32-map campaign, local WebAssembly engine              | BSD-3-Clause game data, GPL-2.0-or-later engine, source and hashes published |
 
 Neverball provenance is in `vendor/neverball/provenance.json`. The matching source archive and unchanged runtime downloads are retained in `upstream/`; `scripts/build-neverball.mjs` checks every hash. The runtime request constructor is changed only in generated output. The adapter installs the local course list before starting the engine. Legal notices are exposed at `/licenses/neverball/NOTICE.txt` with upstream texts and font exceptions. Audio is omitted rather than fetching upstream music.
 
@@ -27,14 +28,15 @@ Original games are distinct short works, not ports or licensed remakes of commer
 
 ## Remaining requested ports
 
-| Candidate | Current evidence | Remaining work |
-| --- | --- | --- |
-| Freedoom | Official 0.13.0 free data downloaded; GPL wasm-doom source build attempted using Emscripten 3.1.65 | Local emulated build did not advance past SDL2 compilation and was stopped; needs a validated build, then license packaging, controls/save/audio and browser tests |
-| SuperTux | Official wasm artifact from source `7a38ea7aa599200a9cacca7413d78e65026eebdf` inspected: 326,682,520-byte data and 8,095,863-byte Wasm | Review complete asset notices; design explicit large-asset distribution; adapt lifecycle and mobile controls |
-| OpenTTD + open basesets | Upstream has an Emscripten build workflow | Build/pin engine and open graphics/audio, audit separate licenses, adapt UI/save, validate long sessions |
-| Pingus | Native engine; upstream web/GLES port work is incomplete | Rendering/input port, assets audit and browser qualification |
-| Battle for Wesnoth | Native strategy game and substantial campaign assets | Browser build, input/save, asset distribution and separate notices |
-| SuperTuxKart | Large native 3D game | Web rendering/runtime port, size strategy and device qualification |
+| Candidate               | Current evidence                                                                                                                       | Remaining work                                                                                               |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| SuperTux                | Official wasm artifact from source `7a38ea7aa599200a9cacca7413d78e65026eebdf` inspected: 326,682,520-byte data and 8,095,863-byte Wasm | Review complete asset notices; design explicit large-asset distribution; adapt lifecycle and mobile controls |
+| OpenTTD + open basesets | Upstream has an Emscripten build workflow                                                                                              | Build/pin engine and open graphics/audio, audit separate licenses, adapt UI/save, validate long sessions     |
+| Pingus                  | Native engine; upstream web/GLES port work is incomplete                                                                               | Rendering/input port, assets audit and browser qualification                                                 |
+| Battle for Wesnoth      | Native strategy game and substantial campaign assets                                                                                   | Browser build, input/save, asset distribution and separate notices                                           |
+| SuperTuxKart            | Large native 3D game                                                                                                                   | Web rendering/runtime port, size strategy and device qualification                                           |
+
+Freedoom provenance, build notes, runtime hashes, matching corresponding engine source and full notices are in `vendor/freedoom/`. The game imports only Phase 2 data from official release 0.13.0; Phase 1, FreeDM, commercial Doom data and external integrations are excluded. It runs in an `allow-scripts`-only opaque frame. The host transfers fixed same-site assets, and the frame CSP blocks connections. Denny Games adds touch movement/fire/use controls and pauses the engine with the player. The opaque frame has no Fullscreen API permission; hash-checked Emscripten patches preserve pause behavior and avoid fullscreen permission checks. Progress resets on restart or reload; browser persistence is not enabled. Browser emulation does not certify physical devices, controllers or vehicle browsers. See [ADR 0067](../adr/0067-freedoom-phase-2-webassembly.md).
 
 These are not published playable entries. No placeholder is counted as a game. A successful native build alone is not evidence of a usable web port.
 
